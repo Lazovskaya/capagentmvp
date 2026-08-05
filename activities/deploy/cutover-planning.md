@@ -1,14 +1,14 @@
 ## Cutover planning & go-live readiness
 
-Sequence every cutover task against the clock, rehearse it end to end, and attach the go-live criteria that decide whether production opens. Produces a sign-off record. The rehearsal is the point, a plan that has never been run is an estimate.
+Sequence every cutover task against the clock, rehearse it end to end, and track the per-process-area readiness checklist that decides whether production opens. Produces a sign-off record naming who accepted the go/no-go call. The rehearsal is the point, a plan that has never been run is an estimate.
 
 **Owner:** Delivery Manager
 **Engagement(s):** Greenfield / Brownfield conversion
-**Status:** Not started
+**Status:** In progress
 
 ## Uses
 
-- **skill:** cutover-plan
+- **skill:** cutover-plan, go-live-readiness
 - **mcp:** cloud-alm
 - **artifact:** sign-off-record
 - **knowledge:** operations

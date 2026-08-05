@@ -1,6 +1,28 @@
 {
   "type": "object",
-  "required": [],
-  "properties": {},
-  "description": "Transport ID recorded by construction, not by hand."
+  "description": "Transport ID recorded by construction, not by hand. Produced by config-doc (and abap-development); checked (with config-record) by the realize→deploy Q-gate.",
+  "required": [
+    "transport_id",
+    "contents",
+    "released_by",
+    "release_date"
+  ],
+  "properties": {
+    "transport_id": { "type": "string" },
+    "contents": {
+      "type": "string",
+      "description": "Objects/customizing included — specific enough to skip re-opening the transport to know what it touched."
+    },
+    "config_records": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "References to the config-record(s) this transport carries."
+    },
+    "released_by": { "type": "string" },
+    "release_date": { "type": "string", "format": "date" },
+    "target_sequence": {
+      "type": "string",
+      "description": "Where this transport is queued to land, if known at authoring time."
+    }
+  }
 }

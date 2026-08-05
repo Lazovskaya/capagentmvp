@@ -1,0 +1,40 @@
+{
+  "type": "object",
+  "description": "Readiness Check / SI-Check findings scoped per module. Produced by readiness-analysis, checked by the discover→prepare Q-gate. Distinct from assessment-report (agent-readiness's agent-candidate scoring).",
+  "required": [
+    "assessment_date",
+    "assessor",
+    "source_exports",
+    "findings"
+  ],
+  "properties": {
+    "assessment_date": { "type": "string", "format": "date" },
+    "assessor": { "type": "string" },
+    "source_exports": {
+      "type": "string",
+      "description": "Which exports were triaged and their date, e.g. 'Readiness Check export 2026-08-01, SI-Check export 2026-08-01, scope: FI/CO/SD'."
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["module", "simplification_item", "blocks", "effort_implication", "reason"],
+        "properties": {
+          "module": { "type": "string" },
+          "simplification_item": { "type": "string" },
+          "sap_notes": { "type": "array", "items": { "type": "string" } },
+          "custom_code_hit": { "type": "string" },
+          "blocks": {
+            "type": "string",
+            "enum": ["blocks", "appears_only"]
+          },
+          "effort_implication": { "type": "string" },
+          "reason": {
+            "type": "string",
+            "description": "Why this genuinely blocks, or why it doesn't apply — the judgment this report exists to make explicit."
+          }
+        }
+      }
+    }
+  }
+}

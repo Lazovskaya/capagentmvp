@@ -95,9 +95,9 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "readiness-analysis",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Discover",
-   "desc": "Readiness Check and SAP Notes turned into a scoped impact view."
+   "desc": "Readiness Check, SI-Check and SAP Notes turned into a scoped, per-module impact view."
   },
   {
    "kind": "Skill",
@@ -159,7 +159,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "config-doc",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Realize",
    "desc": "Config decision, documentation and customizing transport, together."
   },
@@ -191,9 +191,17 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "cutover-plan",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Deploy",
    "desc": "Sequenced plan, rehearsed end to end against the clock, with go-live criteria attached."
+  },
+  {
+   "kind": "Skill",
+   "name": "go-live-readiness",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Deploy",
+   "desc": "Per-process-area readiness checklist and status, feeding the cutover sign-off's go/no-go criteria."
   },
   {
    "kind": "Skill",
@@ -329,7 +337,15 @@ window.FACTORY_DATA = {
    "posture": "own",
    "status": "progress",
    "phase": "all",
-   "desc": "Scoped findings from readiness or agent-readiness work. The Discover-phase deliverable."
+   "desc": "Agent-candidate scoring: process, volume, exception rate, reversibility, data reachability, verdict. The Discover-phase deliverable for agent-readiness."
+  },
+  {
+   "kind": "Artifact",
+   "name": "simplification-impact-report",
+   "posture": "own",
+   "status": "progress",
+   "phase": "all",
+   "desc": "Readiness Check / SI-Check findings scoped per module: what blocks the conversion versus what merely appears in the report. The Discover-phase deliverable for readiness-analysis."
   },
   {
    "kind": "Artifact",
@@ -351,7 +367,7 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "config-record",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "What changed in customizing, and why."
   },
@@ -359,7 +375,7 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "transport-record",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Transport ID recorded by construction, not by hand."
   },
@@ -367,7 +383,7 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "reconciliation-report",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Before-and-after delta against tolerance."
   },
@@ -540,7 +556,7 @@ window.FACTORY_DATA = {
    "status": "notstarted",
    "file": "activities/discover/readiness-analysis.md",
    "title": "Readiness & simplification analysis",
-   "desc": "Pull the Readiness Check and the relevant SAP Notes into one scoped view: which simplification items actually apply, which custom code they hit, and what that implies for effort. Output is an assessment report that sizes the conversion before anyone commits to a date. The judgment is separating items that genuinely block from items that merely appear in the report.",
+   "desc": "Pull the Readiness Check, SI-Check and the relevant SAP Notes into one scoped view: which simplification items actually apply, which custom code they hit, and what that implies for effort. Output is a simplification-impact report that sizes the conversion before anyone commits to a date. The judgment is separating items that genuinely block from items that merely appear in the report.",
    "uses": [
     [
      "skill",
@@ -557,7 +573,7 @@ window.FACTORY_DATA = {
     [
      "artifact",
      [
-      "assessment-report"
+      "simplification-impact-report"
      ]
     ],
     [
@@ -1024,12 +1040,13 @@ window.FACTORY_DATA = {
    "status": "notstarted",
    "file": "activities/deploy/cutover-planning.md",
    "title": "Cutover planning & go-live readiness",
-   "desc": "Sequence every cutover task against the clock, rehearse it end to end, and attach the go-live criteria that decide whether production opens. Produces a sign-off record. The rehearsal is the point, a plan that has never been run is an estimate.",
+   "desc": "Sequence every cutover task against the clock, rehearse it end to end, and track the per-process-area readiness checklist that decides whether production opens. Produces a sign-off record naming who accepted the go/no-go call. The rehearsal is the point, a plan that has never been run is an estimate.",
    "uses": [
     [
      "skill",
      [
-      "cutover-plan"
+      "cutover-plan",
+      "go-live-readiness"
      ]
     ],
     [

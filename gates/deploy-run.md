@@ -15,6 +15,7 @@ and approval workflow. What we own is the mapping below.
 
 | Checklist item (typical) | Evidence artifact | Produced by |
 |---|---|---|
+| Every process area's go-live checklist item closed, none left open without a named risk acceptance | `sign-off-record` (checklist section) | `go-live-readiness` |
 | Cutover rehearsed end to end, go-live criteria attached | `sign-off-record` | `cutover-plan` |
 | Production conversion executed with evidence | conversion log | `production-conversion` |
 

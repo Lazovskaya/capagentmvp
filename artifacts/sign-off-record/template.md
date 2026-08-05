@@ -1,5 +1,12 @@
 # Sign-off record — fit-to-standard
 
+> **Reused by `cutover-plan` / `go-live-readiness`** for the `deploy→run` gate, with a different
+> shape below the header: swap "Decision log Row ID range" for "Go-live checklist reference"
+> (the per-process-area checklist `go-live-readiness` tracked) and "Deltas accepted/rejected" for
+> "Checklist items closed / items open with named risk acceptance". Same acceptance discipline —
+> a named signer, a stated authority to accept, one current record per scope — different source
+> artifact underneath. See the "Deploy go-live" variant fields at the end of this template.
+
 This is the artifact the `explore→realize` Q-gate actually checks. The decision log is the evidence;
 this record is the acceptance. No entry here, no gate pass — a completed workshop with no sign-off is
 the same as an open item for gate purposes.
@@ -34,3 +41,17 @@ the same as an open item for gate purposes.
 - [ ] Signed-by person's authority to accept is stated, not assumed
 - [ ] The Row ID range is present and is what defines scope — the prose process/variant line agrees
       with it, not the other way around
+
+## Deploy go-live variant (`cutover-plan` / `go-live-readiness`)
+
+Same record shape, different source fields — do not open a second artifact for this, substitute
+these into the fields above:
+
+- **Go-live checklist reference (source of truth for scope, replaces the Row ID range):** which
+  `go-live-readiness` checklist run this sign-off closes — process areas covered, checklist date.
+- **Checklist items closed / items open with named risk acceptance (replaces deltas
+  accepted/rejected):** every open item at go-live needs a named person accepting the risk, not a
+  silent gap — an unacknowledged open item is not neutral, it's the same as an unsigned decision.
+- **Cutover rehearsal reference:** the `cutover-plan` dress-rehearsal run this sign-off also covers
+  — a plan that was never rehearsed doesn't get folded into this sign-off as if it had been.
+- Everything else (Signed by, Role/authority, Date, Superseded records) is unchanged.

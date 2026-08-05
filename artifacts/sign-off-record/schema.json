@@ -1,50 +1,77 @@
 {
   "type": "object",
-  "description": "Named person, date, scope, artifact reference. Produced by the fit-to-standard skill; checked by the explore→realize Q-gate.",
+  "description": "Named person, date, scope, artifact reference. Two variants, same acceptance discipline: 'fit-to-standard' (produced by fit-to-standard, checked by explore→realize) and 'deploy-go-live' (produced by cutover-plan/go-live-readiness, checked by deploy→run). The 'variant' field picks which of the two variant-specific field groups below is required.",
   "required": [
-    "decision_log_row_id_range",
+    "variant",
     "process_scope",
     "signed_by",
     "role_authority",
-    "date",
-    "deltas_accepted",
-    "deltas_rejected"
+    "date"
   ],
   "properties": {
-    "decision_log_row_id_range": {
+    "variant": {
       "type": "string",
-      "description": "Row ID range from the fit-to-standard decision log, e.g. FTS-2026-08-04-credit-block-handling-row-01..07. Source of truth for scope; wins over the prose description if they ever disagree."
+      "enum": ["fit-to-standard", "deploy-go-live"]
     },
     "process_scope": {
       "type": "string",
-      "description": "Human-readable label for the row range (process name, variant) — not an independent scope definition."
+      "description": "Human-readable label for the scope (process name/variant, or process areas covered at go-live) — not an independent scope definition; the variant-specific reference field below wins if they disagree."
     },
     "signed_by": {
       "type": "string",
-      "description": "Full name and title of the signer. Distinct from the decision log's per-row Delta owner, even when it's the same person."
+      "description": "Full name and title of the signer. Distinct from any per-item owner (decision log Delta owner, or checklist item owner), even when it's the same person."
     },
     "role_authority": {
       "type": "string",
-      "description": "Why this person can accept — e.g. 'Process Owner, Order to Cash'."
+      "description": "Why this person can accept — e.g. 'Process Owner, Order to Cash' or 'Delivery Manager, go-live authority'."
     },
     "date": {
       "type": "string",
       "format": "date"
     },
+    "decision_log_row_id_range": {
+      "type": "string",
+      "description": "Required when variant=fit-to-standard. Row ID range from the fit-to-standard decision log, e.g. FTS-2026-08-04-credit-block-handling-row-01..07. Source of truth for scope; wins over process_scope if they ever disagree."
+    },
     "deltas_accepted": {
       "type": "array",
       "items": { "type": "string" },
-      "description": "Row IDs accepted in this scope."
+      "description": "Required when variant=fit-to-standard. Row IDs accepted in this scope."
     },
     "deltas_rejected": {
       "type": "array",
       "items": { "type": "string" },
-      "description": "Row IDs where standard was adopted instead of the proposed delta. An empty array on a large process is a signal to re-check whether pushback actually happened."
+      "description": "Required when variant=fit-to-standard. Row IDs where standard was adopted instead of the proposed delta. An empty array on a large process is a signal to re-check whether pushback actually happened."
+    },
+    "go_live_checklist_reference": {
+      "type": "string",
+      "description": "Required when variant=deploy-go-live. Which go-live-readiness checklist run this sign-off closes — process areas covered, checklist date. Source of truth for scope; wins over process_scope if they ever disagree."
+    },
+    "checklist_items_closed": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Required when variant=deploy-go-live. Checklist items confirmed closed."
+    },
+    "checklist_items_open_with_risk_acceptance": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item": { "type": "string" },
+          "accepted_by": { "type": "string" }
+        },
+        "required": ["item", "accepted_by"]
+      },
+      "description": "Required when variant=deploy-go-live. Every item still open at go-live, each with a named person who accepted the risk — an unacknowledged open item is not neutral."
+    },
+    "cutover_rehearsal_reference": {
+      "type": "string",
+      "description": "Used when variant=deploy-go-live. The cutover-plan dress-rehearsal run this sign-off also covers."
     },
     "open_items_deferred": {
       "type": "array",
       "items": { "type": "string" },
-      "description": "Open questions moved to the backlog rather than left as Workaround rows."
+      "description": "Open questions moved to the backlog rather than left unresolved in this record."
     },
     "superseded_records": {
       "type": "array",

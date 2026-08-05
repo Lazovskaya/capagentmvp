@@ -1,0 +1,12 @@
+{
+  "version": "0.1.0",
+  "contract": {
+    "dataFile": "factory-data.json",
+    "note": "factory-data.json is canonical. This file is metadata about the factory itself, not a second data source."
+  },
+  "tools": [
+    "claude-code",
+    "cursor",
+    "github-copilot"
+  ]
+}

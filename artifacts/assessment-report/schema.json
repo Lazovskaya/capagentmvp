@@ -1,0 +1,6 @@
+{
+  "type": "object",
+  "required": [],
+  "properties": {},
+  "description": "Scoped findings from readiness or agent-readiness work. The Discover-phase deliverable."
+}

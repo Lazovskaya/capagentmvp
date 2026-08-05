@@ -1,0 +1,6 @@
+{
+  "type": "object",
+  "required": [],
+  "properties": {},
+  "description": "Class, route, and the human who confirmed it."
+}

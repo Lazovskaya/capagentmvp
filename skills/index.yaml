@@ -1,0 +1,17 @@
+# Adopt-posture skills: not authored in this repo, pulled in from elsewhere.
+# Own-posture skills live as skills/<name>/SKILL.md instead, see factory-data.json.
+
+- name: abap-dev
+  source: git@git.epam.com:epmc-sap/epam-sap-skills.git
+  skills: [classic-abap, modern-abap]
+  note: >
+    Resolved: epam-sap-skills is the real source, not skills.cloud.sap. classic-abap and
+    modern-abap are EPAM-authored skills covering this scope (classic ABAP, RAP, CDS).
+    factory-data.json's description was updated to match.
+
+- name: agent-build
+  source: skills.cloud.sap
+  skills: [joule-cli]
+  note: >
+    Per factory-data.json: a Joule Studio agent skill, the Joule CLI skill is on skills.cloud.sap.
+    Not yet located or verified against the real catalog.

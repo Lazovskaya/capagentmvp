@@ -1,0 +1,2172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAP AI Factory</title>
+</head>
+<body>
+<div class="saf"><style>
+.saf{position:relative;max-width:1420px;margin:0 auto;--bg:#F2F4F5;--surface:#FFFFFF;--surface2:#E9ECEE;--surface3:#DFE4E7;--ink:#14191D;--ink2:#3D4A54;--ink3:#6B7A85;--rule:#D2D8DC;--rule2:#B4BEC5;--own:#1F5FA0;--ownbg:#E9F0F8;--ownln:#7FA8CE;--adopt:#3F7A47;--adoptbg:#E9F2EA;--adoptln:#8CB394;--mono:ui-monospace,"SF Mono",SFMono-Regular,"Cascadia Mono",Menlo,Consolas,monospace;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.saf *{box-sizing:border-box}
+.saf .wrap{max-width:1280px;margin:0 auto;padding:40px 28px 72px;display:flex;flex-direction:column;gap:52px}
+.saf .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin:0}
+.saf h1{font-family:var(--mono);font-size:23px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin:8px 0 0;text-wrap:balance;line-height:1.25}
+.saf h2{font-family:var(--mono);font-size:18px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin:6px 0 0}
+.saf h3{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin:0;color:var(--ink2)}
+.saf p{margin:0}
+.saf .lede{color:var(--ink2);max-width:66ch;margin-top:12px}
+.saf header{border-bottom:1px solid var(--rule2);padding-bottom:28px}
+.saf .stats{display:flex;flex-wrap:wrap;gap:1px;margin-top:26px;background:var(--rule);border:1px solid var(--rule)}
+.saf .stat{flex:1 1 120px;background:var(--surface);padding:12px 14px}
+.saf .stat b{display:block;font-family:var(--mono);font-size:21px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.saf .stat span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+.saf .stat.o b{color:var(--own)}
+.saf .stat.a b{color:var(--adopt)}
+.saf .sechead{margin-bottom:22px}
+.saf .bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:16px}
+.saf .bar .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--ink3);margin-right:4px}
+.saf button.f{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:6px 11px;border:1px solid var(--rule2);background:var(--surface);color:var(--ink2);cursor:pointer;border-radius:0}
+.saf button.f:hover{border-color:var(--ink3);color:var(--ink)}
+.saf button.f[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.saf button.f:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.saf button.f b{font-weight:600;font-variant-numeric:tabular-nums;margin-left:5px;opacity:.75}
+.saf button.pf[data-v="own"]{background:var(--ownbg);border-color:var(--ownln);color:var(--own)}
+.saf button.pf[data-v="own"][aria-pressed="true"]{background:var(--own);border-color:var(--own);color:var(--bg)}
+.saf button.pf[data-v="adopt"]{background:var(--adoptbg);border-color:var(--adoptln);color:var(--adopt)}
+.saf button.pf[data-v="adopt"][aria-pressed="true"]{background:var(--adopt);border-color:var(--adopt);color:var(--bg)}
+.saf button.sf[data-v="notstarted"]{border-color:transparent;background:var(--surface2)}
+.saf button.sf[data-v="progress"]{border-style:dotted;border-color:var(--ink3)}
+.saf button.sf[data-v="ready"]{border-style:solid;border-color:var(--ink2)}
+.saf button.sf[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.saf .hint{font-size:12.5px;color:var(--ink3);margin:-6px 0 16px}
+.saf .trees{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule2)}
+.saf .tree{background:var(--surface);padding:0;overflow-x:auto}
+.saf .tree>h3{background:var(--surface2);padding:9px 12px;border-bottom:1px solid var(--rule)}
+.saf .tree>h3 em{font-style:normal;font-weight:400;text-transform:none;letter-spacing:0;color:var(--ink3);margin-left:8px;font-family:var(--sans);font-size:12px}
+.saf .tree pre{margin:0;padding:12px;font-family:var(--mono);font-size:11px;line-height:1.65;white-space:pre;color:var(--ink3)}
+.saf .tree pre b{font-weight:400;color:var(--ink2)}
+.saf .tree pre b.p{color:var(--ink);border-bottom:1px dotted var(--ink2)}
+.saf .tree pre b.r{color:var(--ink);border-bottom:1px solid var(--ink2)}
+.saf .tree.f{border-left:3px solid var(--own)}
+.saf .tree.f>h3{background:var(--ownbg);color:var(--own);border-bottom-color:var(--ownln)}
+.saf .tree.f>h3 em{color:var(--own);opacity:.75}
+.saf .tree pre b.f{color:var(--own);font-weight:500}
+.saf .tree pre u{display:block;text-decoration:none;font-size:8.5px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--ink3);margin:14px 0 4px;border-bottom:1px solid var(--rule);padding-bottom:3px}
+.saf .tree pre u:first-child{margin-top:0}
+.saf .tree pre u em{font-style:normal;text-transform:none;letter-spacing:0;font-weight:400;opacity:.85;margin-left:6px}
+.saf .tree pre i{font-style:normal;color:var(--ink3);opacity:.7}
+@media (max-width:900px){.saf .trees{grid-template-columns:1fr}}
+.saf table.cov{width:100%;border-collapse:collapse;background:var(--surface);min-width:720px}
+.saf table.cov th,.saf table.cov td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--rule)}
+.saf table.cov thead th{background:var(--surface2);font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink2)}
+.saf table.cov tbody th{font-family:var(--mono);font-size:11.5px;font-weight:500;color:var(--ink);white-space:nowrap}
+.saf table.cov td.need{font-family:var(--sans);font-size:12px;color:var(--ink3)}
+.saf .lvl{display:inline-block;font-family:var(--mono);font-size:10px;padding:2px 6px;border:1px solid transparent;white-space:nowrap}
+.saf .lvl.nat{background:var(--adoptbg);border-color:var(--adopt);color:var(--adopt)}
+.saf .lvl.adp{background:var(--ownbg);border-color:var(--ownln);border-style:dotted;color:var(--own)}
+.saf .lvl.no{color:var(--ink3)}
+.saf .lvl.q{color:var(--ink3);border-color:var(--rule2);border-style:dotted}
+.saf .lvl.na{color:var(--ink3);opacity:.6}
+.saf .empty{border:1px dotted var(--rule2);background:var(--surface);padding:44px 24px;text-align:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)}
+.saf .scroll{overflow-x:auto;border:1px solid var(--rule2);background:var(--rule)}
+.saf .grid{min-width:1345px;display:grid;grid-template-columns:186px repeat(6,1fr);gap:1px}
+.saf .gc{background:var(--surface);padding:10px 12px}
+.saf .gh{background:var(--surface2);padding:9px 12px;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.saf .gh .n{color:var(--ink3);font-weight:400;margin-right:6px}
+.saf .band{background:var(--surface2);padding:7px 12px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);text-align:center}
+.saf .rowlbl{background:var(--surface);padding:12px}
+.saf .rowlbl h3{margin-bottom:5px}
+.saf .rowlbl p{font-size:12.5px;color:var(--ink3);line-height:1.45}
+.saf .full{grid-column:1/-1;background:var(--surface);padding:16px}
+.saf .full .inner{display:grid;grid-template-columns:170px 1fr;gap:20px}
+.saf .set{display:grid;grid-template-columns:repeat(auto-fill,168px);gap:4px;justify-content:start}
+.saf .t{display:flex;align-items:center;width:168px;height:32px;padding:0 8px;border:1px solid transparent;background:var(--surface2);font-family:var(--mono);font-size:11px;letter-spacing:.01em;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;border-radius:0}
+.saf .t.own{background:var(--ownbg);color:var(--own)}
+.saf .t.adopt{background:var(--adoptbg);color:var(--adopt)}
+.saf .t[data-s="progress"]{border-style:dotted}
+.saf .t[data-s="ready"]{border-style:solid}
+.saf .t.own[data-s="progress"]{border-color:var(--ownln)}
+.saf .t.own[data-s="ready"]{border-color:var(--own)}
+.saf .t.adopt[data-s="progress"]{border-color:var(--adoptln)}
+.saf .t.adopt[data-s="ready"]{border-color:var(--adopt)}
+.saf .t:hover{border-color:var(--ink);border-style:solid}
+.saf .t:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.saf .t.dim{opacity:.18}
+.saf .pipe{min-width:1560px;display:grid;grid-template-columns:repeat(6,1fr);gap:1px}
+.saf .col{background:var(--surface);padding:10px}
+.saf .act{position:relative;border:1px solid transparent;background:var(--surface2);margin-bottom:7px}
+.saf .act:last-child{margin-bottom:0}
+.saf .act[data-s="progress"]{border-style:dotted;border-color:var(--ink2)}
+.saf .act[data-s="ready"]{border-style:solid;border-color:var(--ink)}
+.saf .act.sel{border:1px solid var(--ink);border-style:solid;box-shadow:inset 3px 0 0 var(--ink);background:var(--surface3)}
+.saf .acthit{display:block;width:100%;text-align:left;font-family:inherit;background:transparent;border:0;padding:9px 10px;cursor:pointer;border-radius:0;color:inherit}
+.saf .acthit:focus-visible{outline:2px solid var(--ink);outline-offset:-2px}
+.saf .act:hover{border-color:var(--ink3);border-style:solid}
+.saf .info{position:absolute;top:5px;right:5px;z-index:2;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;font-weight:600;font-style:italic;border:1px solid var(--rule2);background:var(--surface);color:var(--ink3);cursor:pointer;border-radius:0;padding:0}
+.saf .info:hover{border-color:var(--ink);color:var(--ink)}
+.saf .info:focus-visible{outline:2px solid var(--ink);outline-offset:1px}
+.saf .act .meta{padding-right:22px}
+.saf .hlchip{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;padding:5px 9px;border:1px solid var(--ink);background:var(--ink);color:var(--bg)}
+.saf .hlchip[hidden]{display:none}
+.saf .hlchip button{font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;padding:2px 6px;border:1px solid var(--bg);background:transparent;color:var(--bg);cursor:pointer;border-radius:0}
+.saf .ovpills{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.saf .ovpath{margin-top:14px;border:1px solid var(--rule2);background:var(--surface2)}
+.saf .ovpath div{display:flex;gap:8px;padding:5px 9px;font-family:var(--mono);font-size:10.5px;line-height:1.5;color:var(--ink2);border-top:1px solid var(--rule)}
+.saf .ovpath div:first-child{border-top:0}
+.saf .ovpath i{font-style:normal;flex:0 0 78px;font-size:8.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3);padding-top:1px}
+.saf .ovpath em{font-style:normal;color:var(--ink3)}
+.saf .ovact{display:flex;gap:8px;margin-top:18px}
+.saf .comps{margin-top:7px;display:flex;flex-direction:column;gap:2px}
+.saf .cg{font-family:var(--mono);font-size:10.5px;color:var(--ink2);line-height:1.45}
+.saf .cg i{display:inline-block;width:56px;font-style:normal;font-size:8.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3)}
+.saf .act .meta{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:5px;align-items:center}
+.saf .act .ttl{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--ink);display:block;margin-bottom:3px;letter-spacing:.01em}
+.saf .act .role{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:2px 5px;background:var(--surface3);color:var(--ink2);border:1px solid var(--rule2)}
+.saf .act .eng{font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:var(--ink3)}
+.saf .act.dim{opacity:.18}
+.saf code{font-family:var(--mono);font-size:.92em;background:var(--surface2);padding:1px 4px;border:1px solid var(--rule)}
+.saf .foot{border-top:1px solid var(--rule2);padding-top:20px;font-size:12.5px;color:var(--ink3)}
+.saf #saf-ov{position:fixed;inset:0;z-index:99;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(10,14,17,.5)}
+.saf #saf-ov[hidden]{display:none}
+.saf .ovbox{background:var(--surface);border:1px solid var(--ink);max-width:440px;width:100%;padding:22px 24px}
+.saf .ovkind{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink3)}
+.saf .ovbox h3{font-size:15px;letter-spacing:.02em;text-transform:none;color:var(--ink);margin:6px 0 0}
+.saf .ovpost{display:inline-block;font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;border:1px solid;margin-top:12px}
+.saf .ovpost.own{background:var(--ownbg);border-color:var(--ownln);color:var(--own)}
+.saf .ovpost.adopt{background:var(--adoptbg);border-color:var(--adoptln);color:var(--adopt)}
+.saf .ovstat{display:inline-block;font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;border:1px solid var(--ink3);color:var(--ink2);margin:12px 0 0 6px}
+.saf .ovstat[data-s="notstarted"]{border-color:transparent;background:var(--surface2)}
+.saf .ovstat[data-s="progress"]{border-style:dotted}
+.saf .ovstat[data-s="ready"]{border-style:solid}
+.saf .ovd{font-size:14px;color:var(--ink2);margin-top:12px}
+.saf .ovwhy{font-size:12.5px;color:var(--ink3);margin-top:10px}
+.saf .ovx{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);cursor:pointer;border-radius:0}
+@media (max-width:640px){.saf .wrap{padding:28px 16px 56px}.saf .full .inner{grid-template-columns:1fr}}
+</style>
+<script>
+/* GENERATED by build.py from factory-data.json, do not edit by hand.
+   Exists so the page works from file://, where fetch() is CORS-blocked. */
+window.FACTORY_DATA = {
+ "phases": [
+  "Discover",
+  "Prepare",
+  "Explore",
+  "Realize",
+  "Deploy",
+  "Run"
+ ],
+ "bands": [
+  [
+   "Shape",
+   2
+  ],
+  [
+   "Build",
+   2
+  ],
+  [
+   "Run",
+   2
+  ]
+ ],
+ "roles": {
+  "functional": "Functional",
+  "developer": "Developer",
+  "architect": "Architect",
+  "delivery": "Delivery Manager",
+  "basis": "Basis",
+  "data": "Data Lead",
+  "test": "Tester"
+ },
+ "roleOrder": [
+  "functional",
+  "developer",
+  "architect",
+  "delivery",
+  "basis",
+  "data",
+  "test"
+ ],
+ "engagements": {
+  "G": "Greenfield",
+  "B": "Brownfield conversion",
+  "A": "Build and Extend",
+  "R": "AMS & Run"
+ },
+ "statuses": {
+  "notstarted": "Not started",
+  "progress": "In progress",
+  "ready": "Ready"
+ },
+ "postures": {
+  "own": "Own - we author it",
+  "adopt": "Adopt - we pull it in"
+ },
+ "postureWhy": {
+  "own": "Own, authored by us. Lives in the factory repo, versioned by us.",
+  "adopt": "Adopt, pulled in, not authored. Vendored via npx skills add --copy, provenance in factory-lock.json."
+ },
+ "rows": [
+  {
+   "label": "Skills",
+   "desc": "Workflow playbooks. Roughly one per activity, though some are shared across several.",
+   "layout": "phase"
+  },
+  {
+   "label": "Agents",
+   "desc": "Bounded workers returning a typed, auditable verdict. Used only where the output is a decision rather than a document.",
+   "layout": "phase"
+  },
+  {
+   "label": "Connectors",
+   "desc": "MCP and CLI. In the repo each is one connectors/*.md plus an .mcp.json block, not code.",
+   "layout": "band"
+  },
+  {
+   "label": "Artifacts",
+   "desc": "Durable handoffs, and the links in the traceability chain that makes non-technical work verifiable: requirement, decision, object, sign-off. A client acceptance record is contractual, not a product feature.",
+   "layout": "band"
+  },
+  {
+   "label": "Q-gates",
+   "desc": "Phase exits. We do not invent a gate vocabulary, Activate already defines these. We instrument them and supply the evidence.",
+   "layout": "band"
+  },
+  {
+   "label": "Knowledge",
+   "desc": "Every bucket ships a central default. A project takes it as-is or overrides any file by name, the same convention skills use. Buckets are added when an activity needs one.",
+   "layout": "band"
+  }
+ ],
+ "components": [
+  {
+   "kind": "Skill",
+   "name": "readiness-analysis",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Discover",
+   "desc": "Readiness Check and SAP Notes turned into a scoped impact view."
+  },
+  {
+   "kind": "Skill",
+   "name": "agent-readiness",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Discover",
+   "desc": "Which client processes should be handed to agents, and why. The Autonomous Enterprise entry point."
+  },
+  {
+   "kind": "Skill",
+   "name": "knowledge-discovery",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Prepare",
+   "desc": "Extract the client's real shape, custom code, config, process scope, into reviewable guides."
+  },
+  {
+   "kind": "Skill",
+   "name": "custom-code-scan",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Prepare",
+   "desc": "ATC baseline plus usage data turned into a remediation inventory."
+  },
+  {
+   "kind": "Skill",
+   "name": "onboarding-guide",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Prepare",
+   "desc": "Role-aware path through the knowledge base for a new joiner."
+  },
+  {
+   "kind": "Skill",
+   "name": "fit-to-standard",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Standard versus delta decided and signed, per process."
+  },
+  {
+   "kind": "Skill",
+   "name": "solution-design",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Target design plus the extensibility tier decision, recorded before build starts."
+  },
+  {
+   "kind": "Skill",
+   "name": "backlog-drafting",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Deltas become sized, owned, traceable work items."
+  },
+  {
+   "kind": "Skill",
+   "name": "config-doc",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Realize",
+   "desc": "Config decision, documentation and customizing transport, together."
+  },
+  {
+   "kind": "Skill",
+   "name": "abap-dev",
+   "posture": "adopt",
+   "status": "progress",
+   "phase": "Realize",
+   "desc": "Classic ABAP, RAP and CDS. Adopted from epam-sap-skills' classic-abap and modern-abap, not skills.cloud.sap."
+  },
+  {
+   "kind": "Skill",
+   "name": "reconciliation",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Realize",
+   "desc": "Migration load verified: before-and-after delta against the agreed tolerance."
+  },
+  {
+   "kind": "Skill",
+   "name": "defect-triage",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Realize",
+   "desc": "Bug or functional spec flaw. A commercial call, so a human confirms the verdict. Reused by hypercare."
+  },
+  {
+   "kind": "Skill",
+   "name": "cutover-plan",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Deploy",
+   "desc": "Sequenced plan, rehearsed end to end against the clock, with go-live criteria attached."
+  },
+  {
+   "kind": "Skill",
+   "name": "production-conversion",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Deploy",
+   "desc": "The go-live runbook, executed with logs as evidence."
+  },
+  {
+   "kind": "Skill",
+   "name": "knowledge-harvest",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Run",
+   "desc": "Propose knowledge deltas after each run. Reviewed, never auto-merged."
+  },
+  {
+   "kind": "Skill",
+   "name": "agent-build",
+   "posture": "adopt",
+   "status": "notstarted",
+   "phase": "Run",
+   "desc": "Joule Studio agent with card, policy and eval pack. Joule CLI skill is on skills.cloud.sap."
+  },
+  {
+   "kind": "Agent",
+   "name": "extensibility-assessor",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Returns the extensibility tier, its justification, and any red flags. The clean-core decision, recorded."
+  },
+  {
+   "kind": "Agent",
+   "name": "defect-classifier",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Realize",
+   "desc": "Returns class, confidence, route and recommended fix. Serves both Realize triage and Run hypercare."
+  },
+  {
+   "kind": "Agent",
+   "name": "knowledge-harvester",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Run",
+   "desc": "Returns proposed knowledge deltas after each run."
+  },
+  {
+   "kind": "Connector",
+   "name": "abap-mcp",
+   "posture": "adopt",
+   "status": "progress",
+   "phase": "all",
+   "desc": "Object read, syntax check and ATC from the session. GA Q2 2026."
+  },
+  {
+   "kind": "Connector",
+   "name": "jira",
+   "posture": "adopt",
+   "status": "progress",
+   "phase": "all",
+   "desc": "Work items and the defect queue. The work-intent surface of record for now."
+  },
+  {
+   "kind": "Connector",
+   "name": "knowledge-graph",
+   "posture": "adopt",
+   "status": "progress",
+   "phase": "all",
+   "desc": "Structured map of business entities and relationships. Grounds discovery and agent-readiness."
+  },
+  {
+   "kind": "Connector",
+   "name": "cloud-alm",
+   "posture": "adopt",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "SAP's delivery surface. Needed for Deploy and Run reporting."
+  },
+  {
+   "kind": "Connector",
+   "name": "readiness-check",
+   "posture": "adopt",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Simplification items and readiness findings."
+  },
+  {
+   "kind": "Connector",
+   "name": "signavio",
+   "posture": "adopt",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Process scope, variants and agent mining."
+  },
+  {
+   "kind": "Connector",
+   "name": "gcts-abapgit",
+   "posture": "adopt",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Source control for ABAP Cloud, CAP and UI5."
+  },
+  {
+   "kind": "Connector",
+   "name": "joule-studio",
+   "posture": "adopt",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Where client-facing agents are built."
+  },
+  {
+   "kind": "Connector",
+   "name": "ai-agent-hub",
+   "posture": "adopt",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Where client-facing agents are governed. Proposed to Retired lifecycle. GA Q3 2026."
+  },
+  {
+   "kind": "Artifact",
+   "name": "assessment-report",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Scoped findings from readiness or agent-readiness work. The Discover-phase deliverable."
+  },
+  {
+   "kind": "Artifact",
+   "name": "design-record",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Target design, critiqued then approved."
+  },
+  {
+   "kind": "Artifact",
+   "name": "extensibility-record",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Chosen extensibility tier plus the justification for it."
+  },
+  {
+   "kind": "Artifact",
+   "name": "config-record",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "What changed in customizing, and why."
+  },
+  {
+   "kind": "Artifact",
+   "name": "transport-record",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Transport ID recorded by construction, not by hand."
+  },
+  {
+   "kind": "Artifact",
+   "name": "reconciliation-report",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Before-and-after delta against tolerance."
+  },
+  {
+   "kind": "Artifact",
+   "name": "triage-verdict",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Class, route, and the human who confirmed it."
+  },
+  {
+   "kind": "Artifact",
+   "name": "sign-off-record",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Named person, date, scope, artifact reference."
+  },
+  {
+   "kind": "Artifact",
+   "name": "onboarding-record",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Ready to take a ticket, evidenced."
+  },
+  {
+   "kind": "Artifact",
+   "name": "agent-card",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Purpose, owner, data scope, guardrails and eval pack. What AI Agent Hub registers."
+  },
+  {
+   "kind": "Q-gate",
+   "name": "discover→prepare",
+   "posture": "adopt",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Exit criteria: scope and readiness accepted."
+  },
+  {
+   "kind": "Q-gate",
+   "name": "prepare→explore",
+   "posture": "adopt",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Exit criteria: knowledge built and validated, custom-code baseline taken, team onboarded."
+  },
+  {
+   "kind": "Q-gate",
+   "name": "explore→realize",
+   "posture": "adopt",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Exit criteria: fit-to-standard signed, design approved, extensibility tier recorded, backlog baselined."
+  },
+  {
+   "kind": "Q-gate",
+   "name": "realize→deploy",
+   "posture": "adopt",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Exit criteria: config documented, custom code ATC-clean, data reconciled."
+  },
+  {
+   "kind": "Q-gate",
+   "name": "deploy→run",
+   "posture": "adopt",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Exit criteria: cutover rehearsed, go-live criteria met."
+  },
+  {
+   "kind": "Q-gate",
+   "name": "run-exit",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Exit criteria: hypercare closed, knowledge harvested. This one is ours, Activate does not define it."
+  },
+  {
+   "kind": "Knowledge",
+   "name": "process",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Scope, variants and fit-to-standard outcomes."
+  },
+  {
+   "kind": "Knowledge",
+   "name": "config",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Config decisions and their rationale."
+  },
+  {
+   "kind": "Knowledge",
+   "name": "custom-code",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Inventory, usage data and remediation history."
+  },
+  {
+   "kind": "Knowledge",
+   "name": "clean-core",
+   "posture": "adopt",
+   "status": "progress",
+   "phase": "all",
+   "desc": "SAP's clean-core rules: in-app versus side-by-side, released APIs, upgrade safety. SAP publishes it; we apply it as an always-on guardrail."
+  },
+  {
+   "kind": "Knowledge",
+   "name": "extensibility",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Tier decisions and the modification register."
+  },
+  {
+   "kind": "Knowledge",
+   "name": "data",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Migration objects, cleansing rules and reconciliation baselines."
+  },
+  {
+   "kind": "Knowledge",
+   "name": "testing",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Defect history and what has already been classified as a spec flaw."
+  },
+  {
+   "kind": "Knowledge",
+   "name": "operations",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Runbooks, cutover history and performance baselines."
+  },
+  {
+   "kind": "Knowledge",
+   "name": "standards",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "EPAM delivery standards and the project's own conventions."
+  }
+ ],
+ "activities": [
+  {
+   "phase": "Discover",
+   "owner": "architect",
+   "engagement": "B",
+   "status": "notstarted",
+   "file": "activities/discover/readiness-analysis.md",
+   "title": "Readiness & simplification analysis",
+   "desc": "Pull the Readiness Check and the relevant SAP Notes into one scoped view: which simplification items actually apply, which custom code they hit, and what that implies for effort. Output is an assessment report that sizes the conversion before anyone commits to a date. The judgment is separating items that genuinely block from items that merely appear in the report.",
+   "uses": [
+    [
+     "skill",
+     [
+      "readiness-analysis"
+     ]
+    ],
+    [
+     "mcp",
+     [
+      "readiness-check"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "assessment-report"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "custom-code",
+      "standards"
+     ]
+    ],
+    [
+     "q-gate",
+     [
+      "discover→prepare"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Discover",
+   "owner": "architect",
+   "engagement": "GBAR",
+   "status": "notstarted",
+   "file": "activities/discover/agent-readiness.md",
+   "title": "Agent-readiness assessment",
+   "desc": "Score the client's processes for whether they should be handed to agents: volume, exception rate, how reversible the decisions are, and whether the data an agent would need is actually reachable. Output names both the candidate processes and the ones to leave alone. This is the bridge from delivery work into SAP's Autonomous Enterprise, and it is a consulting deliverable, not a product.",
+   "uses": [
+    [
+     "skill",
+     [
+      "agent-readiness"
+     ]
+    ],
+    [
+     "mcp",
+     [
+      "signavio",
+      "knowledge-graph"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "assessment-report"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "process"
+     ]
+    ],
+    [
+     "q-gate",
+     [
+      "discover→prepare"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Prepare",
+   "owner": "architect",
+   "engagement": "GBAR",
+   "status": "notstarted",
+   "file": "activities/prepare/knowledge-foundation.md",
+   "title": "Knowledge foundation",
+   "desc": "Scan the client's real system and process landscape, custom code inventory, configuration baseline, integration surface, process scope, and turn it into the nine knowledge buckets every other activity reads. Includes a human validation gate, because inferred SAP context is wrong often enough to be dangerous: someone corrects it and adds the client-specific why. Nothing downstream is trustworthy until this exists.",
+   "uses": [
+    [
+     "skill",
+     [
+      "knowledge-discovery"
+     ]
+    ],
+    [
+     "mcp",
+     [
+      "abap-mcp",
+      "knowledge-graph"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "builds all nine buckets"
+     ]
+    ],
+    [
+     "q-gate",
+     [
+      "prepare→explore"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Prepare",
+   "owner": "developer",
+   "engagement": "B",
+   "status": "notstarted",
+   "file": "activities/prepare/custom-code-evaluation.md",
+   "title": "Custom code evaluation",
+   "desc": "Run ATC against the target release, join the findings to usage data, and produce a prioritised remediation inventory rather than a forty-thousand-finding dump. Output lands in the custom-code bucket. The real judgment is what to retire rather than remediate, unused code is the cheapest code to fix.",
+   "uses": [
+    [
+     "skill",
+     [
+      "custom-code-scan"
+     ]
+    ],
+    [
+     "mcp",
+     [
+      "abap-mcp"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "custom-code",
+      "clean-core",
+      "standards"
+     ]
+    ],
+    [
+     "q-gate",
+     [
+      "prepare→explore"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Prepare",
+   "owner": "delivery",
+   "engagement": "GBAR",
+   "status": "progress",
+   "file": "activities/prepare/team-onboarding.md",
+   "title": "Team onboarding",
+   "desc": "Walk a new joiner through project-specific context on a path shaped by their role, ending at a recorded ready-to-take-a-ticket checkpoint. It reads the whole knowledge base and produces an onboarding record. It is also that knowledge base's own test harness: if someone cannot reach first-ticket-ready without a human explaining things verbally, the knowledge base is not real yet.",
+   "uses": [
+    [
+     "skill",
+     [
+      "onboarding-guide"
+     ]
+    ],
+    [
+     "mcp",
+     [
+      "jira"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "onboarding-record"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "reads all nine buckets"
+     ]
+    ],
+    [
+     "q-gate",
+     [
+      "prepare→explore"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Explore",
+   "owner": "functional",
+   "engagement": "GB",
+   "status": "notstarted",
+   "file": "activities/explore/fit-to-standard.md",
+   "title": "Fit-to-standard workshops",
+   "desc": "Run each in-scope process against SAP standard, decide standard-versus-delta per step, and get it signed. Produces the process bucket and a sign-off record naming who accepted what. The discipline is recording the delta and its justification together, a delta with no reason becomes a modification nobody can defend at the next upgrade.",
+   "uses": [
+    [
+     "skill",
+     [
+      "fit-to-standard"
+     ]
+    ],
+    [
+     "mcp",
+     [
+      "signavio"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "sign-off-record"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "process",
+      "config",
+      "standards"
+     ]
+    ],
+    [
+     "q-gate",
+     [
+      "explore→realize"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Explore",
+   "owner": "architect",
+   "engagement": "GBA",
+   "status": "notstarted",
+   "file": "activities/explore/solution-design.md",
+   "title": "Solution design & extensibility routing",
+   "desc": "Turn accepted deltas into a target design, and route each one to where the change is allowed to live: standard config, key-user extension, side-by-side on BTP, developer extensibility, or classic modification as a last resort. Produces a design record plus an extensibility record carrying the tier and its justification. That tier decision sets the client's upgrade cost for years, which is why it is recorded rather than assumed.",
+   "uses": [
+    [
+     "skill",
+     [
+      "solution-design"
+     ]
+    ],
+    [
+     "agent",
+     [
+      "extensibility-assessor"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "design-record",
+      "extensibility-record"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "extensibility",
+      "clean-core",
+      "standards"
+     ]
+    ],
+    [
+     "q-gate",
+     [
+      "explore→realize"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Explore",
+   "owner": "delivery",
+   "engagement": "GBA",
+   "status": "notstarted",
+   "file": "activities/explore/backlog-drafting.md",
+   "title": "Backlog drafting",
+   "desc": "Convert deltas and design decisions into sized, owned, traceable work items in the work-intent system, each carrying a link back to the process decision that caused it. Traceability is established here or not at all, and defect triage downstream depends on it entirely.",
+   "uses": [
+    [
+     "skill",
+     [
+      "backlog-drafting"
+     ]
+    ],
+    [
+     "mcp",
+     [
+      "jira",
+      "cloud-alm"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "process"
+     ]
+    ],
+    [
+     "q-gate",
+     [
+      "explore→realize"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Realize",
+   "owner": "functional",
+   "engagement": "GB",
+   "status": "notstarted",
+   "file": "activities/realize/configuration.md",
+   "title": "Configuration & documentation",
+   "desc": "Make the customizing change, record what changed and why, and attach the transport, as one unit rather than three tasks that drift apart. Produces a config record and a transport record. This is the fattest role's daily work, and the activity that generates most of what triage later reads.",
+   "uses": [
+    [
+     "skill",
+     [
+      "config-doc"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "config-record",
+      "transport-record"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "config",
+      "process",
+      "standards"
+     ]
+    ],
+    [
+     "q-gate",
+     [
+      "realize→deploy"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Realize",
+   "owner": "developer",
+   "engagement": "GBA",
+   "status": "progress",
+   "file": "activities/realize/abap-development.md",
+   "title": "ABAP / RAP development",
+   "desc": "Build classic ABAP, RAP or CDS objects against the clean-core tier the design assigned. Gates on ATC findings and unit tests, then hands off a released transport. Mostly adopted skills from skills.cloud.sap, our contribution here is the gate and the transport record, not the ABAP knowledge itself.",
+   "uses": [
+    [
+     "skill",
+     [
+      "abap-dev"
+     ]
+    ],
+    [
+     "mcp",
+     [
+      "abap-mcp",
+      "gcts-abapgit"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "transport-record"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "custom-code",
+      "clean-core",
+      "standards"
+     ]
+    ],
+    [
+     "q-gate",
+     [
+      "realize→deploy"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Realize",
+   "owner": "data",
+   "engagement": "GB",
+   "status": "notstarted",
+   "file": "activities/realize/data-reconciliation.md",
+   "title": "Data migration & reconciliation",
+   "desc": "Load the migration objects, then prove the load: before-and-after counts and balances against an agreed tolerance. Produces a reconciliation report that either sits inside tolerance or blocks the phase. The cleanest evidence in the whole factory, because the answer is a number rather than an opinion.",
+   "uses": [
+    [
+     "skill",
+     [
+      "reconciliation"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "reconciliation-report"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "data",
+      "standards"
+     ]
+    ],
+    [
+     "q-gate",
+     [
+      "realize→deploy"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Realize",
+   "owner": "test",
+   "engagement": "GBAR",
+   "status": "progress",
+   "file": "activities/realize/defect-triage.md",
+   "title": "Defect triage",
+   "desc": "Read the defect queue, decide for each item whether it is a bug or a functional spec flaw, route it to the right role, and recommend a fix. The classification is commercial rather than technical: a bug is fixed under the fee, a spec flaw is a change request. So the agent recommends and a named human confirms, and the verdict records who. This only works if the traceability chain upstream is complete.",
+   "uses": [
+    [
+     "skill",
+     [
+      "defect-triage"
+     ]
+    ],
+    [
+     "agent",
+     [
+      "defect-classifier"
+     ]
+    ],
+    [
+     "mcp",
+     [
+      "jira"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "triage-verdict"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "process",
+      "config",
+      "custom-code",
+      "testing"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Deploy",
+   "owner": "delivery",
+   "engagement": "GB",
+   "status": "notstarted",
+   "file": "activities/deploy/cutover-planning.md",
+   "title": "Cutover planning & go-live readiness",
+   "desc": "Sequence every cutover task against the clock, rehearse it end to end, and attach the go-live criteria that decide whether production opens. Produces a sign-off record. The rehearsal is the point, a plan that has never been run is an estimate.",
+   "uses": [
+    [
+     "skill",
+     [
+      "cutover-plan"
+     ]
+    ],
+    [
+     "mcp",
+     [
+      "cloud-alm"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "sign-off-record"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "operations"
+     ]
+    ],
+    [
+     "q-gate",
+     [
+      "deploy→run"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Deploy",
+   "owner": "basis",
+   "engagement": "GB",
+   "status": "notstarted",
+   "file": "activities/deploy/production-conversion.md",
+   "title": "Production conversion",
+   "desc": "Execute the conversion runbook in production, with logs captured as evidence rather than reassurance. The highest-risk hours of a brownfield programme, owned by Basis. Output goes to the operations bucket so the next conversion starts from what actually happened rather than what was planned.",
+   "uses": [
+    [
+     "skill",
+     [
+      "production-conversion"
+     ]
+    ],
+    [
+     "mcp",
+     [
+      "cloud-alm"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "operations"
+     ]
+    ],
+    [
+     "q-gate",
+     [
+      "deploy→run"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Run",
+   "owner": "functional",
+   "engagement": "R",
+   "status": "notstarted",
+   "file": "activities/run/hypercare-triage.md",
+   "title": "Hypercare & incident triage",
+   "desc": "The same classifier as Realize triage with a different intake: incidents from live users rather than defects from test cycles. Runs against Cloud ALM and the knowledge base. This is where triage pays for itself, because the volume is highest and the pattern is most repetitive.",
+   "uses": [
+    [
+     "skill",
+     [
+      "defect-triage"
+     ]
+    ],
+    [
+     "agent",
+     [
+      "defect-classifier"
+     ]
+    ],
+    [
+     "mcp",
+     [
+      "cloud-alm",
+      "jira"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "triage-verdict"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "process",
+      "config",
+      "testing",
+      "operations"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Run",
+   "owner": "developer",
+   "engagement": "AR",
+   "status": "notstarted",
+   "file": "activities/run/agent-build.md",
+   "title": "Agent build & registration",
+   "desc": "Build a client-facing agent in Joule Studio and ship it with the things that make it governable: an agent card naming purpose, owner and data scope, its guardrails, and an eval pack. Registers into AI Agent Hub against the Proposed-to-Retired lifecycle. The security question with no pre-agent equivalent is which business user the agent acts as, and which authorization objects that grants it.",
+   "uses": [
+    [
+     "skill",
+     [
+      "agent-build"
+     ]
+    ],
+    [
+     "mcp",
+     [
+      "joule-studio",
+      "ai-agent-hub"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "agent-card"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "extensibility",
+      "standards"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Run",
+   "owner": "architect",
+   "engagement": "GBAR",
+   "status": "notstarted",
+   "file": "activities/run/knowledge-harvest.md",
+   "title": "Knowledge harvest",
+   "desc": "After a run, propose targeted knowledge deltas: what changed, what was learned, which guidance turned out to be wrong. Reviewed, never auto-merged. This is the step that makes the next engagement start faster than the last, and the one most likely to be skipped under delivery pressure.",
+   "uses": [
+    [
+     "skill",
+     [
+      "knowledge-harvest"
+     ]
+    ],
+    [
+     "agent",
+     [
+      "knowledge-harvester"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "refreshes all nine buckets"
+     ]
+    ],
+    [
+     "q-gate",
+     [
+      "run-exit"
+     ]
+    ]
+   ]
+  }
+ ],
+ "coverage": {
+  "tools": [
+   "Claude Code",
+   "Cursor",
+   "Copilot",
+   "Joule Work"
+  ],
+  "toolNotes": {
+   "Cursor": "Cursor conventions inferred, verify against current docs",
+   "Copilot": "Copilot agent and hook conventions inferred, verify against current docs",
+   "Joule Work": "Business-user surface in SAP's framing; may never host our primitives"
+  },
+  "levels": {
+   "nat": "native, the tool reads our file as-is; the adapter only places it",
+   "adp": "adapted, content must be rewritten into the tool's format",
+   "no": "absent, no mechanism; handled elsewhere",
+   "q": "unassessed"
+  },
+  "rows": [
+   {
+    "row": "Skills",
+    "needs": "a discovery mechanism",
+    "cells": [
+     [
+      "nat",
+      ".claude/skills/"
+     ],
+     [
+      "adp",
+      "rewritten as rules"
+     ],
+     [
+      "nat",
+      ".agents/skills/ + setting"
+     ],
+     [
+      "q",
+      "?"
+     ]
+    ]
+   },
+   {
+    "row": "Agents",
+    "needs": "isolated context",
+    "cells": [
+     [
+      "nat",
+      ".claude/agents/"
+     ],
+     [
+      "adp",
+      "background agents / modes"
+     ],
+     [
+      "adp",
+      "limited"
+     ],
+     [
+      "q",
+      "?"
+     ]
+    ]
+   },
+   {
+    "row": "Q-gates",
+    "needs": "lifecycle hooks",
+    "cells": [
+     [
+      "nat",
+      "settings.json"
+     ],
+     [
+      "no",
+      "CI instead"
+     ],
+     [
+      "adp",
+      "CLI / workflows"
+     ],
+     [
+      "q",
+      "?"
+     ]
+    ]
+   },
+   {
+    "row": "Connectors",
+    "needs": "MCP",
+    "cells": [
+     [
+      "nat",
+      "native"
+     ],
+     [
+      "nat",
+      "native"
+     ],
+     [
+      "nat",
+      "native"
+     ],
+     [
+      "q",
+      "?"
+     ]
+    ]
+   },
+   {
+    "row": "Activities",
+    "needs": "an entry file",
+    "cells": [
+     [
+      "nat",
+      "CLAUDE.md"
+     ],
+     [
+      "nat",
+      ".cursor/rules/"
+     ],
+     [
+      "nat",
+      "instructions.md"
+     ],
+     [
+      "q",
+      "?"
+     ]
+    ]
+   },
+   {
+    "row": "Artifacts",
+    "needs": "durable files",
+    "cells": [
+     [
+      "nat",
+      "as-is"
+     ],
+     [
+      "nat",
+      "as-is"
+     ],
+     [
+      "nat",
+      "as-is"
+     ],
+     [
+      "q",
+      "?"
+     ]
+    ]
+   },
+   {
+    "row": "Knowledge",
+    "needs": "markdown, read via instructions",
+    "cells": [
+     [
+      "nat",
+      "as-is"
+     ],
+     [
+      "nat",
+      "as-is"
+     ],
+     [
+      "nat",
+      "as-is"
+     ],
+     [
+      "q",
+      "?"
+     ]
+    ]
+   }
+  ]
+ },
+ "tools": {
+  "claude-code": {
+   "label": "Claude Code",
+   "entry": "CLAUDE.md",
+   "skills": ".claude/skills/<n>/",
+   "agents": ".claude/agents/<n>.md",
+   "gates": ".claude/settings.json",
+   "mcp": ".mcp.json",
+   "gaps": []
+  },
+  "cursor": {
+   "label": "Cursor",
+   "entry": ".cursor/rules/factory.mdc",
+   "skills": ".cursor/rules/skills/<n>.mdc",
+   "agents": null,
+   "gates": null,
+   "mcp": ".cursor/mcp.json",
+   "gaps": [
+    "agents, configured as background agents in-app, not as files",
+    "gates, no lifecycle hooks; run in CI instead"
+   ]
+  },
+  "copilot": {
+   "label": "Copilot",
+   "entry": ".github/copilot-instructions.md",
+   "skills": ".agents/skills/<n>/",
+   "agents": null,
+   "gates": null,
+   "mcp": ".vscode/mcp.json",
+   "gaps": [
+    "agents, limited convention; to verify",
+    "gates, via CLI hooks or GitHub workflows, not in-editor"
+   ]
+  },
+  "joule-work": {
+   "label": "Joule Work",
+   "disabled": true
+  }
+ },
+ "scaffold": {
+  "factory": [
+   [
+    "factory.json",
+    "version, contract, tool targets"
+   ],
+   [
+    "tools/claude-code/adapter",
+    "emits entry file + mcp config"
+   ],
+   [
+    "tools/cursor/adapter",
+    null
+   ],
+   [
+    "tools/github-copilot/adapter",
+    null
+   ],
+   [
+    "validators/",
+    "CI: references, orphans, drift"
+   ],
+   [
+    "docs/",
+    "design rationale"
+   ]
+  ],
+  "project": [
+   [
+    ".factory/",
+    "@@FAC@@the whole Factory panel, installed at a pinned version"
+   ],
+   [
+    "factory-lock.json",
+    "factory version + skill provenance"
+   ],
+   [
+    ".env.example",
+    null
+   ],
+   [
+    "runs/",
+    "run ledgers"
+   ]
+  ]
+ },
+ "groups": [
+  [
+   "Yours",
+   "edit these, knowledge/ is the job",
+   "^(knowledge/|workspace/|runs/)"
+  ],
+  [
+   "Generated",
+   "never hand-edit; regenerate instead",
+   "^(\\.env\\.example)$"
+  ],
+  [
+   "Installed",
+   "the factory, pinned",
+   "^(\\.factory/|factory-lock\\.json)"
+  ]
+ ]
+};
+</script>
+<div class="wrap">
+<header>
+  <p class="eyebrow">EPAM &middot; SAP practice &middot; agentic delivery</p>
+  <h1>SAP AI Factory</h1>
+  <p class="lede">Two views of one system. The <strong>delivery pipeline</strong> is the activities the factory supports, grouped by SAP Activate phase, each with an owner role and the components it pulls. The <strong>component map</strong> is the building blocks themselves, and whether we author each one or pull it in. Selecting activities filters the map to their components.</p>
+  <div class="stats">
+    <div class="stat"><b data-count="acts">-</b><span>activities</span></div>
+    <div class="stat"><b data-count="kind:Skill">-</b><span>skills</span></div>
+    <div class="stat"><b data-count="kind:Agent">-</b><span>agents</span></div>
+    <div class="stat"><b data-count="kind:Connector">-</b><span>connectors</span></div>
+    <div class="stat"><b data-count="kind:Artifact">-</b><span>artifacts</span></div>
+    <div class="stat"><b data-count="kind:Q-gate">-</b><span>q-gates</span></div>
+    <div class="stat"><b data-count="kind:Knowledge">-</b><span>knowledge</span></div>
+    <div class="stat"><b data-count="s:ready">-</b><span>ready today</span></div>
+  </div>
+</header>
+
+<section>
+  <div class="sechead">
+    <p class="eyebrow">Delivery</p>
+    <h2>Delivery pipeline</h2>
+    <p class="lede">Activities the factory supports, grouped by Activate phase. Click a card to filter the component map below to its components; combine or unclick like any other filter. The <i>i</i> icon opens its description. The activity, not the component, is the unit of the backlog.</p>
+  </div>
+  <div class="bar" id="saf-bar-owner"></div>
+  <div class="bar" id="saf-bar-eng"></div>
+  <p class="hint">Border is readiness, same as the map, none not started, dotted in progress, solid ready. Combine any filters across the three groups; select none to see everything.</p>
+  <div class="scroll"><div class="pipe" id="saf-pipe"></div></div>
+</section>
+
+<section id="saf-map">
+  <div class="sechead">
+    <p class="eyebrow">Components</p>
+    <h2>Factory component map</h2>
+    <p class="lede">Anything here could in principle be authored by SAP, skills.cloud.sap is a shelf SAP owns, with a third-party lane, and the boundary only moves one way. So each component declares whether we author it or pull it in.</p>
+  </div>
+  <div class="bar" id="saf-bar-posture"></div>
+  <p class="hint">Fill is posture, blue we author, green we pull in. Border is readiness, none not started, dotted in progress, solid ready. Combine any filters; select none to see everything. Click a component for what it is and what its posture means in the repo. Selecting activities above filters this map to their components.</p>
+  <p class="hint" style="margin-top:-10px">In the repo, <strong>adopt</strong> means no authored files: <code>npx skills add ... --copy</code> vendors someone else's skill in and <code>factory-lock.json</code> records where from. <strong>Own</strong> means authored in the factory repo, and deleting <code>.claude/skills/</code> must leave the expertise intact in <code>knowledge/</code>.</p>
+  <div class="scroll"><div class="grid" id="saf-grid"></div></div>
+</section>
+
+<section>
+  <div class="sechead">
+    <p class="eyebrow">Strategy</p>
+    <h2>Tool strategy</h2>
+    <p class="hint" style="margin:12px 0 0"><span class="lvl nat">native</span> the tool reads our file as-is; the adapter only places it &nbsp; <span class="lvl adp">adapted</span> content must be rewritten into the tool's format &nbsp; <span class="lvl no">absent</span> no mechanism; handled elsewhere &nbsp; <span class="lvl q">?</span> unassessed<br>
+    Only skills, agents and gates vary. Artifacts and Knowledge need nothing from any tool, and they are the two we own.</p>
+  </div>
+  <div class="scroll" style="background:var(--surface)" id="saf-cov"></div>
+</section>
+
+<section>
+  <div class="sechead">
+    <p class="eyebrow">Structure</p>
+    <h2>Repository structure</h2>
+    <p class="lede">The same components and activities, as files. Generated from the data rather than written by hand, so it cannot drift from the map. Dotted entries are in progress; muted entries do not exist yet. Blue marks the factory repo, and the project's <code>.factory/</code> folder is blue because the whole of it is installed in there. <code>knowledge/</code> appears in both because the factory ships a default for every bucket and the project overrides it per file.</p>
+  </div>
+  <div class="bar" id="saf-bar-tool"></div>
+  <p class="hint">Switch tool to see what a project looks like on that surface. Only the <em>Generated</em> group changes, the factory is identical either way, which is the adapter model in one observation.</p>
+  <div class="trees">
+    <div class="tree f"><h3>Factory <em>authored once, installed into every project</em></h3><pre id="saf-tree-factory"></pre></div>
+    <div class="tree"><h3>Project <em>grouped by what you may edit</em></h3><pre id="saf-tree-project"></pre></div>
+  </div>
+</section>
+</div>
+
+<div id="saf-ov" hidden>
+  <div class="ovbox" role="dialog" aria-modal="true" aria-labelledby="ovt">
+    <p class="ovkind" id="saf-ovk"></p>
+    <h3 id="saf-ovt"></h3>
+    <div class="ovpills" id="saf-ovpills"></div>
+    <div class="ovpath" id="saf-ovpath"></div>
+    <p class="ovd" id="saf-ovd"></p>
+    <p class="ovwhy" id="saf-ovw"></p>
+    <div class="ovact"><button class="ovx" id="saf-ovx">Close</button></div>
+  </div>
+</div>
+
+<script>
+function __render(){
+  var D=window.FACTORY_DATA;
+  var E=function(x){return String(x==null?'':x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')};
+  var q=function(s){return [].slice.call(document.querySelectorAll(s))};
+  var byKind=function(k){return D.components.filter(function(c){return c.kind===k})};
+  var KIND={Skills:'Skill',Agents:'Agent',Connectors:'Connector',Artifacts:'Artifact','Q-gates':'Q-gate',Knowledge:'Knowledge'};
+
+  function tile(c){
+    return '<button class="t '+c.posture+'" data-k="'+E(c.kind)+'" data-p="'+c.posture+
+           '" data-s="'+c.status+'" data-d="'+E(c.desc)+'">'+E(c.name)+'</button>';
+  }
+  function renderMap(){
+    var h='<div class="gc" style="background:var(--surface2)"></div>',col=2;
+    D.bands.forEach(function(b){h+='<div class="band" style="grid-column:'+col+'/'+(col+b[1])+'">'+E(b[0])+'</div>';col+=b[1]});
+    h+='<div class="gh"></div>';
+    D.phases.forEach(function(p,i){h+='<div class="gh"><span class="n">0'+(i+1)+'</span>'+E(p)+'</div>'});
+    D.rows.forEach(function(r){
+      var kind=KIND[r.label], items=byKind(kind);
+      if(r.layout==='phase'){
+        h+='<div class="rowlbl"><h3>'+E(r.label)+'</h3><p>'+E(r.desc)+'</p></div>';
+        D.phases.forEach(function(p){
+          var t=items.filter(function(c){return c.phase===p});
+          h+='<div class="gc">'+(t.length?'<div class="set">'+t.map(tile).join('')+'</div>':'')+'</div>';
+        });
+      } else {
+        h+='<div class="full"><div class="inner"><div><h3>'+E(r.label)+'</h3>'+
+           '<p style="font-size:12.5px;color:var(--ink3);margin-top:5px">'+E(r.desc)+'</p></div>'+
+           '<div class="set">'+items.map(tile).join('')+'</div></div></div>';
+      }
+    });
+    document.getElementById('saf-grid').innerHTML=h;
+  }
+
+  var KIND_ALIAS={mcp:'connector'};
+  function allOfKind(kind){
+    var want=KIND_ALIAS[kind.toLowerCase()]||kind.toLowerCase(),out=[];
+    D.components.forEach(function(c){if(c.kind.toLowerCase()===want)out.push(c.name)});
+    return out;
+  }
+  function usesNames(kind,items){
+    var out=[];
+    items.forEach(function(n){
+      if(n==='*'||n.indexOf(' ')>-1)out=out.concat(allOfKind(kind));
+      else out.push(n);
+    });
+    return out;
+  }
+  function usesLabel(u){
+    return u[2]||u[1].map(function(n){return n==='*'?'all':n}).join(' · ');
+  }
+
+  function renderPipe(){
+    var h='';
+    D.phases.forEach(function(p,i){
+      h+='<div class="col"><div class="gh" style="margin:-10px -10px 10px"><span class="n">0'+(i+1)+'</span>'+E(p)+'</div>';
+      D.activities.filter(function(a){return a.phase===p}).forEach(function(a){
+        var uses=a.uses.map(function(u){return '<span class="cg"><i>'+E(u[0])+'</i>'+E(usesLabel(u))+'</span>'}).join('');
+        var names=[];a.uses.forEach(function(u){usesNames(u[0],u[1]).forEach(function(n){if(names.indexOf(n)<0)names.push(n)})});
+        h+='<div class="act" data-ph="'+E(a.phase)+'" data-r="'+a.owner+'" data-e="'+a.engagement+
+           '" data-s="'+a.status+'" data-c="'+E(names.join('|'))+'" data-d="'+E(a.desc)+'" data-file="'+E(a.file)+'">'+
+           '<button class="acthit" aria-pressed="false">'+
+           '<span class="meta"><span class="role">'+E(D.roles[a.owner])+'</span>'+
+           '<span class="eng">'+a.engagement.split('').join(' ')+'</span></span>'+
+           '<span class="ttl">'+E(a.title)+'</span><span class="comps">'+uses+'</span></button>'+
+           '<button class="info" aria-label="Description">i</button></div>';
+      });
+      h+='</div>';
+    });
+    document.getElementById('saf-pipe').innerHTML=h;
+  }
+
+  function bar(id,label,items,cls){
+    var h='<span class="lbl">'+E(label)+'</span>';
+    items.forEach(function(it){
+      h+='<button class="f '+cls+'" data-v="'+E(it[0])+'"'+(it[2]?' disabled title="'+E(it[2])+'"':'')+
+         ' aria-pressed="'+(it[3]?'true':'false')+'">'+E(it[1])+
+         (it[4]===false?'':'<b data-count="'+E(it[4])+'">-</b>')+'</button>';
+    });
+    return h;
+  }
+  function renderBars(){
+    document.getElementById('saf-bar-posture').innerHTML=
+      bar(0,'Posture',[['own',D.postures.own,0,0,'p:own'],['adopt',D.postures.adopt,0,0,'p:adopt']],'pf')+
+      '<span class="lbl" style="margin-left:14px">Readiness</span>'+
+      Object.keys(D.statuses).map(function(k){
+        return '<button class="f sf" data-v="'+k+'" aria-pressed="false">'+E(D.statuses[k])+'<b data-count="s:'+k+'">-</b></button>'}).join('')+
+      '<span class="hlchip" id="saf-hlc" hidden><b id="saf-hln"></b><button id="saf-hlx">Clear</button></span>';
+    document.getElementById('saf-bar-owner').innerHTML=
+      bar(0,'Owner',D.roleOrder.map(function(r){return [r,D.roles[r],0,0,'actr:'+r]}),'rf');
+    document.getElementById('saf-bar-eng').innerHTML=
+      bar(0,'Engagement',Object.keys(D.engagements).map(function(k){return [k,D.engagements[k],0,0,'acte:'+k]}),'ef')+
+      '<span class="lbl" style="margin-left:14px">Readiness</span>'+
+      Object.keys(D.statuses).map(function(k){
+        return '<button class="f sf2" data-v="'+k+'" aria-pressed="false">'+E(D.statuses[k])+'<b data-count="acts:'+k+'">-</b></button>'}).join('');
+    document.getElementById('saf-bar-tool').innerHTML=
+      bar(0,'Tool',Object.keys(D.tools).map(function(k){var t=D.tools[k];
+        return [k,t.label,t.disabled?'Not yet evaluated':0,k==='claude-code',false]}),'tf');
+  }
+
+  function renderCov(){
+    var c=D.coverage,h='<table class="cov"><thead><tr><th>Row</th><th>Needs</th>';
+    c.tools.forEach(function(t){h+='<th'+(c.toolNotes[t]?' title="'+E(c.toolNotes[t])+'"':'')+'>'+E(t)+'</th>'});
+    h+='</tr></thead><tbody>';
+    c.rows.forEach(function(r){
+      h+='<tr><th>'+E(r.row)+'</th><td class="need">'+E(r.needs)+'</td>';
+      r.cells.forEach(function(x){h+='<td><span class="lvl '+x[0]+'">'+E(x[1])+'</span></td>'});
+      h+='</tr>';
+    });
+    document.getElementById('saf-cov').innerHTML=h+'</tbody></table>';
+  }
+  renderBars(); renderMap(); renderPipe(); renderCov();
+}
+</script>
+<script>
+function __runtime(){
+  var ROLE={functional:'Functional',developer:'Developer',architect:'Architect',
+            delivery:'Delivery Manager',basis:'Basis',data:'Data Lead',test:'Tester'};
+  var SLABEL={notstarted:'Not started',progress:'In progress',ready:'Ready'};
+  var ENG={G:'Greenfield',B:'Brownfield conversion',A:'Build and Extend',R:'AMS & Run'};
+  var WHY={own:'Own, authored by us. Lives in the factory repo, versioned by us.',
+           adopt:'Adopt, pulled in, not authored. Vendored via npx skills add --copy, provenance in factory-lock.json.'};
+
+  var ROOT=document.querySelector('.saf');
+  function q(s){return [].slice.call(ROOT.querySelectorAll(s))}
+
+  function tally(expr){
+    var k=expr.split(':')[0], v=expr.split(':')[1];
+    if(k==='acts'&&!v) return q('.act').length;
+    if(k==='kind')  return q('.t').filter(function(e){return e.getAttribute('data-k')===v}).length;
+    if(k==='p')     return q('.t').filter(function(e){return e.getAttribute('data-p')===v}).length;
+    if(k==='s')     return q('.t').filter(function(e){return e.getAttribute('data-s')===v}).length;
+    if(k==='actr')  return q('.act').filter(function(e){return e.getAttribute('data-r')===v}).length;
+    if(k==='acte')  return q('.act').filter(function(e){return e.getAttribute('data-e').indexOf(v)>-1}).length;
+    if(k==='acts')  return q('.act').filter(function(e){return e.getAttribute('data-s')===v}).length;
+    return '';
+  }
+  q('[data-count]').forEach(function(el){ el.textContent=tally(el.getAttribute('data-count')) });
+  function on(o){return Object.keys(o).filter(function(k){return o[k]})}
+  function multi(sel,store,after){
+    q(sel).forEach(function(b){
+      b.addEventListener('click',function(){
+        var v=b.getAttribute('data-v');
+        store[v]=!store[v];
+        b.setAttribute('aria-pressed',String(!!store[v]));
+        after();
+      });
+    });
+  }
+
+  var post={},cstat={},picked=[];
+  var hlc=document.getElementById('saf-hlc'),hln=document.getElementById('saf-hln');
+  function applyMap(){
+    var p=on(post),s=on(cstat),names=null;
+    if(picked.length){
+      names={};
+      picked.forEach(function(a){
+        a.getAttribute('data-c').split('|').forEach(function(n){names[n]=1});
+      });
+    }
+    var shown=0;
+    q('.t').forEach(function(el){
+      var okP=!p.length||p.indexOf(el.getAttribute('data-p'))>-1;
+      var okS=!s.length||s.indexOf(el.getAttribute('data-s'))>-1;
+      var okN=!names||names[el.textContent.trim()];
+      var on_=okP&&okS&&!!okN;
+      el.classList.toggle('dim',!on_);
+      if(on_)shown++;
+    });
+    if(picked.length){
+      hln.textContent=picked.length+(picked.length===1?' activity':' activities')+' · '+shown+' components';
+      hlc.hidden=false;
+    } else hlc.hidden=true;
+  }
+  multi('button.pf',post,applyMap);
+  multi('button.sf',cstat,applyMap);
+
+  var role={},eng={},astat={};
+  function applyPipe(){
+    var r=on(role),e=on(eng),s=on(astat);
+    q('.act').forEach(function(el){
+      var okR=!r.length||r.indexOf(el.getAttribute('data-r'))>-1;
+      var ee=el.getAttribute('data-e');
+      var okE=!e.length||e.some(function(v){return ee.indexOf(v)>-1});
+      var okS=!s.length||s.indexOf(el.getAttribute('data-s'))>-1;
+      el.classList.toggle('dim',!(okR&&okE&&okS));
+    });
+  }
+  multi('button.rf',role,applyPipe);
+  multi('button.ef',eng,applyPipe);
+  multi('button.sf2',astat,applyPipe);
+
+  function toggleAct(card){
+    var i=picked.indexOf(card),sel;
+    if(i>-1){picked.splice(i,1);sel=false} else {picked.push(card);sel=true}
+    card.classList.toggle('sel',sel);
+    card.querySelector('.acthit').setAttribute('aria-pressed',String(sel));
+    applyMap();
+  }
+  document.getElementById('saf-hlx').addEventListener('click',function(){
+    picked.slice().forEach(toggleAct);
+  });
+
+  var ov=document.getElementById('saf-ov'),last=null;
+  var ovk=document.getElementById('saf-ovk'),ovt=document.getElementById('saf-ovt'),
+      ovp=document.getElementById('saf-ovpills'),ovd=document.getElementById('saf-ovd'),
+      ovw=document.getElementById('saf-ovw');
+  function pill(t,c){return '<span class="ovpost'+(c?' '+c:'')+'">'+t+'</span>'}
+  var ovpath=document.getElementById('saf-ovpath');
+  function paths(kind,name,posture){
+    var r=[];
+    if(kind==='Skill'){
+      if(posture==='own'){ r.push(['factory','skills/'+name+'/SKILL.md','authored here']);
+                           r.push(['project','.claude/skills/'+name+'/','placed by adapter, path varies per tool']); }
+      else { r.push(['factory','skills/index.yaml','name, source, pin']);
+             r.push(['project','.claude/skills/'+name+'/','vendored at install, path varies per tool']); }
+    } else if(kind==='Agent'){
+      r.push(['factory','agents/'+name+'.md','authored here']);
+      r.push(['project','.claude/agents/'+name+'.md','placed by adapter, path varies per tool']);
+    } else if(kind==='Connector'){
+      r.push(['factory','connectors/'+name+'/connector.md','auth, scopes, owner']);
+      r.push(['factory','connectors/'+name+'/server.json','config fragment']);
+      r.push(['project','.mcp.json','generated, per tool']);
+    } else if(kind==='Artifact'){
+      r.push(['factory','artifacts/'+name+'/template.md']);
+      r.push(['factory','artifacts/'+name+'/schema.json','required fields']);
+      r.push(['project','workspace/','instances, gitignored']);
+    } else if(kind==='Q-gate'){
+      r.push(['factory','gates/'+name.replace('→','-')+'.md','exit criteria + evidence']);
+      r.push(['project','.claude/settings.json','gate hooks, Cursor has none, gates run in CI']);
+    } else if(kind==='Knowledge'){
+      r.push(['factory','knowledge/'+name+'/','central default']);
+      r.push(['project','knowledge/'+name+'/','override or extend, per file']);
+    }
+    return r;
+  }
+  function renderPath(rows){
+    ovpath.innerHTML=rows.map(function(x){
+      return '<div><i>'+x[0]+'</i><span>'+x[1]+(x[2]?' <em>'+x[2]+'</em>':'')+'</span></div>';
+    }).join('');
+  }
+  function stat(st){return '<span class="ovstat" data-s="'+st+'">'+SLABEL[st]+'</span>'}
+  function closeOv(){ov.hidden=true;if(last&&last.focus)last.focus()}
+  function show(){ov.hidden=false;document.getElementById('saf-ovx').focus()}
+
+  function openComp(el){
+    var pp=el.getAttribute('data-p'),st=el.getAttribute('data-s');
+    ovk.textContent=el.getAttribute('data-k');
+    ovt.textContent=el.textContent.trim();
+    ovp.innerHTML=pill(pp==='own'?'Own':'Adopt',pp)+stat(st);
+    renderPath(paths(el.getAttribute('data-k'),el.textContent.trim(),pp));
+    ovd.textContent=el.getAttribute('data-d');
+    ovw.textContent=WHY[pp];
+    last=el;show();
+  }
+  function openAct(card){
+    var st=card.getAttribute('data-s'),comps=card.getAttribute('data-c').split('|');
+    ovk.textContent=card.getAttribute('data-ph')+' · activity';
+    ovt.textContent=card.querySelector('.ttl').textContent.trim();
+    var e=card.getAttribute('data-e').split('').map(function(c){return ENG[c]}).join(' · ');
+    ovp.innerHTML=pill(ROLE[card.getAttribute('data-r')])+stat(st)+pill(e);
+    renderPath([['factory',card.getAttribute('data-file')]]);
+    ovd.textContent=card.getAttribute('data-d');
+    ovw.textContent='Pulls '+comps.length+' components. Click the card to filter the component map to them.';
+    last=card;show();
+  }
+
+  ROOT.addEventListener('click',function(e){
+    if(!e.target.closest)return;
+    if(e.target.closest('#saf-hlx'))return;
+    if(e.target===ov||e.target.id==='saf-ovx'){closeOv();return}
+    var inf=e.target.closest('.info');   if(inf){openAct(inf.parentNode);return}
+    var hit=e.target.closest('.acthit'); if(hit){toggleAct(hit.parentNode);return}
+    var t=e.target.closest('.t');        if(t){openComp(t);return}
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!ov.hidden)closeOv()});
+
+  var SCAFFOLD={
+    factory:[['factory.json',null,'version, contract, tool targets'],
+              ['tools/claude-code/adapter',null,'emits entry file + mcp config'],
+              ['tools/cursor/adapter',null,null],
+              ['tools/github-copilot/adapter',null,null],
+              ['validators/',null,'CI: references, orphans, drift'],
+              ['docs/',null,'design rationale']],
+    project:[['.factory/',null,'@@FAC@@the whole Factory panel, installed at a pinned version'],
+             ['factory-lock.json',null,'factory version + skill provenance'],
+             ['.env.example',null,null],
+             ['CLAUDE.md',null,'generated'],
+             ['.cursor/rules/',null,'generated'],
+             ['.github/copilot-instructions.md',null,'generated'],
+             ['runs/',null,'run ledgers']]
+  };
+  var SK=[],AG=[];
+  function collect(){
+    var out={factory:[],project:[]}; SK=[]; AG=[];
+    q('.t').forEach(function(el){
+      var k=el.getAttribute('data-k'),n=el.textContent.trim(),
+          p=el.getAttribute('data-p'),st=el.getAttribute('data-s');
+      if(k==='Artifact'){
+        out.factory.push(['artifacts/'+n+'/',st,'template.md · schema.json']);
+        out.project.push(['workspace/',null,'instances, gitignored']);
+      } else if(k==='Connector'){
+        out.factory.push(['connectors/'+n+'/',st,'connector.md · server.json']);
+      } else if(k==='Skill'){
+        if(p==='own') out.factory.push(['skills/'+n+'/',st,'SKILL.md']);
+        else out.factory.push(['skills/index.yaml',null,'name, source, pin']);
+        SK.push([n,st,p==='own'?'placed by adapter':'vendored at install']);
+      } else if(k==='Agent'){
+        out.factory.push(['agents/'+n+'.md',st,'authored here']);
+        AG.push([n,st]);
+      } else if(k==='Q-gate'){
+        out.factory.push(['gates/'+n.replace('→','-')+'.md',st,'exit criteria + evidence']);
+      } else {
+        paths(k,n,p).forEach(function(r){ out[r[0]].push([r[1],st,r[2]||null]) });
+      }
+
+    });
+    q('.act').forEach(function(el){
+      out.factory.push([el.getAttribute('data-file'),el.getAttribute('data-s'),null]);
+    });
+    out.factory=out.factory.concat(SCAFFOLD.factory);
+    out.project=out.project.concat(SCAFFOLD.project);
+    return out;
+  }
+  function insert(root,parts,st,note){
+    var k=parts[0];
+    if(parts.length===1){ if(!root[k]||root[k].L) root[k]={L:1,s:st,n:note}; return }
+    if(!root[k]||root[k].L) root[k]={};
+    insert(root[k],parts.slice(1),st,note);
+  }
+  function esc(x){return x.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+  function draw(node,prefix,out){
+    var keys=Object.keys(node).filter(function(k){return k!=='L'&&k!=='s'&&k!=='n'}).sort(function(a,b){
+      var da=node[a].L?1:0, db=node[b].L?1:0;
+      return da-db || a.localeCompare(b);
+    });
+    keys.forEach(function(k,i){
+      var last=i===keys.length-1, ch=node[k];
+      var note=ch.n||'', fac=note.indexOf('@@FAC@@')===0;
+      if(fac) note=note.slice(7);
+      var cls=fac?' class="f"':(ch.L?(ch.s==='progress'?' class="p"':(ch.s==='ready'?' class="r"':'')):'');
+      out.push(prefix+(last?'└── ':'├── ')+'<b'+cls+'>'+esc(k)+'</b>'+
+               (note?'  <i>'+esc(note)+'</i>':''));
+      if(!ch.L) draw(ch,prefix+(last?'    ':'│   '),out);
+    });
+  }
+  function subtree(rows){
+    var root={};
+    rows.forEach(function(r){
+      var path=r[0], dir=/\/$/.test(path);
+      var parts=path.replace(/\/$/,'').split('/');
+      if(dir) parts[parts.length-1]+='/';
+      insert(root,parts,r[1],r[2]);
+    });
+    var out=[]; draw(root,'',out); return out.join('\n');
+  }
+  var TOOLS={
+    'claude-code':{label:'Claude Code',
+      rows:function(sk,ag){var r=[['CLAUDE.md',null,'entry file']];
+        sk.forEach(function(x){r.push(['.claude/skills/'+x[0]+'/',x[1],x[2]])});
+        ag.forEach(function(x){r.push(['.claude/agents/'+x[0]+'.md',x[1],'placed by adapter'])});
+        r.push(['.claude/settings.json',null,'gate hooks']);
+        r.push(['.mcp.json',null,'composed from server.json fragments']);
+        return r},
+      gaps:[]},
+    'cursor':{label:'Cursor',
+      rows:function(sk,ag){var r=[['.cursor/rules/factory.mdc',null,'entry file']];
+        sk.forEach(function(x){r.push(['.cursor/rules/skills/'+x[0]+'.mdc',x[1],'skill adapted into a rule'])});
+        r.push(['.cursor/mcp.json',null,'composed from server.json fragments']);
+        return r},
+      gaps:['agents, no file convention; configured as background agents in-app',
+            'gates, no lifecycle hooks; run in CI instead']},
+    'copilot':{label:'Copilot',
+      rows:function(sk,ag){var r=[['.github/copilot-instructions.md',null,'entry file']];
+        sk.forEach(function(x){r.push(['.agents/skills/'+x[0]+'/',x[1],'needs chat.useAgentSkills'])});
+        r.push(['.vscode/mcp.json',null,'composed from server.json fragments']);
+        return r},
+      gaps:['agents, limited convention; to verify',
+            'gates, via CLI hooks or GitHub workflows, not in-editor']}
+  };
+  var tool={};
+  var GROUP=[
+    ['Yours','edit these, knowledge/ is the job',      /^(knowledge\/|workspace\/|runs\/)/],
+    ['Generated','never hand-edit; regenerate instead', /^(\.env\.example)$/],
+    ['Installed','the factory, pinned',                 /^(\.factory\/|factory-lock\.json)/]
+  ];
+  function renderTrees(){
+    var data=collect();
+    var fe=document.getElementById('saf-tree-factory');
+    if(fe) fe.innerHTML=subtree(data.factory);
+    var pe=document.getElementById('saf-tree-project');
+    if(pe){
+      var html=[];
+      GROUP.forEach(function(g){
+        if(g[0]==='Generated'){
+          var picked=Object.keys(tool).filter(function(k){return tool[k]});
+          if(!picked.length) picked=Object.keys(TOOLS);
+          var rows=data.project.filter(function(r){return g[2].test(r[0])}), gaps=[];
+          picked.forEach(function(t){
+            rows=rows.concat(TOOLS[t].rows(SK,AG));
+            TOOLS[t].gaps.forEach(function(x){gaps.push(TOOLS[t].label+' - '+x.replace(/^[a-z-]+ - /,''))});
+          });
+          var body=subtree(rows);
+          if(gaps.length) body+='\n<s>not available: '+gaps.join('; ')+'</s>';
+          html.push('<u>'+g[0]+'<em>'+g[1]+'</em></u>'+body);
+          return;
+        }
+        var rows2=data.project.filter(function(r){return g[2].test(r[0])});
+        if(!rows2.length) return;
+        html.push('<u>'+g[0]+'<em>'+g[1]+'</em></u>'+subtree(rows2));
+      });
+      var rest=data.project.filter(function(r){
+        return !GROUP.some(function(g){return g[2].test(r[0])});
+      });
+      if(rest.length) html.push('<u>Other</u>'+subtree(rest));
+      pe.innerHTML=html.join('\n');
+    }
+  }
+  tool={'claude-code':true};
+  renderTrees();
+  (function(){
+    var btns=q('button.tf');
+    btns.forEach(function(b){
+      b.addEventListener('click',function(){
+        if(b.disabled)return;
+        tool={};
+        tool[b.getAttribute('data-v')]=true;
+        btns.forEach(function(o){o.setAttribute('aria-pressed',String(o===b))});
+        renderTrees();
+      });
+    });
+  })();
+}
+
+var DATA_URL = 'factory-data.json';
+
+(function boot(){
+  function go(){ __render(); __runtime(); }
+  function warn(m){ document.body.insertAdjacentHTML('afterbegin',
+    '<p style="font:13px sans-serif;color:#854F0B;background:#FAEEDA;border:1px solid #EF9F27;'+
+    'padding:10px 14px;margin:0 0 12px">'+m+'</p>'); }
+
+  function resolve(u){
+    if(!u || /^https?:|^\//.test(u)) return u;
+    var pid=(document.querySelector('meta[name=ajs-page-id]')||{}).content;
+    return pid ? '/download/attachments/'+pid+'/'+u : u;
+  }
+  function bundled(){
+    if(window.FACTORY_DATA) return go();
+    var el=document.createElement('script');
+    el.src='factory-data.js?t='+Date.now();
+    el.onload=go;
+    el.onerror=function(){ warn('Could not load <code>factory-data.js</code>, it must sit in the same folder as this page.'); };
+    document.head.appendChild(el);
+  }
+
+  if(!DATA_URL || location.protocol==='file:') return bundled();
+  var url=resolve(DATA_URL);
+  fetch(url+(url.indexOf('?')<0?'?':'&')+'t='+Date.now(),{cache:'no-store'})
+    .then(function(r){ if(!r.ok) throw new Error(r.status); return r.text() })
+    .then(function(t){ window.FACTORY_DATA=JSON.parse(t); go(); })
+    .catch(function(e){
+      warn('Could not load data from <code>'+url+'</code> ('+e.message+'), showing the bundled copy instead.');
+      bundled();
+    });
+})();
+</script>
+</div>
+</body>
+</html>

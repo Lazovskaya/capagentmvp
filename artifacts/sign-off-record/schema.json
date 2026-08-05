@@ -1,0 +1,6 @@
+{
+  "type": "object",
+  "required": [],
+  "properties": {},
+  "description": "Named person, date, scope, artifact reference."
+}

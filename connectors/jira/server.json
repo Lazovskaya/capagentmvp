@@ -1,0 +1,8 @@
+{
+  "jira": {
+    "type": "stdio",
+    "command": "uvx",
+    "args": ["mcp-atlassian"],
+    "note": "Credentials via OS keychain, loaded by a project launch script, never written to this file or to .env in git. See connector.md for the exposed-tool allowlist."
+  }
+}

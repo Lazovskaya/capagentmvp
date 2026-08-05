@@ -1,0 +1,6 @@
+{
+  "type": "object",
+  "required": [],
+  "properties": {},
+  "description": "Transport ID recorded by construction, not by hand."
+}

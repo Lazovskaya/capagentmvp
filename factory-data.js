@@ -103,7 +103,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "agent-readiness",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Discover",
    "desc": "Which client processes should be handed to agents, and why. The Autonomous Enterprise entry point."
   },
@@ -111,7 +111,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "knowledge-discovery",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Prepare",
    "desc": "Extract the client's real shape, custom code, config, process scope, into reviewable guides."
   },
@@ -127,7 +127,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "onboarding-guide",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Prepare",
    "desc": "Role-aware path through the knowledge base for a new joiner."
   },
@@ -135,7 +135,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "fit-to-standard",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Explore",
    "desc": "Standard versus delta decided and signed, per process."
   },
@@ -143,7 +143,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "solution-design",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Explore",
    "desc": "Target design plus the extensibility tier decision, recorded before build starts."
   },
@@ -151,7 +151,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "backlog-drafting",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Explore",
    "desc": "Deltas become sized, owned, traceable work items."
   },
@@ -207,7 +207,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "knowledge-harvest",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Run",
    "desc": "Propose knowledge deltas after each run. Reviewed, never auto-merged."
   },
@@ -293,6 +293,14 @@ window.FACTORY_DATA = {
   },
   {
    "kind": "Connector",
+   "name": "calendar",
+   "posture": "adopt",
+   "status": "progress",
+   "phase": "all",
+   "desc": "Microsoft 365 calendar. Finds real availability and drafts (never sends) invites for fit-to-standard workshop scheduling. Missing from the model even though the ported, proven fit-to-standard skill depends on it."
+  },
+  {
+   "kind": "Connector",
    "name": "gcts-abapgit",
    "posture": "adopt",
    "status": "notstarted",
@@ -319,7 +327,7 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "assessment-report",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Scoped findings from readiness or agent-readiness work. The Discover-phase deliverable."
   },
@@ -327,7 +335,7 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "design-record",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Target design, critiqued then approved."
   },
@@ -335,7 +343,7 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "extensibility-record",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Chosen extensibility tier plus the justification for it."
   },
@@ -367,7 +375,7 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "triage-verdict",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Class, route, and the human who confirmed it."
   },
@@ -375,7 +383,7 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "sign-off-record",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Named person, date, scope, artifact reference."
   },
@@ -383,9 +391,17 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "onboarding-record",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Ready to take a ticket, evidenced."
+  },
+  {
+   "kind": "Artifact",
+   "name": "run-exit-record",
+   "posture": "own",
+   "status": "progress",
+   "phase": "all",
+   "desc": "Named approver, four-way disposition per open item (resolved / carried over - scheduled / carried over - red flag / escalated - traceability gap), and knowledge-harvest cycle confirmation. Both the evidence and the mechanism for the one gate Activate doesn't define."
   },
   {
    "kind": "Artifact",
@@ -399,7 +415,7 @@ window.FACTORY_DATA = {
    "kind": "Q-gate",
    "name": "discover→prepare",
    "posture": "adopt",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Exit criteria: scope and readiness accepted."
   },
@@ -407,7 +423,7 @@ window.FACTORY_DATA = {
    "kind": "Q-gate",
    "name": "prepare→explore",
    "posture": "adopt",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Exit criteria: knowledge built and validated, custom-code baseline taken, team onboarded."
   },
@@ -415,7 +431,7 @@ window.FACTORY_DATA = {
    "kind": "Q-gate",
    "name": "explore→realize",
    "posture": "adopt",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Exit criteria: fit-to-standard signed, design approved, extensibility tier recorded, backlog baselined."
   },
@@ -423,7 +439,7 @@ window.FACTORY_DATA = {
    "kind": "Q-gate",
    "name": "realize→deploy",
    "posture": "adopt",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Exit criteria: config documented, custom code ATC-clean, data reconciled."
   },
@@ -431,7 +447,7 @@ window.FACTORY_DATA = {
    "kind": "Q-gate",
    "name": "deploy→run",
    "posture": "adopt",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Exit criteria: cutover rehearsed, go-live criteria met."
   },
@@ -439,7 +455,7 @@ window.FACTORY_DATA = {
    "kind": "Q-gate",
    "name": "run-exit",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Exit criteria: hypercare closed, knowledge harvested. This one is ours, Activate does not define it."
   },
@@ -733,7 +749,8 @@ window.FACTORY_DATA = {
     [
      "mcp",
      [
-      "signavio"
+      "signavio",
+      "calendar"
      ]
     ],
     [
@@ -1177,6 +1194,12 @@ window.FACTORY_DATA = {
      "agent",
      [
       "knowledge-harvester"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "run-exit-record"
      ]
     ],
     [

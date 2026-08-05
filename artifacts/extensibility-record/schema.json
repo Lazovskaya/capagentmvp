@@ -1,6 +1,63 @@
 {
   "type": "object",
-  "required": [],
-  "properties": {},
-  "description": "Chosen extensibility tier plus the justification for it."
+  "description": "Chosen extensibility tier plus the justification for it. Produced by solution-design, one per delta, paired with a design-record by the same Row ID. This is the clean-core decision.",
+  "required": [
+    "decision_log_row_id",
+    "extensibility_assessor_consulted",
+    "tier_ladder_walk",
+    "chosen_tier"
+  ],
+  "properties": {
+    "decision_log_row_id": {
+      "type": "string",
+      "description": "Same Row ID as the paired design-record."
+    },
+    "extensibility_assessor_consulted": {
+      "type": "boolean",
+      "description": "Whether the extensibility-assessor agent was consulted. If true, agreement/divergence with its recommendation must be stated in tier_ladder_walk or red_flags."
+    },
+    "tier_ladder_walk": {
+      "type": "array",
+      "description": "One entry per tier 1-5, in order, with a stated reason even for the chosen tier.",
+      "items": {
+        "type": "object",
+        "required": ["tier", "considered", "reason", "rejection_basis"],
+        "properties": {
+          "tier": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "description": "1=Standard configuration, 2=Key-user extension, 3=Side-by-side (BTP), 4=Developer extensibility (ABAP Cloud), 5=Classic modification (last resort)."
+          },
+          "considered": { "type": "boolean" },
+          "reason": { "type": "string" },
+          "rejection_basis": {
+            "type": "string",
+            "enum": ["known upfront", "discovered during walk", "not rejected (chosen tier)"]
+          }
+        }
+      }
+    },
+    "chosen_tier": { "type": "integer", "minimum": 1, "maximum": 5 },
+    "red_flags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Named even if they didn't change the outcome, cross-referenced to the tier row they surfaced at."
+    },
+    "escalation": {
+      "type": "object",
+      "description": "Required if chosen_tier is 5.",
+      "properties": {
+        "addendum_row_id": {
+          "type": "string",
+          "description": "The -esc-N addendum row in the fit-to-standard decision log. Record is not final for tier 5 without this."
+        },
+        "escalation_owner": {
+          "type": "string",
+          "description": "Distinct from the decision log's Delta owner and the sign-off record's signer."
+        },
+        "escalation_date": { "type": "string", "format": "date" }
+      }
+    }
+  }
 }

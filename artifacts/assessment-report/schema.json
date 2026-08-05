@@ -1,6 +1,69 @@
 {
   "type": "object",
-  "required": [],
-  "properties": {},
-  "description": "Scoped findings from readiness or agent-readiness work. The Discover-phase deliverable."
+  "description": "Scoped findings from readiness or agent-readiness work. Produced by readiness-analysis and agent-readiness; read by the discover→prepare Q-gate and later by agent-build.",
+  "required": [
+    "client_engagement",
+    "assessment_date",
+    "assessor",
+    "process_scope_covered",
+    "candidates",
+    "leave_alone"
+  ],
+  "properties": {
+    "client_engagement": { "type": "string" },
+    "assessment_date": { "type": "string", "format": "date" },
+    "assessor": { "type": "string", "description": "Named architect." },
+    "process_scope_covered": {
+      "type": "string",
+      "description": "Which process landscape was considered and its source, e.g. a Signavio process mining export."
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["process", "volume", "exception_rate", "reversibility", "data_reachability", "verdict"],
+        "properties": {
+          "process": { "type": "string" },
+          "volume": { "type": "string" },
+          "exception_rate": { "type": "string" },
+          "reversibility": { "type": "string" },
+          "data_reachability": { "type": "string" },
+          "verdict": { "type": "string", "enum": ["Candidate", "Candidate with guardrails"] },
+          "guardrail_needed": {
+            "type": "string",
+            "description": "Required if verdict is 'Candidate with guardrails' — the specific human-in-loop checkpoint or escalation path."
+          }
+        }
+      }
+    },
+    "leave_alone": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["process", "disqualifying_axis", "why_not_close"],
+        "properties": {
+          "process": { "type": "string" },
+          "disqualifying_axis": {
+            "type": "string",
+            "enum": ["Volume", "Exception rate", "Reversibility", "Data reachability"]
+          },
+          "why_not_close": { "type": "string" },
+          "revisit_condition": { "type": "string" }
+        }
+      }
+    },
+    "demo_driven_rejected": {
+      "type": "array",
+      "description": "Processes proposed on enthusiasm/sponsorship grounds rather than organic candidacy, scored on the same four axes and rejected anyway.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "process": { "type": "string" },
+          "proposed_by": { "type": "string" },
+          "scores": { "type": "string" },
+          "verdict": { "type": "string" }
+        }
+      }
+    }
+  }
 }

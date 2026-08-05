@@ -1,0 +1,64 @@
+{
+  "type": "object",
+  "description": "Named approver, four-way disposition per open item, and knowledge-harvest cycle confirmation. Both the evidence and the mechanism for the run-exit gate, which Activate doesn't define.",
+  "required": [
+    "period_closing",
+    "approver",
+    "date",
+    "open_items",
+    "harvest_confirmation"
+  ],
+  "properties": {
+    "period_closing": {
+      "type": "string",
+      "description": "e.g. 'Hypercare, Sprint 1-14' or 'AMS contract year 1'."
+    },
+    "approver": {
+      "type": "string",
+      "description": "Named, empowered to accept carry-over/commercial decisions."
+    },
+    "date": { "type": "string", "format": "date" },
+    "open_items": {
+      "type": "array",
+      "description": "Every open item from defect-triage's triage-verdict log for the period. No silent option outside the four dispositions.",
+      "items": {
+        "type": "object",
+        "required": ["item_ref", "classification", "disposition"],
+        "properties": {
+          "item_ref": { "type": "string" },
+          "classification": { "type": "string", "enum": ["Bug", "Spec flaw", "Untraceable"] },
+          "disposition": {
+            "type": "string",
+            "enum": [
+              "Resolved",
+              "Carried over - scheduled",
+              "Carried over - red flag",
+              "Escalated - traceability gap"
+            ]
+          },
+          "owner": { "type": "string" },
+          "reason_or_evidence": { "type": "string" },
+          "contingent_on_contract_renewal": { "type": "boolean" }
+        }
+      }
+    },
+    "harvest_confirmation": {
+      "type": "object",
+      "required": ["cycle_header", "cycle_status"],
+      "properties": {
+        "cycle_header": {
+          "type": "string",
+          "description": "Cited verbatim from the harvest-log, not duplicated. Should be named '<Period> Closing Harvest' when run specifically for this gate."
+        },
+        "cycle_status": { "type": "string", "enum": ["Ran", "Skipped"] },
+        "deltas_accepted": { "type": "array", "items": { "type": "string" } },
+        "recurring_rejection_escalations": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Substance keys from the harvest-log's recurrence tracker flagged as worth escalating."
+        },
+        "escalation_owner": { "type": "string" }
+      }
+    }
+  }
+}

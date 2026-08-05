@@ -145,7 +145,7 @@ window.FACTORY_DATA = {
    "posture": "own",
    "status": "progress",
    "phase": "Explore",
-   "desc": "Target design plus the extensibility tier decision, recorded before build starts."
+   "desc": "Target design plus the extensibility tier decision, recorded before build starts. Assembles from scattered sources with full traceability when no single decision-log row covers it."
   },
   {
    "kind": "Skill",
@@ -798,7 +798,7 @@ window.FACTORY_DATA = {
    "status": "notstarted",
    "file": "activities/explore/solution-design.md",
    "title": "Solution design & extensibility routing",
-   "desc": "Turn accepted deltas into a target design, and route each one to where the change is allowed to live: standard config, key-user extension, side-by-side on BTP, developer extensibility, or classic modification as a last resort. Produces a design record plus an extensibility record carrying the tier and its justification. That tier decision sets the client's upgrade cost for years, which is why it is recorded rather than assumed.",
+   "desc": "Turn accepted deltas into a target design, and route each one to where the change is allowed to live: standard config, key-user extension, side-by-side on BTP, developer extensibility, or classic modification as a last resort. When a delta's target design isn't cleanly captured in one fit-to-standard decision-log row, it's assembled instead from scattered sources (emails, decks, specs, transcripts) with full source traceability. Produces a design record plus an extensibility record carrying the tier and its justification. That tier decision sets the client's upgrade cost for years, which is why it is recorded rather than assumed.",
    "uses": [
     [
      "skill",

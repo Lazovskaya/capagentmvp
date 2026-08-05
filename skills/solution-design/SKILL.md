@@ -1,6 +1,6 @@
 ---
 name: solution-design
-description: Turn each accepted fit-to-standard delta into a target design and route it to the cheapest extensibility tier that can actually carry it — standard config, key-user extension, side-by-side BTP, developer extensibility, or classic modification as a last resort. Use after a fit-to-standard decision log has Delta rows to route, before any backlog item or build work starts.
+description: Turn each accepted fit-to-standard delta into a target design and route it to the cheapest extensibility tier that can actually carry it — standard config, key-user extension, side-by-side BTP, developer extensibility, or classic modification as a last resort. When a delta's target design isn't cleanly captured in one decision-log row, assemble it from scattered sources (emails, decks, specs, transcripts) with full source traceability instead of guessing. Use after a fit-to-standard decision log has Delta rows to route, before any backlog item or build work starts.
 ---
 
 # Solution design & extensibility routing
@@ -25,11 +25,34 @@ justified in the first place.
 ## Inputs needed
 
 - The `fit-to-standard` decision log, specifically its Delta rows (Row ID, requirement, justification,
-  Delta owner) — cite each Row ID verbatim in the design-record and extensibility-record you produce
+  Delta owner) — cite each Row ID verbatim in the design-record and extensibility-record you produce.
+  **This is the default, and it covers most deltas.**
+- **When no single decision-log row cleanly captures the target design** — real engagements often
+  scatter design intent across follow-up emails, architecture decks, specs and workshop transcripts
+  that never made it into a formal fit-to-standard row — the scattered sources themselves, for
+  compose/maintain mode (see below).
 - The `extensibility` and `clean-core` knowledge buckets — SAP's published rules on in-app vs.
   side-by-side extensibility, released APIs, and upgrade-safety boundaries
 - If an `extensibility-assessor` agent is wired, its verdict (tier, justification, red flags) as a
   starting recommendation to check, not to rubber-stamp
+
+## Input modes
+
+**Mode A — from a decision-log row (default).** The Delta row already states the requirement,
+justification and owner; step 1 below pulls it directly. Use this whenever fit-to-standard's decision
+log covers the delta cleanly.
+
+**Mode B — compose/maintain from scattered sources.** Use when the target design has to be assembled
+from emails, decks, specs or meeting transcripts because no single decision-log row covers it — the
+method (provenance discipline, conflict surfacing, gap tracking as `TBC`, never inventing) lives in
+`../../knowledge/standards/source-synthesis.md`; two worked test fixtures (a straightforward case and
+an adversarial stress test) are in `references/source-synthesis-sample-input.md` and
+`references/source-synthesis-adversarial-input.md`. **Compose** builds the design-record from scratch
+from a source set; **maintain** takes an existing design-record baseline plus new source(s) and
+produces a reviewable delta, never a silent rewrite. Every design-record field populated this way
+carries `[S-id]` citations or an explicit `TBC` — see the design-record template's "Source synthesis"
+section. This mode does not replace the tier-ladder walk-through below; it only changes how the
+*target design* gets assembled before tier-routing starts.
 
 ## The tier ladder
 
@@ -51,8 +74,15 @@ tier, and worked examples.
 
 ## Workflow
 
-1. **Pull the Delta rows** from the referenced fit-to-standard decision log — requirement,
-   justification, and owner travel with each delta into this step; don't re-derive them from memory.
+1. **Get the target design onto paper before routing it.**
+   - **Mode A (default):** pull the Delta row from the referenced fit-to-standard decision log —
+     requirement, justification, and owner travel with each delta into this step; don't re-derive
+     them from memory.
+   - **Mode B (compose/maintain):** if no decision-log row covers this delta cleanly, run
+     `../../knowledge/standards/source-synthesis.md`'s compose (first build) or maintain (delta
+     update from new sources) procedure against the available sources, straight into the
+     design-record's fields and its "Source synthesis" section — citations or `TBC`, conflicts
+     surfaced not resolved silently, no invented content for gaps.
 
 2. **Start at tier 1 for every delta**, even ones that "obviously" need code. State explicitly why
    configuration alone can't meet the requirement before moving to tier 2, and so on. The record of
@@ -99,3 +129,10 @@ tier, and worked examples.
   diverged — silent override defeats the point of having a second, tool-driven opinion.
 - **Tier 5 should be rare enough that seeing it always triggers a second look at the underlying
   delta**, not treated as just another routing outcome.
+- **Mode B is for filling a genuine gap in the decision log, not a shortcut around fit-to-standard.**
+  If sources exist that clearly should have become a decision-log row and didn't, that's a
+  fit-to-standard process gap worth flagging upstream, not just quietly patched over by synthesizing
+  around it every time.
+- **A conflict surfaced in Mode B doesn't get resolved by whoever is running this skill** — propose
+  a resolution, but only the consultant (or the named source's owner) confirms it, same discipline
+  fit-to-standard uses for deltas.

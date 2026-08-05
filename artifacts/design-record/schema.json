@@ -37,6 +37,50 @@
     "open_questions": {
       "type": "string",
       "description": "Anything unresolved. Must be explicitly stated even if 'none' — an empty field is a claim nothing is unresolved."
+    },
+    "source_synthesis": {
+      "type": "object",
+      "description": "Only present when this design was assembled via compose/maintain mode (source-synthesis.md) rather than a single fit-to-standard decision-log row.",
+      "properties": {
+        "source_register": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "type", "title", "date", "author", "reliability"],
+            "properties": {
+              "id": { "type": "string" },
+              "type": { "type": "string" },
+              "title": { "type": "string" },
+              "date": { "type": "string", "format": "date" },
+              "author": { "type": "string" },
+              "reliability": { "type": "string" }
+            }
+          }
+        },
+        "conflicts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["field", "sides", "proposed_resolution"],
+            "properties": {
+              "field": { "type": "string" },
+              "sides": { "type": "string" },
+              "proposed_resolution": { "type": "string" }
+            }
+          }
+        },
+        "change_log": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "version": { "type": "string" },
+              "change": { "type": "string" },
+              "driving_source": { "type": "string" }
+            }
+          }
+        }
+      }
     }
   }
 }

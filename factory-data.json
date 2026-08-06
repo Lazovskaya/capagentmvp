@@ -1091,12 +1091,15 @@
    [".factory/", "@@FAC@@the whole Factory panel, installed at a pinned version"],
    ["factory-lock.json", "factory version + skill provenance"],
    [".env.example", null],
+   ["CLAUDE.md", "generated"],
+   [".cursor/rules/", "generated"],
+   [".github/copilot-instructions.md", "generated"],
    ["runs/", "run ledgers"]
   ]
  },
  "groups": [
   ["Yours", "edit these, knowledge/ is the job", "^(knowledge/|workspace/|runs/)"],
-  ["Generated", "never hand-edit; regenerate instead", "^(\\.env\\.example)$"],
+  ["Generated", "never hand-edit; regenerate instead", "^(\\.env\\.example|CLAUDE\\.md|\\.cursor/rules/|\\.github/copilot-instructions\\.md)"],
   ["Installed", "the factory, pinned", "^(\\.factory/|factory-lock\\.json)"]
  ]
 }

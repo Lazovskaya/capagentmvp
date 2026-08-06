@@ -1676,6 +1676,18 @@ window.FACTORY_DATA = {
     null
    ],
    [
+    "CLAUDE.md",
+    "generated"
+   ],
+   [
+    ".cursor/rules/",
+    "generated"
+   ],
+   [
+    ".github/copilot-instructions.md",
+    "generated"
+   ],
+   [
     "runs/",
     "run ledgers"
    ]
@@ -1690,7 +1702,7 @@ window.FACTORY_DATA = {
   [
    "Generated",
    "never hand-edit; regenerate instead",
-   "^(\\.env\\.example)$"
+   "^(\\.env\\.example|CLAUDE\\.md|\\.cursor/rules/|\\.github/copilot-instructions\\.md)"
   ],
   [
    "Installed",

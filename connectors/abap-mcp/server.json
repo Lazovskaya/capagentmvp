@@ -1,5 +1,5 @@
 {
-  "command": "TODO",
-  "args": [],
-  "note": "placeholder for abap-mcp"
+  "type": "http",
+  "url": "http://localhost:${ABAP_MCP_PORT:-2236}/mcp",
+  "note": "Local server bundled with SAP's ABAP Development Tools VS Code extension. No secrets, always localhost. Set ABAP_MCP_PORT only if the port was changed from the default in VS Code settings."
 }

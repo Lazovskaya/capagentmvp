@@ -1,6 +1,86 @@
 {
   "type": "object",
-  "required": [],
-  "properties": {},
-  "description": "Target design, critiqued then approved."
+  "description": "Target design, critiqued then approved. Produced by solution-design, one per delta, paired with an extensibility-record by the same Row ID.",
+  "required": [
+    "decision_log_row_id",
+    "delta_summary",
+    "target_design",
+    "test_approach",
+    "open_questions"
+  ],
+  "properties": {
+    "decision_log_row_id": {
+      "type": "string",
+      "description": "The exact Row ID from the fit-to-standard decision log this design originates from, cited verbatim."
+    },
+    "delta_summary": {
+      "type": "string",
+      "description": "One-line restatement of the requirement from the decision log — a pointer, not a re-negotiation."
+    },
+    "target_design": {
+      "type": "object",
+      "required": ["what_changes", "where_it_lives"],
+      "properties": {
+        "what_changes": { "type": "string" },
+        "where_it_lives": {
+          "type": "string",
+          "description": "System/component — informed by, not a substitute for, the extensibility-record's tier decision."
+        },
+        "data_objects_touched": { "type": "string" },
+        "integration_points": { "type": "string" }
+      }
+    },
+    "test_approach": {
+      "type": "string",
+      "description": "What 'correct' looks like for this design — what backlog-drafting turns into acceptance criteria."
+    },
+    "open_questions": {
+      "type": "string",
+      "description": "Anything unresolved. Must be explicitly stated even if 'none' — an empty field is a claim nothing is unresolved."
+    },
+    "source_synthesis": {
+      "type": "object",
+      "description": "Only present when this design was assembled via compose/maintain mode (source-synthesis.md) rather than a single fit-to-standard decision-log row.",
+      "properties": {
+        "source_register": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "type", "title", "date", "author", "reliability"],
+            "properties": {
+              "id": { "type": "string" },
+              "type": { "type": "string" },
+              "title": { "type": "string" },
+              "date": { "type": "string", "format": "date" },
+              "author": { "type": "string" },
+              "reliability": { "type": "string" }
+            }
+          }
+        },
+        "conflicts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["field", "sides", "proposed_resolution"],
+            "properties": {
+              "field": { "type": "string" },
+              "sides": { "type": "string" },
+              "proposed_resolution": { "type": "string" }
+            }
+          }
+        },
+        "change_log": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "version": { "type": "string" },
+              "change": { "type": "string" },
+              "driving_source": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
 }

@@ -1,6 +1,41 @@
 {
   "type": "object",
-  "required": [],
-  "properties": {},
-  "description": "Before-and-after delta against tolerance."
+  "description": "Before-and-after delta against an agreed tolerance. Produced by reconciliation; checked by the realize→deploy Q-gate. First domain pack: finance/DTV — the schema itself is domain-neutral.",
+  "required": [
+    "data_domain",
+    "reconciliation_date",
+    "reconciled_by",
+    "agreed_tolerance",
+    "comparisons"
+  ],
+  "properties": {
+    "data_domain": {
+      "type": "string",
+      "description": "Migration object(s) / data domain covered, e.g. 'FI: Universal Journal line items, 2026-08-01 load'."
+    },
+    "reconciliation_date": { "type": "string", "format": "date" },
+    "reconciled_by": { "type": "string" },
+    "agreed_tolerance": {
+      "type": "string",
+      "description": "The tolerance agreed before the load ran — not chosen after seeing the result."
+    },
+    "comparisons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["object", "before", "after", "delta", "within_tolerance"],
+        "properties": {
+          "object": { "type": "string" },
+          "before": { "type": "string" },
+          "after": { "type": "string" },
+          "delta": { "type": "string" },
+          "within_tolerance": { "type": "boolean" },
+          "mismatch_cause": {
+            "type": "string",
+            "description": "Required in practice whenever within_tolerance is false — a mismatch with no stated cause blocks the gate silently."
+          }
+        }
+      }
+    }
+  }
 }

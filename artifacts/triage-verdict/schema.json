@@ -1,6 +1,73 @@
 {
   "type": "object",
-  "required": [],
-  "properties": {},
-  "description": "Class, route, and the human who confirmed it."
+  "description": "Class, route, and the human who confirmed it. Produced by defect-triage for both Realize test-cycle defects and Run/hypercare live incidents — same schema, different intake.",
+  "required": [
+    "item_reference",
+    "upstream_classification_present",
+    "classification"
+  ],
+  "properties": {
+    "item_reference": {
+      "type": "string",
+      "description": "Ticket/defect ID and its source (Realize test-cycle or Run/hypercare incident queue)."
+    },
+    "upstream_classification_present": {
+      "type": "boolean",
+      "description": "If false, classification must be 'Blocked — pending intake' and every field below except this one and item_reference stays empty."
+    },
+    "sub_process": { "type": "string" },
+    "layer": { "type": "string" },
+    "severity": { "type": "string" },
+    "dedup_status": { "type": "string" },
+    "affected_process_step": { "type": "string" },
+    "decision_log_row_id": {
+      "type": "string",
+      "description": "Cited verbatim, or 'none found' if untraceable."
+    },
+    "row_id_decision": {
+      "type": "string",
+      "enum": ["Standard", "Delta", "none found"]
+    },
+    "reported_behavior_vs_decision": {
+      "type": "string",
+      "description": "Whether the reported behavior matches or deviates from what the Row ID says was decided."
+    },
+    "classification": {
+      "type": "string",
+      "enum": ["Bug", "Spec flaw", "Untraceable", "Blocked - pending intake"]
+    },
+    "reasoning": {
+      "type": "string",
+      "description": "Must cite the Row ID comparison, not the symptom alone. N/A if Blocked."
+    },
+    "defect_classifier_consulted": { "type": "boolean" },
+    "confidence": {
+      "type": "string",
+      "enum": ["High", "Medium", "Low", "N/A"],
+      "description": "Meaning depends on classification: for Bug/Spec flaw, confidence in the classification; for Untraceable, confidence that no Row ID actually exists; N/A for Blocked."
+    },
+    "confirmed_by": { "type": "string", "description": "Named human. N/A if Blocked." },
+    "confirmation_date": { "type": "string", "format": "date" },
+    "routing": {
+      "type": "object",
+      "description": "Shape depends on classification.",
+      "properties": {
+        "bug_fix_workstream_owner": { "type": "string" },
+        "cr_referral": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string", "description": "CR-<item reference>." },
+            "summary": { "type": "string" },
+            "status": {
+              "type": "string",
+              "enum": ["Not yet scheduled", "Scheduled", "Session held, pending new Row ID", "Resolved"]
+            },
+            "resulting_new_row_id": { "type": "string" }
+          }
+        },
+        "traceability_gap_note": { "type": "string" },
+        "blocked_return_note": { "type": "string" }
+      }
+    }
+  }
 }

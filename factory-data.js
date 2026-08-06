@@ -95,15 +95,15 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "readiness-analysis",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Discover",
-   "desc": "Readiness Check and SAP Notes turned into a scoped impact view."
+   "desc": "Readiness Check, SI-Check and SAP Notes turned into a scoped, per-module impact view."
   },
   {
    "kind": "Skill",
    "name": "agent-readiness",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Discover",
    "desc": "Which client processes should be handed to agents, and why. The Autonomous Enterprise entry point."
   },
@@ -111,7 +111,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "knowledge-discovery",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Prepare",
    "desc": "Extract the client's real shape, custom code, config, process scope, into reviewable guides."
   },
@@ -127,7 +127,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "onboarding-guide",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Prepare",
    "desc": "Role-aware path through the knowledge base for a new joiner."
   },
@@ -135,7 +135,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "fit-to-standard",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Explore",
    "desc": "Standard versus delta decided and signed, per process."
   },
@@ -143,15 +143,15 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "solution-design",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Explore",
-   "desc": "Target design plus the extensibility tier decision, recorded before build starts."
+   "desc": "Target design plus the extensibility tier decision, recorded before build starts. Assembles from scattered sources with full traceability when no single decision-log row covers it."
   },
   {
    "kind": "Skill",
    "name": "backlog-drafting",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Explore",
    "desc": "Deltas become sized, owned, traceable work items."
   },
@@ -159,7 +159,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "config-doc",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Realize",
    "desc": "Config decision, documentation and customizing transport, together."
   },
@@ -191,9 +191,17 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "cutover-plan",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Deploy",
    "desc": "Sequenced plan, rehearsed end to end against the clock, with go-live criteria attached."
+  },
+  {
+   "kind": "Skill",
+   "name": "go-live-readiness",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Deploy",
+   "desc": "Per-process-area readiness checklist and status, feeding the cutover sign-off's go/no-go criteria."
   },
   {
    "kind": "Skill",
@@ -207,7 +215,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "knowledge-harvest",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Run",
    "desc": "Propose knowledge deltas after each run. Reviewed, never auto-merged."
   },
@@ -293,6 +301,14 @@ window.FACTORY_DATA = {
   },
   {
    "kind": "Connector",
+   "name": "calendar",
+   "posture": "adopt",
+   "status": "progress",
+   "phase": "all",
+   "desc": "Microsoft 365 calendar. Finds real availability and drafts (never sends) invites for fit-to-standard workshop scheduling. Missing from the model even though the ported, proven fit-to-standard skill depends on it."
+  },
+  {
+   "kind": "Connector",
    "name": "gcts-abapgit",
    "posture": "adopt",
    "status": "notstarted",
@@ -319,15 +335,23 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "assessment-report",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
-   "desc": "Scoped findings from readiness or agent-readiness work. The Discover-phase deliverable."
+   "desc": "Agent-candidate scoring: process, volume, exception rate, reversibility, data reachability, verdict. The Discover-phase deliverable for agent-readiness."
+  },
+  {
+   "kind": "Artifact",
+   "name": "simplification-impact-report",
+   "posture": "own",
+   "status": "progress",
+   "phase": "all",
+   "desc": "Readiness Check / SI-Check findings scoped per module: what blocks the conversion versus what merely appears in the report. The Discover-phase deliverable for readiness-analysis."
   },
   {
    "kind": "Artifact",
    "name": "design-record",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Target design, critiqued then approved."
   },
@@ -335,7 +359,7 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "extensibility-record",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Chosen extensibility tier plus the justification for it."
   },
@@ -343,7 +367,7 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "config-record",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "What changed in customizing, and why."
   },
@@ -351,7 +375,7 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "transport-record",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Transport ID recorded by construction, not by hand."
   },
@@ -359,7 +383,7 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "reconciliation-report",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Before-and-after delta against tolerance."
   },
@@ -367,7 +391,7 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "triage-verdict",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Class, route, and the human who confirmed it."
   },
@@ -375,7 +399,7 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "sign-off-record",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Named person, date, scope, artifact reference."
   },
@@ -383,9 +407,17 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "onboarding-record",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Ready to take a ticket, evidenced."
+  },
+  {
+   "kind": "Artifact",
+   "name": "run-exit-record",
+   "posture": "own",
+   "status": "progress",
+   "phase": "all",
+   "desc": "Named approver, four-way disposition per open item (resolved / carried over - scheduled / carried over - red flag / escalated - traceability gap), and knowledge-harvest cycle confirmation. Both the evidence and the mechanism for the one gate Activate doesn't define."
   },
   {
    "kind": "Artifact",
@@ -399,7 +431,7 @@ window.FACTORY_DATA = {
    "kind": "Q-gate",
    "name": "discover→prepare",
    "posture": "adopt",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Exit criteria: scope and readiness accepted."
   },
@@ -407,7 +439,7 @@ window.FACTORY_DATA = {
    "kind": "Q-gate",
    "name": "prepare→explore",
    "posture": "adopt",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Exit criteria: knowledge built and validated, custom-code baseline taken, team onboarded."
   },
@@ -415,7 +447,7 @@ window.FACTORY_DATA = {
    "kind": "Q-gate",
    "name": "explore→realize",
    "posture": "adopt",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Exit criteria: fit-to-standard signed, design approved, extensibility tier recorded, backlog baselined."
   },
@@ -423,7 +455,7 @@ window.FACTORY_DATA = {
    "kind": "Q-gate",
    "name": "realize→deploy",
    "posture": "adopt",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Exit criteria: config documented, custom code ATC-clean, data reconciled."
   },
@@ -431,7 +463,7 @@ window.FACTORY_DATA = {
    "kind": "Q-gate",
    "name": "deploy→run",
    "posture": "adopt",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Exit criteria: cutover rehearsed, go-live criteria met."
   },
@@ -439,7 +471,7 @@ window.FACTORY_DATA = {
    "kind": "Q-gate",
    "name": "run-exit",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Exit criteria: hypercare closed, knowledge harvested. This one is ours, Activate does not define it."
   },
@@ -524,7 +556,7 @@ window.FACTORY_DATA = {
    "status": "notstarted",
    "file": "activities/discover/readiness-analysis.md",
    "title": "Readiness & simplification analysis",
-   "desc": "Pull the Readiness Check and the relevant SAP Notes into one scoped view: which simplification items actually apply, which custom code they hit, and what that implies for effort. Output is an assessment report that sizes the conversion before anyone commits to a date. The judgment is separating items that genuinely block from items that merely appear in the report.",
+   "desc": "Pull the Readiness Check, SI-Check and the relevant SAP Notes into one scoped view: which simplification items actually apply, which custom code they hit, and what that implies for effort. Output is a simplification-impact report that sizes the conversion before anyone commits to a date. The judgment is separating items that genuinely block from items that merely appear in the report.",
    "uses": [
     [
      "skill",
@@ -541,7 +573,7 @@ window.FACTORY_DATA = {
     [
      "artifact",
      [
-      "assessment-report"
+      "simplification-impact-report"
      ]
     ],
     [
@@ -733,7 +765,8 @@ window.FACTORY_DATA = {
     [
      "mcp",
      [
-      "signavio"
+      "signavio",
+      "calendar"
      ]
     ],
     [
@@ -765,7 +798,7 @@ window.FACTORY_DATA = {
    "status": "notstarted",
    "file": "activities/explore/solution-design.md",
    "title": "Solution design & extensibility routing",
-   "desc": "Turn accepted deltas into a target design, and route each one to where the change is allowed to live: standard config, key-user extension, side-by-side on BTP, developer extensibility, or classic modification as a last resort. Produces a design record plus an extensibility record carrying the tier and its justification. That tier decision sets the client's upgrade cost for years, which is why it is recorded rather than assumed.",
+   "desc": "Turn accepted deltas into a target design, and route each one to where the change is allowed to live: standard config, key-user extension, side-by-side on BTP, developer extensibility, or classic modification as a last resort. When a delta's target design isn't cleanly captured in one fit-to-standard decision-log row, it's assembled instead from scattered sources (emails, decks, specs, transcripts) with full source traceability. Produces a design record plus an extensibility record carrying the tier and its justification. That tier decision sets the client's upgrade cost for years, which is why it is recorded rather than assumed.",
    "uses": [
     [
      "skill",
@@ -1007,12 +1040,13 @@ window.FACTORY_DATA = {
    "status": "notstarted",
    "file": "activities/deploy/cutover-planning.md",
    "title": "Cutover planning & go-live readiness",
-   "desc": "Sequence every cutover task against the clock, rehearse it end to end, and attach the go-live criteria that decide whether production opens. Produces a sign-off record. The rehearsal is the point, a plan that has never been run is an estimate.",
+   "desc": "Sequence every cutover task against the clock, rehearse it end to end, and track the per-process-area readiness checklist that decides whether production opens. Produces a sign-off record naming who accepted the go/no-go call. The rehearsal is the point, a plan that has never been run is an estimate.",
    "uses": [
     [
      "skill",
      [
-      "cutover-plan"
+      "cutover-plan",
+      "go-live-readiness"
      ]
     ],
     [
@@ -1177,6 +1211,12 @@ window.FACTORY_DATA = {
      "agent",
      [
       "knowledge-harvester"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "run-exit-record"
      ]
     ],
     [

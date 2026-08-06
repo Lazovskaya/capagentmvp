@@ -6,77 +6,76 @@
     "url": "https://github.com/fr0ster/mcp-abap-adt",
     "source": "github"
   },
-  "packages": [
-    {
-      "registryType": "npm",
-      "identifier": "@mcp-abap-adt/core",
-      "runtimeHint": "npx",
-      "transport": {
-        "type": "stdio"
-      },
-      "environmentVariables": [
-        {
-          "name": "SAP_URL",
-          "description": "Base URL of the ABAP system (on-prem host or BTP ABAP service URL). Required to connect.",
-          "isRequired": true,
-          "format": "string",
-          "placeholder": "https://your-abap-system.example.com"
-        },
-        {
-          "name": "SAP_AUTH_TYPE",
-          "description": "'xsuaa' for JWT/OAuth2 (BTP ABAP Cloud) or 'basic' for username/password (on-prem).",
-          "format": "string",
-          "choices": ["xsuaa", "basic"],
-          "default": "xsuaa"
-        },
-        {
-          "name": "SAP_SYSTEM_TYPE",
-          "description": "Controls which tools are available (e.g. Programs are onprem-only).",
-          "format": "string",
-          "choices": ["cloud", "onprem", "legacy"],
-          "default": "cloud"
-        },
-        {
-          "name": "SAP_CLIENT",
-          "description": "ABAP client/mandant number. Optional for BTP ABAP Cloud.",
-          "format": "string",
-          "placeholder": "100"
-        },
-        {
-          "name": "SAP_JWT_TOKEN",
-          "description": "JWT bearer token for SAP_AUTH_TYPE=xsuaa. Never commit; supply via environment or the developer's own secret store.",
-          "isSecret": true,
-          "format": "string"
-        },
-        {
-          "name": "SAP_USERNAME",
-          "description": "Username for SAP_AUTH_TYPE=basic (on-prem).",
-          "format": "string"
-        },
-        {
-          "name": "SAP_PASSWORD",
-          "description": "Password for SAP_AUTH_TYPE=basic (on-prem). Never commit; supply via environment or the developer's own secret store.",
-          "isSecret": true,
-          "format": "string"
-        },
-        {
-          "name": "SAP_LANGUAGE",
-          "description": "Logon language (ISO code).",
-          "format": "string",
-          "default": "en"
-        },
-        {
-          "name": "SAP_MASTER_SYSTEM",
-          "description": "System context for on-prem create/update operations (e.g. DEV).",
-          "format": "string"
-        },
-        {
-          "name": "SAP_RESPONSIBLE",
-          "description": "Responsible user for on-prem create/update operations.",
-          "format": "string"
-        }
-      ],
-      "note": "No version pinned deliberately; the project chooses whether to pin in its own .mcp.json. Credentials are never written to this file or to .mcp.json in git, per connector.md's 'Never' section."
+  "note": "Live-tested finding: this package does NOT read the environmentVariables below from the process environment (i.e. .mcp.json's own 'env' block does nothing for tools/call). Use --env=<destination> (see mcpConfig below), which resolves to a .env file at ~/.config/mcp-abap-adt/sessions/<destination>.env, outside any project directory. The env vars are documented here only to describe what that destination .env file must contain.",
+  "mcpConfig": {
+    "abap-mcp": {
+      "command": "npx",
+      "args": ["-y", "@mcp-abap-adt/core", "--env=<destination>"]
     }
-  ]
+  },
+  "destinationEnvFile": {
+    "path": "~/.config/mcp-abap-adt/sessions/<destination>.env (Unix) or %USERPROFILE%\\Documents\\mcp-abap-adt\\sessions\\<destination>.env (Windows)",
+    "variables": [
+      {
+        "name": "SAP_URL",
+        "description": "Base URL of the ABAP system (on-prem host or BTP ABAP service URL). Required to connect.",
+        "isRequired": true,
+        "format": "string",
+        "placeholder": "https://your-abap-system.example.com"
+      },
+      {
+        "name": "SAP_AUTH_TYPE",
+        "description": "'basic' for username/password (on-prem) or 'jwt'/'xsuaa' for JWT/OAuth2 (BTP ABAP Cloud).",
+        "format": "string",
+        "choices": ["basic", "jwt", "xsuaa"],
+        "default": "basic"
+      },
+      {
+        "name": "SAP_SYSTEM_TYPE",
+        "description": "Controls which tools are available (e.g. Programs are onprem-only). Must be set to 'onprem' for on-premise systems, default is 'cloud'.",
+        "format": "string",
+        "choices": ["cloud", "onprem", "legacy"],
+        "default": "cloud"
+      },
+      {
+        "name": "SAP_CLIENT",
+        "description": "ABAP client/mandant number. Required for basic auth; optional for BTP ABAP Cloud.",
+        "format": "string",
+        "placeholder": "100"
+      },
+      {
+        "name": "SAP_JWT_TOKEN",
+        "description": "JWT bearer token, required when SAP_AUTH_TYPE=jwt/xsuaa. Never commit.",
+        "isSecret": true,
+        "format": "string"
+      },
+      {
+        "name": "SAP_USERNAME",
+        "description": "Username, required when SAP_AUTH_TYPE=basic.",
+        "format": "string"
+      },
+      {
+        "name": "SAP_PASSWORD",
+        "description": "Password, required when SAP_AUTH_TYPE=basic. Never commit.",
+        "isSecret": true,
+        "format": "string"
+      },
+      {
+        "name": "SAP_LANGUAGE",
+        "description": "Logon language (ISO code).",
+        "format": "string",
+        "default": "en"
+      },
+      {
+        "name": "SAP_MASTER_SYSTEM",
+        "description": "System context for on-prem create/update operations (e.g. DEV).",
+        "format": "string"
+      },
+      {
+        "name": "SAP_RESPONSIBLE",
+        "description": "Responsible user for on-prem create/update operations.",
+        "format": "string"
+      }
+    ]
+  }
 }

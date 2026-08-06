@@ -11,16 +11,39 @@ better.
 
 1. **This file**, the definition: what the connector is and which activities use it.
 2. **`server.json`** (this folder) plus the project's own `.mcp.json`, the live wiring. Secrets
-   are never in either; real values are supplied via environment or the project's own secret store
-   (never committed).
+   are never in either; real values live in a `.env` file outside the project directory (see
+   "Wiring" below), never committed.
 
 ## What it connects to
 
 An ABAP system (on-premise ECC/S/4HANA, SAP BTP ABAP Environment, or a legacy system on BASIS <
 7.50) via ADT, run locally per developer through `npx -y @mcp-abap-adt/core` (stdio transport).
 Auth is either JWT/XSUAA (BTP ABAP Cloud, `SAP_AUTH_TYPE=xsuaa`) or basic username/password
-(on-prem, `SAP_AUTH_TYPE=basic`); credentials are supplied via environment variables or a service
-key file the developer keeps outside git, never via `server.json` or `.mcp.json`.
+(on-prem, `SAP_AUTH_TYPE=basic`).
+
+**Verified the hard way:** the server does *not* read `SAP_URL`/`SAP_USERNAME`/etc. from the
+process environment passed via `.mcp.json`'s `env` block, despite its own published
+`server.json` (on the MCP registry) declaring them as `environmentVariables` — a live test against
+a real sandbox system confirmed the process starts in "inspection-only mode" and every `tools/call`
+fails until credentials come from one of: a `.env` file in the server's working directory, an
+explicit `--env-path=<file>`, or (used here) `--env=<destination>` resolving to
+`~/.config/mcp-abap-adt/sessions/<destination>.env`. Use the destination form — it's outside the
+project directory by construction, so there's nothing to accidentally commit, and it's portable
+across machines without an absolute path in `.mcp.json`. See `server.json` in this folder for the
+exact `.mcp.json` shape and the `.env` file's expected keys.
+
+## Wiring
+
+1. Create `~/.config/mcp-abap-adt/sessions/<destination>.env` (any name for `<destination>`,
+   e.g. `abap-sandbox`) with `SAP_URL`, `SAP_AUTH_TYPE`, `SAP_SYSTEM_TYPE`, `SAP_CLIENT`, and
+   either `SAP_JWT_TOKEN` (xsuaa) or `SAP_USERNAME`/`SAP_PASSWORD` (basic). This file lives outside
+   the project directory and is never read by, or written into, the repo.
+2. In the project's `.mcp.json`, wire `abap-mcp` to
+   `{"command": "npx", "args": ["-y", "@mcp-abap-adt/core", "--env=<destination>"]}` — matching the
+   destination name chosen in step 1.
+3. `tools/list` and `initialize` work with no SAP config at all; only `tools/call` needs a working
+   destination, so a broken or missing `.env` file surfaces as a failure on first real tool call,
+   not at server startup.
 
 ## Product-agnostic operations
 

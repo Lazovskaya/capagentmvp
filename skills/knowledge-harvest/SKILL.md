@@ -46,7 +46,10 @@ incomplete?" Wrong → reopen. Incomplete → harvest.
 
 - Delta candidates from any source: routed case-2 gaps from `knowledge-discovery`/`onboarding-guide`,
   resolved CR referrals from `defect-triage` that produced a new decision worth generalizing, direct
-  observations from the run (what changed, what broke, what a retrospective surfaced)
+  observations from the run (what changed, what broke, what a retrospective surfaced), **recurring
+  resolved-ticket patterns worth reusing as a known-issue/FAQ entry** (absorbed from `sap-ai-cons`'s
+  `known-issues-kb` stub — a distinct target bucket for this delta type, not a separate skill; see
+  step 2)
 - The `knowledge-harvester` agent's proposed deltas, if wired — a starting point, not a final list
 - The current `bucket-validation-log` — to confirm which buckets are `Validated` (safe for an
   accretive edit) vs. `Reopened` (already flagged as needing a full revisit, not a quick addition)
@@ -69,7 +72,11 @@ incomplete?" Wrong → reopen. Incomplete → harvest.
    durable statement the bucket can hold going forward, with the originating Row ID/CR ID cited as
    evidence, not as the sentence itself. Choose the bucket by what kind of lesson it is: a fact about
    *this client's process* → `process`; a fact about *how we run fit-to-standard/solution-design
-   sessions in general* (a facilitation lesson, not a client fact) → `standards`. When unsure which,
+   sessions in general* (a facilitation lesson, not a client fact) → `standards`; **a recurring
+   resolved-ticket resolution worth reusing verbatim as a known-issue/FAQ entry** (not a process fact,
+   a "here's how we fixed this exact recurring thing before") → `operations`, as a dedicated
+   known-issues entry — same accept/reject/defer review as any other delta, just a distinct target
+   shape (symptom → resolution → originating ticket reference, not prose). When unsure which bucket,
    default to the narrower, more client-specific bucket (`process`) rather than generalizing further
    than the evidence supports.
 

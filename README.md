@@ -88,16 +88,25 @@ Resolved:
   `classic-abap` and `modern-abap`, not skills.cloud.sap. `factory-data.json`'s description was
   corrected to match.
 
+Also ported, in a later pass:
+
+- sap-ai-cons's full bugfix pipeline — `incident-triage`, `root-cause-playbook`,
+  `pricing-diagnostic`, `billing-ar-error-analyzer`, `idoc-failure-analyzer`,
+  `fix-doc-and-regression`, `defect-pattern-analysis` — real, Jira-tested skills, not stubs.
+  `defect-triage` narrowed back to just the commercial bug-vs-spec-flaw call it was always meant to
+  make, deferring intake/diagnose to these siblings instead of informally duplicating them.
+- sap-ai-cons's order-to-cash domain pack (10 troubleshooting trees, taxonomy, signal catalog,
+  routing matrix, subprocess adjacency, pricing condition-technique, billing/AR account
+  determination, IDoc ORDERS/INVOIC catalog) — real and live-tested, ported wholesale into a new
+  `knowledge/domain-packs/` bucket (not `testing`, since it's swappable domain expertise shared
+  across engagements, distinct from a project's own discovered content).
+
 Still open:
 
 - Per-bucket `knowledge/<name>/README.md` files under `process`, `config`, `data`, `testing`, and
   `operations` list candidate files from `sap-ai-framework/knowledge/methodology|domain|templates`
   that look like they'd migrate into that bucket. Nothing has actually been moved, review and
   decide per bucket.
-- sap-ai-cons's order-to-cash domain pack (10 troubleshooting trees, taxonomy, signal catalog,
-  real and live-tested) is the strongest available content for the `testing` knowledge bucket, but
-  porting a client-facing domain pack wholesale is a separate decision from this scaffold pass,
-  not done here.
 - `index.html`'s runtime script (`__runtime()`) carries its own hand-written `SCAFFOLD` and
   `TOOLS` objects, a second copy of what `factory-data.json`'s `scaffold` and `tools` fields
   already say, not derived from them at runtime. This was already true of the page as given, not

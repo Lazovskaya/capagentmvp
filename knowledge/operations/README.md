@@ -17,3 +17,11 @@ Not moved yet, listed here for the user to review and decide:
 - `knowledge/templates/training-ocm.md`, end-user enablement and OCM template.
 
 **Status:** Not started, reserved and empty until these are reviewed and ported.
+
+## Known-issues entries
+
+A `known-issues.md` file (or one per recurring theme) lands here as one of `knowledge-harvest`'s
+delta target shapes — recurring resolved-ticket resolutions worth reusing verbatim (symptom →
+resolution → originating ticket reference), absorbed from `sap-ai-cons`'s `known-issues-kb` stub
+rather than kept as a separate skill. See `skills/knowledge-harvest/SKILL.md`'s workflow step 2.
+

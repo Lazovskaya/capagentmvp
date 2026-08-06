@@ -64,6 +64,9 @@ Ask for anything missing before running.
   on file.
 - Feeds the `discover→prepare` Q-gate — this report is what sizes the conversion before Prepare is
   scoped or a date is committed.
+- If a `readiness-analyst` agent is wired, it gives an independent `complete`/`gaps`/`blocking`
+  verdict on the report before the gate — a check, not a required gate step while the agent itself
+  is still `notstarted`.
 
 ## Judgment calls worth stating out loud
 

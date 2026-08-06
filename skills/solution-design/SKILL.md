@@ -35,6 +35,11 @@ justified in the first place.
   side-by-side extensibility, released APIs, and upgrade-safety boundaries
 - If an `extensibility-assessor` agent is wired, its verdict (tier, justification, red flags) as a
   starting recommendation to check, not to rubber-stamp
+- If a `source-conflict-analyst` agent is wired, its draft Source Register and conflict list for
+  Mode B — a starting point so this skill isn't holding every raw source in its own context, not a
+  finished design-record
+- If a `design-test-reviewer` agent is wired, its independent verdict on a completed design-record
+  before handoff — a check, not a substitute for this skill's own tier-ladder discipline
 
 ## Input modes
 
@@ -52,7 +57,9 @@ from a source set; **maintain** takes an existing design-record baseline plus ne
 produces a reviewable delta, never a silent rewrite. Every design-record field populated this way
 carries `[S-id]` citations or an explicit `TBC` — see the design-record template's "Source synthesis"
 section. This mode does not replace the tier-ladder walk-through below; it only changes how the
-*target design* gets assembled before tier-routing starts.
+*target design* gets assembled before tier-routing starts. If a `source-conflict-analyst` agent is
+wired, it pre-processes the raw source pack into the Source Register and conflict list this mode
+needs, so the raw sources themselves don't have to sit in this skill's own context.
 
 ## The tier ladder
 
@@ -118,6 +125,9 @@ tier, and worked examples.
   a stated reason at every tier considered, red flags, extensibility-assessor consultation status, and
   (for tier 5) the escalation addendum reference and escalation owner
 - Feeds `backlog-drafting` and the `explore→realize` Q-gate
+- If a `design-test-reviewer` agent is wired, it gives an independent `approve`/`gaps`/`blockers`
+  verdict on the completed design-record before this handoff — a check, not a required gate step
+  while the agent itself is still `notstarted`
 
 ## Judgment calls worth stating out loud
 

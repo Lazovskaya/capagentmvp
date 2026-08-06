@@ -250,6 +250,14 @@ window.FACTORY_DATA = {
   },
   {
    "kind": "Skill",
+   "name": "factory-onboard",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Discover",
+   "desc": "Orient a new internal factory team member: role path, repo mental model, day-0 setup, which skill to run first. Meta content, not a client deliverable."
+  },
+  {
+   "kind": "Skill",
    "name": "agent-readiness",
    "posture": "own",
    "status": "progress",
@@ -330,11 +338,67 @@ window.FACTORY_DATA = {
   },
   {
    "kind": "Skill",
+   "name": "incident-triage",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Realize",
+   "desc": "Intake: classify incoming defects/incidents by sub-process, layer and severity, dedupe, route. Domain-neutral engine, reused by hypercare."
+  },
+  {
+   "kind": "Skill",
+   "name": "root-cause-playbook",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Realize",
+   "desc": "Diagnose: walk a domain taxonomy's diagnostic tree top-down to a ranked root cause with evidence and fix. Domain-neutral engine."
+  },
+  {
+   "kind": "Skill",
+   "name": "pricing-diagnostic",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Realize",
+   "desc": "Diagnose: SD pricing defects via the condition technique. Domain-specific specialization of root-cause-playbook."
+  },
+  {
+   "kind": "Skill",
+   "name": "billing-ar-error-analyzer",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Realize",
+   "desc": "Diagnose: SD billing / FI-AR posting defects via VKOA account determination. Domain-specific specialization of root-cause-playbook."
+  },
+  {
+   "kind": "Skill",
+   "name": "idoc-failure-analyzer",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Realize",
+   "desc": "Diagnose: failing IDocs by direction/message type/status code into technical, mapping and application layers, with a safe reprocess path. Domain-neutral engine."
+  },
+  {
+   "kind": "Skill",
    "name": "defect-triage",
    "posture": "own",
    "status": "progress",
    "phase": "Realize",
-   "desc": "Bug or functional spec flaw. A commercial call, so a human confirms the verdict. Reused by hypercare."
+   "desc": "Classify: bug or functional spec flaw. A commercial call, so a human confirms the verdict. Reused by hypercare."
+  },
+  {
+   "kind": "Skill",
+   "name": "fix-doc-and-regression",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Realize",
+   "desc": "Fix/verify: document the fix and derive regression test scope from a domain adjacency map. Domain-neutral engine."
+  },
+  {
+   "kind": "Skill",
+   "name": "defect-pattern-analysis",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Run",
+   "desc": "Prevent: cluster a defect backlog by cause (not symptom), rank by business weight, propose permanent fixes on the eliminate/prevent/detect/absorb ladder. Domain-neutral engine, periodic not per-ticket."
   },
   {
    "kind": "Skill",
@@ -378,11 +442,35 @@ window.FACTORY_DATA = {
   },
   {
    "kind": "Agent",
+   "name": "readiness-analyst",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Discover",
+   "desc": "Isolated reviewer for Discover-phase quality: checks the simplification-impact-report for completeness and missing evidence."
+  },
+  {
+   "kind": "Agent",
    "name": "extensibility-assessor",
    "posture": "own",
    "status": "notstarted",
    "phase": "Explore",
    "desc": "Returns the extensibility tier, its justification, and any red flags. The clean-core decision, recorded."
+  },
+  {
+   "kind": "Agent",
+   "name": "design-test-reviewer",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Independent review of a design-record against the approved Explore baseline before Realize's transport-heavy work starts."
+  },
+  {
+   "kind": "Agent",
+   "name": "source-conflict-analyst",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Provenance and contradiction analysis across a scattered source pack, supporting solution-design's compose/maintain mode without stuffing raw sources into its context."
   },
   {
    "kind": "Agent",
@@ -399,6 +487,14 @@ window.FACTORY_DATA = {
    "status": "notstarted",
    "phase": "Run",
    "desc": "Returns proposed knowledge deltas after each run."
+  },
+  {
+   "kind": "Agent",
+   "name": "cutover-risk-assessor",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Deploy",
+   "desc": "Bounded go-live risk verdict (go/conditional/no-go) from cutover-plan's rehearsal record and go-live-readiness's checklist."
   },
   {
    "kind": "Connector",
@@ -626,6 +722,14 @@ window.FACTORY_DATA = {
   },
   {
    "kind": "Knowledge",
+   "name": "domain-packs",
+   "posture": "own",
+   "status": "progress",
+   "phase": "all",
+   "desc": "Swappable domain expertise a generic engine skill plugs in (order-to-cash is the first pack), distinct from the other buckets' project-specific content."
+  },
+  {
+   "kind": "Knowledge",
    "name": "process",
    "posture": "own",
    "status": "notstarted",
@@ -714,6 +818,12 @@ window.FACTORY_DATA = {
      ]
     ],
     [
+     "agent",
+     [
+      "readiness-analyst"
+     ]
+    ],
+    [
      "mcp",
      [
       "readiness-check"
@@ -736,6 +846,29 @@ window.FACTORY_DATA = {
      "q-gate",
      [
       "discover→prepare"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Discover",
+   "owner": "delivery",
+   "engagement": "GBAR",
+   "status": "notstarted",
+   "file": "activities/discover/factory-onboard.md",
+   "title": "Factory onboarding",
+   "desc": "Orient a new internal factory team member: role path, repo mental model, day-0 setup, which skill to run first. Meta content, not a client deliverable — produces no artifact and feeds no Q-gate.",
+   "uses": [
+    [
+     "skill",
+     [
+      "factory-onboard"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "standards"
      ]
     ]
    ]
@@ -958,7 +1091,9 @@ window.FACTORY_DATA = {
     [
      "agent",
      [
-      "extensibility-assessor"
+      "extensibility-assessor",
+      "design-test-reviewer",
+      "source-conflict-analyst"
      ]
     ],
     [
@@ -1145,12 +1280,18 @@ window.FACTORY_DATA = {
    "status": "progress",
    "file": "activities/realize/defect-triage.md",
    "title": "Defect triage",
-   "desc": "Read the defect queue, decide for each item whether it is a bug or a functional spec flaw, route it to the right role, and recommend a fix. The classification is commercial rather than technical: a bug is fixed under the fee, a spec flaw is a change request. So the agent recommends and a named human confirms, and the verdict records who. This only works if the traceability chain upstream is complete.",
+   "desc": "The full defect-handling pipeline for a test-cycle queue: intake and classify by sub-process/layer/severity, diagnose to a root cause, decide bug vs functional spec flaw, then document the fix and its regression scope. The bug/spec-flaw classification is commercial rather than technical: a bug is fixed under the fee, a spec flaw is a change request. So the agent recommends and a named human confirms, and the verdict records who. This only works if the traceability chain upstream is complete.",
    "uses": [
     [
      "skill",
      [
-      "defect-triage"
+      "incident-triage",
+      "root-cause-playbook",
+      "pricing-diagnostic",
+      "billing-ar-error-analyzer",
+      "idoc-failure-analyzer",
+      "defect-triage",
+      "fix-doc-and-regression"
      ]
     ],
     [
@@ -1174,6 +1315,7 @@ window.FACTORY_DATA = {
     [
      "knowledge",
      [
+      "domain-packs",
       "process",
       "config",
       "custom-code",
@@ -1196,6 +1338,12 @@ window.FACTORY_DATA = {
      [
       "cutover-plan",
       "go-live-readiness"
+     ]
+    ],
+    [
+     "agent",
+     [
+      "cutover-risk-assessor"
      ]
     ],
     [
@@ -1266,12 +1414,18 @@ window.FACTORY_DATA = {
    "status": "notstarted",
    "file": "activities/run/hypercare-triage.md",
    "title": "Hypercare & incident triage",
-   "desc": "The same classifier as Realize triage with a different intake: incidents from live users rather than defects from test cycles. Runs against Cloud ALM and the knowledge base. This is where triage pays for itself, because the volume is highest and the pattern is most repetitive.",
+   "desc": "The same pipeline as Realize defect-triage with a different intake: incidents from live users rather than defects from test cycles. Runs against Cloud ALM and the knowledge base. This is where triage pays for itself, because the volume is highest and the pattern is most repetitive.",
    "uses": [
     [
      "skill",
      [
-      "defect-triage"
+      "incident-triage",
+      "root-cause-playbook",
+      "pricing-diagnostic",
+      "billing-ar-error-analyzer",
+      "idoc-failure-analyzer",
+      "defect-triage",
+      "fix-doc-and-regression"
      ]
     ],
     [
@@ -1296,8 +1450,41 @@ window.FACTORY_DATA = {
     [
      "knowledge",
      [
+      "domain-packs",
       "process",
       "config",
+      "testing",
+      "operations"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Run",
+   "owner": "test",
+   "engagement": "R",
+   "status": "notstarted",
+   "file": "activities/run/defect-pattern-analysis.md",
+   "title": "Defect pattern analysis",
+   "desc": "Periodically (sprint / month / hypercare wrap-up), look backwards across a period of resolved defects and ask why they keep happening: cluster by cause, rank by business weight, propose a permanent fix on the eliminate/prevent/detect/absorb ladder. Distinct from the per-ticket triage flow above — this is the Prevent stage, run on a schedule, not reactively.",
+   "uses": [
+    [
+     "skill",
+     [
+      "defect-pattern-analysis"
+     ]
+    ],
+    [
+     "mcp",
+     [
+      "jira"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "domain-packs",
+      "process",
       "testing",
       "operations"
      ]

@@ -1,6 +1,8 @@
 ## Hypercare & incident triage
 
-The same classifier as Realize triage with a different intake: incidents from live users rather than defects from test cycles. Runs against Cloud ALM and the knowledge base. This is where triage pays for itself, because the volume is highest and the pattern is most repetitive.
+The same pipeline as Realize defect-triage with a different intake: incidents from live users
+rather than defects from test cycles. Runs against Cloud ALM and the knowledge base. This is where
+triage pays for itself, because the volume is highest and the pattern is most repetitive.
 
 **Owner:** Functional
 **Engagement(s):** AMS & Run
@@ -8,8 +10,8 @@ The same classifier as Realize triage with a different intake: incidents from li
 
 ## Uses
 
-- **skill:** defect-triage
+- **skill:** incident-triage, root-cause-playbook, pricing-diagnostic, billing-ar-error-analyzer, idoc-failure-analyzer, defect-triage, fix-doc-and-regression
 - **agent:** defect-classifier
 - **mcp:** cloud-alm, jira
 - **artifact:** triage-verdict
-- **knowledge:** process, config, testing, operations
+- **knowledge:** domain-packs, process, config, testing, operations

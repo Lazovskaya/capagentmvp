@@ -4,11 +4,13 @@ Returns class, confidence, route and recommended fix. Serves both Realize triage
 hypercare.
 
 Adapted from sap-ai-cons's real `incident-triage` + `root-cause-playbook` +
-`defect-pattern-analysis` skills (see `skills/defect-triage/SKILL.md` for the full adaptation
-note). This agent is the bounded-worker form of that same classify/route/recommend logic: it
-returns a typed, auditable verdict rather than writing a document, so `defect-triage` (and
-anything reusing it, like hypercare) can call it per item and require a human to confirm before
-the verdict is final.
+`defect-pattern-analysis` skills — those are now themselves ported into this factory as real skills
+(`skills/incident-triage/`, `skills/root-cause-playbook/`, `skills/defect-pattern-analysis/`, and
+siblings), so this agent's job narrowed to match `defect-triage`'s own scope: the bounded-worker
+form of the **commercial** bug-vs-spec-flaw call, not the intake/diagnose logic those sibling
+skills now own. It returns a typed, auditable verdict rather than writing a document, so
+`defect-triage` (and anything reusing it, like hypercare) can call it per item and require a human
+to confirm before the verdict is final.
 
 ## Returns
 
@@ -27,5 +29,6 @@ artifact records who.
 
 ## Status
 
-In progress. Logic adapted from real, tested sap-ai-cons skills; not yet wired as a standalone
-bounded agent in this factory's own tooling.
+In progress. Logic adapted from real, tested sap-ai-cons skills, which are now themselves real
+ported skills in this factory too; this agent itself is not yet wired as a standalone bounded
+agent.

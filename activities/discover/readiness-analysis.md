@@ -9,6 +9,7 @@ Pull the Readiness Check, SI-Check and the relevant SAP Notes into one scoped vi
 ## Uses
 
 - **skill:** readiness-analysis
+- **agent:** readiness-analyst
 - **mcp:** readiness-check
 - **artifact:** simplification-impact-report
 - **knowledge:** custom-code, standards

@@ -9,7 +9,7 @@ Turn accepted deltas into a target design, and route each one to where the chang
 ## Uses
 
 - **skill:** solution-design
-- **agent:** extensibility-assessor
+- **agent:** extensibility-assessor, design-test-reviewer, source-conflict-analyst
 - **artifact:** design-record, extensibility-record
 - **knowledge:** extensibility, clean-core, standards
 - **q-gate:** explore→realize

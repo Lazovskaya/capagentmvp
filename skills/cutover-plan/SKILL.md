@@ -57,6 +57,9 @@ Ask for anything missing before running.
 - Feeds the **`sign-off-record` artifact** (`../../artifacts/sign-off-record/template.md`, deploy
   go-live variant) jointly with `go-live-readiness` — this skill supplies the
   `cutover_rehearsal_reference` field, not a separate document.
+- If a `cutover-risk-assessor` agent is wired, it reads this rehearsal record plus
+  `go-live-readiness`'s checklist for a bounded go/conditional/no-go recommendation — a starting
+  point for the sign-off, not the decision itself.
 
 ## Judgment calls worth stating out loud
 

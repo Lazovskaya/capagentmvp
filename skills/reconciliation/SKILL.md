@@ -1,6 +1,6 @@
 ---
 name: reconciliation
-description: Verify a migration load by comparing before-and-after counts and balances against an agreed tolerance, and explain every mismatch rather than let it block the gate silently. Use in Realize during and after a data migration run. First domain pack: finance migration via Data Transition Validation (DTV).
+description: "Verify a migration load by comparing before-and-after counts and balances against an agreed tolerance, and explain every mismatch rather than let it block the gate silently. Use in Realize during and after a data migration run. First domain pack: finance migration via Data Transition Validation (DTV)."
 ---
 
 # Data Migration & Reconciliation

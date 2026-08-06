@@ -353,7 +353,7 @@ window.FACTORY_DATA = {
    "posture": "adopt",
    "status": "progress",
    "phase": "all",
-   "desc": "Object read, syntax check and ATC from the session. GA Q2 2026."
+   "desc": "Full ABAP CRUD (classic + RAP) via mcp-abap-adt, npx-installed, per-developer. Alternatives: SAP's own VS Code ADT MCP (Cloud ABAP only), arc-1 (enterprise/BTP deploy)."
   },
   {
    "kind": "Connector",

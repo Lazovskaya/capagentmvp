@@ -61,6 +61,35 @@ This repo holds the versioned source. After editing `factory-data.json`:
 This mirrors the path convention the component map's own client-side code uses (see `index.html`'s
 `paths()` function), so the map and the repo can never drift apart by more than a rebuild.
 
+## Installing skills into a project
+
+`tools/<tool>/adapter/` (see each folder's own README) is meant to automate this eventually, but
+none of the three are implemented yet. Until then, this is the real, live-tested manual process,
+using the `skills` CLI (`vercel-labs/skills`, the same tool `factory-data.json`'s `postureWhy.adopt`
+references for pulling adopt-posture skills into this factory):
+
+```bash
+npx skills add /path/to/sap-ai-factory -a claude-code -s '*' --copy -y
+```
+
+- **Scope `-a` to the one tool the project actually uses** (`claude-code`, `cursor`, or
+  `github-copilot`). Never run with `--all` — that installs into every one of the ~70 agents the
+  CLI supports (`.goose/`, `.grok/`, `.junie/`, …), cluttering the project with dozens of unwanted
+  directories.
+- **`--copy`, not the default symlink**, so a client project gets its own snapshot rather than a
+  live link back into this repo's checkout.
+- **Skills only land where the target tool actually looks.** For Claude Code that's
+  `.claude/skills/<name>/`, not this repo's own `skills/<name>/` — a bare top-level `skills/`
+  folder is not auto-discovered by any coding agent; that's exactly what this multi-tool install
+  step is for.
+- **Caveat, found by testing this against a real clone:** if the *destination* project is itself a
+  full checkout of this repo (or otherwise has its own top-level `skills/<name>/` folders using the
+  same names), `skills add` from a local-path source has been observed to delete those matching
+  files from the destination after copying them into `.claude/skills/`, rather than leaving them in
+  place. Recoverable with `git checkout -- skills/` if the destination is itself a git repo, but
+  worth knowing before running this inside a working checkout of this factory rather than a real
+  client project.
+
 ## Migrating from sap-ai-framework
 
 Already ported, with real content, not left as generic stubs:

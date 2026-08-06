@@ -27,11 +27,13 @@ generic internal tooling repo.
 python3 build.py
 ```
 
-Regenerates `index.html`'s inline `window.FACTORY_DATA` block and `factory-data.js` (the `file://`
-fallback `index.html` loads when it can't `fetch()` its own JSON due to CORS) from
-`factory-data.json`. Run this after every edit to `factory-data.json`, before viewing `index.html`
-locally. Never hand-edit the generated block in `index.html` or the contents of `factory-data.js` —
-they get overwritten.
+Regenerates `index.html`'s inline `window.FACTORY_DATA` block, `factory-data.js` (the `file://`
+fallback `index.html` loads when it can't `fetch()` its own JSON due to CORS), and
+`confluence-fragment.html` (just `index.html`'s `<body>` contents, no
+`<!doctype>`/`<html>`/`<head>`/`<body>` wrapper — that wrapper is what actually gets pasted into the
+Confluence page, see "Where people actually view it" below) from `factory-data.json`. Run this after
+every edit to `factory-data.json`, before viewing `index.html` locally. Never hand-edit any of the
+three generated files — they get overwritten.
 
 No lint/test commands exist yet — `validators/` (CI checks: every reference in `factory-data.json`
 resolves to a real file, no orphaned skill/agent/connector/artifact/gate files, generated adapters
@@ -49,8 +51,10 @@ derives from it, points back into it, or exists to keep it honest:
 - **Where people actually view it**: git.epam.com's file browser doesn't render `index.html` live —
   it shows raw source. The page people actually look at is a Confluence copy ([SAP AI Factory
   Design](https://kb.epam.com/spaces/ESAPCC/pages/2898132737/SAP+AI+Factory+Design)), updated by
-  copying `index.html`'s content in after every `build.py` run. This repo holds the versioned source
-  of truth; Confluence is a rendering target, not the canonical copy.
+  pasting `confluence-fragment.html`'s content into the page's HTML macro after every `build.py`
+  run — not `index.html` itself, whose `<!doctype>`/`<html>`/`<head>`/`<body>` wrapper breaks the
+  macro (it inserts into an already-existing page DOM). This repo holds the versioned source of
+  truth; Confluence is a rendering target, not the canonical copy.
 - **`skills/<name>/SKILL.md`** — own-posture skills (authored in this repo).
 - **`skills/index.yaml`** — adopt-posture skills: not authored here, pulled in from elsewhere
   (e.g. `epam-sap-skills`, `skills.cloud.sap`). The own/adopt split is a deliberate posture

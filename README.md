@@ -13,9 +13,11 @@ same data for standalone viewing; after editing `factory-data.json`, run:
 python3 build.py
 ```
 
-This regenerates `index.html`'s inline block and `factory-data.js` (the `file://` fallback the
-page loads when it can't `fetch()` its own JSON due to CORS). Never hand-edit either generated
-block, they get overwritten.
+This regenerates `index.html`'s inline block, `factory-data.js` (the `file://` fallback the
+page loads when it can't `fetch()` its own JSON due to CORS), and `confluence-fragment.html` (the
+`<body>` contents only, no `<!doctype>`/`<html>`/`<head>`/`<body>` wrapper — what Confluence's HTML
+macro actually expects; pasting the wrapper breaks the page since the macro inserts into an
+already-existing page DOM). Never hand-edit any generated file, they get overwritten.
 
 ## Where people actually view this page
 
@@ -25,10 +27,11 @@ as text, the same as any other file. The page people actually look at is the Con
 
 This repo holds the versioned source. After editing `factory-data.json`:
 
-1. Run `python3 build.py` to regenerate `index.html`'s inline data.
-2. Copy the updated `index.html` content into the Confluence page (it's embedded there as raw
-   HTML, the same way `index.html`'s own comments describe attachment-based data loading for a
-   Confluence-hosted copy).
+1. Run `python3 build.py` to regenerate `index.html`'s inline data (and `confluence-fragment.html`
+   alongside it).
+2. Copy `confluence-fragment.html`'s content into the Confluence page's HTML macro — not
+   `index.html` itself, which is a full document and breaks the macro (see `build.py`'s
+   `write_confluence_fragment`).
 3. Commit the source changes here too, so the two stay in sync and the history is not only on
    Confluence.
 
@@ -38,8 +41,8 @@ This repo holds the versioned source. After editing `factory-data.json`:
   rows, components, activities, tool coverage, and the scaffold.
 - `index.html`, the interactive component map, generated content lives inline, everything else is
   hand-written.
-- `build.py`, regenerates the generated parts of `index.html` plus `factory-data.js` from
-  `factory-data.json`.
+- `build.py`, regenerates the generated parts of `index.html` plus `factory-data.js` and
+  `confluence-fragment.html` from `factory-data.json`.
 - `skills/<name>/SKILL.md`, own-posture skills, authored here.
 - `skills/index.yaml`, adopt-posture skills, not authored here, pulled in from elsewhere.
 - `agents/<name>.md`, bounded agents returning a typed, auditable verdict.

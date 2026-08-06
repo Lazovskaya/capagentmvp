@@ -127,9 +127,9 @@
    "kind": "Skill",
    "name": "custom-code-scan",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Prepare",
-   "desc": "ATC baseline plus usage data turned into a remediation inventory."
+   "desc": "ATC (S4HANA_READINESS) baseline joined to real usage data (SCMON/UPL) to separate retire from remediate, ranked by business criticality not raw finding count."
   },
   {
    "kind": "Skill",
@@ -271,9 +271,9 @@
    "kind": "Skill",
    "name": "production-conversion",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Deploy",
-   "desc": "The go-live runbook, executed with logs as evidence."
+   "desc": "The technical SUM/DMO go-live runbook, executed with a pre-agreed go/no-go decision-maker and rollback triggers, logs captured at every checkpoint as evidence."
   },
   {
    "kind": "Skill",
@@ -295,7 +295,7 @@
    "kind": "Agent",
    "name": "readiness-analyst",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Discover",
    "desc": "Isolated reviewer for Discover-phase quality: checks the simplification-impact-report for completeness and missing evidence."
   },
@@ -303,7 +303,7 @@
    "kind": "Agent",
    "name": "extensibility-assessor",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Explore",
    "desc": "Returns the extensibility tier, its justification, and any red flags. The clean-core decision, recorded."
   },
@@ -311,7 +311,7 @@
    "kind": "Agent",
    "name": "design-test-reviewer",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Explore",
    "desc": "Independent review of a design-record against the approved Explore baseline before Realize's transport-heavy work starts."
   },
@@ -319,7 +319,7 @@
    "kind": "Agent",
    "name": "source-conflict-analyst",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Explore",
    "desc": "Provenance and contradiction analysis across a scattered source pack, supporting solution-design's compose/maintain mode without stuffing raw sources into its context."
   },
@@ -327,7 +327,7 @@
    "kind": "Agent",
    "name": "defect-classifier",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Realize",
    "desc": "Returns class, confidence, route and recommended fix. Serves both Realize triage and Run hypercare."
   },
@@ -335,7 +335,7 @@
    "kind": "Agent",
    "name": "knowledge-harvester",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Run",
    "desc": "Returns proposed knowledge deltas after each run."
   },
@@ -343,7 +343,7 @@
    "kind": "Agent",
    "name": "cutover-risk-assessor",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "Deploy",
    "desc": "Bounded go-live risk verdict (go/conditional/no-go) from cutover-plan's rehearsal record and go-live-readiness's checklist."
   },
@@ -718,7 +718,7 @@
    "phase": "Prepare",
    "owner": "developer",
    "engagement": "B",
-   "status": "notstarted",
+   "status": "progress",
    "file": "activities/prepare/custom-code-evaluation.md",
    "title": "Custom code evaluation",
    "desc": "Run ATC against the target release, join the findings to usage data, and produce a prioritised remediation inventory rather than a forty-thousand-finding dump. Output lands in the custom-code bucket. The real judgment is what to retire rather than remediate, unused code is the cheapest code to fix.",
@@ -875,7 +875,7 @@
    "phase": "Deploy",
    "owner": "basis",
    "engagement": "GB",
-   "status": "notstarted",
+   "status": "progress",
    "file": "activities/deploy/production-conversion.md",
    "title": "Production conversion",
    "desc": "Execute the conversion runbook in production, with logs captured as evidence rather than reassurance. The highest-risk hours of a brownfield programme, owned by Basis. Output goes to the operations bucket so the next conversion starts from what actually happened rather than what was planned.",

@@ -3,6 +3,7 @@
   "description": "Named person, date, scope, artifact reference. Two variants, same acceptance discipline: 'fit-to-standard' (produced by fit-to-standard, checked by explore→realize) and 'deploy-go-live' (produced by cutover-plan/go-live-readiness, checked by deploy→run). The 'variant' field picks which of the two variant-specific field groups below is required.",
   "required": [
     "variant",
+    "session_status",
     "process_scope",
     "signed_by",
     "role_authority",
@@ -12,6 +13,11 @@
     "variant": {
       "type": "string",
       "enum": ["fit-to-standard", "deploy-go-live"]
+    },
+    "session_status": {
+      "type": "string",
+      "enum": ["live", "draft-pending-facilitation"],
+      "description": "'live' = an actual session happened, this record is an acceptance. 'draft-pending-facilitation' = prepared or simulated ahead of/without a real session — a preview, not an acceptance. Only 'live' records satisfy the validity checklist or count toward a Q-gate."
     },
     "process_scope": {
       "type": "string",

@@ -11,6 +11,11 @@ This is the artifact the `explore→realize` Q-gate actually checks. The decisio
 this record is the acceptance. No entry here, no gate pass — a completed workshop with no sign-off is
 the same as an open item for gate purposes.
 
+- **Session status: Live / Draft — pending facilitation.** <Only a **Live** record can have its
+  validity checklist marked complete or count toward the Q-gate. A Draft record (prepared ahead of,
+  or simulated without, an actual session) is a preview, not an acceptance — leave "Signed by" and
+  "Date" blank or explicitly marked pending, don't fill them with a plausible-looking name to make
+  the record look finished.>
 - **Decision log Row ID range (source of truth for scope):** <e.g.
   `FTS-2026-08-04-credit-block-handling-row-01..07` — this range, not the process-name line below, is
   what the `explore→realize` gate and every downstream artifact treat as the actual scope. If the
@@ -36,6 +41,7 @@ the same as an open item for gate purposes.
 
 ## Validity checklist before this record is considered complete
 
+- [ ] Session status is stated, and is **Live** — a Draft record cannot be marked complete
 - [ ] Every row in the referenced decision log is Standard or Delta — no Workaround rows remain
 - [ ] Every Delta row has a non-empty Requirement, Owner, and upgrade-cost note
 - [ ] Signed-by person's authority to accept is stated, not assumed

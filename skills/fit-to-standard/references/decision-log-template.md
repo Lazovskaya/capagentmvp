@@ -4,6 +4,11 @@ One of these per process/sub-process walked through in a workshop. Feeds the `pr
 bucket. Every row must be filled — a blank Requirement/Justification cell on a Delta row is the gap,
 not a formatting choice to fix later.
 
+- **Session status: Live / Draft — pending facilitation.** <Live = an actual session happened,
+  Decision/Notes below are room-agreed fact. Draft = prepared or simulated ahead of/without a real
+  session — every Decision/Notes cell below must read as a proposal ("proposed test: ...", "expected
+  pushback: ...") not a past-tense narration of a conversation that didn't happen. A Draft log
+  never gets a completed sign-off-record.>
 - **Process:** <name, e.g. "Order to Cash — Credit Block Handling">
 - **Variant:** <if applicable>
 - **Engagement:** G / B

@@ -1,7 +1,8 @@
 # O2C routing matrix (domain pack)
 
 Default **stream → owner → co-assign → diagnose handoff** for `incident-triage` on O2C. Generic
-routing principles live in `knowledge/methodology/incident-triage.md`; this file is the O2C pack.
+routing principles live in `../../../skills/incident-triage/references/incident-triage-method.md`;
+this file is the O2C pack.
 Client engagements may override stream names / RACI — keep overrides in `workspace/` (gitignored),
 not here.
 

@@ -2,10 +2,10 @@
 
 Generic method for documenting an SAP defect fix and deriving **regression test scope** from a
 domain **adjacency map**. Orchestrated by `fix-doc-and-regression`. Domain packs supply the
-adjacency rows (O2C: `knowledge/domain/order-to-cash/subprocess-adjacency.md`). Method only — no
+adjacency rows (O2C: `../../../knowledge/domain-packs/order-to-cash/subprocess-adjacency.md`). Method only — no
 client data.
 
-Output shape: `knowledge/templates/fix-and-regression.md`.
+Output shape: the sibling `fix-regression-template.md` in this same `references/` folder.
 
 ## When this runs
 After diagnose has a **confirmed** (or strongly evidenced) root cause and an intended fix path —

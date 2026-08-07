@@ -61,6 +61,20 @@ section. This mode does not replace the tier-ladder walk-through below; it only 
 wired, it pre-processes the raw source pack into the Source Register and conflict list this mode
 needs, so the raw sources themselves don't have to sit in this skill's own context.
 
+**A design-record is one delta, always — decompose the pack before writing, don't cram it.**
+`design-record` is scoped to a single delta by design (same as Mode A). A scattered source pack
+often covers **several separable decisions at once** (e.g. a program-level source set touching
+pricing, credit policy, and an interface change). Before extracting statements in step 1 below,
+**first identify the decision boundaries in the pack** — same discipline `fit-to-standard` uses to
+split a workshop into distinct Delta rows — and produce **one design-record per decision**, each
+citing only the sources relevant to it. Do not synthesize one design-record whose fields each carry
+several unrelated decisions concatenated together; a reviewer who can't cite or patch one decision
+without re-parsing an entire field has been handed an unusable record, dry-run confirmed (2026-08).
+A gap that belongs to the **whole pack**, not to any one decision (e.g. no source ever addresses
+security or NFRs for the program) is not this skill's `open_questions` field either — state it
+explicitly to the consultant as a coverage gap to raise back at fit-to-standard/further discovery,
+not a `TBC` tucked into an arbitrarily-chosen decision's record.
+
 ## The tier ladder
 
 Work down from the top. Escalate to the next tier **only** when the requirement genuinely cannot be

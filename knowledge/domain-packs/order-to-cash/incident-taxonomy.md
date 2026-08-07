@@ -2,7 +2,8 @@
 
 The **O2C-specific** sub-process dimension for `incident-triage` and `defect-pattern-analysis`. The
 generic method — the layer and severity dimensions, routing principle, dedup, ambiguity handling —
-lives in `knowledge/methodology/incident-triage.md`; this file only supplies the O2C sub-processes.
+lives in `../../../skills/incident-triage/references/incident-triage-method.md`; this file only
+supplies the O2C sub-processes.
 
 For **ticket-text → sub-process matching** (phrases, tcodes, message types, disambiguation,
 confidence), use `incident-signal-catalog.md` — this taxonomy stays the short code list.

@@ -2,7 +2,7 @@
 
 Generic method for classifying, routing and clustering SAP support/AMS incidents, reusable across
 **any** domain. The `incident-triage` and `defect-pattern-analysis` engines orchestrate this plus a
-**domain sub-process taxonomy** (e.g. `knowledge/domain/order-to-cash/incident-taxonomy.md`). Method
+**domain sub-process taxonomy** (e.g. `../../../knowledge/domain-packs/order-to-cash/incident-taxonomy.md`). Method
 only, no client data.
 
 ## Three classification dimensions
@@ -11,7 +11,7 @@ only, no client data.
 domain taxonomy (O2C = order/pricing/atp/credit/delivery/billing/ar/output/returns/interface; other
 domains bring their own list). This is the only domain-specific dimension. Match ticket text via the
 domain's **signal catalog** when one exists (O2C:
-`knowledge/domain/order-to-cash/incident-signal-catalog.md`); see § Signal matching below.
+`../../../knowledge/domain-packs/order-to-cash/incident-signal-catalog.md`); see § Signal matching below.
 
 **2. Layer — what has to change to fix it (generic).**
 
@@ -71,7 +71,7 @@ whole channel (all billing, all EDI), not merely many duplicate tickets of one b
 `sub-process` → owning functional stream (from the domain **routing matrix** when one exists; else
 taxonomy notes); `layer=custom` → co-assign a developer; `layer=data` → co-assign Basis when
 technical/period/job; `layer=user` → OCM; `interface` errors route by **partner/message type**, not
-the module. Domain example: `knowledge/domain/order-to-cash/routing-matrix.md`.
+the module. Domain example: `../../../knowledge/domain-packs/order-to-cash/routing-matrix.md`.
 
 ## Dedup / clustering
 

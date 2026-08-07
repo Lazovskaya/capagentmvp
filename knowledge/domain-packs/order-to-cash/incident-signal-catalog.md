@@ -5,7 +5,8 @@ Maps **ticket text signals** → O2C sub-process (+ layer hint + confidence). Us
 `incident-taxonomy.md`. Distilled consultant signals only — no client data, no copied SAP text.
 
 The **generic procedure** for applying a signal catalog lives in
-`knowledge/methodology/incident-triage.md` (§ Signal matching). This file is the O2C pack.
+`../../../skills/incident-triage/references/incident-triage-method.md` (§ Signal matching). This
+file is the O2C pack.
 
 ## How to read a row
 

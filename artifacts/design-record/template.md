@@ -28,12 +28,28 @@ in when the target design had to be assembled from scattered sources (emails, de
 transcripts) per `../../knowledge/standards/source-synthesis.md`, because no single decision-log row
 covered it cleanly.
 
-- **Source Register:** `S-id · type · title · date · author · reliability` — one row per source.
+**One design-record per decision, always.** If the source pack actually covers several separable
+decisions, this section (and the whole record) is for exactly one of them — split the pack and
+produce one design-record per decision rather than concatenating unrelated decisions into one
+field (dry-run confirmed this breaks down: a reviewer can't cite or patch one decision without
+re-parsing the whole field). A gap that belongs to the whole pack, not this one decision (e.g. no
+source ever addresses security for the program), is not this record's "Open questions" — flag it to
+the consultant as a coverage gap to raise back at fit-to-standard/further discovery instead.
+
+- **Source Register:** `S-id · type · title · date · author-or-named-body · reliability` — one row
+  per source. Not every real source has an individually-named author; a committee or role name
+  (e.g. "Architecture Board") is a valid entry, don't force an individual name that doesn't exist.
 - **Citations:** every claim in "Target design" above should carry a `[S-id]` (or list of ids), or be
   marked `TBC` if uncovered — do not state a synthesized fact with no citation.
+- **Uncovered fields:** list any "Target design"/"Test approach" field no source addressed at all,
+  distinct from a field carrying an open `⚠ Conflict` — this is what turns into that field's `TBC`.
 - **⚠ Conflicts:** any sources that disagreed, with both sides shown and a proposed resolution for the
-  consultant to confirm — never silently picked. While a conflict is open, the field it affects above
-  must read `TBC — ⚠ see Conflict`, not a picked side.
+  consultant to confirm — never silently picked. Name every field a conflict affects (a scope-level
+  conflict, e.g. rollout timing, can touch several "Target design" sub-fields at once — list them
+  all under one conflict entry, don't duplicate the entry per field). While a conflict is open, every
+  field it affects must read `TBC — ⚠ see Conflict`, not a picked side. If a later informal/
+  governance source contradicts an earlier **signed** spec, flag that explicitly as a possible
+  scope-amendment/CR case — don't treat it as a simple supersession.
 - **Change log (maintain mode only):** version bump, what changed, which new source drove it — a
   targeted delta, not a rewrite of untouched fields.
 

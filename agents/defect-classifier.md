@@ -39,7 +39,10 @@ Runs `defect-triage`'s own comparison test, verbatim:
 
 ## Returns
 
-- `class`: `bug` | `spec-flaw` | `untraceable` | `blocked-pending-intake`
+- `class`: `bug` | `spec-flaw` | `untraceable` | `blocked-pending-intake` — machine-readable tokens;
+  map 1:1 to `triage-verdict/schema.json`'s `classification` enum (`Bug` / `Spec flaw` /
+  `Untraceable` / `Blocked — pending intake`) when writing the artifact — don't reintroduce a third
+  spelling.
 - `confidence`: low | medium | high
 - `route`: owning role/stream (fix workstream / CR referral / traceability-gap queue / back to
   intake)

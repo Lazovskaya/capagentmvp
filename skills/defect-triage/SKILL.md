@@ -35,11 +35,11 @@ Ask for anything missing before running.
 
 ## Knowledge this skill orchestrates
 
-- `knowledge/testing/` (defect history and prior spec-flaw classifications).
-- `knowledge/process/` and `knowledge/config/` (what the process and config are supposed to do,
-  needed to tell a bug from a spec flaw).
-- `knowledge/custom-code/` (whether the affected object is custom, which shapes routing).
-- `knowledge/domain-packs/order-to-cash/` — via `incident-triage`'s upstream classification; this
+- `../../knowledge/testing/` (defect history and prior spec-flaw classifications).
+- `../../knowledge/process/` and `../../knowledge/config/` (what the process and config are supposed
+  to do, needed to tell a bug from a spec flaw).
+- `../../knowledge/custom-code/` (whether the affected object is custom, which shapes routing).
+- `../../knowledge/domain-packs/order-to-cash/` — via `incident-triage`'s upstream classification; this
   skill doesn't read the domain pack directly, it trusts the classification that already used it.
 
 ## Steps
@@ -56,7 +56,11 @@ Ask for anything missing before running.
    from the design-record → bug; Row ID says Delta and the system matches the design-record but the
    ask goes beyond it → spec flaw. **If no Row ID exists for the affected step** (common for
    hypercare items with no Explore-phase equivalent), mark it `untraceable — traceability gap`
-   rather than guessing — this is a distinct outcome, not a forced bug/spec-flaw call.
+   rather than guessing — this is a distinct outcome, not a forced bug/spec-flaw call. **If the
+   engagement has no fit-to-standard decision log at all** (e.g. a fresh AMS/Run-only engagement
+   with no Explore phase of its own), every item will land here — that is the correct, honest
+   output for that engagement shape, not a sign the skill "isn't working." Say so explicitly in the
+   first run's summary rather than letting a wall of `untraceable` verdicts look like a malfunction.
 4. **Consult a `defect-classifier`-style agent's recommendation, if wired**, and state explicitly
    whether this triage agrees or diverges.
 5. **Human confirmation.** A named human confirms every verdict — this is a commercial call with

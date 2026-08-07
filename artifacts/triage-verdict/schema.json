@@ -34,7 +34,7 @@
     },
     "classification": {
       "type": "string",
-      "enum": ["Bug", "Spec flaw", "Untraceable", "Blocked - pending intake"]
+      "enum": ["Bug", "Spec flaw", "Untraceable", "Blocked — pending intake"]
     },
     "reasoning": {
       "type": "string",

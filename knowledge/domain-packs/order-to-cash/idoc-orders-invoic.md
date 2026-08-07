@@ -2,7 +2,7 @@
 
 The **O2C-specific** message catalog for `idoc-failure-analyzer`. The generic engine knowledge
 (status codes, the technical/mapping/application layer split, status nuances, reprocess paths) lives
-in `knowledge/domain/idoc-processing.md` — read that first; this file only adds the O2C message
+in `../../../skills/idoc-failure-analyzer/references/idoc-processing.md` — read that first; this file only adds the O2C message
 flows and the application-layer (status 51) catalogs. Method only, no client data, no copied SAP text.
 
 ## The O2C IDoc flows

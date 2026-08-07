@@ -2,7 +2,7 @@
 
 Generic IDoc troubleshooting knowledge, reusable across **any** module (SD/O2C, MM/P2P, FI, MDG,
 HR…). The `idoc-failure-analyzer` engine orchestrates this plus a **domain message catalog** (e.g.
-`knowledge/domain/order-to-cash/idoc-orders-invoic.md` for O2C). Method only — pointers to
+`../../../knowledge/domain-packs/order-to-cash/idoc-orders-invoic.md` for O2C). Method only — pointers to
 transactions/tables, no client data, no copied SAP text.
 
 ## Status codes (read these first)

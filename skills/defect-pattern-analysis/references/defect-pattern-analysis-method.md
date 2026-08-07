@@ -9,7 +9,7 @@ Difference from triage: `incident-triage` dedupes **today's inflow** to make a w
 pattern analysis looks **backwards across a period** (a sprint, a month, hypercare-to-date) to ask
 "why does this keep happening?".
 
-Output shape: `knowledge/templates/pattern-analysis.md`.
+Output shape: the sibling `pattern-analysis-template.md` in this same `references/` folder.
 
 ## Inputs
 - A **backlog / resolved set** of defects for a defined period. Ideally each with: id, created date,

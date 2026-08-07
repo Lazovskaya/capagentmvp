@@ -52,7 +52,10 @@
               "type": { "type": "string" },
               "title": { "type": "string" },
               "date": { "type": "string", "format": "date" },
-              "author": { "type": "string" },
+              "author": {
+                "type": "string",
+                "description": "Person, or a named body/role when no individual is attributable (e.g. 'Architecture Board', 'Steering Committee') — not every real source has one signer."
+              },
               "reliability": { "type": "string" }
             }
           }
@@ -61,13 +64,26 @@
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["field", "sides", "proposed_resolution"],
+            "required": ["fields", "sides", "proposed_resolution"],
             "properties": {
-              "field": { "type": "string" },
+              "fields": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "Every target_design/test_approach/etc. sub-field this conflict affects — usually one, but a scope-level conflict (e.g. rollout timing) can span several at once. Don't duplicate one conflict object per field; list them all here."
+              },
               "sides": { "type": "string" },
-              "proposed_resolution": { "type": "string" }
+              "proposed_resolution": { "type": "string" },
+              "signed_spec_supersession_risk": {
+                "type": "boolean",
+                "description": "True when a later informal/governance source contradicts a signed spec — per source-synthesis.md, this needs a scope amendment/CR, not a silent supersession."
+              }
             }
           }
+        },
+        "uncovered_fields": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "design-record fields no source in the pack addressed at all (distinct from a field with a stated TBC/conflict) — the raw material for those TBC marks, surfaced structurally rather than falling through silently."
         },
         "change_log": {
           "type": "array",

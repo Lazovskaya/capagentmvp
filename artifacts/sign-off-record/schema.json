@@ -78,5 +78,23 @@
       "items": { "type": "string" },
       "description": "Prior sign-off-record references this one replaces for the same scope, if any."
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "variant": { "const": "fit-to-standard" } } },
+      "then": {
+        "required": ["decision_log_row_id_range", "deltas_accepted", "deltas_rejected"]
+      }
+    },
+    {
+      "if": { "properties": { "variant": { "const": "deploy-go-live" } } },
+      "then": {
+        "required": [
+          "go_live_checklist_reference",
+          "checklist_items_closed",
+          "checklist_items_open_with_risk_acceptance"
+        ]
+      }
+    }
+  ]
 }

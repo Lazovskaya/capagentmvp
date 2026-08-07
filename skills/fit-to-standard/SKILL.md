@@ -30,7 +30,11 @@ or running the fit-to-standard workshops. Matches this factory's `fit-to-standar
 Ask for anything missing before running.
 - **Required:** in-scope **modules** (e.g. FI, MM, SD).
 - **Required:** the relevant **simplification items per module** (from readiness/delta analysis).
-- **Required for scheduling:** **attendee emails** per module.
+- **Required for scheduling:** **attendee name, role/title, and email** per module — an email alone
+  is not enough. The decision log's Delta-owner field and the sign-off-record's signer field both
+  require a real name and a stated authority to accept, neither of which can be inferred from an
+  email address (dry-run confirmed: don't improvise a title from an email local-part). Ask for the
+  missing name/role explicitly rather than proceeding with email-only attendees.
 - **Optional:** workshop **duration** (default 90 min) and target **date window** (default: next
   10 business days).
 
@@ -54,13 +58,16 @@ scheduling "not connected, fill manually" rather than blocking.
    from `knowledge/standards/`.
 3. **Generate one pack per module**: header, timed agenda, per-item talking points (what/why,
    current state, target standard, impact, decision needed, clean-core option). Assign the decision
-   log's **Row ID prefix** now (`FTS-<first-workshop-date>-<module-slug>` — see
-   `references/decision-log-template.md`), fixed at this point even if the session runs multiple
-   days or reconvenes; every row this module's workshop produces cites this prefix verbatim
-   downstream, so it must not shift mid-session.
-4. **Schedule (live connector)**: find availability for the module's attendees inside the date
-   window, propose 2-3 slots, prepare a draft invite. Never auto-send, leave the invite as a draft
-   for the consultant to review and send.
+   log's **Row ID prefix** now (`FTS-<first-workshop-date>-<process-slug>` — a slug for the specific
+   process/sub-area this workshop covers, e.g. `credit-block-handling`, **not** the bare module code;
+   see `references/decision-log-template.md`'s worked example), fixed at this point even if the
+   session runs multiple days or reconvenes; every row this module's workshop produces cites this
+   prefix verbatim downstream, so it must not shift mid-session.
+4. **Schedule.** Use the `calendar` connector if wired: find availability for the module's attendees
+   inside the date window, propose 2-3 slots, prepare a draft invite (never auto-send). **If no
+   connector is wired**, still produce this section — mark it "not connected, fill manually," propose
+   slots from the stated date window without live availability, and say explicitly that availability
+   is unconfirmed. Either way, this step never blocks the rest of the pack.
 5. **Run the decision log, per item, using `references/decision-log-template.md` in full — not a
    free-form table:**
    - State what SAP standard does at this step **before** asking what the client wants (the pack's
@@ -70,10 +77,19 @@ scheduling "not connected, fill manually" rather than blocking.
      unaudited silence about a step looks like an oversight later, not a deliberate no-deviation call.
      Workaround items must resolve to Standard or Delta before the session closes; none survive to
      sign-off.
+   - **Apply the reframing test to every item heading toward Standard too, not only to items that
+     already look like Deltas.** A step resolving to Standard because the client's *current* (legacy,
+     non-SAP) practice gets waved through unquestioned — e.g. "we never make exceptions to X" — is the
+     same disguised-non-requirement pattern as a Delta with no reframed requirement, just wearing a
+     Standard-shaped wrapper. Dry-run confirmed this is easy to skip: push back on a Standard-leaning
+     item's *current-practice* framing exactly as hard as on a proposed Delta's, before recording it,
+     not after.
    - For every Delta, capture the four required fields: the **reframed requirement** (ask *why* the
      process works that way — "we've always done it this way" and "the user prefers X" are historical
      descriptions, not requirements), whether standard already meets the reframed requirement, the
-     upgrade/clean-core cost in one line, and the **Delta owner** by name (not role or team).
+     upgrade/clean-core cost in one line, and the **Delta owner** by name (not role or team — if the
+     session only has an email or title for this person, get the actual name before the row is
+     considered closed, not a role placeholder).
    - **Push back before recording, not after.** A delta with no defensible reframed requirement gets
      the standard-first alternative offered in the room before it goes in the log — recording first and
      debating later just launders a bad decision into a paper trail.
@@ -83,7 +99,13 @@ scheduling "not connected, fill manually" rather than blocking.
 7. **Close with a named sign-off**, not just a completed document — see
    `../../artifacts/sign-off-record/template.md`. The Row ID range is the source of truth for what's
    in scope; the sign-off's prose process/variant line is a human-readable label for that range, not
-   an independent scope definition. No sign-off, no `explore→realize` Q-gate pass.
+   an independent scope definition. **Ask, don't infer, who has signing authority.** With more than
+   one attendee, the test is explicit: *"of the people in this room, who is actually authorized to
+   accept this scope on the business's behalf?"* — ask it out loud in the session, don't default to
+   whoever organized the meeting or infer a title from an email address (dry-run confirmed this
+   is otherwise easy to improvise past). If nobody in the room can answer that question, the
+   sign-off waits for that person, it doesn't get signed by the closest available attendee. No
+   sign-off, no `explore→realize` Q-gate pass.
 
 ## Output
 
@@ -119,6 +141,10 @@ Main driver: functional consultant. Owner role per factory-data.json: **function
 
 Progress. The workshop-prep and scheduling steps (1–4, 6 minus the decision log) are the ported
 logic, proven to work end to end. The decision-log discipline (Row ID scheme, reframing test,
-push-back rule, sign-off) is newly stitched in from this factory's own traceability chain and has not
-yet been dry-run tested as part of this combined skill inside this repo — treat the combined skill as
-`progress`, not `ready`, until it has been.
+push-back rule, sign-off) is newly stitched in from this factory's own traceability chain. Dry-run
+tested end to end (2026-08-07, SD/Credit Management scenario): the mechanics hold together and the
+escalation-addendum handoff to `solution-design` matches exactly, but several gaps were found and
+fixed (Row ID prefix scheme now consistent with its own template, reframing test now explicitly
+applies to Standard-leaning items too, attendee contract now requires names not just emails, signer
+authority now has a stated test rather than being inferred). Still `progress`, not `ready`, until
+re-verified with a second scenario and a real engagement.

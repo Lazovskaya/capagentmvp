@@ -89,6 +89,15 @@ connected. Feeds `root-cause-playbook`/`pricing-diagnostic`/`billing-ar-error-an
   a stable system are master-data or data-consistency issues.
 - **A low-confidence S1 never gets silently demoted** — flag the ambiguity separately from the
   severity call.
+- **Assigning S2 to a single-document symptom is a promotion, not the default** — the method's
+  literal S3 definition covers "single document, non-blocking." If a single-document symptom is
+  triaged as S2 anyway (e.g. because of live business/commercial exposure), say so explicitly and
+  name which promotion criterion applies; don't just state the S2 outcome as if it were the
+  ordinary read of the band definitions.
+- **Don't narrate the classification by citing the method file or catalog by name in the worklist
+  itself** ("per the method's dedup table", "per the catalog's own rule") — state the reasoning in
+  plain classification terms (signal matched, cluster type, why). The method/catalog are what you
+  used to get there, not something the worklist's reader needs cited back at them.
 
 ## Driver
 

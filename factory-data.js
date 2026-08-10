@@ -631,7 +631,7 @@ window.FACTORY_DATA = {
    "kind": "Knowledge",
    "name": "testing",
    "posture": "own",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
    "desc": "Defect history and what has already been classified as a spec flaw."
   },

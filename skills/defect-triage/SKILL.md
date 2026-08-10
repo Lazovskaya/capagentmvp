@@ -30,12 +30,13 @@ Ask for anything missing before running.
 - **Required:** the traceability chain, if this is a Realize-phase item with a fit-to-standard
   decision log to check against (a `Row ID`, its Standard/Delta classification, and the paired
   design-record/extensibility-record for Delta rows). Hypercare items from Run may not always have
-  one — see step 3.
+  one — see step 4.
 - **Optional:** a `defect-classifier`-style agent's recommendation, if wired.
 
 ## Knowledge this skill orchestrates
 
-- `../../knowledge/testing/` (defect history and prior spec-flaw classifications).
+- `../../knowledge/testing/defect-history-template.md` (the project's own populated copy) — defect
+  history and prior spec-flaw classifications; see step 2's precedent check.
 - `../../knowledge/process/` and `../../knowledge/config/` (what the process and config are supposed
   to do, needed to tell a bug from a spec flaw).
 - `../../knowledge/custom-code/` (whether the affected object is custom, which shapes routing).
@@ -48,9 +49,18 @@ Ask for anything missing before running.
    layer, severity and dedup status aren't already on the item (i.e. `incident-triage` hasn't run
    on it yet), route it back to intake rather than reasoning through a commercial verdict on an
    unclassified item.
-2. **Find the traceability anchor**, if one exists: the fit-to-standard decision-log Row ID this
+2. **Check `../../knowledge/testing/defect-history-template.md` (the project's own populated copy)
+   for a precedent** before deriving anything from scratch: does this item ask for the same
+   behavior an existing row already ruled on — same cause key, or same affected process step — or
+   is it a genuinely new ask? Same ask, prior row says Spec flaw → cite that row's `ticket_id` and
+   `decision_log_row_id` as the precedent rather than re-litigating; a ticket with no Row ID of its
+   own is not automatically `Untraceable` just because *this* ticket lacks one, if a precedent
+   already settled the same ask. Same ask, prior row says Bug, and it's recurring → flag for
+   `defect-pattern-analysis`, don't just treat it as another isolated fix. Genuinely new ask → carry
+   on to step 3, there is no precedent to short-circuit it.
+3. **Find the traceability anchor**, if one exists: the fit-to-standard decision-log Row ID this
    item's affected process step maps to.
-3. **Compare reported behavior against what was recorded**, when a Row ID exists: Row ID says
+4. **Compare reported behavior against what was recorded**, when a Row ID exists: Row ID says
    Standard and the system deviates → bug; Row ID says Standard and the system follows it but the
    ask is for something standard doesn't do → spec flaw; Row ID says Delta and the system deviates
    from the design-record → bug; Row ID says Delta and the system matches the design-record but the
@@ -61,11 +71,11 @@ Ask for anything missing before running.
    with no Explore phase of its own), every item will land here — that is the correct, honest
    output for that engagement shape, not a sign the skill "isn't working." Say so explicitly in the
    first run's summary rather than letting a wall of `untraceable` verdicts look like a malfunction.
-4. **Consult a `defect-classifier`-style agent's recommendation, if wired**, and state explicitly
+5. **Consult a `defect-classifier`-style agent's recommendation, if wired**, and state explicitly
    whether this triage agrees or diverges.
-5. **Human confirmation.** A named human confirms every verdict — this is a commercial call with
+6. **Human confirmation.** A named human confirms every verdict — this is a commercial call with
    money attached, not one an agent closes alone. The `triage-verdict` artifact records who.
-6. **Route the confirmed verdict:** bug → the fix workstream (`fix-doc-and-regression`); spec flaw →
+7. **Route the confirmed verdict:** bug → the fix workstream (`fix-doc-and-regression`); spec flaw →
    a CR referral; untraceable → the traceability-gap queue, tracked separately as a health signal
    for the upstream chain, not routed into either fix path.
 

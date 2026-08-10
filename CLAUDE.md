@@ -97,7 +97,13 @@ Each skill that follows these conventions links back to this file from its own `
   objects, which duplicate `factory-data.json`'s `scaffold` and `tools` fields rather than deriving
   from them at runtime. `build.py` does not regenerate this block — editing `factory-data.json`'s
   `scaffold` or `tools` fields will not update it. The two currently agree, but nothing enforces that.
-- `knowledge/<name>/README.md` files under `process`, `config`, `data`, `testing`, and `operations`
-  list candidate files that look like they'd migrate in from `sap-ai-framework`, but nothing has
-  actually been moved yet — review and decide per bucket before treating those lists as done.
+- `knowledge/<name>/README.md` files under `process`, `config`, `data`, and `operations` list
+  candidate files that look like they'd migrate in from `sap-ai-framework`, but that repo does not
+  exist in this environment — there is nothing to actually move. Treat those lists as "what this
+  bucket should eventually cover," not a pending copy job; writing real content (grounded in
+  standard SAP practice, or ported from `sap-ai-cons` where a real equivalent exists) is the only
+  way any of them progress, the same way `knowledge/testing/` did.
+- `knowledge/testing/` now has real content (`defect-history-template.md`,
+  `test-script-template.md`) — the empty-shape/candidate-list pattern the other four buckets above
+  are still in.
 - `validators/` and the per-tool `tools/<tool>/adapter/` folders are scaffolded only.

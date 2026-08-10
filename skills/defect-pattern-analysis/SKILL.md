@@ -27,7 +27,11 @@ periodic activity, not part of the per-ticket triage flow.
 
 Ask for anything missing before running.
 - **Required:** the defect set for a defined period — export (CSV/XLSX/JSON) or connector pull. Per
-  defect at least: id, created date, short text.
+  defect at least: id, created date, short text. In a project with accumulated history, the real
+  source for this is the project's own populated copy of
+  `../../knowledge/testing/defect-history-template.md`, filtered to the period — an ad-hoc export is
+  the fallback for a project that hasn't accumulated that history yet, not the intended long-run
+  source.
 - **Required:** which domain pack applies (order-to-cash is the built pack).
 - **Strongly preferred:** resolution notes (what was actually changed) — without them clustering
   degrades to symptom clustering; say so in the output.

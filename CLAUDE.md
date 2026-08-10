@@ -61,7 +61,14 @@ derives from it, points back into it, or exists to keep it honest:
   distinction tracked per-component in `factory-data.json` (`postures`/`postureWhy` keys).
 - **`agents/<name>.md`** — bounded agents that return a typed, auditable verdict.
 - **`connectors/<name>/connector.md` + `connectors/<name>/server.json`** — MCP/CLI connector
-  definitions and their config fragments.
+  definitions and their config fragments. `abap-mcp` and `jira` are the two connectors actually
+  live-tested against a real system (not just documented) as of this writing; both follow the same
+  credential pattern worth reusing for any new connector: real secrets live in a file outside the
+  project directory (`~/.config/<tool>/sessions/<destination>.env` or equivalent), loaded by a
+  small launcher script referenced from `server.json` — never inline env vars in `.mcp.json` (that
+  silently doesn't work for `abap-mcp`'s `mcp-abap-adt`) and never an OS-specific mechanism like
+  macOS Keychain (breaks on Linux/Windows; `jira`'s launcher was rewritten in Python specifically
+  to avoid this).
 - **`artifacts/<name>/template.md` + `artifacts/<name>/schema.json`** — durable handoff templates
   between phases/skills, with required fields enforced by the schema.
 - **`gates/<name>.md`** — phase-exit criteria, named after Activate's own gates (not an invented
@@ -107,3 +114,8 @@ Each skill that follows these conventions links back to this file from its own `
   `test-script-template.md`) — the empty-shape/candidate-list pattern the other four buckets above
   are still in.
 - `validators/` and the per-tool `tools/<tool>/adapter/` folders are scaffolded only.
+- A connector's prose claiming "real, live-tested wiring" is not proof the wiring still works —
+  both `abap-mcp` and `jira` said this while actually being broken (a missing launcher script for
+  `jira`; an `.mcp.json` env-var pattern for `abap-mcp` that the server silently ignores). Treat
+  any untouched connector's setup steps as unverified until someone actually runs them end to end
+  against a real system again.

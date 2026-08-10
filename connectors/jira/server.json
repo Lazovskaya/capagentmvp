@@ -1,8 +1,8 @@
 {
   "jira": {
     "type": "stdio",
-    "command": "uvx",
-    "args": ["mcp-atlassian"],
-    "note": "Credentials via OS keychain, loaded by a project launch script, never written to this file or to .env in git. See connector.md for the exposed-tool allowlist."
+    "command": "python3",
+    "args": ["./connectors/jira/scripts/start-mcp-atlassian.py", "--destination=<destination>"],
+    "note": "The command must be this launch script, not `uvx mcp-atlassian` directly -- mcp-atlassian needs JIRA_URL/JIRA_USERNAME/JIRA_API_TOKEN, and this script reads them from a .env file outside the project (~/.config/mcp-atlassian/sessions/<destination>.env, same directory on macOS/Linux/Windows via Python's Path.home()) and execs uvx with them. Never put credentials in this file or in .env in git."
   }
 }

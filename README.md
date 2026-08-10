@@ -111,8 +111,12 @@ Already ported, with real content, not left as generic stubs:
 - `agents/knowledge-harvester.md`, from sap-ai-cons's own agent of the same name, itself a stub
   there too.
 - `connectors/jira/`, from sap-ai-cons's `mcp/connectors/tickets.md` and
-  `jira-e2e-runbook.md`, the most mature connector across either predecessor repo: real, live
-  tested wiring via `mcp-atlassian` and OS keychain credentials, not a specification.
+  `jira-e2e-runbook.md`, the most mature connector across either predecessor repo: `mcp-atlassian`
+  wiring exercised against real tickets there. The launch script that actually supplies
+  credentials wasn't carried over in the initial port, though — `server.json` ran
+  `uvx mcp-atlassian` directly with nothing to authenticate it, until that was found and fixed
+  (`connectors/jira/scripts/start-mcp-atlassian.py`, cross-platform, reads a `.env` file outside
+  the project rather than sap-ai-cons's original macOS-only Keychain script) and re-verified live.
 
 Resolved:
 

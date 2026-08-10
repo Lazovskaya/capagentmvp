@@ -1,8 +1,7 @@
 {
   "jira": {
     "type": "stdio",
-    "command": "uvx",
-    "args": ["mcp-atlassian"],
-    "note": "Credentials via OS keychain, loaded by a project launch script, never written to this file or to .env in git. See connector.md for the exposed-tool allowlist."
+    "command": "./connectors/jira/scripts/start-mcp-atlassian-from-keychain.sh",
+    "note": "The command must be this launch script, not `uvx mcp-atlassian` directly — mcp-atlassian needs JIRA_URL/JIRA_USERNAME/JIRA_API_TOKEN, and this script is what reads them from the macOS Keychain (service 'mcp-atlassian', accounts JIRAEU_USERNAME/JIRAEU_API_TOKEN) and exports them before exec-ing uvx. Never put credentials in this file or in .env in git."
   }
 }

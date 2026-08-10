@@ -19,7 +19,20 @@ This file stays scoped to ticketing and incident/defect work, matching how sap-a
 ## What it connects to
 
 Jira, via `mcp-atlassian` (stdio, launched through `uvx`). Credentials are read from the macOS
-Keychain by a small launch script, never written to a file that could be committed.
+Keychain by `scripts/start-mcp-atlassian-from-keychain.sh` (this folder), never written to a file
+that could be committed.
+
+**Verified live:** this script was missing from the factory until it was ported in from
+sap-ai-cons and wired into `server.json` — before that, `server.json` invoked `uvx mcp-atlassian`
+directly, which starts with no `JIRA_URL`/`JIRA_USERNAME`/`JIRA_API_TOKEN` and cannot authenticate.
+The script expects credentials in macOS Keychain service `mcp-atlassian`, accounts
+`JIRAEU_USERNAME` and `JIRAEU_API_TOKEN` (falls back to the older `JIRA_USERNAME`/`JIRA_API_TOKEN`
+account names). Store them with, e.g.:
+
+```bash
+security add-generic-password -s mcp-atlassian -a JIRAEU_USERNAME -w '<email>'
+security add-generic-password -s mcp-atlassian -a JIRAEU_API_TOKEN -w '<api-token>'
+```
 
 ## Product-agnostic operations
 

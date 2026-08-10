@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Regenerate index.html's inline data block, factory-data.js, and confluence-fragment.html
-from factory-data.json.
+"""Regenerate index.html's inline data block and factory-data.js from factory-data.json.
 
 factory-data.json is the single source of truth. Run this after editing it, before viewing
 index.html locally (file:// can't fetch factory-data.json directly because of CORS).
+
+The Confluence copy (see CLAUDE.md) reads factory-data.json as a page attachment at runtime,
+so after this it's the attachment that needs re-uploading there, not a pasted HTML fragment.
 """
 import argparse
 import json
@@ -14,7 +16,6 @@ ROOT = Path(__file__).resolve().parent
 DATA_FILE = ROOT / "factory-data.json"
 INDEX_FILE = ROOT / "index.html"
 JS_FILE = ROOT / "factory-data.js"
-FRAGMENT_FILE = ROOT / "confluence-fragment.html"
 
 BEGIN = "window.FACTORY_DATA = {"
 # index.html's inline block ends at the line "};" right before "</script>" that follows it.
@@ -22,10 +23,6 @@ BLOCK_RE = re.compile(
     r"window\.FACTORY_DATA = \{.*?\n\};",
     re.DOTALL,
 )
-# index.html is a full document (doctype/html/head/body) for standalone file:// viewing.
-# Confluence's HTML macro inserts its content into an already-existing page DOM, so pasting
-# a second doctype/html/head/body breaks rendering. Only the <body> contents are wanted there.
-BODY_RE = re.compile(r"<body>\n(.*)\n</body>", re.DOTALL)
 
 
 def load_data():
@@ -51,15 +48,6 @@ def write_js(data):
     print(f"Wrote {JS_FILE.name}")
 
 
-def write_confluence_fragment():
-    html = INDEX_FILE.read_text(encoding="utf-8")
-    m = BODY_RE.search(html)
-    if not m:
-        raise SystemExit("Could not find <body>...</body> in index.html")
-    FRAGMENT_FILE.write_text(m.group(1) + "\n", encoding="utf-8")
-    print(f"Wrote {FRAGMENT_FILE.name}")
-
-
 def print_seats():
     # team.html was dropped from this repo (org-chart page, kept elsewhere as context only).
     print("No team.html in this repo, seat listing does not apply here.")
@@ -77,7 +65,6 @@ def main():
     data = load_data()
     update_index(data)
     write_js(data)
-    write_confluence_fragment()
 
 
 if __name__ == "__main__":

@@ -14,25 +14,34 @@ This file stays scoped to ticketing and incident/defect work, matching how sap-a
 
 1. **This file**, the definition: what the connector is and which activities use it.
 2. **`server.json`** (this folder) plus the project's own `.mcp.json`, the live wiring. Secrets
-   are never in either; real values are supplied via environment or OS keychain.
+   are never in either; real values live in a `.env` file outside the project directory (see
+   "Wiring" below), never committed.
 
 ## What it connects to
 
-Jira, via `mcp-atlassian` (stdio, launched through `uvx`). Credentials are read from the macOS
-Keychain by `scripts/start-mcp-atlassian-from-keychain.sh` (this folder), never written to a file
-that could be committed.
+Jira, via `mcp-atlassian` (stdio, launched through `uvx`). Credentials come from a `.env` file
+outside the project directory, loaded by `scripts/start-mcp-atlassian.py` (this folder) before it
+execs `uvx mcp-atlassian` — never written to a file that could be committed.
 
-**Verified live:** this script was missing from the factory until it was ported in from
-sap-ai-cons and wired into `server.json` — before that, `server.json` invoked `uvx mcp-atlassian`
-directly, which starts with no `JIRA_URL`/`JIRA_USERNAME`/`JIRA_API_TOKEN` and cannot authenticate.
-The script expects credentials in macOS Keychain service `mcp-atlassian`, accounts
-`JIRAEU_USERNAME` and `JIRAEU_API_TOKEN` (falls back to the older `JIRA_USERNAME`/`JIRA_API_TOKEN`
-account names). Store them with, e.g.:
+**Verified live:** a working launcher was missing from the factory until this work — `server.json`
+originally invoked `uvx mcp-atlassian` directly, which starts with no
+`JIRA_URL`/`JIRA_USERNAME`/`JIRA_API_TOKEN` and cannot authenticate. A first fix ported in
+sap-ai-cons's macOS-only Keychain-backed bash script and confirmed it worked live, but that only
+covers macOS. Replaced it with `start-mcp-atlassian.py`: same idea (credentials never touch the
+project or `.mcp.json`), but cross-platform, since `mcp-atlassian` itself just wants plain
+environment variables and Python's `Path.home()` resolves to the right per-user directory on
+macOS, Linux, and Windows alike — no OS-specific credential-store API needed. Re-verified live
+against the same real ticket after the rewrite.
 
-```bash
-security add-generic-password -s mcp-atlassian -a JIRAEU_USERNAME -w '<email>'
-security add-generic-password -s mcp-atlassian -a JIRAEU_API_TOKEN -w '<api-token>'
-```
+## Wiring
+
+1. Create `~/.config/mcp-atlassian/sessions/<destination>.env` (any name for `<destination>`,
+   e.g. `default`) with `JIRA_URL`, `JIRA_USERNAME`, and `JIRA_API_TOKEN`. This file lives outside
+   the project directory and is never read by, or written into, the repo.
+2. In the project's `.mcp.json`, wire `jira` to
+   `{"command": "python3", "args": ["./connectors/jira/scripts/start-mcp-atlassian.py", "--destination=<destination>"]}`
+   — matching the destination name chosen in step 1 (or set `MCP_ATLASSIAN_DESTINATION` instead of
+   the flag).
 
 ## Product-agnostic operations
 

@@ -37,6 +37,15 @@ requirements-intake → fit-to-standard → solution-design → backlog-drafting
 | Sized work items with backlinks | `backlog-drafting` |
 | Depth of workshop vs design | `ceremony-routing` after intake |
 
+**Intake vs FTS:** If the goal names `fit-to-standard` but there is no `requirements.md` (or
+equivalent normalized ask) and no simplification/delta pack yet → primary = `requirements-intake`,
+then FTS. Only go straight to `fit-to-standard` when modules + simplification items (or an
+equivalent workshop pack) are already in hand.
+
+**Greenfield (`G`):** FTS still needs in-scope modules and simplification/delta inputs. If those
+are missing, do not skip to FTS — use `requirements-intake` (and Discover `readiness-analysis`
+when SI-Check/Notes impact is the real gap).
+
 Contracts: `artifacts/explore-chain/artifact-model.yaml` and `handoff.md`.  
 **Status gate:** `backlog-drafting` and Realize build skills require design-record `status: APPROVED`.
 

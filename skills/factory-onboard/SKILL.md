@@ -12,7 +12,8 @@ After install, this is the single entry: orient → capture project context → 
 delivery skill. It does **not** produce a client deliverable and does not feed a Q-gate.
 
 *Explore handoffs (when you land in Explore): `../../artifacts/explore-chain/`.*  
-*Write safety: MCP mutations stay dry-run unless `--apply` — `../../docs/skill-design-conventions.md` §6.*
+*Write safety (state once): connector mutations are dry-run / preview only unless the user
+passes `--apply`. Do not open authoring docs for this — it is a runtime rule, not a design task.*
 
 ## When to use
 
@@ -48,14 +49,15 @@ Ask for anything missing before finishing.
 
 ## Reads (progressive — prefer these over memory)
 
-1. `../../README.md` — how to install skills into *your* tool; what the folders mean as a user
+1. `../../README.md` section **Installing skills into a project** only — how skills land in *your*
+   tool. Skip the contributor frontmatter (`factory-data.json` / `build.py`) unless they ask.
 2. Component map (`index.html` or Confluence) — what's `ready` vs `progress` vs `notstarted`
 3. This skill's `references/first-day-checklist.md` — day-0 for users
 4. `references/phase-routing.md` — which delivery skill matches phase + goal
 5. Open a specific delivery `SKILL.md` only when handing off
 
-Do **not** send a project user into `docs/skill-design-conventions.md` unless they ask how to
-*author* skills.
+Do **not** send a project user into `docs/skill-design-conventions.md` (authoring conventions)
+unless they ask how to *write* skills.
 
 ## Steps
 
@@ -93,7 +95,7 @@ Phase + engagement modifiers beat this table when they disagree — see
 |-------|--------------------|
 | Discover | `readiness-analysis` or `agent-readiness` |
 | Prepare | `knowledge-discovery` or `custom-code-scan` |
-| Explore | `requirements-intake` → `fit-to-standard` → `solution-design` → `backlog-drafting` |
+| Explore | `requirements-intake` → `fit-to-standard` → … — if goal names FTS but no normalized ask / simplification pack yet, start at intake (see `phase-routing.md`) |
 | Realize (build) | `config-doc` / `abap-dev` — only if design-record `status` is `APPROVED` |
 | Realize / Run (defect) | `incident-triage` → `ceremony-routing` → diagnose → `defect-triage` → `fix-doc-and-regression` |
 | Deploy | `cutover-plan` / `go-live-readiness` |

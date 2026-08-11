@@ -13,25 +13,23 @@ same data for standalone viewing; after editing `factory-data.json`, run:
 python3 build.py
 ```
 
-This regenerates `index.html`'s inline block, `factory-data.js` (the `file://` fallback the
-page loads when it can't `fetch()` its own JSON due to CORS), and `confluence-fragment.html` (the
-`<body>` contents only, no `<!doctype>`/`<html>`/`<head>`/`<body>` wrapper — what Confluence's HTML
-macro actually expects; pasting the wrapper breaks the page since the macro inserts into an
-already-existing page DOM). Never hand-edit any generated file, they get overwritten.
+This regenerates `index.html`'s inline block and `factory-data.js` (the `file://` fallback the
+page loads when it can't `fetch()` its own JSON due to CORS). Never hand-edit either generated
+file, they get overwritten.
 
 ## Where people actually view this page
 
 `git.epam.com`'s normal file browser does not render `index.html` live, it shows the HTML source
 as text, the same as any other file. The page people actually look at is the Confluence one:
 [SAP AI Factory Design](https://kb.epam.com/spaces/ESAPCC/pages/2898132737/SAP+AI+Factory+Design).
+That page's HTML macro was seeded once from `index.html`'s `<body>` contents, but its script
+fetches `factory-data.json` at runtime from the page's own attachment (the macro can't run from
+`file://`, where CORS blocks `fetch()`, so it can't read an inline block instead). So after editing
+`factory-data.json`:
 
-This repo holds the versioned source. After editing `factory-data.json`:
-
-1. Run `python3 build.py` to regenerate `index.html`'s inline data (and `confluence-fragment.html`
-   alongside it).
-2. Copy `confluence-fragment.html`'s content into the Confluence page's HTML macro — not
-   `index.html` itself, which is a full document and breaks the macro (see `build.py`'s
-   `write_confluence_fragment`).
+1. Run `python3 build.py` to regenerate `index.html`'s inline data.
+2. Re-upload `factory-data.json` as that Confluence page's attachment (Attachments → replace the
+   existing `factory-data.json`) — the HTML macro itself does not need touching again.
 3. Commit the source changes here too, so the two stay in sync and the history is not only on
    Confluence.
 
@@ -41,8 +39,8 @@ This repo holds the versioned source. After editing `factory-data.json`:
   rows, components, activities, tool coverage, and the scaffold.
 - `index.html`, the interactive component map, generated content lives inline, everything else is
   hand-written.
-- `build.py`, regenerates the generated parts of `index.html` plus `factory-data.js` and
-  `confluence-fragment.html` from `factory-data.json`.
+- `build.py`, regenerates the generated parts of `index.html` plus `factory-data.js` from
+  `factory-data.json`.
 - `skills/<name>/SKILL.md`, own-posture skills, authored here.
 - `skills/index.yaml`, adopt-posture skills, not authored here, pulled in from elsewhere.
 - `agents/<name>.md`, bounded agents returning a typed, auditable verdict.
@@ -55,18 +53,33 @@ This repo holds the versioned source. After editing `factory-data.json`:
   override per file.
 - `activities/<phase>/<name>.md`, one file per activity in `factory-data.json`, short pointers
   back to the real skill/agent/connector/artifact files, not new content.
-- `tools/<tool>/adapter/`, `validators/`, `docs/`, scaffold only, not yet implemented, see each
-  folder's own README.
+- `tools/claude-code/adapter/`, `install.py`, the working Claude Code adapter (see "Installing
+  skills into a project" below). `tools/cursor/adapter/`, `tools/github-copilot/adapter/`,
+  `validators/`, `docs/` beyond `skill-design-conventions.md` are still scaffold only, not yet
+  implemented, see each folder's own README.
 
 This mirrors the path convention the component map's own client-side code uses (see `index.html`'s
 `paths()` function), so the map and the repo can never drift apart by more than a rebuild.
 
 ## Installing skills into a project
 
-`tools/<tool>/adapter/` (see each folder's own README) is meant to automate this eventually, but
-none of the three are implemented yet. Until then, this is the real, live-tested manual process,
-using the `skills` CLI (`vercel-labs/skills`, the same tool `factory-data.json`'s `postureWhy.adopt`
-references for pulling adopt-posture skills into this factory):
+**For a Claude Code project**, use the adapter (`tools/claude-code/adapter/install.py`, see that
+folder's README for the full flag reference):
+
+```bash
+python3 tools/claude-code/adapter/install.py \
+  --project /path/to/client-project --skills '*' --connectors jira
+```
+
+This installs only own-posture skills (`skills/<name>/SKILL.md` in this repo) plus connectors that
+have real, non-placeholder wiring, generates `.mcp.json` and `CLAUDE.md`, and records what was
+installed in `factory-lock.json` so re-runs only touch what actually changed. `tools/cursor/adapter/`
+and `tools/github-copilot/adapter/` aren't implemented yet (see each folder's own README).
+
+**Adopt-posture skills** (listed in `skills/index.yaml`, not authored in this repo — the adapter
+above doesn't handle these) still need the real, live-tested manual process, using the `skills` CLI
+(`vercel-labs/skills`, the same tool `factory-data.json`'s `postureWhy.adopt` references for
+pulling them into this factory in the first place):
 
 ```bash
 npx skills add /path/to/sap-ai-factory -a claude-code -s '*' --copy -y
@@ -88,7 +101,8 @@ npx skills add /path/to/sap-ai-factory -a claude-code -s '*' --copy -y
   files from the destination after copying them into `.claude/skills/`, rather than leaving them in
   place. Recoverable with `git checkout -- skills/` if the destination is itself a git repo, but
   worth knowing before running this inside a working checkout of this factory rather than a real
-  client project.
+  client project. This is exactly the footgun `install.py` was written to structurally avoid for
+  own-posture skills — see that folder's README.
 
 ## Migrating from sap-ai-framework
 

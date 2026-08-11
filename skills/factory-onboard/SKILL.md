@@ -1,101 +1,123 @@
 ---
 name: factory-onboard
-description: Orient a new (or returning) internal factory team member — role path, repo mental model, day-0 setup, and pointers to the skill they should run first. Grounded only in committed factory docs. Does not execute any delivery skill itself. Use when someone joins the team, asks how to start, where things live, or which skill to run first.
+description: Helper for a consultant who installed SAP AI Factory and wants to use it on a project (not author it). Day-0 orientation, role path, then capture phase/engagement/domain and point to the first delivery skill. Does not execute delivery skills unless the user asks to continue. Use when someone first opens the repo, asks how to start on a project, which skill to run, or how the factory is laid out as a user.
 ---
 
-# Factory Onboard
+# Factory Onboard (user helper)
 
-Ported (adapted, not copied verbatim) from `sap-ai-cons`'s `skills/meta/factory-onboard` — real,
-DRAFT-status content, not a stub. Adjusted for this factory's own layout: `sap-ai-cons`'s
-`STATUS.md`/`REPO-MAP.md`/`.claude/skills` symlink model doesn't exist here; this factory's
-equivalents are `README.md`, `docs/`, and `factory-data.json`/`index.html` (the component map).
+For **consultants using the factory on an engagement** — not for people editing
+`factory-data.json`, writing new skills, or owning the platform Makefile/CI.
 
-This is **meta content, not an Activate-phase deliverable** — it orients a person, it does not
-produce a client artifact and does not feed a Q-gate. Placed in Discover per team decision (that's
-typically when a new person is staffed onto a fresh engagement), not because it's conceptually
-Discover-phase client work.
+After install, this is the single entry: orient → capture project context → name the next
+delivery skill. It does **not** produce a client deliverable and does not feed a Q-gate.
 
-*Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
-`../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+*Explore handoffs (when you land in Explore): `../../artifacts/explore-chain/`.*  
+*Write safety: MCP mutations stay dry-run unless `--apply` — `../../docs/skill-design-conventions.md` §6.*
 
 ## When to use
 
-- Someone joins the factory team or switches role into it.
-- "How do I start?", "Where is X?", "Which skill should I run first?"
-- Refresh after a long pause — re-orient to what's actually built versus still a stub.
+- First time after installing/cloning the factory for project work
+- "How do I start on this engagement?", "Which skill should I run?"
+- Resume after a pause — re-check what's actually usable vs still a stub
 
-**Do not use** for client end-user training/OCM (that's `training-enablement`, still a cons stub not
-ported here), or as a substitute for actually running a delivery skill.
+**Do not use** for client end-user training/OCM, or as a substitute for running the delivery
+skill once the next step is clear. **Do not use** as the contributor guide (that stays in
+`README.md` / platform docs).
 
 ## Inputs (contract)
 
-Ask for anything missing before running.
-- **Required:** **role** (or best guess) — functional, developer, architect, delivery, basis, data,
-  test (this factory's role set, see `factory-data.json`).
-- **Required:** **goal for this session** — orient only | day-0 setup | role map.
-- **Optional:** SAP domain focus, IDE, repo access status.
-- No client data required. Never ask for secrets.
+Ask for anything missing before finishing.
 
-## Reads (grounding — load on demand, prefer these over memory)
+**Always**
 
-1. `../../README.md` — layout, single-source-of-truth convention, how to regenerate the component map.
-2. `../../index.html` — the interactive component map (phases × component kinds, statuses).
-3. `../../docs/skill-design-conventions.md` — the conventions every skill here follows.
-4. This skill's `references/first-day-checklist.md` — day-0 checklist.
-5. Role path (only the relevant one, see the table below).
+| Field | Notes |
+|-------|--------|
+| **role** | functional, developer, architect, delivery, basis, data, test |
+| **goal for this session** | `orient only` \| `day-0 setup` \| `start project work` |
 
-**Progressive disclosure:** answer from `README.md`/the component map first; open a specific
-`SKILL.md` only when routing to a first run.
+**When goal is start project work** (or orient already done)
 
-## Produces
+| Field | Required | Values / notes |
+|-------|----------|----------------|
+| **phase** | yes | Discover / Prepare / Explore / Realize / Deploy / Run |
+| **engagement** | yes | `G` Greenfield / `B` Brownfield / `A` Build and Extend / `R` AMS & Run |
+| **goal** | yes | One sentence: what this session should produce |
+| **domain_pack** | recommended | e.g. `order-to-cash` — needed for Realize/Run diagnostics |
+| **ceremony** | optional | `light` / `standard` / `deep` — else use `ceremony-routing` after intake |
+| **apply_writes** | optional | default **false** — no live Jira/ABAP writes without `--apply` |
 
-- Spoken/chat orientation: mental model + next action.
-- Optional local note: `workspace/onboarding/<yyyy-mm-dd>-<name-or-role>.md` (gitignored) — role,
-  path chosen, checklist progress, blockers.
-- **Does not** write to any tracker or edit `knowledge/` — that only happens if the person
-  explicitly continues into a delivery skill afterward.
+## Reads (progressive — prefer these over memory)
+
+1. `../../README.md` — how to install skills into *your* tool; what the folders mean as a user
+2. Component map (`index.html` or Confluence) — what's `ready` vs `progress` vs `notstarted`
+3. This skill's `references/first-day-checklist.md` — day-0 for users
+4. `references/phase-routing.md` — which delivery skill matches phase + goal
+5. Open a specific delivery `SKILL.md` only when handing off
+
+Do **not** send a project user into `docs/skill-design-conventions.md` unless they ask how to
+*author* skills.
 
 ## Steps
 
-1. **Orient.** Restate role + goal. One-paragraph mental model: `factory-data.json` is the single
-   source of truth (phases, roles, components, statuses); `skills/<name>/SKILL.md` are the
-   playbooks; `agents/<name>.md` return bounded verdicts; `knowledge/<bucket>/` is what skills read;
-   the component map (`index.html`) is the picture, `factory-data.json` is what's real.
-2. **Day-0 setup.** Walk `references/first-day-checklist.md`, skipping anything already done.
-3. **Role map — pointers only, do not execute named skills unless explicitly asked:**
+1. **Orient (user lens).** One paragraph: skills are playbooks you run; `knowledge/` is what they
+   read; `workspace/` is your local run output (gitignored, no client secrets in git); the map
+   shows maturity — `notstarted`/`progress` are contracts, not promises.
+2. **Day-0 setup.** Walk `references/first-day-checklist.md` (skip done items). Focus on: tool
+   install of skills, optional Jira/ABAP connector wiring per `connectors/*/connector.md`,
+   `workspace/` hygiene. Skip contributor topics (regenerating the map, validators, Makefile).
+3. **If goal is start project work — capture context** (table above) and write
+   `workspace/factory-onboard/<YYYY-MM-DD>-<slug>/context.json` (gitignored).
+4. **Route** via `references/phase-routing.md` + role table below. State the **next skill name**
+   explicitly and why. Remind once: connector writes are dry-run unless `--apply`.
+5. **Hand off — do not silently execute** the delivery skill unless the user asks to continue in
+   the same turn. Then load that skill's `SKILL.md` and follow it.
 
-| Role | Mainly uses | Read first |
-|---|---|---|
-| Any (engagement start) | `activate` (launcher) | `skills/activate/SKILL.md`, then the routed skill |
-| Functional | `fit-to-standard`, `config-doc` | `docs/skill-design-conventions.md`, the relevant `SKILL.md` |
-| Architect | `readiness-analysis`, `solution-design` | Same |
-| Developer | `custom-code-scan`, `abap-dev` (adopt) | Same |
-| Delivery | `activate`, `cutover-plan`, `go-live-readiness`, `backlog-drafting` | Same |
-| Data | `reconciliation` | Same |
-| Test | `defect-triage` | Same |
-| Basis | `production-conversion` | Same |
+## Role → typical skills (pointers)
 
-4. **Guardrails (state once):** no client data or secrets committed; every skill's own `SKILL.md`
-   states its own human-confirmation points — don't assume any skill auto-executes an
-   irreversible action. MCP writes are dry-run unless `--apply`.
-5. **Close.** Summarize the next single action. For **engagement delivery work** (not team
-   orientation), point them at `activate` as the launcher — this skill does not chain into running
-   another one automatically.
+| Role | Often starts with |
+|------|-------------------|
+| Functional | Explore: `fit-to-standard` / `requirements-intake`; Realize: `config-doc` |
+| Architect | `readiness-analysis`, `solution-design` |
+| Developer | `custom-code-scan`, `abap-dev` (adopt) |
+| Delivery | phase routing below; Deploy: `cutover-plan`, `go-live-readiness` |
+| Data | `reconciliation` |
+| Test | `defect-triage`, `test-case-design` |
+| Basis | `production-conversion` |
 
-## Judgment calls worth stating out loud
+Phase + engagement modifiers beat this table when they disagree — see
+`references/phase-routing.md`.
 
-- **This skill orients and points — it does not execute delivery skills**, even "just to prove it
-  works." Running a real skill is a separate, explicit request.
-- **A component marked `notstarted` or `progress` in `factory-data.json` is a contract, not a
-  promise** — say so plainly rather than let a new joiner assume it's fully working.
-- **STATUS beats memory.** If this skill's own description of what's built ever seems to disagree
-  with `factory-data.json`, the JSON wins — flag the drift rather than trusting the prose here.
+## Routing summary
+
+| Phase | Typical next skill |
+|-------|--------------------|
+| Discover | `readiness-analysis` or `agent-readiness` |
+| Prepare | `knowledge-discovery` or `custom-code-scan` |
+| Explore | `requirements-intake` → `fit-to-standard` → `solution-design` → `backlog-drafting` |
+| Realize (build) | `config-doc` / `abap-dev` — only if design-record `status` is `APPROVED` |
+| Realize / Run (defect) | `incident-triage` → `ceremony-routing` → diagnose → `defect-triage` → `fix-doc-and-regression` |
+| Deploy | `cutover-plan` / `go-live-readiness` |
+| Run (close) | `knowledge-harvest` / `run-exit` gate evidence |
+
+## Output
+
+- Spoken orientation + **one** next action (skill name)
+- Optional `workspace/factory-onboard/.../context.json` when project work was scoped
+- Does **not** write to trackers or edit `knowledge/`
+
+## Judgment calls
+
+- **User vs contributor.** If they want to change the factory itself, point at `README.md` and
+  stop — this skill stays on the user path.
+- **STATUS beats marketing.** If the next skill is thin `progress` or `notstarted`, say so and
+  offer a degraded path (local artifacts only).
+- **Never invent AC or client config** to unblock routing — send to `requirements-intake` first.
 
 ## Driver
 
-Main driver: delivery (COORD/PLATFORM equivalent in this factory's role set). Any role can invoke.
+Any role. Delivery often opens the engagement; the routed skill's driver takes over after handoff.
 
 ## Status
 
-Progress. Adapted from real, DRAFT content in sap-ai-cons; not yet dry-run tested with an actual new
-joiner in this factory's own repo layout.
+Progress. User-entry skill (orientation + routing). Not a substitute for delivery skills' own
+maturity.

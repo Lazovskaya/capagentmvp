@@ -105,7 +105,7 @@ window.FACTORY_DATA = {
    "posture": "own",
    "status": "progress",
    "phase": "Discover",
-   "desc": "Orient a new internal factory team member: role path, repo mental model, day-0 setup, which skill to run first. Meta content, not a client deliverable."
+   "desc": "User helper after install: day-0 orientation for consultants using the factory on a project, then phase/engagement/domain routing to the first delivery skill. Not a contributor/platform guide."
   },
   {
    "kind": "Skill",
@@ -745,10 +745,10 @@ window.FACTORY_DATA = {
    "phase": "Discover",
    "owner": "delivery",
    "engagement": "GBAR",
-   "status": "notstarted",
+   "status": "progress",
    "file": "activities/discover/factory-onboard.md",
-   "title": "Factory onboarding",
-   "desc": "Orient a new internal factory team member: role path, repo mental model, day-0 setup, which skill to run first. Meta content, not a client deliverable — produces no artifact and feeds no Q-gate.",
+   "title": "Factory onboarding (user entry)",
+   "desc": "Consultant who installed the factory and wants to use it on a project: orient, day-0 setup, capture phase/engagement/domain, route to the first delivery skill. Meta for the user — no client artifact, no Q-gate evidence by itself.",
    "uses": [
     [
      "skill",
@@ -759,7 +759,8 @@ window.FACTORY_DATA = {
     [
      "knowledge",
      [
-      "standards"
+      "standards",
+      "domain-packs"
      ]
     ]
    ]

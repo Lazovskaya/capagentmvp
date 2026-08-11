@@ -6,9 +6,15 @@
     "delta_summary",
     "target_design",
     "test_approach",
-    "open_questions"
+    "open_questions",
+    "status"
   ],
   "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["DRAFT", "IN_REVIEW", "APPROVED", "REOPENED"],
+      "description": "Lifecycle status. backlog-drafting and Realize build skills require APPROVED. Use REOPENED when a prior approval no longer holds — never silently reset APPROVED to DRAFT."
+    },
     "decision_log_row_id": {
       "type": "string",
       "description": "The exact Row ID from the fit-to-standard decision log this design originates from, cited verbatim."

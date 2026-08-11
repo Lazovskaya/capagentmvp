@@ -19,7 +19,9 @@ justified in the first place.
 
 - Immediately after a `fit-to-standard` session produces Delta rows with sign-off
 - When a delta's implementation approach is being chosen or reconsidered
-- Before `backlog-drafting` — a delta with no tier decision isn't ready to become a work item
+- Before `backlog-drafting` — a delta with no tier decision isn't ready to become a work item;
+  design-record must reach `status: APPROVED` before backlog push (see
+  `../../artifacts/explore-chain/handoff.md`)
 - When reviewing whether an already-built extension actually matches its recorded tier (drift check)
 
 ## Inputs needed

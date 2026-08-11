@@ -1,24 +1,24 @@
 # Phase routing table
 
-Used by `activate`. Prefer the **primary** skill; use **alternates** when the goal sentence matches.
+Used by `factory-onboard` when the consultant is starting **project work**. Prefer the
+**primary** skill; use **alternates** when the goal sentence matches.
 
 ## Discover
 
-| Goal signal | Primary | Alternate |
-|-------------|---------|-----------|
-| New factory team member / "how do I start here" | `factory-onboard` | — |
-| Readiness / SI-Check / Notes impact | `readiness-analysis` | — |
-| Which processes for agents | `agent-readiness` | — |
+| Goal signal | Primary |
+|-------------|---------|
+| Readiness / SI-Check / Notes impact | `readiness-analysis` |
+| Which processes for agents | `agent-readiness` |
 
 ## Prepare
 
-| Goal signal | Primary | Alternate |
-|-------------|---------|-----------|
-| Extract client shape into guides | `knowledge-discovery` | — |
-| ATC + usage → retire vs remediate | `custom-code-scan` | — |
-| Role path through knowledge | `onboarding-guide` | — |
+| Goal signal | Primary |
+|-------------|---------|
+| Extract client shape into guides | `knowledge-discovery` |
+| ATC + usage → retire vs remediate | `custom-code-scan` |
+| Role path through knowledge | `onboarding-guide` |
 
-## Explore (v1 surface)
+## Explore
 
 Chain (do not skip backlinks):
 
@@ -37,7 +37,7 @@ requirements-intake → fit-to-standard → solution-design → backlog-drafting
 | Sized work items with backlinks | `backlog-drafting` |
 | Depth of workshop vs design | `ceremony-routing` after intake |
 
-Contracts: `artifacts/explore-chain/artifact-model.yaml` and `handoff.md`.
+Contracts: `artifacts/explore-chain/artifact-model.yaml` and `handoff.md`.  
 **Status gate:** `backlog-drafting` and Realize build skills require design-record `status: APPROVED`.
 
 ## Realize
@@ -85,5 +85,5 @@ Contracts: `artifacts/explore-chain/artifact-model.yaml` and `handoff.md`.
 ## Domain packs
 
 If `domain_pack` is `order-to-cash`, load
-`knowledge/domain-packs/order-to-cash/` for triage/diagnose skills.
+`knowledge/domain-packs/order-to-cash/` for triage/diagnose skills.  
 If unset on a diagnostic ask, ask once before `incident-triage`.

@@ -1,13 +1,7 @@
 # Validators
 
-CI / local checks that keep `factory-data.json` honest against the repo tree.
+CI checks intended for this factory: every reference in `factory-data.json` resolves to a real
+file, no orphaned skill/agent/connector/artifact/gate files exist outside the data model, and the
+generated adapters haven't drifted from `factory-data.json`.
 
-```bash
-make validate
-# or
-python3 validators/validate.py
-python3 validators/validate.py --strict-orphans
-```
-
-**Status:** Implemented (`validate.py`). Covers component path existence, activity files,
-activity→skill references, `readySlice` resolution, and orphan skill warnings.
+**Status:** Not yet implemented.

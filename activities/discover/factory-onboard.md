@@ -1,15 +1,14 @@
 ## Factory onboarding
 
-Orient a new (or returning) internal factory team member — role path, repo mental model, day-0
-setup, and which skill to run first — grounded only in committed factory docs. Meta content, not a
-client deliverable: produces no artifact and feeds no Q-gate. Placed here because staffing a new
-person is typically a Discover-time event, not because this is conceptually client Discover work.
+Helper for a consultant who installed the factory and wants to use it on a project: day-0
+orientation, role path, then phase/engagement routing to the first delivery skill. Meta for the
+user — not a client deliverable; produces no gate evidence by itself.
 
 **Owner:** Delivery Manager
 **Engagement(s):** Greenfield / Brownfield conversion / Build and Extend / AMS & Run
-**Status:** Not started
+**Status:** In progress
 
 ## Uses
 
 - **skill:** factory-onboard
-- **knowledge:** standards
+- **knowledge:** standards, domain-packs

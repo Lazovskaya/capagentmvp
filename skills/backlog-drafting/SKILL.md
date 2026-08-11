@@ -57,6 +57,11 @@ unresolvable defect dispute, not a shortcut.
    `fit-to-standard` / `solution-design` — not to backfill a plausible-sounding design record after
    the fact. Append `upstream.refused` and stop.
 
+1b. **Refuse unless design-record `status` is `APPROVED`.** `DRAFT` / `IN_REVIEW` / `REOPENED`
+   (until re-approved) stay local — do not create or push Jira items. See
+   `../../artifacts/explore-chain/handoff.md` (design-to-backlog). Append `status.gate_blocked` and
+   stop.
+
 2. **AC quality check** — run `references/ac-quality-check.md` against the design-record's
    `target_design` + `test_approach`. Write `ac-quality.md`. On `thin`, ask 2–3 clarifying
    questions in one batch or route to `solution-design`. On `blocked`, do not draft.

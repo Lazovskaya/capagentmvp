@@ -24,6 +24,9 @@ per Activate's own stated focus for this phase gate.
 flagged — per `backlog-drafting`'s own rule that a missing backlink is a blocking gap, not a
 follow-up task.
 
+**Design-record status must be `APPROVED`** (see `artifacts/explore-chain/handoff.md`) before backlog
+baseline and Realize build evidence count toward this gate.
+
 ## Sources
 
 These are SAP Community blog posts and course material, not SAP's primary product documentation —

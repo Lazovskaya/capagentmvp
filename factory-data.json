@@ -105,15 +105,7 @@
    "posture": "own",
    "status": "progress",
    "phase": "Discover",
-   "desc": "Orient a new internal factory team member: role path, repo mental model, day-0 setup, which skill to run first. Meta content, not a client deliverable."
-  },
-  {
-   "kind": "Skill",
-   "name": "activate",
-   "posture": "own",
-   "status": "progress",
-   "phase": "Discover",
-   "desc": "Engagement entry: capture phase, engagement (G/B/A/R), domain pack, ceremony depth; route to factory-onboard or the matching phase skill. Does not replace phase skills."
+   "desc": "User helper after install: day-0 orientation for consultants using the factory on a project, then phase/engagement/domain routing to the first delivery skill. Not a contributor/platform guide."
   },
   {
    "kind": "Skill",
@@ -753,38 +745,15 @@
    "phase": "Discover",
    "owner": "delivery",
    "engagement": "GBAR",
-   "status": "notstarted",
+   "status": "progress",
    "file": "activities/discover/factory-onboard.md",
-   "title": "Factory onboarding",
-   "desc": "Orient a new internal factory team member: role path, repo mental model, day-0 setup, which skill to run first. Meta content, not a client deliverable — produces no artifact and feeds no Q-gate.",
+   "title": "Factory onboarding (user entry)",
+   "desc": "Consultant who installed the factory and wants to use it on a project: orient, day-0 setup, capture phase/engagement/domain, route to the first delivery skill. Meta for the user — no client artifact, no Q-gate evidence by itself.",
    "uses": [
     [
      "skill",
      [
       "factory-onboard"
-     ]
-    ],
-    [
-     "knowledge",
-     [
-      "standards"
-     ]
-    ]
-   ]
-  },
-  {
-   "phase": "Discover",
-   "owner": "delivery",
-   "engagement": "GBAR",
-   "status": "progress",
-   "file": "activities/discover/activate.md",
-   "title": "Activate (engagement entry)",
-   "desc": "Capture phase, engagement type, domain pack and ceremony depth; route to the matching delivery skill or factory-onboard. Meta orchestration — local context only, no Q-gate evidence by itself.",
-   "uses": [
-    [
-     "skill",
-     [
-      "activate"
      ]
     ],
     [
@@ -1851,39 +1820,5 @@
    "the factory, pinned",
    "^(\\.factory/|factory-lock\\.json)"
   ]
- ],
- "readySlice": {
-  "version": "v1",
-  "summary": "Honest product surface for demos and first engagements. Prefer these over thin Discover/Deploy stubs. Skill status in components[] stays progress until dry-run proven on a live engagement; connectors listed here are already status ready.",
-  "entry": "activate",
-  "connectors": [
-   "jira",
-   "abap-mcp"
-  ],
-  "explore": [
-   "requirements-intake",
-   "fit-to-standard",
-   "solution-design",
-   "backlog-drafting",
-   "ceremony-routing"
-  ],
-  "bugfix": [
-   "incident-triage",
-   "ceremony-routing",
-   "root-cause-playbook",
-   "pricing-diagnostic",
-   "billing-ar-error-analyzer",
-   "idoc-failure-analyzer",
-   "defect-triage",
-   "fix-doc-and-regression",
-   "defect-pattern-analysis"
-  ],
-  "domainPacks": [
-   "order-to-cash"
-  ],
-  "contracts": [
-   "artifacts/explore-chain/"
-  ],
-  "deferred": "No Claude plugin marketplace rewrite; Discover/Deploy/Run stubs remain contracts; Cloud ALM connector notstarted."
- }
+ ]
 }

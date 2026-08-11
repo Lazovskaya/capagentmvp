@@ -35,6 +35,10 @@ a real clone) to sometimes *delete* matching source-repo files when the destinat
 itself a checkout of this repo. `--project` resolving to this repo is an explicit hard error too,
 belt-and-suspenders on top of that.
 
+Shares its skill-discovery/connector-normalization/content-hash/lock-file logic with
+`tools/adapter_common.py`, the same module `tools/github-copilot/adapter/install.py` uses — the
+per-tool `install.py` files only differ in output paths and entry-file shape.
+
 **Status:** v1 implemented — own-posture skills, verified-wiring connectors, `CLAUDE.md`,
 `factory-lock.json`. Still manual: adopt-posture skills (see the root `README.md`'s "Installing
 skills into a project" section for the `npx skills add` process those still need), the actual

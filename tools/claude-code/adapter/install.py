@@ -16,169 +16,22 @@ repo's own skills/ or connectors/ trees -- see tools/claude-code/adapter/README.
 matters (a real data-loss bug was found in the manual `skills add` process this replaces).
 """
 import argparse
-import datetime
-import hashlib
-import json
-import shutil
 import sys
 from pathlib import Path
 
-FACTORY_ROOT = Path(__file__).resolve().parents[3]
-FACTORY_JSON = FACTORY_ROOT / "factory.json"
-FACTORY_DATA_JSON = FACTORY_ROOT / "factory-data.json"
-SKILLS_DIR = FACTORY_ROOT / "skills"
-CONNECTORS_DIR = FACTORY_ROOT / "connectors"
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+import adapter_common as common  # noqa: E402
 
-DOC_ONLY_KEYS = {"note", "$schema", "description", "repository", "destinationEnvFile", "name"}
-FUNCTIONAL_KEYS = {"type", "command", "args", "env"}
-
-
-def die(msg):
-    raise SystemExit(f"error: {msg}")
-
-
-def load_json(path, default=None):
-    if not path.exists():
-        return default
-    return json.loads(path.read_text(encoding="utf-8"))
-
-
-def write_json(path, data):
-    path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-
-
-def factory_version():
-    data = load_json(FACTORY_JSON, {})
-    return data.get("version", "unknown")
-
-
-def component_desc(kind, name):
-    data = load_json(FACTORY_DATA_JSON, {})
-    for c in data.get("components", []):
-        if c.get("kind") == kind and c.get("name") == name:
-            return c.get("desc")
-    return None
-
-
-# ---------- discovery ----------
-
-def all_own_skill_names():
-    return sorted(
-        p.parent.name for p in SKILLS_DIR.glob("*/SKILL.md")
-    )
-
-
-def all_wired_connector_names():
-    out = []
-    for d in sorted(p.parent.name for p in CONNECTORS_DIR.glob("*/server.json")):
-        try:
-            normalize_connector(d, destinations={})
-        except SystemExit:
-            continue
-        out.append(d)
-    return out
-
-
-def resolve_names(requested, available, kind):
-    if requested == "*":
-        return list(available)
-    names = [n.strip() for n in requested.split(",") if n.strip()]
-    for n in names:
-        if n not in available:
-            hint = ""
-            if kind == "skill":
-                index_yaml = SKILLS_DIR / "index.yaml"
-                if index_yaml.exists() and n in index_yaml.read_text(encoding="utf-8"):
-                    hint = (
-                        f" '{n}' looks like an adopt-posture skill (listed in skills/index.yaml, "
-                        "no directory here) -- this adapter only installs own-posture skills; "
-                        "use the manual `npx skills add` process from the root README for that."
-                    )
-                else:
-                    hint = f" No skills/{n}/SKILL.md found."
-            else:
-                server = CONNECTORS_DIR / n / "server.json"
-                if server.exists():
-                    hint = f" connectors/{n}/server.json has no real wiring yet (see connectors/{n}/connector.md)."
-                else:
-                    hint = f" No connectors/{n}/server.json found."
-            die(f"unknown {kind} '{n}'.{hint}")
-    return names
-
-
-# ---------- hashing ----------
-
-def hash_bytes(data):
-    return "sha256:" + hashlib.sha256(data).hexdigest()
-
-
-def hash_file(path):
-    return hash_bytes(path.read_bytes())
-
-
-def hash_tree(path):
-    h = hashlib.sha256()
-    for f in sorted(p for p in path.rglob("*") if p.is_file()):
-        rel = f.relative_to(path).as_posix()
-        h.update(rel.encode("utf-8"))
-        h.update(f.read_bytes())
-    return "sha256:" + h.hexdigest()
-
-
-# ---------- skills ----------
-
-def install_skill(name, project):
-    src = SKILLS_DIR / name
-    dest = project / ".claude" / "skills" / name
-    if dest.exists():
-        shutil.rmtree(dest)
-    shutil.copytree(src, dest)
-    return dest
-
-
-# ---------- connectors ----------
-
-def normalize_connector(name, destinations):
-    server = CONNECTORS_DIR / name / "server.json"
-    if not server.exists():
-        die(f"connectors/{name}/server.json not found")
-    raw = load_json(server)
-    dest_name = destinations.get(name, "default")
-
-    if "mcpConfig" in raw:
-        entries = raw["mcpConfig"]
-    elif name in raw:
-        entries = {name: raw[name]}
-    else:
-        entries = {name: raw}
-
-    out = {}
-    for key, cfg in entries.items():
-        if cfg.get("command") == "TODO":
-            die(
-                f"connector '{name}' has no real wiring yet (connectors/{name}/server.json is a "
-                f"placeholder) -- see connectors/{name}/connector.md, not installable by this "
-                "adapter until it's wired for real"
-            )
-        entry = {k: v for k, v in cfg.items() if k in FUNCTIONAL_KEYS}
-        entry.setdefault("type", "stdio")
-        entry["args"] = [
-            a.replace("<destination>", dest_name) if isinstance(a, str) else a
-            for a in entry.get("args", [])
-        ]
-        out[key] = entry
-    return out, hash_file(server), dest_name
+TOOL = "claude-code"
+ADOPT_HINT = "npx skills add /path/to/sap-ai-factory -a claude-code -s '*' --copy -y"
 
 
 def write_mcp_json(project, all_entries):
     path = project / ".mcp.json"
-    existing = load_json(path, {})
+    existing = common.load_json(path, {})
     existing.update(all_entries)
-    write_json(path, existing)
-    return path
+    common.write_json(path, existing)
 
-
-# ---------- entry file ----------
 
 def write_claude_md(project, installed_skills, installed_connectors, version):
     lines = [
@@ -189,39 +42,26 @@ def write_claude_md(project, installed_skills, installed_connectors, version):
         "# SAP AI Factory -- installed components",
         "",
         f"Factory version: `{version}`  ",
-        f"Generated: {datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds')}",
+        f"Generated: {common.now_iso()}",
         "",
         "## Skills",
         "",
     ]
     for name in installed_skills:
-        desc = component_desc("Skill", name)
+        desc = common.component_desc("Skill", name)
         lines.append(f"- **{name}** -- {desc}" if desc else f"- **{name}**")
     lines += ["", "## Connectors", ""]
     for name in installed_connectors:
-        desc = component_desc("Connector", name)
+        desc = common.component_desc("Connector", name)
         line = f"- **{name}** -- {desc}" if desc else f"- **{name}**"
-        line += f" Credentials are not wired by this adapter -- follow the \"Wiring\" section in connectors/{name}/connector.md."
+        line += (
+            f" Credentials are not wired by this adapter -- follow the \"Wiring\" section in "
+            f"connectors/{name}/connector.md."
+        )
         lines.append(line)
     lines.append("")
     (project / "CLAUDE.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
-
-# ---------- lock file ----------
-
-def load_lock(project):
-    return load_json(project / "factory-lock.json", {"skills": {}, "connectors": {}})
-
-
-def write_lock(project, lock, version):
-    lock["factoryVersion"] = version
-    lock["generatedBy"] = "tools/claude-code/adapter/install.py"
-    lock["generatedAt"] = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
-    lock["tool"] = "claude-code"
-    write_json(project / "factory-lock.json", lock)
-
-
-# ---------- main ----------
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -234,31 +74,30 @@ def main():
     parser.add_argument("--force", action="store_true", help="reinstall even if content hash is unchanged")
     args = parser.parse_args()
 
-    project = Path(args.project).resolve()
-    if project == FACTORY_ROOT.resolve():
-        die("--project resolves to this factory repo itself -- refusing to install into the source repo")
+    project = common.check_project_path(args.project)
 
     destinations = {}
     for item in args.destination:
         if "=" not in item:
-            die(f"--destination must be CONNECTOR=NAME, got '{item}'")
+            common.die(f"--destination must be CONNECTOR=NAME, got '{item}'")
         k, v = item.split("=", 1)
         destinations[k] = v
 
-    skill_names = resolve_names(args.skills, all_own_skill_names(), "skill")
-    connector_names = resolve_names(args.connectors, all_wired_connector_names(), "connector")
+    skill_names = common.resolve_names(args.skills, common.all_own_skill_names(), "skill", ADOPT_HINT)
+    connector_names = common.resolve_names(args.connectors, common.all_wired_connector_names(), "connector", ADOPT_HINT)
 
-    version = factory_version()
-    lock = load_lock(project)
+    version = common.factory_version()
+    lock = common.load_lock(project)
     drift = []
+    skills_root = project / ".claude" / "skills"
 
     installed_skills = []
     for name in skill_names:
-        src_hash = hash_tree(SKILLS_DIR / name)
+        src_hash = common.hash_tree(common.SKILLS_DIR / name)
         prior = lock["skills"].get(name, {})
         unchanged = prior.get("contentHash") == src_hash
-        dest = project / ".claude" / "skills" / name
-        dest_matches = dest.exists() and hash_tree(dest) == src_hash
+        dest = skills_root / name
+        dest_matches = dest.exists() and common.hash_tree(dest) == src_hash
         if unchanged and dest_matches and not args.force:
             installed_skills.append(name)
             continue
@@ -271,7 +110,7 @@ def main():
         drift.append(f"skill '{name}': {reason}")
         if args.check:
             continue
-        install_skill(name, project)
+        common.copy_skill(name, skills_root)
         lock["skills"][name] = {
             "source": f"skills/{name}",
             "contentHash": src_hash,
@@ -282,7 +121,7 @@ def main():
     installed_connectors = []
     mcp_entries = {}
     for name in connector_names:
-        entries, src_hash, dest_name = normalize_connector(name, destinations)
+        entries, src_hash, dest_name = common.normalize_connector(name, destinations)
         mcp_entries.update(entries)
         prior = lock["connectors"].get(name, {})
         unchanged = prior.get("contentHash") == src_hash and prior.get("destination") == dest_name
@@ -308,7 +147,7 @@ def main():
     if mcp_entries:
         write_mcp_json(project, mcp_entries)
     write_claude_md(project, installed_skills, installed_connectors, version)
-    write_lock(project, lock, version)
+    common.write_lock(project, lock, version, TOOL)
 
     if drift:
         print(f"Installed/updated: {', '.join(drift)}")

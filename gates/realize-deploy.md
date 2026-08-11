@@ -19,10 +19,16 @@ and approval workflow. What we own is the mapping below.
 | Custom code ATC-clean | remediation status | `abap-dev` / `custom-code-scan` |
 | Data reconciled within tolerance | `reconciliation-report` | `reconciliation` |
 | Defect backlog triaged, no unresolved traceability gaps blocking go-live | `triage-verdict` log | `defect-triage` |
+| Every decision-log Row ID has test coverage, Standard rows included | `test-coverage-matrix` | `test-case-design` |
 
 **`defect-triage`'s `Untraceable` verdicts are a specific risk signal for this gate** — a rising count
 going into Deploy means the traceability chain has real holes that should be closed before production
 conversion, not carried into it.
+
+**A `test-coverage-matrix` with a non-empty Gaps section is the equivalent signal for test
+coverage** — rows with zero test cases going into Deploy are exactly the "vendor-tested, therefore
+untested by us" gap `test-case-design` exists to close; don't wave a gate through with open gaps in
+that section just because the row is Standard-classified.
 
 ## Sources
 

@@ -3,6 +3,9 @@
 One of these per delta. Written so `backlog-drafting` can size and write acceptance criteria without
 re-interviewing the business owner — if it can't, the design-record is incomplete, not the workshop.
 
+- **Status:** `DRAFT` | `IN_REVIEW` | `APPROVED` | `REOPENED` — **backlog-drafting and Realize build
+  skills require `APPROVED`.** Do not silently reset `APPROVED` → `DRAFT`; use `REOPENED` when a
+  prior approval no longer holds (see `artifacts/explore-chain/handoff.md`).
 - **Decision-log Row ID:** <the exact Row ID from the fit-to-standard decision log this design
   originates from, e.g. `FTS-2026-08-04-credit-block-handling-row-02` — copy the key verbatim, don't
   re-describe the session. **If this design was assembled via compose/maintain mode instead** (see

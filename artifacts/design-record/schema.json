@@ -6,9 +6,15 @@
     "delta_summary",
     "target_design",
     "test_approach",
-    "open_questions"
+    "open_questions",
+    "status"
   ],
   "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["DRAFT", "IN_REVIEW", "APPROVED", "REOPENED"],
+      "description": "Lifecycle status. backlog-drafting and Realize build skills require APPROVED. Use REOPENED when a prior approval no longer holds — never silently reset APPROVED to DRAFT."
+    },
     "decision_log_row_id": {
       "type": "string",
       "description": "The exact Row ID from the fit-to-standard decision log this design originates from, cited verbatim."
@@ -32,7 +38,7 @@
     },
     "test_approach": {
       "type": "string",
-      "description": "What 'correct' looks like for this design — what backlog-drafting turns into acceptance criteria."
+      "description": "What 'correct' looks like for this design, one seed sentence — backlog-drafting turns it into coarse acceptance criteria on the work item; test-case-design expands the same field into an actual positive/negative/boundary test set. Neither of those downstream steps means this field can stay thin because 'someone else will flesh it out' — write it as a real statement of correctness, not a placeholder."
     },
     "open_questions": {
       "type": "string",

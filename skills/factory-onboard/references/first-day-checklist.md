@@ -1,38 +1,41 @@
-# First-day checklist — SAP AI Factory (internal)
+# First-day checklist — SAP AI Factory (project user)
 
-Use with `factory-onboard`. Tick what's done; skip what doesn't apply to the role.
+Use with `factory-onboard`. For consultants **using** the factory on an engagement — not for
+people maintaining the factory repo itself. Tick what's done; skip what doesn't apply.
 
 ## Access
 
-- [ ] Can open the repo (`git.epam.com/epmc-sap/sap-ai-competency/sap-ai-factory`)
-- [ ] Clone it to a local work folder
-- [ ] IDE ready (Claude Code, Cursor, or GitHub Copilot — this factory is tool-agnostic)
+- [ ] Can open / clone the factory (or receive an installed skills copy in your project tool)
+- [ ] IDE ready (Claude Code, Cursor, or GitHub Copilot)
+- [ ] Skills visible in your tool (e.g. `.claude/skills/` after `npx skills add …` — see root `README.md`)
 
-## Read once (in order)
+## Read once (user path)
 
-- [ ] `README.md` — layout, single source of truth, how to regenerate the component map
-- [ ] Open `index.html` in a browser — the interactive component map (phases × component kinds)
-- [ ] `docs/skill-design-conventions.md` — conventions every skill here follows
-- [ ] Skim `factory-data.json`'s `components` array for your role's phase — what's `ready` vs
-      `progress` vs `notstarted`
+- [ ] `README.md` — install into your tool; what `skills/`, `knowledge/`, `workspace/` mean for you
+- [ ] Open the component map (`index.html` or Confluence) — note `ready` vs `progress` vs `notstarted`
+- [ ] Skim which skills match your **role** and current **Activate phase**
+
+Skip unless you author factory content: regenerating the map, `validators/`, design-convention authoring rules.
 
 ## Local runtime
 
-- [ ] Understand: `workspace/` (if present) is local-only output, never committed with client data
-- [ ] Know which tool adapter you're using (`tools/<tool>/adapter/` — scaffold only, see its README)
+- [ ] `workspace/` is local-only output — never commit client data or secrets
+- [ ] If you need live Jira/ABAP: follow `connectors/jira/connector.md` and/or
+      `connectors/abap-mcp/connector.md` (credentials stay outside the repo)
+- [ ] Remember: connector **writes** are dry-run unless you pass `--apply`
 
-## First working skill (separate — do not run inside factory-onboard)
+## First working skill
 
-After onboarding, in a **new message**, pick the skill matching your role from the table in
-`factory-onboard/SKILL.md`'s "Role map" and read its `SKILL.md` before running it.
+After this checklist, in a **new message** (or by asking factory-onboard to continue), run the
+delivery skill named in the handoff — read that skill's `SKILL.md` first.
 
 ## Guardrails (confirm verbally)
 
-- [ ] No secrets or client data get committed to this repo
-- [ ] Every skill's own human-confirmation points are read before running it, not assumed
-- [ ] `factory-data.json` beats outdated chat memory about what's built
+- [ ] No secrets or client data get committed
+- [ ] Each skill's own human-confirmation points are read before running it
+- [ ] Component status in the map beats outdated chat memory about what's built
 
 ## Buddy (if blocked)
 
-- [ ] Repo access — delivery lead
-- [ ] Domain questions for a specific bucket — whoever owns that `knowledge/<bucket>/`
+- [ ] Repo / tool install — delivery lead or whoever rolled out the factory on the account
+- [ ] Domain questions — whoever owns the relevant `knowledge/` bucket or domain pack

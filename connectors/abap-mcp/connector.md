@@ -49,9 +49,10 @@ exact `.mcp.json` shape and the `.env` file's expected keys.
 
 - `read_object` (repository read: class/interface/program/table/CDS/view/BDEF source and
   metadata, where-used, package tree, AST/semantic analysis)
-- `write_object` (create/update ABAP OO, RAP, DDIC, and CDS artifacts), gated behind explicit
-  per-developer opt-in (this connector defaults to whatever scope the developer's own service
-  key/user authorization allows — the factory adds no separate write gate on top)
+- `write_object` (create/update ABAP OO, RAP, DDIC, and CDS artifacts) — **skills must dry-run /
+  preview unless the user passes `--apply`** (see `docs/skill-design-conventions.md` §6). SAP
+  authorizations still apply underneath; `--apply` is the factory's HITL gate, not a substitute
+  for developer keys.
 - `run_diagnostics` (profiler traces, dumps, gateway error log, inactive-objects list)
 - Graceful degrade: skills that need live repository facts fall back to whatever export/snapshot
   the consultant already has, and state plainly that live data was not available.
@@ -71,9 +72,9 @@ per-tool list, this factory doesn't re-enumerate all ~80 tools):
   object.
 - **Legacy-system tools** — for BASIS < 7.50 targets where some ADT endpoints differ.
 
-Transport and activation support (`CreateTransport`, `GetTransport`, `ActivateObject`) is exposed;
-this factory does not add its own approval gate on top — transport writes follow whatever the
-developer's own SAP authorization already permits, same as any other ADT client (Eclipse, VS Code).
+Transport and activation support (`CreateTransport`, `GetTransport`, `ActivateObject`) is exposed.
+Skills treat these as mutating calls: preview locally, then `--apply`. SAP authorizations still
+apply; the factory HITL gate does not replace them.
 
 ## If it's not connected
 

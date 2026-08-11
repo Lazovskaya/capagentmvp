@@ -5,6 +5,10 @@ Focused Build test cases and most client-authored UAT scripts: step-by-step, exp
 a status per step). Written fresh — no predecessor-repo file existed to port; grounded in standard
 SAP test-management practice, not client-specific content.
 
+**Populated by `../../skills/test-case-design/SKILL.md`** — that skill derives which test cases to
+write (technique, positive/negative/boundary set) and produces the `test-coverage-matrix` this
+template's cases are tracked against; this file is the per-case output shape it writes to.
+
 ## Why this exists in `knowledge/testing/`, not `artifacts/`
 
 `artifacts/` holds phase-handoff templates produced once per decision/record. A test script is
@@ -33,6 +37,7 @@ can be retired.
 | Test case ID | `TS-<process-slug>-<NN>` — stable, assigned once, cited by every execution round |
 | Scenario name | |
 | Traceability | Row ID / design-record ID / fix-doc reference (see above) |
+| Technique(s) used | decision-table / boundary-value / state-transition / equivalence-partitioning / scenario-based — cite explicitly, per `test-case-design`'s own step 2; don't fold this into Traceability or Notes where it's easy to lose |
 | Sub-process | domain pack code |
 | Depth | smoke / full / negative (same vocabulary as `fix-doc-and-regression`'s regression scenarios) |
 | Executor role | functional / SD pricing / SD billing / Basis / etc. — name the specific role, not just "tester" |

@@ -19,7 +19,9 @@ justified in the first place.
 
 - Immediately after a `fit-to-standard` session produces Delta rows with sign-off
 - When a delta's implementation approach is being chosen or reconsidered
-- Before `backlog-drafting` — a delta with no tier decision isn't ready to become a work item
+- Before `backlog-drafting` — a delta with no tier decision isn't ready to become a work item;
+  design-record must reach `status: APPROVED` before backlog push (see
+  `../../artifacts/explore-chain/handoff.md`)
 - When reviewing whether an already-built extension actually matches its recorded tier (drift check)
 
 ## Inputs needed
@@ -30,7 +32,8 @@ justified in the first place.
 - **When no single decision-log row cleanly captures the target design** — real engagements often
   scatter design intent across follow-up emails, architecture decks, specs and workshop transcripts
   that never made it into a formal fit-to-standard row — the scattered sources themselves, for
-  compose/maintain mode (see below).
+  compose/maintain mode (see below). If the pack is still a raw pile with no single normalized
+  ask, run `requirements-intake` first and cite that `requirements.md` as a source in Mode B.
 - The `extensibility` and `clean-core` knowledge buckets — SAP's published rules on in-app vs.
   side-by-side extensibility, released APIs, and upgrade-safety boundaries
 - If an `extensibility-assessor` agent is wired, its verdict (tier, justification, red flags) as a
@@ -121,7 +124,13 @@ tier, and worked examples.
    suffix, per that template's "Escalation addenda" section), and the original Delta owner (or a named
    delegate) re-confirms the decision now that the tier-5 upgrade cost is known. The
    extensibility-record is not complete until that addendum exists — see its "mandatory escalation
-   block."
+   block." **If this delta was assembled via Mode B and has no decision-log Row ID at all**, this
+   mechanism has nothing to attach to by default — a real run surfaced this gap (2026-08-11). Anchor
+   the escalation addendum on the design-record's own minted ID instead (`<design-record-id>-esc-1`),
+   and separately flag the retroactive fit-to-standard row this delta should get (per the "decompose
+   the pack" section above) as a recommended follow-up — not a blocker for completing the escalation
+   record itself. Don't leave a tier-5 Mode B delta permanently unescalatable just because the row it
+   would normally anchor to doesn't exist yet.
 
 5. **Write the target design** for the delta using `../../artifacts/design-record/template.md`: what
    changes, where, and how it's tested — enough for `backlog-drafting` to size it without

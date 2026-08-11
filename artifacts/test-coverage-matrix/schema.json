@@ -1,0 +1,93 @@
+{
+  "type": "object",
+  "description": "Row ID -> test case traceability for one process area / decision-log range. Produced by test-case-design; read by the realize-deploy Q-gate.",
+  "required": ["row_id_range", "process_area", "compiled_by", "date", "coverage"],
+  "properties": {
+    "row_id_range": {
+      "type": "string",
+      "description": "The decision-log Row ID range this matrix covers, cited verbatim."
+    },
+    "process_area": { "type": "string" },
+    "compiled_by": { "type": "string" },
+    "date": { "type": "string", "format": "date" },
+    "coverage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["row_id", "classification", "status"],
+        "properties": {
+          "row_id": { "type": "string" },
+          "classification": {
+            "type": "string",
+            "enum": ["Standard", "Delta", "Workaround"],
+            "description": "'Workaround' mirrors fit-to-standard's own third decision-log state (proposed workaround, not yet resolved to Standard or Delta) - a row in this state still gets a coverage-matrix entry, not a forced guess at which of the other two it 'really' is."
+          },
+          "techniques_used": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["decision-table", "boundary-value", "state-transition", "equivalence-partitioning", "scenario-based"]
+            },
+            "description": "More than one entry is expected, not exceptional, when a row's shape genuinely matches more than one technique (see test-design-techniques.md's tie-break test) - don't collapse to one to make this field look tidier than the row actually is."
+          },
+          "test_case_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "TS-<process-slug>-NN, per test-script-template.md. Empty array means a zero-coverage gap - must appear in the top-level 'gaps' list, never silently absent. NOT the same signal as classification=Workaround, which can have a non-empty array here and still need an 'unresolved_classifications' entry - the two lists track different open items and a row can appear in either, both, or neither."
+          },
+          "status": {
+            "type": "string",
+            "enum": ["Not run", "Passed", "Failed", "Blocked", "Retest"]
+          },
+          "caveats": {
+            "type": "string",
+            "description": "A specific unverified/provisional claim this row's coverage rests on, distinct from the coarse status above (convention: docs/skill-design-conventions.md #4) - e.g. 'seed-only, design-record pending' or 'derived from a Draft decision log, pending session confirmation'. Never bury this in notes where a reader skimming only the status column would miss it."
+          },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "gaps": {
+      "type": "array",
+      "description": "Zero-coverage rows only. A Workaround row with non-empty test_case_ids does not belong here - see unresolved_classifications.",
+      "items": {
+        "type": "object",
+        "required": ["row_id", "reason"],
+        "properties": {
+          "row_id": { "type": "string" },
+          "reason": { "type": "string" },
+          "owner_to_close": { "type": "string" }
+        }
+      }
+    },
+    "unresolved_classifications": {
+      "type": "array",
+      "description": "Every classification=Workaround row, regardless of test_case_ids. Distinct from gaps: the open item here is that fit-to-standard hasn't resolved Standard vs Delta, never a statement about missing test coverage. A row can appear in both this array and gaps (if it also has zero cases) - that is two genuinely separate open items, not a duplicate.",
+      "items": {
+        "type": "object",
+        "required": ["row_id", "why_unresolved"],
+        "properties": {
+          "row_id": { "type": "string" },
+          "test_case_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Copy of coverage[].test_case_ids for this row - may be non-empty."
+          },
+          "why_unresolved": { "type": "string" },
+          "resolved_by": { "type": "string" }
+        }
+      }
+    },
+    "defect_history_seeded_cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "test_case_id": { "type": "string" },
+          "cause_family": { "type": "string" },
+          "related_row_id": { "type": "string" }
+        }
+      }
+    }
+  }
+}

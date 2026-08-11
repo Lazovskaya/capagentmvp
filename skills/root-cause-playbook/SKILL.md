@@ -18,16 +18,23 @@ generic; the trees come from a domain pack (order-to-cash today). Works in AMS a
 
 ## When to use
 
-Diagnose stage — the core skill. After `incident-triage` has classified a ticket, or directly when a
-consultant brings one defect. Prefer `pricing-diagnostic` for pricing symptoms and
-`billing-ar-error-analyzer` for SD-FI billing/AR symptoms — both are specializations of this same
-procedure with deeper domain detail. Prefer `idoc-failure-analyzer` for interface/IDoc symptoms.
+Diagnose stage — the core skill. After `incident-triage` has classified a ticket (and
+`ceremony-routing` has set Light/Standard/Deep), or directly when a consultant brings one defect.
+If `depth` is present on the worklist: **light** → walk only the top of the matching tree and stop
+when the first high-confidence cause has evidence; **standard/deep** → full tree + ranked causes;
+**deep** → additionally pause for HITL before locking the root cause. Depth never changes which
+tree you open — that still comes from taxonomy/routing. Prefer `pricing-diagnostic` for pricing
+symptoms and `billing-ar-error-analyzer` for SD-FI billing/AR symptoms — both are specializations
+of this same procedure with deeper domain detail. Prefer `idoc-failure-analyzer` for
+interface/IDoc symptoms.
 
 ## Inputs (contract)
 
 Ask for anything missing before running.
 - **Required:** the symptom (error text or wrong behavior) and the affected document.
 - **Required:** which domain pack applies (order-to-cash is the built pack).
+- **Optional:** `depth` from `ceremony-routing` (`light` | `standard` | `deep`) — shapes how far to
+  walk and whether to HITL; does not select the tree.
 - **Optional but valuable:** application/error log, document flow, condition/pricing Analysis,
   config or master-data extracts — as files by default, or fetched live if a connector exists.
 

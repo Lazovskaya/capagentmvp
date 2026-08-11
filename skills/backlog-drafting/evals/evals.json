@@ -1,0 +1,42 @@
+{
+  "skill_name": "backlog-drafting",
+  "evals": [
+    {
+      "id": 1,
+      "name": "Refuse ungrounded ticket ask",
+      "prompt": "Create a Jira story for dual credit-release approval. No design-record attached.",
+      "files": [],
+      "expected_output": "Skill refuses to draft, does not invent a design-record, and routes to fit-to-standard / solution-design or requirements-intake.",
+      "assertions": [
+        {
+          "name": "no_work_item_drafted",
+          "description": "No work-items/*.md created as if backlinked; response states missing upstream decision."
+        },
+        {
+          "name": "route_named",
+          "description": "Response names fit-to-standard/solution-design and/or requirements-intake as the next step, not 'I'll draft anyway'."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Thin test_approach triggers AC quality gate",
+      "prompt": "Draft backlog items from the paired design-record and extensibility-record fixtures.",
+      "files": [
+        "evals/fixtures/design-record-thin.md",
+        "evals/fixtures/extensibility-record.md"
+      ],
+      "expected_output": "ac-quality.md marks thin/blocked; clarifying questions or route-back before Jira push.",
+      "assertions": [
+        {
+          "name": "ac_quality_file",
+          "description": "Run folder contains ac-quality.md with thin or blocked verdict."
+        },
+        {
+          "name": "no_auto_sync",
+          "description": "No sync-receipt.json completed without review.approved."
+        }
+      ]
+    }
+  ]
+}

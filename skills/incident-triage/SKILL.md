@@ -1,6 +1,6 @@
 ---
 name: incident-triage
-description: Classify incoming SAP support/AMS incidents by sub-process, likely layer and severity, dedupe them, and route to the owning stream. Domain-neutral engine — plugs in a domain sub-process taxonomy (order-to-cash is the current pack). Use as the intake step of bug-fixing, including hypercare.
+description: Classify incoming SAP support/AMS incidents by sub-process, likely layer and severity, dedupe them, route to the owning stream, then score ceremony depth (Light/Standard/Deep) via ceremony-routing without replacing domain diagnostics. Domain-neutral engine — plugs in a domain sub-process taxonomy (order-to-cash is the current pack). Use as the intake step of bug-fixing, including hypercare.
 ---
 
 # Incident Triage
@@ -44,6 +44,8 @@ Ask for anything missing before running.
   (ticket phrases/tcodes/message types → sub-process + layer hint + confidence, disambiguation rules).
 - **Domain routing matrix** — `../../knowledge/domain-packs/order-to-cash/routing-matrix.md` (stream,
   owner, layer co-assign, diagnose handoff).
+- **`ceremony-routing`** — after route, scores Light/Standard/Deep; does **not** change the matrix
+  diagnose handoff. See `../ceremony-routing/SKILL.md` and `../ceremony-routing/references/depth-guide.md`.
 - **Domain adjacency** (optional at triage) —
   `../../knowledge/domain-packs/order-to-cash/subprocess-adjacency.md` for related-stream notes on S1
   clusters; primary consumer is `fix-doc-and-regression`.
@@ -68,18 +70,26 @@ Ask for anything missing before running.
    primary, link the rest (`dup_group_id`, `dup_role`, `dup_note`).
 4. **Route** via the domain routing matrix: sub-process → stream/owner; apply layer co-assign
    (`custom`→dev, `data`→Basis when technical, `user`→OCM); `interface`→partner + IDoc layer.
-5. **Output** a triaged worklist sorted by severity band, then volume weight, then primary-before-
-   duplicate. Optionally note adjacent streams from the adjacency map on S1.
-6. **Preview/write back (connector only):** show the exact tracker mutation per ticket and stop for
-   approval. Low-confidence items require consultant confirmation before any tracker write.
+   Record `diagnose_handoff` per primary exactly as the matrix states.
+5. **Score ceremony depth** — invoke `ceremony-routing` for each **primary** (duplicates inherit).
+   Pass triage fields + `diagnose_handoff` + `dup_group_size`. Write `depth` / `next_skill` /
+   `also_consider` onto the worklist. **Do not** replace O2C diagnostics with depth scoring —
+   depth only sets Light/Standard/Deep ritual around the same handoff.
+6. **Output** a triaged worklist sorted by severity band, then volume weight, then primary-before-
+   duplicate. Optionally note adjacent streams from the adjacency map on S1. Include depth columns.
+7. **Preview/write back (connector only):** show the exact tracker mutation per ticket and stop for
+   approval. Low-confidence items require consultant confirmation before any tracker write. Depth is
+   a worklist field — do not invent new tracker Priority values from it.
 
 ## Output
 
 A triaged, deduped, routed worklist: per ticket → sub-process, layer, severity, owner, duplicate
-group. Written to `workspace/bugfix/triage-<date>.md` (gitignored) and/or back to the tracker if
+group, **depth**, **next_skill** (usually = diagnose handoff), **also_consider**. Written to
+`workspace/bugfix/triage-<date>.md` (gitignored) plus optional
+`workspace/bugfix/triage-<date>/depth/` from `ceremony-routing`, and/or back to the tracker if
 connected. Feeds `root-cause-playbook`/`pricing-diagnostic`/`billing-ar-error-analyzer`/
-`idoc-failure-analyzer` (per ticket), `defect-triage` (commercial verdict), and
-`defect-pattern-analysis` (backlog, periodically).
+`idoc-failure-analyzer` (per ticket, at the scored depth), `defect-triage` (commercial verdict), and
+`defect-pattern-analysis` when `also_consider` says so or on a periodic Prevent pass.
 
 ## Judgment calls worth stating out loud
 
@@ -98,6 +108,8 @@ connected. Feeds `root-cause-playbook`/`pricing-diagnostic`/`billing-ar-error-an
   itself** ("per the method's dedup table", "per the catalog's own rule") — state the reasoning in
   plain classification terms (signal matched, cluster type, why). The method/catalog are what you
   used to get there, not something the worklist's reader needs cited back at them.
+- **Depth is not severity.** Do not sort the worklist by Light/Standard/Deep; keep severity → volume
+  → primary. Do not swap `pricing-diagnostic` for RCA (or vice versa) because depth is Deep.
 
 ## Driver
 

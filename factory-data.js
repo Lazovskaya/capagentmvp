@@ -105,7 +105,7 @@ window.FACTORY_DATA = {
    "posture": "own",
    "status": "progress",
    "phase": "Discover",
-   "desc": "Orient a new internal factory team member: role path, repo mental model, day-0 setup, which skill to run first. Meta content, not a client deliverable."
+   "desc": "User helper after install: day-0 orientation for consultants using the factory on a project, then phase/engagement/domain routing to the first delivery skill. Not a contributor/platform guide."
   },
   {
    "kind": "Skill",
@@ -141,6 +141,14 @@ window.FACTORY_DATA = {
   },
   {
    "kind": "Skill",
+   "name": "requirements-intake",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Explore",
+   "desc": "Normalize free-form, ticket, notes pack, or greenfield ask into one requirements.md; never invent AC; hand off to fit-to-standard or solution-design Mode B — not a substitute for backlog-drafting."
+  },
+  {
+   "kind": "Skill",
    "name": "fit-to-standard",
    "posture": "own",
    "status": "progress",
@@ -161,7 +169,7 @@ window.FACTORY_DATA = {
    "posture": "own",
    "status": "progress",
    "phase": "Explore",
-   "desc": "Deltas become sized, owned, traceable work items."
+   "desc": "Deltas become sized, owned, traceable work items. AC quality check + review before Jira push; refuses ungrounded asks (route via requirements-intake / FTS)."
   },
   {
    "kind": "Skill",
@@ -193,7 +201,15 @@ window.FACTORY_DATA = {
    "posture": "own",
    "status": "progress",
    "phase": "Realize",
-   "desc": "Intake: classify incoming defects/incidents by sub-process, layer and severity, dedupe, route. Domain-neutral engine, reused by hypercare."
+   "desc": "Intake: classify by sub-process, layer, severity; dedupe; route; then ceremony-routing for depth. Domain-neutral engine, reused by hypercare."
+  },
+  {
+   "kind": "Skill",
+   "name": "ceremony-routing",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Realize",
+   "desc": "Score Light/Standard/Deep ceremony depth after triage or requirements intake. Does not replace domain diagnostics — only sets how deep to run the matrix handoff."
   },
   {
    "kind": "Skill",
@@ -242,6 +258,14 @@ window.FACTORY_DATA = {
    "status": "progress",
    "phase": "Realize",
    "desc": "Fix/verify: document the fix and derive regression test scope from a domain adjacency map. Domain-neutral engine."
+  },
+  {
+   "kind": "Skill",
+   "name": "test-case-design",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Realize",
+   "desc": "Derive executable test scripts from every decision-log Row ID (Standard and Delta), with input-quality gate, per-run ledger, review-before-sync, and Row ID coverage matrix."
   },
   {
    "kind": "Skill",
@@ -445,6 +469,14 @@ window.FACTORY_DATA = {
   },
   {
    "kind": "Artifact",
+   "name": "requirements-record",
+   "posture": "own",
+   "status": "progress",
+   "phase": "all",
+   "desc": "Normalized requirements from intake: source, goal, AC only if present, open questions. No FTS/design backlinks yet."
+  },
+  {
+   "kind": "Artifact",
    "name": "design-record",
    "posture": "own",
    "status": "progress",
@@ -490,6 +522,14 @@ window.FACTORY_DATA = {
    "status": "progress",
    "phase": "all",
    "desc": "Class, route, and the human who confirmed it."
+  },
+  {
+   "kind": "Artifact",
+   "name": "test-coverage-matrix",
+   "posture": "own",
+   "status": "progress",
+   "phase": "all",
+   "desc": "Row ID to test-case traceability: technique used, test case IDs, status, explicit gaps."
   },
   {
    "kind": "Artifact",
@@ -705,10 +745,10 @@ window.FACTORY_DATA = {
    "phase": "Discover",
    "owner": "delivery",
    "engagement": "GBAR",
-   "status": "notstarted",
+   "status": "progress",
    "file": "activities/discover/factory-onboard.md",
-   "title": "Factory onboarding",
-   "desc": "Orient a new internal factory team member: role path, repo mental model, day-0 setup, which skill to run first. Meta content, not a client deliverable — produces no artifact and feeds no Q-gate.",
+   "title": "Factory onboarding (user entry)",
+   "desc": "Consultant who installed the factory and wants to use it on a project: orient, day-0 setup, capture phase/engagement/domain, route to the first delivery skill. Meta for the user — no client artifact, no Q-gate evidence by itself.",
    "uses": [
     [
      "skill",
@@ -719,7 +759,8 @@ window.FACTORY_DATA = {
     [
      "knowledge",
      [
-      "standards"
+      "standards",
+      "domain-packs"
      ]
     ]
    ]
@@ -883,6 +924,43 @@ window.FACTORY_DATA = {
   {
    "phase": "Explore",
    "owner": "functional",
+   "engagement": "GBAR",
+   "status": "progress",
+   "file": "activities/explore/requirements-intake.md",
+   "title": "Requirements intake",
+   "desc": "Normalize a free-form ask, ticket, notes pack, or greenfield idea into one requirements.md with explicit Source and Open questions. Prevents invented acceptance criteria before fit-to-standard or solution-design Mode B. Does not create backlinked backlog items.",
+   "uses": [
+    [
+     "skill",
+     [
+      "requirements-intake"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "requirements-record"
+     ]
+    ],
+    [
+     "mcp",
+     [
+      "jira",
+      "cloud-alm"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "process",
+      "standards"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Explore",
+   "owner": "functional",
    "engagement": "GB",
    "status": "notstarted",
    "file": "activities/explore/fit-to-standard.md",
@@ -974,10 +1052,10 @@ window.FACTORY_DATA = {
    "phase": "Explore",
    "owner": "delivery",
    "engagement": "GBA",
-   "status": "notstarted",
+   "status": "progress",
    "file": "activities/explore/backlog-drafting.md",
    "title": "Backlog drafting",
-   "desc": "Convert deltas and design decisions into sized, owned, traceable work items in the work-intent system, each carrying a link back to the process decision that caused it. Traceability is established here or not at all, and defect triage downstream depends on it entirely.",
+   "desc": "Convert deltas and design decisions into sized, owned, traceable work items in the work-intent system, each carrying a link back to the process decision that caused it. Includes AC quality check, clarifying questions when thin, and review before push. Traceability is established here or not at all.",
    "uses": [
     [
      "skill",
@@ -1131,12 +1209,13 @@ window.FACTORY_DATA = {
    "status": "progress",
    "file": "activities/realize/defect-triage.md",
    "title": "Defect triage",
-   "desc": "The full defect-handling pipeline for a test-cycle queue: intake and classify by sub-process/layer/severity, diagnose to a root cause, decide bug vs functional spec flaw, then document the fix and its regression scope. The bug/spec-flaw classification is commercial rather than technical: a bug is fixed under the fee, a spec flaw is a change request. So the agent recommends and a named human confirms, and the verdict records who. This only works if the traceability chain upstream is complete.",
+   "desc": "Full defect pipeline: intake/classify, ceremony depth (Light/Standard/Deep), diagnose, bug vs spec-flaw (human confirms), fix-doc and regression. Traceability chain must be complete upstream.",
    "uses": [
     [
      "skill",
      [
       "incident-triage",
+      "ceremony-routing",
       "root-cause-playbook",
       "pricing-diagnostic",
       "billing-ar-error-analyzer",
@@ -1170,6 +1249,37 @@ window.FACTORY_DATA = {
       "process",
       "config",
       "custom-code",
+      "testing"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Realize",
+   "owner": "test",
+   "engagement": "GBA",
+   "status": "progress",
+   "file": "activities/realize/test-case-design.md",
+   "title": "Test case design",
+   "desc": "Derive executable test scripts from every decision-log Row ID in a process area, Standard and Delta alike, with an input-quality gate and per-run ledger, pick the design technique per row's shape, seed regression from defect history, produce a coverage matrix, and require review before optional test-management sync.",
+   "uses": [
+    [
+     "skill",
+     [
+      "test-case-design"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "test-coverage-matrix"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "process",
+      "domain-packs",
       "testing"
      ]
     ]
@@ -1265,12 +1375,13 @@ window.FACTORY_DATA = {
    "status": "notstarted",
    "file": "activities/run/hypercare-triage.md",
    "title": "Hypercare & incident triage",
-   "desc": "The same pipeline as Realize defect-triage with a different intake: incidents from live users rather than defects from test cycles. Runs against Cloud ALM and the knowledge base. This is where triage pays for itself, because the volume is highest and the pattern is most repetitive.",
+   "desc": "Same pipeline as Realize defect-triage with live-user intake. Ceremony depth after route, before diagnose; does not replace O2C diagnostics.",
    "uses": [
     [
      "skill",
      [
       "incident-triage",
+      "ceremony-routing",
       "root-cause-playbook",
       "pricing-diagnostic",
       "billing-ar-error-analyzer",

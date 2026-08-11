@@ -36,7 +36,10 @@ delta earlier, back in fit-to-standard.
 ## If chosen tier is 5 (classic modification) — mandatory escalation block
 
 - **Escalation addendum Row ID:** <the `-esc-N` addendum row created in the fit-to-standard decision
-  log per its "Escalation addenda" section — this record is not final without that addendum existing>
+  log per its "Escalation addenda" section — this record is not final without that addendum existing.
+  **If this delta was assembled via Mode B with no decision-log Row ID**, anchor this on the
+  design-record's own minted ID instead (`<design-record-id>-esc-1`) and separately note the
+  recommended retroactive fit-to-standard row as a follow-up, not a precondition for this field.>
 - **Escalation owner (name):** <distinct from the decision log's Delta owner and the sign-off record's
   signer — this is the person who explicitly accepted the tier-5 upgrade-cost consequence, once it was
   known>

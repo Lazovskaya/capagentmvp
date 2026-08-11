@@ -62,9 +62,13 @@ status, priority, or assignee change ever happens through this connector.
 
 ## Write-back contract
 
+**Default is dry-run.** Skills that use this connector must preview the exact labels and comment
+locally first. Live MCP mutations happen only when the user explicitly passes `--apply` (or an
+equivalent clear approval the skill documents). See `docs/skill-design-conventions.md` §6.
+
 1. Read, classify, and write the local artifact first.
 2. Preview the exact labels and comment before touching Jira.
-3. Require explicit user approval, low-confidence classifications need it even more.
+3. Require explicit user approval (`--apply`); low-confidence classifications need it even more.
 4. Preserve every existing label; only append normalized `sap-*` labels.
 5. Add the classification comment; never change workflow fields.
 6. Verify by re-reading the issue after write-back; record success or failure in the local

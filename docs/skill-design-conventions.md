@@ -89,8 +89,34 @@ gets fuzzy exactly where it matters most (the case that looks like it could go e
 
 ## How to use this file when designing a new skill
 
-Before writing a new skill's first draft, read this file and ask, for each of the five patterns,
+Before writing a new skill's first draft, read this file and ask, for each pattern below,
 whether the skill you're about to design will produce or consume: an ID other skills will cite, a
-status field, more than one kind of "who decided" role, a verdict that can hide an unverified claim, or
-a routing decision with more than two outcomes. If yes to any, apply the pattern from the start —
-don't wait for a dry-run to find the same bug again.
+status field, more than one kind of "who decided" role, a verdict that can hide an unverified claim, a
+routing decision with more than two outcomes, an MCP write, or a cross-skill handoff. If yes to any,
+apply the pattern from the start — don't wait for a dry-run to find the same bug again.
+
+## 6. MCP mutations are dry-run unless `--apply`
+
+Any connector write (Jira comment/labels, ABAP create/update, Cloud ALM, calendar invite send, …)
+defaults to **preview only**. The skill prints the exact intended mutation, waits for explicit
+user confirmation via `--apply` (or an equivalent clear approval phrase the skill documents), then
+performs the write and re-reads to verify.
+
+- **Why:** consultants run skills against live client systems; silent writes destroy trust and audit.
+- **Applied in:** `connectors/jira` write-back contract; `backlog-drafting` tracker push;
+  `factory-onboard`'s `apply_writes` default false; ai-sdlc's BA/Arc `--apply` pattern.
+- **When designing a new skill:** if it can call an MCP tool that mutates remote state, the happy
+  path without `--apply` must end in a local artifact + printed preview — never a live write.
+- **Reads are fine** without `--apply`. Degrade to file export when the connector is missing.
+
+## 7. Cross-skill handoffs need an artifact model, not only prose
+
+When skill A feeds skill B, write the contract in a durable place: required fields, ID schemes,
+status gates, owners, and refuse conditions. Explore's chain lives in
+`artifacts/explore-chain/artifact-model.yaml` + `handoff.md`.
+
+- **Why:** prose in two SKILL.md files drifts; a single handoff doc is what B checks.
+- **Status gates:** prefer explicit enums (`APPROVED`) over "looks done". Reopen path required
+  (pattern 2) — e.g. design-record `REOPENED`, not a silent downgrade.
+- **When designing a new chain:** add or extend an `artifact-model.yaml` before inventing a third
+  skill in the sequence.

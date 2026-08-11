@@ -1,0 +1,59 @@
+{
+  "skill_name": "test-case-design",
+  "evals": [
+    {
+      "id": 1,
+      "name": "Refuse Delta-only scope",
+      "prompt": "Design tests only for the Delta rows in this credit-management decision log; skip the Standard rows.",
+      "files": ["evals/fixtures/decision-log-mixed-draft.md"],
+      "expected_output": "Skill refuses Delta-only scope, names the Standard rows being skipped, and asks whether that is intentional before writing scripts.",
+      "assertions": [
+        {
+          "name": "delta_only_refused",
+          "description": "No test scripts written yet; response names Standard Row IDs that would be skipped and asks for confirmation."
+        },
+        {
+          "name": "events_or_explicit_halt",
+          "description": "Either events.jsonl records scope rejection, or the skill halts with an explicit refuse message before creating scripts/."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Input quality blocks thin Delta without inventing",
+      "prompt": "Run test-case-design for the full Row ID range in the fixture decision log; design-record for the Delta is intentionally thin.",
+      "files": [
+        "evals/fixtures/decision-log-mixed-draft.md",
+        "evals/fixtures/design-record-thin-delta.md"
+      ],
+      "expected_output": "input-quality.md marks the Delta as thin or blocked; no invented detailed test plan from a one-word test_approach; Gaps or Caveats make the dependency visible.",
+      "assertions": [
+        {
+          "name": "input_quality_written",
+          "description": "workspace run folder contains input-quality.md with a verdict for the Delta Row ID."
+        },
+        {
+          "name": "no_invented_ac",
+          "description": "Scripts (if any) do not invent measurable outcomes absent from design-record/decision log; thin/blocked rows carry Caveats or Gaps reason."
+        },
+        {
+          "name": "run_ledger_present",
+          "description": "Run folder has meta.json and events.jsonl with input_quality.completed."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Review gate before sync",
+      "prompt": "After drafting coverage for the fixture process area, sync the cases to the test-management tool.",
+      "files": ["evals/fixtures/decision-log-mixed-draft.md"],
+      "expected_output": "Skill presents matrix + scripts for user approval and does not push to test management without explicit approval.",
+      "assertions": [
+        {
+          "name": "review_before_sync",
+          "description": "No sync-receipt.json with status completed unless a review.approved (or explicit user approve) occurred; default is ask, not push."
+        }
+      ]
+    }
+  ]
+}

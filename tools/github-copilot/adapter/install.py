@@ -86,8 +86,14 @@ def write_copilot_instructions(project, installed_skills, installed_connectors, 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--project", required=True, help="path to the client project to install into")
-    parser.add_argument("--skills", required=True, help="comma-separated skill names, or '*' for all own-posture skills")
-    parser.add_argument("--connectors", required=True, help="comma-separated connector names, or '*' for all with real wiring")
+    parser.add_argument("--skills", default="", help="comma-separated skill names, or '*' for all own-posture skills")
+    parser.add_argument("--connectors", default="", help="comma-separated connector names, or '*' for all with real wiring")
+    parser.add_argument("--activity", help=(
+        "install everything a Delivery-pipeline activity uses (matched against factory-data.json's "
+        "activities by title, e.g. 'Readiness & simplification analysis'); combines with --skills/"
+        "--connectors if both given. Fails immediately if the activity references a skill or "
+        "connector this adapter can't install, rather than partially installing it."
+    ))
     parser.add_argument("--destination", action="append", default=[], metavar="CONNECTOR=NAME",
                          help="override the <destination> credential-file name for one connector; repeatable")
     parser.add_argument("--check", action="store_true", help="report drift against factory-lock.json, write nothing")
@@ -103,8 +109,11 @@ def main():
         k, v = item.split("=", 1)
         destinations[k] = v
 
-    skill_names = common.resolve_names(args.skills, common.all_own_skill_names(), "skill", ADOPT_HINT)
-    connector_names = common.resolve_names(args.connectors, common.all_wired_connector_names(), "connector", ADOPT_HINT)
+    skill_names, connector_names, activity = common.resolve_selection(
+        args.skills, args.connectors, args.activity, ADOPT_HINT
+    )
+    if activity:
+        print(f"Activity: {activity['title']} ({activity['file']})")
 
     version = common.factory_version()
     lock = common.load_lock(project)

@@ -64,12 +64,27 @@ def all_wired_connector_names():
     return out
 
 
-def resolve_names(requested, available, kind, adopt_hint):
-    """kind is 'skill' or 'connector'; adopt_hint is the CLI invocation to point at for
-    names this adapter doesn't handle (adopt-posture skills, unwired connectors)."""
-    if requested == "*":
+def parse_names(csv):
+    """Splits a comma-separated CLI value into tokens. '' -> []. '*' stays a single token,
+    resolved later by resolve_names."""
+    if not csv:
+        return []
+    return [n.strip() for n in csv.split(",") if n.strip()]
+
+
+def resolve_names(tokens, available, kind, adopt_hint):
+    """tokens is a list of names (possibly containing the sentinel '*' for "all"), already
+    merged from whatever CLI sources contributed them (--skills/--connectors, --activity, ...).
+    kind is 'skill' or 'connector'; adopt_hint is the CLI invocation to point at for names this
+    adapter doesn't handle (adopt-posture skills, unwired connectors). Dies on the first name
+    that isn't installable -- callers rely on this to fail loudly rather than partially install."""
+    if any(t == "*" for t in tokens):
         return list(available)
-    names = [n.strip() for n in requested.split(",") if n.strip()]
+    names, seen = [], set()
+    for n in tokens:
+        if n not in seen:
+            seen.add(n)
+            names.append(n)
     for n in names:
         if n not in available:
             if kind == "skill":
@@ -188,3 +203,66 @@ def check_project_path(project):
     if project == FACTORY_ROOT.resolve():
         die("--project resolves to this factory repo itself -- refusing to install into the source repo")
     return project
+
+
+# ---------- activities (Delivery pipeline groups) ----------
+
+def find_activity(query):
+    """Matches --activity against factory-data.json's activities by title (case-insensitive
+    exact, then substring) or by file path/stem. Dies with the full activity list if nothing
+    or more than one thing matches, rather than guessing."""
+    activities = load_json(FACTORY_DATA_JSON, {}).get("activities", [])
+    q = query.strip().lower()
+    for a in activities:
+        if a["title"].strip().lower() == q:
+            return a
+    for a in activities:
+        if q == a["file"].lower() or q == Path(a["file"]).stem.lower():
+            return a
+    matches = [a for a in activities if q in a["title"].strip().lower()]
+    if len(matches) == 1:
+        return matches[0]
+    titles = "; ".join(a["title"] for a in activities)
+    if len(matches) > 1:
+        die(f"'{query}' matches multiple activities ({', '.join(a['title'] for a in matches)}) -- be more specific")
+    die(f"no activity matches '{query}'. Known activities: {titles}")
+
+
+def activity_uses(activity, kind):
+    """kind is factory-data.json's own vocabulary here: 'skill' or 'mcp' (not 'connector')."""
+    out, seen = [], set()
+    for u in activity.get("uses", []):
+        if u[0] == kind:
+            for n in u[1]:
+                if n not in seen:
+                    seen.add(n)
+                    out.append(n)
+    return out
+
+
+def resolve_selection(skills_csv, connectors_csv, activity_query, adopt_hint):
+    """Merges --skills/--connectors with an --activity's skill/mcp components (if given), then
+    validates the combined set through resolve_names -- so an activity that references a skill
+    or connector this adapter can't install fails the whole run immediately, same as naming that
+    component directly would. Returns (skill_names, connector_names, activity_or_None)."""
+    skill_tokens = parse_names(skills_csv)
+    connector_tokens = parse_names(connectors_csv)
+    activity = find_activity(activity_query) if activity_query else None
+    if activity:
+        skill_tokens += activity_uses(activity, "skill")
+        connector_tokens += activity_uses(activity, "mcp")
+
+    if not skill_tokens and not connector_tokens:
+        if activity:
+            die(
+                f"activity '{activity['title']}' has no skill or connector components -- this "
+                "adapter only installs skills/connectors, not agents/artifacts/knowledge/gates"
+            )
+        die("nothing requested -- pass --skills, --connectors, and/or --activity")
+
+    skill_names = resolve_names(skill_tokens, all_own_skill_names(), "skill", adopt_hint) if skill_tokens else []
+    connector_names = (
+        resolve_names(connector_tokens, all_wired_connector_names(), "connector", adopt_hint)
+        if connector_tokens else []
+    )
+    return skill_names, connector_names, activity

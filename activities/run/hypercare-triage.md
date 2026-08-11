@@ -6,7 +6,8 @@ triage pays for itself, because the volume is highest and the pattern is most re
 
 **Owner:** Functional
 **Engagement(s):** AMS & Run
-**Status:** Not started
+**Status:** In progress — same pipeline as Realize `defect-triage`, real-run tested this session
+against a live-incident-shaped scenario (user-reported tickets, not test-cycle defects)
 
 ## Uses
 

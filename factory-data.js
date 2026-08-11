@@ -245,6 +245,14 @@ window.FACTORY_DATA = {
   },
   {
    "kind": "Skill",
+   "name": "test-case-design",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Realize",
+   "desc": "Derive executable test scripts from every decision-log Row ID (Standard and Delta), pick the design technique per row's shape, seed regression cases from defect history, produce a Row ID-to-test-case coverage matrix."
+  },
+  {
+   "kind": "Skill",
    "name": "defect-pattern-analysis",
    "posture": "own",
    "status": "progress",
@@ -490,6 +498,14 @@ window.FACTORY_DATA = {
    "status": "progress",
    "phase": "all",
    "desc": "Class, route, and the human who confirmed it."
+  },
+  {
+   "kind": "Artifact",
+   "name": "test-coverage-matrix",
+   "posture": "own",
+   "status": "progress",
+   "phase": "all",
+   "desc": "Row ID to test-case traceability: technique used, test case IDs, status, explicit gaps."
   },
   {
    "kind": "Artifact",
@@ -1170,6 +1186,37 @@ window.FACTORY_DATA = {
       "process",
       "config",
       "custom-code",
+      "testing"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Realize",
+   "owner": "test",
+   "engagement": "GBA",
+   "status": "progress",
+   "file": "activities/realize/test-case-design.md",
+   "title": "Test case design",
+   "desc": "Derive executable test scripts from every decision-log Row ID in a process area, Standard and Delta alike, pick the design technique per row's actual shape (decision-table, boundary-value, state-transition, scenario-based), seed regression cases from known defect history, and produce a Row ID-to-test-case traceability matrix. Nothing else in this factory produces proactive, traceable test coverage for Standard rows.",
+   "uses": [
+    [
+     "skill",
+     [
+      "test-case-design"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "test-coverage-matrix"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "process",
+      "domain-packs",
       "testing"
      ]
     ]

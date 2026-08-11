@@ -5,6 +5,10 @@ Focused Build test cases and most client-authored UAT scripts: step-by-step, exp
 a status per step). Written fresh — no predecessor-repo file existed to port; grounded in standard
 SAP test-management practice, not client-specific content.
 
+**Populated by `../../skills/test-case-design/SKILL.md`** — that skill derives which test cases to
+write (technique, positive/negative/boundary set) and produces the `test-coverage-matrix` this
+template's cases are tracked against; this file is the per-case output shape it writes to.
+
 ## Why this exists in `knowledge/testing/`, not `artifacts/`
 
 `artifacts/` holds phase-handoff templates produced once per decision/record. A test script is

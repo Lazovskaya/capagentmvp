@@ -32,7 +32,7 @@
     },
     "test_approach": {
       "type": "string",
-      "description": "What 'correct' looks like for this design — what backlog-drafting turns into acceptance criteria."
+      "description": "What 'correct' looks like for this design, one seed sentence — backlog-drafting turns it into coarse acceptance criteria on the work item; test-case-design expands the same field into an actual positive/negative/boundary test set. Neither of those downstream steps means this field can stay thin because 'someone else will flesh it out' — write it as a real statement of correctness, not a placeholder."
     },
     "open_questions": {
       "type": "string",

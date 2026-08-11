@@ -6,12 +6,13 @@ Defect history and what has already been classified as a spec flaw.
 
 - `defect-history-template.md` — the central default: an **empty**, fixed-schema register a
   project appends to over time via `knowledge-harvest`, not a one-off period export. Read/written by
-  `defect-triage` (precedent check) and `defect-pattern-analysis` (its real-engagement source for
-  the "defect set for a defined period" input). See that file for the full schema and the precedent-
-  check test.
+  `defect-triage` (precedent check), `defect-pattern-analysis` (its real-engagement source for the
+  "defect set for a defined period" input), and `test-case-design` (regression-case seeding from
+  recurring cause families). See that file for the full schema and the precedent-check test.
 - `test-script-template.md` — a step-by-step test-cycle script template, traced back to a
   fit-to-standard Row ID / design-record / `fix-doc-and-regression` scenario. Written fresh (no
   predecessor-repo file existed to port), grounded in standard SAP test-management practice.
+  Populated by `../../skills/test-case-design/SKILL.md`.
 
 ## Candidates from sap-ai-framework — could not be ported
 

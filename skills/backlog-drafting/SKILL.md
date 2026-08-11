@@ -58,7 +58,11 @@ unresolvable defect dispute, not a shortcut.
 
 6. **State the acceptance criteria from the target design**, not from memory of the workshop
    conversation — if the design-record doesn't contain enough to write acceptance criteria, that's a
-   gap in the design-record to fix before drafting, not something to paper over here.
+   gap in the design-record to fix before drafting, not something to paper over here. This is a
+   coarse, one-sentence-level restatement for the work item, not an executable test — `test-case-
+   design` is the skill that expands the same `test_approach` field into a real positive/negative/
+   boundary test set, and it also covers Standard rows this skill never touches. Don't treat this
+   step as having already done that job.
 
 ## Outputs
 

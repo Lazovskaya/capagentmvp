@@ -1,0 +1,74 @@
+{
+  "type": "object",
+  "description": "Row ID -> test case traceability for one process area / decision-log range. Produced by test-case-design; read by the realize-deploy Q-gate.",
+  "required": ["row_id_range", "process_area", "compiled_by", "date", "coverage"],
+  "properties": {
+    "row_id_range": {
+      "type": "string",
+      "description": "The decision-log Row ID range this matrix covers, cited verbatim."
+    },
+    "process_area": { "type": "string" },
+    "compiled_by": { "type": "string" },
+    "date": { "type": "string", "format": "date" },
+    "coverage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["row_id", "classification", "status"],
+        "properties": {
+          "row_id": { "type": "string" },
+          "classification": {
+            "type": "string",
+            "enum": ["Standard", "Delta", "Workaround"],
+            "description": "'Workaround' mirrors fit-to-standard's own third decision-log state (proposed workaround, not yet resolved to Standard or Delta) - a row in this state still gets a coverage-matrix entry, not a forced guess at which of the other two it 'really' is."
+          },
+          "techniques_used": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["decision-table", "boundary-value", "state-transition", "equivalence-partitioning", "scenario-based"]
+            },
+            "description": "More than one entry is expected, not exceptional, when a row's shape genuinely matches more than one technique (see test-design-techniques.md's tie-break test) - don't collapse to one to make this field look tidier than the row actually is."
+          },
+          "test_case_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "TS-<process-slug>-NN, per test-script-template.md. Empty array means a gap - must appear in the gaps list, never silently absent."
+          },
+          "status": {
+            "type": "string",
+            "enum": ["Not run", "Passed", "Failed", "Blocked", "Retest"]
+          },
+          "caveats": {
+            "type": "string",
+            "description": "A specific unverified/provisional claim this row's coverage rests on, distinct from the coarse status above (convention: docs/skill-design-conventions.md #4) - e.g. 'seed-only, design-record pending' or 'derived from a Draft decision log, pending session confirmation'. Never bury this in notes where a reader skimming only the status column would miss it."
+          },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["row_id", "reason"],
+        "properties": {
+          "row_id": { "type": "string" },
+          "reason": { "type": "string" },
+          "owner_to_close": { "type": "string" }
+        }
+      }
+    },
+    "defect_history_seeded_cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "test_case_id": { "type": "string" },
+          "cause_family": { "type": "string" },
+          "related_row_id": { "type": "string" }
+        }
+      }
+    }
+  }
+}

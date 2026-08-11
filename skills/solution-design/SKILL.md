@@ -121,7 +121,13 @@ tier, and worked examples.
    suffix, per that template's "Escalation addenda" section), and the original Delta owner (or a named
    delegate) re-confirms the decision now that the tier-5 upgrade cost is known. The
    extensibility-record is not complete until that addendum exists — see its "mandatory escalation
-   block."
+   block." **If this delta was assembled via Mode B and has no decision-log Row ID at all**, this
+   mechanism has nothing to attach to by default — a real run surfaced this gap (2026-08-11). Anchor
+   the escalation addendum on the design-record's own minted ID instead (`<design-record-id>-esc-1`),
+   and separately flag the retroactive fit-to-standard row this delta should get (per the "decompose
+   the pack" section above) as a recommended follow-up — not a blocker for completing the escalation
+   record itself. Don't leave a tier-5 Mode B delta permanently unescalatable just because the row it
+   would normally anchor to doesn't exist yet.
 
 5. **Write the target design** for the delta using `../../artifacts/design-record/template.md`: what
    changes, where, and how it's tested — enough for `backlog-drafting` to size it without

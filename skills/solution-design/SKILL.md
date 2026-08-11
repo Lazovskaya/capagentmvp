@@ -30,7 +30,8 @@ justified in the first place.
 - **When no single decision-log row cleanly captures the target design** — real engagements often
   scatter design intent across follow-up emails, architecture decks, specs and workshop transcripts
   that never made it into a formal fit-to-standard row — the scattered sources themselves, for
-  compose/maintain mode (see below).
+  compose/maintain mode (see below). If the pack is still a raw pile with no single normalized
+  ask, run `requirements-intake` first and cite that `requirements.md` as a source in Mode B.
 - The `extensibility` and `clean-core` knowledge buckets — SAP's published rules on in-app vs.
   side-by-side extensibility, released APIs, and upgrade-safety boundaries
 - If an `extensibility-assessor` agent is wired, its verdict (tier, justification, red flags) as a

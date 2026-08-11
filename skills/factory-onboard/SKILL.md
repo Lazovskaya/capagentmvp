@@ -66,18 +66,20 @@ Ask for anything missing before running.
 
 | Role | Mainly uses | Read first |
 |---|---|---|
+| Any (engagement start) | `activate` (launcher) | `skills/activate/SKILL.md`, then the routed skill |
 | Functional | `fit-to-standard`, `config-doc` | `docs/skill-design-conventions.md`, the relevant `SKILL.md` |
 | Architect | `readiness-analysis`, `solution-design` | Same |
 | Developer | `custom-code-scan`, `abap-dev` (adopt) | Same |
-| Delivery | `cutover-plan`, `go-live-readiness`, `backlog-drafting` | Same |
+| Delivery | `activate`, `cutover-plan`, `go-live-readiness`, `backlog-drafting` | Same |
 | Data | `reconciliation` | Same |
 | Test | `defect-triage` | Same |
 | Basis | `production-conversion` | Same |
 
 4. **Guardrails (state once):** no client data or secrets committed; every skill's own `SKILL.md`
    states its own human-confirmation points — don't assume any skill auto-executes an
-   irreversible action.
-5. **Close.** Summarize the next single action. Hand off — this skill does not chain into running
+   irreversible action. MCP writes are dry-run unless `--apply`.
+5. **Close.** Summarize the next single action. For **engagement delivery work** (not team
+   orientation), point them at `activate` as the launcher — this skill does not chain into running
    another one automatically.
 
 ## Judgment calls worth stating out loud

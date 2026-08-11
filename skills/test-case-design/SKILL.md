@@ -53,36 +53,59 @@ Ask for anything missing before running.
 
 - `references/test-design-techniques.md` — the technique-selection method, coverage-vs-code-coverage
   distinction, and prioritization test.
+- `references/input-quality-check.md` — cheap pass/thin/blocked check on decision-log cells and
+  Delta `test_approach` **before** technique selection (adapted from the sdlc-factory
+  `qa-case-generator` AC-quality gate; SAP inputs are FTS rows + design-records, not ticket AC alone).
+- `references/run-ledger.md` — per-run folder, `meta.json`, append-only `events.jsonl`.
 - `../../knowledge/testing/test-script-template.md` — the output shape.
 - `../../knowledge/testing/defect-history-template.md` — regression-case seeding.
 - **Domain adjacency map** — `../../knowledge/domain-packs/order-to-cash/subprocess-adjacency.md`,
   used forward (which sub-processes a scenario should span) rather than `fix-doc-and-regression`'s
   reactive use of the same file.
+- `evals/evals.json` — regression fixtures for Delta-only refuse, thin design-record, and
+  review-before-sync. Run or walk through them when changing this skill.
+
+## Run layout
+
+Every run writes under `workspace/test-case-design/<YYYY-MM-DD>-<process-slug>/` (gitignored) —
+see `references/run-ledger.md`. Do not dump scripts into a flat folder with no ledger.
 
 ## Connectivity (agnostic + graceful degradation)
 
 - Default: file mode — read the decision log/design-records as files, write test scripts and the
-  coverage matrix as files.
-- If a test-management connector is ever wired for a project, the same content can be pushed there;
-  until then, state "⚠ no test-management connector — scripts and coverage matrix are file-only."
+  coverage matrix into the run folder.
+- **Test-management sync is optional and never automatic.** After the user review gate, ask
+  explicitly whether to push. If no connector is wired, record `sync.skipped` and state
+  "⚠ no test-management connector — scripts and coverage matrix are file-only."
+- If a connector is wired and the user approves, write `sync-receipt.json` in the run folder
+  (ids returned, timestamp, who approved). Never invent a successful sync.
 
 ## Steps
 
+0. **Open the run ledger** — create the run folder, write initial `meta.json`, append
+   `run.started` to `events.jsonl` (`references/run-ledger.md`). If a same-slug folder already
+   exists, ask resume vs new `-r2` slug; never silently overwrite.
 1. **Confirm the Row ID range in scope** — the full decision-log slice, not a Delta-only subset.
    Refuse a Delta-only ask the same way `backlog-drafting` refuses an ungrounded work item: name the
-   Standard rows being skipped and ask whether that's actually intended. **A row can be classified
-   `Standard`, `Delta`, or `Workaround` (per `fit-to-standard`'s decision log — a row not yet
-   resolved to either)** — design and write test cases for a `Workaround` row exactly as you would
-   any other; its unresolved classification is tracked in the matrix's **Unresolved classifications**
-   section, never in **Gaps** (Gaps means zero test coverage — a `Workaround` row with real cases is
-   not that, and putting it there anyway is a self-contradiction the matrix template used to invite;
-   see step 9). **A Draft/`Session status: Draft — pending facilitation` decision log can still be
-   run** — the resulting test cases and matrix are provisional, and every test-script header and the
-   matrix's own header must say so explicitly (cite the decision log's own session status verbatim),
-   the same discipline `fit-to-standard` itself uses for a session that hasn't been signed yet. Don't
-   wait for a Live log to start test design, but don't let the output look more final than the log
-   it's derived from.
-2. **Pick the design technique(s) per row**, using the shape test in
+   Standard rows being skipped and ask whether that's actually intended. Append `scope.confirmed`
+   (or halt without writing scripts). **A row can be classified `Standard`, `Delta`, or
+   `Workaround` (per `fit-to-standard`'s decision log — a row not yet resolved to either)** —
+   design and write test cases for a `Workaround` row exactly as you would any other; its
+   unresolved classification is tracked in the matrix's **Unresolved classifications** section,
+   never in **Gaps** (Gaps means zero test coverage — a `Workaround` row with real cases is not
+   that, and putting it there anyway is a self-contradiction the matrix template used to invite;
+   see step 10). **A Draft/`Session status: Draft — pending facilitation` decision log can still
+   be run** — the resulting test cases and matrix are provisional, and every test-script header
+   and the matrix's own header must say so explicitly (cite the decision log's own session status
+   verbatim), the same discipline `fit-to-standard` itself uses for a session that hasn't been
+   signed yet. Don't wait for a Live log to start test design, but don't let the output look more
+   final than the log it's derived from.
+2. **Input quality check** — before picking techniques, run
+   `references/input-quality-check.md` across every Row ID in scope. Write `input-quality.md`,
+   append `input_quality.completed`. Do not invent measurable outcomes for `blocked` rows; mark
+   them for Gaps / deferral. For `thin` Delta rows, ask up to three clarifying questions **or**
+   route back to `solution-design` before a full technique pass.
+3. **Pick the design technique(s) per row**, using the shape test in
    `references/test-design-techniques.md` — decision-table / boundary-value / state-transition /
    equivalence-partitioning / scenario-based. State which and why in the test case's traceability
    header; never leave it implicit. **A row can genuinely have more than one shape** (e.g. a rule
@@ -93,7 +116,7 @@ Ask for anything missing before running.
    if you can't, don't add it. A single Standard row collecting three techniques and six cases is
    very likely padding, not coverage — this happened in this factory's own first real run and an
    independent review correctly flagged it.
-3. **For Delta rows:** expand the design-record's `test_approach` sentence into a real
+4. **For Delta rows:** expand the design-record's `test_approach` sentence into a real
    positive/negative/boundary set — the sentence is a seed, not the test plan. **If the Delta row
    has no paired design-record yet** (`solution-design` hasn't run on it), do not skip the row
    silently and do not block the whole run waiting for it — give it a `test-coverage-matrix` entry
@@ -101,42 +124,51 @@ Ask for anything missing before running.
    `design-record pending` — this one genuinely is a Gaps entry (zero coverage), unlike a
    `Workaround` row with cases. Once the design-record exists, a later pass fills the row in; the
    matrix's job is to make that dependency visible, not to hide it by omission.
-4. **For Standard rows:** derive scenarios from whatever the decision log actually records for that
+5. **For Standard rows:** derive scenarios from whatever the decision log actually records for that
    row — the table's own Requirement/Decision/Impact cells when they're filled in, or the session's
    prose "talking points"/notes when the table cells are still placeholders (`—`, `Proposed`). **If
    the log is Draft** (see step 1), say explicitly that these are provisional test cases pending
    decision confirmation — don't treat a Draft log's thin table cells as a reason to invent detail
    the session never actually settled.
-5. **Seed regression cases from defect history:** for every recurring cause family in
+6. **Seed regression cases from defect history:** for every recurring cause family in
    `defect-history-template.md` that touches this process area, add an explicit boundary/negative
    case for it — a permanent fix with no test proving it stays fixed is half a fix. **If nothing in
    the defect-history file touches this process area, write that down explicitly** ("no matching
    cause family — nothing seeded") in the matrix's "Regression cases seeded" section — the same
    discipline the matrix template already requires for the Gaps section, applied here too; an empty
    section with no stated reason reads as "this step wasn't done," not "there was nothing to find."
-6. **Check the domain adjacency map** for any scenario that should span sub-processes, the same
+7. **Check the domain adjacency map** for any scenario that should span sub-processes, the same
    method `fix-doc-and-regression` applies reactively, applied here proactively.
-7. **Prioritize execution order using the ranked-tier test** in `references/test-design-techniques.md`
+8. **Prioritize execution order using the ranked-tier test** in `references/test-design-techniques.md`
    — cash/compliance/whole-channel impact outranks Delta-by-definition, which outranks wide-
    adjacency-fan-out Standard rows, which outranks everything else. This is a ranking, not a binary
    split — don't collapse Tier 1 and Tier 2 into one "execute early" bucket and then decide the order
    between them by row number; a Tier 1 row always executes before a Tier 2 row regardless of Row ID
    number. **Only break a tie by Row ID sequence number within the same tier.**
-8. **Assign each test case a stable ID** (`TS-<process-slug>-NN`) and write it using
-   `test-script-template.md`, with its Row ID/design-record/fix-doc traceability reference filled in
-   — a script with no traceability reference doesn't get written (per that template's own rule).
-9. **Produce or update the `test-coverage-matrix`**: Row ID → technique(s) used → Test Case ID(s) →
-   status. Any Row ID with zero test cases is an explicit, visible **Gaps** entry, not a silent
-   omission. Any `Workaround` row — even with real test cases — gets its own entry in the matrix's
-   **Unresolved classifications** section, a distinct section from Gaps; don't conflate "no
-   coverage" with "coverage exists, but fit-to-standard hasn't settled what this row actually is."
-10. **Write** test scripts and the coverage matrix to `workspace/test-case-design/` (gitignored).
-    Note anything worth generalizing (a technique that worked well, a defect-history pattern that
-    needed a case) for `knowledge-harvest`.
+9. **Assign each test case a stable ID** (`TS-<process-slug>-NN`) and write it under
+   `scripts/` using `test-script-template.md`, with its Row ID/design-record/fix-doc
+   traceability reference filled in — a script with no traceability reference doesn't get written
+   (per that template's own rule).
+10. **Produce or update the `test-coverage-matrix`**: Row ID → technique(s) used → Test Case ID(s) →
+    status. Any Row ID with zero test cases is an explicit, visible **Gaps** entry, not a silent
+    omission. Any `Workaround` row — even with real test cases — gets its own entry in the matrix's
+    **Unresolved classifications** section, a distinct section from Gaps; don't conflate "no
+    coverage" with "coverage exists, but fit-to-standard hasn't settled what this row actually is."
+    Append `scripts.written`.
+11. **User review gate** — present the matrix + script list and get explicit approval before
+    treating the run as complete or offering sync. Append `review.requested`, then
+    `review.approved` or `review.changes_requested` (loop back to steps 3–10 on changes).
+12. **Optional test-management sync** — only after approval, and only if the user asks or
+    confirms. Otherwise append `sync.skipped`. On push, write `sync-receipt.json` and append
+    `sync.completed` or `sync.failed`.
+13. **Close the run** — set `meta.json` status `complete`, append `run.completed`. Note anything
+    worth generalizing (a technique that worked well, a defect-history pattern that needed a case)
+    for `knowledge-harvest`.
 
 ## Output
 
-- One test script per case, per `test-script-template.md`.
+- Run folder under `workspace/test-case-design/<YYYY-MM-DD>-<process-slug>/` with ledger files.
+- One test script per case under `scripts/`, per `test-script-template.md`.
 - One `test-coverage-matrix` artifact per process/decision-log range — the evidence
   `gates/realize-deploy.md` expects.
 - Feeds test execution (status updates land back in the coverage matrix and, on defect, into
@@ -188,5 +220,7 @@ inflation on a real row (now an explicit anti-padding rule), `test-script-templa
 for the technique(s) chosen, and Equivalence Partitioning's own criterion for when to use it alone
 was missing from the shape table.
 
-**Still not verified**: the Inputs contract's instruction to refuse a Delta-only scope ask — neither
-real run tested this path; it's asserted but unexercised.
+**Still not verified on a live engagement**: the Inputs contract's instruction to refuse a
+Delta-only scope ask — neither real run tested this path; `evals/evals.json` #1 now captures it
+as a fixture walkthrough. Also new in this pass (2026-08): input-quality gate, per-run ledger,
+review-before-sync — dry-run against eval fixtures, not yet live-engagement verified.

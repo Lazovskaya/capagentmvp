@@ -16,7 +16,12 @@ ready to draft yet, not a field to fill in later.
 - **Description:** <what changes and why — pull the "why" from the decision-log requirement, not from
   memory of the conversation>
 - **Acceptance criteria:** <from the design-record's target design — if the design-record doesn't
-  contain enough detail to write these, stop and fix the design-record first>
+  contain enough detail to write these, stop and fix the design-record first (see
+  `ac-quality-check.md`). Prefer measurable bullets or Given/When/Then; reject "works correctly" /
+  "as discussed". Example shape:
+  - [ ] Given \<context\>, when \<action\>, then \<observable result\>
+  - [ ] Given \<context\>, when \<action\>, then \<observable result\>
+  Still coarse for the ticket — `test-case-design` expands coverage later.>
 - **Extensibility tier:** <1–5, from the extensibility-record>
 - **Size estimate:** <derived here, from the design-record's target design — like Type, this is
   backlog-drafting's own output, not a field read from an upstream artifact>
@@ -45,6 +50,8 @@ unlinked tickets.
 
 - [ ] Every backlink field above is filled, not marked "TBD"
 - [ ] Acceptance criteria came from the design-record, not reconstructed from memory
+- [ ] AC quality check passed (`clear`, or `thin` with answered clarifications recorded)
+- [ ] User reviewed the draft before any Jira/Cloud ALM create
 - [ ] Owner assigned matches the extensibility tier, not just who's available
 - [ ] If tier 5 (classic modification), the escalation sign-off owner is named, not just the regular
       design-record sign-off

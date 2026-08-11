@@ -23,20 +23,35 @@ angle-bracket placeholders. Client data stays in `workspace/`; this template hol
 
 **Classification** includes `Workaround` for a row fit-to-standard itself hasn't yet resolved to
 Standard or Delta — give it a real entry here, don't force-guess which of the other two it "really"
-is.
+is. Its unresolved status is tracked in "Unresolved classifications" below, not in Gaps.
 
 **Status enum** (same as `test-script-template.md`, explicit reopen path per convention §2):
 `Not run` / `Passed` / `Failed` / `Blocked` / `Retest`.
 
 ## Gaps
 
-<!-- Every Row ID above with zero Test Case IDs lands here, explicitly — including a Delta row with
-     no design-record yet (reason: "design-record pending", not left off the matrix). An empty
-     table here is a claim that every row has coverage — don't leave it empty by omission. -->
+<!-- Zero-coverage rows ONLY. Every Row ID above with zero Test Case IDs lands here, explicitly —
+     including a Delta row with no design-record yet (reason: "design-record pending", not left
+     off the matrix). An empty table here is a claim that every row has coverage — don't leave it
+     empty by omission. A `Workaround` row with real test cases does NOT belong here even though
+     its classification is unresolved — see "Unresolved classifications" below; putting it in both
+     sections, or in this one instead, makes "Gaps" mean two different things depending on the row. -->
 
-| Row ID | Why it has no test case yet | Owner to close the gap |
+| Row ID | Why it has zero test cases | Owner to close the gap |
 |--------|-------------------------------|--------------------------|
 | | | |
+
+## Unresolved classifications (not a coverage gap)
+
+<!-- Every `Workaround`-classified row lands here, regardless of how many test cases it has. The
+     gap here is that fit-to-standard hasn't resolved the row to Standard or Delta yet — it is
+     never a statement about missing test effort. If a Workaround row also happens to have zero
+     test cases, it appears in BOTH this section and Gaps, with each section's own distinct reason
+     — that's not a duplication, it's two genuinely different open items. -->
+
+| Row ID | Test Case ID(s) (if any) | Why classification is unresolved | Who resolves it |
+|--------|----------------------------|-------------------------------------|--------------------|
+| | | | |
 
 ## Regression cases seeded from defect history
 

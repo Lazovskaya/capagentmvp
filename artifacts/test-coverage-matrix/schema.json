@@ -33,7 +33,7 @@
           "test_case_ids": {
             "type": "array",
             "items": { "type": "string" },
-            "description": "TS-<process-slug>-NN, per test-script-template.md. Empty array means a gap - must appear in the gaps list, never silently absent."
+            "description": "TS-<process-slug>-NN, per test-script-template.md. Empty array means a zero-coverage gap - must appear in the top-level 'gaps' list, never silently absent. NOT the same signal as classification=Workaround, which can have a non-empty array here and still need an 'unresolved_classifications' entry - the two lists track different open items and a row can appear in either, both, or neither."
           },
           "status": {
             "type": "string",
@@ -49,6 +49,7 @@
     },
     "gaps": {
       "type": "array",
+      "description": "Zero-coverage rows only. A Workaround row with non-empty test_case_ids does not belong here - see unresolved_classifications.",
       "items": {
         "type": "object",
         "required": ["row_id", "reason"],
@@ -56,6 +57,24 @@
           "row_id": { "type": "string" },
           "reason": { "type": "string" },
           "owner_to_close": { "type": "string" }
+        }
+      }
+    },
+    "unresolved_classifications": {
+      "type": "array",
+      "description": "Every classification=Workaround row, regardless of test_case_ids. Distinct from gaps: the open item here is that fit-to-standard hasn't resolved Standard vs Delta, never a statement about missing test coverage. A row can appear in both this array and gaps (if it also has zero cases) - that is two genuinely separate open items, not a duplicate.",
+      "items": {
+        "type": "object",
+        "required": ["row_id", "why_unresolved"],
+        "properties": {
+          "row_id": { "type": "string" },
+          "test_case_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Copy of coverage[].test_case_ids for this row - may be non-empty."
+          },
+          "why_unresolved": { "type": "string" },
+          "resolved_by": { "type": "string" }
         }
       }
     },

@@ -72,28 +72,35 @@ Ask for anything missing before running.
    Refuse a Delta-only ask the same way `backlog-drafting` refuses an ungrounded work item: name the
    Standard rows being skipped and ask whether that's actually intended. **A row can be classified
    `Standard`, `Delta`, or `Workaround` (per `fit-to-standard`'s decision log — a row not yet
-   resolved to either)** — a `Workaround` row still gets a coverage-matrix entry, but its
-   `classification` is recorded as `Workaround` and its Gaps entry says why (unresolved
-   classification, not missing effort). **A Draft/`Session status: Draft — pending facilitation`
-   decision log can still be run** — the resulting test cases and matrix are provisional, and every
-   test-script header and the matrix's own header must say so explicitly (cite the decision log's
-   own session status verbatim), the same discipline `fit-to-standard` itself uses for a session
-   that hasn't been signed yet. Don't wait for a Live log to start test design, but don't let the
-   output look more final than the log it's derived from.
+   resolved to either)** — design and write test cases for a `Workaround` row exactly as you would
+   any other; its unresolved classification is tracked in the matrix's **Unresolved classifications**
+   section, never in **Gaps** (Gaps means zero test coverage — a `Workaround` row with real cases is
+   not that, and putting it there anyway is a self-contradiction the matrix template used to invite;
+   see step 9). **A Draft/`Session status: Draft — pending facilitation` decision log can still be
+   run** — the resulting test cases and matrix are provisional, and every test-script header and the
+   matrix's own header must say so explicitly (cite the decision log's own session status verbatim),
+   the same discipline `fit-to-standard` itself uses for a session that hasn't been signed yet. Don't
+   wait for a Live log to start test design, but don't let the output look more final than the log
+   it's derived from.
 2. **Pick the design technique(s) per row**, using the shape test in
    `references/test-design-techniques.md` — decision-table / boundary-value / state-transition /
-   scenario-based. State which and why in the test case's traceability header; never leave it
-   implicit. **A row can genuinely have more than one shape** (e.g. a rule table that also drives a
-   release-workflow state machine) — when that happens, use every technique the row's shape
-   actually supports rather than picking one and dropping the other's coverage; see the reference
-   file's explicit tie-break rule.
+   equivalence-partitioning / scenario-based. State which and why in the test case's traceability
+   header; never leave it implicit. **A row can genuinely have more than one shape** (e.g. a rule
+   table that also drives a release-workflow state machine) — when that happens, use every technique
+   the row's shape actually supports, per the reference file's tie-break rule — but that rule is a
+   ceiling, not a target: **apply the reference file's anti-padding rule before adding a second or
+   third technique.** Name the specific failure each added technique catches that the others don't;
+   if you can't, don't add it. A single Standard row collecting three techniques and six cases is
+   very likely padding, not coverage — this happened in this factory's own first real run and an
+   independent review correctly flagged it.
 3. **For Delta rows:** expand the design-record's `test_approach` sentence into a real
    positive/negative/boundary set — the sentence is a seed, not the test plan. **If the Delta row
    has no paired design-record yet** (`solution-design` hasn't run on it), do not skip the row
    silently and do not block the whole run waiting for it — give it a `test-coverage-matrix` entry
-   with `classification: Delta`, empty `test_case_ids`, and a Gaps reason of `design-record pending`.
-   Once the design-record exists, a later pass fills the row in; the matrix's job is to make that
-   dependency visible, not to hide it by omission.
+   with `classification: Delta`, empty `test_case_ids`, and a **Gaps** reason of
+   `design-record pending` — this one genuinely is a Gaps entry (zero coverage), unlike a
+   `Workaround` row with cases. Once the design-record exists, a later pass fills the row in; the
+   matrix's job is to make that dependency visible, not to hide it by omission.
 4. **For Standard rows:** derive scenarios from whatever the decision log actually records for that
    row — the table's own Requirement/Decision/Impact cells when they're filled in, or the session's
    prose "talking points"/notes when the table cells are still placeholders (`—`, `Proposed`). **If
@@ -109,17 +116,20 @@ Ask for anything missing before running.
    section with no stated reason reads as "this step wasn't done," not "there was nothing to find."
 6. **Check the domain adjacency map** for any scenario that should span sub-processes, the same
    method `fix-doc-and-regression` applies reactively, applied here proactively.
-7. **Prioritize execution order** using the risk test in `references/test-design-techniques.md` —
-   cash/compliance/whole-channel impact, every Delta, and wide-adjacency-fan-out Standard rows go
-   first; state the call, don't just rank by feel. **When two or more rows tie on that test** (e.g.
-   a Standard row with real cash/compliance exposure ties with a Delta row), break the tie by
-   decision-log Row ID's own sequence number — lower row number executes first — rather than leaving
-   the order arbitrary.
+7. **Prioritize execution order using the ranked-tier test** in `references/test-design-techniques.md`
+   — cash/compliance/whole-channel impact outranks Delta-by-definition, which outranks wide-
+   adjacency-fan-out Standard rows, which outranks everything else. This is a ranking, not a binary
+   split — don't collapse Tier 1 and Tier 2 into one "execute early" bucket and then decide the order
+   between them by row number; a Tier 1 row always executes before a Tier 2 row regardless of Row ID
+   number. **Only break a tie by Row ID sequence number within the same tier.**
 8. **Assign each test case a stable ID** (`TS-<process-slug>-NN`) and write it using
    `test-script-template.md`, with its Row ID/design-record/fix-doc traceability reference filled in
    — a script with no traceability reference doesn't get written (per that template's own rule).
 9. **Produce or update the `test-coverage-matrix`**: Row ID → technique(s) used → Test Case ID(s) →
-   status. Any Row ID with zero test cases is an explicit, visible gap here, not a silent omission.
+   status. Any Row ID with zero test cases is an explicit, visible **Gaps** entry, not a silent
+   omission. Any `Workaround` row — even with real test cases — gets its own entry in the matrix's
+   **Unresolved classifications** section, a distinct section from Gaps; don't conflate "no
+   coverage" with "coverage exists, but fit-to-standard hasn't settled what this row actually is."
 10. **Write** test scripts and the coverage matrix to `workspace/test-case-design/` (gitignored).
     Note anything worth generalizing (a technique that worked well, a defect-history pattern that
     needed a case) for `knowledge-harvest`.
@@ -140,10 +150,18 @@ Ask for anything missing before running.
   master-data defect nobody was proactively checking) — see the reference file's judgment call.
 - **A design-record's `test_approach` is a seed sentence, not a finished test plan** — expanding it
   is this skill's job; treating it as already-sufficient is a rubber stamp, not test design.
-- **A Row ID with zero test cases is a visible gap in the coverage matrix, never a silently-skipped
-  row.**
+- **A Row ID with zero test cases is a visible Gaps entry in the coverage matrix, never a
+  silently-skipped row.**
+- **A `Workaround` row is never a Gaps entry, even with zero cases written yet** — its gap is an
+  unresolved classification, tracked in its own matrix section; conflating the two (as this skill's
+  first draft did) makes "Gaps" mean two different things depending on the row, which defeats the
+  point of a gate reading that section as one signal.
 - **Don't force a technique onto a row that doesn't have that shape** — a plain scenario is the
   honest choice when there's no rule table, range, or state machine behind the step.
+- **More techniques is not automatically more coverage** — an independent review of this factory's
+  own first real run flagged exactly this: three techniques on one Standard row, with no distinct
+  failure named for the third. Apply the reference file's anti-padding rule before stacking
+  techniques, not after someone else asks why a row needed six test cases.
 
 ## Driver
 
@@ -155,8 +173,20 @@ Owner role per factory-data.json: **test**.
 Progress. New skill, written this session — grounded in standard, publicly documented test-design
 technique names, not ported from any predecessor repo (none had this content) and not adapted from
 the Salesforce sibling framework's `sf-testing` (surveyed, found to be execution/fix-loop only, no
-transferable design methodology). Dry-run tested once, against a real Draft-status decision log with
-a Delta row missing its design-record and a row not yet resolved to Standard/Delta — fixed the gaps
-that walkthrough found (the `Workaround` classification, the missing-design-record path in step 3,
-Draft-log handling in steps 1/4, the technique/priority tie-break tests, and the matrix's `Caveats`
-field). Not yet real-run tested.
+transferable design methodology).
+
+Tested in two rounds: (1) dry-run against a real Draft-status decision log with a Delta row missing
+its design-record and a row not yet resolved to Standard/Delta — fixed the `Workaround`
+classification, the missing-design-record path in step 3, Draft-log handling in steps 1/4, and the
+matrix's `Caveats` field. (2) A real run on that same scenario, followed by an independent second
+real run (a different, Live-status billing/account-determination scenario) and review of both —
+found and fixed: the priority test was a binary any-yes/all-no split that let row order override
+real risk differences (now a ranked tier test), `Gaps` and a `Workaround` row's own gap were
+conflated into one section with contradictory meanings (now split into `Gaps` and `Unresolved
+classifications`), the multi-technique tie-break rule had no ceiling and produced technique
+inflation on a real row (now an explicit anti-padding rule), `test-script-template.md` had no field
+for the technique(s) chosen, and Equivalence Partitioning's own criterion for when to use it alone
+was missing from the shape table.
+
+**Still not verified**: the Inputs contract's instruction to refuse a Delta-only scope ask — neither
+real run tested this path; it's asserted but unexercised.

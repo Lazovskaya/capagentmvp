@@ -37,6 +37,7 @@ can be retired.
 | Test case ID | `TS-<process-slug>-<NN>` — stable, assigned once, cited by every execution round |
 | Scenario name | |
 | Traceability | Row ID / design-record ID / fix-doc reference (see above) |
+| Technique(s) used | decision-table / boundary-value / state-transition / equivalence-partitioning / scenario-based — cite explicitly, per `test-case-design`'s own step 2; don't fold this into Traceability or Notes where it's easy to lose |
 | Sub-process | domain pack code |
 | Depth | smoke / full / negative (same vocabulary as `fix-doc-and-regression`'s regression scenarios) |
 | Executor role | functional / SD pricing / SD billing / Basis / etc. — name the specific role, not just "tester" |

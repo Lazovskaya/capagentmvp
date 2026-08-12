@@ -11,7 +11,7 @@ python3 tools/github-copilot/adapter/install.py \
   --project /path/to/client-project \
   --skills fit-to-standard,defect-triage \
   --connectors jira \
-  [--activity "Readiness & simplification analysis"] \
+  [--activity "Defect triage" [--activity "Defect pattern analysis"] ...] \
   [--destination jira=myclient] \
   [--check] [--force]
 ```

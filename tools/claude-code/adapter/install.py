@@ -68,11 +68,12 @@ def main():
     parser.add_argument("--project", required=True, help="path to the client project to install into")
     parser.add_argument("--skills", default="", help="comma-separated skill names, or '*' for all own-posture skills")
     parser.add_argument("--connectors", default="", help="comma-separated connector names, or '*' for all with real wiring")
-    parser.add_argument("--activity", help=(
+    parser.add_argument("--activity", action="append", default=[], metavar="TITLE", help=(
         "install everything a Delivery-pipeline activity uses (matched against factory-data.json's "
-        "activities by title, e.g. 'Readiness & simplification analysis'); combines with --skills/"
-        "--connectors if both given. Fails immediately if the activity references a skill or "
-        "connector this adapter can't install, rather than partially installing it."
+        "activities by title, e.g. 'Readiness & simplification analysis'); repeatable to install "
+        "several activities at once, and combines with --skills/--connectors if those are given "
+        "too. Fails immediately if any activity references a skill or connector this adapter "
+        "can't install, rather than partially installing the rest."
     ))
     parser.add_argument("--destination", action="append", default=[], metavar="CONNECTOR=NAME",
                          help="override the <destination> credential-file name for one connector; repeatable")
@@ -89,10 +90,10 @@ def main():
         k, v = item.split("=", 1)
         destinations[k] = v
 
-    skill_names, connector_names, activity = common.resolve_selection(
+    skill_names, connector_names, activities = common.resolve_selection(
         args.skills, args.connectors, args.activity, ADOPT_HINT
     )
-    if activity:
+    for activity in activities:
         print(f"Activity: {activity['title']} ({activity['file']})")
 
     version = common.factory_version()

@@ -9,7 +9,7 @@ python3 tools/claude-code/adapter/install.py \
   --project /path/to/client-project \
   --skills fit-to-standard,defect-triage \
   --connectors jira \
-  [--activity "Readiness & simplification analysis"] \
+  [--activity "Defect triage" [--activity "Defect pattern analysis"] ...] \
   [--destination jira=myclient] \
   [--check] [--force]
 ```
@@ -19,13 +19,17 @@ python3 tools/claude-code/adapter/install.py \
   connectors with real wiring in their `server.json` (currently `abap-mcp` and `jira` — the rest
   are still `"command": "TODO"` placeholders and are refused with a clear error if named
   explicitly).
-- `--activity "Readiness & simplification analysis"` installs everything that Delivery-pipeline
-  activity uses (matched against `factory-data.json`'s `activities` by title — case-insensitive
-  exact match first, then substring if unambiguous). Combines with `--skills`/`--connectors` if
-  both are given (union, deduped). **Fails the whole run**, rather than partially installing, if
-  the activity references a skill or connector this adapter can't handle — e.g. `--activity
-  "Readiness & simplification analysis"` dies because that activity's `readiness-check` connector
-  is still a placeholder. At least one of `--skills`, `--connectors`, or `--activity` is required.
+- `--activity "Defect triage"` installs everything that Delivery-pipeline activity uses (matched
+  against `factory-data.json`'s `activities` by title — case-insensitive exact match first, then
+  substring if unambiguous). **Repeatable** — pass it more than once to install several activities
+  in one run (`--activity "Defect triage" --activity "Defect pattern analysis"`); their
+  skills/connectors are merged and deduped, e.g. both of those share `jira` but bring their own
+  distinct skills. Combines with `--skills`/`--connectors` too if those are also given. **Fails
+  the whole run**, rather than partially installing the rest, if *any* requested activity
+  references a skill or connector this adapter can't handle — e.g. `--activity "Readiness &
+  simplification analysis"` dies because that activity's `readiness-check` connector is still a
+  placeholder, even if it's combined with other, fully-wired activities. At least one of
+  `--skills`, `--connectors`, or `--activity` is required.
 - `--destination CONNECTOR=NAME` overrides the per-developer credential-file name
   (`~/.config/<tool>/sessions/<name>.env`, see each connector's `connector.md`); defaults to
   `default`. The adapter never writes credentials anywhere — that step stays manual, by design.

@@ -240,23 +240,27 @@ def activity_uses(activity, kind):
     return out
 
 
-def resolve_selection(skills_csv, connectors_csv, activity_query, adopt_hint):
-    """Merges --skills/--connectors with an --activity's skill/mcp components (if given), then
-    validates the combined set through resolve_names -- so an activity that references a skill
-    or connector this adapter can't install fails the whole run immediately, same as naming that
-    component directly would. Returns (skill_names, connector_names, activity_or_None)."""
+def resolve_selection(skills_csv, connectors_csv, activity_queries, adopt_hint):
+    """Merges --skills/--connectors with one or more --activity's skill/mcp components (if
+    given), then validates the combined set through resolve_names -- so any activity that
+    references a skill or connector this adapter can't install fails the whole run immediately,
+    same as naming that component directly would (no partial install of the others).
+    activity_queries is a list (possibly empty) since --activity is repeatable.
+    Returns (skill_names, connector_names, activities)."""
     skill_tokens = parse_names(skills_csv)
     connector_tokens = parse_names(connectors_csv)
-    activity = find_activity(activity_query) if activity_query else None
-    if activity:
+    activities = [find_activity(q) for q in (activity_queries or [])]
+    for activity in activities:
         skill_tokens += activity_uses(activity, "skill")
         connector_tokens += activity_uses(activity, "mcp")
 
     if not skill_tokens and not connector_tokens:
-        if activity:
+        if activities:
+            names = ", ".join(f"'{a['title']}'" for a in activities)
             die(
-                f"activity '{activity['title']}' has no skill or connector components -- this "
-                "adapter only installs skills/connectors, not agents/artifacts/knowledge/gates"
+                f"activit{'y' if len(activities) == 1 else 'ies'} {names} ha{'s' if len(activities) == 1 else 've'} "
+                "no skill or connector components -- this adapter only installs skills/connectors, "
+                "not agents/artifacts/knowledge/gates"
             )
         die("nothing requested -- pass --skills, --connectors, and/or --activity")
 
@@ -265,4 +269,4 @@ def resolve_selection(skills_csv, connectors_csv, activity_query, adopt_hint):
         resolve_names(connector_tokens, all_wired_connector_names(), "connector", adopt_hint)
         if connector_tokens else []
     )
-    return skill_names, connector_names, activity
+    return skill_names, connector_names, activities

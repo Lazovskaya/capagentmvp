@@ -8,6 +8,7 @@ adapter writes them and how the entry file/mcp file are shaped.
 import datetime
 import hashlib
 import json
+import re
 import shutil
 from pathlib import Path
 
@@ -18,6 +19,30 @@ SKILLS_DIR = FACTORY_ROOT / "skills"
 CONNECTORS_DIR = FACTORY_ROOT / "connectors"
 
 FUNCTIONAL_KEYS = {"type", "command", "args", "env"}
+
+# A connector's server.json writes env-var *references* (not secret values -- see each
+# connector's connector.md, real secrets always live outside the project) using this one
+# canonical placeholder syntax: ${VAR_NAME}. Each tool's own MCP config expects env-var
+# references in its own interpolation syntax, so this translates the canonical form into
+# whichever syntax the target tool actually reads at runtime. Pattern ported from
+# dyoshikawa/rulesync's per-tool env-var formatters (projects/rulesync's mcp-env-var-format.ts),
+# which solves the same normalize-one-source-into-many-shapes problem this factory has for MCP
+# config in general.
+ENV_VAR_PLACEHOLDER = re.compile(r"\$\{([A-Za-z_][A-Za-z0-9_]*)\}")
+ENV_VAR_SYNTAX = {
+    "claude-code": "${{{var}}}",
+    "github-copilot": "${{env:{var}}}",
+}
+
+
+def translate_env_placeholders(value, tool):
+    """Rewrites ${VAR} references in a string into `tool`'s own env-var interpolation syntax.
+    No-op for tools not in ENV_VAR_SYNTAX (treat as unverified rather than guessing) or for
+    non-string values."""
+    template = ENV_VAR_SYNTAX.get(tool)
+    if not template or not isinstance(value, str):
+        return value
+    return ENV_VAR_PLACEHOLDER.sub(lambda m: template.format(var=m.group(1)), value)
 
 
 def die(msg):
@@ -145,9 +170,12 @@ def copy_skill(name, dest_root):
 
 # ---------- connectors ----------
 
-def normalize_connector(name, destinations):
+def normalize_connector(name, destinations, tool=None):
     """Reads connectors/<name>/server.json, detects its shape, and returns a plain
-    {name: {type, command, args, ...}} mapping stripped of documentation-only keys.
+    {name: {type, command, args, ...}} mapping stripped of documentation-only keys, with any
+    ${VAR} env-var references in "env" translated into `tool`'s own interpolation syntax (see
+    ENV_VAR_SYNTAX; no-op if tool is None or unlisted -- args' <destination> substitution below
+    is unaffected, that's a literal CLI value, not an env-var reference).
     Raises if the connector has no real wiring yet ("command": "TODO" placeholder)."""
     server = CONNECTORS_DIR / name / "server.json"
     if not server.exists():
@@ -176,6 +204,10 @@ def normalize_connector(name, destinations):
             a.replace("<destination>", dest_name) if isinstance(a, str) else a
             for a in entry.get("args", [])
         ]
+        if "env" in entry:
+            entry["env"] = {
+                k: translate_env_placeholders(v, tool) for k, v in entry["env"].items()
+            }
         out[key] = entry
     return out, hash_file(server), dest_name
 

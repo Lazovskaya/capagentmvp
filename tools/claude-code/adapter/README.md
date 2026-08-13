@@ -33,6 +33,12 @@ python3 tools/claude-code/adapter/install.py \
 - `--destination CONNECTOR=NAME` overrides the per-developer credential-file name
   (`~/.config/<tool>/sessions/<name>.env`, see each connector's `connector.md`); defaults to
   `default`. The adapter never writes credentials anywhere — that step stays manual, by design.
+  If a connector's `server.json` ever declares an `env` block with a `${VAR_NAME}` reference (none
+  currently do — both real connectors pass credentials via a destination file instead, see
+  above), it's rewritten into this tool's own env-var interpolation syntax automatically; see
+  `tools/adapter_common.py`'s `ENV_VAR_SYNTAX`/`translate_env_placeholders` (pattern ported from
+  `dyoshikawa/rulesync`'s per-tool env-var formatters — same normalize-one-source-into-many-shapes
+  problem this factory already solves for the rest of a connector's MCP config).
 - `--check` reports drift against `factory-lock.json` without writing anything.
 - `--force` reinstalls even when the content hash hasn't changed.
 - Re-running with no source changes is a no-op (compares content hashes recorded in

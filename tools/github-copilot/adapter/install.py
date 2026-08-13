@@ -151,7 +151,7 @@ def main():
     installed_connectors = []
     mcp_entries = {}
     for name in connector_names:
-        entries, src_hash, dest_name = common.normalize_connector(name, destinations)
+        entries, src_hash, dest_name = common.normalize_connector(name, destinations, tool=TOOL)
         mcp_entries.update(entries)
         prior = lock["connectors"].get(name, {})
         unchanged = prior.get("contentHash") == src_hash and prior.get("destination") == dest_name

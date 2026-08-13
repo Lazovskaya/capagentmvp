@@ -1560,8 +1560,8 @@ window.FACTORY_DATA = {
       ".claude/skills/"
      ],
      [
-      "adp",
-      "rewritten as rules"
+      "nat",
+      ".cursor/skills/<n>/"
      ],
      [
       "nat",
@@ -1720,7 +1720,7 @@ window.FACTORY_DATA = {
   "cursor": {
    "label": "Cursor",
    "entry": ".cursor/rules/factory.mdc",
-   "skills": ".cursor/rules/skills/<n>.mdc",
+   "skills": ".cursor/skills/<n>/",
    "agents": null,
    "gates": null,
    "mcp": ".cursor/mcp.json",

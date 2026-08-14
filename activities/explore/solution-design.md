@@ -1,15 +1,22 @@
-## Solution design & extensibility routing
+## Solution design, architecture package & extensibility routing
 
-Turn accepted deltas into a target design, and route each one to where the change is allowed to live: standard config, key-user extension, side-by-side on BTP, developer extensibility, or classic modification as a last resort. When a delta's target design isn't cleanly captured in one fit-to-standard decision-log row, it's assembled instead from scattered sources (emails, decks, specs, transcripts) with full source traceability. Produces a design record plus an extensibility record carrying the tier and its justification. That tier decision sets the client's upgrade cost for years, which is why it is recorded rather than assumed.
+Turn the complete in-scope fit-to-standard outcome into a coherent solution architecture. Establish the architecture views and cross-artifact traceability for the scope, then produce one design record and one extensibility record per delta. When a delta's target design isn't cleanly captured in one fit-to-standard decision-log row, assemble it from scattered sources with full source traceability. The scope-level `architecture-package` is the client-facing output and the gate handoff; per-delta records remain its evidence.
 
 **Owner:** Architect
 **Engagement(s):** Greenfield / Brownfield conversion / Build and Extend
-**Status:** Not started
+**Status:** In progress
 
 ## Uses
 
 - **skill:** solution-design
 - **agent:** extensibility-assessor, design-test-reviewer, source-conflict-analyst
-- **artifact:** design-record, extensibility-record
-- **knowledge:** extensibility, clean-core, standards
+- **artifact:** architecture-package, design-record, extensibility-record
+- **knowledge:** process, config, data, extensibility, clean-core, standards
 - **q-gate:** explore→realize
+
+## Scope rule
+
+Run this activity once for the agreed process, release or program scope. Do not
+create a separate architecture-package activity for the same scope. A small
+isolated change may still produce only its per-delta records when a scope-level
+architecture review is not required.

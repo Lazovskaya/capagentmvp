@@ -485,6 +485,14 @@ window.FACTORY_DATA = {
   },
   {
    "kind": "Artifact",
+   "name": "architecture-package",
+   "posture": "own",
+   "status": "progress",
+   "phase": "all",
+   "desc": "Client-facing architecture index: scope, architecture views, source records, traceability, NFRs, risks and named approvals."
+  },
+  {
+   "kind": "Artifact",
    "name": "extensibility-record",
    "posture": "own",
    "status": "progress",
@@ -1008,8 +1016,8 @@ window.FACTORY_DATA = {
    "engagement": "GBA",
    "status": "notstarted",
    "file": "activities/explore/solution-design.md",
-   "title": "Solution design & extensibility routing",
-   "desc": "Turn accepted deltas into a target design, and route each one to where the change is allowed to live: standard config, key-user extension, side-by-side on BTP, developer extensibility, or classic modification as a last resort. When a delta's target design isn't cleanly captured in one fit-to-standard decision-log row, it's assembled instead from scattered sources (emails, decks, specs, transcripts) with full source traceability. Produces a design record plus an extensibility record carrying the tier and its justification. That tier decision sets the client's upgrade cost for years, which is why it is recorded rather than assumed.",
+   "title": "Solution design, architecture package & extensibility routing",
+   "desc": "Turn the complete in-scope fit-to-standard outcome into a coherent solution architecture. Establish architecture views and cross-artifact traceability, then produce one design record and one extensibility record per delta. The scope-level architecture package is the client-facing output and explore→realize handoff.",
    "uses": [
     [
      "skill",
@@ -1028,6 +1036,7 @@ window.FACTORY_DATA = {
     [
      "artifact",
      [
+      "architecture-package",
       "design-record",
       "extensibility-record"
      ]
@@ -1035,6 +1044,9 @@ window.FACTORY_DATA = {
     [
      "knowledge",
      [
+      "process",
+      "config",
+      "data",
       "extensibility",
       "clean-core",
       "standards"

@@ -1,5 +1,11 @@
 {
-  "command": "TODO",
-  "args": [],
-  "note": "placeholder for cloud-alm"
+  "cloud-alm": {
+    "type": "stdio",
+    "command": "python3",
+    "args": [
+      "./connectors/cloud-alm/scripts/start-cloud-alm-mcp.py",
+      "--profile=<profile>"
+    ],
+    "note": "The launcher reads the profile outside the repository from ~/.config/sap-cloud-alm-mcp/profiles/<profile>.json, or MCP_CLOUD_ALM_CONFIG. Set MCP_CLOUD_ALM_BIN to the sap-cloud-alm-mcp executable. Never put OAuth client secrets or API keys in this file or in git."
+  }
 }

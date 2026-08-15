@@ -405,6 +405,14 @@
   },
   {
    "kind": "Connector",
+   "name": "leanix",
+   "posture": "adopt",
+   "status": "progress",
+   "phase": "all",
+   "desc": "SAP LeanIX MCP for workspace-scoped enterprise architecture discovery, technology assessment and transformation evidence, packaged with OAuth via mcp-remote."
+  },
+  {
+   "kind": "Connector",
    "name": "readiness-check",
    "posture": "adopt",
    "status": "notstarted",

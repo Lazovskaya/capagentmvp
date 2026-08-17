@@ -1,17 +1,32 @@
 # Cursor adapter
 
-Emits `.cursor/rules/factory.mdc` and `.cursor/mcp.json` for a project, and copies skills into
-`.cursor/skills/<name>/SKILL.md` — Cursor reads `SKILL.md` natively (confirmed against
-`dyoshikawa/rulesync`'s Cursor generator, `projects/rulesync`'s `cursor-skill.ts`), the same
-format Claude Code and Copilot use, so this needs no content rewrite. (Corrects this file's
-earlier claim that Cursor has no native skills convention and needs `.mdc` rewriting — that was
-wrong; `factory-data.json`'s `tools.cursor.skills` and `coverage` table have been corrected to
-match.) Agents and gates still have no adapted equivalent, see `factory-data.json`'s `coverage`
-section for those gaps.
+Installs this factory's own-posture skills and connectors into a client project: copies skills
+into `.cursor/skills/<name>/SKILL.md` (Cursor reads `SKILL.md` natively, confirmed against
+`dyoshikawa/rulesync`'s Cursor generator, `projects/rulesync`'s `cursor-skill.ts` -- same format
+Claude Code and Copilot use, no content rewrite needed), generates a working `.cursor/mcp.json`
+from connector definitions, emits the entry rule (`.cursor/rules/factory.mdc`, `alwaysApply: true`
+frontmatter so it's always in context), and records what was installed in `factory-lock.json`.
 
-**Status:** Not yet implemented. `tools/claude-code/adapter/install.py` and
-`tools/github-copilot/adapter/install.py` are the two real adapters so far, both built on shared
-skill-discovery/connector-normalization/content-hash/lock-file logic in `tools/adapter_common.py`
-— reuse that module here too, including `copy_skill()` unchanged (just pointed at
-`.cursor/skills/`, same as the other two just target different roots). The only real work left is
-the entry file (`.cursor/rules/factory.mdc`) and `.cursor/mcp.json`.
+```bash
+python3 tools/cursor/adapter/install.py \
+  --project /path/to/client-project \
+  --skills fit-to-standard,defect-triage \
+  --connectors jira \
+  [--activity "Defect triage" [--activity "Defect pattern analysis"] ...] \
+  [--destination jira=myclient] \
+  [--check] [--force]
+```
+
+Same flags, same connector-normalization/content-hash/`factory-lock.json` behavior as the Claude
+Code adapter (`tools/claude-code/adapter/install.py`) this was ported from -- see that folder's
+README for the full flag reference. The only real differences: skills land in
+`.cursor/skills/<name>/` instead of `.claude/skills/<name>/`, and the entry file is a Cursor rule
+(`.cursor/rules/factory.mdc`) instead of `CLAUDE.md`.
+
+Agents and gates have no adapted equivalent yet, see `factory-data.json`'s `coverage` section for
+the known gaps.
+
+**Status:** v1 implemented -- own-posture skills, verified-wiring connectors,
+`factory.mdc`, `factory-lock.json`. Still manual: adopt-posture skills (see the root `README.md`'s
+"Installing skills into a project" section), the actual credential `.env` files each connector's
+"Wiring" section describes, and anything involving agents or Q-gates.

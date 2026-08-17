@@ -54,9 +54,9 @@ fetches `factory-data.json` at runtime from the page's own attachment (the macro
 - `activities/<phase>/<name>.md`, one file per activity in `factory-data.json`, short pointers
   back to the real skill/agent/connector/artifact files, not new content.
 - `tools/adapter_common.py`, shared skill-discovery/connector-normalization/content-hash/lock-file
-  logic used by both working adapters below.
-- `tools/claude-code/adapter/` and `tools/github-copilot/adapter/`, each an `install.py` (see
-  "Installing skills into a project" below). `tools/cursor/adapter/`, `validators/`, `docs/` beyond
+  logic used by all three working adapters below.
+- `tools/claude-code/adapter/`, `tools/github-copilot/adapter/`, and `tools/cursor/adapter/`, each
+  an `install.py` (see "Installing skills into a project" below). `validators/` and `docs/` beyond
   `skill-design-conventions.md` are still scaffold only, not yet implemented, see each folder's own
   README.
 
@@ -65,8 +65,8 @@ This mirrors the path convention the component map's own client-side code uses (
 
 ## Installing skills into a project
 
-**For a Claude Code or GitHub Copilot project**, use that tool's adapter (see each folder's README
-for the full flag reference):
+**For a Claude Code, GitHub Copilot, or Cursor project**, use that tool's adapter (see each
+folder's README for the full flag reference):
 
 ```bash
 python3 tools/claude-code/adapter/install.py \
@@ -74,12 +74,15 @@ python3 tools/claude-code/adapter/install.py \
 # or:
 python3 tools/github-copilot/adapter/install.py \
   --project /path/to/client-project --skills '*' --connectors jira
+# or:
+python3 tools/cursor/adapter/install.py \
+  --project /path/to/client-project --skills '*' --connectors jira
 ```
 
-Both install only own-posture skills (`skills/<name>/SKILL.md` in this repo) plus connectors that
-have real, non-placeholder wiring, generate a working mcp config and entry file in the tool's own
-shape, and record what was installed in `factory-lock.json` so re-runs only touch what actually
-changed. `tools/cursor/adapter/` isn't implemented yet (see that folder's README).
+All three install only own-posture skills (`skills/<name>/SKILL.md` in this repo) plus connectors
+that have real, non-placeholder wiring, generate a working mcp config and entry file in the tool's
+own shape, and record what was installed in `factory-lock.json` so re-runs only touch what
+actually changed.
 
 **Adopt-posture skills** (listed in `skills/index.yaml`, not authored in this repo — neither
 adapter above handles these) still need the real, live-tested manual process, using the `skills` CLI

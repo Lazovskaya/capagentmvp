@@ -115,3 +115,27 @@ according to the LeanIX authentication policy; re-authenticate when required.
 If LeanIX is unavailable or the workspace feature is not provisioned, continue
 from a customer-approved export or manually supplied evidence and record that
 live synchronization was not performed.
+
+## Governance contract
+
+```yaml
+data_classification:
+  input: client-confidential
+  output: client-confidential
+  credentials: restricted
+default_mode: read-only
+allowed_operations: [get_all_tech_stacks, get_application_components, get_milestones_by_fact_sheet_ids, get_reminders, search_components_by_license, search_components_by_purl, search_transformations_tool, get_survey_templates, get_survey_results]
+approval_required: [create_architecture_decision, create_tech_stack, create_survey, change_survey_status, fact-sheet-mutation]
+forbidden_operations: [delete, bulk-mutation]
+write_controls:
+  preview_payload: true
+  local_artifact_required: true
+  reread_after_write: true
+  external_id_required: true
+  apply_flag_required: true
+```
+
+LeanIX facts, technology assessments and transformation data are workspace-
+scoped. Reusable knowledge requires source reference, retrieval date,
+applicability, redaction and explicit approval; OAuth tokens never enter an
+artifact or knowledge bucket.

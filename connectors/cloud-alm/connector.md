@@ -122,3 +122,26 @@ python3 connectors/cloud-alm/scripts/start-cloud-alm-mcp.py --help
 
 For a live smoke test, use a real external profile and binary, then perform a
 read-only project or task query before enabling any write operation.
+
+## Governance contract
+
+```yaml
+data_classification:
+  input: client-confidential
+  output: client-confidential
+  credentials: restricted
+default_mode: read-only
+allowed_operations: [list-projects, get-project, list-tasks, get-task, list-features, get-feature, list-documents, get-document, list-testcases, get-testcase, analytics-read]
+approval_required: [create, update, create-task-comment, create-external-reference]
+forbidden_operations: [delete, post-logs, production-impacting-change]
+write_controls:
+  preview_payload: true
+  local_artifact_required: true
+  reread_after_write: true
+  external_id_required: true
+  apply_flag_required: true
+```
+
+Cloud ALM exports and production logs remain client-confidential. Redact
+personal data and secrets before sending evidence to an LLM or proposing a
+reusable knowledge entry.

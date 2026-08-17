@@ -372,6 +372,14 @@ window.FACTORY_DATA = {
    "desc": "Bounded go-live risk verdict (go/conditional/no-go) from cutover-plan's rehearsal record and go-live-readiness's checklist."
   },
   {
+   "kind": "Agent",
+   "name": "delivery-pilot",
+   "posture": "own",
+   "status": "progress",
+   "phase": "all",
+   "desc": "Independent evaluator for an end-to-end reference engagement: artifact completeness, traceability, gate evidence, connector safety, lead time and knowledge reuse."
+  },
+  {
    "kind": "Connector",
    "name": "abap-mcp",
    "posture": "adopt",

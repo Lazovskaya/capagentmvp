@@ -311,7 +311,7 @@
    "kind": "Skill",
    "name": "agent-build",
    "posture": "adopt",
-  "status": "notstarted",
+   "status": "notstarted",
    "phase": "Run",
    "desc": "Joule Studio agent with card, policy and eval pack. Joule CLI skill is on skills.cloud.sap."
   },
@@ -399,9 +399,9 @@
    "kind": "Connector",
    "name": "cloud-alm",
    "posture": "adopt",
-    "status": "progress",
+   "status": "progress",
    "phase": "all",
-    "desc": "SAP Cloud ALM delivery and operations surface, packaged with an external profile launcher and read-only-by-default tool posture."
+   "desc": "SAP Cloud ALM delivery and operations surface, packaged with an external profile launcher and read-only-by-default tool posture."
   },
   {
    "kind": "Connector",
@@ -491,14 +491,14 @@
    "phase": "all",
    "desc": "Target design, critiqued then approved."
   },
-    {
-     "kind": "Artifact",
-     "name": "architecture-package",
-     "posture": "own",
-     "status": "progress",
-     "phase": "all",
-     "desc": "Client-facing architecture index: scope, architecture views, source records, traceability, NFRs, risks and named approvals."
-    },
+  {
+   "kind": "Artifact",
+   "name": "architecture-package",
+   "posture": "own",
+   "status": "progress",
+   "phase": "all",
+   "desc": "Client-facing architecture index: scope, architecture views, source records, traceability, NFRs, risks and named approvals."
+  },
   {
    "kind": "Artifact",
    "name": "extensibility-record",
@@ -1336,7 +1336,8 @@
     [
      "artifact",
      [
-      "sign-off-record"
+      "sign-off-record",
+      "run-exit-record"
      ]
     ],
     [
@@ -1385,6 +1386,12 @@
      [
       "deploy→run"
      ]
+    ],
+    [
+     "artifact",
+     [
+      "run-exit-record"
+     ]
     ]
    ]
   },
@@ -1426,6 +1433,7 @@
     [
      "artifact",
      [
+      "run-exit-record",
       "triage-verdict"
      ]
     ],

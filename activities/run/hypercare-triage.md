@@ -18,3 +18,10 @@ against a live-incident-shaped scenario (user-reported tickets, not test-cycle d
 - **mcp:** cloud-alm, jira
 - **artifact:** triage-verdict
 - **knowledge:** domain-packs, process, config, testing, operations
+
+## Entry requirement
+
+Hypercare intake starts only from a `run-exit-record` with handoff status
+`READY` or `READY_WITH_EXCEPTIONS`. The triage team reads the service owner,
+on-call path, rollback owner, support window and operational baseline before
+classifying the first incident. A blocked handoff is routed back to Deploy.

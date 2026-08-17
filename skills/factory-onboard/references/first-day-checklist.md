@@ -1,41 +1,54 @@
-# First-day checklist — SAP AI Factory (project user)
+# First-day checklist — SAP AI Factory
 
-Use with `factory-onboard`. For consultants **using** the factory on an engagement — not for
-people maintaining the factory repo itself. Tick what's done; skip what doesn't apply.
+Use with `factory-onboard` for consultants using the factory on an engagement.
+This is a user day-0 checklist, not a platform authoring checklist.
 
-## Access
+## Access and tool path
 
-- [ ] Can open / clone the factory (or receive an installed skills copy in your project tool)
-- [ ] IDE ready (Claude Code, Cursor, or GitHub Copilot)
-- [ ] Skills visible in your tool (e.g. `.claude/skills/` after `npx skills add …` — see root `README.md`)
+- [ ] Can open or clone the factory, or received an installed skills copy
+- [ ] IDE ready: Claude Code, GitHub Copilot or Cursor
+- [ ] Selected tool is recorded
+- [ ] Skills are visible where the selected tool loads them
+- [ ] Installed skill location is recorded and readable
 
-## Read once (user path)
+## Read once
 
-- [ ] `README.md` — install into your tool; what `skills/`, `knowledge/`, `workspace/` mean for you
-- [ ] Open the component map (`index.html` or Confluence) — note `ready` vs `progress` vs `notstarted`
-- [ ] Skim which skills match your **role** and current **Activate phase**
+- [ ] Read the user installation section of `README.md`
+- [ ] Opened the component map and noted `ready`, `progress` and `notstarted`
+- [ ] Identified skills matching the role and current Activate phase
 
-Skip unless you author factory content: regenerating the map, `validators/`, design-convention authoring rules.
+Skip contributor topics such as regenerating the map, validators, CI and build
+authoring unless the user is maintaining the platform.
 
-## Local runtime
+## Local runtime and connectors
 
-- [ ] `workspace/` is local-only output — never commit client data or secrets
-- [ ] If you need live Jira/ABAP: follow `connectors/jira/connector.md` and/or
-      `connectors/abap-mcp/connector.md` (credentials stay outside the repo)
-- [ ] Remember: connector **writes** are dry-run unless you pass `--apply`
+- [ ] `workspace/` is local engagement output; no client data or secrets are committed
+- [ ] Required connectors for the first skill are listed explicitly
+- [ ] Jira/ABAP connector contracts were read when those connectors are required
+- [ ] Cloud ALM/LeanIX connector contracts were read when those connectors are required
+- [ ] Each required connector is recorded as `configured`, `unavailable` or `not checked`
+- [ ] A connector is not called ready merely because a config file exists
+- [ ] Connector writes are dry-run/preview unless explicit `--apply` approval exists
+- [ ] Credentials remain outside the repository
 
 ## First working skill
 
-After this checklist, in a **new message** (or by asking factory-onboard to continue), run the
-delivery skill named in the handoff — read that skill's `SKILL.md` first.
+After this checklist, run the delivery skill named in the handoff. Read that
+skill's `SKILL.md` first. The handoff must state:
 
-## Guardrails (confirm verbally)
+- phase and engagement;
+- goal and next skill;
+- required inputs;
+- connector gaps;
+- write mode.
 
-- [ ] No secrets or client data get committed
-- [ ] Each skill's own human-confirmation points are read before running it
-- [ ] Component status in the map beats outdated chat memory about what's built
+## Guardrails
 
-## Buddy (if blocked)
+- [ ] No secrets or client data are committed
+- [ ] Human-confirmation points for the selected skill are understood
+- [ ] Component status in the map beats outdated chat memory
 
-- [ ] Repo / tool install — delivery lead or whoever rolled out the factory on the account
-- [ ] Domain questions — whoever owns the relevant `knowledge/` bucket or domain pack
+## Buddy if blocked
+
+- Repo or tool installation: delivery lead or rollout owner
+- Domain questions: owner of the relevant knowledge bucket or domain pack

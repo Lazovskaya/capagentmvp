@@ -1336,7 +1336,8 @@ window.FACTORY_DATA = {
     [
      "artifact",
      [
-      "sign-off-record"
+      "sign-off-record",
+      "run-exit-record"
      ]
     ],
     [
@@ -1385,6 +1386,12 @@ window.FACTORY_DATA = {
      [
       "deploy→run"
      ]
+    ],
+    [
+     "artifact",
+     [
+      "run-exit-record"
+     ]
     ]
    ]
   },
@@ -1426,6 +1433,7 @@ window.FACTORY_DATA = {
     [
      "artifact",
      [
+      "run-exit-record",
       "triage-verdict"
      ]
     ],

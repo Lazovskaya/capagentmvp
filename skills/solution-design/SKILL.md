@@ -5,7 +5,7 @@ description: Turn each accepted fit-to-standard delta into a target design and r
 
 # Solution design & extensibility routing
 
-*Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in `../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+*Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in `../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 ## Purpose
 
@@ -21,7 +21,7 @@ justified in the first place.
 - When a delta's implementation approach is being chosen or reconsidered
 - Before `backlog-drafting` — a delta with no tier decision isn't ready to become a work item;
   design-record must reach `status: APPROVED` before backlog push (see
-  `../../artifacts/explore-chain/handoff.md`)
+  `../../../artifacts/explore-chain/handoff.md`)
 - When reviewing whether an already-built extension actually matches its recorded tier (drift check)
 
 ## Inputs needed
@@ -53,7 +53,7 @@ log covers the delta cleanly.
 **Mode B — compose/maintain from scattered sources.** Use when the target design has to be assembled
 from emails, decks, specs or meeting transcripts because no single decision-log row covers it — the
 method (provenance discipline, conflict surfacing, gap tracking as `TBC`, never inventing) lives in
-`../../knowledge/standards/source-synthesis.md`; two worked test fixtures (a straightforward case and
+`../../../knowledge/standards/source-synthesis.md`; two worked test fixtures (a straightforward case and
 an adversarial stress test) are in `references/source-synthesis-sample-input.md` and
 `references/source-synthesis-adversarial-input.md`. **Compose** builds the design-record from scratch
 from a source set; **maintain** takes an existing design-record baseline plus new source(s) and
@@ -103,7 +103,7 @@ tier, and worked examples.
      requirement, justification, and owner travel with each delta into this step; don't re-derive
      them from memory.
    - **Mode B (compose/maintain):** if no decision-log row covers this delta cleanly, run
-     `../../knowledge/standards/source-synthesis.md`'s compose (first build) or maintain (delta
+     `../../../knowledge/standards/source-synthesis.md`'s compose (first build) or maintain (delta
      update from new sources) procedure against the available sources, straight into the
      design-record's fields and its "Source synthesis" section — citations or `TBC`, conflicts
      surfaced not resolved silently, no invented content for gaps.
@@ -132,19 +132,19 @@ tier, and worked examples.
    record itself. Don't leave a tier-5 Mode B delta permanently unescalatable just because the row it
    would normally anchor to doesn't exist yet.
 
-5. **Write the target design** for the delta using `../../artifacts/design-record/template.md`: what
+5. **Write the target design** for the delta using `../../../artifacts/design-record/template.md`: what
    changes, where, and how it's tested — enough for `backlog-drafting` to size it without
    re-interviewing the business owner.
 
-6. **Record the extensibility decision** using `../../artifacts/extensibility-record/template.md` — the
+6. **Record the extensibility decision** using `../../../artifacts/extensibility-record/template.md` — the
    tier, a stated reason at *every* tier in the ladder (not just the chosen one), any red flags, and
    whether an `extensibility-assessor` agent was consulted (and whether this record agreed with it).
 
 ## Outputs
 
-- **`design-record` artifact** (`../../artifacts/design-record/template.md`): target design per delta,
+- **`design-record` artifact** (`../../../artifacts/design-record/template.md`): target design per delta,
   citing the fit-to-standard decision-log Row ID it originated from
-- **`extensibility-record` artifact** (`../../artifacts/extensibility-record/template.md`): chosen tier,
+- **`extensibility-record` artifact** (`../../../artifacts/extensibility-record/template.md`): chosen tier,
   a stated reason at every tier considered, red flags, extensibility-assessor consultation status, and
   (for tier 5) the escalation addendum reference and escalation owner
 - Feeds `backlog-drafting` and the `explore→realize` Q-gate

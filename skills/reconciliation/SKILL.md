@@ -10,12 +10,12 @@ Contract merged from two independently-sketched stubs (this factory's own, and `
 scoped specifically to finance/DTV; this factory's own stub was scoped generically to "migration
 objects" for any Data Lead. Kept generic here, with finance/DTV folded in as the **first domain
 pack**, not the whole contract — see the "First domain pack" note in
-`../../artifacts/reconciliation-report/template.md`. Other migration domains (logistics master
+`../../../artifacts/reconciliation-report/template.md`. Other migration domains (logistics master
 data, sales documents, etc.) reuse the same before/after/tolerance shape once ported; nothing about
 this skill is finance-specific except the first filled-in example.
 
 *Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
-`../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 ## When to use
 
@@ -51,11 +51,11 @@ Ask for anything missing before running.
 4. **For every out-of-tolerance mismatch, state a likely cause.** "Investigating" is not a
    completed reconciliation report — this skill's whole value is that the answer is a number, and a
    number with no attached explanation just relocates the ambiguity instead of resolving it.
-5. **Write the report** — see `../../artifacts/reconciliation-report/template.md`.
+5. **Write the report** — see `../../../artifacts/reconciliation-report/template.md`.
 
 ## Output
 
-- **`reconciliation-report` artifact** (`../../artifacts/reconciliation-report/template.md`):
+- **`reconciliation-report` artifact** (`../../../artifacts/reconciliation-report/template.md`):
   per-object before/after/delta/tolerance table, explained mismatches, domain scope, agreed
   tolerance.
 - Feeds the `realize→deploy` Q-gate — a report either sits inside tolerance or blocks the phase;

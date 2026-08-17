@@ -11,7 +11,7 @@ verbatim SAP documentation, and the exact tooling (SUM version, DMO vs. classic,
 Optimization availability) must be checked against the client's actual release and scenario.
 
 *Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
-`../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 ## Purpose
 

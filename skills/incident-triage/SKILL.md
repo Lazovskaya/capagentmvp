@@ -11,7 +11,7 @@ stub. This is the intake step this factory's own `defect-triage` skill already a
 step) but that, until now, nothing in this factory actually supplied.
 
 *Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
-`../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 Sort a batch or stream of tickets before anyone diagnoses: classify each by sub-process, likely
 layer and severity, flag duplicates, and route. **Domain-neutral engine** — the layer/severity
@@ -39,15 +39,15 @@ Ask for anything missing before running.
 - `references/incident-triage-method.md` — the generic method: layer + severity + volume weighting,
   routing principle, dedup heuristics, signal matching, ambiguity handling. Shared with
   `root-cause-playbook` (fallback layer order) and `defect-pattern-analysis` (classification, dedup).
-- **Domain sub-process taxonomy** — `../../knowledge/domain-packs/order-to-cash/incident-taxonomy.md`.
-- **Domain signal catalog** — `../../knowledge/domain-packs/order-to-cash/incident-signal-catalog.md`
+- **Domain sub-process taxonomy** — `../../../knowledge/domain-packs/order-to-cash/incident-taxonomy.md`.
+- **Domain signal catalog** — `../../../knowledge/domain-packs/order-to-cash/incident-signal-catalog.md`
   (ticket phrases/tcodes/message types → sub-process + layer hint + confidence, disambiguation rules).
-- **Domain routing matrix** — `../../knowledge/domain-packs/order-to-cash/routing-matrix.md` (stream,
+- **Domain routing matrix** — `../../../knowledge/domain-packs/order-to-cash/routing-matrix.md` (stream,
   owner, layer co-assign, diagnose handoff).
 - **`ceremony-routing`** — after route, scores Light/Standard/Deep; does **not** change the matrix
   diagnose handoff. See `../ceremony-routing/SKILL.md` and `../ceremony-routing/references/depth-guide.md`.
 - **Domain adjacency** (optional at triage) —
-  `../../knowledge/domain-packs/order-to-cash/subprocess-adjacency.md` for related-stream notes on S1
+  `../../../knowledge/domain-packs/order-to-cash/subprocess-adjacency.md` for related-stream notes on S1
   clusters; primary consumer is `fix-doc-and-regression`.
 
 ## Connectivity (agnostic + graceful degradation)

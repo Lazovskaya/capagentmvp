@@ -9,7 +9,7 @@ Ported from `sap-ai-cons`'s `skills/run/bugfix/pricing-diagnostic` — real, tes
 stub.
 
 *Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
-`../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 Deep-dive diagnosis for SD pricing defects (wrong/missing price, discount, surcharge, tax, rebate
 accrual). Works the condition technique the way a consultant does: start from the document's pricing
@@ -32,9 +32,9 @@ Ask for anything missing before running.
 
 ## Knowledge this skill orchestrates
 
-- `../../knowledge/domain-packs/order-to-cash/pricing-condition-technique.md` — the determination
+- `../../../knowledge/domain-packs/order-to-cash/pricing-condition-technique.md` — the determination
   chain, the "read the Analysis first" method, and the failure-mode table.
-- `../../knowledge/domain-packs/order-to-cash/troubleshooting/pricing-incorrect.md` — the ordered
+- `../../../knowledge/domain-packs/order-to-cash/troubleshooting/pricing-incorrect.md` — the ordered
   diagnostic tree.
 
 ## Connectivity (agnostic + graceful degradation)

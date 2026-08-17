@@ -9,7 +9,7 @@ Ported from `sap-ai-cons`'s `skills/run/bugfix/fix-doc-and-regression` — real,
 a stub.
 
 *Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
-`../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 After diagnose: document the fix and propose **regression scope** from the domain adjacency map
 (which areas a change can break). **Domain-neutral engine** — the fix-doc structure and adjacency
@@ -37,7 +37,7 @@ Ask for anything missing before running.
   regression from adjacency.
 - `references/fix-regression-template.md` — output template.
 - **Domain adjacency map** —
-  `../../knowledge/domain-packs/order-to-cash/subprocess-adjacency.md` (Must/Often adjacent, layer
+  `../../../knowledge/domain-packs/order-to-cash/subprocess-adjacency.md` (Must/Often adjacent, layer
   extras, scenario templates, negative adjacency).
 - Optional cross-read: domain `routing-matrix.md` for verify owners; the diagnose RCA file in
   `workspace/` if present.

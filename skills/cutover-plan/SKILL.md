@@ -13,7 +13,7 @@ Basis/technical downtime steps (those belong to `production-conversion`, owned b
 below, since the two skills would otherwise silently overlap on "who plans the downtime window."
 
 *Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
-`../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 ## When to use
 
@@ -48,13 +48,13 @@ Ask for anything missing before running.
 4. **Track dress-rehearsal results** across however many passes happen before go-live — each pass
    should show the plan getting tighter, not the same gaps recurring unaddressed.
 5. **Close with a named sign-off**, alongside `go-live-readiness`'s checklist — see
-   `../../artifacts/sign-off-record/template.md`'s "Deploy go-live variant." Cutover-plan's part is
+   `../../../artifacts/sign-off-record/template.md`'s "Deploy go-live variant." Cutover-plan's part is
    the rehearsal reference; `go-live-readiness` owns the checklist-items part of the same record.
 
 ## Output
 
 - A sequenced functional cutover task list plus dress-rehearsal history (workspace, gitignored).
-- Feeds the **`sign-off-record` artifact** (`../../artifacts/sign-off-record/template.md`, deploy
+- Feeds the **`sign-off-record` artifact** (`../../../artifacts/sign-off-record/template.md`, deploy
   go-live variant) jointly with `go-live-readiness` — this skill supplies the
   `cutover_rehearsal_reference` field, not a separate document.
 - If a `cutover-risk-assessor` agent is wired, it reads this rehearsal record plus

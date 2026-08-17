@@ -9,7 +9,7 @@ Ported from `sap-ai-cons`'s `skills/run/bugfix/defect-pattern-analysis` — real
 a stub.
 
 *Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
-`../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 Look backwards across a period of defects and answer "why does this keep happening?" — cluster by
 **cause key**, quantify each cluster, and propose a permanent fix instead of the next point fix.
@@ -29,7 +29,7 @@ Ask for anything missing before running.
 - **Required:** the defect set for a defined period — export (CSV/XLSX/JSON) or connector pull. Per
   defect at least: id, created date, short text. In a project with accumulated history, the real
   source for this is the project's own populated copy of
-  `../../knowledge/testing/defect-history-template.md`, filtered to the period — an ad-hoc export is
+  `../../../knowledge/testing/defect-history-template.md`, filtered to the period — an ad-hoc export is
   the fallback for a project that hasn't accumulated that history yet, not the intended long-run
   source.
 - **Required:** which domain pack applies (order-to-cash is the built pack).
@@ -46,10 +46,10 @@ Ask for anything missing before running.
   layer/severity), volume-hint schema, dedup heuristics.
 - `references/pattern-analysis-template.md` — output template.
 - **Domain taxonomy + signal catalog** —
-  `../../knowledge/domain-packs/order-to-cash/incident-taxonomy.md` and
+  `../../../knowledge/domain-packs/order-to-cash/incident-taxonomy.md` and
   `incident-signal-catalog.md`, so the same phrase maps to the same code across periods.
 - **Domain adjacency map** —
-  `../../knowledge/domain-packs/order-to-cash/subprocess-adjacency.md`, to note the regression
+  `../../../knowledge/domain-packs/order-to-cash/subprocess-adjacency.md`, to note the regression
   footprint of each proposed permanent fix.
 
 ## Connectivity (agnostic + graceful degradation)

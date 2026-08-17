@@ -6,7 +6,7 @@ description: Normalize free-form text, a Jira/ALM ticket, email or workshop note
 # Requirements intake
 
 *Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
-`../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 Adapted from the sdlc-factory `requirements-intake` **normalization pattern** (detect input shape →
 one `requirements.md` → never invent AC). Stripped of coding-pipeline concerns (branch names,
@@ -77,7 +77,7 @@ Events: `run.started`, `source.detected`, `ticket.fetched` | `ticket.unresolved`
    when there is no process area, no persona/problem, and multiple unrelated topics. Skip if the
    ask is already specific.
 5. **Write `requirements.md`** from `references/requirements-template.md` /
-   `../../artifacts/requirements-record/template.md`. Goal = one sentence. AC = only what the
+   `../../../artifacts/requirements-record/template.md`. Goal = one sentence. AC = only what the
    source states (or "(none in source — see Open questions)"). Append `requirements.written`.
 6. **User review** — show the doc; on approval append `review.approved` and set status complete.
 7. **Optional depth** — if the next step is ambiguous (thin AC + many open questions vs a crisp

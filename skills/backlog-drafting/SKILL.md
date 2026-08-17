@@ -5,7 +5,7 @@ description: Convert a design-record and extensibility-record into sized, owned 
 
 # Backlog drafting
 
-*Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in `../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+*Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in `../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 ## Purpose
 
@@ -59,7 +59,7 @@ unresolvable defect dispute, not a shortcut.
 
 1b. **Refuse unless design-record `status` is `APPROVED`.** `DRAFT` / `IN_REVIEW` / `REOPENED`
    (until re-approved) stay local — do not create or push Jira items. See
-   `../../artifacts/explore-chain/handoff.md` (design-to-backlog). Append `status.gate_blocked` and
+   `../../../artifacts/explore-chain/handoff.md` (design-to-backlog). Append `status.gate_blocked` and
    stop.
 
 2. **AC quality check** — run `references/ac-quality-check.md` against the design-record's

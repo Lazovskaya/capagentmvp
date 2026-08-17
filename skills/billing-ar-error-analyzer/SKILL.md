@@ -9,7 +9,7 @@ Ported from `sap-ai-cons`'s `skills/run/bugfix/billing-ar-error-analyzer` — re
 not a stub.
 
 *Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
-`../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 Deep-dive diagnosis for SD billing create failures and especially **billing → FI-AR posting**
 defects (no accounting document, account determination/VKOA, tax at posting, document splitting,
@@ -39,11 +39,11 @@ Ask for anything missing before running.
 
 ## Knowledge this skill orchestrates
 
-- `../../knowledge/domain-packs/order-to-cash/billing-ar-account-determination.md` — SD→FI chain,
+- `../../../knowledge/domain-packs/order-to-cash/billing-ar-account-determination.md` — SD→FI chain,
   VKOA keys, tax-at-posting, splitting, period, failure-mode table, evidence pack.
-- `../../knowledge/domain-packs/order-to-cash/troubleshooting/billing-no-accounting-document.md` —
+- `../../../knowledge/domain-packs/order-to-cash/troubleshooting/billing-no-accounting-document.md` —
   ordered tree for FI posting failures.
-- `../../knowledge/domain-packs/order-to-cash/troubleshooting/billing-document-not-created.md` —
+- `../../../knowledge/domain-packs/order-to-cash/troubleshooting/billing-document-not-created.md` —
   ordered tree when no billing document exists yet.
 
 ## Connectivity (agnostic + graceful degradation)

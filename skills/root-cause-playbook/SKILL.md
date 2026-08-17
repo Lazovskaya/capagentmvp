@@ -9,7 +9,7 @@ Ported from `sap-ai-cons`'s `skills/run/bugfix/root-cause-playbook` — real, te
 stub.
 
 *Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
-`../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 Structured root-cause analysis for a defect. Given a symptom and a document reference, classify the
 sub-process, walk the matching diagnostic tree top-down, and produce a ranked root cause with the
@@ -43,8 +43,8 @@ Ask for anything missing before running.
 - `../incident-triage/references/incident-triage-method.md` — the generic layer order for the
   fallback (rule out `user` → `master-data` → `data` → `config` → `custom`).
 - **Domain taxonomy + trees** —
-  `../../knowledge/domain-packs/order-to-cash/incident-taxonomy.md` (sub-processes) and
-  `../../knowledge/domain-packs/order-to-cash/troubleshooting/` (per-symptom trees:
+  `../../../knowledge/domain-packs/order-to-cash/incident-taxonomy.md` (sub-processes) and
+  `../../../knowledge/domain-packs/order-to-cash/troubleshooting/` (per-symptom trees:
   `order-will-not-save`, `delivery-not-created`, `pgi-fails`, `atp-no-confirmation`,
   `credit-block`, `billing-document-not-created`, `billing-no-accounting-document`,
   `pricing-incorrect`, `output-not-issued`, `returns-credit-memo`; extend per engagement).

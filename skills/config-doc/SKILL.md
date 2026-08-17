@@ -13,7 +13,7 @@ below; the transport-attachment half stays this factory's own contribution, sinc
 no equivalent (transports aren't its bugfix track's concern).
 
 *Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
-`../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 ## When to use
 
@@ -45,17 +45,17 @@ Ask for anything missing before running.
 3. **Check against `knowledge/standards/config-guidelines.md`.** If the change deviates, record the
    deviation explicitly with its reason — a silent deviation is indistinguishable from an oversight
    the first time someone else reviews this config.
-4. **Write the config record** — see `../../artifacts/config-record/template.md`.
+4. **Write the config record** — see `../../../artifacts/config-record/template.md`.
 5. **Attach the transport.** If the transport already exists, record its ID and contents by
    construction (read from the actual transport), not from memory — see
-   `../../artifacts/transport-record/template.md`. If it doesn't exist yet, mark the config record
+   `../../../artifacts/transport-record/template.md`. If it doesn't exist yet, mark the config record
    "transport pending" rather than leaving the field blank with no explanation.
 
 ## Output
 
-- **`config-record` artifact** (`../../artifacts/config-record/template.md`): what changed, why
+- **`config-record` artifact** (`../../../artifacts/config-record/template.md`): what changed, why
   (citing the upstream Row ID/design-record), guideline-check result, who, when.
-- **`transport-record` artifact** (`../../artifacts/transport-record/template.md`): transport ID,
+- **`transport-record` artifact** (`../../../artifacts/transport-record/template.md`): transport ID,
   contents, which config-record(s) it carries.
 - Both feed the `realize→deploy` Q-gate together — a config change with a record but no transport,
   or a transport with no record, is an incomplete pair for gate purposes.

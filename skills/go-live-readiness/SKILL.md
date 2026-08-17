@@ -14,7 +14,7 @@ made against. Both feed one shared activity (`activities/deploy/cutover-planning
 `sign-off-record`, not two separate documents that could silently disagree.
 
 *Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
-`../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 ## When to use
 
@@ -57,7 +57,7 @@ Ask for anything missing before running.
    that area is a contradiction to resolve before sign-off, not two documents left to quietly
    disagree.
 5. **Feed the shared sign-off**, alongside `cutover-plan` — see
-   `../../artifacts/sign-off-record/template.md`'s "Deploy go-live variant." This skill supplies
+   `../../../artifacts/sign-off-record/template.md`'s "Deploy go-live variant." This skill supplies
    `go_live_checklist_reference`, `checklist_items_closed`, and
    `checklist_items_open_with_risk_acceptance`.
 
@@ -65,7 +65,7 @@ Ask for anything missing before running.
 
 - A per-process-area go-live checklist (workspace, gitignored): status, evidence, open items with
   named risk acceptance where applicable.
-- Feeds the **`sign-off-record` artifact** (`../../artifacts/sign-off-record/template.md`, deploy
+- Feeds the **`sign-off-record` artifact** (`../../../artifacts/sign-off-record/template.md`, deploy
   go-live variant), jointly with `cutover-plan` — one record, not a separate go-live document that
   could drift from the cutover sign-off.
 - Feeds the `deploy→run` Q-gate: "every process area's go-live checklist item closed, none left open

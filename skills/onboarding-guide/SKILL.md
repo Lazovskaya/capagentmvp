@@ -5,7 +5,7 @@ description: Walk a new joiner through a role-shaped path across all nine knowle
 
 # Team onboarding
 
-*Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in `../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+*Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in `../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 ## Purpose
 
@@ -105,7 +105,7 @@ time and fewer follow-up questions expected, not a skip.
 
 - **`onboarding-record` artifact**: role, path taken, per-bucket check results, end-to-end ticket-test
   result, person-readiness verdict with confirmer name and date (see
-  `../../artifacts/onboarding-record/template.md`)
+  `../../../artifacts/onboarding-record/template.md`)
 - **Knowledge-base defect list**, routed to `knowledge-harvest` (content gaps) or back to
   `knowledge-discovery` (a `Validated` bucket that turned out not to hold up)
 - Feeds the `prepare→explore` Q-gate

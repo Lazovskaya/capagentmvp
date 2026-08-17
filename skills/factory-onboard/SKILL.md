@@ -11,7 +11,7 @@ For **consultants using the factory on an engagement** — not for people editin
 After install, this is the single entry: orient → capture project context → name the next
 delivery skill. It does **not** produce a client deliverable and does not feed a Q-gate.
 
-*Explore handoffs (when you land in Explore): `../../artifacts/explore-chain/`.*  
+*Explore handoffs (when you land in Explore): `../../../artifacts/explore-chain/`.*  
 *Write safety (state once): connector mutations are dry-run / preview only unless the user
 passes `--apply`. Do not open authoring docs for this — it is a runtime rule, not a design task.*
 

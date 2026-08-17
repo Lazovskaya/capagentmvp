@@ -35,12 +35,12 @@ Ask for anything missing before running.
 
 ## Knowledge this skill orchestrates
 
-- `../../knowledge/testing/defect-history-template.md` (the project's own populated copy) — defect
+- `../../../knowledge/testing/defect-history-template.md` (the project's own populated copy) — defect
   history and prior spec-flaw classifications; see step 2's precedent check.
-- `../../knowledge/process/` and `../../knowledge/config/` (what the process and config are supposed
+- `../../../knowledge/process/` and `../../../knowledge/config/` (what the process and config are supposed
   to do, needed to tell a bug from a spec flaw).
-- `../../knowledge/custom-code/` (whether the affected object is custom, which shapes routing).
-- `../../knowledge/domain-packs/order-to-cash/` — via `incident-triage`'s upstream classification; this
+- `../../../knowledge/custom-code/` (whether the affected object is custom, which shapes routing).
+- `../../../knowledge/domain-packs/order-to-cash/` — via `incident-triage`'s upstream classification; this
   skill doesn't read the domain pack directly, it trusts the classification that already used it.
 
 ## Steps
@@ -49,7 +49,7 @@ Ask for anything missing before running.
    layer, severity and dedup status aren't already on the item (i.e. `incident-triage` hasn't run
    on it yet), route it back to intake rather than reasoning through a commercial verdict on an
    unclassified item.
-2. **Check `../../knowledge/testing/defect-history-template.md` (the project's own populated copy)
+2. **Check `../../../knowledge/testing/defect-history-template.md` (the project's own populated copy)
    for a precedent** before deriving anything from scratch: does this item ask for the same
    behavior an existing row already ruled on — same cause key, or same affected process step — or
    is it a genuinely new ask? Same ask, prior row says Spec flaw → cite that row's `ticket_id` and

@@ -5,7 +5,7 @@ description: After a run (or on a routed trigger from another skill), propose ta
 
 # Knowledge harvest
 
-*Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in `../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+*Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in `../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 ## Purpose
 

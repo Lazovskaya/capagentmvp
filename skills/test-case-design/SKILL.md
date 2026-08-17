@@ -6,7 +6,7 @@ description: Derive executable test scripts from every fit-to-standard decision-
 # Test Case Design
 
 *Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
-`../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 Written fresh for this factory — no predecessor-repo content existed to port, and a survey of a
 Salesforce sibling framework's `sf-testing`/`sf-init-testing` skills found they only cover
@@ -42,7 +42,7 @@ Ask for anything missing before running.
 - **Required, for Delta rows:** the paired `design-record` (its `target_design` and `test_approach`
   fields — the seed, not the finished plan) and `extensibility-record` (tier — affects execution
   environment/owner).
-- **Strongly preferred:** the project's own `../../knowledge/testing/defect-history-template.md`
+- **Strongly preferred:** the project's own `../../../knowledge/testing/defect-history-template.md`
   copy — known recurring cause families become explicit regression test cases here, not left to
   chance.
 - **Optional:** `backlog-drafting`'s work items, if already drafted (their acceptance-criteria text
@@ -57,9 +57,9 @@ Ask for anything missing before running.
   Delta `test_approach` **before** technique selection (adapted from the sdlc-factory
   `qa-case-generator` AC-quality gate; SAP inputs are FTS rows + design-records, not ticket AC alone).
 - `references/run-ledger.md` — per-run folder, `meta.json`, append-only `events.jsonl`.
-- `../../knowledge/testing/test-script-template.md` — the output shape.
-- `../../knowledge/testing/defect-history-template.md` — regression-case seeding.
-- **Domain adjacency map** — `../../knowledge/domain-packs/order-to-cash/subprocess-adjacency.md`,
+- `../../../knowledge/testing/test-script-template.md` — the output shape.
+- `../../../knowledge/testing/defect-history-template.md` — regression-case seeding.
+- **Domain adjacency map** — `../../../knowledge/domain-packs/order-to-cash/subprocess-adjacency.md`,
   used forward (which sub-processes a scenario should span) rather than `fix-doc-and-regression`'s
   reactive use of the same file.
 - `evals/evals.json` — regression fixtures for Delta-only refuse, thin design-record, and

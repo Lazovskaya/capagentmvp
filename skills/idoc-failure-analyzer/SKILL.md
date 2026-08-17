@@ -9,7 +9,7 @@ Ported from `sap-ai-cons`'s `skills/run/bugfix/idoc-failure-analyzer` — real, 
 stub.
 
 *Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
-`../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 Take a set of failing IDocs and turn it into grouped, layer-tagged root causes with fixes and a safe
 reprocess recommendation. The key move — separating **technical/ALE** and **mapping** failures
@@ -37,11 +37,11 @@ Ask for anything missing before running.
   transaction reference, known SAP Notes/KBAs (pointers), discovering custom-code hooks, operational
   (non-defect) checks, correlation, and reprocess.
 - **Domain message catalog** —
-  `../../knowledge/domain-packs/order-to-cash/idoc-orders-invoic.md` (flows, application-51
+  `../../../knowledge/domain-packs/order-to-cash/idoc-orders-invoic.md` (flows, application-51
   catalogs, an order-to-cash-specific Note, and the exit/BAdI table for ORDERS inbound / ORDRSP
   outbound / INVOIC outbound).
 - For status-51 application errors that mirror online failures, hand off to
-  `../../knowledge/domain-packs/order-to-cash/troubleshooting/`.
+  `../../../knowledge/domain-packs/order-to-cash/troubleshooting/`.
 
 ## Connectivity (agnostic + graceful degradation)
 

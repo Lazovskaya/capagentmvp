@@ -6,7 +6,7 @@ description: Score how deep to go on an already-classified SAP incident or norma
 # Ceremony routing (depth scoring)
 
 *Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
-`../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 Inspired by sdlc-factory `complexity-scoring` (heuristic-first, assessor only on boundaries) but
 **not** a port of coding dimensions (API/Service/DB). SAP axes: blast radius, clarity, layer risk,

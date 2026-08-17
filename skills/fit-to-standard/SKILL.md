@@ -18,7 +18,7 @@ attendees' live calendars, then run the actual standard-vs-delta decision with a
 reframing test per delta, and a named sign-off that closes the loop.
 
 *Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
-`../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 ## When to use
 
@@ -129,7 +129,7 @@ sign-off-record only gets its validity checklist marked complete, and only count
    note, not the pack itself. Report the paths, the proposed slots, and the decision log's Row ID
    prefix.
 7. **Close with a named sign-off**, not just a completed document — see
-   `../../artifacts/sign-off-record/template.md`. The Row ID range is the source of truth for what's
+   `../../../artifacts/sign-off-record/template.md`. The Row ID range is the source of truth for what's
    in scope; the sign-off's prose process/variant line is a human-readable label for that range, not
    an independent scope definition. **Ask, don't infer, who has signing authority.** With more than
    one attendee, the test is explicit: *"of the people in this room, who is actually authorized to
@@ -151,7 +151,7 @@ sign-off-record only gets its validity checklist marked complete, and only count
 - `workspace/fit-to-standard/<module>-workshop.md` per in-scope module: objective and attendees,
   timed agenda, per-item talking points, the **filled** decision log (Row IDs, reframed requirements,
   upgrade cost, Delta owners), and a scheduling section with real proposed slots plus a draft invite.
-- **`sign-off-record` artifact** (`../../artifacts/sign-off-record/template.md`): named signer, date,
+- **`sign-off-record` artifact** (`../../../artifacts/sign-off-record/template.md`): named signer, date,
   Row ID range, deltas accepted/rejected — the signer role is distinct from each row's Delta owner
   even when it's the same person.
 - **A `knowledge/process/<process-slug>.md` entry**, written only once the session is Live and

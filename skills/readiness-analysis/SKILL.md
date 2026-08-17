@@ -13,7 +13,7 @@ Prepare; this factory's own stub named SAP Notes and scoped itself to Discover p
 Readiness Check/SI-Check triage has to happen before Prepare is even scoped, not during it.
 
 *Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
-`../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 ## When to use
 
@@ -54,11 +54,11 @@ Ask for anything missing before running.
    custom code or config it hits is a claim nobody downstream can verify; "Appears only" without
    naming why it doesn't apply reads as an oversight later, not a deliberate call.
 6. **Write the report** per module, sized by effort implication — see
-   `../../artifacts/simplification-impact-report/template.md`.
+   `../../../artifacts/simplification-impact-report/template.md`.
 
 ## Output
 
-- **`simplification-impact-report` artifact** (`../../artifacts/simplification-impact-report/template.md`):
+- **`simplification-impact-report` artifact** (`../../../artifacts/simplification-impact-report/template.md`):
   per-module findings table (Blocks/Appears-only, reason, effort implication), plus a dedicated
   "items that merely appear" section so a re-raised question later has a documented answer already
   on file.

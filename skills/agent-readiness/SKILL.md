@@ -5,7 +5,7 @@ description: Score a client's business processes for whether they should be hand
 
 # Agent-readiness assessment
 
-*Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in `../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+*Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in `../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 ## Purpose
 
@@ -76,7 +76,7 @@ rate or irreversible outcomes is a liability wearing a demo.
 
 - **`assessment-report` artifact**: candidate processes (with verdict and axis scores), leave-alone
   processes (with the disqualifying axis stated), and guardrail notes for anything marked "Candidate
-  with guardrails" (see `../../artifacts/assessment-report/template.md`)
+  with guardrails" (see `../../../artifacts/assessment-report/template.md`)
 - **`process` knowledge bucket** update, if the scoring surfaced process detail worth retaining
 - Feeds the `discover→prepare` Q-gate — and downstream, scopes what `agent-build` is allowed to build
   against; a process not in this report's candidate list isn't an agent-build target yet

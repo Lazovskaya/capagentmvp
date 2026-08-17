@@ -17,6 +17,8 @@ FACTORY_JSON = FACTORY_ROOT / "factory.json"
 FACTORY_DATA_JSON = FACTORY_ROOT / "factory-data.json"
 SKILLS_DIR = FACTORY_ROOT / "skills"
 CONNECTORS_DIR = FACTORY_ROOT / "connectors"
+KNOWLEDGE_DIR = FACTORY_ROOT / "knowledge"
+ARTIFACTS_DIR = FACTORY_ROOT / "artifacts"
 
 FUNCTIONAL_KEYS = {"type", "command", "args", "env"}
 
@@ -209,13 +211,77 @@ def normalize_connector(name, destinations, tool=None):
                 k: translate_env_placeholders(v, tool) for k, v in entry["env"].items()
             }
         out[key] = entry
-    return out, hash_file(server), dest_name
+    return out, hash_tree(CONNECTORS_DIR / name), dest_name
+
+
+def copy_connector(name, project):
+    """Copies connectors/<name>/ (connector.md, server.json, and any helper scripts, e.g. jira's
+    scripts/start-mcp-atlassian.py launcher) verbatim into <project>/connectors/<name>/ --
+    mirrors copy_skill()'s treatment of skills. Two things this fixes: a server.json entry's
+    relative args path (e.g. "./connectors/jira/scripts/start-mcp-atlassian.py") only resolves if
+    that script actually exists inside the client project, not just inside this factory repo; and
+    the generated entry file's pointer at "connectors/<name>/connector.md" for the credential
+    Wiring step needs that file to actually be there for a project that doesn't also have this
+    whole factory checked out alongside it."""
+    src = CONNECTORS_DIR / name
+    dest = project / "connectors" / name
+    if dest.exists():
+        shutil.rmtree(dest)
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(src, dest)
+    return dest
+
+
+# ---------- knowledge / artifacts (seeded once, then the project's own to edit) ----------
+
+_REF_RE = {
+    "knowledge": re.compile(r"\.\./\.\./\.\./knowledge/([A-Za-z0-9_-]+)"),
+    "artifacts": re.compile(r"\.\./\.\./\.\./artifacts/([A-Za-z0-9_-]+)"),
+}
+
+
+def referenced_names(skill_names, category):
+    """Scans each installed skill's SKILL.md for ../../../{category}/<name> references (the
+    depth a skill sees once installed one level under a tool's skill root, e.g.
+    .claude/skills/<skill>/) and returns the deduped set of immediate <name> segments --
+    the knowledge bucket, or the artifact's own directory name. category is 'knowledge' or
+    'artifacts'."""
+    pattern = _REF_RE[category]
+    out, seen = [], set()
+    for skill in skill_names:
+        f = SKILLS_DIR / skill / "SKILL.md"
+        if not f.exists():
+            continue
+        for m in pattern.finditer(f.read_text(encoding="utf-8")):
+            name = m.group(1)
+            if name not in seen:
+                seen.add(name)
+                out.append(name)
+    return out
+
+
+def seed_reference_dir(src, dest):
+    """Copies src into dest only if dest doesn't exist yet. Unlike copy_skill/copy_connector,
+    this never re-syncs an existing destination back to the factory source -- knowledge/ (and
+    artifacts/ instances) are explicitly meant to be overridden per project once seeded, see the
+    root README's "each ships a central default a project can override per file". Returns True
+    if it actually copied, False if dest already existed (left untouched)."""
+    if dest.exists():
+        return False
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(src, dest)
+    return True
 
 
 # ---------- lock file ----------
 
 def load_lock(project):
-    return load_json(project / "factory-lock.json", {"skills": {}, "connectors": {}})
+    lock = load_json(project / "factory-lock.json", {})
+    lock.setdefault("skills", {})
+    lock.setdefault("connectors", {})
+    lock.setdefault("knowledge", {})
+    lock.setdefault("artifacts", {})
+    return lock
 
 
 def write_lock(project, lock, version, tool):

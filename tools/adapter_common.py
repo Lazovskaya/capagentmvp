@@ -34,6 +34,7 @@ ENV_VAR_PLACEHOLDER = re.compile(r"\$\{([A-Za-z_][A-Za-z0-9_]*)\}")
 ENV_VAR_SYNTAX = {
     "claude-code": "${{{var}}}",
     "github-copilot": "${{env:{var}}}",
+    "cursor": "${{env:{var}}}",
 }
 
 

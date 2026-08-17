@@ -117,6 +117,19 @@ incomplete?" Wrong → reopen. Incomplete → harvest.
 
 ## Judgment calls worth stating out loud
 
+## Run-loop intake contract
+
+Accept candidates from `defect-pattern-analysis` with incident references,
+Substance key, confirmed cause, applicability, target bucket, owner and review
+date. For a closing cycle named `<Period> Closing Harvest`, reconcile candidates
+from triage and pattern analysis before sorting them into harvest, reopen or
+reject.
+
+The cycle emits a durable header, candidate dispositions, accepted knowledge
+references and rejected/reopened reasons. If triage or pattern analysis did not
+run, record that as an explicit gap; an empty candidate list is not proof that
+the upstream step completed.
+
 - **"It's obviously right" is not a reason to skip logging the review** — the discipline of writing
   down why, every time, is what prevents this step from degrading into an unreviewed auto-merge in
   practice even while nominally requiring review.

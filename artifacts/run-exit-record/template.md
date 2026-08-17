@@ -66,6 +66,23 @@ with a genuine red flag, and neither reads right for a traceability gap:
 | | Spec flaw — CR referral | | | | |
 | | Untraceable | | | | |
 
+## Run-loop evidence
+
+The closing record must link the complete loop:
+
+```text
+incident triage -> defect pattern analysis -> knowledge harvest -> operations update
+```
+
+- **Triage reference:** <period incident/defect intake>
+- **Pattern-analysis reference:** <period analysis, or explicit zero-candidate record>
+- **Harvest-log reference:** <closing harvest log>
+- **Cycle header:** `<Period> Closing Harvest`
+- **Run-loop status:** `COMPLETE` | `COMPLETE_WITH_GAPS` | `BLOCKED`
+- **Accepted knowledge references:** <operations/process/testing entries>
+- **Reopened references:** <upstream artifacts reopened>
+- **Gaps:** <missing step/evidence, owner and due date>
+
 - **Open CR referrals specifically** — for each, one of three outcomes, no default:
   - Scheduled with a committed date beyond this closing point → **Carried over — scheduled** — name
     the owner and the contractual/commercial context

@@ -6,6 +6,7 @@
     "approver",
     "date",
     "deploy_run_handoff",
+    "run_loop_evidence",
     "open_items",
     "harvest_confirmation"
   ],
@@ -59,6 +60,21 @@
             }
           }
         }
+      }
+    },
+    "run_loop_evidence": {
+      "type": "object",
+      "description": "Evidence that Run completed from incidents through pattern analysis and knowledge harvest.",
+      "required": ["triage_ref", "pattern_analysis_ref", "harvest_log_ref", "cycle_header", "status"],
+      "properties": {
+        "triage_ref": { "type": "string" },
+        "pattern_analysis_ref": { "type": "string" },
+        "harvest_log_ref": { "type": "string" },
+        "cycle_header": { "type": "string" },
+        "status": { "type": "string", "enum": ["COMPLETE", "COMPLETE_WITH_GAPS", "BLOCKED"] },
+        "gaps": { "type": "array", "items": { "type": "string" } },
+        "accepted_knowledge_refs": { "type": "array", "items": { "type": "string" } },
+        "reopened_refs": { "type": "array", "items": { "type": "string" } }
       }
     },
     "open_items": {

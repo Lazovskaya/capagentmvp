@@ -42,6 +42,7 @@ sizing/deployment material only after release and client applicability are state
 - `rollback-and-escalation-template.md` — trigger thresholds, decision authority and verification.
 - `slo-baseline-template.md` — metric, threshold, source, measurement window and owner.
 - `known-issues-template.md` — confirmed cause, applicability, mitigation and reusable resolution.
+- `run-loop-contract.md` — incident → triage → pattern analysis → harvest → operations update → run-exit handoff.
 
 These are reusable schemas/templates, not client-specific production evidence.
 Populate them per engagement and promote entries only after owner validation and

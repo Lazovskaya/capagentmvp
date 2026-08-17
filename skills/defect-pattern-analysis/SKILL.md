@@ -107,5 +107,20 @@ Main driver: test. Owner role per factory-data.json: **test**.
 
 ## Status
 
+## Run-loop handoff
+
+This activity is the Prevent step in the Run loop. Its output must be handed to
+`knowledge-harvest`, not left as an analysis-only report:
+
+```text
+resolved incidents/defects -> cause clusters -> recurrence and business weight
+  -> permanent-fix proposals -> harvest candidates -> operations knowledge
+```
+
+For every cluster record source incident refs, recurrence evidence, priority,
+ladder action, target bucket and owner. Known-issue candidates require confirmed
+cause and applicability before harvest. A period with no candidates still emits
+an explicit zero-candidate record; silence is not evidence that this step ran.
+
 Progress. Real, tested logic ported from sap-ai-cons; not yet re-verified as part of this factory's
 own pipeline wiring.

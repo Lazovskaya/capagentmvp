@@ -95,6 +95,15 @@ Events: `run.started`, `source.detected`, `ticket.fetched` | `ticket.unresolved`
 - `requirements-record` shaped `requirements.md` in the run folder
 - Feeds Explore activities; does not itself satisfy `explore→realize` (no design/backlink chain yet)
 
+## Connector governance
+
+- Default mode is read-only. Fetching a Jira or Cloud ALM ticket must produce a local source reference before any downstream artifact is written.
+- Never create, update or comment on an external item from this skill. This skill only reads supplied tickets and writes `requirements.md` locally.
+- Any request to write externally is rejected here; explicit approval belongs to the downstream skill that owns the mutation.
+- If a connector is unavailable, record `ticket-unresolved:<id>` and continue from the supplied ID/URL; never claim the ticket was fetched.
+- Redact credentials, tokens, personal data and restricted customer fields before placing ticket content in a prompt or reusable knowledge.
+- Preserve `source`, `retrieved_at`, connector name and external ID in the local run ledger.
+
 ## Status
 
 Progress. New skill (2026-08), pattern-ported from sdlc-factory requirements-intake; not yet

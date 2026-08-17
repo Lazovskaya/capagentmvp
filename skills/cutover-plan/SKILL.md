@@ -51,6 +51,15 @@ Ask for anything missing before running.
    `../../artifacts/sign-off-record/template.md`'s "Deploy go-live variant." Cutover-plan's part is
    the rehearsal reference; `go-live-readiness` owns the checklist-items part of the same record.
 
+## Connector governance
+
+- Cloud ALM access is read-only by default while building and rehearsing the plan.
+- Any task/status write requires a local cutover artifact, exact payload preview and explicit approval from the named delivery owner.
+- After a write, reread the Cloud ALM object and record external ID, timestamp and actual state in the rehearsal ledger.
+- Do not delete, post logs or make production-impacting changes from this skill.
+- If Cloud ALM is unavailable, continue with local rehearsal evidence and mark live synchronization as `not performed`.
+- Redact production URLs, personal data, credentials and restricted logs before LLM use or knowledge harvest.
+
 ## Output
 
 - A sequenced functional cutover task list plus dress-rehearsal history (workspace, gitignored).

@@ -34,4 +34,18 @@ baselines and operational ownership.
 Review and port hypercare, production-conversion, SUM/DMO, HANA performance and
 sizing/deployment material only after release and client applicability are stated.
 
-**Status:** Schema defined; content remains engagement-specific until validated.
+## Current reusable templates
+
+- `cutover-runbook-template.md` — sequenced actions, rehearsal evidence, deviations and rollback.
+- `production-conversion-runbook-template.md` — timestamps, logs, retries, final disposition and handoff.
+- `hypercare-playbook-template.md` — entry/exit criteria, severity path and incident loop.
+- `rollback-and-escalation-template.md` — trigger thresholds, decision authority and verification.
+- `slo-baseline-template.md` — metric, threshold, source, measurement window and owner.
+- `known-issues-template.md` — confirmed cause, applicability, mitigation and reusable resolution.
+
+These are reusable schemas/templates, not client-specific production evidence.
+Populate them per engagement and promote entries only after owner validation and
+source review.
+
+**Status:** In progress. Operational schemas and reusable templates exist; real
+engagement content and incident-to-knowledge closure remain to be validated.

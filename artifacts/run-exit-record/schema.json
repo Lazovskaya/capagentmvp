@@ -5,6 +5,8 @@
     "period_closing",
     "approver",
     "date",
+    "deploy_run_handoff",
+    "run_loop_evidence",
     "open_items",
     "harvest_confirmation"
   ],
@@ -18,6 +20,63 @@
       "description": "Named, empowered to accept carry-over/commercial decisions."
     },
     "date": { "type": "string", "format": "date" },
+    "deploy_run_handoff": {
+      "type": "object",
+      "description": "Operational contract handed from Deploy into Run before hypercare starts.",
+      "required": ["go_live_signoff_ref", "handoff_status", "hypercare_window", "service_owner", "rollback_owner", "entry_criteria", "operational_baseline"],
+      "properties": {
+        "go_live_signoff_ref": { "type": "string" },
+        "production_conversion_ref": { "type": "string" },
+        "cutover_rehearsal_ref": { "type": "string" },
+        "handoff_status": { "type": "string", "enum": ["READY", "READY_WITH_EXCEPTIONS", "BLOCKED"] },
+        "hypercare_window": { "type": "string" },
+        "service_owner": { "type": "string" },
+        "on_call_path": { "type": "string" },
+        "rollback_owner": { "type": "string" },
+        "entry_criteria": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["criterion", "status"],
+            "properties": {
+              "criterion": { "type": "string" },
+              "status": { "type": "string", "enum": ["PASS", "EXCEPTION", "BLOCKED", "NOT_APPLICABLE"] },
+              "evidence_ref": { "type": "string" },
+              "owner": { "type": "string" }
+            }
+          }
+        },
+        "operational_baseline": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["metric", "target_or_baseline", "source", "window", "owner"],
+            "properties": {
+              "metric": { "type": "string" },
+              "target_or_baseline": { "type": "string" },
+              "source": { "type": "string" },
+              "window": { "type": "string" },
+              "owner": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "run_loop_evidence": {
+      "type": "object",
+      "description": "Evidence that Run completed from incidents through pattern analysis and knowledge harvest.",
+      "required": ["triage_ref", "pattern_analysis_ref", "harvest_log_ref", "cycle_header", "status"],
+      "properties": {
+        "triage_ref": { "type": "string" },
+        "pattern_analysis_ref": { "type": "string" },
+        "harvest_log_ref": { "type": "string" },
+        "cycle_header": { "type": "string" },
+        "status": { "type": "string", "enum": ["COMPLETE", "COMPLETE_WITH_GAPS", "BLOCKED"] },
+        "gaps": { "type": "array", "items": { "type": "string" } },
+        "accepted_knowledge_refs": { "type": "array", "items": { "type": "string" } },
+        "reopened_refs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
     "open_items": {
       "type": "array",
       "description": "Every open item from defect-triage's triage-verdict log for the period. No silent option outside the four dispositions.",

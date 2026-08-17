@@ -371,6 +371,14 @@
    "phase": "Deploy",
    "desc": "Bounded go-live risk verdict (go/conditional/no-go) from cutover-plan's rehearsal record and go-live-readiness's checklist."
   },
+    {
+     "kind": "Agent",
+     "name": "delivery-pilot",
+     "posture": "own",
+     "status": "progress",
+     "phase": "all",
+     "desc": "Independent evaluator for an end-to-end reference engagement: artifact completeness, traceability, gate evidence, connector safety, lead time and knowledge reuse."
+    },
   {
    "kind": "Connector",
    "name": "abap-mcp",
@@ -399,9 +407,17 @@
    "kind": "Connector",
    "name": "cloud-alm",
    "posture": "adopt",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
-   "desc": "SAP's delivery surface. Needed for Deploy and Run reporting."
+   "desc": "SAP Cloud ALM delivery and operations surface, packaged with an external profile launcher and read-only-by-default tool posture."
+  },
+  {
+   "kind": "Connector",
+   "name": "leanix",
+   "posture": "adopt",
+   "status": "progress",
+   "phase": "all",
+   "desc": "SAP LeanIX MCP for workspace-scoped enterprise architecture discovery, technology assessment and transformation evidence, packaged with OAuth via mcp-remote."
   },
   {
    "kind": "Connector",
@@ -482,6 +498,14 @@
    "status": "progress",
    "phase": "all",
    "desc": "Target design, critiqued then approved."
+  },
+  {
+   "kind": "Artifact",
+   "name": "architecture-package",
+   "posture": "own",
+   "status": "progress",
+   "phase": "all",
+   "desc": "Client-facing architecture index: scope, architecture views, source records, traceability, NFRs, risks and named approvals."
   },
   {
    "kind": "Artifact",
@@ -1008,8 +1032,8 @@
    "engagement": "GBA",
    "status": "notstarted",
    "file": "activities/explore/solution-design.md",
-   "title": "Solution design & extensibility routing",
-   "desc": "Turn accepted deltas into a target design, and route each one to where the change is allowed to live: standard config, key-user extension, side-by-side on BTP, developer extensibility, or classic modification as a last resort. When a delta's target design isn't cleanly captured in one fit-to-standard decision-log row, it's assembled instead from scattered sources (emails, decks, specs, transcripts) with full source traceability. Produces a design record plus an extensibility record carrying the tier and its justification. That tier decision sets the client's upgrade cost for years, which is why it is recorded rather than assumed.",
+   "title": "Solution design, architecture package & extensibility routing",
+   "desc": "Turn the complete in-scope fit-to-standard outcome into a coherent solution architecture. Establish architecture views and cross-artifact traceability, then produce one design record and one extensibility record per delta. The scope-level architecture package is the client-facing output and explore→realize handoff.",
    "uses": [
     [
      "skill",
@@ -1028,6 +1052,7 @@
     [
      "artifact",
      [
+      "architecture-package",
       "design-record",
       "extensibility-record"
      ]
@@ -1035,6 +1060,9 @@
     [
      "knowledge",
      [
+      "process",
+      "config",
+      "data",
       "extensibility",
       "clean-core",
       "standards"
@@ -1316,7 +1344,8 @@
     [
      "artifact",
      [
-      "sign-off-record"
+      "sign-off-record",
+      "run-exit-record"
      ]
     ],
     [
@@ -1365,6 +1394,12 @@
      [
       "deploy→run"
      ]
+    ],
+    [
+     "artifact",
+     [
+      "run-exit-record"
+     ]
     ]
    ]
   },
@@ -1406,6 +1441,7 @@
     [
      "artifact",
      [
+      "run-exit-record",
       "triage-verdict"
      ]
     ],

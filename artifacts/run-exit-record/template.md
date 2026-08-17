@@ -8,6 +8,42 @@ honestly; there is no external checklist to catch a gap this record misses.
 - **Approver (named, empowered to accept carry-over/commercial decisions):**
 - **Date:**
 
+## Deploy → Run handoff
+
+This section is completed before hypercare starts and carried forward unchanged
+until the closing review. It is the operational contract between the Deploy and
+Run teams, not a narrative status update.
+
+- **Go-live sign-off reference:** <sign-off-record ID and checklist scope>
+- **Production conversion reference:** <runbook/run ID, or `N/A` with reason>
+- **Cutover rehearsal reference:** <rehearsal ID, date and result>
+- **Handoff status:** `READY` | `READY_WITH_EXCEPTIONS` | `BLOCKED`
+- **Hypercare window:** <start/end, timezone and support hours>
+- **Service owner:** <named owner>
+- **On-call/escalation path:** <team, contact route and severity path>
+- **Rollback decision owner:** <named person with authority>
+
+### Entry criteria
+
+- [ ] Go-live decision and scope are signed.
+- [ ] Production conversion evidence and logs are stored.
+- [ ] Cutover rehearsal completed, or exception is explicitly accepted.
+- [ ] Monitoring, alerting and support access are verified.
+- [ ] Open risks have owners, due dates and acceptance authority.
+- [ ] Initial operational baselines and thresholds are recorded.
+
+### Operational baseline
+
+| Metric / SLO | Baseline or target | Measurement source | Window | Owner |
+|---|---|---|---|---|
+| Availability | | | | |
+| Response time / batch duration | | | | |
+| Incident volume / severity | | | | |
+| Data reconciliation / business KPI | | | | |
+
+An empty baseline is a gap, not an implicit zero. If a metric is not applicable,
+state why and name the approving owner.
+
 ## Open items from defect-triage — every one needs a disposition, no silent third option
 
 **Disposition has four values, not two** — "Carried over" alone conflates a healthy scheduled handoff
@@ -29,6 +65,23 @@ with a genuine red flag, and neither reads right for a traceability gap:
 | | Bug | | | | |
 | | Spec flaw — CR referral | | | | |
 | | Untraceable | | | | |
+
+## Run-loop evidence
+
+The closing record must link the complete loop:
+
+```text
+incident triage -> defect pattern analysis -> knowledge harvest -> operations update
+```
+
+- **Triage reference:** <period incident/defect intake>
+- **Pattern-analysis reference:** <period analysis, or explicit zero-candidate record>
+- **Harvest-log reference:** <closing harvest log>
+- **Cycle header:** `<Period> Closing Harvest`
+- **Run-loop status:** `COMPLETE` | `COMPLETE_WITH_GAPS` | `BLOCKED`
+- **Accepted knowledge references:** <operations/process/testing entries>
+- **Reopened references:** <upstream artifacts reopened>
+- **Gaps:** <missing step/evidence, owner and due date>
 
 - **Open CR referrals specifically** — for each, one of three outcomes, no default:
   - Scheduled with a committed date beyond this closing point → **Carried over — scheduled** — name

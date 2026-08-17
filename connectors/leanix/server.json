@@ -1,0 +1,11 @@
+{
+  "leanix": {
+    "type": "stdio",
+    "command": "python3",
+    "args": [
+      "./connectors/leanix/scripts/start-leanix-mcp.py",
+      "--profile=<profile>"
+    ],
+    "note": "The launcher starts mcp-remote with OAuth for an external LeanIX workspace profile at ~/.config/sap-leanix-mcp/profiles/<profile>.json. The profile contains only subdomain and workspace; OAuth tokens are managed outside the repository by mcp-remote."
+  }
+}

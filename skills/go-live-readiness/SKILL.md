@@ -61,6 +61,15 @@ Ask for anything missing before running.
    `go_live_checklist_reference`, `checklist_items_closed`, and
    `checklist_items_open_with_risk_acceptance`.
 
+## Connector governance
+
+- Cloud ALM reads are the default read-only mode. The checklist is local evidence first; external synchronization is optional and never implicit.
+- Any create/update/status operation requires an exact payload preview and explicit approval from the go/no-go authority.
+- Reread the affected Cloud ALM object after a write and record external ID, timestamp and verification result in the go-live evidence.
+- Do not use this skill for delete, log posting or production-impacting operations.
+- An unavailable connector produces `not checked`/`not performed`, not a green readiness status.
+- Redact restricted customer data and credentials before external sync or reusable knowledge harvest.
+
 ## Output
 
 - A per-process-area go-live checklist (workspace, gitignored): status, evidence, open items with

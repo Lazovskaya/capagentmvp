@@ -97,3 +97,25 @@ that skill needs live work-item creation rather than just reading.
 Never put credentials in `.mcp.json`, `server.json`, or anywhere in git. Never transition, assign,
 or change priority/status through this connector, regardless of what a skill's classification
 implies should happen next, that decision stays with a human.
+
+## Governance contract
+
+```yaml
+data_classification:
+   input: client-confidential
+   output: client-confidential
+   credentials: restricted
+default_mode: read-only
+allowed_operations: [jira_get_issue, jira_add_comment, jira_update_issue]
+approval_required: [jira_add_comment, jira_update_issue]
+forbidden_operations: [transition, assign, delete, status-or-priority-change]
+write_controls:
+   preview_payload: true
+   local_artifact_required: true
+   reread_after_write: true
+   external_id_required: true
+   apply_flag_required: true
+```
+
+Customer issue data remains engagement-scoped. Do not promote issue content to
+reusable knowledge without redaction, provenance and explicit reuse approval.

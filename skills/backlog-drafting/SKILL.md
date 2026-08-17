@@ -105,6 +105,16 @@ unresolvable defect dispute, not a shortcut.
 
 10. **Close the run** — `run.completed`. Note design gaps for upstream / `knowledge-harvest`.
 
+## Connector governance
+
+- Default mode is read-only/draft-only. `jira` and `cloud-alm` sync is never automatic.
+- Before sync, show the exact payload, backlinks, target system and intended operation; require explicit approval for this exact payload.
+- Write the local work item and `review.approved` event before any external mutation.
+- After a successful create/update, reread the external item and write `sync-receipt.json` with external ID, URL, timestamp and verification result.
+- On timeout, 4xx or 5xx, write `sync.failed`; never mark the item created and never retry a non-idempotent create blindly.
+- Additive comments/labels must preserve existing values. Delete, transition, assignment and status/priority changes are forbidden by default.
+- Redact restricted customer data before putting it into a work item or reusable knowledge.
+
 ## Outputs
 
 - Run folder with ledger + drafted work items

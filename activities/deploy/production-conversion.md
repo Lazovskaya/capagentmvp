@@ -11,4 +11,11 @@ Execute the conversion runbook in production, with logs captured as evidence rat
 - **skill:** production-conversion
 - **mcp:** cloud-alm
 - **knowledge:** operations
+- **artifact:** run-exit-record
 - **q-gate:** deploy→run
+
+## Evidence requirement
+
+Capture the production run ID, timestamps, logs, failed/retried steps, final
+disposition and rollback decision in the Deploy → Run handoff. Do not treat a
+successful command exit as production evidence without the referenced logs.

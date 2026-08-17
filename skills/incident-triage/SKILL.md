@@ -91,6 +91,14 @@ connected. Feeds `root-cause-playbook`/`pricing-diagnostic`/`billing-ar-error-an
 `idoc-failure-analyzer` (per ticket, at the scored depth), `defect-triage` (commercial verdict), and
 `defect-pattern-analysis` when `also_consider` says so or on a periodic Prevent pass.
 
+## Connector governance
+
+- Incident reads from Jira/Cloud ALM are read-only by default and must be captured in the local triage artifact with source ID and retrieval time.
+- This skill does not transition, assign, delete or change priority/status on external tickets. Any comment or additive label requires preview and explicit approval.
+- If a write is approved, reread the item and record external ID, timestamp and actual result; on failure, record the error and leave the local verdict authoritative.
+- Redact personal data, tokens, production secrets and restricted logs before LLM use or knowledge harvest.
+- A connector failure is a triage caveat, not evidence that the incident was resolved.
+
 ## Judgment calls worth stating out loud
 
 - **Don't copy the tracker's Priority field as severity.** S1/S2/S3 is an impact judgment, not a

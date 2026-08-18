@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "description": "Human-reviewable requirements, decisions, open questions and backlog candidates extracted from a workshop transcript. This is not a set of approved work items.",
+  "required": ["source", "generated_at", "review_status", "candidates"],
+  "properties": {
+    "source": {
+      "type": "object",
+      "required": ["file", "format", "segment_count"],
+      "properties": {
+        "file": { "type": "string" },
+        "format": { "type": "string", "enum": ["txt", "vtt", "srt"] },
+        "segment_count": { "type": "integer", "minimum": 1 },
+        "workshop_date": { "type": "string", "format": "date" }
+      }
+    },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "review_status": { "type": "string", "enum": ["DRAFT", "IN_REVIEW", "APPROVED", "REOPENED"] },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["candidate_id", "type", "statement", "source_segment_ids", "status"],
+        "properties": {
+          "candidate_id": { "type": "string" },
+          "type": { "type": "string", "enum": ["requirement", "decision", "open_question", "candidate_work_item"] },
+          "statement": { "type": "string" },
+          "source_segment_ids": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+          "speaker": { "type": "string" },
+          "deduplicated_from": { "type": "array", "items": { "type": "string" } },
+          "status": { "type": "string", "enum": ["DRAFT", "IN_REVIEW", "APPROVED", "REOPENED", "REJECTED"] },
+          "next_step": { "type": "string", "enum": ["requirements-intake", "fit-to-standard", "solution-design", "defer"] },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

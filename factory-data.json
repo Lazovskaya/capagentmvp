@@ -1631,6 +1631,14 @@
     "row": "Agents",
     "needs": "isolated context",
     "cells": [
+      {
+       "kind": "Skill",
+       "name": "workshop-transcript-intake",
+       "posture": "own",
+       "status": "progress",
+       "phase": "Explore",
+       "desc": "Extract traceable candidate requirements, decisions, open questions and backlog candidates from a workshop transcript without creating work items."
+      },
      [
       "nat",
       ".claude/agents/"
@@ -1653,6 +1661,14 @@
     "row": "Q-gates",
     "needs": "lifecycle hooks",
     "cells": [
+      {
+       "kind": "Artifact",
+       "name": "workshop-candidate-register",
+       "posture": "own",
+       "status": "progress",
+       "phase": "Explore",
+       "desc": "Transcript-derived candidate requirements, decisions, open questions and work items with segment-level provenance; never an approved delivery backlog."
+      },
      [
       "nat",
       "settings.json"

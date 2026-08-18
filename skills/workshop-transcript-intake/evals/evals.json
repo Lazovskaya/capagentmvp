@@ -1,0 +1,26 @@
+{
+  "skill_name": "workshop-transcript-intake",
+  "evals": [
+    {
+      "id": 1,
+      "name": "Transcript candidates retain segment provenance",
+      "prompt": "Extract candidates from the supplied VTT workshop transcript. Do not create Jira work items.",
+      "files": ["evals/fixtures/credit-management.vtt"],
+      "expected_output": "A candidate register with a consolidated credit-release requirement citing SEG-0001 and SEG-0003, plus an open question citing SEG-0002.",
+      "assertions": [
+        {
+          "name": "all_candidates_cited",
+          "description": "Every candidate includes one or more stable SEG-* source IDs."
+        },
+        {
+          "name": "duplicates_preserved",
+          "description": "The repeated requirement is consolidated without losing SEG-0001 or SEG-0003."
+        },
+        {
+          "name": "no_jira_work_item",
+          "description": "No Jira/Cloud ALM write or approved work item is created."
+        }
+      ]
+    }
+  ]
+}

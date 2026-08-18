@@ -1,0 +1,17 @@
+{
+  "skill_name": "workshop-preparation",
+  "evals": [
+    {
+      "id": 1,
+      "name": "Scope coverage remains explicit",
+      "prompt": "Prepare workshop topics from the supplied process scope and simplification impacts.",
+      "files": ["evals/fixtures/processes.json", "evals/fixtures/impacts.json"],
+      "expected_output": "FI and SD workshop topics with their impact IDs, plus a review-required row for the process with no module.",
+      "assertions": [
+        {"name": "all_processes_reported", "description": "Every supplied process appears once in coverage."},
+        {"name": "missing_module_visible", "description": "The missing module is Review required, not silently grouped."},
+        {"name": "no_workshop_decision", "description": "Output only prepares decisions; it does not claim Standard or Delta."}
+      ]
+    }
+  ]
+}

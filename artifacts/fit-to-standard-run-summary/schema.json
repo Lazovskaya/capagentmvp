@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "description": "Orchestration summary for a Fit-to-Standard workshop run. It references sub-skill outputs and surfaces gaps without replacing their artifacts.",
+  "required": ["mode", "generated_at", "inputs", "status", "gaps"],
+  "properties": {
+    "mode": { "type": "string", "enum": ["prepare", "post-workshop", "full"] },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "inputs": {
+      "type": "object",
+      "required": ["process_scope", "workshop_preparation"],
+      "properties": {
+        "process_scope": { "type": "string" },
+        "workshop_preparation": { "type": "string" },
+        "process_app_mapping": { "type": "string" },
+        "decision_log": { "type": "string" },
+        "fit_gap_analysis": { "type": "string" },
+        "transcript_candidates": { "type": "string" }
+      }
+    },
+    "status": { "type": "string", "enum": ["READY_FOR_WORKSHOP", "READY_FOR_REVIEW", "GAPS"] },
+    "gaps": { "type": "array", "items": { "type": "string" } },
+    "next_steps": { "type": "array", "items": { "type": "string" } }
+  }
+}

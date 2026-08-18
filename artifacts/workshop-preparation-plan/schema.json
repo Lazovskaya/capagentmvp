@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "description": "Coverage-checked workshop preparation plan derived from supplied process scope and optional simplification impacts. Feeds fit-to-standard; it is not a decision log or sign-off record.",
+  "required": ["generated_at", "topics", "coverage"],
+  "properties": {
+    "generated_at": { "type": "string", "format": "date-time" },
+    "topics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["module", "process_ids", "topic", "required_decisions"],
+        "properties": {
+          "module": { "type": "string" },
+          "process_ids": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+          "topic": { "type": "string" },
+          "simplification_item_ids": { "type": "array", "items": { "type": "string" } },
+          "required_decisions": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+        }
+      }
+    },
+    "coverage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["process_id", "process_name", "status"],
+        "properties": {
+          "process_id": { "type": "string" },
+          "process_name": { "type": "string" },
+          "status": { "type": "string", "enum": ["COVERED", "REVIEW_REQUIRED"] },
+          "reason": { "type": "string" }
+        }
+      }
+    }
+  }
+}

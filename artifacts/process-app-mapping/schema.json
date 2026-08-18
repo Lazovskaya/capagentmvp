@@ -1,0 +1,45 @@
+{
+  "type": "object",
+  "description": "Reviewable mapping from supplied business processes to apps in a supplied Fiori Apps Reference Library export. The export is runtime input, not reusable factory knowledge.",
+  "required": ["source_export", "generated_at", "mappings"],
+  "properties": {
+    "source_export": {
+      "type": "object",
+      "required": ["file", "sha256", "sheet", "app_count"],
+      "properties": {
+        "file": { "type": "string" },
+        "sha256": { "type": "string" },
+        "sheet": { "type": "string" },
+        "app_count": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "mappings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["process_id", "process_name", "status", "apps"],
+        "properties": {
+          "process_id": { "type": "string" },
+          "process_name": { "type": "string" },
+          "status": { "type": "string", "enum": ["MATCHED", "UNMAPPED", "REVIEW_REQUIRED"] },
+          "apps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["app_id", "app_name", "match_basis", "confidence"],
+              "properties": {
+                "app_id": { "type": "string" },
+                "app_name": { "type": "string" },
+                "application_component": { "type": "string" },
+                "match_basis": { "type": "string" },
+                "confidence": { "type": "string", "enum": ["high", "medium", "low"] }
+              }
+            }
+          },
+          "review_notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

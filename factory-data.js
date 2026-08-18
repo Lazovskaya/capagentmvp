@@ -325,6 +325,14 @@ window.FACTORY_DATA = {
   },
   {
    "kind": "Agent",
+   "name": "simplification-items-to-processes",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Discover",
+   "desc": "Transforms an SAP Simplification Item Catalog export into a de-duplicated, evidence-backed list of candidate business-process impacts."
+  },
+  {
+   "kind": "Agent",
    "name": "extensibility-assessor",
    "posture": "own",
    "status": "progress",
@@ -482,6 +490,14 @@ window.FACTORY_DATA = {
    "status": "progress",
    "phase": "all",
    "desc": "Readiness Check / SI-Check findings scoped per module: what blocks the conversion versus what merely appears in the report. The Discover-phase deliverable for readiness-analysis."
+  },
+  {
+   "kind": "Artifact",
+   "name": "business-process-impact-list",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Discover",
+   "desc": "Catalog-derived, evidence-backed candidate business-process impacts from SAP Simplification Items; client applicability remains explicitly unverified until readiness analysis."
   },
   {
    "kind": "Artifact",
@@ -735,7 +751,8 @@ window.FACTORY_DATA = {
     [
      "agent",
      [
-      "readiness-analyst"
+      "readiness-analyst",
+      "simplification-items-to-processes"
      ]
     ],
     [
@@ -747,7 +764,8 @@ window.FACTORY_DATA = {
     [
      "artifact",
      [
-      "simplification-impact-report"
+      "simplification-impact-report",
+      "business-process-impact-list"
      ]
     ],
     [
@@ -1613,6 +1631,46 @@ window.FACTORY_DATA = {
     "row": "Agents",
     "needs": "isolated context",
     "cells": [
+     {
+      "kind": "Agent",
+      "name": "fit-to-standard-accelerator",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Orchestrate workshop preparation, Fit-to-Standard decisions, app mapping, fit-gap analysis and transcript candidates into a reviewable run summary."
+     },
+     {
+      "kind": "Skill",
+      "name": "workshop-preparation",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Validate process-scope coverage and group workshop topics before handing the prepared scope to fit-to-standard."
+     },
+     {
+      "kind": "Skill",
+      "name": "fit-gap-analysis",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Generate a reviewable Fit/Gap analysis from Fit-to-Standard decisions and optional process-to-app evidence without selecting an extensibility tier."
+     },
+     {
+      "kind": "Skill",
+      "name": "fiori-app-mapping",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Map a supplied business-process list to a supplied Fiori Apps Reference Library export and flag unmapped processes for review."
+     },
+     {
+      "kind": "Skill",
+      "name": "workshop-transcript-intake",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Extract traceable candidate requirements, decisions, open questions and backlog candidates from a workshop transcript without creating work items."
+     },
      [
       "nat",
       ".claude/agents/"
@@ -1635,6 +1693,46 @@ window.FACTORY_DATA = {
     "row": "Q-gates",
     "needs": "lifecycle hooks",
     "cells": [
+     {
+      "kind": "Artifact",
+      "name": "fit-to-standard-run-summary",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Orchestration summary referencing Fit-to-Standard sub-skill outputs, explicit gaps and handoff steps."
+     },
+     {
+      "kind": "Artifact",
+      "name": "workshop-preparation-plan",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Coverage-checked process scope grouped into workshop topics before it is handed to fit-to-standard."
+     },
+     {
+      "kind": "Artifact",
+      "name": "fit-gap-analysis",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Reviewable Fit/Gap analysis from FTS Row IDs, with dispositions and unresolved workarounds visible for human review."
+     },
+     {
+      "kind": "Artifact",
+      "name": "process-app-mapping",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Reviewable process-to-Fiori-app mappings from a supplied Apps Library export, with source hash and explicit unmapped processes."
+     },
+     {
+      "kind": "Artifact",
+      "name": "workshop-candidate-register",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Transcript-derived candidate requirements, decisions, open questions and work items with segment-level provenance; never an approved delivery backlog."
+     },
      [
       "nat",
       "settings.json"

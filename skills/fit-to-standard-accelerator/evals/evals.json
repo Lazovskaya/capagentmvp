@@ -1,0 +1,16 @@
+{
+  "skill_name": "fit-to-standard-accelerator",
+  "evals": [
+    {
+      "id": 1,
+      "name": "Full lifecycle refuses missing artifacts",
+      "prompt": "Summarize the supplied full Fit-to-Standard run manifest.",
+      "files": ["evals/fixtures/full-manifest.json"],
+      "expected_output": "READY_FOR_REVIEW summary with all referenced outputs and no hidden gaps.",
+      "assertions": [
+        {"name": "references_preserved", "description": "Summary retains every sub-skill output reference."},
+        {"name": "no_ticket_creation", "description": "No Jira or Cloud ALM work item is created."}
+      ]
+    }
+  ]
+}

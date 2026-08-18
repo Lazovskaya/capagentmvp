@@ -1,0 +1,30 @@
+{
+  "log_id": "FTS-2026-08-18-credit-management",
+  "session_status": "LIVE",
+  "process": "Credit management",
+  "rows": [
+    {
+      "row_id": "FTS-2026-08-18-credit-management-row-01",
+      "process_step": "Credit limit check",
+      "decision": "Standard",
+      "sap_standard_behavior": "Checks customer credit exposure before order release.",
+      "notes": "Business confirmed standard behavior.",
+      "delta_owner": ""
+    },
+    {
+      "row_id": "FTS-2026-08-18-credit-management-row-02",
+      "process_step": "Credit release approval",
+      "decision": "Delta",
+      "requirement": "Require a second approval above the agreed threshold.",
+      "notes": "Standard behavior does not meet the agreed approval policy.",
+      "delta_owner": "Business Credit Owner"
+    },
+    {
+      "row_id": "FTS-2026-08-18-credit-management-row-03",
+      "process_step": "Legacy manual release report",
+      "decision": "Workaround",
+      "notes": "Resolution not yet agreed.",
+      "delta_owner": ""
+    }
+  ]
+}

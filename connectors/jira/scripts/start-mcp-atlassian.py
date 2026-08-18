@@ -9,6 +9,7 @@ script replaces the macOS-only Keychain launcher without needing a separate .ps1
 Destination defaults to "default"; override with --destination=<name> or MCP_ATLASSIAN_DESTINATION.
 """
 import os
+import subprocess
 import sys
 from pathlib import Path
 
@@ -58,11 +59,16 @@ def main():
     # Match the shell script's default JIRA_URL if the file didn't override it.
     env.setdefault("JIRA_URL", "https://jiraeu.epam.com/")
 
+    # subprocess.run, not os.execvpe: exec-replace crashes with an access violation on Windows
+    # (confirmed on Python 3.14) -- subprocess.run keeps this script as the parent process,
+    # inherits stdin/stdout/stderr as-is for MCP's stdio transport, and works the same way on
+    # every OS instead of relying on exec() semantics Windows doesn't really have.
     try:
-        os.execvpe("uvx", ["uvx", "mcp-atlassian"], env)
+        result = subprocess.run(["uvx", "mcp-atlassian"], env=env)
     except FileNotFoundError:
         print("uvx is required but was not found in PATH", file=sys.stderr)
         sys.exit(1)
+    sys.exit(result.returncode)
 
 
 if __name__ == "__main__":

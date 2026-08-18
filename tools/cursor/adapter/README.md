@@ -26,6 +26,12 @@ README for the full flag reference. The only real differences: skills land in
 Agents and gates have no adapted equivalent yet, see `factory-data.json`'s `coverage` section for
 the known gaps.
 
+**Cursor-specific gotcha, found running a real demo:** unlike Claude Code, which reads `.mcp.json`
+and starts a server automatically, Cursor needs each MCP server in `.cursor/mcp.json` explicitly
+enabled once from **Settings → MCP** (the "Customize" panel lists servers with an on/off toggle).
+Installing the files with this adapter is not enough on its own -- tell whoever opens the project
+in Cursor for the first time to check that panel if a connector's tools don't show up.
+
 **Status:** v1 implemented -- own-posture skills, verified-wiring connectors,
 `factory.mdc`, `factory-lock.json`. Still manual: adopt-posture skills (see the root `README.md`'s
 "Installing skills into a project" section), the actual credential `.env` files each connector's

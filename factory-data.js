@@ -1633,6 +1633,14 @@ window.FACTORY_DATA = {
     "cells": [
      {
       "kind": "Skill",
+      "name": "fit-gap-analysis",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Generate a reviewable Fit/Gap analysis from Fit-to-Standard decisions and optional process-to-app evidence without selecting an extensibility tier."
+     },
+     {
+      "kind": "Skill",
       "name": "fiori-app-mapping",
       "posture": "own",
       "status": "progress",
@@ -1669,6 +1677,14 @@ window.FACTORY_DATA = {
     "row": "Q-gates",
     "needs": "lifecycle hooks",
     "cells": [
+     {
+      "kind": "Artifact",
+      "name": "fit-gap-analysis",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Reviewable Fit/Gap analysis from FTS Row IDs, with dispositions and unresolved workarounds visible for human review."
+     },
      {
       "kind": "Artifact",
       "name": "process-app-mapping",

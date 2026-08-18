@@ -325,6 +325,14 @@ window.FACTORY_DATA = {
   },
   {
    "kind": "Agent",
+   "name": "simplification-items-to-processes",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Discover",
+   "desc": "Transforms an SAP Simplification Item Catalog export into a de-duplicated, evidence-backed list of candidate business-process impacts."
+  },
+  {
+   "kind": "Agent",
    "name": "extensibility-assessor",
    "posture": "own",
    "status": "progress",
@@ -482,6 +490,14 @@ window.FACTORY_DATA = {
    "status": "progress",
    "phase": "all",
    "desc": "Readiness Check / SI-Check findings scoped per module: what blocks the conversion versus what merely appears in the report. The Discover-phase deliverable for readiness-analysis."
+  },
+  {
+   "kind": "Artifact",
+   "name": "business-process-impact-list",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Discover",
+   "desc": "Catalog-derived, evidence-backed candidate business-process impacts from SAP Simplification Items; client applicability remains explicitly unverified until readiness analysis."
   },
   {
    "kind": "Artifact",
@@ -735,7 +751,8 @@ window.FACTORY_DATA = {
     [
      "agent",
      [
-      "readiness-analyst"
+      "readiness-analyst",
+      "simplification-items-to-processes"
      ]
     ],
     [
@@ -747,7 +764,8 @@ window.FACTORY_DATA = {
     [
      "artifact",
      [
-      "simplification-impact-report"
+      "simplification-impact-report",
+      "business-process-impact-list"
      ]
     ],
     [

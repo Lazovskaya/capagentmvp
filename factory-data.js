@@ -730,6 +730,78 @@ window.FACTORY_DATA = {
    "status": "notstarted",
    "phase": "all",
    "desc": "EPAM delivery standards and the project's own conventions."
+  },
+  {
+   "kind": "Skill",
+   "name": "workshop-preparation",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Validate supplied business-process scope and simplification impacts, group covered processes into workshop topics, and hand a coverage-checked plan to fit-to-standard. Does not schedule workshops, create decision logs or claim sign-off."
+  },
+  {
+   "kind": "Skill",
+   "name": "workshop-transcript-intake",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Extract traceable candidate requirements, decisions, open questions and candidate work items from a workshop transcript. Use after a workshop when TXT, VTT or SRT is available, before requirements-intake, fit-to-standard or solution-design. Never creates Jira work items."
+  },
+  {
+   "kind": "Skill",
+   "name": "fiori-app-mapping",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Map a supplied business-process list to a supplied SAP Fiori Apps Reference Library XLSX export. Produces reviewable, source-traceable mappings and flags unmapped processes. Never stores the export as factory knowledge."
+  },
+  {
+   "kind": "Skill",
+   "name": "fit-gap-analysis",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Generate a reviewable Fit/Gap analysis from a Fit-to-Standard decision log and optional process-to-app mapping. Use after a workshop decision log exists; routes confirmed gaps to solution-design without selecting an extensibility tier."
+  },
+  {
+   "kind": "Agent",
+   "name": "fit-to-standard-accelerator",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Bounded Explore-phase orchestrator: composes workshop-preparation, fit-to-standard, fiori-app-mapping, fit-gap-analysis and transcript-intake into a reviewable run summary."
+  },
+  {
+   "kind": "Artifact",
+   "name": "workshop-preparation-plan",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Scope-validated list of workshop topics with process coverage and simplification impacts."
+  },
+  {
+   "kind": "Artifact",
+   "name": "workshop-candidate-register",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Traceable candidate requirements, decisions and open questions extracted from a workshop transcript."
+  },
+  {
+   "kind": "Artifact",
+   "name": "process-app-mapping",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Source-traceable mapping of in-scope business processes to SAP Fiori app candidates."
+  },
+  {
+   "kind": "Artifact",
+   "name": "fit-to-standard-run-summary",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Accelerator run summary covering workshop preparation, decision log, app mapping and fit-gap output."
   }
  ],
  "activities": [
@@ -874,7 +946,16 @@ window.FACTORY_DATA = {
     [
      "knowledge",
      [
-      "builds all nine buckets"
+      "clean-core",
+      "config",
+      "custom-code",
+      "data",
+      "domain-packs",
+      "extensibility",
+      "operations",
+      "process",
+      "standards",
+      "testing"
      ]
     ],
     [
@@ -952,7 +1033,16 @@ window.FACTORY_DATA = {
     [
      "knowledge",
      [
-      "reads all nine buckets"
+      "clean-core",
+      "config",
+      "custom-code",
+      "data",
+      "domain-packs",
+      "extensibility",
+      "operations",
+      "process",
+      "standards",
+      "testing"
      ]
     ],
     [
@@ -1012,7 +1102,11 @@ window.FACTORY_DATA = {
     [
      "skill",
      [
-      "fit-to-standard"
+      "fit-to-standard",
+      "workshop-preparation",
+      "workshop-transcript-intake",
+      "fiori-app-mapping",
+      "fit-gap-analysis"
      ]
     ],
     [
@@ -1025,7 +1119,12 @@ window.FACTORY_DATA = {
     [
      "artifact",
      [
-      "sign-off-record"
+      "sign-off-record",
+      "workshop-preparation-plan",
+      "workshop-candidate-register",
+      "process-app-mapping",
+      "fit-gap-analysis",
+      "fit-to-standard-run-summary"
      ]
     ],
     [
@@ -1040,6 +1139,12 @@ window.FACTORY_DATA = {
      "q-gate",
      [
       "explore→realize"
+     ]
+    ],
+    [
+     "agent",
+     [
+      "fit-to-standard-accelerator"
      ]
     ]
    ]
@@ -1090,6 +1195,12 @@ window.FACTORY_DATA = {
      "q-gate",
      [
       "explore→realize"
+     ]
+    ],
+    [
+     "mcp",
+     [
+      "leanix"
      ]
     ]
    ]
@@ -1562,7 +1673,8 @@ window.FACTORY_DATA = {
     [
      "agent",
      [
-      "knowledge-harvester"
+      "knowledge-harvester",
+      "delivery-pilot"
      ]
     ],
     [
@@ -1574,7 +1686,16 @@ window.FACTORY_DATA = {
     [
      "knowledge",
      [
-      "refreshes all nine buckets"
+      "clean-core",
+      "config",
+      "custom-code",
+      "data",
+      "domain-packs",
+      "extensibility",
+      "operations",
+      "process",
+      "standards",
+      "testing"
      ]
     ],
     [

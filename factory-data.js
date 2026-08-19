@@ -1905,6 +1905,10 @@ window.FACTORY_DATA = {
    [
     "docs/",
     "design rationale"
+   ],
+   [
+    "platform/",
+    "Platform MVP track (P1-P8): delivery RACI, pilot infra/client context — see platform/delivery-process/, platform/pilot-context/"
    ]
   ],
   "project": [

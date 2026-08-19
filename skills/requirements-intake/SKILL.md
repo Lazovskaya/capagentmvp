@@ -20,6 +20,12 @@ need one stable document with an explicit **Source**, what is known, and what is
 Without intake, every skill re-parses the pile differently and silently invents missing acceptance
 criteria.
 
+## Inputs
+
+- Free-form text, a Jira/ALM ticket ID or URL, email thread, workshop notes, or a greenfield idea.
+- Optional: an existing `requirements.md` or story draft in `workspace/` for an update pass.
+- Optional: `jira` or `cloud-alm` connector for ticket lookup (read-only; degrades gracefully if absent).
+
 ## When to use
 
 - Explore (early): before or beside `fit-to-standard`, when the process ask is not yet a decision-log row

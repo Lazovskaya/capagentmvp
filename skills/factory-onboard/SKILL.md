@@ -5,6 +5,9 @@ description: Onboard a consultant to SAP AI Factory for a project: verify the lo
 
 # Factory Onboard
 
+*Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+
 For consultants using the factory on an engagement, not for people authoring
 `factory-data.json`, skills, validators or platform CI.
 
@@ -30,7 +33,7 @@ passes `--apply`. Do not open authoring docs for this — it is a runtime rule, 
 Do not use for client end-user training/OCM or as the contributor guide. Use
 `README.md` and platform documentation for factory authoring.
 
-## Required inputs
+## Inputs
 
 Always collect:
 

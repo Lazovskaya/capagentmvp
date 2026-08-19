@@ -46,7 +46,8 @@ Ask for anything missing before running.
 
 - Default: write `workspace/bugfix/<ticket-or-doc>-fix.md` (gitignored).
 - If the `jira` connector is wired, attach the fix doc and/or create regression test items;
-  otherwise state "⚠ no ticket/test connector — paste from workspace file."
+  preview the exact mutations and stop for explicit approval before any write.
+  Otherwise state "⚠ no ticket/test connector — paste from workspace file."
 
 ## Steps
 

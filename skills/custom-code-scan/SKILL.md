@@ -64,7 +64,9 @@ Ask for anything missing before running.
 4. **Classify each object:** `retire` (unused, confirm and drop), `remediate` (used, ATC finding
    must be fixed before go-live), `remediate — low priority` (used, but the finding is cosmetic /
    non-blocking for the target release), `investigate` (usage data ambiguous or absent for this
-   object — don't default this to either retire or remediate).
+   object — don't default this to either retire or remediate),
+   `reopened` (a prior classification was wrong — restore to `investigate` and
+   re-derive; do not silently overwrite the original classification).
 5. **Prioritize the remediate list** by a combination of severity and business criticality, not by
    raw ATC finding count — ten trivial findings in a low-use report don't outrank one blocking
    finding in a high-volume interface.

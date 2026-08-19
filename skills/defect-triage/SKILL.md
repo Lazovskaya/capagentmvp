@@ -5,6 +5,9 @@ description: Classify each item in the defect or incident queue as bug versus fu
 
 # Defect Triage
 
+*Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+
 Adapted from sap-ai-cons's real, Jira-integrated bugfix track. **Updated:** the intake/diagnose
 pipeline this file used to describe informally (load, classify, dedupe, route) is now its own set
 of real, ported skills — `incident-triage` (intake), `root-cause-playbook` /

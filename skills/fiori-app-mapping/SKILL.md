@@ -5,6 +5,15 @@ description: Map a supplied business-process list to a supplied SAP Fiori Apps R
 
 # Fiori app mapping
 
+*Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+
+## When to use
+
+Explore phase, after workshop preparation or fit-to-standard, when a business-process list needs
+to be matched against available SAP Fiori applications. Use before `fit-gap-analysis` when app
+coverage is part of the gap assessment.
+
 ## Inputs
 
 - Required: an approved or reviewable business-process list in JSON.

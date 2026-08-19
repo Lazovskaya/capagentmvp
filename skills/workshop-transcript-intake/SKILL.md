@@ -6,7 +6,14 @@ description: Extract traceable candidate requirements, decisions, open questions
 # Workshop transcript intake
 
 *Design conventions for IDs, review states and cross-skill handoffs are in
-`../../docs/skill-design-conventions.md`.*
+`../../../docs/skill-design-conventions.md`.*
+
+## When to use
+
+Explore phase, after a fit-to-standard or requirements workshop has taken place and a transcript
+(TXT, VTT or SRT) is available. Run before `requirements-intake`, `fit-to-standard` or
+`solution-design` to extract traceable candidates from spoken discussion before it is forgotten
+or misremembered. Not a replacement for the decision log — output feeds into, not past, review.
 
 ## Purpose
 

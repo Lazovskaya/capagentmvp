@@ -5,10 +5,20 @@ description: Turn an accepted fit-to-standard scope into a coherent solution arc
 
 # Solution design, architecture package and extensibility routing
 
+*Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+
 Run this skill once for the agreed process, release or program scope. It produces
 one client-facing `architecture-package` for the scope and one `design-record`
 plus one `extensibility-record` for each separable Delta. The package is the
 architecture-level output; the per-delta records are its evidence and detail.
+
+## When to use
+
+Explore phase, after `fit-to-standard` workshops have produced a signed decision log with Row IDs.
+Run once per agreed scope before any backlog or build work starts. Re-run if the scope changes
+enough to invalidate existing design records — do not silently patch individual records without
+re-running the package-level scope check.
 
 ## Inputs
 

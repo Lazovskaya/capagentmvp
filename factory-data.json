@@ -379,14 +379,14 @@
    "phase": "Deploy",
    "desc": "Bounded go-live risk verdict (go/conditional/no-go) from cutover-plan's rehearsal record and go-live-readiness's checklist."
   },
-    {
-     "kind": "Agent",
-     "name": "delivery-pilot",
-     "posture": "own",
-     "status": "progress",
-     "phase": "all",
-     "desc": "Independent evaluator for an end-to-end reference engagement: artifact completeness, traceability, gate evidence, connector safety, lead time and knowledge reuse."
-    },
+  {
+   "kind": "Agent",
+   "name": "delivery-pilot",
+   "posture": "own",
+   "status": "progress",
+   "phase": "all",
+   "desc": "Independent evaluator for an end-to-end reference engagement: artifact completeness, traceability, gate evidence, connector safety, lead time and knowledge reuse."
+  },
   {
    "kind": "Connector",
    "name": "abap-mcp",
@@ -730,6 +730,78 @@
    "status": "notstarted",
    "phase": "all",
    "desc": "EPAM delivery standards and the project's own conventions."
+  },
+  {
+   "kind": "Skill",
+   "name": "workshop-preparation",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Validate supplied business-process scope and simplification impacts, group covered processes into workshop topics, and hand a coverage-checked plan to fit-to-standard. Does not schedule workshops, create decision logs or claim sign-off."
+  },
+  {
+   "kind": "Skill",
+   "name": "workshop-transcript-intake",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Extract traceable candidate requirements, decisions, open questions and candidate work items from a workshop transcript. Use after a workshop when TXT, VTT or SRT is available, before requirements-intake, fit-to-standard or solution-design. Never creates Jira work items."
+  },
+  {
+   "kind": "Skill",
+   "name": "fiori-app-mapping",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Map a supplied business-process list to a supplied SAP Fiori Apps Reference Library XLSX export. Produces reviewable, source-traceable mappings and flags unmapped processes. Never stores the export as factory knowledge."
+  },
+  {
+   "kind": "Skill",
+   "name": "fit-gap-analysis",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Generate a reviewable Fit/Gap analysis from a Fit-to-Standard decision log and optional process-to-app mapping. Use after a workshop decision log exists; routes confirmed gaps to solution-design without selecting an extensibility tier."
+  },
+  {
+   "kind": "Agent",
+   "name": "fit-to-standard-accelerator",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Bounded Explore-phase orchestrator: composes workshop-preparation, fit-to-standard, fiori-app-mapping, fit-gap-analysis and transcript-intake into a reviewable run summary."
+  },
+  {
+   "kind": "Artifact",
+   "name": "workshop-preparation-plan",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Scope-validated list of workshop topics with process coverage and simplification impacts."
+  },
+  {
+   "kind": "Artifact",
+   "name": "workshop-candidate-register",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Traceable candidate requirements, decisions and open questions extracted from a workshop transcript."
+  },
+  {
+   "kind": "Artifact",
+   "name": "process-app-mapping",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Source-traceable mapping of in-scope business processes to SAP Fiori app candidates."
+  },
+  {
+   "kind": "Artifact",
+   "name": "fit-to-standard-run-summary",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "Explore",
+   "desc": "Accelerator run summary covering workshop preparation, decision log, app mapping and fit-gap output."
   }
  ],
  "activities": [
@@ -874,7 +946,16 @@
     [
      "knowledge",
      [
-      "builds all nine buckets"
+      "clean-core",
+      "config",
+      "custom-code",
+      "data",
+      "domain-packs",
+      "extensibility",
+      "operations",
+      "process",
+      "standards",
+      "testing"
      ]
     ],
     [
@@ -952,7 +1033,16 @@
     [
      "knowledge",
      [
-      "reads all nine buckets"
+      "clean-core",
+      "config",
+      "custom-code",
+      "data",
+      "domain-packs",
+      "extensibility",
+      "operations",
+      "process",
+      "standards",
+      "testing"
      ]
     ],
     [
@@ -1012,7 +1102,11 @@
     [
      "skill",
      [
-      "fit-to-standard"
+      "fit-to-standard",
+      "workshop-preparation",
+      "workshop-transcript-intake",
+      "fiori-app-mapping",
+      "fit-gap-analysis"
      ]
     ],
     [
@@ -1025,7 +1119,12 @@
     [
      "artifact",
      [
-      "sign-off-record"
+      "sign-off-record",
+      "workshop-preparation-plan",
+      "workshop-candidate-register",
+      "process-app-mapping",
+      "fit-gap-analysis",
+      "fit-to-standard-run-summary"
      ]
     ],
     [
@@ -1040,6 +1139,12 @@
      "q-gate",
      [
       "explore→realize"
+     ]
+    ],
+    [
+     "agent",
+     [
+      "fit-to-standard-accelerator"
      ]
     ]
    ]
@@ -1090,6 +1195,12 @@
      "q-gate",
      [
       "explore→realize"
+     ]
+    ],
+    [
+     "mcp",
+     [
+      "leanix"
      ]
     ]
    ]
@@ -1562,7 +1673,8 @@
     [
      "agent",
      [
-      "knowledge-harvester"
+      "knowledge-harvester",
+      "delivery-pilot"
      ]
     ],
     [
@@ -1574,7 +1686,16 @@
     [
      "knowledge",
      [
-      "refreshes all nine buckets"
+      "clean-core",
+      "config",
+      "custom-code",
+      "data",
+      "domain-packs",
+      "extensibility",
+      "operations",
+      "process",
+      "standards",
+      "testing"
      ]
     ],
     [
@@ -1631,46 +1752,46 @@
     "row": "Agents",
     "needs": "isolated context",
     "cells": [
-      {
-       "kind": "Agent",
-       "name": "fit-to-standard-accelerator",
-       "posture": "own",
-       "status": "progress",
-       "phase": "Explore",
-       "desc": "Orchestrate workshop preparation, Fit-to-Standard decisions, app mapping, fit-gap analysis and transcript candidates into a reviewable run summary."
-      },
-      {
-       "kind": "Skill",
-       "name": "workshop-preparation",
-       "posture": "own",
-       "status": "progress",
-       "phase": "Explore",
-       "desc": "Validate process-scope coverage and group workshop topics before handing the prepared scope to fit-to-standard."
-      },
-      {
-       "kind": "Skill",
-       "name": "fit-gap-analysis",
-       "posture": "own",
-       "status": "progress",
-       "phase": "Explore",
-       "desc": "Generate a reviewable Fit/Gap analysis from Fit-to-Standard decisions and optional process-to-app evidence without selecting an extensibility tier."
-      },
-      {
-       "kind": "Skill",
-       "name": "fiori-app-mapping",
-       "posture": "own",
-       "status": "progress",
-       "phase": "Explore",
-       "desc": "Map a supplied business-process list to a supplied Fiori Apps Reference Library export and flag unmapped processes for review."
-      },
-      {
-       "kind": "Skill",
-       "name": "workshop-transcript-intake",
-       "posture": "own",
-       "status": "progress",
-       "phase": "Explore",
-       "desc": "Extract traceable candidate requirements, decisions, open questions and backlog candidates from a workshop transcript without creating work items."
-      },
+     {
+      "kind": "Agent",
+      "name": "fit-to-standard-accelerator",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Orchestrate workshop preparation, Fit-to-Standard decisions, app mapping, fit-gap analysis and transcript candidates into a reviewable run summary."
+     },
+     {
+      "kind": "Skill",
+      "name": "workshop-preparation",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Validate process-scope coverage and group workshop topics before handing the prepared scope to fit-to-standard."
+     },
+     {
+      "kind": "Skill",
+      "name": "fit-gap-analysis",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Generate a reviewable Fit/Gap analysis from Fit-to-Standard decisions and optional process-to-app evidence without selecting an extensibility tier."
+     },
+     {
+      "kind": "Skill",
+      "name": "fiori-app-mapping",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Map a supplied business-process list to a supplied Fiori Apps Reference Library export and flag unmapped processes for review."
+     },
+     {
+      "kind": "Skill",
+      "name": "workshop-transcript-intake",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Extract traceable candidate requirements, decisions, open questions and backlog candidates from a workshop transcript without creating work items."
+     },
      [
       "nat",
       ".claude/agents/"
@@ -1693,46 +1814,46 @@
     "row": "Q-gates",
     "needs": "lifecycle hooks",
     "cells": [
-      {
-       "kind": "Artifact",
-       "name": "fit-to-standard-run-summary",
-       "posture": "own",
-       "status": "progress",
-       "phase": "Explore",
-       "desc": "Orchestration summary referencing Fit-to-Standard sub-skill outputs, explicit gaps and handoff steps."
-      },
-      {
-       "kind": "Artifact",
-       "name": "workshop-preparation-plan",
-       "posture": "own",
-       "status": "progress",
-       "phase": "Explore",
-       "desc": "Coverage-checked process scope grouped into workshop topics before it is handed to fit-to-standard."
-      },
-      {
-       "kind": "Artifact",
-       "name": "fit-gap-analysis",
-       "posture": "own",
-       "status": "progress",
-       "phase": "Explore",
-       "desc": "Reviewable Fit/Gap analysis from FTS Row IDs, with dispositions and unresolved workarounds visible for human review."
-      },
-      {
-       "kind": "Artifact",
-       "name": "process-app-mapping",
-       "posture": "own",
-       "status": "progress",
-       "phase": "Explore",
-       "desc": "Reviewable process-to-Fiori-app mappings from a supplied Apps Library export, with source hash and explicit unmapped processes."
-      },
-      {
-       "kind": "Artifact",
-       "name": "workshop-candidate-register",
-       "posture": "own",
-       "status": "progress",
-       "phase": "Explore",
-       "desc": "Transcript-derived candidate requirements, decisions, open questions and work items with segment-level provenance; never an approved delivery backlog."
-      },
+     {
+      "kind": "Artifact",
+      "name": "fit-to-standard-run-summary",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Orchestration summary referencing Fit-to-Standard sub-skill outputs, explicit gaps and handoff steps."
+     },
+     {
+      "kind": "Artifact",
+      "name": "workshop-preparation-plan",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Coverage-checked process scope grouped into workshop topics before it is handed to fit-to-standard."
+     },
+     {
+      "kind": "Artifact",
+      "name": "fit-gap-analysis",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Reviewable Fit/Gap analysis from FTS Row IDs, with dispositions and unresolved workarounds visible for human review."
+     },
+     {
+      "kind": "Artifact",
+      "name": "process-app-mapping",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Reviewable process-to-Fiori-app mappings from a supplied Apps Library export, with source hash and explicit unmapped processes."
+     },
+     {
+      "kind": "Artifact",
+      "name": "workshop-candidate-register",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Transcript-derived candidate requirements, decisions, open questions and work items with segment-level provenance; never an approved delivery backlog."
+     },
      [
       "nat",
       "settings.json"

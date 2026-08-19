@@ -5,6 +5,15 @@ description: Validate supplied business-process scope and simplification impacts
 
 # Workshop preparation from process scope
 
+*Design conventions this skill follows (ID schemes, status enums, role naming, etc.) are in
+`../../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
+
+## When to use
+
+Explore phase, before `fit-to-standard` workshops, when a process scope list exists but has not
+yet been validated for coverage and grouped into workshop topics. Run once per scope; re-run if
+the scope changes significantly before workshops begin.
+
 ## Inputs
 
 - Required: process scope JSON with `process_id`, `name` and `module` per process.

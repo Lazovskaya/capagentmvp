@@ -21,3 +21,9 @@ workspace/
 
 # Personal Claude Code config (MCP servers, local settings) -- never shared, never committed.
 .claude/
+
+# Filled-in pilot infrastructure/client context (P4, EPMCSAPAI-294) — real hosts/client numbers
+# and credentialRef env-var wiring for an actual engagement never get committed, only
+# platform/pilot-context/context.example.json (redacted) does.
+platform/pilot-context/*.context.json
+platform/pilot-context/pilot-*.json

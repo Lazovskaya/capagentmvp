@@ -18,3 +18,6 @@ tmp.html
 # Per-engagement outputs — every skill's own "Output" section says these are gitignored;
 # .gitignore itself never actually had the entry until a real skill run needed it (2026-08-07).
 workspace/
+
+# Personal Claude Code config (MCP servers, local settings) -- never shared, never committed.
+.claude/

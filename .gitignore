@@ -18,3 +18,9 @@ tmp.html
 # Per-engagement outputs — every skill's own "Output" section says these are gitignored;
 # .gitignore itself never actually had the entry until a real skill run needed it (2026-08-07).
 workspace/
+
+# Filled-in pilot infrastructure/client context (P4, EPMCSAPAI-294) — real hosts/client numbers
+# and credentialRef env-var wiring for an actual engagement never get committed, only
+# platform/pilot-context/context.example.json (redacted) does.
+platform/pilot-context/*.context.json
+platform/pilot-context/pilot-*.json

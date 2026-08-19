@@ -1,0 +1,119 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://git.epam.com/epmc-sap/sap-ai-competency/sap-ai-factory/platform/pilot-context/schema.json",
+  "title": "Pilot Infrastructure & Client Context",
+  "description": "Backlog P4. Structured, secret-free description of a pilot engagement's target SAP landscape and client identifiers, consumed as parameter input by the Unpack step (P5) and the Transcription connector (T3). Real credential values never live in this file — every credential field is a *reference* (an env var name or secret-manager path), resolved at Unpack time from the secure store described in README.md.",
+  "type": "object",
+  "required": ["engagement", "sapSystems"],
+  "additionalProperties": false,
+  "properties": {
+    "engagement": {
+      "type": "object",
+      "description": "Identifies which pilot this context belongs to. No client-confidential free text here — this file is expected to sit in a repo, even though it holds no secrets.",
+      "required": ["engagementId", "clientCodeName"],
+      "additionalProperties": false,
+      "properties": {
+        "engagementId": {
+          "type": "string",
+          "description": "Internal engagement/project code, e.g. Jira project key or delivery-tracker ID.",
+          "minLength": 1
+        },
+        "clientCodeName": {
+          "type": "string",
+          "description": "Non-identifying code name for the client (not the legal entity name) — keeps this file safe to reference in tickets/docs.",
+          "minLength": 1
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO-8601 timestamp when this context was last collected/updated."
+        }
+      }
+    },
+    "sapSystems": {
+      "type": "array",
+      "description": "One entry per SAP system tier the pilot's Unpack step needs to reach (typically DEV/QA/PRD, sometimes a sandbox).",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["systemId", "role", "host", "client", "authType", "credentialRef"],
+        "additionalProperties": false,
+        "properties": {
+          "systemId": {
+            "type": "string",
+            "description": "SAP System ID (SID), e.g. DR1, QA1, PR1.",
+            "pattern": "^[A-Z0-9]{3}$"
+          },
+          "role": {
+            "type": "string",
+            "enum": ["sandbox", "development", "quality", "production", "dr"],
+            "description": "Landscape tier this system plays, independent of its SID."
+          },
+          "host": {
+            "type": "string",
+            "description": "Fully-qualified hostname or IP. Never an internal-only address without a note in `connectivity`.",
+            "minLength": 1
+          },
+          "client": {
+            "type": "string",
+            "description": "SAP client/mandant number.",
+            "pattern": "^[0-9]{3}$"
+          },
+          "ports": {
+            "type": "object",
+            "description": "Only the ports the pilot's connectors actually need — omit protocols that aren't in scope.",
+            "additionalProperties": false,
+            "properties": {
+              "https": { "type": "integer", "minimum": 1, "maximum": 65535 },
+              "rfc": { "type": "integer", "minimum": 1, "maximum": 65535 },
+              "messageServer": { "type": "integer", "minimum": 1, "maximum": 65535 }
+            }
+          },
+          "authType": {
+            "type": "string",
+            "enum": ["basic", "oauth2", "x509", "saml-bearer"],
+            "description": "How the connector authenticates. Determines which secret shape `credentialRef` must resolve to (see README.md)."
+          },
+          "credentialRef": {
+            "type": "string",
+            "description": "Name of the env var or secret-manager key holding the actual credential. MUST NOT be a literal secret value — validated by the 'no plain-text secrets' acceptance criterion.",
+            "minLength": 1,
+            "not": {
+              "pattern": "^(https?://|[A-Za-z0-9+/]{20,}={0,2}$)"
+            }
+          },
+          "connectivity": {
+            "type": "string",
+            "enum": ["direct", "vpn", "bastion", "cloud-connector"],
+            "description": "How the factory's tooling is expected to reach this host."
+          }
+        }
+      }
+    },
+    "btp": {
+      "type": "object",
+      "description": "Present only if the pilot scope touches BTP (extensibility, Joule, integration suite, etc.). Omit entirely otherwise.",
+      "additionalProperties": false,
+      "properties": {
+        "globalAccountSubdomain": { "type": "string", "minLength": 1 },
+        "subaccountId": { "type": "string", "minLength": 1 },
+        "region": { "type": "string", "minLength": 1 },
+        "credentialRef": {
+          "type": "string",
+          "description": "Env var/secret-manager key for the BTP service-key or destination credentials.",
+          "minLength": 1
+        }
+      },
+      "required": ["globalAccountSubdomain", "region", "credentialRef"]
+    },
+    "toolEnvironments": {
+      "type": "array",
+      "description": "Which client tool environment(s) the Unpack step must target for this pilot (subset of the factory's supported adapters).",
+      "items": {
+        "type": "string",
+        "enum": ["claude-code", "cursor", "github-copilot"]
+      },
+      "minItems": 1
+    }
+  }
+}

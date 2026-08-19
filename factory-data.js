@@ -1921,6 +1921,10 @@ window.FACTORY_DATA = {
     null
    ],
    [
+    "pilot-context.schema.json",
+    "P4: infra/client context schema, feeds Unpack (P5) & T3 — see platform/pilot-context/"
+   ],
+   [
     "CLAUDE.md",
     "generated"
    ],

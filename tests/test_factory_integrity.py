@@ -48,6 +48,20 @@ def _referenced_names(kind):
     return {name for _, name in _all_uses(kind)}
 
 
+def _adopt_skill_names():
+    """Adopt-posture skills only ever have a skills/index.yaml entry, never a
+    skills/<name>/SKILL.md directory -- that's the whole point of the own/adopt split
+    (see root README.md and CLAUDE.md). Parsed lightly (no PyYAML dependency needed for
+    one field), matching the same convention tools/adapter_common.py already relies on."""
+    text = (ROOT / "skills" / "index.yaml").read_text(encoding="utf-8")
+    names = set()
+    for line in text.splitlines():
+        stripped = line.strip().lstrip("-").strip()
+        if stripped.startswith("name:"):
+            names.add(stripped.split(":", 1)[1].strip())
+    return names
+
+
 # ---------------------------------------------------------------------------
 # Required fields on every activity
 # ---------------------------------------------------------------------------
@@ -82,9 +96,10 @@ def test_activity_file_exists(activity):
 @pytest.mark.parametrize("activity_title,name", _all_uses("skill"),
                          ids=lambda x: x if isinstance(x, str) else "")
 def test_skill_ref_exists(activity_title, name):
-    assert (ROOT / "skills" / name / "SKILL.md").exists(), (
+    assert (ROOT / "skills" / name / "SKILL.md").exists() or name in _adopt_skill_names(), (
         f"activity '{activity_title}' references skill '{name}' "
-        f"but skills/{name}/SKILL.md not found"
+        f"but skills/{name}/SKILL.md not found and '{name}' isn't a listed adopt-posture "
+        f"skill in skills/index.yaml either"
     )
 
 
@@ -214,7 +229,7 @@ def test_no_orphaned_gates(name):
 # ---------------------------------------------------------------------------
 
 KIND_TO_DISK = {
-    "Skill":     lambda n: (ROOT / "skills" / n / "SKILL.md").exists(),
+    "Skill":     lambda n: (ROOT / "skills" / n / "SKILL.md").exists() or n in _adopt_skill_names(),
     "Agent":     lambda n: (ROOT / "agents" / f"{n}.md").exists(),
     "Connector": lambda n: (ROOT / "connectors" / n / "server.json").exists(),
     "Artifact":  lambda n: (ROOT / "artifacts" / n / "template.md").exists(),

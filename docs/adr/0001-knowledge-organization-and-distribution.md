@@ -132,6 +132,14 @@ size/volatility:
   read as files — this is a deliberately higher bar than "would be nice to search semantically."
   Neither is an MVP requirement; both stay documented options for a specific future case, not
   general infrastructure to build now.
+  If option 4 is ever built for `epam-internal-only` content specifically: the likely shape is one
+  generic, parameterized connector (a credential-gated gateway into EPAM's internal sources, with
+  no real hostname hardcoded — resolved from the consultant's own session file, same pattern as
+  `jira`/`abap-mcp`) plus separate per-source pointer entries cataloging what's reachable through
+  it. This sketch is deliberately non-normative — open questions like whether a pointer entry
+  defaults to `client-shippable` or `epam-internal-only`, and whether it needs a new connector
+  shape at all versus reusing the existing `connectors/<name>/` convention as-is, are unresolved
+  until a real use case forces the decision.
 
 This also settles the SAP-content question from EPMCSAPAI-239: since SAP's own terms of use
 prohibit bulk extraction (explicitly naming MCP and agent frameworks), no storage mechanism above

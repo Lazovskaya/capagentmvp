@@ -1,6 +1,6 @@
 # Process-to-app mapping
 
-- **Fiori Apps Library export:**
+- **Source export (Fiori Apps Library XLSX):**
 - **Export SHA-256:**
 - **Sheet:**
 - **Apps read:**

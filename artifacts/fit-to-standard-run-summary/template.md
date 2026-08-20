@@ -2,7 +2,8 @@
 
 - **Mode:** Prepare / Post-workshop / Full
 - **Generated at (UTC):**
-- **Status:** Ready for workshop / Ready for review / Gaps
+- **Status:** `READY_FOR_WORKSHOP` | `READY_FOR_REVIEW` | `GAPS`
+- **Inputs:** <list of input artifact references or paths used in this run>
 
 ## Referenced outputs
 

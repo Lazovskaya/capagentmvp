@@ -65,8 +65,22 @@ This mirrors the path convention the component map's own client-side code uses (
 
 ## Installing skills into a project
 
-**For a Claude Code, GitHub Copilot, or Cursor project**, use that tool's adapter (see each
-folder's README for the full flag reference):
+**For a pilot with a filled-in infrastructure context** (P4, `platform/pilot-context/`), use
+`tools/unpack.py` — the single entry point across all three tools that also resolves that context
+into working connector credentials first:
+
+```bash
+python3 tools/unpack.py --target claude-code --project /path/to/client-project \
+  --skills '*' --connectors abap-mcp \
+  --context platform/pilot-context/pilot-<id>.context.json
+```
+
+`--target` accepts `claude-code`, `github-copilot` (alias `copilot`), or `cursor`; omit it to run
+once per tool listed in the context file's `toolEnvironments`. See `tools/unpack.py`'s own
+docstring for the full reference, including its post-unpack credential check.
+
+**Without a context file** (or for adopt-posture/ad-hoc setups), call a specific tool's adapter
+directly — see each folder's README for the full flag reference:
 
 ```bash
 python3 tools/claude-code/adapter/install.py \
@@ -82,7 +96,8 @@ python3 tools/cursor/adapter/install.py \
 All three install only own-posture skills (`skills/<name>/SKILL.md` in this repo) plus connectors
 that have real, non-placeholder wiring, generate a working mcp config and entry file in the tool's
 own shape, and record what was installed in `factory-lock.json` so re-runs only touch what
-actually changed.
+actually changed. `tools/unpack.py` is a thin dispatcher over these same three scripts, not a
+separate implementation.
 
 **Adopt-posture skills** (listed in `skills/index.yaml`, not authored in this repo — neither
 adapter above handles these) still need the real, live-tested manual process, using the `skills` CLI

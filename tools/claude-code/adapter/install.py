@@ -72,7 +72,7 @@ def write_claude_md(project, installed_skills, installed_connectors, seeded_know
     (project / "CLAUDE.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--project", required=True, help="path to the client project to install into")
     parser.add_argument("--skills", default="", help="comma-separated skill names, or '*' for all own-posture skills")
@@ -88,7 +88,7 @@ def main():
                          help="override the <destination> credential-file name for one connector; repeatable")
     parser.add_argument("--check", action="store_true", help="report drift against factory-lock.json, write nothing")
     parser.add_argument("--force", action="store_true", help="reinstall even if content hash is unchanged")
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     project = common.check_project_path(args.project)
 

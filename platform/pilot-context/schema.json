@@ -71,8 +71,13 @@
           },
           "authType": {
             "type": "string",
-            "enum": ["basic", "oauth2", "x509", "saml-bearer"],
-            "description": "How the connector authenticates. Determines which secret shape `credentialRef` must resolve to (see README.md)."
+            "enum": ["basic", "oauth2", "x509", "saml-bearer", "jwt", "xsuaa"],
+            "description": "How the connector authenticates. Determines which secret shape `credentialRef` must resolve to (see README.md). `jwt`/`xsuaa` added for abap-mcp (SAP_AUTH_TYPE), found missing while wiring 301's context resolver."
+          },
+          "systemType": {
+            "type": "string",
+            "enum": ["onprem", "cloud", "legacy"],
+            "description": "Matches abap-mcp's SAP_SYSTEM_TYPE (controls which tools are available, e.g. Programs are onprem-only). Required whenever a connector in scope needs this distinction; abap-mcp always does."
           },
           "credentialRef": {
             "type": "string",

@@ -15,6 +15,7 @@
         "rfc": 3300
       },
       "authType": "basic",
+      "systemType": "onprem",
       "credentialRef": "SAP_AI_FACTORY_PILOT_DR1_CREDENTIAL",
       "connectivity": "vpn"
     },
@@ -28,6 +29,7 @@
         "rfc": 3300
       },
       "authType": "basic",
+      "systemType": "onprem",
       "credentialRef": "SAP_AI_FACTORY_PILOT_QA1_CREDENTIAL",
       "connectivity": "vpn"
     }

@@ -62,6 +62,17 @@ Claude Code, Cursor, GitHub Copilot on whatever OS the consultant runs).
    `.env` described above — never in the working file itself.
 4. Validate the working file against `schema.json` before handing it to P5.
 
+## `authType` and `systemType`
+
+Found missing while wiring 301's context resolver against `abap-mcp`: `authType`'s enum now
+includes `jwt`/`xsuaa` alongside the original `basic`/`oauth2`/`x509`/`saml-bearer`, and a new
+`systemType` (`onprem`/`cloud`/`legacy`) field was added — both needed to match `abap-mcp`'s
+`SAP_AUTH_TYPE`/`SAP_SYSTEM_TYPE` exactly (see `connectors/abap-mcp/server.json`). Longer term,
+per-connector supported values like these are meant to live in that connector's own
+`connector.meta.md` (EPMCSAPAI-291) rather than a single enum here that has to be kept in sync
+with every connector by hand — this schema's enums are a stopgap until that lands, not the
+long-term source of truth for what a given connector accepts.
+
 ## Status
 
 Schema and example are defined and validated (`jsonschema.validate` passes). Not yet wired into an

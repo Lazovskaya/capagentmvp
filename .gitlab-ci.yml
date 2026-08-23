@@ -22,39 +22,37 @@ workflow:
   rules:
     - if: $CI_PIPELINE_SOURCE == "web"
 
-.package_vars: &package_vars
+# Top-level, not per-job: the description/value object form only renders as a prompt in
+# GitLab's "Run Pipeline" web UI when declared here. All jobs below inherit these as plain
+# environment variables automatically -- no per-job re-declaration needed.
+variables:
   INCLUDED_AGENTS:
-    description: "Comma-separated skill names to bundle (this factory's 'skills', not its own,
-      narrower 'Agent' component kind), or '*' for all own-posture skills."
+    description: "Comma-separated skill names to bundle (this factory's 'skills', not its own, narrower 'Agent' component kind), or '*' for all own-posture skills."
     value: ""
   INCLUDED_FLOWS:
-    description: "Comma-separated Delivery-pipeline activity titles in scope for the client
-      (repeatable in the underlying tool as --activity; provide one here, or extend this job
-      if a real engagement needs more than one)."
+    description: "Comma-separated Delivery-pipeline activity titles in scope for the client (repeatable in the underlying tool as --activity; provide one here, or extend this job if a real engagement needs more than one)."
     value: ""
   CLIENT_NAME:
     description: "Identifier used to name the generated archive (client-artifacts-<name>.zip)."
     value: ""
   DRY_RUN:
-    description: "If 'true', validates the selection and reports what would be packaged without
-      producing an archive."
+    description: "If 'true', validates the selection and reports what would be packaged without producing an archive."
     value: "false"
 
 lint-dependencies:
   stage: validate
   image: python:3.11-slim
   script:
-    - echo "Placeholder -- tools/lint_dependencies.py (EPMCSAPAI-299) does not exist yet."
-    - echo "Its comparison of SKILL.md references against declared needs: sidecars depends on"
-    - echo "EPMCSAPAI-291's metadata schema, which is not built. Wire the real check in once"
-    - echo "both land; see EPMCSAPAI-306's Jira comments for the current blocking chain."
+    - |
+      echo "Placeholder -- tools/lint_dependencies.py (EPMCSAPAI-299) does not exist yet."
+      echo "Its comparison of SKILL.md references against declared needs: sidecars depends on"
+      echo "EPMCSAPAI-291's metadata schema, which is not built. Wire the real check in once"
+      echo "both land; see EPMCSAPAI-306's Jira comments for the current blocking chain."
   allow_failure: false
 
 package:
   stage: package
   image: python:3.11-slim
-  variables:
-    <<: *package_vars
   rules:
     - if: '$CLIENT_NAME == ""'
       when: never
@@ -64,7 +62,6 @@ package:
         echo "CLIENT_NAME is required." >&2
         exit 1
       fi
-    - |
       ARGS="--client-name $CLIENT_NAME"
       if [ -n "$INCLUDED_AGENTS" ]; then ARGS="$ARGS --skills $INCLUDED_AGENTS"; else ARGS="$ARGS --skills ''"; fi
       if [ -n "$INCLUDED_FLOWS" ]; then ARGS="$ARGS --activity \"$INCLUDED_FLOWS\""; fi

@@ -1,0 +1,78 @@
+# Manual-trigger pipeline for client artifact packaging (EPMCSAPAI-306).
+#
+# Status: partial. The `package` job below is real -- it calls
+# tools/package_client_artifacts.py (EPMCSAPAI-300), which is implemented and tested. The
+# `lint-dependencies` job is a documented placeholder: tools/lint_dependencies.py (EPMCSAPAI-299)
+# doesn't exist yet, because its core job (comparing SKILL.md references against declared
+# `needs:` sidecars) depends on EPMCSAPAI-291's sidecar-metadata schema, which isn't built either.
+# Wire the real lint job in once EPMCSAPAI-299 lands; don't guess at its interface here.
+#
+# Variable naming: this ticket's own acceptance criteria name INCLUDED_AGENTS and INCLUDED_FLOWS.
+# This factory's actual vocabulary is skills/connectors/activities, not "agents" (a distinct,
+# narrower component kind here) or "flows" (not a concept this factory uses at all). Mapped
+# INCLUDED_AGENTS -> --skills and INCLUDED_FLOWS -> --activity as the closest existing concepts;
+# flagged this mismatch back to the ticket rather than silently reinterpreting it -- confirm or
+# correct the mapping if it's wrong.
+
+stages:
+  - validate
+  - package
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
+
+.package_vars: &package_vars
+  INCLUDED_AGENTS:
+    description: "Comma-separated skill names to bundle (this factory's 'skills', not its own,
+      narrower 'Agent' component kind), or '*' for all own-posture skills."
+    value: ""
+  INCLUDED_FLOWS:
+    description: "Comma-separated Delivery-pipeline activity titles in scope for the client
+      (repeatable in the underlying tool as --activity; provide one here, or extend this job
+      if a real engagement needs more than one)."
+    value: ""
+  CLIENT_NAME:
+    description: "Identifier used to name the generated archive (client-artifacts-<name>.zip)."
+    value: ""
+  DRY_RUN:
+    description: "If 'true', validates the selection and reports what would be packaged without
+      producing an archive."
+    value: "false"
+
+lint-dependencies:
+  stage: validate
+  image: python:3.11-slim
+  script:
+    - echo "Placeholder -- tools/lint_dependencies.py (EPMCSAPAI-299) does not exist yet."
+    - echo "Its comparison of SKILL.md references against declared needs: sidecars depends on"
+    - echo "EPMCSAPAI-291's metadata schema, which is not built. Wire the real check in once"
+    - echo "both land; see EPMCSAPAI-306's Jira comments for the current blocking chain."
+  allow_failure: false
+
+package:
+  stage: package
+  image: python:3.11-slim
+  variables:
+    <<: *package_vars
+  rules:
+    - if: '$CLIENT_NAME == ""'
+      when: never
+  script:
+    - |
+      if [ -z "$CLIENT_NAME" ]; then
+        echo "CLIENT_NAME is required." >&2
+        exit 1
+      fi
+    - |
+      ARGS="--client-name $CLIENT_NAME"
+      if [ -n "$INCLUDED_AGENTS" ]; then ARGS="$ARGS --skills $INCLUDED_AGENTS"; else ARGS="$ARGS --skills ''"; fi
+      if [ -n "$INCLUDED_FLOWS" ]; then ARGS="$ARGS --activity \"$INCLUDED_FLOWS\""; fi
+      if [ "$DRY_RUN" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+      echo "Running: python3 tools/package_client_artifacts.py $ARGS --out-dir dist"
+      eval "python3 tools/package_client_artifacts.py $ARGS --out-dir dist"
+  artifacts:
+    paths:
+      - dist/*.zip
+    expire_in: 30 days
+    when: on_success

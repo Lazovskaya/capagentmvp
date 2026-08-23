@@ -159,6 +159,13 @@ def hash_tree(path):
 
 # ---------- skills ----------
 
+# Defensive, ahead of EPMCSAPAI-291: *.meta.md sidecars don't exist in this repo yet, but once
+# they do they carry internal-only governance tags (risk, status, distribution-class) that must
+# never reach a client-facing copy. Every copytree below excludes them now so nothing has to
+# remember to add this later, the day someone adds the first real *.meta.md file.
+META_SIDECAR_IGNORE = shutil.ignore_patterns("*.meta.md")
+
+
 def copy_skill(name, dest_root):
     """Copies skills/<name>/ into dest_root/<name>/, overwriting. dest_root is the
     tool-specific skills directory (e.g. <project>/.claude/skills or <project>/.agents/skills)."""
@@ -167,7 +174,7 @@ def copy_skill(name, dest_root):
     if dest.exists():
         shutil.rmtree(dest)
     dest.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copytree(src, dest)
+    shutil.copytree(src, dest, ignore=META_SIDECAR_IGNORE)
     return dest
 
 
@@ -229,7 +236,7 @@ def copy_connector(name, project):
     if dest.exists():
         shutil.rmtree(dest)
     dest.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copytree(src, dest)
+    shutil.copytree(src, dest, ignore=META_SIDECAR_IGNORE)
     return dest
 
 
@@ -270,7 +277,7 @@ def seed_reference_dir(src, dest):
     if dest.exists():
         return False
     dest.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copytree(src, dest)
+    shutil.copytree(src, dest, ignore=META_SIDECAR_IGNORE)
     return True
 
 

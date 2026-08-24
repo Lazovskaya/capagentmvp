@@ -27,3 +27,15 @@ workspace/
 # platform/pilot-context/context.example.json (redacted) does.
 platform/pilot-context/*.context.json
 platform/pilot-context/pilot-*.json
+
+# Regenerable SAP Best Practices scope-item cache (EPMCSAPAI-197 Recommendation 2) — a live
+# snapshot of SAP's own reference data, not our curated expertise; see
+# knowledge/domain-packs/sap-best-practices/README.md "Why this is a cache, not committed content".
+knowledge/domain-packs/sap-best-practices/scope-items/
+
+# Real credential files -- only the *.example template is ever committed. This factory's
+# convention (see connectors/jira, connectors/abap-mcp) is that filled-in secrets live outside the
+# project entirely (~/.config/<tool>/sessions/<destination>.env); this rule is a safety net in
+# case someone fills in a template in place before moving it out.
+**/.env
+!**/.env.example

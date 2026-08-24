@@ -14,6 +14,7 @@ venv/
 # Logs and temp files
 *.log
 tmp.html
+/_tmp
 
 # Per-engagement outputs — every skill's own "Output" section says these are gitignored;
 # .gitignore itself never actually had the entry until a real skill run needed it (2026-08-07).

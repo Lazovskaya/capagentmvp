@@ -13,7 +13,7 @@ distribution-class: client-shippable  # client-shippable | epam-internal-only | 
 source: internal                   # internal | secondsky | SAP | community
 source-repo: [TBD]
 
-q-gate: [deploy→run]               # TEMP: Q-gate(s) this skill's output feeds evidence into
+q-gate: [deploy-run]               # TEMP: Q-gate(s) this skill's output feeds evidence into
 ---
 
 ## Notes
@@ -32,4 +32,4 @@ Shares its activity (and the same `uses` block in `factory-data.json`) with
 | mcp-server | cloud-alm | requires | delivery/operations surface for cutover tasks |
 | artifact | sign-off-record | produces | names who accepted the go/no-go call |
 | knowledge | operations | consumes | reads runbook and cutover history baselines |
-| q-gate | deploy→run | gates-at | exit criteria: cutover rehearsed |
+| q-gate | deploy-run | gates-at | exit criteria: cutover rehearsed |

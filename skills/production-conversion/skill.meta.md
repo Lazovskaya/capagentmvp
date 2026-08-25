@@ -13,7 +13,7 @@ distribution-class: client-shippable  # client-shippable | epam-internal-only | 
 source: internal                   # internal | secondsky | SAP | community
 source-repo: [TBD]
 
-q-gate: [deploy→run]               # TEMP: Q-gate(s) this skill's output feeds evidence into
+q-gate: [deploy-run]               # TEMP: Q-gate(s) this skill's output feeds evidence into
 ---
 
 ## Notes
@@ -29,4 +29,4 @@ programme, owned by Basis.
 | mcp-server | cloud-alm | requires | delivery/operations surface during the conversion runbook |
 | knowledge | operations | produces | logs conversion checkpoints into the runbook/operations history |
 | artifact | run-exit-record | produces | feeds the eventual run-exit disposition |
-| q-gate | deploy→run | gates-at | exit criteria: cutover executed with go/no-go and rollback triggers evidenced |
+| q-gate | deploy-run | gates-at | exit criteria: cutover executed with go/no-go and rollback triggers evidenced |

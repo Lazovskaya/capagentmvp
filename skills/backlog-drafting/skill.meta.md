@@ -13,7 +13,7 @@ distribution-class: client-shippable  # client-shippable | epam-internal-only | 
 source: internal                   # internal | secondsky | SAP | community
 source-repo: [TBD]
 
-q-gate: [explore→realize]          # TEMP: Q-gate(s) this skill's output feeds evidence into
+q-gate: [explore-realize]          # TEMP: Q-gate(s) this skill's output feeds evidence into
 ---
 
 ## Notes
@@ -33,4 +33,4 @@ not at all.
 | mcp-server | jira | requires | pushes sized, owned work items |
 | mcp-server | cloud-alm | requires | delivery/operations traceability context |
 | knowledge | process | consumes | traces each work item back to its process decision |
-| q-gate | explore→realize | gates-at | exit criteria: backlog baselined |
+| q-gate | explore-realize | gates-at | exit criteria: backlog baselined |

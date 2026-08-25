@@ -13,7 +13,7 @@ distribution-class: client-shippable  # client-shippable | epam-internal-only | 
 source: internal                   # internal | secondsky | SAP | community
 source-repo: [TBD]
 
-q-gate: [discover→prepare]         # TEMP: Q-gate(s) this skill's output feeds evidence into
+q-gate: [discover-prepare]         # TEMP: Q-gate(s) this skill's output feeds evidence into
 ---
 
 ## Notes
@@ -32,4 +32,4 @@ product.
 | mcp-server | knowledge-graph | requires | grounds discovery in the business entity/relationship map |
 | artifact | assessment-report | produces | agent-candidate scoring: process, volume, exception rate, reversibility, data reachability, verdict |
 | knowledge | process | consumes | scores candidates against known process scope |
-| q-gate | discover→prepare | gates-at | exit criteria: scope and readiness accepted |
+| q-gate | discover-prepare | gates-at | exit criteria: scope and readiness accepted |

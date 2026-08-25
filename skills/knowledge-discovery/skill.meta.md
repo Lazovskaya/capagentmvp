@@ -13,7 +13,7 @@ distribution-class: client-shippable  # client-shippable | epam-internal-only | 
 source: internal                   # internal | secondsky | SAP | community
 source-repo: [TBD]
 
-q-gate: [prepare→explore]          # TEMP: Q-gate(s) this skill's output feeds evidence into
+q-gate: [prepare-explore]          # TEMP: Q-gate(s) this skill's output feeds evidence into
 ---
 
 ## Notes
@@ -31,4 +31,4 @@ downstream is trustworthy until this exists.
 | mcp-server | abap-mcp | requires | scans the ABAP system landscape and custom code |
 | mcp-server | knowledge-graph | requires | grounds discovery in the business entity/relationship map |
 | knowledge | process, config, custom-code, clean-core, extensibility, data, testing, operations, standards | produces | builds all nine knowledge buckets from scratch (domain-packs is a distinct, separately-sourced bucket, not built here) |
-| q-gate | prepare→explore | gates-at | exit criteria: knowledge built and validated |
+| q-gate | prepare-explore | gates-at | exit criteria: knowledge built and validated |

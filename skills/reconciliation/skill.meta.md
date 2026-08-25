@@ -13,7 +13,7 @@ distribution-class: client-shippable  # client-shippable | epam-internal-only | 
 source: internal                   # internal | secondsky | SAP | community
 source-repo: [TBD]
 
-q-gate: [realize→deploy]           # TEMP: Q-gate(s) this skill's output feeds evidence into
+q-gate: [realize-deploy]           # TEMP: Q-gate(s) this skill's output feeds evidence into
 ---
 
 ## Notes
@@ -29,4 +29,4 @@ in the whole factory, because the answer is a number rather than an opinion.
 | artifact | reconciliation-report | produces | before-and-after delta against the agreed tolerance |
 | knowledge | data | consumes | reads migration objects and cleansing rules |
 | knowledge | standards | consumes | applies delivery conventions |
-| q-gate | realize→deploy | gates-at | exit criteria: data reconciled |
+| q-gate | realize-deploy | gates-at | exit criteria: data reconciled |

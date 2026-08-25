@@ -13,7 +13,7 @@ distribution-class: client-shippable  # client-shippable | epam-internal-only | 
 source: internal                   # internal | secondsky | SAP | community
 source-repo: [TBD]
 
-q-gate: [discover→prepare]         # TEMP: Q-gate(s) this skill's output feeds evidence into
+q-gate: [discover-prepare]         # TEMP: Q-gate(s) this skill's output feeds evidence into
 ---
 
 ## Notes
@@ -35,4 +35,4 @@ genuinely block the conversion from items that merely appear in the report.
 | artifact | business-process-impact-list | produces | evidence-backed candidate business-process impacts |
 | knowledge | custom-code | consumes | scopes impact against the existing custom-code inventory |
 | knowledge | standards | consumes | applies delivery conventions |
-| q-gate | discover→prepare | gates-at | exit criteria: scope and readiness accepted |
+| q-gate | discover-prepare | gates-at | exit criteria: scope and readiness accepted |

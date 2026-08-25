@@ -13,7 +13,7 @@ distribution-class: client-shippable  # client-shippable | epam-internal-only | 
 source: internal                   # internal | secondsky | SAP | community
 source-repo: [TBD]
 
-q-gate: [explore→realize]          # TEMP: Q-gate(s) this skill's output feeds evidence into
+q-gate: [explore-realize]          # TEMP: Q-gate(s) this skill's output feeds evidence into
 ---
 
 ## Notes
@@ -21,7 +21,7 @@ Turns the complete in-scope fit-to-standard outcome into a coherent solution
 architecture. Establishes architecture views and cross-artifact traceability,
 then produces one design record and one extensibility record per delta. The
 scope-level architecture package is the client-facing output and the
-explore→realize handoff. Assembles from scattered sources with full
+explore-realize handoff. Assembles from scattered sources with full
 traceability when no single decision-log row covers the case.
 
 ## Dependency graph
@@ -31,7 +31,7 @@ traceability when no single decision-log row covers the case.
 | agent | extensibility-assessor | requires | returns the extensibility tier, its justification, and red flags |
 | agent | design-test-reviewer | requires | independent review of the design-record before Realize's transport-heavy work starts |
 | agent | source-conflict-analyst | requires | provenance and contradiction analysis across a scattered source pack |
-| artifact | architecture-package | produces | client-facing architecture index and explore→realize handoff |
+| artifact | architecture-package | produces | client-facing architecture index and explore-realize handoff |
 | artifact | design-record | produces | target design, critiqued then approved |
 | artifact | extensibility-record | produces | chosen extensibility tier plus its justification |
 | knowledge | process | consumes | reads fit-to-standard outcomes |
@@ -40,4 +40,4 @@ traceability when no single decision-log row covers the case.
 | knowledge | extensibility | produces | writes tier decisions and the modification register |
 | knowledge | clean-core | consumes | applies SAP clean-core rules |
 | knowledge | standards | consumes | applies delivery conventions |
-| q-gate | explore→realize | gates-at | exit criteria: design approved, extensibility tier recorded |
+| q-gate | explore-realize | gates-at | exit criteria: design approved, extensibility tier recorded |

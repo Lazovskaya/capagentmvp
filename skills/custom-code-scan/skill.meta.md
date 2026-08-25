@@ -13,7 +13,7 @@ distribution-class: client-shippable  # client-shippable | epam-internal-only | 
 source: internal                   # internal | secondsky | SAP | community
 source-repo: [TBD]
 
-q-gate: [prepare→explore]          # TEMP: Q-gate(s) this skill's output feeds evidence into
+q-gate: [prepare-explore]          # TEMP: Q-gate(s) this skill's output feeds evidence into
 ---
 
 ## Notes
@@ -30,4 +30,4 @@ unused code is the cheapest code to fix.
 | knowledge | custom-code | produces | writes the prioritised remediation inventory |
 | knowledge | clean-core | consumes | applies SAP clean-core rules to classify findings |
 | knowledge | standards | consumes | applies delivery conventions |
-| q-gate | prepare→explore | gates-at | exit criteria: custom-code baseline taken |
+| q-gate | prepare-explore | gates-at | exit criteria: custom-code baseline taken |

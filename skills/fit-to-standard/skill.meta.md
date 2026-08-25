@@ -13,7 +13,7 @@ distribution-class: client-shippable  # client-shippable | epam-internal-only | 
 source: internal                   # internal | secondsky | SAP | community
 source-repo: [TBD]
 
-q-gate: [explore→realize]          # TEMP: Q-gate(s) this skill's output feeds evidence into
+q-gate: [explore-realize]          # TEMP: Q-gate(s) this skill's output feeds evidence into
 ---
 
 ## Notes
@@ -34,4 +34,4 @@ nobody can defend at the next upgrade.
 | knowledge | process | produces | writes fit-to-standard outcomes |
 | knowledge | config | consumes | references config context during workshops |
 | knowledge | standards | consumes | applies delivery conventions |
-| q-gate | explore→realize | gates-at | exit criteria: fit-to-standard signed |
+| q-gate | explore-realize | gates-at | exit criteria: fit-to-standard signed |

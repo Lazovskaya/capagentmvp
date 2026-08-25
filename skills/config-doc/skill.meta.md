@@ -13,7 +13,7 @@ distribution-class: client-shippable  # client-shippable | epam-internal-only | 
 source: internal                   # internal | secondsky | SAP | community
 source-repo: [TBD]
 
-q-gate: [realize→deploy]           # TEMP: Q-gate(s) this skill's output feeds evidence into
+q-gate: [realize-deploy]           # TEMP: Q-gate(s) this skill's output feeds evidence into
 ---
 
 ## Notes
@@ -31,4 +31,4 @@ triage later reads.
 | knowledge | config | produces | writes config decisions and rationale |
 | knowledge | process | consumes | ties the config change back to the process decision |
 | knowledge | standards | consumes | applies delivery conventions |
-| q-gate | realize→deploy | gates-at | exit criteria: config documented |
+| q-gate | realize-deploy | gates-at | exit criteria: config documented |

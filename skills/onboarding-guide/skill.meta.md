@@ -13,7 +13,7 @@ distribution-class: client-shippable  # client-shippable | epam-internal-only | 
 source: internal                   # internal | secondsky | SAP | community
 source-repo: [TBD]
 
-q-gate: [prepare→explore]          # TEMP: Q-gate(s) this skill's output feeds evidence into
+q-gate: [prepare-explore]          # TEMP: Q-gate(s) this skill's output feeds evidence into
 ---
 
 ## Notes
@@ -29,4 +29,4 @@ explaining things verbally, the knowledge base is not real yet.
 | mcp-server | jira | requires | work-item context used during onboarding |
 | artifact | onboarding-record | produces | ready-to-take-a-ticket evidence |
 | knowledge | process, config, custom-code, clean-core, extensibility, data, testing, operations, standards | consumes | reads all nine knowledge buckets as the onboarding path |
-| q-gate | prepare→explore | gates-at | exit criteria: team onboarded |
+| q-gate | prepare-explore | gates-at | exit criteria: team onboarded |

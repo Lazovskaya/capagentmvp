@@ -1,0 +1,30 @@
+{
+  "scope_item_id": "2Q2",
+  "title": "Data Migration to SAP S/4HANA from Staging",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Database and Data Management",
+    "L3_scope_item": "2Q2 - Data Migration to SAP S/4HANA from Staging",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Data Migration Status",
+        "fiori_app_id": "F3280",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CONFIG_EXPERT_DATA_MIG",
+        "component": "CA-GTF-MIG-APP"
+      },
+      {
+        "step_no": 2,
+        "name": "Migrate Your Data",
+        "fiori_app_id": "F3473",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CONFIG_EXPERT_DATA_MIG",
+        "component": "CA-LT-MC"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

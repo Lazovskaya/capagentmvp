@@ -1,0 +1,92 @@
+{
+  "scope_item_id": "3VT",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Warehousing"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "13ea69beae574a48a7f9e9f9aa9bd80e",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "13ea69beae574a48a7f9e9f9aa9bd80e",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Set Kanban to Empty",
+        "type": "userTask",
+        "role": "Production Operator - Lean Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Warehouse Task(s) for Replenishment",
+        "type": "serviceTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Set Kanban to FULL",
+        "type": "userTask",
+        "role": "Production Operator - Lean Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Confirm Warehouse Task(s)",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Confirm Warehouse Task(s)",
+        "type": "serviceTask",
+        "role": "Production Operator - Lean Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Post Goods Movement",
+        "type": "serviceTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Post Goods Movement",
+        "type": "serviceTask",
+        "role": "Production Operator - Lean Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Set Kanban to FULL",
+        "type": "serviceTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

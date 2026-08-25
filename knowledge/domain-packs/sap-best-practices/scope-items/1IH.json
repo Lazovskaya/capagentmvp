@@ -1,0 +1,90 @@
+{
+  "scope_item_id": "1IH",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "61ab2259aff74cb894c5fc3eb784c017",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "61ab2259aff74cb894c5fc3eb784c017",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Post Transfer - Across Company Codes Within the Same Country",
+        "type": "userTask",
+        "role": "Asset Accountant (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Outgoing Invoices",
+        "type": "userTask",
+        "role": "Asset Accountant (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "withdraw the asset for the selling company",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "acquire the asset for the buying company",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Manage Supplier Invoices - Process",
+        "type": "userTask",
+        "role": "Asset Accountant (Buying Company)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Asset History Sheet",
+        "type": "userTask",
+        "role": "Asset Accountant (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Asset History Sheet",
+        "type": "userTask",
+        "role": "Asset Accountant (Buying Company)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "inclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

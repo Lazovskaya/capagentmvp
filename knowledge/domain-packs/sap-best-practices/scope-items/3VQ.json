@@ -1,0 +1,76 @@
+{
+  "scope_item_id": "3VQ",
+  "title": "Safety Data Sheets in the Value Chain",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash",
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management",
+      "Product Compliance"
+    ],
+    "L3_scope_item": "3VQ - Safety Data Sheets in the Value Chain",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Process Requests from Logistics",
+        "fiori_app_id": "F3342",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DG_SPLST_PCL | SAP_BR_MD_SPECIALIST_PCL | SAP_BR_PRODSTWRD_SPLST_PCL",
+        "component": "EHS-SUS-PMA"
+      },
+      {
+        "step_no": 2,
+        "name": "Sales Order Fulfillment Issues (Version 2)",
+        "fiori_app_id": "F0029A",
+        "technical_transaction": "V.00",
+        "app_type": null,
+        "role": "SAP_BR_SALES_MANAGER | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-FIO-HBA"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "5401c45568074b16a91c25ae496c478a",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "5401c45568074b16a91c25ae496c478a",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Sales Order for a Product without prepared Safety Data Sheets",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Analyze Sales Order Fulfillment - Analyze and Resolve Issues",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Process Request from Sales Order for Safety Data Sheet",
+        "type": "userTask",
+        "role": "Product Stewardship Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

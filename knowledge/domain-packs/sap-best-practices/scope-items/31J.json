@@ -1,0 +1,149 @@
+{
+  "scope_item_id": "31J",
+  "title": "Chemical Compliance in the Value Chain",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash",
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management",
+      "Product Compliance"
+    ],
+    "L3_scope_item": "31J - Chemical Compliance in the Value Chain",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Classify Unpackaged Dangerous Good",
+        "fiori_app_id": "F3642",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DG_SPLST_PCL",
+        "component": "EHS-SUS-DG"
+      },
+      {
+        "step_no": 2,
+        "name": "My Unpackaged Dangerous Goods",
+        "fiori_app_id": "F3643",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DG_SPLST_PCL",
+        "component": "EHS-SUS-DG"
+      },
+      {
+        "step_no": 3,
+        "name": "Classify Dangerous Good - Unpackaged Products (ADR)",
+        "fiori_app_id": "F4465",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DG_SPLST_PCL",
+        "component": "EHS-SUS-DG"
+      },
+      {
+        "step_no": 4,
+        "name": "Assess Markets - For Products",
+        "fiori_app_id": "F2612",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODSTWRD_SPLST_PCL | SAP_BR_MD_SPECIALIST_PCL",
+        "component": "EHS-SUS-PMA"
+      },
+      {
+        "step_no": 5,
+        "name": "Compliance Information \u2013 For Products",
+        "fiori_app_id": "F3226",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP | SAP_BR_DG_SPLST_PCL | SAP_BR_PRODSTWRD_SPLST_PCL | SAP_BR_MD_SPECIALIST_PCL",
+        "component": "EHS-SUS-PMA"
+      },
+      {
+        "step_no": 6,
+        "name": "Process Requests from Logistics",
+        "fiori_app_id": "F3342",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DG_SPLST_PCL | SAP_BR_MD_SPECIALIST_PCL | SAP_BR_PRODSTWRD_SPLST_PCL",
+        "component": "EHS-SUS-PMA"
+      },
+      {
+        "step_no": 7,
+        "name": "Sales Order Fulfillment Issues (Version 2)",
+        "fiori_app_id": "F0029A",
+        "technical_transaction": "V.00",
+        "app_type": null,
+        "role": "SAP_BR_SALES_MANAGER | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-FIO-HBA"
+      },
+      {
+        "step_no": 8,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "a0d7c7e260144540a7d88cf1bb0f02ea",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "a0d7c7e260144540a7d88cf1bb0f02ea",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Assess Markets for a Product as Allowed with Restriction",
+        "type": "userTask",
+        "role": "Product Stewardship Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Sales Order for a Product with Compliance Relevance indicated",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Provide Safety Data Sheets for Unpackaged Product as Required",
+        "type": "userTask",
+        "role": "Product Stewardship Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Classify Unpackaged Product as no Dangerous Good",
+        "type": "userTask",
+        "role": "Product Stewardship Specialist",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Process Compliance Request from Logistics and Set Risk Level",
+        "type": "userTask",
+        "role": "Product Stewardship Specialist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Docuement and Release Customer Assessment",
+        "type": "userTask",
+        "role": "Product Stewardship Specialist",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Check Status of Sales Order",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

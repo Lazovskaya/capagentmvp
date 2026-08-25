@@ -1,0 +1,168 @@
+{
+  "scope_item_id": "6A9",
+  "title": "Rework with Quality Management \u2013 Consumer Products",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Manufacturing Operations",
+      "Quality Management"
+    ],
+    "L3_scope_item": "6A9 - Rework with Quality Management \u2013 Consumer Products",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Confirm Production Operation",
+        "fiori_app_id": "F3069",
+        "technical_transaction": "CO11N",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_OPTR_DISC",
+        "component": "PP-FIO-SFC"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "baed492cc35149ec90d525400a3ad489",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "baed492cc35149ec90d525400a3ad489",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Execute Production Process for Material FG0502 described in scope item 5HK",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Initial Material Stock",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create and Release Rework Production Order",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Transfer Rework Material from Blocked to Unrestricted Use Stock",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Goods Issue for Defective Material",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Confirmation of Rework Production Activities",
+        "type": "userTask",
+        "role": "Production Operator - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Manage Production Operations",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Post Goods Receipt for Rework Production Order",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Event-Based Production Cost Overview",
+        "type": "userTask",
+        "role": "Cost Accountant - Production",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Display Stock Before Quality Inspection (Optional)",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": true
+      },
+      {
+        "seq": 11,
+        "name": "Display Inspection Plan for Inspection Characteristics",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Display Quality Technician Overview (Optional)",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": true
+      },
+      {
+        "seq": 13,
+        "name": "Display Open Inspection Lots",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Record Inspection Results (Hierarchical Worklist)",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Display Quality Engineer Overview (Optional)",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": true
+      },
+      {
+        "seq": 16,
+        "name": "Make Usage Decision",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Display Stock after Usage Decision",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Batch Information Cockpit - Top-Down and Bottom-Up Analysis",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

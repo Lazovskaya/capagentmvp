@@ -1,0 +1,21 @@
+{
+  "scope_item_id": "3I2",
+  "title": "Store Connectivity \u2013 Outbound",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Application Development and Integration",
+    "L3_scope_item": "3I2 - Store Connectivity \u2013 Outbound",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Communication Arrangements",
+        "fiori_app_id": "F1763",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APPL_SUP_ENG_DEV_SUP | SAP_BR_CONF_EXPERT_BUS_NET_INT | SAP_BR_ADMINISTRATOR",
+        "component": "BC-SRV-APS-COM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

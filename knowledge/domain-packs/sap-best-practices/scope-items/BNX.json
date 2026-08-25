@@ -1,0 +1,274 @@
+{
+  "scope_item_id": "BNX",
+  "title": "Consumable Purchasing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Inventory",
+      "Invoice Management",
+      "Operational Procurement"
+    ],
+    "L3_scope_item": "BNX - Consumable Purchasing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Inbox",
+        "fiori_app_id": "F0862",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER",
+        "component": "CA-INB-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Post Goods Receipt for Purchasing Document",
+        "fiori_app_id": "F0843",
+        "technical_transaction": "MB01",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_INVENTORY_MANAGER | SAP_BR_WAREHOUSE_CLERK",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 3,
+        "name": "Material Documents Overview",
+        "fiori_app_id": "F1077",
+        "technical_transaction": "MB51",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_MAINT_SUPERVISOR | SAP_BR_EMPLOYEE_PROCUREMENT | SAP_BR_GL_ACCOUNTANT | SAP_BR_INVENTORY_MANAGER | SAP_BR_PRODN_PLNR | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_WAREHOUSE_CLERK | SAP_BR_ADMINISTRATOR_RFM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_SERVICE_MANAGER | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_EMPLOYEE | SAP_BR_CUSTOMER_SALES_MGR",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Supplier Invoices",
+        "fiori_app_id": "F0859",
+        "technical_transaction": "F-41",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AA_ACCOUNTANT | SAP_BR_PURCHASING_MANAGER",
+        "component": "MM-FIO-IV"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Purchase Orders (Version 2)",
+        "fiori_app_id": "F0842A",
+        "technical_transaction": "ME21",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-PO"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Purchase Requisition Professional",
+        "fiori_app_id": "F2229",
+        "technical_transaction": "ME51N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-PRF"
+      },
+      {
+        "step_no": 7,
+        "name": "Process Purchase Requisitions ( Version 2 )",
+        "fiori_app_id": "F1048A",
+        "technical_transaction": "ME59N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-SOC"
+      },
+      {
+        "step_no": 8,
+        "name": "Redistribute Workload",
+        "fiori_app_id": "F2504",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-SQ-CON"
+      },
+      {
+        "step_no": 9,
+        "name": "Mass Changes to Purchase Orders",
+        "fiori_app_id": "F2593",
+        "technical_transaction": "MEMASSPO",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-PUR-GF-MAS"
+      },
+      {
+        "step_no": 10,
+        "name": "Monitor Purchase Order Items",
+        "fiori_app_id": "F2358",
+        "technical_transaction": "ME2C",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK | SAP_BR_PURCHASER | SAP_BR_INVENTORY_MANAGER",
+        "component": "MM-PUR-GF-MON"
+      },
+      {
+        "step_no": 11,
+        "name": "Purchase Order Items by Account Assignment",
+        "fiori_app_id": "F2420",
+        "technical_transaction": "ME2K",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT",
+        "component": "MM-PUR-GF-MON"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "959dff18bffb4d92bae02ec790cdaaf8",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "959dff18bffb4d92bae02ec790cdaaf8",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Purchase Requisition",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Add Invoicing Plan           (optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 4,
+        "name": "Convert Purchase Requisitions to Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Execute Mass Changes to Purchase Orders (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 6,
+        "name": "Redistribute Workload (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 7,
+        "name": "Change Purchase Order (optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 8,
+        "name": "Approve Purchase Order (optional)",
+        "type": "userTask",
+        "role": "Purchasing Manager",
+        "optional": true
+      },
+      {
+        "seq": 9,
+        "name": "Monitor Purchase Order Items (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 10,
+        "name": "Post Goods Receipt",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Monitor Purchase Order Items by Account Assignment (Optional)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": true
+      },
+      {
+        "seq": 12,
+        "name": "Preview Goods Receipt Slip (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": true
+      },
+      {
+        "seq": 13,
+        "name": "Create Supplier Invoice           (optional)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": true
+      },
+      {
+        "seq": 14,
+        "name": "Settle Invoicing Plan               (optional)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": true
+      },
+      {
+        "seq": 15,
+        "name": "Release Completed Supplier Invoice (Optional)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 12,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 15,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

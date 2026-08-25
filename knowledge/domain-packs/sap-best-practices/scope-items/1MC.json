@@ -1,0 +1,209 @@
+{
+  "scope_item_id": "1MC",
+  "title": "Omnichannel Convergent Billing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": "1MC - Omnichannel Convergent Billing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Invoice Lists",
+        "fiori_app_id": "F2740",
+        "technical_transaction": "VF21",
+        "app_type": null,
+        "role": "SAP_BR_BILLING_CLERK",
+        "component": "SD-BIL"
+      },
+      {
+        "step_no": 2,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Billing Document Requests",
+        "fiori_app_id": "F2960",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BILLING_CLERK | SAP_BR_SERVICE_MANAGER",
+        "component": "SD-FIO-BIL"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "74dbf732edb141d594d66b1530e4378d",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "74dbf732edb141d594d66b1530e4378d",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "J14 - Sales Order Processing - Project-Based Services",
+        "type": "subProcess",
+        "role": "Internal Sales Representative - Professional Services",
+        "optional": false,
+        "calls_scope_item": "J14"
+      },
+      {
+        "seq": 2,
+        "name": "BD9 - Sell from Stock",
+        "type": "subProcess",
+        "role": "Shipping Specialist",
+        "optional": false,
+        "calls_scope_item": "BD9"
+      },
+      {
+        "seq": 3,
+        "name": "Create Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create Billing Document (F2)",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "J59 - Accounts Receivable",
+        "type": "subProcess",
+        "role": "Accounts Receivable Accountant",
+        "optional": false,
+        "calls_scope_item": "J59"
+      },
+      {
+        "seq": 6,
+        "name": "19M - Direct Debit",
+        "type": "subProcess",
+        "role": "Accounts Receivable Accountant",
+        "optional": false,
+        "calls_scope_item": "19M"
+      },
+      {
+        "seq": 7,
+        "name": "1S2 - Digital Payments Integration",
+        "type": "subProcess",
+        "role": "Accounts Receivable Accountant",
+        "optional": false,
+        "calls_scope_item": "1S2"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "J14",
+        "name": "J14 - Sales Order Processing - Project-Based Services",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BD9",
+        "name": "BD9 - Sell from Stock",
+        "optional": false
+      },
+      {
+        "scope_item_id": "J59",
+        "name": "J59 - Accounts Receivable",
+        "optional": false
+      },
+      {
+        "scope_item_id": "19M",
+        "name": "19M - Direct Debit",
+        "optional": false
+      },
+      {
+        "scope_item_id": "1S2",
+        "name": "1S2 - Digital Payments Integration",
+        "optional": false
+      }
+    ]
+  }
+}

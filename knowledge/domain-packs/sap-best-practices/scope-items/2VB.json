@@ -1,0 +1,175 @@
+{
+  "scope_item_id": "2VB",
+  "title": "Purchase Order Accruals",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close"
+    ],
+    "L3_scope_item": "2VB - Purchase Order Accruals",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Inbox",
+        "fiori_app_id": "F0862",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER",
+        "component": "CA-INB-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Analyze Accrual Postings",
+        "fiori_app_id": "F3732",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-GL-GL-ACE"
+      },
+      {
+        "step_no": 3,
+        "name": "Display Accrual Object Items",
+        "fiori_app_id": "F4899",
+        "technical_transaction": "POACTREE03",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-GL-GL-ACE"
+      },
+      {
+        "step_no": 4,
+        "name": "Display Periodic Accrual Amounts",
+        "fiori_app_id": "F4900",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-GL-GL-ACE"
+      },
+      {
+        "step_no": 5,
+        "name": "Review Purchase Order Accruals for Cost Accountant",
+        "fiori_app_id": "F3552",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "FI-GL-GL-POA"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Workflows for Purchase Order Accruals Review",
+        "fiori_app_id": "F3625",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-GL-GL-POA"
+      },
+      {
+        "step_no": 7,
+        "name": "Schedule Accruals Jobs",
+        "fiori_app_id": "F3778",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_AP_ACCOUNTANT_RU | SAP_BR_AR_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT | SAP_BR_CASH_MANAGER | SAP_BR_GL_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT_RU | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-GL-GL-POA"
+      },
+      {
+        "step_no": 8,
+        "name": "Display Purchase Order Accruals",
+        "fiori_app_id": "F3928",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-GL-GL-POA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "de080727df0b459fab04745f3e3e8db0",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "de080727df0b459fab04745f3e3e8db0",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Workflows for Purchase Order Accruals Review",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Transfer Purchase Orders (Optional)",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": true
+      },
+      {
+        "seq": 3,
+        "name": "Propose Periodic Accruals",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "My Inbox - Review Purchase Order Accruals",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Post Periodic Accruals",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Review Purchase Order Accruals for Cost Accountant",
+        "type": "userTask",
+        "role": "Cost Accountant - Overhead",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Display Purchase Order Accruals",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Analyze Accrual Postings",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

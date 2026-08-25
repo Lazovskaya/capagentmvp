@@ -1,0 +1,241 @@
+{
+  "scope_item_id": "64C",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Delivery and Transportation"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "fc2e794c620241318dfbdcf924562079",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "fc2e794c620241318dfbdcf924562079",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "BME - \nCreate Stock Transport Order & Change Confirmation Control for Inbound Delivery",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create \nFreight Unit",
+        "type": "serviceTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Perform Manual Transportation Planning",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Perform Subcontracting",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Charge Calculation",
+        "type": "serviceTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Receive Booking Confirmation",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Cost Distribution",
+        "type": "serviceTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Create & Display Freight Orders for Pickup and Delivery",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Trigger Outbound \nDelivery Creation from Freight Booking",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "BME - Create Replenishment Delivery for Stock Transport Order",
+        "type": "serviceTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Truck Arrived and \nChecked-in at Shipping Point Location (Pick-up)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "BME \u2013 Pick Stock Transport Order",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Set Truck Checked-Out and Departed at Shipping Point Location (Pick-up)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "BME - Post \nGoods Issue for Stock Transport Order",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Arrival of Truck at Port of Loading (Pick-up)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "BME \u2013 Create Inbound Delivery",
+        "type": "serviceTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "BME - Check Status of Stock Transfer",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Departure of Vessel from Port of Loading (Main Leg)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "BME - Confirm Quantities for Putaway",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 20,
+        "name": "Confirm Freight Booking for Accrual Posting",
+        "type": "userTask",
+        "role": "Transportation Manager",
+        "optional": false
+      },
+      {
+        "seq": 21,
+        "name": "BME - Post Goods Receipt for Inbound Delivery",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 22,
+        "name": "Arrival of Vessel at Port of Discharge (Main Leg)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 23,
+        "name": "Departure of Truck at Port of Discharge (Delivery)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 24,
+        "name": "Set Truck Arrived \nand Check-In at Receiving Point Location (Delivery)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 25,
+        "name": "Set Ready for Warehousing",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 26,
+        "name": "Set Truck Checked-Out \nand Departed at Receiving Point Location (Delivery)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 27,
+        "name": "22Z Create Supplier Invoice for Freight Costs",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs)",
+        "optional": false
+      },
+      {
+        "seq": 28,
+        "name": "2LH Execute Evaluated Receipt Settlement for Freight Costs",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs)",
+        "optional": false
+      },
+      {
+        "seq": 29,
+        "name": "22Z -Release Blocked Supplier Invoice ( Optional)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs)",
+        "optional": false
+      },
+      {
+        "seq": 30,
+        "name": "2LH -Check Supplier Invoice \u2013 Generate Credit Memo",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 26,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

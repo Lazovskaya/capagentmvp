@@ -1,0 +1,21 @@
+{
+  "scope_item_id": "7GA",
+  "title": "Recurring Services",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Operations",
+    "L3_scope_item": "7GA - Recurring Services",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Mass Schedule Maintenance Plans - Service",
+        "fiori_app_id": "F4929",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SERVICE_MANAGER",
+        "component": "CRM-S4-SRV-MNP"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

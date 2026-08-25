@@ -1,0 +1,60 @@
+{
+  "scope_item_id": "1MV",
+  "title": "Cash Application Integration",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Financial Operations"
+    ],
+    "L3_scope_item": "1MV - Cash Application Integration",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Payment Advices",
+        "fiori_app_id": "F2550",
+        "technical_transaction": "FBE1",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-FIO-AR"
+      },
+      {
+        "step_no": 2,
+        "name": "Schedule Accounts Receivable Jobs",
+        "fiori_app_id": "F2366",
+        "technical_transaction": "FCC1",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT",
+        "component": "FI-FIO-AR-IS"
+      },
+      {
+        "step_no": 3,
+        "name": "Schedule Lockbox Jobs",
+        "fiori_app_id": "F3821",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST_US",
+        "component": "FI-FIO-AR-PAY"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "2ae013f02d42486189addac26df78ae4",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "2ae013f02d42486189addac26df78ae4",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Collect Open Invoices and Unmatched Payments",
+        "type": "serviceTask",
+        "role": "Accounts Receivable Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

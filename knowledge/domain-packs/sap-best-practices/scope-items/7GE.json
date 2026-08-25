@@ -1,0 +1,21 @@
+{
+  "scope_item_id": "7GE",
+  "title": "Service \u2013 Workforce Procurement",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Supply Chain",
+    "L3_scope_item": "7GE - Service \u2013 Workforce Procurement",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Supplier Invoices",
+        "fiori_app_id": "F0859",
+        "technical_transaction": "F-41",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AA_ACCOUNTANT | SAP_BR_PURCHASING_MANAGER",
+        "component": "MM-FIO-IV"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

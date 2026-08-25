@@ -1,0 +1,188 @@
+{
+  "scope_item_id": "2BI",
+  "title": "Contract Accounting \u2013 Customer Initiated Payments",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Financial Operations"
+    ],
+    "L3_scope_item": "2BI - Contract Accounting \u2013 Customer Initiated Payments",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Search Payments",
+        "fiori_app_id": "F2588",
+        "technical_transaction": "FP30",
+        "app_type": null,
+        "role": "SAP_BR_COLL_SPECIALIST_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Display Returns",
+        "fiori_app_id": "F3126",
+        "technical_transaction": "FPM4",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_APR_MANAGER_FICA | SAP_BR_COLL_SPECIALIST_FICA | SAP_BR_EXT_AUDITOR_APR_FICA | SAP_BR_RECONC_SPEC_APR_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Display Business Transactions",
+        "fiori_app_id": "F4294",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_COLL_SPECIALIST_FICA | SAP_BR_RECONC_SPEC_APR_FICA | SAP_BR_APR_MANAGER_FICA | SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_EXT_AUDITOR_APR_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 4,
+        "name": "Display Payment Forms",
+        "fiori_app_id": "F7105",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_EXT_AUDITOR_APR_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 5,
+        "name": "Print Correspondence",
+        "fiori_app_id": "F3537",
+        "technical_transaction": "FPCOPARA",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV | SAP_BR_ADMIN_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 6,
+        "name": "Update External Tax System",
+        "fiori_app_id": "F3541",
+        "technical_transaction": "FPTX",
+        "app_type": null,
+        "role": "SAP_BR_ADMIN_APR_FICA_US | SAP_BR_APR_ACCOUNTANT_FICA_US",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 7,
+        "name": "Process Payment Cards",
+        "fiori_app_id": "F3542",
+        "technical_transaction": "FPCS",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 8,
+        "name": "Process Payment Service Providers",
+        "fiori_app_id": "F3771",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 9,
+        "name": "Import and Process Payment Advices/for payments by Link",
+        "fiori_app_id": "F6729",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 10,
+        "name": "Manage Bank Statements",
+        "fiori_app_id": "F1564",
+        "technical_transaction": "FF.6",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_ADMIN_APR_FICA | SAP_BR_CASH_MANAGER",
+        "component": "FI-FIO-AR-PAY"
+      },
+      {
+        "step_no": 11,
+        "name": "Manage Incoming Payment Files",
+        "fiori_app_id": "F1680",
+        "technical_transaction": "FF.5",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-FIO-AR-PAY"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "094c37b6d2c342fe8b91c98e1114f209",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "094c37b6d2c342fe8b91c98e1114f209",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Maintain Business Partner",
+        "type": "userTask",
+        "role": "Accounts Payable \nand Receivable Accountant (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Maintain Contract Account",
+        "type": "userTask",
+        "role": "Accounts Payable \nand Receivable Accountant (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Payment Service Provider Refund",
+        "type": "userTask",
+        "role": "Administrator - Accounts \nPayable and Receivable (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Post Document Cleared by Payment service provider",
+        "type": "userTask",
+        "role": "Accounts Payable \nand Receivable Accountant (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Payment Service Provider Settlement",
+        "type": "userTask",
+        "role": "Administrator - Accounts \nPayable and Receivable (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Post Settlement Document",
+        "type": "userTask",
+        "role": "Administrator - Accounts \nPayable and Receivable (FI-CA)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

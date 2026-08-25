@@ -1,0 +1,85 @@
+{
+  "scope_item_id": "31G",
+  "title": "Chemical Compliance Approval for Purchased Material and Supplier",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Product Compliance"
+    ],
+    "L3_scope_item": "31G - Chemical Compliance Approval for Purchased Material and Supplier",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Monitor Raw Material Compliance",
+        "fiori_app_id": "F3024",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_PCL",
+        "component": "EHS-SUS-FND"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Supplier Compliance",
+        "fiori_app_id": "F3034",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_PCL",
+        "component": "EHS-SUS-FND"
+      },
+      {
+        "step_no": 3,
+        "name": "Process Compliance Disclosures - For Suppliers",
+        "fiori_app_id": "F7370",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_PCL",
+        "component": "EHS-SUS-FND"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "3a2a37d67e2e43a4aee08a03e1c802f4",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "3a2a37d67e2e43a4aee08a03e1c802f4",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Assign Supplier to Raw Material",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Compliance",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Maintain Supplier Compliance Data",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Compliance",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Assess Compliance of Raw Material",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Compliance",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

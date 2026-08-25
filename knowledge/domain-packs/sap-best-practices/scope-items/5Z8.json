@@ -1,0 +1,77 @@
+{
+  "scope_item_id": "5Z8",
+  "title": "Tax Posting Proposal",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Financial Operations"
+    ],
+    "L3_scope_item": "5Z8 - Tax Posting Proposal",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Tax Jobs for Cross-Border Transactions",
+        "fiori_app_id": "F8218",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-TXL-TGM-CTP"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "653f829425894fd6a13ac78eb8766f52",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "653f829425894fd6a13ac78eb8766f52",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "1IU - Create Consignment Fill-Up",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Post Goods Issue",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Schedule Tax Jobs",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Manage Proposed Tax Postings",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Posted Finance Document in Finance",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Tax Declaration, VAT Return",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

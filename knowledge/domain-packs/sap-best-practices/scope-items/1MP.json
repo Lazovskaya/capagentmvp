@@ -1,0 +1,203 @@
+{
+  "scope_item_id": "1MP",
+  "title": "Quality Management in Sales",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Inventory",
+      "Quality Management"
+    ],
+    "L3_scope_item": "1MP - Quality Management in Sales",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Create Outbound Deliveries - From Sales Orders",
+        "fiori_app_id": "F0869A",
+        "technical_transaction": "VL10A",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Transfer Stock - In Plant",
+        "fiori_app_id": "F1061",
+        "technical_transaction": "MB1B",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_INVENTORY_MANAGER | SAP_BR_WAREHOUSE_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 3,
+        "name": "Record Inspection Results",
+        "fiori_app_id": "F1685",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_TECHNICIAN",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Inspection Lots",
+        "fiori_app_id": "F2343",
+        "technical_transaction": "QA32",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER | SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_TECHNICIAN",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 5,
+        "name": "Quality Engineer Overview",
+        "fiori_app_id": "F2360",
+        "technical_transaction": "QA32",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 6,
+        "name": "Quality Technician Overview",
+        "fiori_app_id": "F2361",
+        "technical_transaction": "QA32",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_TECHNICIAN",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 7,
+        "name": "Results History",
+        "fiori_app_id": "F2428",
+        "technical_transaction": "QGA4",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_TECHNICIAN | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_QUALITY_MANAGER | SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 8,
+        "name": "Record Inspection Results in Table Form",
+        "fiori_app_id": "F3365",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_TECHNICIAN",
+        "component": "QM-IM-RR"
+      },
+      {
+        "step_no": 9,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "73199d2e142d4de3aac82763d652e668",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "73199d2e142d4de3aac82763d652e668",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Sales Order",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Display Inspection Plan for Inspection Characteristics (Optional)",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": true
+      },
+      {
+        "seq": 3,
+        "name": "Create Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Execute Picking",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Display Quality Technician Overview (optional)",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": true
+      },
+      {
+        "seq": 6,
+        "name": "Display Open Inspection Lots (optional)",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": true
+      },
+      {
+        "seq": 7,
+        "name": "Record Quantitative and Qualitative Inspection Results",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Display Quality Engineer Overview (Optional)",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": true
+      },
+      {
+        "seq": 9,
+        "name": "Make Usage Decision",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Post Unrestricted Stock to Blocked Stock",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Post Goods Issue for Outbound Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Display Inspection Results History                 \n(Optional)",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

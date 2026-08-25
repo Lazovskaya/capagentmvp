@@ -1,0 +1,220 @@
+{
+  "scope_item_id": "4VT",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Maintenance Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "29331a127ad4476cb12d60293c3c2aed",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "29331a127ad4476cb12d60293c3c2aed",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Improvement Order",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Time \nConfirmation of Pre and Main Operations",
+        "type": "userTask",
+        "role": "Maintenance Technician",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Review \nand Set Main Work Completed",
+        "type": "userTask",
+        "role": "Maintenance Supervisor",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Plan \nImprovement Order",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Time Confirmation of Post Operations",
+        "type": "userTask",
+        "role": "Maintenance Technician",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Assign \nWork Package to Order",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Review Improvement Orders",
+        "type": "userTask",
+        "role": "Maintenance Supervisor",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Submit \nOrder for Approval",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Technically Compete Order",
+        "type": "userTask",
+        "role": "Maintenance Supervisor",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Review Maintenance Orders",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Release \nOrder for Preparation",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Monitor \nMaintenance Backlog for Readiness",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Create \nMaterial / Service PR",
+        "type": "serviceTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Set Order \nto Ready for Scheduling",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Convert \nService PR into PO",
+        "type": "serviceTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Convert \nMaterial PR into PO",
+        "type": "serviceTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Schedule Orders",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Manage \nService Entry Sheet",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Post \nGoods Receipt",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 20,
+        "name": "Set \nOrders to Ready for Execution",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 21,
+        "name": "Create \nSupplier Invoice",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 22,
+        "name": "Release \nSupplier Invoice",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 14,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 14,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 20,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 22,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

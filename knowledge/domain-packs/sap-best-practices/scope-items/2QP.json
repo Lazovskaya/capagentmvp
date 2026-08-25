@@ -1,0 +1,108 @@
+{
+  "scope_item_id": "2QP",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Quality Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "6a9cbca67a294c60b1e240814d2353ab",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "6a9cbca67a294c60b1e240814d2353ab",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Quality Notification with Basic Data",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Capture Defects, Define Root Cause Analysis, and Document Immediate Actions",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Define Corrective Actions",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Execute Root Cause Analysis and Corrective Actions, and Document Outcome",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Review Root Cause Analysis and Document Root Cause, Review Corrective Actions",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Define Preventive Actions",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Execute Preventive Actions and Document Outcome",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Review Preventive Actions",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Complete Quality Notification",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Display a List of Quality Notifications (Optional)",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": true
+      },
+      {
+        "seq": 11,
+        "name": "Display a List of Quality Notifications Tasks (Optional)",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

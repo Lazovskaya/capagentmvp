@@ -1,0 +1,125 @@
+{
+  "scope_item_id": "5IK",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Subscription Billing and Revenue Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "f3cf2774fce94b5bb4a3124586ce037d",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "f3cf2774fce94b5bb4a3124586ce037d",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Define mandatory address fields",
+        "type": "userTask",
+        "role": "SAP Subscription Billing User",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Customer",
+        "type": "userTask",
+        "role": "SAP Subscription Billing User",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Corporate Customer",
+        "type": "userTask",
+        "role": "SAP Subscription Billing User",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Individual Customert",
+        "type": "userTask",
+        "role": "SAP Subscription Billing User",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Assign Contact person",
+        "type": "userTask",
+        "role": "SAP Subscription Billing User",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Assign Market",
+        "type": "userTask",
+        "role": "SAP Subscription Billing User",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Check Address Completeness",
+        "type": "userTask",
+        "role": "SAP Subscription Billing User",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Save Customer",
+        "type": "userTask",
+        "role": "SAP Subscription Billing User",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Display Customer",
+        "type": "userTask",
+        "role": "SAP Subscription Billing User",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Create Business Partner",
+        "type": "scriptTask",
+        "role": "Master Data Specialist - Business Partner Data",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Create Contract Account",
+        "type": "userTask",
+        "role": "Master Data Specialist - Business Partner Data",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Update Contract Account in Business Partner",
+        "type": "userTask",
+        "role": "Master Data Specialist - Business Partner Data",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 8,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

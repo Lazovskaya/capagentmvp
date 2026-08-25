@@ -1,0 +1,175 @@
+{
+  "scope_item_id": "BMY",
+  "title": "Subcontracting",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Inventory",
+      "Invoice Management",
+      "Manufacturing Options",
+      "Operational Procurement"
+    ],
+    "L3_scope_item": "BMY - Subcontracting",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Inbox",
+        "fiori_app_id": "F0862",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER",
+        "component": "CA-INB-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Post Goods Receipt for Purchasing Document",
+        "fiori_app_id": "F0843",
+        "technical_transaction": "MB01",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_INVENTORY_MANAGER | SAP_BR_WAREHOUSE_CLERK",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Supplier Invoices",
+        "fiori_app_id": "F0859",
+        "technical_transaction": "F-41",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AA_ACCOUNTANT | SAP_BR_PURCHASING_MANAGER",
+        "component": "MM-FIO-IV"
+      },
+      {
+        "step_no": 4,
+        "name": "Process Purchase Requisitions ( Version 2 )",
+        "fiori_app_id": "F1048A",
+        "technical_transaction": "ME59N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-SOC"
+      },
+      {
+        "step_no": 5,
+        "name": "Subcontracting Cockpit",
+        "fiori_app_id": "F2948",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_MANAGER",
+        "component": "MM-PUR-GF-SCR"
+      },
+      {
+        "step_no": 6,
+        "name": "Monitor Subcontracting Documents",
+        "fiori_app_id": "F3095",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-PUR-GF-SCR"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "4ca068f0518843e983603a40ca01e9b0",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "4ca068f0518843e983603a40ca01e9b0",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Convert Purchase Requisition to Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Approve Purchase Orders (Optional)",
+        "type": "userTask",
+        "role": "Purchasing Manager",
+        "optional": true
+      },
+      {
+        "seq": 4,
+        "name": "Monitor Subcontracting Documents (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "Option 2: Transfer Posting",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Create Outbound Delivery",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Pick and Post Goods Issue",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Post Goods Receipt",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Create Supplier Invoice",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Review Supplier Invoice (Optional)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

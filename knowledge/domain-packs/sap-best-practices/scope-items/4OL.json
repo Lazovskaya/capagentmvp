@@ -1,0 +1,200 @@
+{
+  "scope_item_id": "4OL",
+  "title": "Substance Volume Tracking",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Product Compliance"
+    ],
+    "L3_scope_item": "4OL - Substance Volume Tracking",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Legal Entity Mappings",
+        "fiori_app_id": "F5935",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DG_SPLST_PCL | SAP_BR_PRODSTWRD_SPLST_PCL",
+        "component": "EHS-SUS-FND"
+      },
+      {
+        "step_no": 2,
+        "name": "Process Requests from Logistics",
+        "fiori_app_id": "F3342",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DG_SPLST_PCL | SAP_BR_MD_SPECIALIST_PCL | SAP_BR_PRODSTWRD_SPLST_PCL",
+        "component": "EHS-SUS-PMA"
+      },
+      {
+        "step_no": 3,
+        "name": "Monitor Substance Volumes",
+        "fiori_app_id": "F4693",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_PCL",
+        "component": "EHS-SUS-PMA"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Outbound Deliveries",
+        "fiori_app_id": "F0867A",
+        "technical_transaction": "VL06G",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 5,
+        "name": "Create Outbound Deliveries - From Sales Orders",
+        "fiori_app_id": "F0869A",
+        "technical_transaction": "VL10A",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 6,
+        "name": "Pick Outbound Delivery",
+        "fiori_app_id": "F0868",
+        "technical_transaction": "VL06P",
+        "app_type": null,
+        "role": "SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_SHIPPING_SPECIALIST",
+        "component": "LE-SHP-FIO-NAT"
+      },
+      {
+        "step_no": 7,
+        "name": "Post Goods Receipt for Purchasing Document",
+        "fiori_app_id": "F0843",
+        "technical_transaction": "MB01",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_INVENTORY_MANAGER | SAP_BR_WAREHOUSE_CLERK",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 8,
+        "name": "Stock - Single Material",
+        "fiori_app_id": "F1076",
+        "technical_transaction": "MB52",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_INVENTORY_MANAGER | SAP_BR_PRODN_PLNR | SAP_BR_WAREHOUSE_CLERK | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 9,
+        "name": "Manage Purchase Requisition Professional",
+        "fiori_app_id": "F2229",
+        "technical_transaction": "ME51N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-PRF"
+      },
+      {
+        "step_no": 10,
+        "name": "Process Purchase Requisitions ( Version 2 )",
+        "fiori_app_id": "F1048A",
+        "technical_transaction": "ME59N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-SOC"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "89d4e7db6135466b98ae2d94b409ff8d",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "89d4e7db6135466b98ae2d94b409ff8d",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Purchase Requisition",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Convert Purchase Requisitions to Purchase Orders",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Post Goods Receipt for Purchase Order",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Analyze Stock Overview (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "Create Process Order",
+        "type": "userTask",
+        "role": "Production Supervisor - Process Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Manual Goods Issue",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Confirm Process Order",
+        "type": "userTask",
+        "role": "Production Supervisor - Process Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Post Goods Receipt for process order",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Create Sales Order",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Create Outbound Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Post Goods Issue",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Monitor Substance Volumes",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Compliance",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

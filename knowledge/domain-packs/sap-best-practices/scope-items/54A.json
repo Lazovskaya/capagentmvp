@@ -1,0 +1,30 @@
+{
+  "scope_item_id": "54A",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Environment, Health, and Safety"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "9f7f28686be64959bf2c4df0c4498b24",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "9f7f28686be64959bf2c4df0c4498b24",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

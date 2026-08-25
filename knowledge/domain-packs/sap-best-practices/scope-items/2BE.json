@@ -1,0 +1,81 @@
+{
+  "scope_item_id": "2BE",
+  "title": "Convergent Invoicing \u2013 Invoice Correction Processing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting",
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Advanced Financial Operations",
+      "Subscription Billing and Revenue Management"
+    ],
+    "L3_scope_item": "2BE - Convergent Invoicing \u2013 Invoice Correction Processing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Invoicing Documents",
+        "fiori_app_id": "F2048",
+        "technical_transaction": "FKKINVDOC_DISP",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_SPEC_CINV | SAP_BR_INVOICING_ADMIN_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Display Billing Documents",
+        "fiori_app_id": "F2250",
+        "technical_transaction": "FKKINVBILL_DISP",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV | SAP_BR_INVOICING_SPEC_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Credit/Debit Memos",
+        "fiori_app_id": "F2389",
+        "technical_transaction": "FKKBIX_BILLREQ_MON",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_SPEC_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 4,
+        "name": "Execute Invoicing",
+        "fiori_app_id": "F3524",
+        "technical_transaction": "FKKINV_MA",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 5,
+        "name": "Execute Billing",
+        "fiori_app_id": "F3525",
+        "technical_transaction": "FKKBIX_MA",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 6,
+        "name": "Print Correspondence",
+        "fiori_app_id": "F3537",
+        "technical_transaction": "FPCOPARA",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV | SAP_BR_ADMIN_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CAC-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "d856e1dea4e0416a91639a3f5e0920df",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "d856e1dea4e0416a91639a3f5e0920df",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [],
+    "dependencies": []
+  }
+}

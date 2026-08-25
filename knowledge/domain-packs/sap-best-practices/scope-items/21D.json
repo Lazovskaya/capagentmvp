@@ -1,0 +1,74 @@
+{
+  "scope_item_id": "21D",
+  "title": "Make-to-Stock Production with Variant Configuration",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate",
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Manufacturing Operations",
+      "Product Engineering",
+      "Product Lifecycle Management",
+      "Production Planning"
+    ],
+    "L3_scope_item": "21D - Make-to-Stock Production with Variant Configuration",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "f7d57888029b421e8e549f01c968aa6e",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "f7d57888029b421e8e549f01c968aa6e",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Production Planning for Material Variant",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Production Execution for Material Variant",
+        "type": "userTask",
+        "role": "Production Supervisor",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Sales Order With Material Variant",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Delivery Processing of Sales Order",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Billing of Sales Order",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

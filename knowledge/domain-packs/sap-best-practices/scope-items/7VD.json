@@ -1,0 +1,30 @@
+{
+  "scope_item_id": "7VD",
+  "title": "Material Replenishment with Kanban \u2013 Stock Transfer within EWM",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Supply Chain",
+    "L3_scope_item": "7VD - Material Replenishment with Kanban \u2013 Stock Transfer within EWM",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Set Kanban Container Status",
+        "fiori_app_id": "F3717",
+        "technical_transaction": "PKBC",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_OPTR_LEAN_MFG",
+        "component": "PP-KAB-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Kanban Board",
+        "fiori_app_id": "F4630",
+        "technical_transaction": "PK13N",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR_LEAN_MFG | SAP_BR_PRODN_SUPVR_LEAN_MFG | SAP_BR_PRODN_OPTR_LEAN_MFG",
+        "component": "PP-KAB-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

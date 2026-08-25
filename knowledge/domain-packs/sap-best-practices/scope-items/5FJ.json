@@ -1,0 +1,67 @@
+{
+  "scope_item_id": "5FJ",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Retail"
+    ],
+    "L2_core_process": [
+      "Retail"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "6bdfc86b17ba40808010b676d2f3b6af",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "6bdfc86b17ba40808010b676d2f3b6af",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create merchandise category",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Maintain merchandise category",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Display merchandise category",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Change Merchandise category hierarchy level",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Display Merchandise category hierarchy",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Delete Merchandise category hierarchy",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data (Retail)",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

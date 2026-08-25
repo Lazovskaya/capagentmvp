@@ -1,0 +1,88 @@
+{
+  "scope_item_id": "5QC",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Product Lifecycle Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "e96b130afcd947829de3c4d0d204cc1c",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "e96b130afcd947829de3c4d0d204cc1c",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Change Records",
+        "type": "userTask",
+        "role": "Development Manager - Process Industry",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Assign Master Recipes / Products & Set Processing Status",
+        "type": "userTask",
+        "role": "Production Engineer - Process Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Submit Change Request",
+        "type": "userTask",
+        "role": "Production Engineer - Process Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Check Change Request",
+        "type": "userTask",
+        "role": "Development Manager - Process Industry",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Approve Change Request",
+        "type": "userTask",
+        "role": "Development Manager - Process Industry",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Start Change Implementation",
+        "type": "userTask",
+        "role": "Development Manager - Process Industry",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Perform Master Recipe / Product Master Changes",
+        "type": "userTask",
+        "role": "Production Engineer - Process Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Close Change Implementation",
+        "type": "userTask",
+        "role": "Development Manager - Process Industry",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Release Change",
+        "type": "userTask",
+        "role": "Development Manager - Process Industry",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

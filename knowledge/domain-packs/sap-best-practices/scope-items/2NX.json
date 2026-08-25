@@ -1,0 +1,231 @@
+{
+  "scope_item_id": "2NX",
+  "title": "Scheduling Agreement for Subcontracting Procurement",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Operational Procurement"
+    ],
+    "L3_scope_item": "2NX - Scheduling Agreement for Subcontracting Procurement",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Inbox",
+        "fiori_app_id": "F0862",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER",
+        "component": "CA-INB-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Pick Outbound Delivery",
+        "fiori_app_id": "F0868",
+        "technical_transaction": "VL06P",
+        "app_type": null,
+        "role": "SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_SHIPPING_SPECIALIST",
+        "component": "LE-SHP-FIO-NAT"
+      },
+      {
+        "step_no": 3,
+        "name": "Post Goods Receipt for Purchasing Document",
+        "fiori_app_id": "F0843",
+        "technical_transaction": "MB01",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_INVENTORY_MANAGER | SAP_BR_WAREHOUSE_CLERK",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Supplier Invoices",
+        "fiori_app_id": "F0859",
+        "technical_transaction": "F-41",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AA_ACCOUNTANT | SAP_BR_PURCHASING_MANAGER",
+        "component": "MM-FIO-IV"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Scheduling Agreement",
+        "fiori_app_id": "F2179",
+        "technical_transaction": "ME31L",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST | SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-SQ-SCH"
+      },
+      {
+        "step_no": 6,
+        "name": "Subcontracting Cockpit",
+        "fiori_app_id": "F2948",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_MANAGER",
+        "component": "MM-PUR-GF-SCR"
+      },
+      {
+        "step_no": 7,
+        "name": "Monitor Subcontracting Documents",
+        "fiori_app_id": "F3095",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-PUR-GF-SCR"
+      },
+      {
+        "step_no": 8,
+        "name": "Schedule MRP Runs",
+        "fiori_app_id": "F1339",
+        "technical_transaction": "MD01",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_PRODN_PLNR | SAP_BR_RPLNMT_SPCLST_DC_RFM",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 9,
+        "name": "Maintain PIRs",
+        "fiori_app_id": "F3445",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RPLNMT_SPCLST_ST_RFM | SAP_BR_PRODN_PLNR | SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "8ac53957d4db4037ba6701dd0d722ebb",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "8ac53957d4db4037ba6701dd0d722ebb",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Planned Independent Requirements",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Scheduling Agreement - Subcontracting",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Purchase Requisition",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "MRP Run",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Convert Purchase Requisition to Scheduling Agreement - Subcontracting",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Evaluate Stock Requirement Situation",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Approve Scheduling Agreement (Optional)",
+        "type": "userTask",
+        "role": "Purchasing Manager",
+        "optional": true
+      },
+      {
+        "seq": 8,
+        "name": "Maintain Delivery Schedule",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Print Scheduling Agreement",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Monitor Subcontracting Documents (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 11,
+        "name": "Create Outbound Delivery",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Pick and Post Goods Issue",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Post Goods Receipt",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Create Supplier Invoice",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

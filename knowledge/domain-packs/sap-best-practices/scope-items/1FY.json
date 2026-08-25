@@ -1,0 +1,133 @@
+{
+  "scope_item_id": "1FY",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Warehousing"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "def32e274c1645e7bd6ab80c5dce84fc",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "def32e274c1645e7bd6ab80c5dce84fc",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Replenish Stock",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Automatic Replenishment",
+        "type": "serviceTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Replenishment Warehouse Tasks",
+        "type": "serviceTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Check Replenishment Warehouse Tasks (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "Process Replenishment of Bulk Storage Picking Area",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Move Handling Unit to Handover Point",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Putaway of Handling Unit in Destination Bin",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Move Handling Unit to Handover Point",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Move Handling Units from Handover Point to the Mezzanine",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Move Handling Unit between Handover Points",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Putaway of Handling Unit in Destination Aisle",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 9,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

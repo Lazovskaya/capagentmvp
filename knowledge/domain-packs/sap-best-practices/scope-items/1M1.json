@@ -1,0 +1,185 @@
+{
+  "scope_item_id": "1M1",
+  "title": "Travel Expense Processing with SAP Concur",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Financial Operations"
+    ],
+    "L3_scope_item": "1M1 - Travel Expense Processing with SAP Concur",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Service Orders (Version 2)",
+        "fiori_app_id": "F3571A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BILLING_CLERK | SAP_BR_SOLN_ORDER_SPCLST | SAP_BR_INTERNAL_SALES_REP | SAP_BR_SERVICE_PLANNER | SAP_BR_CREDIT_CONTROLLER | SAP_BR_CUSTOMER_SRVC_MGR",
+        "component": "CRM-S4-SRV-SVO-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Project Control - Enterprise Projects",
+        "fiori_app_id": "F3215",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_PROJ_PROC_CONTROLLER | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_PROJECTMANAGER | SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-STR-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "4aae02b8a1b54d019a3d412b2631220c",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "4aae02b8a1b54d019a3d412b2631220c",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Expense Report",
+        "type": "manualTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Select Expense Report to be Reopened",
+        "type": "manualTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Add Travel Allowance",
+        "type": "manualTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Changing Controlling Object Assignment",
+        "type": "manualTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Maintain Expense Report Header",
+        "type": "manualTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Submit Expense Report",
+        "type": "manualTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Select Controlling Object",
+        "type": "manualTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Check Expense Report",
+        "type": "manualTask",
+        "role": "Approver",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Create Expense Entry",
+        "type": "manualTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Change Controlling Object Allocation for Entry",
+        "type": "manualTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Send Back to Employee including Comments",
+        "type": "manualTask",
+        "role": "Approver",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Approve Expense Report",
+        "type": "manualTask",
+        "role": "Approver",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Check Expense Report",
+        "type": "manualTask",
+        "role": "Processor",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Approve Expense Report",
+        "type": "manualTask",
+        "role": "Processor",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Send to Financial Integration Service",
+        "type": "serviceTask",
+        "role": "Processor",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Mixed"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Mixed"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 12,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 13,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "scope_item_id": "J62",
+  "title": "Asset Accounting",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close"
+    ],
+    "L3_scope_item": "J62 - Asset Accounting",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Inbox",
+        "fiori_app_id": "F0862",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER",
+        "component": "CA-INB-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Asset Transactions",
+        "fiori_app_id": "F1614",
+        "technical_transaction": "AR05",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT",
+        "component": "FI-FIO-AA"
+      },
+      {
+        "step_no": 3,
+        "name": "Depreciation Lists",
+        "fiori_app_id": "F1616",
+        "technical_transaction": "AR03",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT",
+        "component": "FI-FIO-AA"
+      },
+      {
+        "step_no": 4,
+        "name": "Schedule Asset Accounting Jobs",
+        "fiori_app_id": "F1914",
+        "technical_transaction": "AFAB",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT_JP",
+        "component": "FI-FIO-AA"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Fixed Assets (New Version)",
+        "fiori_app_id": "F3425A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT_BR | SAP_BR_RECM_VALSPECIALIST | SAP_BR_EXTERNAL_AUDITOR",
+        "component": "FI-FIO-AA-MD"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Legacy Assets (New Version)",
+        "fiori_app_id": "F7280A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECM_VALSPECIALIST | SAP_BR_AA_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT_BR",
+        "component": "FI-FIO-AA-MD"
+      },
+      {
+        "step_no": 7,
+        "name": "Post Asset Transfer",
+        "fiori_app_id": "F9302",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT",
+        "component": "FI-FIO-AA-PST"
+      },
+      {
+        "step_no": 8,
+        "name": "Manage Journal Entries",
+        "fiori_app_id": "F0717",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_AU | SAP_BR_AR_MANAGER | SAP_BR_GL_ACCOUNTANT_BE | SAP_BR_CREDIT_CONTROLLER | SAP_BR_GL_ACCOUNTANT_NL | SAP_BR_GL_ACCOUNTANT | SAP_BR_CASH_MANAGER | SAP_BR_GL_ACCOUNTANT_SG | SAP_BR_RECONC_SPEC_APR_FICA | SAP_BR_GL_ACCOUNTANT_TR | SAP_BR_PROJ_FIN_CONTROLLER | SAP_BR_GL_ACCOUNTANT_FR | SAP_BR_TREASURY_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT | SAP_BR_WAREHOUSE_CLERK | SAP_BR_GL_ACCOUNTANT_ES | SAP_BR_GL_ACCOUNTANT_SE | SAP_BR_CASH_MANAGER_MY | SAP_BR_GL_ACCOUNTANT_ZA | SAP_BR_GL_ACCOUNTANT_CA | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT_MY | SAP_BR_GL_ACCOUNTANT_IL | SAP_BR_ADMIN_APR_FICA | SAP_BR_GL_ACCOUNTANT_NZ | SAP_BR_AP_MANAGER | SAP_BR_CASH_MANAGER_TH | SAP_BR_GL_ACCOUNTANT_TH | SAP_BR_GL_ACCOUNTANT_CH | SAP_BR_CASH_SPECIALIST | SAP_BR_GL_ACCOUNTANT_PT | SAP_BR_GL_ACCOUNTANT_RU | SAP_BR_GL_ACCOUNTANT_FI | SAP_BR_TREASURY_RISK_MANAGER | SAP_BR_INVENTORY_MANAGER | SAP_BR_GL_ACCOUNTANT_IT | SAP_BR_GL_ACCOUNTANT_NO | SAP_BR_GL_ACCOUNTANT_AT | SAP_BR_GL_ACCOUNTANT_DK | SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_GL_ACCOUNTANT_LU",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 9,
+        "name": "Schedule Japan Asset Accounting Reports",
+        "fiori_app_id": "F5115",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT_JP",
+        "component": "FI-LOC-AA-JP"
+      },
+      {
+        "step_no": 10,
+        "name": "Post Goods Receipt for Purchasing Document",
+        "fiori_app_id": "F0843",
+        "technical_transaction": "MB01",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_INVENTORY_MANAGER | SAP_BR_WAREHOUSE_CLERK",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 11,
+        "name": "Manage Purchase Orders (Version 2)",
+        "fiori_app_id": "F0842A",
+        "technical_transaction": "ME21",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-PO"
+      },
+      {
+        "step_no": 12,
+        "name": "Process Purchase Requisitions",
+        "fiori_app_id": "F1048",
+        "technical_transaction": "ME59N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-SOC"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "00679c239e244726832c4e48145a2784",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "00679c239e244726832c4e48145a2784",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [],
+    "dependencies": []
+  }
+}

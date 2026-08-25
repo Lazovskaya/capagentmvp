@@ -1,0 +1,137 @@
+{
+  "scope_item_id": "31N",
+  "title": "Situation Handling",
+  "hierarchy": {
+    "L1_value_stream": [
+      "IT and Cross-Application"
+    ],
+    "L2_core_process": [
+      "Process Management and Integration"
+    ],
+    "L3_scope_item": "31N - Situation Handling",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Monitor Situations",
+        "fiori_app_id": "F3264",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BPC_EXPERT",
+        "component": "CA-SIT-DA"
+      },
+      {
+        "step_no": 2,
+        "name": "Monitor Situations - Extended",
+        "fiori_app_id": "F6780",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BPC_EXPERT",
+        "component": "CA-SIT-DA"
+      },
+      {
+        "step_no": 3,
+        "name": "My Situations",
+        "fiori_app_id": "F4154",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_TREASURY_SPECIALIST_FOE | SAP_BR_EMPLOYEE",
+        "component": "CA-SIT-ENG"
+      },
+      {
+        "step_no": 4,
+        "name": "My Situations - Extended",
+        "fiori_app_id": "F4537",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_FOE | SAP_BR_EMPLOYEE | SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "CA-SIT-ENG"
+      },
+      {
+        "step_no": 5,
+        "name": "Situation Handling Demo",
+        "fiori_app_id": "F5697",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BPC_EXPERT",
+        "component": "CA-SIT-ENG"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Situation Types",
+        "fiori_app_id": "F2947",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BPC_EXPERT",
+        "component": "CA-SIT-WB"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Situation Types - Extended",
+        "fiori_app_id": "F5437",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BPC_EXPERT",
+        "component": "CA-SIT-WB"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "8b48012731484e10ac9c9a3f39550263",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "8b48012731484e10ac9c9a3f39550263",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Define teams and responsibilities",
+        "type": "userTask",
+        "role": "Business Process Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Define situation types",
+        "type": "userTask",
+        "role": "Configuration Expert - Business Process Configuration",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Check notifications",
+        "type": "userTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Review open situations",
+        "type": "userTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Monitor situation instances",
+        "type": "userTask",
+        "role": "Configuration Expert - Business Process Configuration",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Resolve situations",
+        "type": "userTask",
+        "role": "Employee",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

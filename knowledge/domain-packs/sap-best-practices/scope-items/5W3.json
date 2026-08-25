@@ -1,0 +1,104 @@
+{
+  "scope_item_id": "5W3",
+  "title": "Procurement of Production Components \u2013 Consumer Products",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Central Procurement",
+      "Invoice Management",
+      "Operational Procurement",
+      "Procurement Analytics",
+      "Sourcing and Contract Management"
+    ],
+    "L3_scope_item": "5W3 - Procurement of Production Components \u2013 Consumer Products",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Inbox for Legal Contract",
+        "fiori_app_id": "F5331",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_LEGAL_COUNSEL | SAP_BR_EMPLOYEE_LEGAL_CONTENT | SAP_BR_ADMINISTRATOR_LCM",
+        "component": "CM-GF"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "67e6fdd2043b499facecbaf2f8acfcb3",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "67e6fdd2043b499facecbaf2f8acfcb3",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Option 2: Create Purchase Requisition manually",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Option 1: Create Purchase Requisition via MRP run",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Approve Purchase Requisition",
+        "type": "userTask",
+        "role": "Manager - Procurement",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Automatic Conversion of Purchase Requisition to Purchase Order",
+        "type": "serviceTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Approve Purchase Order",
+        "type": "userTask",
+        "role": "Purchasing Manager",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Post Goods Receipt",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Batch Information Cockpit \u2013 Top Down and Bottom-Up-Analysis",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

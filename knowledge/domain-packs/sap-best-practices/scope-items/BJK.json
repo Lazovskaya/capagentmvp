@@ -1,0 +1,86 @@
+{
+  "scope_item_id": "BJK",
+  "title": "Production Subcontracting \u2013 External Processing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Manufacturing Operations",
+      "Manufacturing Options"
+    ],
+    "L3_scope_item": "BJK - Production Subcontracting \u2013 External Processing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Supplier Invoices",
+        "fiori_app_id": "F0859",
+        "technical_transaction": "F-41",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AA_ACCOUNTANT | SAP_BR_PURCHASING_MANAGER",
+        "component": "MM-FIO-IV"
+      },
+      {
+        "step_no": 2,
+        "name": "Process Purchase Requisitions",
+        "fiori_app_id": "F1048",
+        "technical_transaction": "ME59N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-SOC"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "52f0325643bb4d4a809503928a16aac8",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "52f0325643bb4d4a809503928a16aac8",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Production Order with Subcontract Operation",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Purchase Order for External Processing",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Ship material to vendor (Subcontracting for external processing)",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Post Goods Receipt for Subcontract Purchase Order",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Enter Incoming Supplier Invoice",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

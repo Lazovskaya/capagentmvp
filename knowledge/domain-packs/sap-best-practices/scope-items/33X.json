@@ -1,0 +1,150 @@
+{
+  "scope_item_id": "33X",
+  "title": "Contract Accounting \u2013 Group Ledger IFRS",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Financial Operations"
+    ],
+    "L3_scope_item": "33X - Contract Accounting \u2013 Group Ledger IFRS",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Prepare Value Adjustment Analysis",
+        "fiori_app_id": "F3843",
+        "technical_transaction": "FPRT",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Display Posted Value Adjustments",
+        "fiori_app_id": "F4824",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_COLL_SPECIALIST_FICA | SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_RECONC_SPEC_APR_FICA | SAP_BR_EXT_AUDITOR_APR_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Adjust Receivables according to Age",
+        "fiori_app_id": "F3535",
+        "technical_transaction": "FPRW",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 4,
+        "name": "Creation Run Open Item List for Key Date",
+        "fiori_app_id": "F3538",
+        "technical_transaction": "FPO1P",
+        "app_type": null,
+        "role": "SAP_BR_RECONC_SPEC_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 5,
+        "name": "Post Value Adjustments",
+        "fiori_app_id": "F3539",
+        "technical_transaction": "FPRV",
+        "app_type": null,
+        "role": "SAP_BR_ADMIN_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 6,
+        "name": "Foreign Currency Valuation Run",
+        "fiori_app_id": "F5985",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_RECONC_SPEC_APR_FICA",
+        "component": "FI-CAC-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "cb75035814f045aa98ae39a6099cbe2d",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "cb75035814f045aa98ae39a6099cbe2d",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Adjust Receivables",
+        "type": "userTask",
+        "role": "Accounts Payable and Receivable Accountant (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Process Foreign Currency Valuation",
+        "type": "userTask",
+        "role": "Reconciliation Specialist - Accounts Payable and Receivable (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Adjust Receivables according to Age \u2013 Mass Run",
+        "type": "userTask",
+        "role": "Administrator - Accounts Payable and Receivable (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Display Foreign Currency Valuation",
+        "type": "userTask",
+        "role": "Reconciliation Specialist - Accounts Payable and Receivable (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Transfer Adjusted Receivables \u2013 Mass Run",
+        "type": "userTask",
+        "role": "Administrator - Accounts Payable and Receivable (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Display Receivable Adjustments Transferred",
+        "type": "userTask",
+        "role": "Accounts Payable and Receivable Accountant (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Deferred Inverse Posting for Foreign Currency Valuation",
+        "type": "userTask",
+        "role": "Reconciliation Specialist - Accounts Payable and Receivable (FI-CA)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

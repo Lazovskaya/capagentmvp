@@ -1,0 +1,56 @@
+{
+  "scope_item_id": "1FU",
+  "title": "Initial Stock Upload for Warehouse",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Warehousing"
+    ],
+    "L3_scope_item": "1FU - Initial Stock Upload for Warehouse",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Material Documents Overview",
+        "fiori_app_id": "F1077",
+        "technical_transaction": "MB51",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_MAINT_SUPERVISOR | SAP_BR_EMPLOYEE_PROCUREMENT | SAP_BR_GL_ACCOUNTANT | SAP_BR_INVENTORY_MANAGER | SAP_BR_PRODN_PLNR | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_WAREHOUSE_CLERK | SAP_BR_ADMINISTRATOR_RFM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_SERVICE_MANAGER | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_EMPLOYEE | SAP_BR_CUSTOMER_SALES_MGR",
+        "component": "MM-FIO-IM-SGM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "37a26d71303746ccbc9dcc9ee9daef01",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "37a26d71303746ccbc9dcc9ee9daef01",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Upload Initial Stock in the SAP EWM in SAP S/4HANA",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Update Stock in System",
+        "type": "serviceTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Check Material Documents (Optional)",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": true
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "scope_item_id": "2NY",
+  "title": "Scheduling Agreement for Consignment Procurement",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Operational Procurement"
+    ],
+    "L3_scope_item": "2NY - Scheduling Agreement for Consignment Procurement",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Inbox",
+        "fiori_app_id": "F0862",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER",
+        "component": "CA-INB-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Post Goods Receipt for Purchasing Document",
+        "fiori_app_id": "F0843",
+        "technical_transaction": "MB01",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_INVENTORY_MANAGER | SAP_BR_WAREHOUSE_CLERK",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 3,
+        "name": "Transfer Stock - In Plant",
+        "fiori_app_id": "F1061",
+        "technical_transaction": "MB1B",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_INVENTORY_MANAGER | SAP_BR_WAREHOUSE_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 4,
+        "name": "Schedule Supplier Invoice Jobs - Advanced",
+        "fiori_app_id": "F1683",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT",
+        "component": "MM-FIO-IV"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Scheduling Agreement",
+        "fiori_app_id": "F2179",
+        "technical_transaction": "ME31L",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST | SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-SQ-SCH"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "d2b65759ced744b0a4eac36504a9bc59",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "d2b65759ced744b0a4eac36504a9bc59",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Creating Scheduling Agreement Consignment",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Creating Purchase Requisition - Consignment",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Converting Purchase Requisitions to Scheduling Agreement - Consignment",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Approving Scheduling Agreement (Optional)",
+        "type": "userTask",
+        "role": "Purchasing Manager",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "Maintaining Delivery Schedule",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Printing Scheduling Agreement",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Evaluating the Stock/Requirement Situation",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Posting Goods Receipt",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Transferring Posting from Vendor Consigned Stock to Own Stock",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Invoicing Receipt from Consignment Withdrawal",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Check Supplier Invoice\nList               (Optional)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

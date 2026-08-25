@@ -1,0 +1,138 @@
+{
+  "scope_item_id": "6DR",
+  "title": "Asset Accounting (UPA)",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "6DR - Asset Accounting (UPA)",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Inbox",
+        "fiori_app_id": "F0862",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER",
+        "component": "CA-INB-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Make Company Code Settings - Asset Accounting-Specific",
+        "fiori_app_id": "F7312",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT",
+        "component": "FI-AA-AA-E"
+      },
+      {
+        "step_no": 3,
+        "name": "Asset Transactions",
+        "fiori_app_id": "F1614",
+        "technical_transaction": "AR05",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT",
+        "component": "FI-FIO-AA"
+      },
+      {
+        "step_no": 4,
+        "name": "Depreciation Lists",
+        "fiori_app_id": "F1616",
+        "technical_transaction": "AR03",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT",
+        "component": "FI-FIO-AA"
+      },
+      {
+        "step_no": 5,
+        "name": "Schedule Asset Accounting Jobs",
+        "fiori_app_id": "F1914",
+        "technical_transaction": "AFAB",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT_JP",
+        "component": "FI-FIO-AA"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Fixed Assets (New)",
+        "fiori_app_id": "F3425",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT",
+        "component": "FI-FIO-AA-MD"
+      },
+      {
+        "step_no": 7,
+        "name": "Maintain Number of Units for UoP Depreciation",
+        "fiori_app_id": "F4907",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT",
+        "component": "FI-FIO-AA-MD"
+      },
+      {
+        "step_no": 8,
+        "name": "Post Asset Acquisition - And Quantity Adjustment",
+        "fiori_app_id": "F6488",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT",
+        "component": "FI-FIO-AA-PST"
+      },
+      {
+        "step_no": 9,
+        "name": "Post Asset Retirement",
+        "fiori_app_id": "F7107",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT",
+        "component": "FI-FIO-AA-PST"
+      },
+      {
+        "step_no": 10,
+        "name": "Post Asset Revaluation",
+        "fiori_app_id": "F7775",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT",
+        "component": "FI-FIO-AA-PST"
+      },
+      {
+        "step_no": 11,
+        "name": "Post Goods Receipt for Purchasing Document",
+        "fiori_app_id": "F0843",
+        "technical_transaction": "MB01",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_INVENTORY_MANAGER | SAP_BR_WAREHOUSE_CLERK",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 12,
+        "name": "Manage Supplier Invoices",
+        "fiori_app_id": "F0859",
+        "technical_transaction": "F-41",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AA_ACCOUNTANT | SAP_BR_PURCHASING_MANAGER",
+        "component": "MM-FIO-IV"
+      },
+      {
+        "step_no": 13,
+        "name": "Manage Purchase Orders (Version 2)",
+        "fiori_app_id": "F0842A",
+        "technical_transaction": "ME21",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-PO"
+      },
+      {
+        "step_no": 14,
+        "name": "Process Purchase Requisitions",
+        "fiori_app_id": "F1048",
+        "technical_transaction": "ME59N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-SOC"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

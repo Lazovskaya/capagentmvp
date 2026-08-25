@@ -1,0 +1,109 @@
+{
+  "scope_item_id": "2PD",
+  "title": "Provisioning of Overdue Receivables",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Financial Operations"
+    ],
+    "L3_scope_item": "2PD - Provisioning of Overdue Receivables",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Doubtful Accounts Valuation",
+        "fiori_app_id": "F3246",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_AR_MANAGER",
+        "component": "FI-FIO-AR-IS"
+      },
+      {
+        "step_no": 2,
+        "name": "Clear Incoming Payments",
+        "fiori_app_id": "F0773",
+        "technical_transaction": "F-32",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT",
+        "component": "FI-FIO-AR-TRA"
+      },
+      {
+        "step_no": 3,
+        "name": "Schedule General Ledger Jobs",
+        "fiori_app_id": "F1927",
+        "technical_transaction": "FINS_FXV",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-PER"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "fdacf55debf44402b6b6ea8023fd3605",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "fdacf55debf44402b6b6ea8023fd3605",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create New Valuation Adjustment Key (Optional)",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": true
+      },
+      {
+        "seq": 2,
+        "name": "Complete Customer Master Data",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Valuation Run",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Display Valuation Proposal",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Postings",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Display Postings",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Analyze Bad Debts",
+        "type": "userTask",
+        "role": "Accounts Receivable Manager",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Bad Debt Write-Off",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

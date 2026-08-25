@@ -1,0 +1,134 @@
+{
+  "scope_item_id": "1Z1",
+  "title": "Digital Payments \u2013 Sales",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": "1Z1 - Digital Payments \u2013 Sales",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Customer Master Data",
+        "fiori_app_id": "F0850A",
+        "technical_transaction": "BP",
+        "app_type": null,
+        "role": "SAP_BR_BUPA_MASTER_SPECIALIST | SAP_BR_RFM_STORE_ASSOCIATE | SAP_BR_RFM_STORE_MANAGER",
+        "component": "LO-MD-FIO-CM"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Billing Documents",
+        "fiori_app_id": "F0797",
+        "technical_transaction": "VF02",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_TRANSPRT_MNGR_LMD | SAP_BR_BILLING_CLERK | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_ADMINISTRATOR_RFM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      },
+      {
+        "step_no": 4,
+        "name": "Resolve Payment Card Issues",
+        "fiori_app_id": "F2758",
+        "technical_transaction": "VCC1",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      },
+      {
+        "step_no": 5,
+        "name": "Resolve Payment Card Issues - Reauthorizations",
+        "fiori_app_id": "F4793",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS-EPY"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "e2ebee3207954a5d91700e96319ef033",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "e2ebee3207954a5d91700e96319ef033",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Sales Order with external authorization",
+        "type": "serviceTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Delivery   (BD9)",
+        "type": "subProcess",
+        "role": "Shipping Specialist",
+        "optional": false,
+        "calls_scope_item": "BD9"
+      },
+      {
+        "seq": 3,
+        "name": "Block Sales Order",
+        "type": "serviceTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Execute Picking (BD9)",
+        "type": "subProcess",
+        "role": "Shipping Specialist",
+        "optional": false,
+        "calls_scope_item": "BD9"
+      },
+      {
+        "seq": 5,
+        "name": "Post Goods Issue (BD9)",
+        "type": "subProcess",
+        "role": "Shipping Specialist",
+        "optional": false,
+        "calls_scope_item": "BD9"
+      },
+      {
+        "seq": 6,
+        "name": "1S2 - SAP Digital Payments Add-on",
+        "type": "subProcess",
+        "role": "Accounts Receivable Accountant",
+        "optional": false,
+        "calls_scope_item": "1S2"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "BD9",
+        "name": "Create Delivery   (BD9)",
+        "optional": false
+      },
+      {
+        "scope_item_id": "1S2",
+        "name": "1S2 - SAP Digital Payments Add-on",
+        "optional": false
+      }
+    ]
+  }
+}

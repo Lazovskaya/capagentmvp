@@ -1,0 +1,120 @@
+{
+  "scope_item_id": "BJN",
+  "title": "Rework Processing \u2013 Stock-Manufactured Material",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Manufacturing Operations"
+    ],
+    "L3_scope_item": "BJN - Rework Processing \u2013 Stock-Manufactured Material",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Material Documents Overview",
+        "fiori_app_id": "F1077",
+        "technical_transaction": "MB51",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_MAINT_SUPERVISOR | SAP_BR_EMPLOYEE_PROCUREMENT | SAP_BR_GL_ACCOUNTANT | SAP_BR_INVENTORY_MANAGER | SAP_BR_PRODN_PLNR | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_WAREHOUSE_CLERK | SAP_BR_ADMINISTRATOR_RFM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_SERVICE_MANAGER | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_EMPLOYEE | SAP_BR_CUSTOMER_SALES_MGR",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Production Operations",
+        "fiori_app_id": "F2335",
+        "technical_transaction": "CO02",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_SUPERVISOR_DISC",
+        "component": "PP-FIO-SFC"
+      },
+      {
+        "step_no": 3,
+        "name": "Confirm Production Operation",
+        "fiori_app_id": "F3069",
+        "technical_transaction": "CO11N",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_OPTR_DISC",
+        "component": "PP-FIO-SFC"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "2a04cf90cf444071a9e7152ee304ed06",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "2a04cf90cf444071a9e7152ee304ed06",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Rework Production Order",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Release Rework Production Order",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Goods Issue for Defective Materials",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Preview Goods Issue Slip",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Confirmation of Rework Production Activities",
+        "type": "userTask",
+        "role": "Production Operator - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Manage Production Operations",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Preview Goods Receipt Slip",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Post Goods Receipt for Rework Production Order",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 8,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

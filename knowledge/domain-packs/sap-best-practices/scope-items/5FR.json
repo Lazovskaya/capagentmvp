@@ -1,0 +1,83 @@
+{
+  "scope_item_id": "5FR",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Retail",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Operational Procurement",
+      "Retail"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "d4f9ac9b6faa4b2095ea6b67204cd688",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "d4f9ac9b6faa4b2095ea6b67204cd688",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Returns Stock Transport Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Outbound Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Perform Picking and PGI for Outbound Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Check stock status",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Check Inbound Delivery",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Perform Post Goods Receipt",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Perform Material Inspection",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Check stock status",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "scope_item_id": "78J",
+  "title": "Accounting Enhancements for Insurance",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "78J - Accounting Enhancements for Insurance",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Profit Centers (Version 3)",
+        "fiori_app_id": "F3516A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_PROJ_FIN_CONTROLLER | SAP_BR_DIVISION_ACCOUNTANT",
+        "component": "CO-FIO-PCA-MD"
+      },
+      {
+        "step_no": 2,
+        "name": "Journal Entry Analyzer(New Version)",
+        "fiori_app_id": "F0956B",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_PROJECT_MANAGER_PROF | SAP_BR_EXTERNAL_AUDITOR",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Operating Chart of Accounts",
+        "fiori_app_id": "F0763B",
+        "technical_transaction": "FS00",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-MD"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Financial Data Sources",
+        "fiori_app_id": "F7191",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_INS | SAP_BR_GL_ACCOUNTANT_BANKS",
+        "component": "FIN-IE-FS"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Branches for Financial Services",
+        "fiori_app_id": "F7192",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_BANKS | SAP_BR_GL_ACCOUNTANT_INS",
+        "component": "FIN-IE-FS"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Product Groups for Financial Services",
+        "fiori_app_id": "F7193",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_BANKS | SAP_BR_GL_ACCOUNTANT_INS",
+        "component": "FIN-IE-FS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

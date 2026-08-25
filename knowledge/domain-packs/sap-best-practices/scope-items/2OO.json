@@ -1,0 +1,122 @@
+{
+  "scope_item_id": "2OO",
+  "title": "External Tax Audit",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close"
+    ],
+    "L3_scope_item": "2OO - External Tax Audit",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Generic Audit Filter",
+        "fiori_app_id": "F7285",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR",
+        "component": "BC-SEC-AIS-GAF"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Generic Audit Filter Users",
+        "fiori_app_id": "F7503",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR",
+        "component": "BC-SEC-AIS-GAF"
+      },
+      {
+        "step_no": 3,
+        "name": "Maintain Business Roles",
+        "fiori_app_id": "F1492",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_APPL_SUP_ENG_DEV_SUP | SAP_BR_SYSTEM_AUDITOR",
+        "component": "BC-SRV-APS-IAM"
+      },
+      {
+        "step_no": 4,
+        "name": "Audit Journal",
+        "fiori_app_id": "F0997",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_EXTERNAL_AUDITOR",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 5,
+        "name": "Tax Reconciliation Account Balance",
+        "fiori_app_id": "F2095",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_EXTERNAL_AUDITOR",
+        "component": "FI-GL-GL-F"
+      },
+      {
+        "step_no": 6,
+        "name": "Tax Declaration Reconciliation",
+        "fiori_app_id": "F2096",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_EXTERNAL_AUDITOR",
+        "component": "FI-GL-GL-F"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "00662670ce1048489a89c6c3603927bd",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "00662670ce1048489a89c6c3603927bd",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Audit with Default Audit Structure",
+        "type": "userTask",
+        "role": "External Auditor",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Run Reports and Transactions Listed in Audit Structure",
+        "type": "userTask",
+        "role": "External Auditor",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Display Audit Log",
+        "type": "userTask",
+        "role": "External Auditor",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Audit Journal",
+        "type": "userTask",
+        "role": "External Auditor",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Tax Reconciliation Account Balance",
+        "type": "userTask",
+        "role": "External Auditor",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Tax Declaration Reconciliation",
+        "type": "userTask",
+        "role": "External Auditor",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

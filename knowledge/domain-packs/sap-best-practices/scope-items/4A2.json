@@ -1,0 +1,81 @@
+{
+  "scope_item_id": "4A2",
+  "title": "Replenishment in Warehousing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Warehousing"
+    ],
+    "L3_scope_item": "4A2 - Replenishment in Warehousing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Replenishment",
+        "fiori_app_id": "F4319",
+        "technical_transaction": "/SCWM/REPL",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_EWM",
+        "component": "SCM-EWM-WOP"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "da42856eaf1f4731899d0716134b51cc",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "da42856eaf1f4731899d0716134b51cc",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Schedule Job for Replenishment",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Replenish Stock",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Replenishment Warehouse Tasks",
+        "type": "serviceTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Check Replenishment Warehouse Tasks (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "Confirm Replenishment Warehouse Tasks",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

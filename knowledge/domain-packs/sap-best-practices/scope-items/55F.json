@@ -1,0 +1,269 @@
+{
+  "scope_item_id": "55F",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting",
+      "IT and Cross-Application",
+      "Lead to Cash",
+      "Plan to Fulfill",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Enterprise Information Management",
+      "Financial Operations",
+      "Inventory",
+      "Invoice Management",
+      "Manufacturing Operations",
+      "Manufacturing Options",
+      "Order Promising",
+      "Order and Contract Management",
+      "Production Planning"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "e2fa9ecde8a5448b82b003e2ea608f17",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "e2fa9ecde8a5448b82b003e2ea608f17",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Evaluate Stock / Requirement Situation",
+        "type": "userTask",
+        "role": "Material Planner - External Procurement",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Schedule MRP",
+        "type": "serviceTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Display Purchase Scheduling Agreement w/o Release doc",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Evaluate Stock / Requirement Situation",
+        "type": "serviceTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Display Delivery Schedule",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Release Summerized JIT Call to Production",
+        "type": "userTask",
+        "role": "Production Planner - Lean Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Create package Unit",
+        "type": "userTask",
+        "role": "Shipping Specialist - Just-In-Time Supply",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Check Planning in Planning Table (Optional)",
+        "type": "userTask",
+        "role": "Production Supervisor - Repetitive Manufacturing",
+        "optional": true
+      },
+      {
+        "seq": 9,
+        "name": "Printing Scheduling Agreement (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 10,
+        "name": "Create Inbound Delivery",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Release Sequenced JIT Call to Production",
+        "type": "userTask",
+        "role": "Production Planner - Lean Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Check Range of Stock Coverage",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Confirm Quantities for Putaway",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Post Goods Receipt For Inbound Delivery",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Material Staging",
+        "type": "userTask",
+        "role": "Production Operator - Repetitive Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Evaluate Stock/Requirements Situation (Optional)",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": true
+      },
+      {
+        "seq": 17,
+        "name": "Execute Evaluated Receipt Settlement",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Confirm Production of JIT Calls",
+        "type": "userTask",
+        "role": "Production Operator - Lean Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Confirm Repetitive Manufacturing Inclusive Backflush of Materials (non-JIT)",
+        "type": "userTask",
+        "role": "Production Operator - Repetitive Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 20,
+        "name": "Check Supplier Invoice List (Optional)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": true
+      },
+      {
+        "seq": 21,
+        "name": "Manage JIT Packing Groups",
+        "type": "userTask",
+        "role": "Material Planner - Just-In-Time Supply",
+        "optional": false
+      },
+      {
+        "seq": 22,
+        "name": "Post Processing of Error Records (non-JIT)",
+        "type": "userTask",
+        "role": "Production Operator - Repetitive Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 23,
+        "name": "Display Procurement Overview (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 24,
+        "name": "Schedule Goods Movement from Production for Customer JIT Calls",
+        "type": "userTask",
+        "role": "Production Operator - Lean Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 25,
+        "name": "Post Outgoing Payment",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 26,
+        "name": "Reprocessing of Failed Stock Posting After Confirmation of Production (Optional)",
+        "type": "userTask",
+        "role": "Production Supervisor - Lean Manufacturing",
+        "optional": true
+      },
+      {
+        "seq": 27,
+        "name": "Evaluate Stock/Requierments Situation",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 28,
+        "name": "Stock Availability analysis",
+        "type": "userTask",
+        "role": "Material Planner - Just-In-Time Supply",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 13,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 16,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 24,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

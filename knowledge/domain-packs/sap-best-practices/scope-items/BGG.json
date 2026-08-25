@@ -1,0 +1,84 @@
+{
+  "scope_item_id": "BGG",
+  "title": "SAP Fiori Analytical Apps for Inventory and Warehouse Management",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Supply Chain",
+    "L3_scope_item": "BGG - SAP Fiori Analytical Apps for Inventory and Warehouse Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Overview Inventory Processing",
+        "fiori_app_id": "F2416",
+        "technical_transaction": "MB51",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK | SAP_BR_WAREHOUSE_CLERK_RFM",
+        "component": "MM-FIO-IM-OVP"
+      },
+      {
+        "step_no": 2,
+        "name": "Overview Inventory Management",
+        "fiori_app_id": "F2769",
+        "technical_transaction": "MB51",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_MANAGER | SAP_BR_INVENTORY_MGR_RFM",
+        "component": "MM-FIO-IM-OVP"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Physical Inventory Documents",
+        "fiori_app_id": "F0379A",
+        "technical_transaction": "MI03",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_MANAGER | SAP_BR_WAREHOUSE_CLERK",
+        "component": "MM-FIO-IM-PI"
+      },
+      {
+        "step_no": 4,
+        "name": "Material Documents Overview",
+        "fiori_app_id": "F1077",
+        "technical_transaction": "MB51",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_MAINT_SUPERVISOR | SAP_BR_EMPLOYEE_PROCUREMENT | SAP_BR_GL_ACCOUNTANT | SAP_BR_INVENTORY_MANAGER | SAP_BR_PRODN_PLNR | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_WAREHOUSE_CLERK | SAP_BR_ADMINISTRATOR_RFM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_SERVICE_MANAGER | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_EMPLOYEE | SAP_BR_CUSTOMER_SALES_MGR",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 5,
+        "name": "Stock - Multiple Materials",
+        "fiori_app_id": "F1595",
+        "technical_transaction": "MB1B",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_WAREHOUSE_CLERK | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_PRODN_PLNR | SAP_BR_INVENTORY_MANAGER",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 6,
+        "name": "Overdue Materials - Stock in Transit",
+        "fiori_app_id": "F2139",
+        "technical_transaction": "MB5T",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_INVENTORY_MANAGER | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_WAREHOUSE_CLERK | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_SHIPPING_SPECIALIST",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 7,
+        "name": "Overdue Materials - Goods Receipt Blocked Stock",
+        "fiori_app_id": "F2347",
+        "technical_transaction": "MIGO",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_MANAGER | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_WAREHOUSE_CLERK",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 8,
+        "name": "Monitor Purchase Order Items",
+        "fiori_app_id": "F2358",
+        "technical_transaction": "ME2C",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK | SAP_BR_PURCHASER | SAP_BR_INVENTORY_MANAGER",
+        "component": "MM-PUR-GF-MON"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

@@ -1,0 +1,21 @@
+{
+  "scope_item_id": "7ED",
+  "title": "Create Sales Orders from Unstructured Data \u2013 Premium",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Budget and Finance",
+    "L3_scope_item": "7ED - Create Sales Orders from Unstructured Data \u2013 Premium",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Create Sales Orders - AI-Assisted Extraction",
+        "fiori_app_id": "F8947",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS-IMP-DOX"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

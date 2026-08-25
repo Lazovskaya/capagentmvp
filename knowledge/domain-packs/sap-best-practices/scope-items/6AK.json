@@ -1,0 +1,302 @@
+{
+  "scope_item_id": "6AK",
+  "title": "Event-Based Revenue Recognition \u2013 Service with Adv. Execution",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close"
+    ],
+    "L3_scope_item": "6AK - Event-Based Revenue Recognition \u2013 Service with Adv. Execution",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Real-Time Revenue Recognition Issues",
+        "fiori_app_id": "F4101",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-PC-OBJ-EBR"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Revenue Recognition Issues - Service Documents",
+        "fiori_app_id": "F4186",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-PC-OBJ-EBR"
+      },
+      {
+        "step_no": 3,
+        "name": "Run Revenue Recognition - Service Documents",
+        "fiori_app_id": "F4278",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-PC-OBJ-EBR"
+      },
+      {
+        "step_no": 4,
+        "name": "Event-Based Revenue Recognition - Service Documents",
+        "fiori_app_id": "F6007",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-PC-OBJ-EBR"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "2c2ebec6286e4f5292725615eed0c27d",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "2c2ebec6286e4f5292725615eed0c27d",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "6F1 - Preventive Maintenance Service",
+        "type": "subProcess",
+        "role": "Customer Service Manager",
+        "optional": false,
+        "calls_scope_item": "6F1"
+      },
+      {
+        "seq": 2,
+        "name": "6AU - Corrective Maintenance Service",
+        "type": "subProcess",
+        "role": "Customer Service Manager",
+        "optional": false,
+        "calls_scope_item": "6AU"
+      },
+      {
+        "seq": 3,
+        "name": "4GT - Solution Order",
+        "type": "subProcess",
+        "role": "Solution Order Specialist",
+        "optional": false,
+        "calls_scope_item": "4GT"
+      },
+      {
+        "seq": 4,
+        "name": "3MO - Service Contract Management",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": false,
+        "calls_scope_item": "3MO"
+      },
+      {
+        "seq": 5,
+        "name": "6F1 - Preventive Maintenance Service",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": false,
+        "calls_scope_item": "6F1"
+      },
+      {
+        "seq": 6,
+        "name": "6AU - Corrective Maintenance Service",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": false,
+        "calls_scope_item": "6AU"
+      },
+      {
+        "seq": 7,
+        "name": "3MO - Service Contract Management",
+        "type": "subProcess",
+        "role": "Customer Service Manager",
+        "optional": false,
+        "calls_scope_item": "3MO"
+      },
+      {
+        "seq": 8,
+        "name": "4GG - Credit Memo Processing for Service Management",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": false,
+        "calls_scope_item": "4GG"
+      },
+      {
+        "seq": 9,
+        "name": "Review Service Actuals",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "6AU - Corrective Maintenance Service",
+        "type": "subProcess",
+        "role": "Customer Service Manager",
+        "optional": false,
+        "calls_scope_item": "6AU"
+      },
+      {
+        "seq": 11,
+        "name": "6F1 - Preventive Maintenance Service",
+        "type": "subProcess",
+        "role": "Customer Service Manager",
+        "optional": false,
+        "calls_scope_item": "6F1"
+      },
+      {
+        "seq": 12,
+        "name": "Revenue Recognition (Event-based) - Service Documents",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Revenue Recognition (Event-based) - Service Documents",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "2V8 - Advanced Financial Closing",
+        "type": "subProcess",
+        "role": "General Ledger Accountant",
+        "optional": false,
+        "calls_scope_item": "2V8"
+      },
+      {
+        "seq": 15,
+        "name": "Revenue Recognition (Event-based) - Service Documents",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Revenue Recognition (Event-based) - Service Documents",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 4,
+        "type": "inclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 6,
+        "type": "inclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 9,
+        "type": "inclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 12,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 12,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 14,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 14,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 15,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "6F1",
+        "name": "6F1 - Preventive Maintenance Service",
+        "optional": false
+      },
+      {
+        "scope_item_id": "6AU",
+        "name": "6AU - Corrective Maintenance Service",
+        "optional": false
+      },
+      {
+        "scope_item_id": "4GT",
+        "name": "4GT - Solution Order",
+        "optional": false
+      },
+      {
+        "scope_item_id": "3MO",
+        "name": "3MO - Service Contract Management",
+        "optional": false
+      },
+      {
+        "scope_item_id": "4GG",
+        "name": "4GG - Credit Memo Processing for Service Management",
+        "optional": false
+      },
+      {
+        "scope_item_id": "2V8",
+        "name": "2V8 - Advanced Financial Closing",
+        "optional": false
+      }
+    ]
+  }
+}

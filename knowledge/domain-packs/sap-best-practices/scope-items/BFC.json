@@ -1,0 +1,293 @@
+{
+  "scope_item_id": "BFC",
+  "title": "Collections and Dispute Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Financial Operations"
+    ],
+    "L3_scope_item": "BFC - Collections and Dispute Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Maintain Business Roles",
+        "fiori_app_id": "F1492",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_APPL_SUP_ENG_DEV_SUP | SAP_BR_SYSTEM_AUDITOR",
+        "component": "BC-SRV-APS-IAM"
+      },
+      {
+        "step_no": 2,
+        "name": "Display Dunning History",
+        "fiori_app_id": "F2328",
+        "technical_transaction": "F150",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT",
+        "component": "FI-FIO-AR"
+      },
+      {
+        "step_no": 3,
+        "name": "My Dunning Proposals",
+        "fiori_app_id": "F2435",
+        "technical_transaction": "F150",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT",
+        "component": "FI-FIO-AR"
+      },
+      {
+        "step_no": 4,
+        "name": "Overdue Receivables in Dispute",
+        "fiori_app_id": "F2540",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_MANAGER",
+        "component": "FI-FIO-AR"
+      },
+      {
+        "step_no": 5,
+        "name": "Reprocess Bank Statement Items",
+        "fiori_app_id": "F1520",
+        "technical_transaction": "FEBAN",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_CASH_SPECIALIST | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-FIO-AR-PAY"
+      },
+      {
+        "step_no": 6,
+        "name": "Process Collections Worklist",
+        "fiori_app_id": "F0380",
+        "technical_transaction": "UDM_SPECIALIST",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT",
+        "component": "FIN-FIO-CCD"
+      },
+      {
+        "step_no": 7,
+        "name": "Collection Progress",
+        "fiori_app_id": "F1738",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_MANAGER",
+        "component": "FIN-FIO-CCD"
+      },
+      {
+        "step_no": 8,
+        "name": "Open Disputes",
+        "fiori_app_id": "F1752",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_MANAGER",
+        "component": "FIN-FIO-CCD"
+      },
+      {
+        "step_no": 9,
+        "name": "Supervise Collections Worklist",
+        "fiori_app_id": "F2375",
+        "technical_transaction": "UDM_SUPERVISOR",
+        "app_type": null,
+        "role": "SAP_BR_AR_MANAGER",
+        "component": "FIN-FIO-CCD"
+      },
+      {
+        "step_no": 10,
+        "name": "Solved Disputes",
+        "fiori_app_id": "F2521",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_MANAGER",
+        "component": "FIN-FIO-CCD"
+      },
+      {
+        "step_no": 11,
+        "name": "Processing Days of Open Disputes",
+        "fiori_app_id": "F2522",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_MANAGER",
+        "component": "FIN-FIO-CCD"
+      },
+      {
+        "step_no": 12,
+        "name": "New Versus Solved Disputes",
+        "fiori_app_id": "F2523",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_MANAGER",
+        "component": "FIN-FIO-CCD"
+      },
+      {
+        "step_no": 13,
+        "name": "Manage Collection Strategies",
+        "fiori_app_id": "F2946",
+        "technical_transaction": "UDM_STRATEGY",
+        "app_type": null,
+        "role": "SAP_BR_AR_MANAGER",
+        "component": "FIN-FIO-CCD"
+      },
+      {
+        "step_no": 14,
+        "name": "Cash Collection Tracker - Collections Management",
+        "fiori_app_id": "F3182",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_MANAGER",
+        "component": "FIN-FIO-CCD"
+      },
+      {
+        "step_no": 15,
+        "name": "Schedule Dispute Management Jobs",
+        "fiori_app_id": "F3578",
+        "technical_transaction": "FDM_AUTO_CREATE",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT",
+        "component": "FIN-FIO-CCD"
+      },
+      {
+        "step_no": 16,
+        "name": "Schedule Collections Management Jobs - Mass Changes",
+        "fiori_app_id": "F3918",
+        "technical_transaction": "UDM_BP_PROF",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT",
+        "component": "FIN-FIO-CCD"
+      },
+      {
+        "step_no": 17,
+        "name": "Dispute Management Reporting",
+        "fiori_app_id": "F4370",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_MANAGER",
+        "component": "FIN-FIO-CCD"
+      },
+      {
+        "step_no": 18,
+        "name": "Collections Management Reporting",
+        "fiori_app_id": "F4495",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_MANAGER",
+        "component": "FIN-FIO-CCD"
+      },
+      {
+        "step_no": 19,
+        "name": "Process Receivables (Version 2)",
+        "fiori_app_id": "F0106A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST | SAP_BR_AR_ACCOUNTANT",
+        "component": "FIN-FIO-CCD-COL"
+      },
+      {
+        "step_no": 20,
+        "name": "Manage Dispute Cases (Version 2)",
+        "fiori_app_id": "F0702A",
+        "technical_transaction": "UDM_DISPUTE",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT",
+        "component": "FIN-FIO-CCD-COL"
+      },
+      {
+        "step_no": 21,
+        "name": "Manage Customer Contacts",
+        "fiori_app_id": "F4707",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT",
+        "component": "FIN-FIO-CCD-COL"
+      },
+      {
+        "step_no": 22,
+        "name": "Manage Collection Contact Persons",
+        "fiori_app_id": "F4708",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT",
+        "component": "FIN-FIO-CCD-COL"
+      },
+      {
+        "step_no": 23,
+        "name": "Manage Resubmissions",
+        "fiori_app_id": "F4709",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT",
+        "component": "FIN-FIO-CCD-COL"
+      },
+      {
+        "step_no": 24,
+        "name": "Manage Promises to Pay",
+        "fiori_app_id": "F4710",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT",
+        "component": "FIN-FIO-CCD-COL"
+      },
+      {
+        "step_no": 25,
+        "name": "Manage Collections Master Data",
+        "fiori_app_id": "F5400",
+        "technical_transaction": "UDM_BP",
+        "app_type": null,
+        "role": "SAP_BR_AR_MANAGER",
+        "component": "FIN-FIO-CCD-COL"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "94552ff4364a481784d72c716c30a91d",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "94552ff4364a481784d72c716c30a91d",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Disputes",
+        "type": "userTask",
+        "role": "Accounts Receivable Manager",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Open Disputes",
+        "type": "userTask",
+        "role": "Accounts Receivable Manager",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Monitor Overdue Receivables in Dispute",
+        "type": "userTask",
+        "role": "Accounts Receivable Manager",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Monitor Solved Disputes",
+        "type": "userTask",
+        "role": "Accounts Receivable Manager",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Monitor Created Versus Solved Disputes",
+        "type": "userTask",
+        "role": "Accounts Receivable Manager",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Monitor Processing Days of Open Disputes",
+        "type": "userTask",
+        "role": "Accounts Receivable Manager",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

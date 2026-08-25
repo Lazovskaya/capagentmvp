@@ -1,0 +1,94 @@
+{
+  "scope_item_id": "4I9",
+  "title": "Project Control \u2013 Sales",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate",
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Cost Management and Profitability Analysis",
+      "Enterprise Portfolio and Project Management"
+    ],
+    "L3_scope_item": "4I9 - Project Control \u2013 Sales",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage My Timesheet",
+        "fiori_app_id": "F1823",
+        "technical_transaction": "CAT2",
+        "app_type": null,
+        "role": "SAP_BR_EMPLOYEE | SAP_BR_MANAGER_HRINFO | SAP_BR_PROJECT_MANAGER_PROF",
+        "component": "CA-TS-S4"
+      },
+      {
+        "step_no": 2,
+        "name": "Project Financial Controller Overview",
+        "fiori_app_id": "F3078",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-REP"
+      },
+      {
+        "step_no": 3,
+        "name": "Monitor Projects",
+        "fiori_app_id": "F3088",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-REP"
+      },
+      {
+        "step_no": 4,
+        "name": "Project Control - Enterprise Projects",
+        "fiori_app_id": "F3215",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_PROJ_PROC_CONTROLLER | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_PROJECTMANAGER | SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-STR-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "3d011a6fef9045f88276e57981cfd1eb",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "3d011a6fef9045f88276e57981cfd1eb",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "inclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 0,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 0,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

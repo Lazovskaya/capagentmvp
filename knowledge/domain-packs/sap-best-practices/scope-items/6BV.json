@@ -1,0 +1,24 @@
+{
+  "scope_item_id": "6BV",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "IT and Cross-Application"
+    ],
+    "L2_core_process": [
+      "Solution Business Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "7323c1ec7ed449e9b163aa0967a96fed",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "7323c1ec7ed449e9b163aa0967a96fed",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [],
+    "dependencies": []
+  }
+}

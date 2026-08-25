@@ -1,0 +1,21 @@
+{
+  "scope_item_id": "71O",
+  "title": "Merchandise Distribution and Collective Purchase Order",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Supply Chain",
+    "L3_scope_item": "71O - Merchandise Distribution and Collective Purchase Order",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Collective Purchase Order Generation",
+        "fiori_app_id": "F7821",
+        "technical_transaction": "WA08",
+        "app_type": null,
+        "role": "SAP_BR_ALLOCATOR_RETAIL",
+        "component": "LO-RFM-MDS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

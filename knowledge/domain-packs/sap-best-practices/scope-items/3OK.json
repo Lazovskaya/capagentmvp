@@ -1,0 +1,216 @@
+{
+  "scope_item_id": "3OK",
+  "title": "Make-to-Order Production \u2013 Process Manufacturing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Manufacturing Operations"
+    ],
+    "L3_scope_item": "3OK - Make-to-Order Production \u2013 Process Manufacturing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule MRP Runs",
+        "fiori_app_id": "F1339",
+        "technical_transaction": "MD01",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_PRODN_PLNR | SAP_BR_RPLNMT_SPCLST_DC_RFM",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 2,
+        "name": "Monitor Material Coverage - Net and Individual Segments (Version 2)",
+        "fiori_app_id": "F2101A",
+        "technical_transaction": "MB53",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR | SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 3,
+        "name": "Convert Planned Orders",
+        "fiori_app_id": "F4171",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_PRODN_PLNR",
+        "component": "PP-FIO-PLO"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Sales Quotations",
+        "fiori_app_id": "F1852",
+        "technical_transaction": "VA25",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "4e31c8898595411782f76c0c427a745f",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "4e31c8898595411782f76c0c427a745f",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Sales Order",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Sales Quotation (Optional)",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": true
+      },
+      {
+        "seq": 3,
+        "name": "Create Sales Order with Ref. to Quotation (Optional)",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": true
+      },
+      {
+        "seq": 4,
+        "name": "Material Requirements Planning",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Monitor Material Coverage",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Convert Planned Order to Process Order",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Review Process Order",
+        "type": "userTask",
+        "role": "Production Supervisor - Process Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Preview Output Document for Process Order",
+        "type": "userTask",
+        "role": "Production Supervisor - Process Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Manual Goods Issue (Instead of Picking List)",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Goods Issue via Pick List",
+        "type": "userTask",
+        "role": "Production Operator - Process Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Monitor Order Progress",
+        "type": "userTask",
+        "role": "Production Supervisor - Process Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Confirm Process Order",
+        "type": "userTask",
+        "role": "Production Operator - Process Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Post Goods Receipt for Process Order",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Create Delivery with Order Reference",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Execute Picking",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Post Goods Issue",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Create Billing Document",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 17,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

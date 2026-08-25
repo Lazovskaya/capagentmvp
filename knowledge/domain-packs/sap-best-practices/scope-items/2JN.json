@@ -1,0 +1,80 @@
+{
+  "scope_item_id": "2JN",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Manufacturing Operations"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "48d0c2bc693e4b05bc512aa40df88033",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "48d0c2bc693e4b05bc512aa40df88033",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Planned Independent Requirements",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Material Requirements Planning",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Conversion to Production Order and Assembly",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Review Material Availability Status for Production Orders (Variant A)",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing (EPO)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Material Staging for Final Assembly",
+        "type": "userTask",
+        "role": "Production Operator - Discrete Manufacturing (EPO)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Release Production Order for Final Assembly (Variant A)",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing (EPO)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Preview Goods Receipt Slip and Label (Optional, Variant A)",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

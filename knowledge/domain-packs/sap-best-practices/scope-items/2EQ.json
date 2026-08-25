@@ -1,0 +1,139 @@
+{
+  "scope_item_id": "2EQ",
+  "title": "Sale of Services",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": "2EQ - Sale of Services",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Billing Documents",
+        "fiori_app_id": "F0797",
+        "technical_transaction": "VF02",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_TRANSPRT_MNGR_LMD | SAP_BR_BILLING_CLERK | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_ADMINISTRATOR_RFM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 2,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "6c8a880be64e476dbe5c42e9bea80d7a",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "6c8a880be64e476dbe5c42e9bea80d7a",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Credit Management (BD6) - Set Customer Credit (Optional)",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": true,
+        "calls_scope_item": "BD6"
+      },
+      {
+        "seq": 2,
+        "name": "BDG - Sales Quotation",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "BDG"
+      },
+      {
+        "seq": 3,
+        "name": "Sales Order Entry",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Credit Management (BD6) - Review of Blocked Sales Orders (Optional)",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": true,
+        "calls_scope_item": "BD6"
+      },
+      {
+        "seq": 5,
+        "name": "Create Billing Document",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "J59 - Accounts Payable",
+        "type": "subProcess",
+        "role": "Accounts Receivable Accountant",
+        "optional": false,
+        "calls_scope_item": "J59"
+      },
+      {
+        "seq": 7,
+        "name": "BKK - Sales Order Fulfillment Monitoring",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": false,
+        "calls_scope_item": "BKK"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "BD6",
+        "name": "Credit Management (BD6) - Set Customer Credit (Optional)",
+        "optional": true
+      },
+      {
+        "scope_item_id": "BDG",
+        "name": "BDG - Sales Quotation",
+        "optional": false
+      },
+      {
+        "scope_item_id": "J59",
+        "name": "J59 - Accounts Payable",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BKK",
+        "name": "BKK - Sales Order Fulfillment Monitoring",
+        "optional": false
+      }
+    ]
+  }
+}

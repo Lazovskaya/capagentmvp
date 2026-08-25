@@ -1,0 +1,194 @@
+{
+  "scope_item_id": "54V",
+  "title": "Produce and Sell Standard Products \u2013 Warehouse Managed",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting",
+      "IT and Cross-Application",
+      "Lead to Cash",
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Enterprise Information Management",
+      "Financial Operations",
+      "Manufacturing Operations",
+      "Manufacturing Options",
+      "Order Promising",
+      "Order and Contract Management",
+      "Production Planning",
+      "Warehousing"
+    ],
+    "L3_scope_item": "54V - Produce and Sell Standard Products \u2013 Warehouse Managed",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Confirm Production Operation",
+        "fiori_app_id": "F3069",
+        "technical_transaction": "CO11N",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_OPTR_DISC",
+        "component": "PP-FIO-SFC"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Outbound Delivery Orders",
+        "fiori_app_id": "F6498",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_EWM",
+        "component": "SCM-EWM-DLP-UI"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "cf29f7e916e4475a93cd0853cefe3cac",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "cf29f7e916e4475a93cd0853cefe3cac",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Conversion of Planned Order to Production Order",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Maintain Serial Numbers",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Review Production Order",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Material Staging for Production Order",
+        "type": "userTask",
+        "role": "Production Operator - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Staging Warehouse Task",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Confirm Staging Warehouse Task",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Post Goods Issue for Staging",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Release Production Order",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Confirm Production Operations of Production Order",
+        "type": "userTask",
+        "role": "Production Operator - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Review Production Order",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Create Inbound Delivery for Production Order",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Create Handling Unit (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 13,
+        "name": "Post Goods Receipt",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Create Putaway Warehouse Tasks",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Confirm Putaway Warehouse Tasks",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Record Inspection Results",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Repack Handling Units (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 18,
+        "name": "Create Adhoc Warehouse Tasks",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Confirm Putaway Warehouse Tasks",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 20,
+        "name": "Evaluate Stock/Requirements Situation",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

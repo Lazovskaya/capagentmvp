@@ -1,0 +1,89 @@
+{
+  "scope_item_id": "1JT",
+  "title": "Lockbox",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Financial Operations"
+    ],
+    "L3_scope_item": "1JT - Lockbox",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Customer Line Items",
+        "fiori_app_id": "F0711",
+        "technical_transaction": "FBL5",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT",
+        "component": "FI-FIO-AR-IS"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Incoming Payment Files",
+        "fiori_app_id": "F1680",
+        "technical_transaction": "FF.5",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-FIO-AR-PAY"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Lockbox Batches",
+        "fiori_app_id": "F1681",
+        "technical_transaction": "FOEBL1",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST_US",
+        "component": "FI-FIO-AR-PAY"
+      },
+      {
+        "step_no": 4,
+        "name": "Reprocess Lockbox Items",
+        "fiori_app_id": "F3398",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST_US",
+        "component": "FI-FIO-AR-PAY"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "e544594ee9da4d81888f6c4e2797ffae",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "e544594ee9da4d81888f6c4e2797ffae",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Upload Lockbox Files",
+        "type": "userTask",
+        "role": "Cash Management Specialist for USA",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Manage Lockbox Batches",
+        "type": "userTask",
+        "role": "Cash Management Specialist for USA",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Reprocess Incoming Checks",
+        "type": "userTask",
+        "role": "Cash Management Specialist for USA",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

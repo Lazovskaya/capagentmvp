@@ -1,0 +1,93 @@
+{
+  "scope_item_id": "7VG",
+  "title": "Unitized Make-to-Order Production \u2013 Extended Production Operation",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Supply Chain",
+    "L3_scope_item": "7VG - Unitized Make-to-Order Production \u2013 Extended Production Operation",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Outbound Deliveries",
+        "fiori_app_id": "F0867A",
+        "technical_transaction": "VL06G",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Create Outbound Deliveries - From Sales Orders",
+        "fiori_app_id": "F0869A",
+        "technical_transaction": "VL10A",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Analyze Delivery Logs",
+        "fiori_app_id": "F0870A",
+        "technical_transaction": "V_SA",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 4,
+        "name": "Monitor Material Coverage - Net and Individual Segments (Version 2)",
+        "fiori_app_id": "F2101A",
+        "technical_transaction": "MB53",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR | SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Production Orders",
+        "fiori_app_id": "F2336",
+        "technical_transaction": "CO02",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_SUPERVISOR_DISC",
+        "component": "PP-FIO-SFC"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Quality Tasks",
+        "fiori_app_id": "F3381",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_TECHNICIAN | SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-QN"
+      },
+      {
+        "step_no": 7,
+        "name": "Record Defects",
+        "fiori_app_id": "F2929",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_TECHNICIAN",
+        "component": "QM-QN-DEF"
+      },
+      {
+        "step_no": 8,
+        "name": "Manage Sales Quotations",
+        "fiori_app_id": "F1852",
+        "technical_transaction": "VA25",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      },
+      {
+        "step_no": 9,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

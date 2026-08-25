@@ -1,0 +1,35 @@
+{
+  "scope_item_id": "4RF",
+  "title": "Project Control \u2013 Resourcing and Procurement",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Enterprise Portfolio and Project Management"
+    ],
+    "L3_scope_item": "4RF - Project Control \u2013 Resourcing and Procurement",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage My Timesheet",
+        "fiori_app_id": "F1823",
+        "technical_transaction": "CAT2",
+        "app_type": null,
+        "role": "SAP_BR_EMPLOYEE | SAP_BR_MANAGER_HRINFO | SAP_BR_PROJECT_MANAGER_PROF",
+        "component": "CA-TS-S4"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Project Demand",
+        "fiori_app_id": "F4562",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_PROC_CONTROLLER | SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-DMN-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "9bf1d15da7d0487abd6761597e07dc0a"
+}

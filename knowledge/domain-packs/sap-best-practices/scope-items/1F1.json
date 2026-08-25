@@ -1,0 +1,296 @@
+{
+  "scope_item_id": "1F1",
+  "title": "Debit Memo Processing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": "1F1 - Debit Memo Processing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Display Billing Documents",
+        "fiori_app_id": "F2250",
+        "technical_transaction": "FKKINVBILL_DISP",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV | SAP_BR_INVOICING_SPEC_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Billing Documents",
+        "fiori_app_id": "F0797",
+        "technical_transaction": "VF02",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_TRANSPRT_MNGR_LMD | SAP_BR_BILLING_CLERK | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_ADMINISTRATOR_RFM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 3,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 4,
+        "name": "Billing Document",
+        "fiori_app_id": "F1901",
+        "technical_transaction": "VF03",
+        "app_type": null,
+        "role": "SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_INTERNAL_SALES_REP | SAP_BR_SALES_MANAGER | SAP_BR_SERVICE_MANAGER | SAP_BR_RETURNS_REFUND_CLERK | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_BILLING_CLERK | SAP_BR_ADMINISTRATOR_SLL",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 5,
+        "name": "Debit Memo Request",
+        "fiori_app_id": "F1848",
+        "technical_transaction": "VA03",
+        "app_type": null,
+        "role": "SAP_BR_SERVICE_MANAGER | SAP_BR_BILLING_CLERK | SAP_BR_SALES_MANAGER | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_RETURNS_REFUND_CLERK | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Debit Memo Requests",
+        "fiori_app_id": "F1988",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS-CMR"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Debit Memo Requests - Version 2",
+        "fiori_app_id": "F1988A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_MANAGER | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_INTERNAL_SALES_REP_PRSV | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS-CMR"
+      },
+      {
+        "step_no": 8,
+        "name": "Manage Credit Memo Requests",
+        "fiori_app_id": "F1989",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_RETURNS_REFUND_CLERK | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS-CMR"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "528ff06a877043ca83e40bf17e7fb174",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "528ff06a877043ca83e40bf17e7fb174",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "BD3 - Sales\n Processing \nusing \nThird-Party\nwith \nShipping\n Notification",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "BD3"
+      },
+      {
+        "seq": 2,
+        "name": "BDN - Sales \nof \nNon-Stock \nItem \nwith Order-\nSpecific\n Procurement",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "BDN"
+      },
+      {
+        "seq": 3,
+        "name": "BDK - Sales \nProcessing \nusing \nThird-Party \nwithout \nShipping \nNotification",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "BDK"
+      },
+      {
+        "seq": 4,
+        "name": "BDH - Sales \nOrder\nEntry \nwith \nOne \nTime \nCustomer",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "BDH"
+      },
+      {
+        "seq": 5,
+        "name": "BKJ - Sales \nOrder \nProcessing \nwith \nCustomer \nDown Payment",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "BKJ"
+      },
+      {
+        "seq": 6,
+        "name": "Sell from Stock (BD9)",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "BD9"
+      },
+      {
+        "seq": 7,
+        "name": "BKA - Free \nGoods \nProcessing",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "BKA"
+      },
+      {
+        "seq": 8,
+        "name": "BKZ - Sales Order \nProcessing \nwith \nCollective \nBilling",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "BKZ"
+      },
+      {
+        "seq": 9,
+        "name": "Create Debit Memo Request",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Remove Billing Block",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Create Debit Memo",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Sales Order Fulfillment Monitoring (BKK) (optional)",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": true,
+        "calls_scope_item": "BKK"
+      },
+      {
+        "seq": 13,
+        "name": "Accounts Receivable (J59)",
+        "type": "subProcess",
+        "role": "Accounts Receivable Accountant",
+        "optional": false,
+        "calls_scope_item": "J59"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 11,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "BD3",
+        "name": "BD3 - Sales\n Processing \nusing \nThird-Party\nwith \nShipping\n Notification",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BDN",
+        "name": "BDN - Sales \nof \nNon-Stock \nItem \nwith Order-\nSpecific\n Procurement",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BDK",
+        "name": "BDK - Sales \nProcessing \nusing \nThird-Party \nwithout \nShipping \nNotification",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BDH",
+        "name": "BDH - Sales \nOrder\nEntry \nwith \nOne \nTime \nCustomer",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BKJ",
+        "name": "BKJ - Sales \nOrder \nProcessing \nwith \nCustomer \nDown Payment",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BD9",
+        "name": "Sell from Stock (BD9)",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BKA",
+        "name": "BKA - Free \nGoods \nProcessing",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BKZ",
+        "name": "BKZ - Sales Order \nProcessing \nwith \nCollective \nBilling",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BKK",
+        "name": "Sales Order Fulfillment Monitoring (BKK) (optional)",
+        "optional": true
+      },
+      {
+        "scope_item_id": "J59",
+        "name": "Accounts Receivable (J59)",
+        "optional": false
+      }
+    ]
+  }
+}

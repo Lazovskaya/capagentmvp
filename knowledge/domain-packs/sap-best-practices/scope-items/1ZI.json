@@ -1,0 +1,60 @@
+{
+  "scope_item_id": "1ZI",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Product Lifecycle Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "6835bfc0862043a88b4d2593de599fd2",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "6835bfc0862043a88b4d2593de599fd2",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Change Master",
+        "type": "userTask",
+        "role": "Production Engineer",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Manufacturing Bill of Material as Copy of Engineering Bill of Material",
+        "type": "userTask",
+        "role": "Production Engineer",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Rework Manufacturing BOM",
+        "type": "userTask",
+        "role": "Production Engineer",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Release Manufacturing BOM",
+        "type": "userTask",
+        "role": "Production Engineer",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Set Status of Change Master to Inactive",
+        "type": "userTask",
+        "role": "Production Engineer",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

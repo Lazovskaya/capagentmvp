@@ -1,0 +1,124 @@
+{
+  "scope_item_id": "1N1",
+  "title": "Master Data Consolidation for Product",
+  "hierarchy": {
+    "L1_value_stream": [
+      "IT and Cross-Application"
+    ],
+    "L2_core_process": [
+      "Enterprise Information Management"
+    ],
+    "L3_scope_item": "1N1 - Master Data Consolidation for Product",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Track Changes - Products",
+        "fiori_app_id": "F8469",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODMASTER_SPECIALIST",
+        "component": "CA-MDG-CMP-MM"
+      },
+      {
+        "step_no": 2,
+        "name": "Import Master Data - Products",
+        "fiori_app_id": "F8545",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODMASTER_SPECIALIST",
+        "component": "CA-MDG-CMP-MM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "69cd35b3cf2b452fb9d651dc35aec1fb",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "69cd35b3cf2b452fb9d651dc35aec1fb",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Describe Data Source",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Import Source Data",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Execute Matching Step",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Best Record Calculation",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Validation",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Perform Validation of Log Messages",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Activation",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

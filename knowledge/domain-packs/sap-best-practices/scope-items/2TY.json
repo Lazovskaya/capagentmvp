@@ -1,0 +1,116 @@
+{
+  "scope_item_id": "2TY",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "4525f8ae131f4901884db97e2625b820",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "4525f8ae131f4901884db97e2625b820",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create or Change Product",
+        "type": "userTask",
+        "role": "Master Data Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Maintain Price and Discounts",
+        "type": "userTask",
+        "role": "Pricing Specialist",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Characteristics and Classes",
+        "type": "userTask",
+        "role": "Product Configuration Modeler",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Trigger Stock Level Replication",
+        "type": "userTask",
+        "role": "Administrator - Data Replication",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Trigger Product Replication",
+        "type": "userTask",
+        "role": "Administrator - Data Replication",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Trigger Pricing and Discounts Replication",
+        "type": "userTask",
+        "role": "Administrator - Data Replication",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Trigger Classification Replication",
+        "type": "userTask",
+        "role": "Administrator - Data Replication",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Save",
+        "type": "userTask",
+        "role": "Master Data Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Save",
+        "type": "userTask",
+        "role": "Pricing Specialist",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Assign Characteristics to Class",
+        "type": "userTask",
+        "role": "Product Configuration Modeler",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Assign Class to Material",
+        "type": "userTask",
+        "role": "Product Configuration Modeler",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Maintain Characteristic Values for Material",
+        "type": "userTask",
+        "role": "Product Configuration Modeler",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Save",
+        "type": "userTask",
+        "role": "Product Configuration Modeler",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "scope_item_id": "3FP",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Environment, Health, and Safety"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "84c295f30a4d47cfbe5261d08677a026",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "84c295f30a4d47cfbe5261d08677a026",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Capture Initial Incident Record",
+        "type": "userTask",
+        "role": "Employee - EHS Info",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Capture Initial Incident Record",
+        "type": "userTask",
+        "role": "Industrial Hygienist",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Review and Complete Incident Record",
+        "type": "userTask",
+        "role": "Industrial Hygienist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Perform Investigation",
+        "type": "userTask",
+        "role": "Industrial Hygienist",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create and Send Incident Report",
+        "type": "userTask",
+        "role": "Industrial Hygienist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Define and Manage Tasks",
+        "type": "userTask",
+        "role": "Industrial Hygienist",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

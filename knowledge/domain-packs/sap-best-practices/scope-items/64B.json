@@ -1,0 +1,192 @@
+{
+  "scope_item_id": "64B",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Delivery and Transportation"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "0df41b013b1e4837aae3405d49fbd7f8",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "0df41b013b1e4837aae3405d49fbd7f8",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Purchase Order (2TX)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Freight Unit",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Perform Manual Transportation Planning",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Charge Calculation",
+        "type": "serviceTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Perform Subcontracting",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Cost Distribution",
+        "type": "serviceTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Receive Booking Confirmation",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Create & Display Freight Orders for Pickup and Delivery",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Trigger Delivery Creation from Freight Booking",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Create \nInbound Delivery (2TX)",
+        "type": "serviceTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Arrival of Truck at Port of Loading (Pick-up)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Confirm Quantities for Putaway (2TX)",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Post Goods Receipt",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Confirm Freight Booking for Accrual Posting",
+        "type": "userTask",
+        "role": "Transportation Manager",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Create Supplier Invoice (2TX)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Arrival of Vessel at Port of Discharge (Main Leg)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Departure of Truck at Port of Discharge (Delivery)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Set Truck Arrived and Check-in at Receiving Point Location (Delivery)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Set Ready \nfor Warehousing",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 20,
+        "name": "Execute Evaluated Receipt Settlement for Freight Costs (2LH)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs)",
+        "optional": false
+      },
+      {
+        "seq": 21,
+        "name": "Create \nSupplier Invoice for Freight Costs (22Z)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs)",
+        "optional": false
+      },
+      {
+        "seq": 22,
+        "name": "Check \nSupplier Invoice \u2013 Generate Credit Memo (2LH)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs)",
+        "optional": false
+      },
+      {
+        "seq": 23,
+        "name": "Release Blocked Supplier Invoice ( Optional) (22Z)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 19,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "scope_item_id": "2ZS",
+  "title": "Machine Learning for Monitoring of Goods and Invoice Receipts",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "2ZS - Machine Learning for Monitoring of Goods and Invoice Receipts",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule General Ledger Jobs",
+        "fiori_app_id": "F1927",
+        "technical_transaction": "FINS_FXV",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-PER"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

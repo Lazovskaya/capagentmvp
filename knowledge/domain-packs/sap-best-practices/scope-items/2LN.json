@@ -1,0 +1,56 @@
+{
+  "scope_item_id": "2LN",
+  "title": "Basic Available-to-Promise Processing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order Promising"
+    ],
+    "L3_scope_item": "2LN - Basic Available-to-Promise Processing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Display Product Availability",
+        "fiori_app_id": "F7884",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP",
+        "component": "CA-ATP"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "c055ef3b5d2a430fa67756a0b0aa4a45",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "c055ef3b5d2a430fa67756a0b0aa4a45",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Monitor product availability",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Schedule BOP Run",
+        "type": "userTask",
+        "role": "Order Fulfillment Manager",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Monitor BOP Run",
+        "type": "userTask",
+        "role": "Order Fulfillment Manager",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

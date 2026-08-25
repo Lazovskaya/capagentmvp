@@ -1,0 +1,30 @@
+{
+  "scope_item_id": "2KF",
+  "title": "SAP Fiori Analytical Apps for Convergent Invoicing Specialist",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "2KF - SAP Fiori Analytical Apps for Convergent Invoicing Specialist",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Analyze Unbilled Items",
+        "fiori_app_id": "F1427",
+        "technical_transaction": "FKKBIXBIT_MON",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_SPEC_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Analyze Unrated Items",
+        "fiori_app_id": "F1977",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_SPEC_CINV",
+        "component": "FI-CA-INV-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

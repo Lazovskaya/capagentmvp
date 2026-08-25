@@ -1,0 +1,109 @@
+{
+  "scope_item_id": "1VD",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Advanced Warehousing"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "74da89130c5543e6aeffc4113c8e00f1",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "74da89130c5543e6aeffc4113c8e00f1",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Sales Order",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Distribute Delivery",
+        "type": "serviceTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Release the Picking Wave",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Check Warehouse Orders (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 6,
+        "name": "Pick Warehouse Orders",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Create Shipping Handling Unit and Repacking",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Close Shipping Handling Unit(s)",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Stage Shipping Handling Unit(s)",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Display Loading Overview (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 11,
+        "name": "Load Shipping Unit(s)",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Check Outbound Delivery (Optonal)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "scope_item_id": "6OT",
+  "title": "Bill of Material Management Professional",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Product Lifecycle Management"
+    ],
+    "L3_scope_item": "6OT - Bill of Material Management Professional",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Mass maintenance of bill of material items",
+        "fiori_app_id": "F6578",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_EAM | SAP_BR_DEVELOPMENT_MANAGER_DIN | SAP_BR_ADMINISTRATOR_RCP_DEV | SAP_BR_BOM_ENGINEER | SAP_BR_DESIGN_ENGINEER | SAP_BR_BOM_ENG_CUST_ORDER",
+        "component": "PLM-FIO-BOM"
+      },
+      {
+        "step_no": 2,
+        "name": "Mass addition of bill of material items",
+        "fiori_app_id": "F6862",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BOM_ENGINEER | SAP_BR_MD_SPECIALIST_EAM | SAP_BR_DEVELOPMENT_MANAGER_DIN | SAP_BR_ADMINISTRATOR_RCP_DEV | SAP_BR_BOM_ENG_CUST_ORDER | SAP_BR_DESIGN_ENGINEER",
+        "component": "PLM-FIO-BOM"
+      },
+      {
+        "step_no": 3,
+        "name": "Mass maintenance of bill of material headers",
+        "fiori_app_id": "F6863",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_EAM | SAP_BR_DESIGN_ENGINEER | SAP_BR_DEVELOPMENT_MANAGER_DIN | SAP_BR_ADMINISTRATOR_RCP_DEV | SAP_BR_BOM_ENGINEER | SAP_BR_BOM_ENG_CUST_ORDER",
+        "component": "PLM-FIO-BOM"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Change Masters",
+        "fiori_app_id": "F2212",
+        "technical_transaction": "CC01",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_RCP_DEV | SAP_BR_PRODN_ENG_PROC | SAP_BR_DEVELOPMENT_MANAGER_DIN | SAP_BR_RECIPE_DEVELOPER | SAP_BR_PRODN_ENG_DISC | SAP_BR_PRODUCT_CONFIG_MODELER | SAP_BR_CHG_MGMT_COORDINATOR | SAP_BR_BOM_ENGINEER | SAP_BR_BOM_ENG_CUST_ORDER | SAP_BR_DESIGN_ENGINEER",
+        "component": "PLM-WUI-OBJ-ECN"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "b03cc6ee335b4d79a119d92e43be59c1",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "b03cc6ee335b4d79a119d92e43be59c1",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

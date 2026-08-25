@@ -1,0 +1,109 @@
+{
+  "scope_item_id": "5WI",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Inventory"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "ca4b0d2c87f4478188b499ef09b571c9",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "ca4b0d2c87f4478188b499ef09b571c9",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create \nReturns Stock Transport Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Change \nConfirmation Control for Inbound Delivery",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Optional: \nApprove Returns Stock Transport Order",
+        "type": "userTask",
+        "role": "Manager - Procurement",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Optional: \nCheck Returns Stock Transport Order Approval Details",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Outbound Delivery for Return Stock Transport Order",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Perform Picking and Post Goods Issue for Outbound Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Optional: Check Status of Returns Stock Transfer",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Check Inbound Delivery",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Confirm \nQuantities for Putaway",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Post Goods \nReceipt for Inbound Delivery",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Perform \nMaterial Inspection",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Check stock status against stock type",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

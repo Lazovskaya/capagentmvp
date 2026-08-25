@@ -1,0 +1,204 @@
+{
+  "scope_item_id": "5I2",
+  "title": "Supply Chain Automation with SAP Business Network",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Invoice Management",
+      "Manufacturing Options",
+      "Operational Procurement"
+    ],
+    "L3_scope_item": "5I2 - Supply Chain Automation with SAP Business Network",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Material Documents Overview",
+        "fiori_app_id": "F1077",
+        "technical_transaction": "MB51",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_MAINT_SUPERVISOR | SAP_BR_EMPLOYEE_PROCUREMENT | SAP_BR_GL_ACCOUNTANT | SAP_BR_INVENTORY_MANAGER | SAP_BR_PRODN_PLNR | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_WAREHOUSE_CLERK | SAP_BR_ADMINISTRATOR_RFM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_SERVICE_MANAGER | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_EMPLOYEE | SAP_BR_CUSTOMER_SALES_MGR",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 2,
+        "name": "Post Subsequent Adjustment",
+        "fiori_app_id": "F5476",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_WAREHOUSE_CLERK | SAP_BR_INVENTORY_MANAGER | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Purchase Orders (Version 2)",
+        "fiori_app_id": "F0842A",
+        "technical_transaction": "ME21",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-PO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "a54daf8d8b494880a8e0dca0d1f12432",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "a54daf8d8b494880a8e0dca0d1f12432",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Shipping Notice",
+        "type": "manualTask",
+        "role": "Supplier",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Send email invitation to supplier",
+        "type": "serviceTask",
+        "role": "Buyer",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Supplier Registration",
+        "type": "manualTask",
+        "role": "Supplier",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Display SAP Contracting Purchase Order",
+        "type": "manualTask",
+        "role": "Supplier",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Supplier access to Ariba Network",
+        "type": "manualTask",
+        "role": "Supplier",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Create Order Confirmation (Optional)",
+        "type": "manualTask",
+        "role": "Supplier",
+        "optional": true
+      },
+      {
+        "seq": 7,
+        "name": "Display Goods Receipt (Optional)",
+        "type": "manualTask",
+        "role": "Supplier",
+        "optional": true
+      },
+      {
+        "seq": 8,
+        "name": "Create Invoice with or without PO reference",
+        "type": "manualTask",
+        "role": "Supplier",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Check Invoice Status (Optional)",
+        "type": "manualTask",
+        "role": "Supplier",
+        "optional": true
+      },
+      {
+        "seq": 10,
+        "name": "Check Early Payment Status",
+        "type": "manualTask",
+        "role": "Supplier",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Check Payment ?Optional)",
+        "type": "manualTask",
+        "role": "Supplier",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Propose Early Payment",
+        "type": "manualTask",
+        "role": "Supplier",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Review/Accept Early Payment offer from buyer",
+        "type": "manualTask",
+        "role": "Supplier",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Check Invoice Status (Optional)",
+        "type": "manualTask",
+        "role": "Supplier",
+        "optional": true
+      },
+      {
+        "seq": 15,
+        "name": "Review/Accept Early Payment offer from supplier",
+        "type": "manualTask",
+        "role": "Buyer",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Check Invoice Status (Optional)",
+        "type": "manualTask",
+        "role": "Supplier",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 15,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 15,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 15,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

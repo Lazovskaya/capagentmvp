@@ -1,0 +1,139 @@
+{
+  "scope_item_id": "BMK",
+  "title": "Return to Supplier",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Inventory"
+    ],
+    "L3_scope_item": "BMK - Return to Supplier",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Supplier Invoices",
+        "fiori_app_id": "F0859",
+        "technical_transaction": "F-41",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AA_ACCOUNTANT | SAP_BR_PURCHASING_MANAGER",
+        "component": "MM-FIO-IV"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Purchase Orders (Version 2)",
+        "fiori_app_id": "F0842A",
+        "technical_transaction": "ME21",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-PO"
+      },
+      {
+        "step_no": 3,
+        "name": "Monitor Purchase Order Items",
+        "fiori_app_id": "F2358",
+        "technical_transaction": "ME2C",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK | SAP_BR_PURCHASER | SAP_BR_INVENTORY_MANAGER",
+        "component": "MM-PUR-GF-MON"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "0cfc76d3146f492a89912890adf40e69",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "0cfc76d3146f492a89912890adf40e69",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Return Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Analyse Stock Overview (Optional)",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": true
+      },
+      {
+        "seq": 3,
+        "name": "Create Outbound Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Transfer Stock (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "Pick and Post Goods Issue",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Receive Replacement Material",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Create Credit Memo",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Post Goods Receipt",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Follow-Up Activities For Replacement Material",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Check Invoice Document",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

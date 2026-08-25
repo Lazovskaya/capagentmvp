@@ -1,0 +1,194 @@
+{
+  "scope_item_id": "1IU",
+  "title": "Customer Consignment",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": "1IU - Customer Consignment",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Create Outbound Deliveries - From Sales Orders",
+        "fiori_app_id": "F0869A",
+        "technical_transaction": "VL10A",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Schedule Delivery Creation",
+        "fiori_app_id": "F2228",
+        "technical_transaction": "VL10BATCH",
+        "app_type": null,
+        "role": "SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_SHIPPING_SPECIALIST",
+        "component": "LE-SHP-GF-JS"
+      },
+      {
+        "step_no": 3,
+        "name": "Stock - Single Material",
+        "fiori_app_id": "F1076",
+        "technical_transaction": "MB52",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_INVENTORY_MANAGER | SAP_BR_PRODN_PLNR | SAP_BR_WAREHOUSE_CLERK | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 4,
+        "name": "Stock - Multiple Materials",
+        "fiori_app_id": "F1595",
+        "technical_transaction": "MB1B",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_WAREHOUSE_CLERK | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_PRODN_PLNR | SAP_BR_INVENTORY_MANAGER",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 5,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Customer Returns",
+        "fiori_app_id": "F1708",
+        "technical_transaction": "VA01",
+        "app_type": null,
+        "role": "SAP_BR_RETURNS_REFUND_CLERK",
+        "component": "SD-SLS-RE"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "b09b11ae92934a5098f178950f54617b",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "b09b11ae92934a5098f178950f54617b",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Consignment Issue Order",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Consignment Issue Order",
+        "type": "serviceTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Check Batches (Optional)",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": true
+      },
+      {
+        "seq": 4,
+        "name": "Option 2: With Scheduling",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Option 1: Without Scheduling",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Check Batches (Optional)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": true
+      },
+      {
+        "seq": 7,
+        "name": "Option 1: Without Scheduling",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Option 2: With Scheduling",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Check Stock Overview",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Create Customer Invoice",
+        "type": "userTask",
+        "role": "Billing Clerk (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Accounts Receivable (J59)",
+        "type": "subProcess",
+        "role": "Accounts Receivable Accountant",
+        "optional": false,
+        "calls_scope_item": "J59"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "J59",
+        "name": "Accounts Receivable (J59)",
+        "optional": false
+      }
+    ]
+  }
+}

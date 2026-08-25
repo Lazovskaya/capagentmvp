@@ -1,0 +1,123 @@
+{
+  "scope_item_id": "4RO",
+  "title": "Decentralized EWM \u2013 Inbound Processing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Warehousing"
+    ],
+    "L3_scope_item": "4RO - Decentralized EWM \u2013 Inbound Processing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Change Inbound Delivery",
+        "fiori_app_id": "F1706",
+        "technical_transaction": "/SCWM/PRDI",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_EWM",
+        "component": "SCM-EWM-DLP-UI"
+      },
+      {
+        "step_no": 2,
+        "name": "Process Warehouse Tasks",
+        "fiori_app_id": "F4595",
+        "technical_transaction": "/SCWM/MON",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_OPERATIVE_EWM | SAP_BR_WAREHOUSE_CLERK_EWM",
+        "component": "SCM-EWM-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "7ba9f8cf5a5b4c36bb02ae99a5dfd381",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "7ba9f8cf5a5b4c36bb02ae99a5dfd381",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Hand over Inbound Delivery to Warehouse Management",
+        "type": "serviceTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Assign or Create Batch (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 3,
+        "name": "Create Handling Unit (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 4,
+        "name": "Post Goods Receipt",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Putaway Warehouse Tasks",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Confirm Warehouse Tasks",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Check Material in Clarification Zone (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 8,
+        "name": "Create Warehouse Tasks from Clarification Zone to Final Bin (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 9,
+        "name": "Confirm Warehouse Tasks (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

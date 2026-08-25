@@ -1,0 +1,60 @@
+{
+  "scope_item_id": "5HR",
+  "title": "Warranty Claim Management \u2013 Supplier Recovery Processing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Service"
+    ],
+    "L2_core_process": [
+      "Service Master Data and Agreement Management"
+    ],
+    "L3_scope_item": "5HR - Warranty Claim Management \u2013 Supplier Recovery Processing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Claims",
+        "fiori_app_id": "F5227",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CLAIMS_ANALYST_COMPL",
+        "component": "LO-WTY-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "79fa99bba60b4c63994d0bf3a910a244",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "79fa99bba60b4c63994d0bf3a910a244",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,110 @@
+{
+  "scope_item_id": "4E9",
+  "title": "Project Billing \u2013 Project-Based Services",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Professional Services"
+    ],
+    "L2_core_process": [
+      "Professional Services"
+    ],
+    "L3_scope_item": "4E9 - Project Billing \u2013 Project-Based Services",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Project Billing Request Workflow",
+        "fiori_app_id": "F5980",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BPC_EXPERT",
+        "component": "BC-BMT-WFM-DEF"
+      },
+      {
+        "step_no": 2,
+        "name": "Plan Customer Projects",
+        "fiori_app_id": "F0719",
+        "technical_transaction": "CJ20N",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_ORDER_SPCLST | SAP_BR_PROJECT_MANAGER_PROF",
+        "component": "CA-CPD-SS"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Project Billing",
+        "fiori_app_id": "F4374",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJECT_MANAGER_PROF | SAP_BR_PROJ_BILLG_SPCLST",
+        "component": "PPM-SCL-BIL"
+      },
+      {
+        "step_no": 4,
+        "name": "Schedule Repricing for Projects",
+        "fiori_app_id": "F4422",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_BILLG_SPCLST | SAP_BR_PROJECT_MANAGER_PROF",
+        "component": "PPM-SCL-BIL"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Project Billing Requests",
+        "fiori_app_id": "F6545",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP_PRSV | SAP_BR_BILLING_CLERK | SAP_BR_PROJECT_MANAGER_PROF | SAP_BR_PROJ_BILLG_SPCLST",
+        "component": "PPM-SCL-BIL"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Preliminary Billing Documents - Services",
+        "fiori_app_id": "F6990",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_BILLG_SPCLST | SAP_BR_PROJECT_MANAGER_PROF",
+        "component": "SD-BIL-PBS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "bb345d5cd3fa46fcaf3a1621c26e4bb3",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "bb345d5cd3fa46fcaf3a1621c26e4bb3",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Manage Billing Document Requests",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Automatic creation of Billing Document Request",
+        "type": "serviceTask",
+        "role": "Approver",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "scope_item_id": "69M",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill",
+      "Retail"
+    ],
+    "L2_core_process": [
+      "Retail",
+      "Warehousing"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "ceb3fb3ecd6149df9b7a9a53b33836d5",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "ceb3fb3ecd6149df9b7a9a53b33836d5",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Two-Step Stock Transfer",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create material document and update stock information",
+        "type": "serviceTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Check Stock Information",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

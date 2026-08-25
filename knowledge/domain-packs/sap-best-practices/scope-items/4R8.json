@@ -1,0 +1,110 @@
+{
+  "scope_item_id": "4R8",
+  "title": "Engineer-to-Order Production with Variant Configuration",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate",
+      "Lead to Cash",
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Manufacturing Operations",
+      "Order and Contract Management",
+      "Product Lifecycle Management",
+      "Production Planning"
+    ],
+    "L3_scope_item": "4R8 - Engineer-to-Order Production with Variant Configuration",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Order Engineering Worklist",
+        "fiori_app_id": "F4770",
+        "technical_transaction": "CU51",
+        "app_type": null,
+        "role": "SAP_BR_BOM_ENG_CUST_ORDER",
+        "component": "LO-VCH-ETO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "1792d83447bb4bdd9d3cd34c6d56cc5b",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "1792d83447bb4bdd9d3cd34c6d56cc5b",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Check Configuration Profile",
+        "type": "userTask",
+        "role": "Product Configuration Modeler",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Simulate Configuration Model",
+        "type": "userTask",
+        "role": "Product Configuration Modeler",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Sales Order",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Start Multi-Level Valuation",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Switch to EtO",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Check Multi-Level Configuration",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Release for Order Engineering",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Accept Changes from Order Engineering",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Calculate Sales Order Costs",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Save Sales Order",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

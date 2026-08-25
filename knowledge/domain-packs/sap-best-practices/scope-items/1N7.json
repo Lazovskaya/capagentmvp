@@ -1,0 +1,84 @@
+{
+  "scope_item_id": "1N7",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "IT and Cross-Application"
+    ],
+    "L2_core_process": [
+      "Enterprise Information Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "759d29bb8b1848a4981208cb2dd46a9a",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "759d29bb8b1848a4981208cb2dd46a9a",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Scope Definition",
+        "type": "userTask",
+        "role": "Master Data Specialist - Business Partner Data",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Record Selection",
+        "type": "userTask",
+        "role": "Master Data Specialist - Business Partner Data",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Validation",
+        "type": "userTask",
+        "role": "Master Data Specialist - Business Partner Data",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Activation",
+        "type": "userTask",
+        "role": "Master Data Specialist - Business Partner Data",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "scope_item_id": "6DS",
+  "title": "Asset Accounting \u2013 Group Ledger IFRS (UPA)",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "6DS - Asset Accounting \u2013 Group Ledger IFRS (UPA)",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Depreciation Lists",
+        "fiori_app_id": "F1616",
+        "technical_transaction": "AR03",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT",
+        "component": "FI-FIO-AA"
+      },
+      {
+        "step_no": 2,
+        "name": "Schedule Asset Accounting Jobs",
+        "fiori_app_id": "F1914",
+        "technical_transaction": "AFAB",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT_JP",
+        "component": "FI-FIO-AA"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Fixed Assets (New)",
+        "fiori_app_id": "F3425",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT",
+        "component": "FI-FIO-AA-MD"
+      },
+      {
+        "step_no": 4,
+        "name": "Post Asset Acquisition - And Quantity Adjustment",
+        "fiori_app_id": "F6488",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT",
+        "component": "FI-FIO-AA-PST"
+      },
+      {
+        "step_no": 5,
+        "name": "Post Asset Retirement",
+        "fiori_app_id": "F7107",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT",
+        "component": "FI-FIO-AA-PST"
+      },
+      {
+        "step_no": 6,
+        "name": "Post Asset Revaluation",
+        "fiori_app_id": "F7775",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT",
+        "component": "FI-FIO-AA-PST"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

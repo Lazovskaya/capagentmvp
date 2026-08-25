@@ -1,0 +1,48 @@
+{
+  "scope_item_id": "2YJ",
+  "title": "Predictive Analytics Model Training \u2013 Sales",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Budget and Finance",
+    "L3_scope_item": "2YJ - Predictive Analytics Model Training \u2013 Sales",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Intelligent Scenario Management",
+        "fiori_app_id": "F4470",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ANALYTICS_SPECIALIST",
+        "component": "BC-ISM"
+      },
+      {
+        "step_no": 2,
+        "name": "Quotation Conversion Rates",
+        "fiori_app_id": "F1904",
+        "technical_transaction": "VA25",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP | SAP_BR_SALES_MANAGER",
+        "component": "SD-FIO-HBA"
+      },
+      {
+        "step_no": 3,
+        "name": "Sales Performance - Predictions",
+        "fiori_app_id": "F3304",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_MANAGER",
+        "component": "SD-FIO-HBA"
+      },
+      {
+        "step_no": 4,
+        "name": "Predicted Delivery Delay",
+        "fiori_app_id": "F3408",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-FIO-HBA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

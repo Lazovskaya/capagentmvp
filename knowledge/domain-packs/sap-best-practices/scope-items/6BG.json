@@ -1,0 +1,291 @@
+{
+  "scope_item_id": "6BG",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Delivery and Transportation"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "541429c707e54c70a4899b736f736292",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "541429c707e54c70a4899b736f736292",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Sales Order (5D2)",
+        "type": "userTask",
+        "role": "Internal Sales Representative (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Intercompany Purchase Order",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create \nFreight Unit",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create Intercompany Sales Order",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Perform \nManual Transportation Planning (Pick-Up and Main Leg)",
+        "type": "userTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Perform \nManual Transportation Planning (On-Carriage)",
+        "type": "userTask",
+        "role": "Dispatcher (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Create Delivery (5D2)",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Perform Subcontracting (Pick-Up and MainLeg)",
+        "type": "userTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Perform Subcontracting (On-Carriage)",
+        "type": "userTask",
+        "role": "Dispatcher (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Perform Picking (5D2)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Receive \nBooking Confirmation (Pick-Up and Main Leg)",
+        "type": "userTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Receive \nFreight Order Confirmation (On-Carriage)",
+        "type": "userTask",
+        "role": "Dispatcher (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Post Goods Issue (5D2)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Charge Calculation",
+        "type": "serviceTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Create Freight\n Order for Pickup",
+        "type": "userTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Charge Calculation",
+        "type": "serviceTask",
+        "role": "Dispatcher (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Transfer Stock \ninto Valuated Stock in Transit (VSIT)",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Set Truck \nChecked-Out and Departed at Shipping Point Location (Pick-Up)",
+        "type": "userTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Cost Distribution",
+        "type": "serviceTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 20,
+        "name": "Cost Distribution",
+        "type": "serviceTask",
+        "role": "Dispatcher (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 21,
+        "name": "Arrival of Truck at Port of Loading (Pick-up)",
+        "type": "userTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 22,
+        "name": "Derparture of \nVessel from Port of Loading (Main Leg)",
+        "type": "userTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 23,
+        "name": "Confirm Freight Booking for Accrual Posting",
+        "type": "userTask",
+        "role": "Transportation Manager (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 24,
+        "name": "Maintain Internal Transfer of Control Date for Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 25,
+        "name": "Arrival of \nVessel at Port of Discharge (Main Leg)",
+        "type": "userTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 26,
+        "name": "Transfer Stock \n(VSIT) from Delivering to Selling Company",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 27,
+        "name": "Departure of \nTruck at Port of Discharge (On-Carriage)",
+        "type": "userTask",
+        "role": "Dispatcher (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 28,
+        "name": "Create \nSupplier Invoice for Freight Costs (Pick-Up and Main Leg) (22Z)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs) (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 29,
+        "name": "Confirm \nFreight Order for Accrual Postings (On-Carriage)",
+        "type": "userTask",
+        "role": "Transportation Manager (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 30,
+        "name": "Set Truck Arrived at Customer Location (On-Carriage)",
+        "type": "userTask",
+        "role": "Dispatcher (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 31,
+        "name": "Release \nBlocked Supplier Invoice ( Optional) (22Z)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs) (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 32,
+        "name": "Display External Transfer of Control Date for Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 33,
+        "name": "Post Goods \nIssue from VSIT (Ordering Company) to Customer",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 34,
+        "name": "Create \nSupplier Invoice for Freight Costs (On-Carriage) (22Z)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs) (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 35,
+        "name": "Create Intercompany Invoice (5D2)",
+        "type": "userTask",
+        "role": "Billing Clerk (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 36,
+        "name": "Release \nBlocked Supplier Invoice (Optional) (22Z)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs) (Selling Company)",
+        "optional": true
+      },
+      {
+        "seq": 37,
+        "name": "Create Intercompany Supplier Invoice",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 38,
+        "name": "Create F2 Invoice (5D2)",
+        "type": "userTask",
+        "role": "Billing Clerk (Selling Company)",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

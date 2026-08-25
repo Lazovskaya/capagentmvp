@@ -1,0 +1,192 @@
+{
+  "scope_item_id": "426",
+  "title": "Service Contract Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Service"
+    ],
+    "L2_core_process": [
+      "Service Master Data and Agreement Management"
+    ],
+    "L3_scope_item": "426 - Service Contract Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Service Contracts",
+        "fiori_app_id": "F3763",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SERVICE_MANAGER",
+        "component": "CRM-S4-SRV-CTR"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Service Contract Templates",
+        "fiori_app_id": "F6356",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SERVICE_MANAGER",
+        "component": "CRM-S4-SRV-CTR"
+      },
+      {
+        "step_no": 3,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "43aa9631820e4db9b17fef2194106a82",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "43aa9631820e4db9b17fef2194106a82",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Service Contract and Add Service Contract Items with Periodic and/or Ad-Hoc Billing Plan",
+        "type": "userTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Maintain Product List and Create Price Agreements",
+        "type": "userTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Service Contract Item with Configurable Product",
+        "type": "userTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Adapt Service Contract Prices",
+        "type": "userTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Release Service Contract and Service Contract Items",
+        "type": "userTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Billing Document Request Created Based on Billing Request Lines from Biling Plan",
+        "type": "serviceTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Create Billing Request Lines",
+        "type": "userTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "(Optional) Change Sold-to-Party in Service Contract",
+        "type": "userTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": true
+      },
+      {
+        "seq": 9,
+        "name": "(Optional) Manually Renew Entire Service Contract",
+        "type": "userTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": true
+      },
+      {
+        "seq": 10,
+        "name": "(Optional) Manually Renew Service Contract Item",
+        "type": "userTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": true
+      },
+      {
+        "seq": 11,
+        "name": "(Optional) Cancel Service Contract or Service Contract Item",
+        "type": "userTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": true
+      },
+      {
+        "seq": 12,
+        "name": "(Optional) Auto Renewal of Service Contract Item",
+        "type": "serviceTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": true
+      },
+      {
+        "seq": 13,
+        "name": "Create Invoice",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "New Service Contract is Created",
+        "type": "serviceTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "New Service Contract Items in Existing Service Contract are Created",
+        "type": "serviceTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "New Service Contract Item is Created in Existing Service Contract",
+        "type": "serviceTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Service Contract or Service Contract Item is Cancelled and End Date is Adjusted",
+        "type": "serviceTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "J59 - Accounts Receivable",
+        "type": "subProcess",
+        "role": "Accounts Receivable Accountant",
+        "optional": false,
+        "calls_scope_item": "J59"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "J59",
+        "name": "J59 - Accounts Receivable",
+        "optional": false
+      }
+    ]
+  }
+}

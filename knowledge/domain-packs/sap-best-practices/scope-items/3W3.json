@@ -1,0 +1,39 @@
+{
+  "scope_item_id": "3W3",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Manufacturing Operations"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "d01cc899498640a7b737a56f6b5c6461",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "d01cc899498640a7b737a56f6b5c6461",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Production Execution",
+        "type": "userTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Confirm Shop Floor Order",
+        "type": "userTask",
+        "role": "System",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

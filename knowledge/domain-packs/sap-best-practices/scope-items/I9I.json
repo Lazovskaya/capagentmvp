@@ -1,0 +1,112 @@
+{
+  "scope_item_id": "I9I",
+  "title": "Sales Contract Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": "I9I - Sales Contract Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Post Incoming Payments",
+        "fiori_app_id": "F1345",
+        "technical_transaction": "F-04",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AR-TRA"
+      },
+      {
+        "step_no": 2,
+        "name": "Schedule General Ledger Jobs",
+        "fiori_app_id": "F1927",
+        "technical_transaction": "FINS_FXV",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-PER"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Outbound Deliveries",
+        "fiori_app_id": "F0867A",
+        "technical_transaction": "VL06G",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 4,
+        "name": "Create Outbound Deliveries - From Sales Orders",
+        "fiori_app_id": "F0869A",
+        "technical_transaction": "VL10A",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 5,
+        "name": "List Incomplete Sales Documents",
+        "fiori_app_id": "F2430",
+        "technical_transaction": "V.02",
+        "app_type": null,
+        "role": "SAP_BR_SALES_MANAGER | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-ANA"
+      },
+      {
+        "step_no": 6,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Sales Contracts",
+        "fiori_app_id": "F1851",
+        "technical_transaction": "VA45",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP | SAP_BR_SOLN_BUSINESS_SPCLST",
+        "component": "SD-SLS"
+      },
+      {
+        "step_no": 8,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "f7fae1f6d6014030b8b6c8f3bd367eb7",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "f7fae1f6d6014030b8b6c8f3bd367eb7",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Contract (Quantity)",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "List Sales Contracts",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

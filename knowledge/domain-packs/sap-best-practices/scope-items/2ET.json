@@ -1,0 +1,208 @@
+{
+  "scope_item_id": "2ET",
+  "title": "Sales Order Processing for Non-Stock Material",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": "2ET - Sales Order Processing for Non-Stock Material",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Display Billing Documents",
+        "fiori_app_id": "F2250",
+        "technical_transaction": "FKKINVBILL_DISP",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV | SAP_BR_INVOICING_SPEC_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Create Outbound Deliveries - From Sales Orders",
+        "fiori_app_id": "F0869A",
+        "technical_transaction": "VL10A",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Schedule Goods Issue For Deliveries",
+        "fiori_app_id": "F2259",
+        "technical_transaction": "VL10BATCH",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-GF-JS"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Billing Documents",
+        "fiori_app_id": "F0797",
+        "technical_transaction": "VF02",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_TRANSPRT_MNGR_LMD | SAP_BR_BILLING_CLERK | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_ADMINISTRATOR_RFM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 5,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "69ca10530eb34663b93a96d45383ab89",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "69ca10530eb34663b93a96d45383ab89",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "BD6 - Basic Credit Management",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "BD6"
+      },
+      {
+        "seq": 2,
+        "name": "BDG - Sales Quotation",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "BDG"
+      },
+      {
+        "seq": 3,
+        "name": "Create Sales Order",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "BD6 - Basic Credit Management",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "BD6"
+      },
+      {
+        "seq": 5,
+        "name": "Create Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Split Outbound Delivery (Optional)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": true
+      },
+      {
+        "seq": 7,
+        "name": "Add Freight Cost (Optional)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": true
+      },
+      {
+        "seq": 8,
+        "name": "Post Goods Issue",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Proof of Delivery (Optional)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": true
+      },
+      {
+        "seq": 10,
+        "name": "Create Billing Document",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Create Pro Forma Invoice (Optional)",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": true
+      },
+      {
+        "seq": 12,
+        "name": "J59 - Accounts Receivable",
+        "type": "subProcess",
+        "role": "Accounts Receivable Accountant",
+        "optional": false,
+        "calls_scope_item": "J59"
+      },
+      {
+        "seq": 13,
+        "name": "BKK - Sales Order Fulfillment Monitoring",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": false,
+        "calls_scope_item": "BKK"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 11,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 13,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "BD6",
+        "name": "BD6 - Basic Credit Management",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BDG",
+        "name": "BDG - Sales Quotation",
+        "optional": false
+      },
+      {
+        "scope_item_id": "J59",
+        "name": "J59 - Accounts Receivable",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BKK",
+        "name": "BKK - Sales Order Fulfillment Monitoring",
+        "optional": false
+      }
+    ]
+  }
+}

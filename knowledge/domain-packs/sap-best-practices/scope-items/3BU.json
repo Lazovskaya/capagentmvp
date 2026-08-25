@@ -1,0 +1,71 @@
+{
+  "scope_item_id": "3BU",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Warehousing"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "acad106225d348438ba21996df9a6ccc",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "acad106225d348438ba21996df9a6ccc",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create and hand over Outbound Delivery to Warehouse Management as Posting Change",
+        "type": "serviceTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Warehouse Tasks for Posting Changes",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Confirm Warehouse Task for Posting Changes",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Trigger Posting Change",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Synchronous Posting Change",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

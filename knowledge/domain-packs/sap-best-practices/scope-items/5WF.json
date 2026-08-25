@@ -1,0 +1,366 @@
+{
+  "scope_item_id": "5WF",
+  "title": "Shareholding Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": "5WF - Shareholding Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Display Treasury Position Flows",
+        "fiori_app_id": "F1754",
+        "technical_transaction": "TPM13",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_TREASURY_ACCOUNTANT | SAP_BR_TREASURY_RISK_MANAGER",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 2,
+        "name": "Display Treasury Posting Journal",
+        "fiori_app_id": "F1755",
+        "technical_transaction": "TPM20",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_ACCOUNTANT",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 3,
+        "name": "Display Treasury Position Values",
+        "fiori_app_id": "F1867",
+        "technical_transaction": "TPM12",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_RISK_MANAGER | SAP_BR_TREASURY_ACCOUNTANT | SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 4,
+        "name": "Display Treasury Alerts - Settlement",
+        "fiori_app_id": "F4979",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 5,
+        "name": "Display Treasury Alerts - Release",
+        "fiori_app_id": "F4980",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 6,
+        "name": "Display Treasury Alerts - Payment",
+        "fiori_app_id": "F4981",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_TREASURY_ACCOUNTANT",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 7,
+        "name": "Display Treasury Alerts - Interest Rates",
+        "fiori_app_id": "F4982",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 8,
+        "name": "Display Treasury Alerts - Posting",
+        "fiori_app_id": "F4984",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_ACCOUNTANT",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 9,
+        "name": "Cash Flow Analyzer",
+        "fiori_app_id": "F2332",
+        "technical_transaction": "FF7AN",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP-CP"
+      },
+      {
+        "step_no": 10,
+        "name": "Manage Security Classes",
+        "fiori_app_id": "F8717",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FSCM-TRM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "c0b4fd82a9d448cd994218957e1ad51f",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "c0b4fd82a9d448cd994218957e1ad51f",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Security Account",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Enter Condition Items in Security ID",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Corporate Action",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Update Securities Price - Non-affiliated Company",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Review Shareholding Position",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "BFB - Analyze Cash Position",
+        "type": "subProcess",
+        "role": "Cash Manager",
+        "optional": false,
+        "calls_scope_item": "BFB"
+      },
+      {
+        "seq": 7,
+        "name": "BFB - Analyze Liquidity Forecast",
+        "type": "subProcess",
+        "role": "Cash Manager",
+        "optional": false,
+        "calls_scope_item": "BFB"
+      },
+      {
+        "seq": 8,
+        "name": "Create Security Class for Shareholding - Non-affiliated Company",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Create Security Class for Shareholding - Subsidiary",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Create Security Class for Shareholding - Associate or Joint Venture",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Post the Cash Dividend Income - Non-affiliated Company/Subsidiary",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Post Corporate Action",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Perform Key Date Valuation - Non-affiliated Company",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Create Shareholding Sale Transaction",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Post the Cash Dividend - Associate or Joint Venture",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Set Settlement Status",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Bank Initiated Payment",
+        "type": "manualTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Create Shareholding Purchase Transaction - Non-affiliated Company",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Create Shareholding Purchase Transaction - Subsidiary",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 20,
+        "name": "Create Shareholding Purchase Transaction - Associate or Joint Venture",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 21,
+        "name": "Post to General Ledger",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 22,
+        "name": "01 - Reports",
+        "type": "subProcess",
+        "role": "Treasury Accountant",
+        "optional": false,
+        "calls_scope_item": "01"
+      },
+      {
+        "seq": 23,
+        "name": "02 - Correspondence",
+        "type": "subProcess",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false,
+        "calls_scope_item": "02"
+      },
+      {
+        "seq": 24,
+        "name": "Generate Payment Request",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 25,
+        "name": "Bank Initiated Payment",
+        "type": "serviceTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 26,
+        "name": "Process Payment Request",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 27,
+        "name": "Post to General Ledger",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 14,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 14,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 16,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 21,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 23,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 26,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "BFB",
+        "name": "BFB - Analyze Cash Position",
+        "optional": false
+      },
+      {
+        "scope_item_id": "01",
+        "name": "01 - Reports",
+        "optional": false
+      },
+      {
+        "scope_item_id": "02",
+        "name": "02 - Correspondence",
+        "optional": false
+      }
+    ]
+  }
+}

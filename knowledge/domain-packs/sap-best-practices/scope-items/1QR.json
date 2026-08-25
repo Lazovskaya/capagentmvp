@@ -1,0 +1,30 @@
+{
+  "scope_item_id": "1QR",
+  "title": "Predictive Analytics for Purchase Contract Quantity Consumption",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Intelligent Technologies",
+    "L3_scope_item": "1QR - Predictive Analytics for Purchase Contract Quantity Consumption",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Intelligent Scenario Management",
+        "fiori_app_id": "F4470",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ANALYTICS_SPECIALIST",
+        "component": "BC-ISM"
+      },
+      {
+        "step_no": 2,
+        "name": "Quantity Contract Consumption",
+        "fiori_app_id": "F2012",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BUYER | SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-ANA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

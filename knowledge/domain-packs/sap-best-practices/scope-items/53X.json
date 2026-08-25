@@ -1,0 +1,106 @@
+{
+  "scope_item_id": "53X",
+  "title": "Just-In-Time Supply to Customer with Delivery Confirmation",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Manufacturing Options"
+    ],
+    "L3_scope_item": "53X - Just-In-Time Supply to Customer with Delivery Confirmation",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Communication Arrangements",
+        "fiori_app_id": "F1763",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APPL_SUP_ENG_DEV_SUP | SAP_BR_CONF_EXPERT_BUS_NET_INT | SAP_BR_ADMINISTRATOR",
+        "component": "BC-SRV-APS-COM"
+      },
+      {
+        "step_no": 2,
+        "name": "Maintain Communication Users",
+        "fiori_app_id": "F1338",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CONF_EXPERT_BUS_NET_INT | SAP_BR_APPL_SUP_ENG_DEV_SUP | SAP_BR_ADMINISTRATOR",
+        "component": "BC-SRV-APS-IAM"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage JIT Delivery Confirmation",
+        "fiori_app_id": "F5268",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_JIT_S_TO_C",
+        "component": "LE-JIT-S2C"
+      },
+      {
+        "step_no": 4,
+        "name": "Stock - Multiple Materials",
+        "fiori_app_id": "F1595",
+        "technical_transaction": "MB1B",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_WAREHOUSE_CLERK | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_PRODN_PLNR | SAP_BR_INVENTORY_MANAGER",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 5,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "9c765946a494425aba896fbea1a3edc0",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "9c765946a494425aba896fbea1a3edc0",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Post Goods Issue",
+        "type": "userTask",
+        "role": "Shipping Specialist - Just-In-Time Supply",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Check Stock Overview (optional)",
+        "type": "userTask",
+        "role": "Shipping Specialist - Just-In-Time Supply",
+        "optional": true
+      },
+      {
+        "seq": 3,
+        "name": "Create Billing Documents",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Accounts Receivable (J59)",
+        "type": "subProcess",
+        "role": "Accounts Receivable Accountant",
+        "optional": false,
+        "calls_scope_item": "J59"
+      }
+    ],
+    "gateways": [],
+    "dependencies": [
+      {
+        "scope_item_id": "J59",
+        "name": "Accounts Receivable (J59)",
+        "optional": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,337 @@
+{
+  "scope_item_id": "1W8",
+  "title": "Legal Control",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Enterprise Risk and Compliance"
+    ],
+    "L3_scope_item": "1W8 - Legal Control",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Classify Products - Legal Control",
+        "fiori_app_id": "F2390",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CLS_SPECIALIST",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 2,
+        "name": "Reclassify Products - Legal Control",
+        "fiori_app_id": "F2391",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CLS_SPECIALIST",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Control Groupings",
+        "fiori_app_id": "F2515",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CLS_SPECIALIST",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Control Classes",
+        "fiori_app_id": "F2518",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CLS_SPECIALIST",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Content from Data Provider - Commodity Codes",
+        "fiori_app_id": "F3429",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CLS_SPECIALIST",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 6,
+        "name": "Schedule Content Request to Data Provider - Control Classes",
+        "fiori_app_id": "F3568",
+        "technical_transaction": "/SAPSLL/CC_CONCL_REQ",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_SLL",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 7,
+        "name": "Display Classified Products - International Trade",
+        "fiori_app_id": "F3789",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CLS_SPECIALIST",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 8,
+        "name": "Manage Licenses",
+        "fiori_app_id": "F2545",
+        "technical_transaction": "VX01N",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CMPLNC_SPECIALIST",
+        "component": "FT-ITR-TRC"
+      },
+      {
+        "step_no": 9,
+        "name": "Manage Documents - Trade Compliance",
+        "fiori_app_id": "F2826",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CMPLNC_SPECIALIST",
+        "component": "FT-ITR-TRC"
+      },
+      {
+        "step_no": 10,
+        "name": "Display License Assignments - Trade Compliance",
+        "fiori_app_id": "F4047",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CMPLNC_SPECIALIST",
+        "component": "FT-ITR-TRC"
+      },
+      {
+        "step_no": 11,
+        "name": "Schedule Recheck Documents - Trade Compliance",
+        "fiori_app_id": "F4285",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CMPLNC_SPECIALIST",
+        "component": "FT-ITR-TRC"
+      },
+      {
+        "step_no": 12,
+        "name": "Analyze and Resolve Blocked Documents - Trade Compliance",
+        "fiori_app_id": "F5445",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CMPLNC_SPECIALIST",
+        "component": "FT-ITR-TRC"
+      },
+      {
+        "step_no": 13,
+        "name": "Create Outbound Deliveries - From Sales Orders",
+        "fiori_app_id": "F0869A",
+        "technical_transaction": "VL10A",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 14,
+        "name": "Manage Purchase Orders (Version 2)",
+        "fiori_app_id": "F0842A",
+        "technical_transaction": "ME21",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-PO"
+      },
+      {
+        "step_no": 15,
+        "name": "Manage Scheduling Agreement",
+        "fiori_app_id": "F2179",
+        "technical_transaction": "ME31L",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST | SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-SQ-SCH"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "c9cb7bf7e9ec4efc97375d37b350f8d1",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "c9cb7bf7e9ec4efc97375d37b350f8d1",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Maintain Decision Table for Whitelisting",
+        "type": "userTask",
+        "role": "Trade Compliance Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Maintain Decision Table for Blacklisting",
+        "type": "userTask",
+        "role": "Trade Compliance Specialist",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Display LIcense Assignments",
+        "type": "userTask",
+        "role": "Trade Compliance Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Schedule mass recheck of trade compliance documents",
+        "type": "userTask",
+        "role": "Trade Compliance Specialist",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Schedule Control Classes Content Request to Data Provider",
+        "type": "subProcess",
+        "role": "Configuration Expert - Business Network Integration",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Create Sales Order",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Option 1: Create Outbound Delivery",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Manage Control Classes",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Manage Content from Data Provider - Control Classes",
+        "type": "subProcess",
+        "role": "Trade Classification Specialist",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Purchasing document saved",
+        "type": "serviceTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Document blocked",
+        "type": "serviceTask",
+        "role": "Trade Compliance Specialist",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Sales document saved",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Manage Control Groupings (Optional)",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": true
+      },
+      {
+        "seq": 15,
+        "name": "Manage Documents - Trade Compliance",
+        "type": "userTask",
+        "role": "Trade Compliance Specialist",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Classify Products - Legal Control",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Manage Licenses - Trade Compliance",
+        "type": "userTask",
+        "role": "Trade Compliance Specialist",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Reclassify Products - Legal Control (Optional)",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": true
+      },
+      {
+        "seq": 19,
+        "name": "Display Classified Products  (Optional)",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": true
+      },
+      {
+        "seq": 20,
+        "name": "Analyze and Resolve Blocked Documents - Trade Compliance",
+        "type": "userTask",
+        "role": "Trade Compliance Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Mixed"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 18,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

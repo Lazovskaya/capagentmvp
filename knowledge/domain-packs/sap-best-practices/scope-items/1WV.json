@@ -1,0 +1,209 @@
+{
+  "scope_item_id": "1WV",
+  "title": "Debt and Investment Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": "1WV - Debt and Investment Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Display Treasury Position Flows",
+        "fiori_app_id": "F1754",
+        "technical_transaction": "TPM13",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_TREASURY_ACCOUNTANT | SAP_BR_TREASURY_RISK_MANAGER",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 2,
+        "name": "Display Treasury Posting Journal",
+        "fiori_app_id": "F1755",
+        "technical_transaction": "TPM20",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_ACCOUNTANT",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 3,
+        "name": "Display Treasury Position Values",
+        "fiori_app_id": "F1867",
+        "technical_transaction": "TPM12",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_RISK_MANAGER | SAP_BR_TREASURY_ACCOUNTANT | SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 4,
+        "name": "Treasury Position History",
+        "fiori_app_id": "F3966",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_ACCOUNTANT | SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_TREASURY_RISK_MANAGER",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 5,
+        "name": "Display Treasury Alerts - Settlement",
+        "fiori_app_id": "F4979",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 6,
+        "name": "Display Treasury Alerts - Release",
+        "fiori_app_id": "F4980",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 7,
+        "name": "Display Treasury Alerts - Payment",
+        "fiori_app_id": "F4981",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_TREASURY_ACCOUNTANT",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 8,
+        "name": "Display Treasury Alerts - Interest Rates",
+        "fiori_app_id": "F4982",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 9,
+        "name": "Display Treasury Alerts - Correspondence",
+        "fiori_app_id": "F4983",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 10,
+        "name": "Display Treasury Alerts - Posting",
+        "fiori_app_id": "F4984",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_ACCOUNTANT",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 11,
+        "name": "Manage Financial Transactions",
+        "fiori_app_id": "F6157",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_TREASURY_SPECIALIST_FOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 12,
+        "name": "Cash Flow Analyzer",
+        "fiori_app_id": "F2332",
+        "technical_transaction": "FF7AN",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP-CP"
+      },
+      {
+        "step_no": 13,
+        "name": "Check Cash Flow Items",
+        "fiori_app_id": "F0735",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_FOE | SAP_BR_TREASURY_SPECIALIST_MOE | SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-COP-PD"
+      },
+      {
+        "step_no": 14,
+        "name": "Debt and Investment Maturity Profile",
+        "fiori_app_id": "F3130",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_RISK_MANAGER | SAP_BR_TREASURY_SPECIALIST_FOE",
+        "component": "FIN-FSCM-TRM"
+      },
+      {
+        "step_no": 15,
+        "name": "Debt and Investment Analysis",
+        "fiori_app_id": "F3450",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_FOE | SAP_BR_TREASURY_RISK_MANAGER",
+        "component": "FIN-FSCM-TRM"
+      },
+      {
+        "step_no": 16,
+        "name": "Credit Line Analysis- Review Booklet",
+        "fiori_app_id": "F9064",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_TREASURY_SPECIALIST_FOE | SAP_BR_TREASURY_RISK_MANAGER",
+        "component": "FIN-FSCM-TRM-TM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "c4c9cd9cd2ca4ba2886f1f4ec318c1ab",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "c4c9cd9cd2ca4ba2886f1f4ec318c1ab",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Generate Payment Request for Mature Transaction",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Bank Initiated Payment",
+        "type": "serviceTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Post to General Ledger",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Post Realized Profit and Loss",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

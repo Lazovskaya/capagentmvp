@@ -1,0 +1,213 @@
+{
+  "scope_item_id": "SL4",
+  "title": "Supplier Evaluation and Performance Monitoring",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Supplier Management"
+    ],
+    "L3_scope_item": "SL4 - Supplier Evaluation and Performance Monitoring",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Supplier Evaluation by Quantity (Version 2)",
+        "fiori_app_id": "F1661A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER | SAP_BR_BUYER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 2,
+        "name": "Operational Supplier Evaluation (Version 2)",
+        "fiori_app_id": "F1662A",
+        "technical_transaction": "ME6B",
+        "app_type": null,
+        "role": "SAP_BR_BUYER | SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 3,
+        "name": "Supplier Evaluation by Price (Version 2)",
+        "fiori_app_id": "F1663A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BUYER | SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 4,
+        "name": "Supplier Evaluation by Time (Version 2)",
+        "fiori_app_id": "F1664A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BUYER | SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 5,
+        "name": "Overall Supplier Evaluation",
+        "fiori_app_id": "F2019",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER | SAP_BR_BUYER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 6,
+        "name": "Supplier Evaluation by Questionnaire (Version 2)",
+        "fiori_app_id": "F2234A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BUYER | SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 7,
+        "name": "Supplier Evaluation by Quality (Version 2)",
+        "fiori_app_id": "F2309A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER | SAP_BR_BUYER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 8,
+        "name": "Adjust Operational Supplier Evaluation Score",
+        "fiori_app_id": "F2312",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BUYER | SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 9,
+        "name": "Supplier Evaluation Weighting and Scoring",
+        "fiori_app_id": "F2551",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BUYER | SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 10,
+        "name": "Supplier Evaluation By Quality (for Quality Notification) (Version 2)",
+        "fiori_app_id": "F3295A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER | SAP_BR_BUYER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 11,
+        "name": "Supplier Evaluation Score History",
+        "fiori_app_id": "F3811",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER | SAP_BR_BUYER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 12,
+        "name": "Manage User-Defined Criteria for Supplier Evaluation",
+        "fiori_app_id": "F3812",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER | SAP_BR_BUYER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 13,
+        "name": "Supplier Evaluation by User-defined Criteria (Version 2)",
+        "fiori_app_id": "F3842A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BUYER | SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 14,
+        "name": "Parts Per Million",
+        "fiori_app_id": "F4885",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER | SAP_BR_BUYER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 15,
+        "name": "Supplier Evaluation Scores Output",
+        "fiori_app_id": "F5061",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BUYER | SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 16,
+        "name": "Monitor Responses",
+        "fiori_app_id": "F1649",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER | SAP_BR_BUYER",
+        "component": "SLC-EVL"
+      },
+      {
+        "step_no": 17,
+        "name": "Evaluate Suppliers",
+        "fiori_app_id": "F1650",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_EMPLOYEE_PROCUREMENT | SAP_BR_EMPLOYEE",
+        "component": "SLC-EVL"
+      },
+      {
+        "step_no": 18,
+        "name": "Display Scorecards",
+        "fiori_app_id": "F2191",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER | SAP_BR_BUYER",
+        "component": "SLC-EVL"
+      },
+      {
+        "step_no": 19,
+        "name": "Manage Templates",
+        "fiori_app_id": "F2193",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BUYER | SAP_BR_PURCHASER",
+        "component": "SLC-EVL"
+      },
+      {
+        "step_no": 20,
+        "name": "Manage Questionnaires",
+        "fiori_app_id": "F2194",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER | SAP_BR_BUYER",
+        "component": "SLC-EVL"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "1377f433136c4e9d891ebe06d178f88d",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "1377f433136c4e9d891ebe06d178f88d",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Display Overall Supplier Evaluation Score",
+        "type": "userTask",
+        "role": "Strategic Buyer",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

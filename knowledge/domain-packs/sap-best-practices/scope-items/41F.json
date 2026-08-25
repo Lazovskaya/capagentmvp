@@ -1,0 +1,56 @@
+{
+  "scope_item_id": "41F",
+  "title": "Procurement of Pipeline Materials",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Operational Procurement"
+    ],
+    "L3_scope_item": "41F - Procurement of Pipeline Materials",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Supplier Invoice Jobs - Advanced",
+        "fiori_app_id": "F1683",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT",
+        "component": "MM-FIO-IV"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "c831d1e870cb438796564b5cc46c68f1",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "c831d1e870cb438796564b5cc46c68f1",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Purchasing Info Record",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Record Consumption",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Consignment and pipeline Settlement",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "scope_item_id": "2R3",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Operational Procurement"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "32ba055768b34a2f93b2958a2ddb5097",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "32ba055768b34a2f93b2958a2ddb5097",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Purchase Order for One Company Code",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Purchase Order for Another Company Code (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 3,
+        "name": "Post Goods Receipt",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Post Goods Receipt (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "Create Supplier Invoice",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Set the GR Delivery Completed indicator(Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": true
+      },
+      {
+        "seq": 7,
+        "name": "Create Purchase Order for another Company Code (Optional) Local (Optional)",
+        "type": "userTask",
+        "role": "Configuration Expert - Business Process Configuration",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

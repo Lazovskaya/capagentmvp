@@ -1,0 +1,48 @@
+{
+  "scope_item_id": "6GS",
+  "title": "Service Management with Advanced Variant Configuration",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Service",
+    "L3_scope_item": "6GS - Service Management with Advanced Variant Configuration",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Release for Billing",
+        "fiori_app_id": "F3573",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SERVICE_PLANNER | SAP_BR_SOLN_ORDER_SPCLST | SAP_BR_CREDIT_CONTROLLER | SAP_BR_CUSTOMER_SRVC_MGR",
+        "component": "CRM-S4-SRV-BIL"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Service Orders (Version 2)",
+        "fiori_app_id": "F3571A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BILLING_CLERK | SAP_BR_SOLN_ORDER_SPCLST | SAP_BR_INTERNAL_SALES_REP | SAP_BR_SERVICE_PLANNER | SAP_BR_CREDIT_CONTROLLER | SAP_BR_CUSTOMER_SRVC_MGR",
+        "component": "CRM-S4-SRV-SVO-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Process Service Orders",
+        "fiori_app_id": "F4230",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CUSTOMER_SRVC_TEC",
+        "component": "CRM-S4-SRV-SVO-FIO"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Service Quotations",
+        "fiori_app_id": "F4251",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CUSTOMER_SRVC_MGR | SAP_BR_INTERNAL_SALES_REP | SAP_BR_SOLN_ORDER_SPCLST | SAP_BR_SERVICE_PLANNER | SAP_BR_CREDIT_CONTROLLER",
+        "component": "CRM-S4-SRV-SVQ"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

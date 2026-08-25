@@ -1,0 +1,60 @@
+{
+  "scope_item_id": "2VO",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Warehousing"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "2aeb06ec01b14dc7b40aadf9a3e2fa37",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "2aeb06ec01b14dc7b40aadf9a3e2fa37",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Return Order",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Return Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Check Material Document (Optional)",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": true
+      },
+      {
+        "seq": 4,
+        "name": "Check Material Document (Optional)",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "Check Return Delivery (Optional)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": true
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

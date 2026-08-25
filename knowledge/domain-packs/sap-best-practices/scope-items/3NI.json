@@ -1,0 +1,300 @@
+{
+  "scope_item_id": "3NI",
+  "title": "Procurement for Service Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Service"
+    ],
+    "L2_core_process": [
+      "Service Operations and Processes"
+    ],
+    "L3_scope_item": "3NI - Procurement for Service Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Service Orders (Version 2)",
+        "fiori_app_id": "F3571A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BILLING_CLERK | SAP_BR_SOLN_ORDER_SPCLST | SAP_BR_INTERNAL_SALES_REP | SAP_BR_SERVICE_PLANNER | SAP_BR_CREDIT_CONTROLLER | SAP_BR_CUSTOMER_SRVC_MGR",
+        "component": "CRM-S4-SRV-SVO-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "15da44239e784ae2b9889143c22b6cbe",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "15da44239e784ae2b9889143c22b6cbe",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Purchase Requisition created against Service Order line item",
+        "type": "serviceTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Check Purchase Requisition (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 3,
+        "name": "Create Purchase Order against Purchase Requisition",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Monitor Purchase Order Assignment in Service/Repair Order",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Approve Purchase Order (optional)",
+        "type": "userTask",
+        "role": "Purchasing Manager",
+        "optional": true
+      },
+      {
+        "seq": 6,
+        "name": "Change Purchase Order (optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 7,
+        "name": "Check Purchasing Document List     (optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 8,
+        "name": "3XK - In-House Repair",
+        "type": "subProcess",
+        "role": "Purchaser",
+        "optional": false,
+        "calls_scope_item": "3XK"
+      },
+      {
+        "seq": 9,
+        "name": "Purchase Order Output",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "3D2 - Service Order Management and Monitoring",
+        "type": "subProcess",
+        "role": "Purchaser",
+        "optional": false,
+        "calls_scope_item": "3D2"
+      },
+      {
+        "seq": 11,
+        "name": "Monitor Supplier Invoice Assignment in Service/Repair Order(Optional)",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": true
+      },
+      {
+        "seq": 12,
+        "name": "J82- Ariba Commerce Automation Integration (Optional)",
+        "type": "subProcess",
+        "role": "Purchaser",
+        "optional": true,
+        "calls_scope_item": "J82"
+      },
+      {
+        "seq": 13,
+        "name": "Goods Receipt of Material Items",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Check Goods Receipt Details         (optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": true
+      },
+      {
+        "seq": 15,
+        "name": "Check Goods Receipt Details         (optional)",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": true
+      },
+      {
+        "seq": 16,
+        "name": "Create Supplier Invoice with PO Reference",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Reverse Goods Receipt (optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": true
+      },
+      {
+        "seq": 18,
+        "name": "Approve Supplier Invoice (optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 19,
+        "name": "Monitor Reverse Goods Receipt in Service/Repair Order (Optional)",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": true
+      },
+      {
+        "seq": 20,
+        "name": "Change Supplier Invoice",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 21,
+        "name": "Post Supplier Invoice",
+        "type": "serviceTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 22,
+        "name": "J60 - Accounts Payable",
+        "type": "subProcess",
+        "role": "Accounts Payable Accountant",
+        "optional": false,
+        "calls_scope_item": "J60"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 12,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 13,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 15,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 15,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 17,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 17,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 19,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 21,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "3XK",
+        "name": "3XK - In-House Repair",
+        "optional": false
+      },
+      {
+        "scope_item_id": "3D2",
+        "name": "3D2 - Service Order Management and Monitoring",
+        "optional": false
+      },
+      {
+        "scope_item_id": "J82",
+        "name": "J82- Ariba Commerce Automation Integration (Optional)",
+        "optional": true
+      },
+      {
+        "scope_item_id": "J60",
+        "name": "J60 - Accounts Payable",
+        "optional": false
+      }
+    ]
+  }
+}

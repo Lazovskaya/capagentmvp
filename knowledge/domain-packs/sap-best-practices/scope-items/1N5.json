@@ -1,0 +1,112 @@
+{
+  "scope_item_id": "1N5",
+  "title": "Central Governance for Product",
+  "hierarchy": {
+    "L1_value_stream": [
+      "IT and Cross-Application"
+    ],
+    "L2_core_process": [
+      "Enterprise Information Management"
+    ],
+    "L3_scope_item": "1N5 - Central Governance for Product",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Governance Processes - Products",
+        "fiori_app_id": "F8466",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODMASTER_SPECIALIST",
+        "component": "CA-MDG-CMP-MM"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Products - Central Governance",
+        "fiori_app_id": "F8467",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODMASTER_SPECIALIST",
+        "component": "CA-MDG-CMP-MM"
+      },
+      {
+        "step_no": 3,
+        "name": "Track Changes - Products",
+        "fiori_app_id": "F8469",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODMASTER_SPECIALIST",
+        "component": "CA-MDG-CMP-MM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "efa5f78c165d44258569cae25f32b940",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "efa5f78c165d44258569cae25f32b940",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Scope Definition",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Record Selection",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Validation",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Activation",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

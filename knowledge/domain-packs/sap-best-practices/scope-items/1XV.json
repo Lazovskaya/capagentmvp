@@ -1,0 +1,147 @@
+{
+  "scope_item_id": "1XV",
+  "title": "SAP S/4HANA for Enterprise Contract Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "IT and Cross-Application",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Enterprise Information Management",
+      "Sourcing and Contract Management"
+    ],
+    "L3_scope_item": "1XV - SAP S/4HANA for Enterprise Contract Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Context for Legal Contract",
+        "fiori_app_id": "F2346",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_LCM | SAP_BR_LEGAL_COUNSEL | SAP_BR_EMPLOYEE | SAP_BR_EMPLOYEE_LEGAL_CONTENT",
+        "component": "CM-CTX"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Legal Documents",
+        "fiori_app_id": "F2453",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_EMPLOYEE | SAP_BR_LEGAL_COUNSEL | SAP_BR_ADMINISTRATOR_LCM | SAP_BR_EMPLOYEE_LEGAL_CONTENT",
+        "component": "CM-DOC"
+      },
+      {
+        "step_no": 3,
+        "name": "Schedule Envelope Status Updates",
+        "fiori_app_id": "F4344",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_LCM",
+        "component": "CM-GF"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Legal Transactions",
+        "fiori_app_id": "F2310",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_LCM | SAP_BR_EMPLOYEE | SAP_BR_LEGAL_COUNSEL | SAP_BR_EMPLOYEE_LEGAL_CONTENT",
+        "component": "CM-LT"
+      },
+      {
+        "step_no": 5,
+        "name": "Request Legal Contract",
+        "fiori_app_id": "F2403",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_LCM | SAP_BR_EMPLOYEE | SAP_BR_EMPLOYEE_LEGAL_CONTENT | SAP_BR_LEGAL_COUNSEL",
+        "component": "CM-LT"
+      },
+      {
+        "step_no": 6,
+        "name": "Enterprise Contract Overview",
+        "fiori_app_id": "F2933",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_LCM | SAP_BR_LEGAL_COUNSEL",
+        "component": "CM-OVP"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Tasks for Legal Contract",
+        "fiori_app_id": "F2304",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_LEGAL_COUNSEL | SAP_BR_ADMINISTRATOR_LCM | SAP_BR_EMPLOYEE | SAP_BR_EMPLOYEE_LEGAL_CONTENT",
+        "component": "CM-TSK"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "4e0ae4eaa7174fe9b8f12a4e623e0eea",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "4e0ae4eaa7174fe9b8f12a4e623e0eea",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Legal Content Overview",
+        "type": "userTask",
+        "role": "Legal Counsel",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Request Legal Content",
+        "type": "userTask",
+        "role": "Employee - Legal Content Management",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Manage Legal Transactions",
+        "type": "userTask",
+        "role": "Legal Counsel",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Manage Legal Documents",
+        "type": "userTask",
+        "role": "Legal Counsel",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Approve/ Review/ Process       Legal Transactions",
+        "type": "userTask",
+        "role": "Processor",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

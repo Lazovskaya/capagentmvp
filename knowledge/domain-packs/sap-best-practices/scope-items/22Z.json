@@ -1,0 +1,309 @@
+{
+  "scope_item_id": "22Z",
+  "title": "Procurement of Services",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Invoice Management",
+      "Operational Procurement"
+    ],
+    "L3_scope_item": "22Z - Procurement of Services",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Inbox",
+        "fiori_app_id": "F0862",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER",
+        "component": "CA-INB-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Supplier Invoices",
+        "fiori_app_id": "F0859",
+        "technical_transaction": "F-41",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AA_ACCOUNTANT | SAP_BR_PURCHASING_MANAGER",
+        "component": "MM-FIO-IV"
+      },
+      {
+        "step_no": 3,
+        "name": "Schedule Purchasing Jobs - Advanced",
+        "fiori_app_id": "F1702",
+        "technical_transaction": "ME59N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Purchase Orders (Version 2)",
+        "fiori_app_id": "F0842A",
+        "technical_transaction": "ME21",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-PO"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Purchase Requisition Professional",
+        "fiori_app_id": "F2229",
+        "technical_transaction": "ME51N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-PRF"
+      },
+      {
+        "step_no": 6,
+        "name": "Process Purchase Requisitions ( Version 2 )",
+        "fiori_app_id": "F1048A",
+        "technical_transaction": "ME59N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-SOC"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Purchase Contracts (Version 2)",
+        "fiori_app_id": "F1600A",
+        "technical_transaction": "ME31K",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-SQ-CON"
+      },
+      {
+        "step_no": 8,
+        "name": "Monitor Service Entry Sheet Generation Log",
+        "fiori_app_id": "F3495",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRANSP_BUYER | SAP_BR_PURCHASER_RFM | SAP_BR_PURCHASER",
+        "component": "MM-FIO-SRV"
+      },
+      {
+        "step_no": 9,
+        "name": "Manage Service Entry Sheets - Lean Services",
+        "fiori_app_id": "F2027",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-PUR-SVC-SES"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "07a6877b355f492c85baf359c7b55bcc",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "07a6877b355f492c85baf359c7b55bcc",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Purchase Requisition 18J",
+        "type": "userTask",
+        "role": "Employee - Procurement",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Option B: Create Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Option D: Create Contract with Item Hierarchy",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Option C: Create Purchasing Contract",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Approve Purchase Requisition (Optional)",
+        "type": "userTask",
+        "role": "Manager - Procurement",
+        "optional": true
+      },
+      {
+        "seq": 6,
+        "name": "Option A: Create Purchase Requisition",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Option A Create Purchase Requisition with Item Hierarchy",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Option D: Create PO with Item Hierarchy from Contract",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Option C: Create Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Automatic Conversion of Purchase Requisition to Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Change Purchase Order (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 12,
+        "name": "Option A: Convert Purchase Requisition to Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Approve Purchase Order (Optional)",
+        "type": "userTask",
+        "role": "Purchasing Manager",
+        "optional": true
+      },
+      {
+        "seq": 14,
+        "name": "Check Purchase Order Approval Details (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 15,
+        "name": "Preview Purchase Order (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 16,
+        "name": "Maintain Service Entry Sheet",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Approve Service Entry Sheet",
+        "type": "userTask",
+        "role": "Project Manager - Commercial Services",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Create Supplier Invoice",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Check Service Entry Sheet Approval Details (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 20,
+        "name": "Release Blocked Supplier Invoice (Optional)",
+        "type": "userTask",
+        "role": "Purchasing Manager",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 15,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 16,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,203 @@
+{
+  "scope_item_id": "2F4",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "67987690499f47b6a7d838568d179fb2",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "67987690499f47b6a7d838568d179fb2",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Determine Refund",
+        "type": "userTask",
+        "role": "Returns and Refunds Clerk (Ordering Company)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Post Goods Receipt",
+        "type": "userTask",
+        "role": "Shipping Specialist (Receiving Plant)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Generate subsequent delivery free of charge",
+        "type": "userTask",
+        "role": "Returns and Refunds Clerk (Ordering Company)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Generate Customer Credit Memo Request",
+        "type": "userTask",
+        "role": "Returns and Refunds Clerk (Ordering Company)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create IC Credit Memo",
+        "type": "userTask",
+        "role": "Billing Clerk (Receiving Plant)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Perform Material Inspection",
+        "type": "userTask",
+        "role": "Receiving Specialist (Receiving Plant)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Create Customer Credit Memo",
+        "type": "userTask",
+        "role": "Billing Clerk (Ordering Company)",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Perform Picking",
+        "type": "userTask",
+        "role": "Shipping Specialist (Receiving Plant)",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Post Goods Issue",
+        "type": "userTask",
+        "role": "Shipping Specialist (Receiving Plant)",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Create Customer Invoice",
+        "type": "userTask",
+        "role": "Billing Clerk (Ordering Company)",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Create IC Invoice",
+        "type": "userTask",
+        "role": "Billing Clerk (Receiving Plant)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "inclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 0,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "inclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 7,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

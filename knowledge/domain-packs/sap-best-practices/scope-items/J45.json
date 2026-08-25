@@ -1,0 +1,432 @@
+{
+  "scope_item_id": "J45",
+  "title": "Procurement of Direct Materials",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Inventory",
+      "Invoice Management",
+      "Operational Procurement"
+    ],
+    "L3_scope_item": "J45 - Procurement of Direct Materials",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Inbox",
+        "fiori_app_id": "F0862",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER",
+        "component": "CA-INB-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Post Outgoing Payments",
+        "fiori_app_id": "F1612",
+        "technical_transaction": "F-07",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT",
+        "component": "FI-FIO-AP-TRA"
+      },
+      {
+        "step_no": 3,
+        "name": "Post Goods Receipt for Purchasing Document",
+        "fiori_app_id": "F0843",
+        "technical_transaction": "MB01",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_INVENTORY_MANAGER | SAP_BR_WAREHOUSE_CLERK",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Stock",
+        "fiori_app_id": "F1062",
+        "technical_transaction": "MIGO",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_MANAGER | SAP_BR_INVENTORY_MGR_RFM",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 5,
+        "name": "Stock - Single Material",
+        "fiori_app_id": "F1076",
+        "technical_transaction": "MB52",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_INVENTORY_MANAGER | SAP_BR_PRODN_PLNR | SAP_BR_WAREHOUSE_CLERK | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 6,
+        "name": "Material Documents Overview",
+        "fiori_app_id": "F1077",
+        "technical_transaction": "MB51",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_MAINT_SUPERVISOR | SAP_BR_EMPLOYEE_PROCUREMENT | SAP_BR_GL_ACCOUNTANT | SAP_BR_INVENTORY_MANAGER | SAP_BR_PRODN_PLNR | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_WAREHOUSE_CLERK | SAP_BR_ADMINISTRATOR_RFM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_SERVICE_MANAGER | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_EMPLOYEE | SAP_BR_CUSTOMER_SALES_MGR",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Supplier Invoices",
+        "fiori_app_id": "F0859",
+        "technical_transaction": "F-41",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AA_ACCOUNTANT | SAP_BR_PURCHASING_MANAGER",
+        "component": "MM-FIO-IV"
+      },
+      {
+        "step_no": 8,
+        "name": "Schedule Purchasing Jobs - Advanced",
+        "fiori_app_id": "F1702",
+        "technical_transaction": "ME59N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR"
+      },
+      {
+        "step_no": 9,
+        "name": "Manage Purchase Orders (Version 2)",
+        "fiori_app_id": "F0842A",
+        "technical_transaction": "ME21",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-PO"
+      },
+      {
+        "step_no": 10,
+        "name": "Manage Purchase Requisition Professional",
+        "fiori_app_id": "F2229",
+        "technical_transaction": "ME51N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-PRF"
+      },
+      {
+        "step_no": 11,
+        "name": "Process Purchase Requisitions ( Version 2 )",
+        "fiori_app_id": "F1048A",
+        "technical_transaction": "ME59N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-SOC"
+      },
+      {
+        "step_no": 12,
+        "name": "Mass Changes to Purchase Orders",
+        "fiori_app_id": "F2593",
+        "technical_transaction": "MEMASSPO",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-PUR-GF-MAS"
+      },
+      {
+        "step_no": 13,
+        "name": "Monitor Purchase Order Items",
+        "fiori_app_id": "F2358",
+        "technical_transaction": "ME2C",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK | SAP_BR_PURCHASER | SAP_BR_INVENTORY_MANAGER",
+        "component": "MM-PUR-GF-MON"
+      },
+      {
+        "step_no": 14,
+        "name": "Monitor Purchase Order Down Payments",
+        "fiori_app_id": "F2877",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER | SAP_BR_BUYER | SAP_BR_AP_ACCOUNTANT_PROCUREMT",
+        "component": "MM-PUR-GF-MON"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "a7810973c5b1424cad40a5337386031c",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "a7810973c5b1424cad40a5337386031c",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Convert Purchase Requisitions to Purchase Orders",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Purchase Orders",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Purchase Requisitions",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Automatic Conversion of Purchase Requisition to Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Approve Purchase Order (optional)",
+        "type": "userTask",
+        "role": "Purchasing Manager",
+        "optional": true
+      },
+      {
+        "seq": 6,
+        "name": "Preview Purchase Order (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 7,
+        "name": "Change Purchase Orders (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 8,
+        "name": "3FY - Supplier Delivery Prediction",
+        "type": "subProcess",
+        "role": "Purchaser",
+        "optional": false,
+        "calls_scope_item": "3FY"
+      },
+      {
+        "seq": 9,
+        "name": "Monitor Purchase Order Items (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 10,
+        "name": "Execute Mass Changes to Purchase Orders (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 11,
+        "name": "J82 - Business Network Integration",
+        "type": "subProcess",
+        "role": "Purchaser",
+        "optional": false,
+        "calls_scope_item": "J82"
+      },
+      {
+        "seq": 12,
+        "name": "Monitor Down Payments (Optional)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": true
+      },
+      {
+        "seq": 13,
+        "name": "Post Goods Receipt",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Create Down Payment Request",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Preview Goods Receipt Slip and Label (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": true
+      },
+      {
+        "seq": 16,
+        "name": "Create Down Payment",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Check Goods Receipt Details         (optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": true
+      },
+      {
+        "seq": 18,
+        "name": "Reverse Goods Receipt (optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": true
+      },
+      {
+        "seq": 19,
+        "name": "Analyze Stock Overview (Optional)",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": true
+      },
+      {
+        "seq": 20,
+        "name": "Analyze Material Document (Optional)",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": true
+      },
+      {
+        "seq": 21,
+        "name": "Manage Stock (Optional)",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": true
+      },
+      {
+        "seq": 22,
+        "name": "Create Supplier Invoice",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 23,
+        "name": "2XX - Propose Resolution for Invoice Payment Block (Optional)",
+        "type": "subProcess",
+        "role": "Accounts Payable Accountant",
+        "optional": true,
+        "calls_scope_item": "2XX"
+      },
+      {
+        "seq": 24,
+        "name": "Detect Critical Cash Discount Situations",
+        "type": "serviceTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 25,
+        "name": "React to Critical Cash Discount Situations",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 26,
+        "name": "Create Credit Memo (Optional)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": true
+      },
+      {
+        "seq": 27,
+        "name": "Check Supplier Invoices List (Optional)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": true
+      },
+      {
+        "seq": 28,
+        "name": "Approve Supplier Invoice (optional)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": true
+      },
+      {
+        "seq": 29,
+        "name": "Reverse Invoice (Optional)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": true
+      },
+      {
+        "seq": 30,
+        "name": "Clear GR / IR (Optional)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": true
+      },
+      {
+        "seq": 31,
+        "name": "Cancel Journal Entry (Optional)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 22,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 24,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "3FY",
+        "name": "3FY - Supplier Delivery Prediction",
+        "optional": false
+      },
+      {
+        "scope_item_id": "J82",
+        "name": "J82 - Business Network Integration",
+        "optional": false
+      },
+      {
+        "scope_item_id": "2XX",
+        "name": "2XX - Propose Resolution for Invoice Payment Block (Optional)",
+        "optional": true
+      }
+    ]
+  }
+}

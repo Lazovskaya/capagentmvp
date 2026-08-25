@@ -1,0 +1,85 @@
+{
+  "scope_item_id": "2V7",
+  "title": "Monitoring of Goods and Invoice Receipts",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close"
+    ],
+    "L3_scope_item": "2V7 - Monitoring of Goods and Invoice Receipts",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Teams and Responsibilities",
+        "fiori_app_id": "F2412",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BUSINESS_PROCESS_SPEC | SAP_BR_PROCESSOR_TCP | SAP_BR_BPC_EXPERT",
+        "component": "CA-GTF-RM"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Situation Types",
+        "fiori_app_id": "F2947",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BPC_EXPERT",
+        "component": "CA-SIT-WB"
+      },
+      {
+        "step_no": 3,
+        "name": "Reconcile GR/IR Accounts",
+        "fiori_app_id": "F3302",
+        "technical_transaction": "MR11",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 4,
+        "name": "Monitor GR/IR Account Reconciliation",
+        "fiori_app_id": "F3303",
+        "technical_transaction": "MR11",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 5,
+        "name": "GR/IR Process Insights",
+        "fiori_app_id": "F5796",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-IS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "f7eae8d2c68c4c2cbb4e0af290b94add",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "f7eae8d2c68c4c2cbb4e0af290b94add",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Define Situation Types",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Monitor GR/IR Account Reconciliation",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

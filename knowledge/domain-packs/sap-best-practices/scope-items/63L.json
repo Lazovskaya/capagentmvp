@@ -1,0 +1,52 @@
+{
+  "scope_item_id": "63L",
+  "title": "Service Entry Sheet Based Accruals",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close"
+    ],
+    "L3_scope_item": "63L - Service Entry Sheet Based Accruals",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Accruals Jobs",
+        "fiori_app_id": "F3778",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_AP_ACCOUNTANT_RU | SAP_BR_AR_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT | SAP_BR_CASH_MANAGER | SAP_BR_GL_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT_RU | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-GL-GL-POA"
+      },
+      {
+        "step_no": 2,
+        "name": "Display Service Entry Sheet Accruals",
+        "fiori_app_id": "F6107",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-GL-GL-SSA"
+      },
+      {
+        "step_no": 3,
+        "name": "Review Service Entry Sheet Accruals",
+        "fiori_app_id": "F6108",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "FI-GL-GL-SSA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "fbd2ac1c44294fa3889dc0e64b9be551",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "fbd2ac1c44294fa3889dc0e64b9be551",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [],
+    "dependencies": []
+  }
+}

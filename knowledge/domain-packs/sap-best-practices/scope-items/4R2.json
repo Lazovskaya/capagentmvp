@@ -1,0 +1,181 @@
+{
+  "scope_item_id": "4R2",
+  "title": "Service Procurement with SAP Business Network and SAP Fieldglass",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Invoice Management",
+      "Operational Procurement",
+      "Procurement Analytics"
+    ],
+    "L3_scope_item": "4R2 - Service Procurement with SAP Business Network and SAP Fieldglass",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Automatic Payments",
+        "fiori_app_id": "F0770",
+        "technical_transaction": "FBZ8",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-PAY"
+      },
+      {
+        "step_no": 2,
+        "name": "Revise Payment Proposals",
+        "fiori_app_id": "F0771",
+        "technical_transaction": "F110",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-PAY"
+      },
+      {
+        "step_no": 3,
+        "name": "Supplier Invoices List (Version 2)",
+        "fiori_app_id": "F1060A",
+        "technical_transaction": "MIR5",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT",
+        "component": "MM-FIO-IV"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Purchase Orders (Version 2)",
+        "fiori_app_id": "F0842A",
+        "technical_transaction": "ME21",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-PO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "a80d08ec91fc4a5bb83900202bcc3d9e",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "a80d08ec91fc4a5bb83900202bcc3d9e",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Purchase Requisition",
+        "type": "serviceTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Generate Purchase Order Automatically",
+        "type": "serviceTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Check Purchase Order Confirmation (Optional)",
+        "type": "manualTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 4,
+        "name": "Check Inbound Delivery for Purchase Order (Optional)",
+        "type": "manualTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "Review and Approval Service Entry Sheet (Optional)",
+        "type": "manualTask",
+        "role": "Purchasing Manager",
+        "optional": true
+      },
+      {
+        "seq": 6,
+        "name": "Set Up the Putaway of Goods for Inbound Delivery",
+        "type": "manualTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Post Goods Receipt for Purchase Order",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Release Supplier Invoice for Payment (Optional)",
+        "type": "manualTask",
+        "role": "Accounts Payable Accountant",
+        "optional": true
+      },
+      {
+        "seq": 9,
+        "name": "Create Goods Return",
+        "type": "manualTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Reverse the Goods Return",
+        "type": "manualTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Update Invoice with Discount",
+        "type": "manualTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Payment",
+        "type": "manualTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Cancel Payment",
+        "type": "manualTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

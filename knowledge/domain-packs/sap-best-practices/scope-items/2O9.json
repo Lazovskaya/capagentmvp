@@ -1,0 +1,180 @@
+{
+  "scope_item_id": "2O9",
+  "title": "Intercompany Process for Sublease Accounting",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Accounting and Financial Close",
+      "Real Estate Management"
+    ],
+    "L3_scope_item": "2O9 - Intercompany Process for Sublease Accounting",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Periodic Valuation Posting - Background Job",
+        "fiori_app_id": "F4608",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECM_VALSPECIALIST",
+        "component": "RE-FX-LA"
+      },
+      {
+        "step_no": 2,
+        "name": "Periodic Posting - Background Job",
+        "fiori_app_id": "F4607",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECM_AP_ACCOUNTANT | SAP_BR_RECM_AR_ACCOUNTANT",
+        "component": "RE-FX-RA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "c5a93f25ede1447893bbd4e85c24d1d5",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "c5a93f25ede1447893bbd4e85c24d1d5",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Company A (Lessor) and company B (Lessee) agreed to sublet the ret property to company B",
+        "type": "manualTask",
+        "role": "Contract Specialist - Leasing (Lessor)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "2SA - Lease-Out for Sublease Accounting - Parallel Ledger",
+        "type": "subProcess",
+        "role": "Contract Specialist - Leasing (Lessor)",
+        "optional": false,
+        "calls_scope_item": "2SA"
+      },
+      {
+        "seq": 3,
+        "name": "21P - Lease-In Accounting - Group Ledger IFRS",
+        "type": "subProcess",
+        "role": "Contract Specialist - Leasing (Lessee)",
+        "optional": false,
+        "calls_scope_item": "21P"
+      },
+      {
+        "seq": 4,
+        "name": "2SA - Lease-Out for Sublease Accounting - Parallel Ledger",
+        "type": "subProcess",
+        "role": "Contract Valuation Specialist - Leasing (Lessor)",
+        "optional": false,
+        "calls_scope_item": "2SA"
+      },
+      {
+        "seq": 5,
+        "name": "21P - Lease-In Accounting - Group Ledger IFRS",
+        "type": "subProcess",
+        "role": "Contract Valuation Specialist - Leasing (Lessee)",
+        "optional": false,
+        "calls_scope_item": "21P"
+      },
+      {
+        "seq": 6,
+        "name": "2SA - Lease-Out for Sublease Accounting - Parallel Ledger",
+        "type": "subProcess",
+        "role": "Accounts Receivable Accountant - Leasing (Lessor)",
+        "optional": false,
+        "calls_scope_item": "2SA"
+      },
+      {
+        "seq": 7,
+        "name": "21P - Lease-In Accounting - Group Ledger IFRS",
+        "type": "subProcess",
+        "role": "Accounts Payable Accountant - Leasing (Lessee)",
+        "optional": false,
+        "calls_scope_item": "21P"
+      },
+      {
+        "seq": 8,
+        "name": "2SA - Lease-Out for Sublease Accounting - Parallel Ledger",
+        "type": "subProcess",
+        "role": "Contract Valuation Specialist - Leasing (Lessor)",
+        "optional": false,
+        "calls_scope_item": "2SA"
+      },
+      {
+        "seq": 9,
+        "name": "21P - Lease-In Accounting - Group Ledger IFRS",
+        "type": "subProcess",
+        "role": "Contract Valuation Specialist - Leasing (Lessee)",
+        "optional": false,
+        "calls_scope_item": "21P"
+      },
+      {
+        "seq": 10,
+        "name": "2SA - Lease-Out for Sublease Accounting - Parallel Ledger",
+        "type": "subProcess",
+        "role": "Contract Specialist - Leasing (Lessor)",
+        "optional": false,
+        "calls_scope_item": "2SA"
+      },
+      {
+        "seq": 11,
+        "name": "21P - Lease-In Accounting - Group Ledger IFRS",
+        "type": "subProcess",
+        "role": "Contract Specialist - Leasing (Lessee)",
+        "optional": false,
+        "calls_scope_item": "21P"
+      },
+      {
+        "seq": 12,
+        "name": "2SA - Lease-Out for Sublease Accounting - Parallel Ledger",
+        "type": "subProcess",
+        "role": "Contract Valuation Specialist - Leasing (Lessor)",
+        "optional": false,
+        "calls_scope_item": "2SA"
+      },
+      {
+        "seq": 13,
+        "name": "21P - Lease-In Accounting - Group Ledger IFRS",
+        "type": "subProcess",
+        "role": "Contract Valuation Specialist - Leasing (Lessee)",
+        "optional": false,
+        "calls_scope_item": "21P"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "inclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 13,
+        "type": "inclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "2SA",
+        "name": "2SA - Lease-Out for Sublease Accounting - Parallel Ledger",
+        "optional": false
+      },
+      {
+        "scope_item_id": "21P",
+        "name": "21P - Lease-In Accounting - Group Ledger IFRS",
+        "optional": false
+      }
+    ]
+  }
+}

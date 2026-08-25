@@ -1,0 +1,127 @@
+{
+  "scope_item_id": "3G8",
+  "title": "Dangerous Goods in the Value Chain",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash",
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management",
+      "Product Compliance"
+    ],
+    "L3_scope_item": "3G8 - Dangerous Goods in the Value Chain",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Create Outbound Deliveries - From Sales Orders",
+        "fiori_app_id": "F0869A",
+        "technical_transaction": "VL10A",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Pick Outbound Delivery",
+        "fiori_app_id": "F0868",
+        "technical_transaction": "VL06P",
+        "app_type": null,
+        "role": "SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_SHIPPING_SPECIALIST",
+        "component": "LE-SHP-FIO-NAT"
+      },
+      {
+        "step_no": 3,
+        "name": "Sales Order Fulfillment Issues (Version 2)",
+        "fiori_app_id": "F0029A",
+        "technical_transaction": "V.00",
+        "app_type": null,
+        "role": "SAP_BR_SALES_MANAGER | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-FIO-HBA"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "b98bd00f0289432f9f1fe5afaf2ef10b",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "b98bd00f0289432f9f1fe5afaf2ef10b",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Sales Order with a Dangerous Goods",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Transport Permissibility Check",
+        "type": "serviceTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "View Order Confirmation for a Dangerous Goods",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Analyze Sales Order Status for Dangerous Goods",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Analyze Sales Order Fulfillment - Analyze and Resolve Issues",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Create Outbound Delivery with a Dangerous Goods",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Carry out Picking for a Dangerous Goods",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Post Goods Issue for a Dangerous Goods",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "View Delivery Note for a Dangerous Goods",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

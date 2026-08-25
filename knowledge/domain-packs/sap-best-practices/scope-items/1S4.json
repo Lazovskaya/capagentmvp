@@ -1,0 +1,88 @@
+{
+  "scope_item_id": "1S4",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "9f63412da7074a36aaaa3d32d5d6b166",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "9f63412da7074a36aaaa3d32d5d6b166",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Define Currency Spot Rate for Datafeed",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Retrieve Market Data",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Define Interest Rates for Datafeed",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Define Basis Spread for Datafeed",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Define Credit Spread for Datafeed",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Define FX Swap Rate for Datafeed",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Define Securities for Datafeed",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Define FX Volatility with Moneyness for Datafeed",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Define Exchange Rate Volatility for Datafeed",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

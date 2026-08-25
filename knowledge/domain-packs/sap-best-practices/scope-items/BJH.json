@@ -1,0 +1,113 @@
+{
+  "scope_item_id": "BJH",
+  "title": "Make-to-Stock Production \u2013 Repetitive Manufacturing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Manufacturing Operations",
+      "Manufacturing Options",
+      "Production Planning"
+    ],
+    "L3_scope_item": "BJH - Make-to-Stock Production \u2013 Repetitive Manufacturing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Material Coverage",
+        "fiori_app_id": "F0251",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RPLNMT_SPCLST_DC_RFM | SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_PRODN_PLNR",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 2,
+        "name": "Schedule MRP Runs",
+        "fiori_app_id": "F1339",
+        "technical_transaction": "MD01",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_PRODN_PLNR | SAP_BR_RPLNMT_SPCLST_DC_RFM",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 3,
+        "name": "Monitor Material Coverage - Net and Individual Segments (Version 2)",
+        "fiori_app_id": "F2101A",
+        "technical_transaction": "MB53",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR | SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 4,
+        "name": "Maintain PIRs",
+        "fiori_app_id": "F3445",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RPLNMT_SPCLST_ST_RFM | SAP_BR_PRODN_PLNR | SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "d13a066a25cc4e068aa7591648fcc398",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "d13a066a25cc4e068aa7591648fcc398",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Planned Independent Requirements",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Material Requirements Planning (MRP)",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Adjust Planning in Planning Table",
+        "type": "userTask",
+        "role": "Production Supervisor - Repetitive Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Check Range of Stock Coverage",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Material Staging",
+        "type": "userTask",
+        "role": "Production Operator - Repetitive Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Confirm Repetitive Manufacturing Inclusive Backflush of Materials",
+        "type": "userTask",
+        "role": "Production Operator - Repetitive Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Post Processing of Error Records",
+        "type": "userTask",
+        "role": "Production Operator - Repetitive Manufacturing",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

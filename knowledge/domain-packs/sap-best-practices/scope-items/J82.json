@@ -1,0 +1,131 @@
+{
+  "scope_item_id": "J82",
+  "title": "Automated Purchase-to-Pay with SAP Ariba Commerce Automation",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Inventory",
+      "Invoice Management",
+      "Operational Procurement"
+    ],
+    "L3_scope_item": "J82 - Automated Purchase-to-Pay with SAP Ariba Commerce Automation",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Material Documents Overview",
+        "fiori_app_id": "F1077",
+        "technical_transaction": "MB51",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_MAINT_SUPERVISOR | SAP_BR_EMPLOYEE_PROCUREMENT | SAP_BR_GL_ACCOUNTANT | SAP_BR_INVENTORY_MANAGER | SAP_BR_PRODN_PLNR | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_WAREHOUSE_CLERK | SAP_BR_ADMINISTRATOR_RFM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_SERVICE_MANAGER | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_EMPLOYEE | SAP_BR_CUSTOMER_SALES_MGR",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 2,
+        "name": "Post Goods Receipt for Inbound Delivery",
+        "fiori_app_id": "F2502",
+        "technical_transaction": "MIGO",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SETTLEMENT_CLERK_ACM",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Supplier Invoices",
+        "fiori_app_id": "F0859",
+        "technical_transaction": "F-41",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AA_ACCOUNTANT | SAP_BR_PURCHASING_MANAGER",
+        "component": "MM-FIO-IV"
+      },
+      {
+        "step_no": 4,
+        "name": "Supplier Invoices List (Version 2)",
+        "fiori_app_id": "F1060A",
+        "technical_transaction": "MIR5",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT",
+        "component": "MM-FIO-IV"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "faf61bdafc45430c93899395ba1ba3fb",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "faf61bdafc45430c93899395ba1ba3fb",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "J45 - Procurement of Direct Material",
+        "type": "subProcess",
+        "role": "Purchaser",
+        "optional": false,
+        "calls_scope_item": "J45"
+      },
+      {
+        "seq": 2,
+        "name": "J13 - Material Procurement",
+        "type": "subProcess",
+        "role": "Purchaser",
+        "optional": false,
+        "calls_scope_item": "J13"
+      },
+      {
+        "seq": 3,
+        "name": "Check Purchase Order Confirmation (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 4,
+        "name": "Check Inbound Delivery for Purchase Order (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "Post Goods Receipt for Purchase Order",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Release Supplier Invoice for Payment (Optional)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "J45",
+        "name": "J45 - Procurement of Direct Material",
+        "optional": false
+      },
+      {
+        "scope_item_id": "J13",
+        "name": "J13 - Material Procurement",
+        "optional": false
+      }
+    ]
+  }
+}

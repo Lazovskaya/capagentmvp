@@ -1,0 +1,157 @@
+{
+  "scope_item_id": "2SJ",
+  "title": "Contract Accounting \u2013 External Tax Audit and Compliance Reporting",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Financial Operations"
+    ],
+    "L3_scope_item": "2SJ - Contract Accounting \u2013 External Tax Audit and Compliance Reporting",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Display Returns",
+        "fiori_app_id": "F3126",
+        "technical_transaction": "FPM4",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_APR_MANAGER_FICA | SAP_BR_COLL_SPECIALIST_FICA | SAP_BR_EXT_AUDITOR_APR_FICA | SAP_BR_RECONC_SPEC_APR_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Invoicing Documents",
+        "fiori_app_id": "F2048",
+        "technical_transaction": "FKKINVDOC_DISP",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_SPEC_CINV | SAP_BR_INVOICING_ADMIN_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Display Billing Documents",
+        "fiori_app_id": "F2250",
+        "technical_transaction": "FKKINVBILL_DISP",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV | SAP_BR_INVOICING_SPEC_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 4,
+        "name": "Invoicing Overview for Contract Accounts",
+        "fiori_app_id": "F2473",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_SPEC_CINV | SAP_BR_INVOICING_ADMIN_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 5,
+        "name": "Transfer Tax Information for Tax Report",
+        "fiori_app_id": "F6189",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Billable Items",
+        "fiori_app_id": "F2621",
+        "technical_transaction": "FKKBIXBIT_MON",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_INVOICING_ADMIN_CINV | SAP_BR_INTRNAL_SALESREP_SOM | SAP_BR_INVOICING_SPEC_CINV",
+        "component": "FI-CAX-INV-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "f826c9c0e73d4838830642c139b12488",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "f826c9c0e73d4838830642c139b12488",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Display for Posting Tools",
+        "type": "userTask",
+        "role": "External Auditor",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Itemization for Posting Totals",
+        "type": "userTask",
+        "role": "External Auditor",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Open Item for Key Date",
+        "type": "userTask",
+        "role": "External Auditor",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Document Journal",
+        "type": "userTask",
+        "role": "External Auditor",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Overview Data Extracts",
+        "type": "userTask",
+        "role": "Administrator",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Delete Document Extracts",
+        "type": "userTask",
+        "role": "Administrator",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Export Documents Extract",
+        "type": "userTask",
+        "role": "External Auditor",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Protocol Currency Valuation",
+        "type": "userTask",
+        "role": "External Auditor",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

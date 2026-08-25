@@ -1,0 +1,262 @@
+{
+  "scope_item_id": "1JW",
+  "title": "Advanced Available-to-Promise Processing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Advanced Order Promising"
+    ],
+    "L3_scope_item": "1JW - Advanced Available-to-Promise Processing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Configure Order Fulfillment Responsibilities",
+        "fiori_app_id": "F2246",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ORDER_FULFILLMNT_MNGR",
+        "component": "CA-ATP"
+      },
+      {
+        "step_no": 2,
+        "name": "Configure Alternative Control",
+        "fiori_app_id": "F2698",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ORDER_FULFILLMNT_MNGR",
+        "component": "CA-ATP-ABC"
+      },
+      {
+        "step_no": 3,
+        "name": "Configure Substitution Strategy",
+        "fiori_app_id": "F2699",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ORDER_FULFILLMNT_MNGR",
+        "component": "CA-ATP-ABC"
+      },
+      {
+        "step_no": 4,
+        "name": "Configure Alternative Determination",
+        "fiori_app_id": "F5354",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ORDER_FULFILLMNT_MNGR",
+        "component": "CA-ATP-ABC"
+      },
+      {
+        "step_no": 5,
+        "name": "Release for Delivery",
+        "fiori_app_id": "F1786",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ORDER_FULFILLMNT_SPCLST",
+        "component": "CA-ATP-BOP"
+      },
+      {
+        "step_no": 6,
+        "name": "Configure BOP Segment",
+        "fiori_app_id": "F2158",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ORDER_FULFILLMNT_MNGR",
+        "component": "CA-ATP-BOP"
+      },
+      {
+        "step_no": 7,
+        "name": "Monitor BOP Run",
+        "fiori_app_id": "F2159",
+        "technical_transaction": "V_R2",
+        "app_type": null,
+        "role": "SAP_BR_ORDER_FULFILLMNT_MNGR",
+        "component": "CA-ATP-BOP"
+      },
+      {
+        "step_no": 8,
+        "name": "Configure BOP Variant",
+        "fiori_app_id": "F2160",
+        "technical_transaction": "V_V2",
+        "app_type": null,
+        "role": "SAP_BR_ORDER_FULFILLMNT_MNGR",
+        "component": "CA-ATP-BOP"
+      },
+      {
+        "step_no": 9,
+        "name": "Schedule BOP Run",
+        "fiori_app_id": "F2665",
+        "technical_transaction": "V_V2",
+        "app_type": null,
+        "role": "SAP_BR_ORDER_FULFILLMNT_MNGR",
+        "component": "CA-ATP-BOP"
+      },
+      {
+        "step_no": 10,
+        "name": "Configure Custom BOP Sorting",
+        "fiori_app_id": "F2983",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ORDER_FULFILLMNT_MNGR",
+        "component": "CA-ATP-BOP"
+      },
+      {
+        "step_no": 11,
+        "name": "Manage Characteristic Combinations",
+        "fiori_app_id": "F5303",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ORDER_FULFILLMNT_MNGR | SAP_BR_ORD_FLFMT_MNGR_SCHDG",
+        "component": "CA-ATP-OVD"
+      },
+      {
+        "step_no": 12,
+        "name": "Configure Product Allocation",
+        "fiori_app_id": "F2119",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ORDER_FULFILLMNT_MNGR",
+        "component": "CA-ATP-PAL"
+      },
+      {
+        "step_no": 13,
+        "name": "Assign Product to Product Allocation",
+        "fiori_app_id": "F2120",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ORDER_FULFILLMNT_MNGR",
+        "component": "CA-ATP-PAL"
+      },
+      {
+        "step_no": 14,
+        "name": "Manage Product Allocation Planning Data",
+        "fiori_app_id": "F2121",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ORDER_FULFILLMNT_MNGR",
+        "component": "CA-ATP-PAL"
+      },
+      {
+        "step_no": 15,
+        "name": "Manage Product Allocation Sequences",
+        "fiori_app_id": "F2474",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ORDER_FULFILLMNT_MNGR",
+        "component": "CA-ATP-PAL"
+      },
+      {
+        "step_no": 16,
+        "name": "Product Allocation Overview",
+        "fiori_app_id": "F3474",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ORDER_FULFILLMNT_MNGR",
+        "component": "CA-ATP-PAL"
+      },
+      {
+        "step_no": 17,
+        "name": "Manage Characteristic Catalogs",
+        "fiori_app_id": "F3829",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ORD_FLFMT_MNGR_SCHDG | SAP_BR_ORDER_FULFILLMNT_MNGR",
+        "component": "CA-ATP-PAL"
+      },
+      {
+        "step_no": 18,
+        "name": "Configure Activity Attributes",
+        "fiori_app_id": "F6439",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ORD_FLFMT_MNGR_SCHDG",
+        "component": "CA-ATP-SCH-BPS"
+      },
+      {
+        "step_no": 19,
+        "name": "Configure Supply Protection",
+        "fiori_app_id": "F4569",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ORDER_FULFILLMNT_MNGR",
+        "component": "CA-ATP-SUP"
+      },
+      {
+        "step_no": 20,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "902166d5f15847f78b2bee7f83d6c4fc",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "902166d5f15847f78b2bee7f83d6c4fc",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Monitor product availability",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Configure Order Fulfillment \nResponsibilities",
+        "type": "userTask",
+        "role": "Order Fulfillment Manager",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Schedule BOP Run",
+        "type": "serviceTask",
+        "role": "Order Fulfillment Manager",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Prepare/Release Sales Documents for Materials Without Availability Issues for Delivery",
+        "type": "userTask",
+        "role": "Order Fulfillment Specialist",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Monitor BOP Run",
+        "type": "userTask",
+        "role": "Order Fulfillment Manager",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Identify Most Important Sales Documents for Materials with Availability Issues",
+        "type": "userTask",
+        "role": "Order Fulfillment Specialist",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Solve Issues by Redistributing Quantities",
+        "type": "userTask",
+        "role": "Order Fulfillment Specialist",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Release Processed Sales Documents",
+        "type": "userTask",
+        "role": "Order Fulfillment Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "scope_item_id": "BLF",
+  "title": "Batch Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Central Procurement",
+      "Inventory",
+      "Logistics Cross Topics",
+      "Manufacturing Operations",
+      "Operational Procurement",
+      "Quality Management"
+    ],
+    "L3_scope_item": "BLF - Batch Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Batches",
+        "fiori_app_id": "F2462",
+        "technical_transaction": "MSC1N",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_MANAGER | SAP_BR_QUALITY_ENGINEER_EPO | SAP_BR_PRODN_OPTR_DISC | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_PRODN_SUPERVISOR_RPTV | SAP_BR_BATCH_MASTER_SPCLST | SAP_BR_PRODN_OPTR_PROC | SAP_BR_PRODN_SUPRVSR_DISC_CAM | SAP_BR_PRODN_SUPRVSR_DISC_EPO | SAP_BR_WAREHOUSE_CLERK | SAP_BR_QUALITY_TECHNICIAN | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RETURNS_REFUND_CLERK | SAP_BR_CHG_MGMT_COORDINATOR | SAP_BR_PRODN_OPTR_RPTV | SAP_BR_PRODN_SUPERVISOR_DISC | SAP_BR_INTERNAL_SALES_REP | SAP_BR_PRODN_SUPERVISOR_PROC",
+        "component": "LO-BM-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "3458887f56df4073929f3d501e9ad276",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "3458887f56df4073929f3d501e9ad276",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Batch Information Cockpit - Change Batch Selection",
+        "type": "userTask",
+        "role": "Warehouse Manager",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Change Batch Status, Production Date, Shelf Live Expiration Date, etc.",
+        "type": "userTask",
+        "role": "Warehouse Manager",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Maintaining Batch Master Record Alternative 1",
+        "type": "userTask",
+        "role": "Warehouse Manager",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Information needed where Batch was Sold and Bought",
+        "type": "userTask",
+        "role": "Warehouse Manager",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Maintaining Batch Master Record Alternative 1",
+        "type": "userTask",
+        "role": "Warehouse Manager",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Information Shown: Batch Master Data, Where-Used-Lists, Material Documents, Inspection Lots",
+        "type": "userTask",
+        "role": "Warehouse Manager",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Display Changes in Bottom View",
+        "type": "userTask",
+        "role": "Warehouse Manager",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

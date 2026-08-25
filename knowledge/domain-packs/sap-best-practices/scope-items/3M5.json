@@ -1,0 +1,220 @@
+{
+  "scope_item_id": "3M5",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "7daba085294944be846c4fb4789aa062",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "7daba085294944be846c4fb4789aa062",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "3D2 - Service Order Management and Monitoring",
+        "type": "subProcess",
+        "role": "Customer Service Manager",
+        "optional": false,
+        "calls_scope_item": "3D2"
+      },
+      {
+        "seq": 2,
+        "name": "4GT - Solution Order",
+        "type": "subProcess",
+        "role": "Solution Order Specialist",
+        "optional": false,
+        "calls_scope_item": "4GT"
+      },
+      {
+        "seq": 3,
+        "name": "3MO - Service Contract Management",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": false,
+        "calls_scope_item": "3MO"
+      },
+      {
+        "seq": 4,
+        "name": "3D2 - Service Order Management and Monitoring",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": false,
+        "calls_scope_item": "3D2"
+      },
+      {
+        "seq": 5,
+        "name": "Review Service Actuals",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "3D2 - Service Order Management and Monitoring",
+        "type": "subProcess",
+        "role": "Customer Service Manager",
+        "optional": false,
+        "calls_scope_item": "3D2"
+      },
+      {
+        "seq": 7,
+        "name": "3MO - Service Contract Management",
+        "type": "subProcess",
+        "role": "Customer Service Manager",
+        "optional": false,
+        "calls_scope_item": "3MO"
+      },
+      {
+        "seq": 8,
+        "name": "4GG - Credit Memo Processing for Service Management",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": false,
+        "calls_scope_item": "4GG"
+      },
+      {
+        "seq": 9,
+        "name": "Revenue Recognition (Event-based) - Service Documents",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Manage Real-Time Revenue Recognition Issues",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "2V8 - Advanced Financial Closing",
+        "type": "subProcess",
+        "role": "General Ledger Accountant",
+        "optional": false,
+        "calls_scope_item": "2V8"
+      },
+      {
+        "seq": 12,
+        "name": "Run Revenue Recognition - Service Documents",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Manage Revenue Recognition Issues - Service Documents",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Run Revenue Recognition - Service Documents",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Revenue Recognition Reversal                    (optional)",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "inclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 4,
+        "type": "inclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 8,
+        "type": "inclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 12,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 12,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 12,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "3D2",
+        "name": "3D2 - Service Order Management and Monitoring",
+        "optional": false
+      },
+      {
+        "scope_item_id": "4GT",
+        "name": "4GT - Solution Order",
+        "optional": false
+      },
+      {
+        "scope_item_id": "3MO",
+        "name": "3MO - Service Contract Management",
+        "optional": false
+      },
+      {
+        "scope_item_id": "4GG",
+        "name": "4GG - Credit Memo Processing for Service Management",
+        "optional": false
+      },
+      {
+        "scope_item_id": "2V8",
+        "name": "2V8 - Advanced Financial Closing",
+        "optional": false
+      }
+    ]
+  }
+}

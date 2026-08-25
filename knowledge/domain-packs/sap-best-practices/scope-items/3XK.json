@@ -1,0 +1,220 @@
+{
+  "scope_item_id": "3XK",
+  "title": "In-House Repair",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Service"
+    ],
+    "L2_core_process": [
+      "Service Operations and Processes"
+    ],
+    "L3_scope_item": "3XK - In-House Repair",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Service Order Templates",
+        "fiori_app_id": "F5007",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SERVICE_PLANNER | SAP_BR_CREDIT_CONTROLLER | SAP_BR_CUST_SRVC_MGR_REPA | SAP_BR_SOLN_ORDER_SPCLST | SAP_BR_CUSTOMER_SRVC_MGR | SAP_BR_CUST_SRVC_REP_REPA",
+        "component": "CRM-S4-SRV-SVT"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "e2b00574d0c64467aed7a9d81f3a55dd",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "e2b00574d0c64467aed7a9d81f3a55dd",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "BKP Customer Returns",
+        "type": "subProcess",
+        "role": "Customer Service Representative - In-House Repair",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create In-House Repair",
+        "type": "userTask",
+        "role": "Customer Service Representative - In-House Repair",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create In-House Repair",
+        "type": "serviceTask",
+        "role": "Customer Service Representative - In-House Repair",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Add/remove repair objects",
+        "type": "userTask",
+        "role": "Customer Service Representative - In-House Repair",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Add/remove repair objects",
+        "type": "serviceTask",
+        "role": "Customer Service Representative - In-House Repair",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "BKP Customer Returns (optional)",
+        "type": "userTask",
+        "role": "Customer Service Representative - In-House Repair",
+        "optional": true
+      },
+      {
+        "seq": 7,
+        "name": "Perform prechecks and decide per repair object",
+        "type": "userTask",
+        "role": "Customer Service Representative - In-House Repair",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Return to customer",
+        "type": "userTask",
+        "role": "Customer Service Representative - In-House Repair",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Create repair quotation or add repair object to existing quotation",
+        "type": "serviceTask",
+        "role": "Customer Service Representative - In-House Repair",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Add/edit repair quotation items",
+        "type": "userTask",
+        "role": "Customer Service Representative - In-House Repair",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Add/edit repair order items",
+        "type": "userTask",
+        "role": "Customer Service Representative - In-House Repair",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Complete repair object",
+        "type": "userTask",
+        "role": "Customer Service Representative - In-House Repair",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Send repair quotation to customer",
+        "type": "userTask",
+        "role": "Customer Service Representative - In-House Repair",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Plan repair/diagnosis",
+        "type": "userTask",
+        "role": "Customer Service Manager - In-House Repair",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Complete in-house repair",
+        "type": "serviceTask",
+        "role": "Customer Service Representative - In-House Repair",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Release repair order",
+        "type": "userTask",
+        "role": "Customer Service Manager - In-House Repair",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Mark repair quotation as Accepted",
+        "type": "userTask",
+        "role": "Customer Service Representative - In-House Repair",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Mark repair quotation as Rejected",
+        "type": "userTask",
+        "role": "Customer Service Representative - In-House Repair",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Perform repair or diagnosis",
+        "type": "userTask",
+        "role": "Service Technician - In-House Repair",
+        "optional": false
+      },
+      {
+        "seq": 20,
+        "name": "Create repair confirmations",
+        "type": "userTask",
+        "role": "Service Technician - In-House Repair",
+        "optional": false
+      },
+      {
+        "seq": 21,
+        "name": "Complete repair order",
+        "type": "userTask",
+        "role": "Service Technician - In-House Repair",
+        "optional": false
+      },
+      {
+        "seq": 22,
+        "name": "Release for billing",
+        "type": "userTask",
+        "role": "Customer Service Representative - In-House Repair",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 15,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 20,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 21,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

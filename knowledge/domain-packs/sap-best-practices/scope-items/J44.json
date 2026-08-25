@@ -1,0 +1,198 @@
+{
+  "scope_item_id": "J44",
+  "title": "Material Requirements Planning",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Production Planning"
+    ],
+    "L3_scope_item": "J44 - Material Requirements Planning",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Product Master",
+        "fiori_app_id": "F1602",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_RAW_SUBST | SAP_BR_PRODN_SUPERVISOR_DISC | SAP_BR_PRODN_OPTR_RPTV | SAP_BR_PRODN_PLNR | SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_TRD_CMPLNC_SPECIALIST | SAP_BR_PRODN_SUPERVISOR_PROC | SAP_BR_EMPLOYEE_PROC_PPS | SAP_BR_TRD_CLS_SPECIALIST | SAP_BR_SALES_MANAGER | SAP_BR_CMMDTY_MD_SPECIALIST | SAP_BR_BILLING_CLERK | SAP_BR_INTRNAL_SALESREP_SOM | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_MD_SPECIALIST_PCL | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_MAINTENANCE_TECHNICIAN | SAP_BR_BATCH_MASTER_SPCLST | SAP_BR_EMPLOYEE_PROCUREMENT | SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SERVICE_MANAGER | SAP_BR_PURCHASER | SAP_BR_PRODN_ENG_DISC | SAP_BR_RETURNS_REFUND_CLERK | SAP_BR_INDUSTRIAL_HYGIENIST | SAP_BR_BUYER | SAP_BR_ADMINISTRATOR_RCP_DEV | SAP_BR_SYSTEMS_ENGINEER | SAP_BR_PRODMASTER_SPECIALIST | SAP_BR_BOM_ENGINEER | SAP_BR_DESIGN_ENGINEER | SAP_BR_ENVIRONMENTAL_MANAGER | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PRODN_ENG_PROC | SAP_BR_PRODSTWRD_SPLST_PCL | SAP_BR_ADMINISTRATOR_SLL | SAP_BR_MD_SPCLST_ITEM_RFM | SAP_BR_ORG_PLANNER | SAP_BR_SOURCING_MANAGER_PPS | SAP_BR_SOURCING_MANAGER | SAP_BR_CMMFDOF_TRADER | SAP_BR_PRODN_SUPERVISOR_RPTV | SAP_BR_PRODN_OPTR_DISC | SAP_BR_DEVELOPMENT_MANAGER_DIN | SAP_BR_INTERNAL_SALES_REP | SAP_BR_PROD_CONF_MODELR_SOM | SAP_BR_PRODN_OPTR_PROC | SAP_BR_BOM_ENG_CUST_ORDER | SAP_BR_MAINTENANCE_PLANNER",
+        "component": "LO-MD-MM"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Stock",
+        "fiori_app_id": "F1062",
+        "technical_transaction": "MIGO",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_MANAGER | SAP_BR_INVENTORY_MGR_RFM",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Material Coverage",
+        "fiori_app_id": "F0251",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RPLNMT_SPCLST_DC_RFM | SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_PRODN_PLNR",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Material Coverage (Version 2)",
+        "fiori_app_id": "F0251A",
+        "technical_transaction": "MD04",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR | SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Change Requests",
+        "fiori_app_id": "F0670",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 6,
+        "name": "Display MRP Master Data Issues",
+        "fiori_app_id": "F1425A",
+        "technical_transaction": "MD06",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_RPLNMT_SPCLST_DC_RFM | SAP_BR_PRODN_PLNR",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 7,
+        "name": "Display MRP Key Figures",
+        "fiori_app_id": "F1426",
+        "technical_transaction": "MD_MRP_PERFLOG",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR | SAP_BR_RPLNMT_SPCLST_DC_RFM | SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 8,
+        "name": "Monitor Material Coverage - Net and Individual Segments (Version 2)",
+        "fiori_app_id": "F2101A",
+        "technical_transaction": "MB53",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR | SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 9,
+        "name": "Maintain PIRs",
+        "fiori_app_id": "F3445",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RPLNMT_SPCLST_ST_RFM | SAP_BR_PRODN_PLNR | SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 10,
+        "name": "Detect MRP Situations",
+        "fiori_app_id": "F3853",
+        "technical_transaction": "MD01",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR | SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 11,
+        "name": "Hand Over Purchase Requisitions",
+        "fiori_app_id": "F4795",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_PRODN_PLNR",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 12,
+        "name": "Create MRP Change Requests",
+        "fiori_app_id": "F5416",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 13,
+        "name": "Schedule MRP Rescheduling Checks",
+        "fiori_app_id": "F5417",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 14,
+        "name": "Maintain Time-Dependent Stock Levels",
+        "fiori_app_id": "F5726",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_PRODN_PLNR",
+        "component": "PP-FIO-MRP"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "b0b7c3fbdde047b1a758df2dc9a05074",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "b0b7c3fbdde047b1a758df2dc9a05074",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Run Material Requirements Planning(MRP)",
+        "type": "userTask",
+        "role": "Material Planner - External Procurement",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Evaluate MRP result (Delivery Schedule)",
+        "type": "userTask",
+        "role": "Material Planner - External Procurement",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Evaluate MRP result (Purchase requisitions)",
+        "type": "userTask",
+        "role": "Material Planner - External Procurement",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Display MRP Master Data Issues",
+        "type": "userTask",
+        "role": "Material Planner - External Procurement",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Display MRP Run Key Figures",
+        "type": "userTask",
+        "role": "Material Planner - External Procurement",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

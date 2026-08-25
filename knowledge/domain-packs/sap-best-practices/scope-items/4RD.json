@@ -1,0 +1,93 @@
+{
+  "scope_item_id": "4RD",
+  "title": "Direct Material Sourcing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Central Procurement",
+      "Sourcing and Contract Management"
+    ],
+    "L3_scope_item": "4RD - Direct Material Sourcing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Inbox",
+        "fiori_app_id": "F0862",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER",
+        "component": "CA-INB-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Central Purchase Contracts",
+        "fiori_app_id": "F3144",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SOURCING_MANAGER | SAP_BR_CENTRAL_PURCHASER",
+        "component": "MM-PUR-HUB-CTR"
+      },
+      {
+        "step_no": 3,
+        "name": "Process Purchase Requisitions Centrally",
+        "fiori_app_id": "F3290",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CENTRAL_PURCHASER | SAP_BR_MANAGER | SAP_BR_MANAGER_PROCUREMENT",
+        "component": "MM-PUR-HUB-REQ"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "766f360eed724b328035c5628d63c9fa",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "766f360eed724b328035c5628d63c9fa",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Purchase Requisition",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Purchase Requisition",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Purchase Requisition",
+        "type": "userTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Purchase Order Created",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

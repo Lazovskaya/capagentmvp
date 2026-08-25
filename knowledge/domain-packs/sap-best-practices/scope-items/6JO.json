@@ -1,0 +1,111 @@
+{
+  "scope_item_id": "6JO",
+  "title": "Resource Management for Projects",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Professional Services"
+    ],
+    "L2_core_process": [
+      "Professional Services"
+    ],
+    "L3_scope_item": "6JO - Resource Management for Projects",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Plan Customer Projects",
+        "fiori_app_id": "F0719",
+        "technical_transaction": "CJ20N",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_ORDER_SPCLST | SAP_BR_PROJECT_MANAGER_PROF",
+        "component": "CA-CPD-SS"
+      },
+      {
+        "step_no": 2,
+        "name": "Plan Internal Projects",
+        "fiori_app_id": "F1656",
+        "technical_transaction": "CJ06",
+        "app_type": null,
+        "role": "SAP_BR_PROJECT_MANAGER_PROF",
+        "component": "CA-CPD-SS"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Projects - Professional Services Projects",
+        "fiori_app_id": "F8336",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJECT_MANAGER_PROF",
+        "component": "CA-CPD-SS"
+      },
+      {
+        "step_no": 4,
+        "name": "My Project Experience",
+        "fiori_app_id": "F4705",
+        "technical_transaction": "F4705",
+        "app_type": null,
+        "role": "SAP_BR_PROJECTTEAMMEMBER",
+        "component": "PPM-PRO"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Resource Requests",
+        "fiori_app_id": "F4723",
+        "technical_transaction": "F4723",
+        "app_type": null,
+        "role": "SAP_BR_RESOURCE_MANAGER_PRJ | SAP_BR_PROJECT_MANAGER_PROF",
+        "component": "PPM-PRO"
+      },
+      {
+        "step_no": 6,
+        "name": "My Assignments",
+        "fiori_app_id": "F5991",
+        "technical_transaction": "F5991",
+        "app_type": null,
+        "role": "SAP_BR_PROJECTTEAMMEMBER",
+        "component": "PPM-PRO"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Project Demand",
+        "fiori_app_id": "F4562",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_PROC_CONTROLLER | SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-DMN-FIO"
+      },
+      {
+        "step_no": 8,
+        "name": "Project Control - Enterprise Projects",
+        "fiori_app_id": "F3215",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_PROJ_PROC_CONTROLLER | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_PROJECTMANAGER | SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-STR-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "da59d9cfd4274f82881cd744ccd3f91a",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "da59d9cfd4274f82881cd744ccd3f91a",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Resource Request",
+        "type": "serviceTask",
+        "role": "Project Manager",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "scope_item_id": "7YZ",
+  "title": "Multistage Intercompany Stock Transfer",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "7YZ - Multistage Intercompany Stock Transfer",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Monitor Value Chains",
+        "fiori_app_id": "F4854",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP | SAP_BR_INVENTORY_ACCOUNTANT | SAP_BR_BILLING_CLERK | SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_PURCHASER | SAP_BR_RECEIVING_SPECIALIST",
+        "component": "CA-VCM-MON"
+      },
+      {
+        "step_no": 2,
+        "name": "Schedule Resolution of Value Chain Issues",
+        "fiori_app_id": "F6868",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_BILLING_CLERK | SAP_BR_PURCHASER | SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_INTERNAL_SALES_REP",
+        "component": "CA-VCM-MON"
+      },
+      {
+        "step_no": 3,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

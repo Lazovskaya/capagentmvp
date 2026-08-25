@@ -1,0 +1,74 @@
+{
+  "scope_item_id": "41Z",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Service"
+    ],
+    "L2_core_process": [
+      "Service Operations and Processes"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "a754c994215046b1a13f0a79a007369a",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "a754c994215046b1a13f0a79a007369a",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Customer interaction",
+        "type": "userTask",
+        "role": "Customer",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Service Order Quotation",
+        "type": "userTask",
+        "role": "Customer Service Representative (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Customer accepts quotation",
+        "type": "userTask",
+        "role": "Customer",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create and Release Service Order",
+        "type": "userTask",
+        "role": "Customer Service Representative (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Service Confirmation",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Create Billing Document Request",
+        "type": "userTask",
+        "role": "Customer Service Representative (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Create Billing Document",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

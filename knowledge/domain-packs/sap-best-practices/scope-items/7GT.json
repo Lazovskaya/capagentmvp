@@ -1,0 +1,84 @@
+{
+  "scope_item_id": "7GT",
+  "title": "Quality Inspection of Incoming Material with Multiple Specs",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Operations",
+    "L3_scope_item": "7GT - Quality Inspection of Incoming Material with Multiple Specs",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Batches",
+        "fiori_app_id": "F2462",
+        "technical_transaction": "MSC1N",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_MANAGER | SAP_BR_QUALITY_ENGINEER_EPO | SAP_BR_PRODN_OPTR_DISC | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_PRODN_SUPERVISOR_RPTV | SAP_BR_BATCH_MASTER_SPCLST | SAP_BR_PRODN_OPTR_PROC | SAP_BR_PRODN_SUPRVSR_DISC_CAM | SAP_BR_PRODN_SUPRVSR_DISC_EPO | SAP_BR_WAREHOUSE_CLERK | SAP_BR_QUALITY_TECHNICIAN | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RETURNS_REFUND_CLERK | SAP_BR_CHG_MGMT_COORDINATOR | SAP_BR_PRODN_OPTR_RPTV | SAP_BR_PRODN_SUPERVISOR_DISC | SAP_BR_INTERNAL_SALES_REP | SAP_BR_PRODN_SUPERVISOR_PROC",
+        "component": "LO-BM-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Post Goods Receipt for Purchasing Document",
+        "fiori_app_id": "F0843",
+        "technical_transaction": "MB01",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_INVENTORY_MANAGER | SAP_BR_WAREHOUSE_CLERK",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 3,
+        "name": "Stock - Single Material",
+        "fiori_app_id": "F1076",
+        "technical_transaction": "MB52",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_INVENTORY_MANAGER | SAP_BR_PRODN_PLNR | SAP_BR_WAREHOUSE_CLERK | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Purchase Orders (Version 2)",
+        "fiori_app_id": "F0842A",
+        "technical_transaction": "ME21",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-PO"
+      },
+      {
+        "step_no": 5,
+        "name": "Record Inspection Results (Version 2)",
+        "fiori_app_id": "F1685A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_TECHNICIAN | SAP_BR_MAINTENANCE_PLANNER",
+        "component": "QM-FIO"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Inspection Lots",
+        "fiori_app_id": "F2343",
+        "technical_transaction": "QA32",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER | SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_TECHNICIAN",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 7,
+        "name": "Quality Technician Overview",
+        "fiori_app_id": "F2361",
+        "technical_transaction": "QA32",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_TECHNICIAN",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 8,
+        "name": "Results History",
+        "fiori_app_id": "F2428",
+        "technical_transaction": "QGA4",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_TECHNICIAN | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_QUALITY_MANAGER | SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-FIO-IM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

@@ -1,0 +1,207 @@
+{
+  "scope_item_id": "2U3",
+  "title": "Classification for Customs Tariff Number and Commodity Code",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Enterprise Risk and Compliance"
+    ],
+    "L3_scope_item": "2U3 - Classification for Customs Tariff Number and Commodity Code",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Classify Products - Commodity Codes",
+        "fiori_app_id": "F2151",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CLS_SPECIALIST",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 2,
+        "name": "Reclassify Products - Commodity Codes",
+        "fiori_app_id": "F2152",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CLS_SPECIALIST",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Commodity Codes",
+        "fiori_app_id": "F2516",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CLS_SPECIALIST",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 4,
+        "name": "Schedule Content Request to Data Provider - Commodity Codes",
+        "fiori_app_id": "F3051",
+        "technical_transaction": "/SAPSLL/CC_COMCO_REQ",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_SLL",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Customs Tariff Numbers",
+        "fiori_app_id": "F3122",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CLS_SPECIALIST",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 6,
+        "name": "Classify Products - Customs Tariff Numbers",
+        "fiori_app_id": "F3146",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CLS_SPECIALIST",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 7,
+        "name": "Reclassify Products - Customs Tariff  Numbers",
+        "fiori_app_id": "F3147",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CLS_SPECIALIST",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 8,
+        "name": "Manage Content from Data Provider - Commodity Codes",
+        "fiori_app_id": "F3429",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CLS_SPECIALIST",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 9,
+        "name": "Schedule Content Request to Data Provider - Customs Tariff Numbers",
+        "fiori_app_id": "F3569",
+        "technical_transaction": "/SAPSLL/CC_TARNO_REQ",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_SLL",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 10,
+        "name": "Manage Content from Data Provider - Customs Tariff Numbers",
+        "fiori_app_id": "F3581",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CLS_SPECIALIST",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 11,
+        "name": "Display Classified Products - International Trade",
+        "fiori_app_id": "F3789",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CLS_SPECIALIST",
+        "component": "FT-ITR-CLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "d3d32ae60de94a4398a4eed20ae61bad",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "d3d32ae60de94a4398a4eed20ae61bad",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Schedule Content Request to Tariff Numbers Data Provider",
+        "type": "subProcess",
+        "role": "Trade Classification Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Manage Customs Tariff Numbers",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Schedule Content Request to Commodity Code Data Provider",
+        "type": "subProcess",
+        "role": "Trade Classification Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Manage Commodity Codes",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Manage Tariff Numbers Content from  Data Provider",
+        "type": "subProcess",
+        "role": "Trade Classification Specialist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Manage Commodity Codes from Data Provider",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Classify Products Customs Tariff Numbers",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Classify Products Commodity Codes",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

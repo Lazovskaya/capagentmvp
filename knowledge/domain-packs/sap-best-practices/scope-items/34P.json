@@ -1,0 +1,172 @@
+{
+  "scope_item_id": "34P",
+  "title": "Treasury Workstation Cash Integration",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": "34P - Treasury Workstation Cash Integration",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Define Filter Criteria",
+        "fiori_app_id": "F6519",
+        "technical_transaction": "DRFF",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_DATA_REPL",
+        "component": "CA-MDG-DRF"
+      },
+      {
+        "step_no": 2,
+        "name": "Schedule Job for Replication Cash Flow Item",
+        "fiori_app_id": "F7281",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM"
+      },
+      {
+        "step_no": 3,
+        "name": "Reconcile Distributed Cash Flow Data",
+        "fiori_app_id": "F7725",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM"
+      },
+      {
+        "step_no": 4,
+        "name": "Schedule Job for Retrieving Remote Cash Flow Data",
+        "fiori_app_id": "F7751",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Bank Accounts",
+        "fiori_app_id": "F1366A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Banks - Cash Management",
+        "fiori_app_id": "F1574A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 7,
+        "name": "Release Cash Flows",
+        "fiori_app_id": "F3446",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-COP"
+      },
+      {
+        "step_no": 8,
+        "name": "Check Cash Flow Items",
+        "fiori_app_id": "F0735",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_FOE | SAP_BR_TREASURY_SPECIALIST_MOE | SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-COP-PD"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "2dc8b73f3ec14d5191503e4c1a56e25e",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "2dc8b73f3ec14d5191503e4c1a56e25e",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Monitor the incoming message in AIF",
+        "type": "userTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Check the House Bank/Bank Account/House Bank Account",
+        "type": "userTask",
+        "role": "Cash Manager",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Resubmit the message in AIF",
+        "type": "userTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Inform the sender to correct and resend the data",
+        "type": "userTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

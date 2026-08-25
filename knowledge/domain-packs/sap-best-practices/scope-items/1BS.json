@@ -1,0 +1,111 @@
+{
+  "scope_item_id": "1BS",
+  "title": "SAP Fiori Analytical Apps for Sales",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Budget and Finance",
+    "L3_scope_item": "1BS - SAP Fiori Analytical Apps for Sales",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Sales Orders - Demand Fulfillment",
+        "fiori_app_id": "F2458",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_MANAGER",
+        "component": "SD-ANA"
+      },
+      {
+        "step_no": 2,
+        "name": "Delivery Performance - Delivered as Requested",
+        "fiori_app_id": "F2783",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_MANAGER",
+        "component": "SD-ANA"
+      },
+      {
+        "step_no": 3,
+        "name": "Customer Returns - Return Rate",
+        "fiori_app_id": "F4092",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP | SAP_BR_SALES_MANAGER | SAP_BR_RETURNS_REFUND_CLERK",
+        "component": "SD-ANA"
+      },
+      {
+        "step_no": 4,
+        "name": "Quotation Conversion Rates",
+        "fiori_app_id": "F1904",
+        "technical_transaction": "VA25",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP | SAP_BR_SALES_MANAGER",
+        "component": "SD-FIO-HBA"
+      },
+      {
+        "step_no": 5,
+        "name": "Sales Contract Fulfillment Rates",
+        "fiori_app_id": "F1905",
+        "technical_transaction": "VA45",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_INTERNAL_SALES_REP | SAP_BR_SALES_MANAGER",
+        "component": "SD-FIO-HBA"
+      },
+      {
+        "step_no": 6,
+        "name": "My Sales Overview",
+        "fiori_app_id": "F2200",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-FIO-HBA"
+      },
+      {
+        "step_no": 7,
+        "name": "Sales Volume - Detailed Analysis",
+        "fiori_app_id": "F2235",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_MANAGER",
+        "component": "SD-FIO-HBA"
+      },
+      {
+        "step_no": 8,
+        "name": "Sales Volume - Check Open Sales",
+        "fiori_app_id": "F2270",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP | SAP_BR_SALES_MANAGER",
+        "component": "SD-FIO-HBA"
+      },
+      {
+        "step_no": 9,
+        "name": "Sales Volume - Profit Margin",
+        "fiori_app_id": "F2271",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_MANAGER | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-FIO-HBA"
+      },
+      {
+        "step_no": 10,
+        "name": "Sales Management Overview",
+        "fiori_app_id": "F2601",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_MANAGER",
+        "component": "SD-FIO-HBA"
+      },
+      {
+        "step_no": 11,
+        "name": "Sales Volume -  Credit Memos",
+        "fiori_app_id": "F5310",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_MANAGER | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-FIO-HBA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

@@ -1,0 +1,139 @@
+{
+  "scope_item_id": "3DV",
+  "title": "Warehouse Production Integration",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Warehousing"
+    ],
+    "L3_scope_item": "3DV - Warehouse Production Integration",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Confirm Production Operation",
+        "fiori_app_id": "F3069",
+        "technical_transaction": "CO11N",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_OPTR_DISC",
+        "component": "PP-FIO-SFC"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Outbound Delivery Orders",
+        "fiori_app_id": "F6498",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_EWM",
+        "component": "SCM-EWM-DLP-UI"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "5f00b9bb0232458dad6f30ea2a374fe9",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "5f00b9bb0232458dad6f30ea2a374fe9",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Release Production Order",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Material Staging for Production Order",
+        "type": "userTask",
+        "role": "Production Operator - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Inbound Delivery for Production Order",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create and hand over Outbound Delivery to Warehouse Management as Outbound Delivery Order",
+        "type": "serviceTask",
+        "role": "Production Operator - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create and Distribute Inbound Delivery to Warehouse Management",
+        "type": "serviceTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Create Staging Warehouse Tasks",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Create Handling Unit",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Confirm Staging Warehouse Tasks",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Post Goods Receipt",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Post Goods Issue for Staging",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Create Putaway Warehouse Tasks",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Confirm Putaway Warehouse Tasks",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "scope_item_id": "5HP",
+  "title": "Advanced Intercompany Stock Transfer",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Inventory",
+      "Invoice Management",
+      "Operational Procurement"
+    ],
+    "L3_scope_item": "5HP - Advanced Intercompany Stock Transfer",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Monitor Value Chains",
+        "fiori_app_id": "F4854",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP | SAP_BR_INVENTORY_ACCOUNTANT | SAP_BR_BILLING_CLERK | SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_PURCHASER | SAP_BR_RECEIVING_SPECIALIST",
+        "component": "CA-VCM-MON"
+      },
+      {
+        "step_no": 2,
+        "name": "Schedule Resolution of Value Chain Issues",
+        "fiori_app_id": "F6868",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_BILLING_CLERK | SAP_BR_PURCHASER | SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_INTERNAL_SALES_REP",
+        "component": "CA-VCM-MON"
+      },
+      {
+        "step_no": 3,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "8cb63e66cb7b4c82bf173fc069aa54f8",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "8cb63e66cb7b4c82bf173fc069aa54f8",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Intercompany Stock Transfer Order",
+        "type": "userTask",
+        "role": "Purchaser (Receiving Plant)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Outbound Delivery for Stock Transfer Order",
+        "type": "userTask",
+        "role": "Shipping Specialist (Receiving Plant)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Check Batches (Optional)",
+        "type": "userTask",
+        "role": "Shipping Specialist (Receiving Plant)",
+        "optional": true
+      },
+      {
+        "seq": 4,
+        "name": "Pick and Post Goods Issue for Outbound Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist (Receiving Plant)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Confirm Quantities for Putaway",
+        "type": "userTask",
+        "role": "Receiving Specialist (Receiving Plant)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Post Goods Receipt For Inbound Delivery",
+        "type": "userTask",
+        "role": "Receiving Specialist (Receiving Plant)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Display Supplier Invoice",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Receiving Company)",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Create Inter-company Billing Document",
+        "type": "userTask",
+        "role": "Billing Clerk (Delivering Company)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 4,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

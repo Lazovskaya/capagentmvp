@@ -1,0 +1,185 @@
+{
+  "scope_item_id": "BEJ",
+  "title": "Inventory Valuation for Year-End Closing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close"
+    ],
+    "L3_scope_item": "BEJ - Inventory Valuation for Year-End Closing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Inventory Balance Sheet Valuations",
+        "fiori_app_id": "F3343",
+        "technical_transaction": "MRY3",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_ACCOUNTANT",
+        "component": "CO-FIO-IBS"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Costing Runs - Estimated Costs",
+        "fiori_app_id": "F1865",
+        "technical_transaction": "CK40N",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_ACCOUNTANT",
+        "component": "CO-FIO-PCP"
+      },
+      {
+        "step_no": 3,
+        "name": "Post General Journal Entries",
+        "fiori_app_id": "F0718",
+        "technical_transaction": "F-02",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "7b1d8b505a4f42b588b75e0df37596a4",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "7b1d8b505a4f42b588b75e0df37596a4",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Flag Materials as Relevant for FIFO",
+        "type": "userTask",
+        "role": "Cost Accountant - Inventory",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Flag Materials as Relevant for FIFO",
+        "type": "userTask",
+        "role": "Cost Accountant - Inventory",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create FIFO Valuation Extract",
+        "type": "userTask",
+        "role": "Cost Accountant - Inventory",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create FIFO Valuation Extract",
+        "type": "userTask",
+        "role": "Cost Accountant - Inventory",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Execute FIFO Valuation",
+        "type": "userTask",
+        "role": "Cost Accountant - Inventory",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Execute FIFO Valuation",
+        "type": "userTask",
+        "role": "Cost Accountant - Inventory",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Determination of Lowest Value Market Prices",
+        "type": "userTask",
+        "role": "Cost Accountant - Inventory",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Determination of Lowest Value Market Prices",
+        "type": "userTask",
+        "role": "Cost Accountant - Inventory",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Determination of Lowest Value: Range of Coverage",
+        "type": "userTask",
+        "role": "Cost Accountant - Inventory",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Determination of Lowest Value: Movement Rate",
+        "type": "userTask",
+        "role": "Cost Accountant - Inventory",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Determination of Lowest Value: Movement Rate",
+        "type": "userTask",
+        "role": "Cost Accountant - Inventory",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Determination of Lowest Value: Range of Coverage",
+        "type": "userTask",
+        "role": "Cost Accountant - Inventory",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Optional: Analyze Results with Inventory Balance Sheet Valuation",
+        "type": "userTask",
+        "role": "Cost Accountant - Inventory",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Determine Inventory Balance Sheet Value",
+        "type": "userTask",
+        "role": "Cost Accountant - Inventory",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Analyze Stock Valuation for Materials",
+        "type": "userTask",
+        "role": "Cost Accountant - Inventory",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Execute Price Change",
+        "type": "userTask",
+        "role": "Cost Accountant - Inventory",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Perform Delta Posting",
+        "type": "userTask",
+        "role": "Cost Accountant - Inventory",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Analyze Results with Inventory Balance Sheet Valuation",
+        "type": "userTask",
+        "role": "Cost Accountant - Inventory",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

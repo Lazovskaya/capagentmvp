@@ -1,0 +1,164 @@
+{
+  "scope_item_id": "5OS",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Delivery and Transportation"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "b13c41ce24aa48edaf427016b0cf1030",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "b13c41ce24aa48edaf427016b0cf1030",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create \nPurchase Order (2TX)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Freight Unit",
+        "type": "serviceTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Perform Manual Transportation Planning (4MO)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Charge Calculation",
+        "type": "serviceTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Perform Carrier Subcontracting (4MO)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Cost Distribution",
+        "type": "serviceTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Monitor Freight Order and Trigger Delivery Creation (4MO)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Create Inbound Delivery (2TX)",
+        "type": "serviceTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Set Truck Arrived and Checked-In (4MO)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Confirm Quantities for Putaway (2TX)",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Set Ready for Warehousing",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Post Goods Receipt (2TX)",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Set Truck Checked-Out and Departed (4MO)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Create \nSupplier Invoice (2TX)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Confirm Freight Order For Accrual Posting (4MO)",
+        "type": "userTask",
+        "role": "Transportation Manager",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Execute Evaluated \nReceipt Settlement for Freight Costs (2LH)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs)",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Create Supplier Invoice for Freight Costs (22Z)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs)",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Check Supplier Invoice List (2LH)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs)",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Release Blocked Supplier Invoice (Optional) (22Z)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs)",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 15,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

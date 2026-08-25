@@ -1,0 +1,104 @@
+{
+  "scope_item_id": "5FM",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Retail",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Operational Procurement",
+      "Retail"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "28f5a27e0a65431f8c7f57e090afe23d",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "28f5a27e0a65431f8c7f57e090afe23d",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Convert the Purchase Requisition out of the Stock/Requirements List",
+        "type": "userTask",
+        "role": "Replenishment Specialist (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Purchase Order with Reference to the Purchase Requisition",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Automatic Conversion of the Purchase Requisition to a Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create Purchase Order Directly",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Display Purchase Orders",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Display Status & History Of Purchase Orders",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Display Procurement Overview",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Display Status & History Of Purchase Orders",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

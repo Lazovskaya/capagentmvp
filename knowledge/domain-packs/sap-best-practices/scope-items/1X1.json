@@ -1,0 +1,214 @@
+{
+  "scope_item_id": "1X1",
+  "title": "Foreign Currency Risk Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": "1X1 - Foreign Currency Risk Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Review Balance Sheet FX Risk",
+        "fiori_app_id": "F1588",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_MOE | SAP_BR_TREASURY_RISK_MANAGER | SAP_BR_TREASURY_SPECIALIST_FOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 2,
+        "name": "Display Treasury Position Flows",
+        "fiori_app_id": "F1754",
+        "technical_transaction": "TPM13",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_TREASURY_ACCOUNTANT | SAP_BR_TREASURY_RISK_MANAGER",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 3,
+        "name": "Display Treasury Posting Journal",
+        "fiori_app_id": "F1755",
+        "technical_transaction": "TPM20",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_ACCOUNTANT",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 4,
+        "name": "Display Treasury Position Values",
+        "fiori_app_id": "F1867",
+        "technical_transaction": "TPM12",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_RISK_MANAGER | SAP_BR_TREASURY_ACCOUNTANT | SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 5,
+        "name": "Process Snapshots - Balance Sheet FX Risk",
+        "fiori_app_id": "F4763",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_MOE | SAP_BR_TREASURY_SPECIALIST_FOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 6,
+        "name": "Process Hedge Requests-Balance Sheet FX Risk",
+        "fiori_app_id": "F4764",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_FOE | SAP_BR_TREASURY_SPECIALIST_MOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 7,
+        "name": "Balance Sheet FX Risk Overview - Based on Snapshots",
+        "fiori_app_id": "F4765",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_MOE | SAP_BR_TREASURY_SPECIALIST_FOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 8,
+        "name": "Display Treasury Alerts - Settlement",
+        "fiori_app_id": "F4979",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 9,
+        "name": "Display Treasury Alerts - Release",
+        "fiori_app_id": "F4980",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 10,
+        "name": "Display Treasury Alerts - Payment",
+        "fiori_app_id": "F4981",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_TREASURY_ACCOUNTANT",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 11,
+        "name": "Display Treasury Alerts - Correspondence",
+        "fiori_app_id": "F4983",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 12,
+        "name": "Display Treasury Alerts - Posting",
+        "fiori_app_id": "F4984",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_ACCOUNTANT",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 13,
+        "name": "Manage Financial Transactions",
+        "fiori_app_id": "F6157",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_TREASURY_SPECIALIST_FOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 14,
+        "name": "Cash Flow Analyzer",
+        "fiori_app_id": "F2332",
+        "technical_transaction": "FF7AN",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP-CP"
+      },
+      {
+        "step_no": 15,
+        "name": "Check Cash Flow Items",
+        "fiori_app_id": "F0735",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_FOE | SAP_BR_TREASURY_SPECIALIST_MOE | SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-COP-PD"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "25657e7ff70b481f93c8dfcbcddbc34a",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "25657e7ff70b481f93c8dfcbcddbc34a",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Send Confirmation Email/Print (Optional)",
+        "type": "serviceTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": true
+      },
+      {
+        "seq": 2,
+        "name": "Set Settlement Status (Manual)",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Check Correspondence Status",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Receive Incoming Confirmation",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Find Deal and Match Deal Details",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Set Settlement Status",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

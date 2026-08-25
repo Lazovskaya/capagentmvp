@@ -1,0 +1,72 @@
+{
+  "scope_item_id": "BJQ",
+  "title": "Rework Processing \u2013 Work-in-Process",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Manufacturing Operations"
+    ],
+    "L3_scope_item": "BJQ - Rework Processing \u2013 Work-in-Process",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Production Operations",
+        "fiori_app_id": "F2335",
+        "technical_transaction": "CO02",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_SUPERVISOR_DISC",
+        "component": "PP-FIO-SFC"
+      },
+      {
+        "step_no": 2,
+        "name": "Confirm Production Operation",
+        "fiori_app_id": "F3069",
+        "technical_transaction": "CO11N",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_OPTR_DISC",
+        "component": "PP-FIO-SFC"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "d7fdc1b3146e4cfd92e3efa810e2c6b2",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "d7fdc1b3146e4cfd92e3efa810e2c6b2",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Confirm Rework Required for Defective Material",
+        "type": "userTask",
+        "role": "Production Operator - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Confirm Production Order at Rework Operation",
+        "type": "userTask",
+        "role": "Production Operator - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Manage Production Operations",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Confirm Subsequent Operation Including Reworked Quantity",
+        "type": "userTask",
+        "role": "Production Operator - Discrete Manufacturing",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

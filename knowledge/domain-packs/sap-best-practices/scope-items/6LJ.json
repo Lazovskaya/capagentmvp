@@ -1,0 +1,32 @@
+{
+  "scope_item_id": "6LJ",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order Promising"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "d0ef6db61c8946d2888bad8b8e500e57",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "d0ef6db61c8946d2888bad8b8e500e57",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Monitor Product Availability",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

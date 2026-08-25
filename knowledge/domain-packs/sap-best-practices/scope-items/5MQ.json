@@ -1,0 +1,225 @@
+{
+  "scope_item_id": "5MQ",
+  "title": "Sell from Stock with Valuated Stock in Transit",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": "5MQ - Sell from Stock with Valuated Stock in Transit",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Monitor Value Chains",
+        "fiori_app_id": "F4854",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP | SAP_BR_INVENTORY_ACCOUNTANT | SAP_BR_BILLING_CLERK | SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_PURCHASER | SAP_BR_RECEIVING_SPECIALIST",
+        "component": "CA-VCM-MON"
+      },
+      {
+        "step_no": 2,
+        "name": "Create Outbound Deliveries - From Sales Orders",
+        "fiori_app_id": "F0869A",
+        "technical_transaction": "VL10A",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Billing Documents",
+        "fiori_app_id": "F0797",
+        "technical_transaction": "VF02",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_TRANSPRT_MNGR_LMD | SAP_BR_BILLING_CLERK | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_ADMINISTRATOR_RFM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 4,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "7703053654f34e8aa5e88ed89369d835",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "7703053654f34e8aa5e88ed89369d835",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "BD6 - Basic Credit Management",
+        "type": "subProcess",
+        "role": "Credit Controller",
+        "optional": false,
+        "calls_scope_item": "BD6"
+      },
+      {
+        "seq": 2,
+        "name": "Complete Sales Quotation (Optional)",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": true
+      },
+      {
+        "seq": 3,
+        "name": "Create Sales Order",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create Sales Order Using IFRS15 Bundling Functionality (Optional)",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "Create Attachment for Sales Order (Optional)",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": true
+      },
+      {
+        "seq": 6,
+        "name": "Create Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Create Attachment for Delivery (Optional)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": true
+      },
+      {
+        "seq": 8,
+        "name": "Execute Picking",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Check Batches (Optional)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": true
+      },
+      {
+        "seq": 10,
+        "name": "Split Outbound Delivery (Optional)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": true
+      },
+      {
+        "seq": 11,
+        "name": "Add Freight Costs (Optional)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": true
+      },
+      {
+        "seq": 12,
+        "name": "Post Goods Issue",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Proof of Delivery (Optional)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": true
+      },
+      {
+        "seq": 14,
+        "name": "Create Billing Document",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Create Attachment for Billing (Optional)",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": true
+      },
+      {
+        "seq": 16,
+        "name": "BKK - Sales Order Fulfillment Monitoring",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": false,
+        "calls_scope_item": "BKK"
+      },
+      {
+        "seq": 17,
+        "name": "J59 - Accounts Receivable",
+        "type": "subProcess",
+        "role": "Accounts Receivable Accountant",
+        "optional": false,
+        "calls_scope_item": "J59"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 12,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 15,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 17,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "BD6",
+        "name": "BD6 - Basic Credit Management",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BKK",
+        "name": "BKK - Sales Order Fulfillment Monitoring",
+        "optional": false
+      },
+      {
+        "scope_item_id": "J59",
+        "name": "J59 - Accounts Receivable",
+        "optional": false
+      }
+    ]
+  }
+}

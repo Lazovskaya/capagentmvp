@@ -1,0 +1,32 @@
+{
+  "scope_item_id": "2Y7",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Enterprise Portfolio and Project Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "2cafb74c64a6455abdf7b58043eda21d",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "2cafb74c64a6455abdf7b58043eda21d",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Train the Model",
+        "type": "userTask",
+        "role": "Analytics Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

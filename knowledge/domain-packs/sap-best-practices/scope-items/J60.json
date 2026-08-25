@@ -1,0 +1,648 @@
+{
+  "scope_item_id": "J60",
+  "title": "Accounts Payable",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Financial Operations"
+    ],
+    "L3_scope_item": "J60 - Accounts Payable",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Maintain Business Roles",
+        "fiori_app_id": "F1492",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_APPL_SUP_ENG_DEV_SUP | SAP_BR_SYSTEM_AUDITOR",
+        "component": "BC-SRV-APS-IAM"
+      },
+      {
+        "step_no": 2,
+        "name": "My Inbox",
+        "fiori_app_id": "F0862",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER",
+        "component": "CA-INB-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Display Supplier List",
+        "fiori_app_id": "F1861",
+        "technical_transaction": "S_ALR_87012086",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP"
+      },
+      {
+        "step_no": 4,
+        "name": "My/Process Free Form Payments",
+        "fiori_app_id": "F2564",
+        "technical_transaction": "FIBLFFP",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT | SAP_BR_CASH_SPECIALIST",
+        "component": "FI-FIO-AP"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Supplier Balance Confirmations",
+        "fiori_app_id": "F2959",
+        "technical_transaction": "F.18",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP"
+      },
+      {
+        "step_no": 6,
+        "name": "Display Item Change Log - Supplier",
+        "fiori_app_id": "F7795",
+        "technical_transaction": "S_ALR_87012293",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER | SAP_BR_EXTERNAL_AUDITOR",
+        "component": "FI-FIO-AP"
+      },
+      {
+        "step_no": 7,
+        "name": "Process Free Form Payments",
+        "fiori_app_id": "F8654",
+        "technical_transaction": "FIBLFFP",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST",
+        "component": "FI-FIO-AP"
+      },
+      {
+        "step_no": 8,
+        "name": "Aging Analysis (S/4HANA)",
+        "fiori_app_id": "F1733",
+        "technical_transaction": "F.46",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER",
+        "component": "FI-FIO-AP-ANA"
+      },
+      {
+        "step_no": 9,
+        "name": "Cash Discount Forecast (S/4HANA)",
+        "fiori_app_id": "F1735",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER",
+        "component": "FI-FIO-AP-ANA"
+      },
+      {
+        "step_no": 10,
+        "name": "Cash Discount Utilization (S/4HANA)",
+        "fiori_app_id": "F1736",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER",
+        "component": "FI-FIO-AP-ANA"
+      },
+      {
+        "step_no": 11,
+        "name": "Days Payable Outstanding Analysis (S/4HANA)",
+        "fiori_app_id": "F1740",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER",
+        "component": "FI-FIO-AP-ANA"
+      },
+      {
+        "step_no": 12,
+        "name": "Future Payables (S/4HANA)",
+        "fiori_app_id": "F1743",
+        "technical_transaction": "F.46",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER",
+        "component": "FI-FIO-AP-ANA"
+      },
+      {
+        "step_no": 13,
+        "name": "Invoice Processing Analysis (S/4HANA)",
+        "fiori_app_id": "F1745",
+        "technical_transaction": "FBL1N",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER",
+        "component": "FI-FIO-AP-ANA"
+      },
+      {
+        "step_no": 14,
+        "name": "Overdue Payables (S/4HANA)",
+        "fiori_app_id": "F1746",
+        "technical_transaction": "F.46",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER",
+        "component": "FI-FIO-AP-ANA"
+      },
+      {
+        "step_no": 15,
+        "name": "Supplier Payment Analysis (Manual and Automatic Payments) (S/4HANA)",
+        "fiori_app_id": "F1749",
+        "technical_transaction": "FBL1N",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER",
+        "component": "FI-FIO-AP-ANA"
+      },
+      {
+        "step_no": 16,
+        "name": "Supplier Payment Analysis(Open Payments) (S/4HANA)",
+        "fiori_app_id": "F1750",
+        "technical_transaction": "FBL1N",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER",
+        "component": "FI-FIO-AP-ANA"
+      },
+      {
+        "step_no": 17,
+        "name": "Aging Report for Accounts Payable",
+        "fiori_app_id": "F4401",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER",
+        "component": "FI-FIO-AP-ANA"
+      },
+      {
+        "step_no": 18,
+        "name": "Approve Bank Payments (Version 2)",
+        "fiori_app_id": "F0673A",
+        "technical_transaction": "BNK_APP",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER | SAP_BR_AP_MANAGER",
+        "component": "FI-FIO-AP-BNK"
+      },
+      {
+        "step_no": 19,
+        "name": "Monitor Payments",
+        "fiori_app_id": "F2388",
+        "technical_transaction": "BNK_MONI",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_CASH_SPECIALIST | SAP_BR_AP_ACCOUNTANT | SAP_BR_CASH_MANAGER",
+        "component": "FI-FIO-AP-BNK"
+      },
+      {
+        "step_no": 20,
+        "name": "Display Supplier Balances (Version 2)",
+        "fiori_app_id": "F0701A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-IS"
+      },
+      {
+        "step_no": 21,
+        "name": "Manage Supplier Line Items",
+        "fiori_app_id": "F0712",
+        "technical_transaction": "FBL1",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-IS"
+      },
+      {
+        "step_no": 22,
+        "name": "Schedule Accounts Payable Jobs",
+        "fiori_app_id": "F2257",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT | SAP_BR_AP_MANAGER",
+        "component": "FI-FIO-AP-IS"
+      },
+      {
+        "step_no": 23,
+        "name": "Accounts Payable Overview",
+        "fiori_app_id": "F2917",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER",
+        "component": "FI-FIO-AP-IS"
+      },
+      {
+        "step_no": 24,
+        "name": "Manage Payment Blocks V2",
+        "fiori_app_id": "F0593A",
+        "technical_transaction": "FB02",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-PAY"
+      },
+      {
+        "step_no": 25,
+        "name": "Create Single Payment",
+        "fiori_app_id": "F0743",
+        "technical_transaction": "F-47",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-PAY"
+      },
+      {
+        "step_no": 26,
+        "name": "Manage Automatic Payments",
+        "fiori_app_id": "F0770",
+        "technical_transaction": "FBZ8",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-PAY"
+      },
+      {
+        "step_no": 27,
+        "name": "Revise Payment Proposals",
+        "fiori_app_id": "F0771",
+        "technical_transaction": "F110",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-PAY"
+      },
+      {
+        "step_no": 28,
+        "name": "Manage Checkbooks",
+        "fiori_app_id": "F1577",
+        "technical_transaction": "FCH3",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT | SAP_BR_AP_MANAGER",
+        "component": "FI-FIO-AP-PAY"
+      },
+      {
+        "step_no": 29,
+        "name": "Manage Outgoing Checks",
+        "fiori_app_id": "F1578",
+        "technical_transaction": "FCH1",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT | SAP_BR_AP_MANAGER",
+        "component": "FI-FIO-AP-PAY"
+      },
+      {
+        "step_no": 30,
+        "name": "Manage Payment Media",
+        "fiori_app_id": "F1868",
+        "technical_transaction": "FDTA",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-PAY"
+      },
+      {
+        "step_no": 31,
+        "name": "Manage Payment Plans",
+        "fiori_app_id": "F4806",
+        "technical_transaction": "F110S",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-PAY"
+      },
+      {
+        "step_no": 32,
+        "name": "Clear Outgoing Payments",
+        "fiori_app_id": "F1367",
+        "technical_transaction": "F-44",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-TRA"
+      },
+      {
+        "step_no": 33,
+        "name": "Post Outgoing Payments",
+        "fiori_app_id": "F1612",
+        "technical_transaction": "F-07",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT",
+        "component": "FI-FIO-AP-TRA"
+      },
+      {
+        "step_no": 34,
+        "name": "Manage Supplier Down Payment Requests",
+        "fiori_app_id": "F1688",
+        "technical_transaction": "F-47",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-TRA"
+      },
+      {
+        "step_no": 35,
+        "name": "Import Supplier Invoices",
+        "fiori_app_id": "F3041",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT",
+        "component": "FI-FIO-AP-TRA"
+      },
+      {
+        "step_no": 36,
+        "name": "Manage Recurring Supplier Invoices",
+        "fiori_app_id": "F4312",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-TRA"
+      },
+      {
+        "step_no": 37,
+        "name": "Manage Workflows - Supplier Down Payment Requests",
+        "fiori_app_id": "F7100",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER",
+        "component": "FI-FIO-AP-TRA"
+      },
+      {
+        "step_no": 38,
+        "name": "Verify Supplier Down Payment Requests - Approver Outbox",
+        "fiori_app_id": "F7101",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT | SAP_BR_AP_MANAGER",
+        "component": "FI-FIO-AP-TRA"
+      },
+      {
+        "step_no": 39,
+        "name": "Verify Supplier Down Payment Requests - Approver Inbox",
+        "fiori_app_id": "F7102",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-TRA"
+      },
+      {
+        "step_no": 40,
+        "name": "Verify Supplier Down Payment Requests",
+        "fiori_app_id": "F7103",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-TRA"
+      },
+      {
+        "step_no": 41,
+        "name": "Manage Teams and Responsibilities - Supplier Down Payment Requests",
+        "fiori_app_id": "F7483",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER",
+        "component": "FI-FIO-AP-TRA"
+      },
+      {
+        "step_no": 42,
+        "name": "Manage Guarantees Received",
+        "fiori_app_id": "F7933",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-TRA"
+      },
+      {
+        "step_no": 43,
+        "name": "Create Correspondence (Version 2)",
+        "fiori_app_id": "F0744A",
+        "technical_transaction": "FB12",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AR-IS"
+      },
+      {
+        "step_no": 44,
+        "name": "Display Item Change Log",
+        "fiori_app_id": "F2681",
+        "technical_transaction": "S_ALR_87012293",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER | SAP_BR_AR_MANAGER",
+        "component": "FI-FIO-AR-IS"
+      },
+      {
+        "step_no": 45,
+        "name": "Schedule Interest Calculation Jobs",
+        "fiori_app_id": "F4176",
+        "technical_transaction": "FINT",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT | SAP_BR_AR_MANAGER",
+        "component": "FI-FIO-AR-IS"
+      },
+      {
+        "step_no": 46,
+        "name": "Manage Interest Runs",
+        "fiori_app_id": "F4485",
+        "technical_transaction": "FINTSHOW",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_AR_MANAGER | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AR-IS"
+      },
+      {
+        "step_no": 47,
+        "name": "Manage Bank Statements",
+        "fiori_app_id": "F1564",
+        "technical_transaction": "FF.6",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_ADMIN_APR_FICA | SAP_BR_CASH_MANAGER",
+        "component": "FI-FIO-AR-PAY"
+      },
+      {
+        "step_no": 48,
+        "name": "Manage Incoming Payment Files",
+        "fiori_app_id": "F1680",
+        "technical_transaction": "FF.5",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-FIO-AR-PAY"
+      },
+      {
+        "step_no": 49,
+        "name": "Reset Cleared Items",
+        "fiori_app_id": "F2223",
+        "technical_transaction": "FBRA",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT",
+        "component": "FI-FIO-AR-TRA"
+      },
+      {
+        "step_no": 50,
+        "name": "Manage Journal Entries",
+        "fiori_app_id": "F0717",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_AU | SAP_BR_AR_MANAGER | SAP_BR_GL_ACCOUNTANT_BE | SAP_BR_CREDIT_CONTROLLER | SAP_BR_GL_ACCOUNTANT_NL | SAP_BR_GL_ACCOUNTANT | SAP_BR_CASH_MANAGER | SAP_BR_GL_ACCOUNTANT_SG | SAP_BR_RECONC_SPEC_APR_FICA | SAP_BR_GL_ACCOUNTANT_TR | SAP_BR_PROJ_FIN_CONTROLLER | SAP_BR_GL_ACCOUNTANT_FR | SAP_BR_TREASURY_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT | SAP_BR_WAREHOUSE_CLERK | SAP_BR_GL_ACCOUNTANT_ES | SAP_BR_GL_ACCOUNTANT_SE | SAP_BR_CASH_MANAGER_MY | SAP_BR_GL_ACCOUNTANT_ZA | SAP_BR_GL_ACCOUNTANT_CA | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT_MY | SAP_BR_GL_ACCOUNTANT_IL | SAP_BR_ADMIN_APR_FICA | SAP_BR_GL_ACCOUNTANT_NZ | SAP_BR_AP_MANAGER | SAP_BR_CASH_MANAGER_TH | SAP_BR_GL_ACCOUNTANT_TH | SAP_BR_GL_ACCOUNTANT_CH | SAP_BR_CASH_SPECIALIST | SAP_BR_GL_ACCOUNTANT_PT | SAP_BR_GL_ACCOUNTANT_RU | SAP_BR_GL_ACCOUNTANT_FI | SAP_BR_TREASURY_RISK_MANAGER | SAP_BR_INVENTORY_MANAGER | SAP_BR_GL_ACCOUNTANT_IT | SAP_BR_GL_ACCOUNTANT_NO | SAP_BR_GL_ACCOUNTANT_AT | SAP_BR_GL_ACCOUNTANT_DK | SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_GL_ACCOUNTANT_LU",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 51,
+        "name": "Manage Payment Requisitions",
+        "fiori_app_id": "F4837",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_CN | SAP_BR_CASH_MANAGER_CN",
+        "component": "FI-LOC-CM-CN"
+      },
+      {
+        "step_no": 52,
+        "name": "Create Payment Requisitions",
+        "fiori_app_id": "F4838",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_CN",
+        "component": "FI-LOC-CM-CN"
+      },
+      {
+        "step_no": 53,
+        "name": "My Inbox for Payment Requisitions",
+        "fiori_app_id": "F5444",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER_CN",
+        "component": "FI-LOC-CM-CN"
+      },
+      {
+        "step_no": 54,
+        "name": "Supplier Line Items - China",
+        "fiori_app_id": "F5990",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_CN",
+        "component": "FI-LOC-FI-CN"
+      },
+      {
+        "step_no": 55,
+        "name": "Manage Journal Entries - Japan",
+        "fiori_app_id": "F3103",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_JP | SAP_BR_AP_ACCOUNTANT_JP",
+        "component": "FI-LOC-FI-JP"
+      },
+      {
+        "step_no": 56,
+        "name": "Monitor Contracts",
+        "fiori_app_id": "F3757",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT_KZ | SAP_BR_AP_ACCOUNTANT_RU | SAP_BR_AP_ACCOUNTANT_UA | SAP_BR_AR_ACCOUNTANT_RU | SAP_BR_AP_ACCOUNTANT_KZ | SAP_BR_AR_ACCOUNTANT_UA",
+        "component": "FI-LOC-FI-RU"
+      },
+      {
+        "step_no": 57,
+        "name": "Manage Contracts in Accounting",
+        "fiori_app_id": "F3758",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT_KZ | SAP_BR_AP_ACCOUNTANT_UA | SAP_BR_AP_ACCOUNTANT_RU | SAP_BR_AR_ACCOUNTANT_UA | SAP_BR_AP_ACCOUNTANT_KZ | SAP_BR_AR_ACCOUNTANT_RU",
+        "component": "FI-LOC-FI-RU"
+      },
+      {
+        "step_no": 58,
+        "name": "Manage Bank Accounts",
+        "fiori_app_id": "F1366A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 59,
+        "name": "Manage Customer Master Data",
+        "fiori_app_id": "F0850A",
+        "technical_transaction": "BP",
+        "app_type": null,
+        "role": "SAP_BR_BUPA_MASTER_SPECIALIST | SAP_BR_RFM_STORE_ASSOCIATE | SAP_BR_RFM_STORE_MANAGER",
+        "component": "LO-MD-FIO-CM"
+      },
+      {
+        "step_no": 60,
+        "name": "Manage Supplier Master Data",
+        "fiori_app_id": "F1053A",
+        "technical_transaction": "BP",
+        "app_type": null,
+        "role": "SAP_BR_BUPA_MASTER_SPECIALIST",
+        "component": "LO-MD-FIO-VM"
+      },
+      {
+        "step_no": 61,
+        "name": "Post Goods Receipt for Purchasing Document",
+        "fiori_app_id": "F0843",
+        "technical_transaction": "MB01",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_INVENTORY_MANAGER | SAP_BR_WAREHOUSE_CLERK",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 62,
+        "name": "Manage Supplier Invoices",
+        "fiori_app_id": "F0859",
+        "technical_transaction": "F-41",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AA_ACCOUNTANT | SAP_BR_PURCHASING_MANAGER",
+        "component": "MM-FIO-IV"
+      },
+      {
+        "step_no": 63,
+        "name": "Manage Purchase Orders (Version 2)",
+        "fiori_app_id": "F0842A",
+        "technical_transaction": "ME21",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-PO"
+      },
+      {
+        "step_no": 64,
+        "name": "Manage Service Entry Sheets - Lean Services",
+        "fiori_app_id": "F2027",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-PUR-SVC-SES"
+      },
+      {
+        "step_no": 65,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 66,
+        "name": "Intercompany Balance Reconciliation",
+        "fiori_app_id": "F1819",
+        "technical_transaction": "J3RFASD",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT_RU | SAP_BR_AP_ACCOUNTANT_RU | SAP_BR_AP_ACCOUNTANT_UA | SAP_BR_AR_ACCOUNTANT_UA",
+        "component": "XX-CSC-RU-FI"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "a6501203be0e42ffacba95334ccdce47",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "a6501203be0e42ffacba95334ccdce47",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Check Open Balances",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Supplier Balance Confirmation",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Manage Supplier Balance Confirmations",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Print Supplier Balance Confirmation",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

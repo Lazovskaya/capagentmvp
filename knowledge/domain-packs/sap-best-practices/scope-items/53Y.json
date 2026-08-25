@@ -1,0 +1,49 @@
+{
+  "scope_item_id": "53Y",
+  "title": "Intercompany Billing for Service Documents",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Service"
+    ],
+    "L2_core_process": [
+      "Service Operations and Processes"
+    ],
+    "L3_scope_item": "53Y - Intercompany Billing for Service Documents",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Service Orders (Version 2)",
+        "fiori_app_id": "F3571A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BILLING_CLERK | SAP_BR_SOLN_ORDER_SPCLST | SAP_BR_INTERNAL_SALES_REP | SAP_BR_SERVICE_PLANNER | SAP_BR_CREDIT_CONTROLLER | SAP_BR_CUSTOMER_SRVC_MGR",
+        "component": "CRM-S4-SRV-SVO-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Generate Intercompany Billing Request",
+        "fiori_app_id": "F1829",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP_PRSV",
+        "component": "PPM-SCL-BIL-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "6c5426fbf03849ce8a8582f0d8164ed8",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "6c5426fbf03849ce8a8582f0d8164ed8",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

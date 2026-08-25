@@ -1,0 +1,178 @@
+{
+  "scope_item_id": "2F5",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "2F5 - 00 - Treasury Trading via Trading Platforms",
+      "Treasury Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "e081b6c479c84bfaabe0e07d7c119488",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "e081b6c479c84bfaabe0e07d7c119488",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Sync Up Intercompany MM Trade Request",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Sync Up Intercompany MM Trade Request",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Sync Up Intercompany MM Trade Request",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Update the Instrument Category of the Intercompany MM Trade Requests",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Update the Instrument Category of the Intercompany MM Trade Requests",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Update the Instrument Category of the Intercompany MM",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Create Intercompany MM Manual Trade",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Send Intercompany MM Trade Requests from TPI to External Trading Platform",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Create External MM Trade Requests",
+        "type": "serviceTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Decline External Trade Requests",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Create Intercompany MM Trades",
+        "type": "serviceTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Send External MM Trade Requests to External Trading Platform",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Call Counterparty for Phone Trade",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Generate Intercompany MM Trades",
+        "type": "serviceTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Reprocess Intercompany MM Trade Requests",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Enter the Phone Trade Details",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Generate MM Transactions",
+        "type": "serviceTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Generate Intercompany MM Transactions",
+        "type": "serviceTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 16,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

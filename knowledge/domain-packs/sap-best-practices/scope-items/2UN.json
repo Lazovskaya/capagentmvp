@@ -1,0 +1,320 @@
+{
+  "scope_item_id": "2UN",
+  "title": "Money Market Mutual Fund Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": "2UN - Money Market Mutual Fund Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Display Treasury Position Flows",
+        "fiori_app_id": "F1754",
+        "technical_transaction": "TPM13",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_TREASURY_ACCOUNTANT | SAP_BR_TREASURY_RISK_MANAGER",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 2,
+        "name": "Display Treasury Posting Journal",
+        "fiori_app_id": "F1755",
+        "technical_transaction": "TPM20",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_ACCOUNTANT",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 3,
+        "name": "Display Treasury Position Values",
+        "fiori_app_id": "F1867",
+        "technical_transaction": "TPM12",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_RISK_MANAGER | SAP_BR_TREASURY_ACCOUNTANT | SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 4,
+        "name": "Display Treasury Alerts - Settlement",
+        "fiori_app_id": "F4979",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 5,
+        "name": "Display Treasury Alerts - Release",
+        "fiori_app_id": "F4980",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 6,
+        "name": "Display Treasury Alerts - Payment",
+        "fiori_app_id": "F4981",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_TREASURY_ACCOUNTANT",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 7,
+        "name": "Display Treasury Alerts - Interest Rates",
+        "fiori_app_id": "F4982",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 8,
+        "name": "Display Treasury Alerts - Posting",
+        "fiori_app_id": "F4984",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_ACCOUNTANT",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 9,
+        "name": "Cash Flow Analyzer",
+        "fiori_app_id": "F2332",
+        "technical_transaction": "FF7AN",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP-CP"
+      },
+      {
+        "step_no": 10,
+        "name": "Manage Security Classes",
+        "fiori_app_id": "F8717",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FSCM-TRM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "b8d9f332f9fa422aae8ba709ad93797b",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "b8d9f332f9fa422aae8ba709ad93797b",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Security Account",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "1XN - Market Data for Treasury and Risk Management",
+        "type": "subProcess",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false,
+        "calls_scope_item": "1XN"
+      },
+      {
+        "seq": 3,
+        "name": "01 - Create Security Classes",
+        "type": "subProcess",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false,
+        "calls_scope_item": "01"
+      },
+      {
+        "seq": 4,
+        "name": "Generate Limit Utilizations",
+        "type": "userTask",
+        "role": "Treasury Specialist - Middle Office",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "BFB - Basic Cash Analysis",
+        "type": "subProcess",
+        "role": "Cash Manager",
+        "optional": false,
+        "calls_scope_item": "BFB"
+      },
+      {
+        "seq": 6,
+        "name": "BFB - Analyze Liquidity Forecast",
+        "type": "subProcess",
+        "role": "Cash Manager",
+        "optional": false,
+        "calls_scope_item": "BFB"
+      },
+      {
+        "seq": 7,
+        "name": "Review Limit Utilization Report",
+        "type": "userTask",
+        "role": "Treasury Specialist - Middle Office",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "02 - Create Fund Purchase Transaction",
+        "type": "subProcess",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false,
+        "calls_scope_item": "02"
+      },
+      {
+        "seq": 9,
+        "name": "10 - Correspondence",
+        "type": "subProcess",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false,
+        "calls_scope_item": "10"
+      },
+      {
+        "seq": 10,
+        "name": "03 - Payment to Depository Bank",
+        "type": "subProcess",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false,
+        "calls_scope_item": "03"
+      },
+      {
+        "seq": 11,
+        "name": "04 - Recognize Dividend Distribution",
+        "type": "subProcess",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false,
+        "calls_scope_item": "04"
+      },
+      {
+        "seq": 12,
+        "name": "05 - Capitalize Dividend Distribution",
+        "type": "subProcess",
+        "role": "Treasury Accountant",
+        "optional": false,
+        "calls_scope_item": "05"
+      },
+      {
+        "seq": 13,
+        "name": "06 - Period-end Closing",
+        "type": "subProcess",
+        "role": "Treasury Accountant",
+        "optional": false,
+        "calls_scope_item": "06"
+      },
+      {
+        "seq": 14,
+        "name": "07 - Redeem Fund Instrument",
+        "type": "subProcess",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false,
+        "calls_scope_item": "07"
+      },
+      {
+        "seq": 15,
+        "name": "Set Settlement Status",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "08 - Payment from Depository Bank",
+        "type": "subProcess",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false,
+        "calls_scope_item": "08"
+      },
+      {
+        "seq": 17,
+        "name": "09 - Reports",
+        "type": "subProcess",
+        "role": "Treasury Accountant",
+        "optional": false,
+        "calls_scope_item": "09"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "1XN",
+        "name": "1XN - Market Data for Treasury and Risk Management",
+        "optional": false
+      },
+      {
+        "scope_item_id": "01",
+        "name": "01 - Create Security Classes",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BFB",
+        "name": "BFB - Basic Cash Analysis",
+        "optional": false
+      },
+      {
+        "scope_item_id": "02",
+        "name": "02 - Create Fund Purchase Transaction",
+        "optional": false
+      },
+      {
+        "scope_item_id": "10",
+        "name": "10 - Correspondence",
+        "optional": false
+      },
+      {
+        "scope_item_id": "03",
+        "name": "03 - Payment to Depository Bank",
+        "optional": false
+      },
+      {
+        "scope_item_id": "04",
+        "name": "04 - Recognize Dividend Distribution",
+        "optional": false
+      },
+      {
+        "scope_item_id": "05",
+        "name": "05 - Capitalize Dividend Distribution",
+        "optional": false
+      },
+      {
+        "scope_item_id": "06",
+        "name": "06 - Period-end Closing",
+        "optional": false
+      },
+      {
+        "scope_item_id": "07",
+        "name": "07 - Redeem Fund Instrument",
+        "optional": false
+      },
+      {
+        "scope_item_id": "08",
+        "name": "08 - Payment from Depository Bank",
+        "optional": false
+      },
+      {
+        "scope_item_id": "09",
+        "name": "09 - Reports",
+        "optional": false
+      }
+    ]
+  }
+}

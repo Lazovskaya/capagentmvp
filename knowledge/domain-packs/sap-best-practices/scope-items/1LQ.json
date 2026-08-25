@@ -1,0 +1,133 @@
+{
+  "scope_item_id": "1LQ",
+  "title": "Output Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "IT and Cross-Application"
+    ],
+    "L2_core_process": [
+      "Administration and Usability"
+    ],
+    "L3_scope_item": "1LQ - Output Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Output Items",
+        "fiori_app_id": "F2279",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR",
+        "component": "CA-GTF-OC"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "43b1c668961c45389cecb9a8a5cd35ad",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "43b1c668961c45389cecb9a8a5cd35ad",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Determine master template",
+        "type": "userTask",
+        "role": "Administrator",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Determine content form template",
+        "type": "userTask",
+        "role": "Administrator",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Company Code",
+        "type": "userTask",
+        "role": "Administrator",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Document Type",
+        "type": "userTask",
+        "role": "Administrator",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Purchasing Org",
+        "type": "userTask",
+        "role": "Administrator",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Receiver",
+        "type": "userTask",
+        "role": "Administrator",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Output Channel",
+        "type": "userTask",
+        "role": "Administrator",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Country",
+        "type": "userTask",
+        "role": "Administrator",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Resolve to content form template",
+        "type": "userTask",
+        "role": "Administrator",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Content form template",
+        "type": "userTask",
+        "role": "Administrator",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Resolve to master form template",
+        "type": "userTask",
+        "role": "Administrator",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "scope_item_id": "4V7",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "e126d56959144f3f85e2f559e20467e7",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "e126d56959144f3f85e2f559e20467e7",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "3MO - Service Contract Management",
+        "type": "subProcess",
+        "role": "Customer Service Manager",
+        "optional": false,
+        "calls_scope_item": "3MO"
+      },
+      {
+        "seq": 2,
+        "name": "Display Line Items - Margin Analysis",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "3M3 - Event-Based Revenue Recognition - Service Documents",
+        "type": "subProcess",
+        "role": "Cost Accountant - Sales",
+        "optional": false,
+        "calls_scope_item": "3M3"
+      },
+      {
+        "seq": 4,
+        "name": "Display Line Items - Margin Analysis",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Monitor Predictive Accounting - Predictive Quality (optional)",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": true
+      }
+    ],
+    "gateways": [],
+    "dependencies": [
+      {
+        "scope_item_id": "3MO",
+        "name": "3MO - Service Contract Management",
+        "optional": false
+      },
+      {
+        "scope_item_id": "3M3",
+        "name": "3M3 - Event-Based Revenue Recognition - Service Documents",
+        "optional": false
+      }
+    ]
+  }
+}

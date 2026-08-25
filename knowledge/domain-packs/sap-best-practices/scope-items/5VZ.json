@@ -1,0 +1,39 @@
+{
+  "scope_item_id": "5VZ",
+  "title": "Internal Occupancy and Cost Allocation",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "5VZ - Internal Occupancy and Cost Allocation",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Usage Enablement Groups",
+        "fiori_app_id": "F5465",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RE_ADMINISTRATOR | SAP_BR_RE_SPECIALIST_LOCAT",
+        "component": "RE-FX-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Group Real Estate Object for Occupancy",
+        "fiori_app_id": "F5592",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RE_SPECIALIST_LOCAT",
+        "component": "RE-FX-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Periodic Posting for Internal Cost Allocation",
+        "fiori_app_id": "F6114",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RE_COST_ACCOUNTANT",
+        "component": "RE-FX-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

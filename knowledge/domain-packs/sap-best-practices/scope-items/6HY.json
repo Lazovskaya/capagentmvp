@@ -1,0 +1,241 @@
+{
+  "scope_item_id": "6HY",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "IT and Cross-Application"
+    ],
+    "L2_core_process": [
+      "Solution Business Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "5d63783ed344418fa80f7064cf5a511d",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "5d63783ed344418fa80f7064cf5a511d",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Solution order",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "4GT - Solution Order Management",
+        "type": "subProcess",
+        "role": "Solution Order Specialist",
+        "optional": false,
+        "calls_scope_item": "4GT"
+      },
+      {
+        "seq": 3,
+        "name": "Add configurable Sales Order Item",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Add configurable Service Order Item",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Add configurable Service Contract Item",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Optional: Configure",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Optional: Configure",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Optional: Configure",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "4E9 - Project Billing",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": false,
+        "calls_scope_item": "4E9"
+      },
+      {
+        "seq": 10,
+        "name": "Release Item",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Release Item",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Release Item",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "J59 - Accounts Receivable",
+        "type": "subProcess",
+        "role": "Accounts Receivable Accountant",
+        "optional": false,
+        "calls_scope_item": "J59"
+      },
+      {
+        "seq": 14,
+        "name": "Solution Billling",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Execute Solution Order Orchestration",
+        "type": "serviceTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Optional: BKP Customer Returns",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "6GS - Service Management with AVC",
+        "type": "subProcess",
+        "role": "Customer Service Manager",
+        "optional": false,
+        "calls_scope_item": "6GS"
+      },
+      {
+        "seq": 18,
+        "name": "3MO - Service Contract Management / 6GU - Service Contract Management with AVC",
+        "type": "subProcess",
+        "role": "Customer Service Manager",
+        "optional": false,
+        "calls_scope_item": "3MO"
+      },
+      {
+        "seq": 19,
+        "name": "1YT - Conf. Sell from Stock",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "1YT"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 12,
+        "type": "inclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 12,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 12,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 15,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 15,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "4GT",
+        "name": "4GT - Solution Order Management",
+        "optional": false
+      },
+      {
+        "scope_item_id": "4E9",
+        "name": "4E9 - Project Billing",
+        "optional": false
+      },
+      {
+        "scope_item_id": "J59",
+        "name": "J59 - Accounts Receivable",
+        "optional": false
+      },
+      {
+        "scope_item_id": "6GS",
+        "name": "6GS - Service Management with AVC",
+        "optional": false
+      },
+      {
+        "scope_item_id": "3MO",
+        "name": "3MO - Service Contract Management / 6GU - Service Contract Management with AVC",
+        "optional": false
+      },
+      {
+        "scope_item_id": "1YT",
+        "name": "1YT - Conf. Sell from Stock",
+        "optional": false
+      }
+    ]
+  }
+}

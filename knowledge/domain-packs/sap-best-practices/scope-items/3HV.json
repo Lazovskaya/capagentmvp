@@ -1,0 +1,24 @@
+{
+  "scope_item_id": "3HV",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Retail"
+    ],
+    "L2_core_process": [
+      "Retail"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "b13f3a4feb69419aa73e14fa66601c45",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "b13f3a4feb69419aa73e14fa66601c45",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [],
+    "dependencies": []
+  }
+}

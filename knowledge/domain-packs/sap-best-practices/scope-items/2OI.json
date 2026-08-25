@@ -1,0 +1,87 @@
+{
+  "scope_item_id": "2OI",
+  "title": "Intercompany Debt and Investment Mgmt \u2013 Group Ledger IFRS",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": "2OI - Intercompany Debt and Investment Mgmt \u2013 Group Ledger IFRS",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Financial Transactions",
+        "fiori_app_id": "F6157",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_TREASURY_SPECIALIST_FOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 2,
+        "name": "Cash Flow Analyzer",
+        "fiori_app_id": "F2332",
+        "technical_transaction": "FF7AN",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP-CP"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "b386f7881a0744d5a81d2ff0d1d2ca84",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "b386f7881a0744d5a81d2ff0d1d2ca84",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "1YI - Intercompany Process for Debt and Investment Mgmt",
+        "type": "subProcess",
+        "role": "Treasury Accountant (Issuing Company)",
+        "optional": false,
+        "calls_scope_item": "1YI"
+      },
+      {
+        "seq": 2,
+        "name": "1YI - Intercompany Process for Debt and Investment Mgmt",
+        "type": "subProcess",
+        "role": "Treasury Accountant (Receiving Company)",
+        "optional": false,
+        "calls_scope_item": "1YI"
+      },
+      {
+        "seq": 3,
+        "name": "1X7 - Debt and Investment Management - Parallel Ledger",
+        "type": "subProcess",
+        "role": "Treasury Accountant (Issuing Company)",
+        "optional": false,
+        "calls_scope_item": "1X7"
+      },
+      {
+        "seq": 4,
+        "name": "1X7 - Debt and Investment Management - Group Ledger IFRS",
+        "type": "subProcess",
+        "role": "Treasury Accountant (Receiving Company)",
+        "optional": false,
+        "calls_scope_item": "1X7"
+      }
+    ],
+    "gateways": [],
+    "dependencies": [
+      {
+        "scope_item_id": "1YI",
+        "name": "1YI - Intercompany Process for Debt and Investment Mgmt",
+        "optional": false
+      },
+      {
+        "scope_item_id": "1X7",
+        "name": "1X7 - Debt and Investment Management - Parallel Ledger",
+        "optional": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,210 @@
+{
+  "scope_item_id": "3TE",
+  "title": "Customer Returns for Non-Stock and Service Materials",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": "3TE - Customer Returns for Non-Stock and Service Materials",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Display Nota Fiscal Return Delivery Log",
+        "fiori_app_id": "F8352",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BILLING_CLERK_BR | SAP_BR_SHIPPING_SPECIALIST_BR",
+        "component": "BC-SRV-APS-APL"
+      },
+      {
+        "step_no": 2,
+        "name": "Create Outbound Deliveries - From Sales Orders",
+        "fiori_app_id": "F0869A",
+        "technical_transaction": "VL10A",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Billing Documents",
+        "fiori_app_id": "F0797",
+        "technical_transaction": "VF02",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_TRANSPRT_MNGR_LMD | SAP_BR_BILLING_CLERK | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_ADMINISTRATOR_RFM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 4,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Customer Returns",
+        "fiori_app_id": "F1708",
+        "technical_transaction": "VA01",
+        "app_type": null,
+        "role": "SAP_BR_RETURNS_REFUND_CLERK",
+        "component": "SD-SLS-RE"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Customer Returns - Version 2",
+        "fiori_app_id": "F4832",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RETURNS_REFUND_CLERK",
+        "component": "SD-SLS-RE"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "aa27e9140cd145209d68cc1e42d8a49b",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "aa27e9140cd145209d68cc1e42d8a49b",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Sales Order Processing for Non-Stock Material (2ET)",
+        "type": "callActivity",
+        "role": "Returns and Refund Clerk",
+        "optional": false,
+        "calls_scope_item": "2ET"
+      },
+      {
+        "seq": 2,
+        "name": "Create Returns Order",
+        "type": "userTask",
+        "role": "Returns and Refund Clerk",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Generate Returns Delivery",
+        "type": "serviceTask",
+        "role": "Returns and Refund Clerk",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Display Return Overview",
+        "type": "userTask",
+        "role": "Returns and Refund Clerk",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Post Goods Receipt (statistical confirmation)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Determine Refund",
+        "type": "userTask",
+        "role": "Returns and Refund Clerk",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Generate Credit memo Request",
+        "type": "serviceTask",
+        "role": "Returns and Refund Clerk",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Generate Subsequent Delivery Free-of-Charge",
+        "type": "serviceTask",
+        "role": "Returns and Refund Clerk",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Create Credit Memo",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Create Free-of-Charge Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Post Goods Issue (statistical confirmation)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Sales Order Fullfillment Monitoring (BKK) (Optional)",
+        "type": "callActivity",
+        "role": "Billing Clerk",
+        "optional": true,
+        "calls_scope_item": "BKK"
+      },
+      {
+        "seq": 13,
+        "name": "Create Customer Invoice",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "inclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "2ET",
+        "name": "Sales Order Processing for Non-Stock Material (2ET)",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BKK",
+        "name": "Sales Order Fullfillment Monitoring (BKK) (Optional)",
+        "optional": true
+      }
+    ]
+  }
+}

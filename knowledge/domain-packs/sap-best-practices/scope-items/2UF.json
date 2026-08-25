@@ -1,0 +1,59 @@
+{
+  "scope_item_id": "2UF",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "91be628e9c1049e9a1badb02289660ce",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "91be628e9c1049e9a1badb02289660ce",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "(1X1) Foreign Currency Risk Management",
+        "type": "subProcess",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false,
+        "calls_scope_item": "1X1"
+      },
+      {
+        "seq": 2,
+        "name": "1X9 - Foreign Currency Risk Management - Parallel Ledger",
+        "type": "subProcess",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false,
+        "calls_scope_item": "1X9"
+      },
+      {
+        "seq": 3,
+        "name": "Process Hedging Relationships at Maturity Date of Original FX Transaction and Offsetting FX Transaction",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": [
+      {
+        "scope_item_id": "1X1",
+        "name": "(1X1) Foreign Currency Risk Management",
+        "optional": false
+      },
+      {
+        "scope_item_id": "1X9",
+        "name": "1X9 - Foreign Currency Risk Management - Parallel Ledger",
+        "optional": false
+      }
+    ]
+  }
+}

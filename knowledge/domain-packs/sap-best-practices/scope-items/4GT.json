@@ -1,0 +1,413 @@
+{
+  "scope_item_id": "4GT",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "IT and Cross-Application"
+    ],
+    "L2_core_process": [
+      "Solution Business Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "f776d9dfd3764ed2b57fb8a74a554ec0",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "f776d9dfd3764ed2b57fb8a74a554ec0",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create \nSolution order",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "1EZ Credit Memo Request",
+        "type": "subProcess",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "6HY - Solution Order Management with Advanced Variant Conffiguration",
+        "type": "subProcess",
+        "role": "Solution Order Specialist",
+        "optional": false,
+        "calls_scope_item": "6HY"
+      },
+      {
+        "seq": 4,
+        "name": "Add Sales Item",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Add Service Item",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Add Service Contract Item",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Add Subscription item",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Add Project Item",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Release Item",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Release Item",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Release Item",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Release Item",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Optional: Link existing Project",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Release Item",
+        "type": "userTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Execute \nSolution Order Orchestration",
+        "type": "serviceTask",
+        "role": "Solution Order Specialist",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "BD9 - Sell from Stock",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "BD9"
+      },
+      {
+        "seq": 17,
+        "name": "3MO - Service Contract Management",
+        "type": "subProcess",
+        "role": "Customer Service Manager",
+        "optional": false,
+        "calls_scope_item": "3MO"
+      },
+      {
+        "seq": 18,
+        "name": "3D2 - Service Order Management and Monitoring",
+        "type": "subProcess",
+        "role": "Customer Service Manager",
+        "optional": false,
+        "calls_scope_item": "3D2"
+      },
+      {
+        "seq": 19,
+        "name": "J11 - Customer Project Management - Project-Based Services",
+        "type": "subProcess",
+        "role": "Project Manager - Commercial Services",
+        "optional": false,
+        "calls_scope_item": "J11"
+      },
+      {
+        "seq": 20,
+        "name": "57Z - Subscription Management with Sales Billing",
+        "type": "subProcess",
+        "role": "Solution Order Specialist",
+        "optional": false,
+        "calls_scope_item": "57Z"
+      },
+      {
+        "seq": 21,
+        "name": "BD3 - Sales Processing using Third-Party with Shipping Notification",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "BD3"
+      },
+      {
+        "seq": 22,
+        "name": "BDK - Sales Processing using Third-Party without Shipping Notification",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "BDK"
+      },
+      {
+        "seq": 23,
+        "name": "2EQ - Sale of Services",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "2EQ"
+      },
+      {
+        "seq": 24,
+        "name": "4E9 - Project Billing",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": false,
+        "calls_scope_item": "4E9"
+      },
+      {
+        "seq": 25,
+        "name": "2ET - Sales Order Processing for Non-Stock Material",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "2ET"
+      },
+      {
+        "seq": 26,
+        "name": "BDN - Sale of Non-Stock Item with Order-Specific Procurement",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "BDN"
+      },
+      {
+        "seq": 27,
+        "name": "Solution Billing",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 28,
+        "name": "J59 - Accounts Receivable",
+        "type": "subProcess",
+        "role": "Accounts Receivable Accountant",
+        "optional": false,
+        "calls_scope_item": "J59"
+      },
+      {
+        "seq": 29,
+        "name": "Optional: Accellerated Returns for Sell-from-Stock Items (SI: BKP)",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 13,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 13,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 14,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 15,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 15,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 15,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 15,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 15,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 15,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 15,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 15,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 16,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 20,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 23,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 23,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 24,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 26,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 28,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "6HY",
+        "name": "6HY - Solution Order Management with Advanced Variant Conffiguration",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BD9",
+        "name": "BD9 - Sell from Stock",
+        "optional": false
+      },
+      {
+        "scope_item_id": "3MO",
+        "name": "3MO - Service Contract Management",
+        "optional": false
+      },
+      {
+        "scope_item_id": "3D2",
+        "name": "3D2 - Service Order Management and Monitoring",
+        "optional": false
+      },
+      {
+        "scope_item_id": "J11",
+        "name": "J11 - Customer Project Management - Project-Based Services",
+        "optional": false
+      },
+      {
+        "scope_item_id": "57Z",
+        "name": "57Z - Subscription Management with Sales Billing",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BD3",
+        "name": "BD3 - Sales Processing using Third-Party with Shipping Notification",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BDK",
+        "name": "BDK - Sales Processing using Third-Party without Shipping Notification",
+        "optional": false
+      },
+      {
+        "scope_item_id": "2EQ",
+        "name": "2EQ - Sale of Services",
+        "optional": false
+      },
+      {
+        "scope_item_id": "4E9",
+        "name": "4E9 - Project Billing",
+        "optional": false
+      },
+      {
+        "scope_item_id": "2ET",
+        "name": "2ET - Sales Order Processing for Non-Stock Material",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BDN",
+        "name": "BDN - Sale of Non-Stock Item with Order-Specific Procurement",
+        "optional": false
+      },
+      {
+        "scope_item_id": "J59",
+        "name": "J59 - Accounts Receivable",
+        "optional": false
+      }
+    ]
+  }
+}

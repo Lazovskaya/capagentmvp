@@ -1,0 +1,441 @@
+{
+  "scope_item_id": "4AH",
+  "title": "Field Logistics Planning and Execution \u2013 Supplier Items",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Oil and Gas"
+    ],
+    "L2_core_process": [
+      "Oil and Gas"
+    ],
+    "L3_scope_item": "4AH - Field Logistics Planning and Execution \u2013 Supplier Items",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Maintain Protection Allowlists",
+        "fiori_app_id": "F3195",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR",
+        "component": "BC-SRV-APS-IAM"
+      },
+      {
+        "step_no": 2,
+        "name": "Process Receipt",
+        "fiori_app_id": "F5316",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RCVG_SPECIALIST_IOG | SAP_BR_SC_ANALYST_IOG",
+        "component": "CA-FL-GR"
+      },
+      {
+        "step_no": 3,
+        "name": "Initiate Returns - By product",
+        "fiori_app_id": "F4252",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_IOG",
+        "component": "CA-FL-RET"
+      },
+      {
+        "step_no": 4,
+        "name": "Initiate Returns - By order",
+        "fiori_app_id": "F4682",
+        "technical_transaction": "O3O_RT01",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_IOG",
+        "component": "CA-FL-RET"
+      },
+      {
+        "step_no": 5,
+        "name": "Process Cross-Plant Receipts",
+        "fiori_app_id": "F4713",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_IOG",
+        "component": "CA-FL-RET"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Logistics - Supplier Items",
+        "fiori_app_id": "F5082",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SC_ANALYST_IOG | SAP_BR_RCVG_SPECIALIST_IOG",
+        "component": "CA-FL-SRV"
+      },
+      {
+        "step_no": 7,
+        "name": "Receipts and Returns Overview",
+        "fiori_app_id": "F5479",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RCVG_SPECIALIST_IOG",
+        "component": "CA-FL-SRV"
+      },
+      {
+        "step_no": 8,
+        "name": "Initiate transfers",
+        "fiori_app_id": "F6664",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SC_ANALYST_IOG",
+        "component": "CA-FL-SRV"
+      },
+      {
+        "step_no": 9,
+        "name": "My Inbox",
+        "fiori_app_id": "F0862",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER",
+        "component": "CA-INB-FIO"
+      },
+      {
+        "step_no": 10,
+        "name": "Manage Purchase Requisition Professional",
+        "fiori_app_id": "F2229",
+        "technical_transaction": "ME51N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-PRF"
+      },
+      {
+        "step_no": 11,
+        "name": "Manage Project Demand",
+        "fiori_app_id": "F4562",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_PROC_CONTROLLER | SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-DMN-FIO"
+      },
+      {
+        "step_no": 12,
+        "name": "Project Control - Enterprise Projects",
+        "fiori_app_id": "F3215",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_PROJ_PROC_CONTROLLER | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_PROJECTMANAGER | SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-STR-FIO"
+      },
+      {
+        "step_no": 13,
+        "name": "Process Warehouse Tasks",
+        "fiori_app_id": "F4595",
+        "technical_transaction": "/SCWM/MON",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_OPERATIVE_EWM | SAP_BR_WAREHOUSE_CLERK_EWM",
+        "component": "SCM-EWM-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "be0c419017994754b087f649346f1f50",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "be0c419017994754b087f649346f1f50",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Project",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Plant Maintenance Order with Service Items",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Update Project",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Release Project",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Define Service Demand",
+        "type": "userTask",
+        "role": "Project Controller - Procurement",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Create Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Request Service Demand",
+        "type": "userTask",
+        "role": "Project Controller - Procurement",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Create Supplier Item",
+        "type": "userTask",
+        "role": "Receiving Specialist (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Update Supplier Item(Optional)",
+        "type": "userTask",
+        "role": "Receiving Specialist (IOG)",
+        "optional": true
+      },
+      {
+        "seq": 10,
+        "name": "Confirm Receipt at Base with Visual inspection.",
+        "type": "userTask",
+        "role": "Receiving Specialist (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Print Label(Optional)",
+        "type": "userTask",
+        "role": "Receiving Specialist (IOG)",
+        "optional": true
+      },
+      {
+        "seq": 12,
+        "name": "Issue to Order",
+        "type": "userTask",
+        "role": "Receiving Specialist (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Confirm HU Warehouse task(Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 14,
+        "name": "Return to Supplier",
+        "type": "userTask",
+        "role": "Receiving Specialist (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Initiate Transport",
+        "type": "userTask",
+        "role": "Receiving Specialist (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Receive Items at Remote",
+        "type": "userTask",
+        "role": "Receiving Specialist (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Post Goods Issue at Base",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Initiate Return",
+        "type": "userTask",
+        "role": "Warehouse Clerk (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Create EWM Handling Unit(optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 20,
+        "name": "Confirm HU Warehouse task(Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 21,
+        "name": "Pack in Outbound delivery(Optional)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": true
+      },
+      {
+        "seq": 22,
+        "name": "Pick Outbound items",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 23,
+        "name": "Assign to Container",
+        "type": "userTask",
+        "role": "Warehouse Clerk (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 24,
+        "name": "Process Container at Base",
+        "type": "userTask",
+        "role": "Warehouse Clerk (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 25,
+        "name": "Receive Container/Item/Handling Unit at Remote",
+        "type": "userTask",
+        "role": "Warehouse Clerk (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 26,
+        "name": "Receive Items at Base",
+        "type": "userTask",
+        "role": "Warehouse Clerk (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 27,
+        "name": "Unload Container at Base and Set Handling decision.",
+        "type": "userTask",
+        "role": "Warehouse Clerk (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 28,
+        "name": "Unload Container/Item/Handling Unit at Remote and Set Handling decision.",
+        "type": "userTask",
+        "role": "Warehouse Clerk (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 29,
+        "name": "Process Items at Base",
+        "type": "userTask",
+        "role": "Warehouse Clerk (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 30,
+        "name": "Process Container/Item/Handling Unit at Remote",
+        "type": "userTask",
+        "role": "Warehouse Clerk (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 31,
+        "name": "Confirm Container Release",
+        "type": "userTask",
+        "role": "Warehouse Clerk (IOG)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 14,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 17,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 17,
+        "type": "exclusiveGateway",
+        "direction": "Mixed"
+      },
+      {
+        "seq_position": 17,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 19,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 19,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 19,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 23,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 26,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 30,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

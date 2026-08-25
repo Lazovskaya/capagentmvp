@@ -1,0 +1,90 @@
+{
+  "scope_item_id": "3L3",
+  "title": "Contract Accounting \u2013 Contract-Based Revenue Recognition",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Financial Operations"
+    ],
+    "L3_scope_item": "3L3 - Contract Accounting \u2013 Contract-Based Revenue Recognition",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Transfer to Revenue Accounting",
+        "fiori_app_id": "F3819",
+        "technical_transaction": "FP_RAI_TRANSF",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Monitor Transfer Records \u2013 Revenue Accounting",
+        "fiori_app_id": "F7988",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_SPEC_CINV",
+        "component": "FI-CA-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "71f7da6602be47459950a9ae7460fe28",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "71f7da6602be47459950a9ae7460fe28",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "2AR:Contract Accounting: Master Data and Basic Functions",
+        "type": "subProcess",
+        "role": "Accounts Payable and Receivable Accountant (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "2T3: Convergent Invoicing\uff1aRecurring and One-Off Items",
+        "type": "subProcess",
+        "role": "Administrator (Convergent Invoicing)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Update provider contract",
+        "type": "userTask",
+        "role": "Accounts Payable and Receivable Accountant (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Transfer Revenue Accounting Item",
+        "type": "serviceTask",
+        "role": "Administrator (Convergent Invoicing)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Display Revenue Accounting Items",
+        "type": "userTask",
+        "role": "Administrator (Convergent Invoicing)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

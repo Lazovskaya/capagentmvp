@@ -1,0 +1,219 @@
+{
+  "scope_item_id": "2TX",
+  "title": "Direct Procurement with Inbound Delivery",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Inventory",
+      "Invoice Management",
+      "Operational Procurement"
+    ],
+    "L3_scope_item": "2TX - Direct Procurement with Inbound Delivery",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Goods Receipt for Inbound Deliveries",
+        "fiori_app_id": "F2776",
+        "technical_transaction": "VL06IG",
+        "app_type": null,
+        "role": "SAP_BR_RECEIVING_SPECIALIST",
+        "component": "LE-SHP-GF-JS"
+      },
+      {
+        "step_no": 2,
+        "name": "Schedule Inbound Delivery Creation",
+        "fiori_app_id": "F2798",
+        "technical_transaction": "VL34",
+        "app_type": null,
+        "role": "SAP_BR_RECEIVING_SPECIALIST",
+        "component": "LE-SHP-GF-JS"
+      },
+      {
+        "step_no": 3,
+        "name": "Post Goods Receipt for Inbound Delivery",
+        "fiori_app_id": "F2502",
+        "technical_transaction": "MIGO",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SETTLEMENT_CLERK_ACM",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Supplier Invoices",
+        "fiori_app_id": "F0859",
+        "technical_transaction": "F-41",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AA_ACCOUNTANT | SAP_BR_PURCHASING_MANAGER",
+        "component": "MM-FIO-IV"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Purchase Orders (Version 2)",
+        "fiori_app_id": "F0842A",
+        "technical_transaction": "ME21",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-PO"
+      },
+      {
+        "step_no": 6,
+        "name": "Monitor Supplier Confirmations",
+        "fiori_app_id": "F2359",
+        "technical_transaction": "ME2A",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-PUR-GF-MON"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "9f2df72a5d4844739584749c8c562504",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "9f2df72a5d4844739584749c8c562504",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Monitor Supplier Confirmations (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 3,
+        "name": "Detect Critical Supply Situation",
+        "type": "serviceTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Confirm Purchase Order (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "React to Critical Supply Situation (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 6,
+        "name": "Monitor Supplier Confirmations (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 7,
+        "name": "Create Inbound Delivery",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Schedule Job for Inbound Delivery",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Confirm Quantities for Putaway",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Post Goods Receipt",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Schedule Job for Goods Receipt",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Reverse Goods Receipt (optional)",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": true
+      },
+      {
+        "seq": 13,
+        "name": "Create Supplier Invoice with PO/ GR relation",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Post Supplier Invoice",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Approve Supplier Invoice (optional)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "scope_item_id": "4Q2",
+  "title": "External Tax Calculation",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "4Q2 - External Tax Calculation",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage External Tax Postings",
+        "fiori_app_id": "F3085",
+        "technical_transaction": "FB01",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_US",
+        "component": "XX-PART-TIF"
+      },
+      {
+        "step_no": 2,
+        "name": "Display External Tax Document",
+        "fiori_app_id": "F4782",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_US",
+        "component": "XX-PART-TIF"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

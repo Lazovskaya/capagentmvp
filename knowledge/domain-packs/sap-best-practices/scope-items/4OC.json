@@ -1,0 +1,70 @@
+{
+  "scope_item_id": "4OC",
+  "title": "Make-to-Order Production for Sales Kits with Variant Configuration",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Manufacturing Operations"
+    ],
+    "L3_scope_item": "4OC - Make-to-Order Production for Sales Kits with Variant Configuration",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "a419924493274d7ca58f138817457a3e",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "a419924493274d7ca58f138817457a3e",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Manufacturing steps for Production Order processing (BJE)",
+        "type": "subProcess",
+        "role": "Production Planner",
+        "optional": false,
+        "calls_scope_item": "BJE"
+      },
+      {
+        "seq": 2,
+        "name": "Delivery Processing (BD9)",
+        "type": "subProcess",
+        "role": "Shipping Specialist",
+        "optional": false,
+        "calls_scope_item": "BD9"
+      },
+      {
+        "seq": 3,
+        "name": "Billing (BD9)",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": false,
+        "calls_scope_item": "BD9"
+      }
+    ],
+    "gateways": [],
+    "dependencies": [
+      {
+        "scope_item_id": "BJE",
+        "name": "Manufacturing steps for Production Order processing (BJE)",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BD9",
+        "name": "Delivery Processing (BD9)",
+        "optional": false
+      }
+    ]
+  }
+}

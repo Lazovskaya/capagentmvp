@@ -1,0 +1,288 @@
+{
+  "scope_item_id": "2DP",
+  "title": "Contract Accounting \u2013 Company Initiated Payments",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Financial Operations"
+    ],
+    "L3_scope_item": "2DP - Contract Accounting \u2013 Company Initiated Payments",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Create Direct Debit Mandate Instructions Media",
+        "fiori_app_id": "F7520",
+        "technical_transaction": "FIDDMBKINSTO",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "CA-BK-DDM"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Direct Debit Mandates",
+        "fiori_app_id": "F7991",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "CA-BK-DDM"
+      },
+      {
+        "step_no": 3,
+        "name": "Process Direct Debit Mandate Instructions - Notification of Changes",
+        "fiori_app_id": "F7993",
+        "technical_transaction": "FIDDMNOCI",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "CA-BK-DDM"
+      },
+      {
+        "step_no": 4,
+        "name": "Process Mandate Synchronization",
+        "fiori_app_id": "F8028",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "CA-BK-DDM"
+      },
+      {
+        "step_no": 5,
+        "name": "Display Returns",
+        "fiori_app_id": "F3126",
+        "technical_transaction": "FPM4",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_APR_MANAGER_FICA | SAP_BR_COLL_SPECIALIST_FICA | SAP_BR_EXT_AUDITOR_APR_FICA | SAP_BR_RECONC_SPEC_APR_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 6,
+        "name": "Display Payment Lists",
+        "fiori_app_id": "F3917",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 7,
+        "name": "Reverse Distribution Documents",
+        "fiori_app_id": "F5054",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMIN_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 8,
+        "name": "Prenotify Direct Debits",
+        "fiori_app_id": "F8388",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 9,
+        "name": "Payment Run / Debit Memo Run",
+        "fiori_app_id": "F3529",
+        "technical_transaction": "FPY1",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 10,
+        "name": "Process Payment Cards",
+        "fiori_app_id": "F3542",
+        "technical_transaction": "FPCS",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 11,
+        "name": "Post Revenue Distribution Documents",
+        "fiori_app_id": "F5056",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 12,
+        "name": "Execute Escheatment",
+        "fiori_app_id": "F6654",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 13,
+        "name": "Start Escheatment Process",
+        "fiori_app_id": "F6655",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMIN_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 14,
+        "name": "Post Payment Card Order Lots",
+        "fiori_app_id": "F7118",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 15,
+        "name": "Manage Bank Statements",
+        "fiori_app_id": "F1564",
+        "technical_transaction": "FF.6",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_ADMIN_APR_FICA | SAP_BR_CASH_MANAGER",
+        "component": "FI-FIO-AR-PAY"
+      },
+      {
+        "step_no": 16,
+        "name": "Manage Incoming Payment Files",
+        "fiori_app_id": "F1680",
+        "technical_transaction": "FF.5",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-FIO-AR-PAY"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "0e811b8e271341149e7040477e4da3cb",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "0e811b8e271341149e7040477e4da3cb",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Maintain Business Partner",
+        "type": "userTask",
+        "role": "Accounts Payable and Receivable Accountant (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "SEPA Mandate Creation from Business Partner Master Data (EU only\uff09",
+        "type": "userTask",
+        "role": "Accounts Payable and Receivable Accountant (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Maintain Contract Account",
+        "type": "userTask",
+        "role": "Accounts Payable and Receivable Accountant (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Post Document",
+        "type": "userTask",
+        "role": "Accounts Payable and Receivable Accountant (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Display Document",
+        "type": "userTask",
+        "role": "Accounts Payable and Receivable Accountant (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Execute Payment Run",
+        "type": "userTask",
+        "role": "Administrator - Accounts Payable and Receivable (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Check Payment Documents",
+        "type": "userTask",
+        "role": "Administrator - Accounts Payable and Receivable (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Manage Payment Media",
+        "type": "userTask",
+        "role": "Administrator - Accounts Payable and Receivable (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Manage Incoming Payment Files",
+        "type": "userTask",
+        "role": "Administrator - Accounts Payable and Receivable (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Returns Lot Creation from Bank Statement",
+        "type": "userTask",
+        "role": "Administrator - Accounts Payable and Receivable (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Manual Returns Lot Creation",
+        "type": "userTask",
+        "role": "Administrator - Accounts Payable and Receivable (FI-CA)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

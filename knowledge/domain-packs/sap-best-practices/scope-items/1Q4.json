@@ -1,0 +1,78 @@
+{
+  "scope_item_id": "1Q4",
+  "title": "Time Recording",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Recruit to Retire"
+    ],
+    "L2_core_process": [
+      "Core HR and Time Recording"
+    ],
+    "L3_scope_item": "1Q4 - Time Recording",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage My Timesheet",
+        "fiori_app_id": "F1823",
+        "technical_transaction": "CAT2",
+        "app_type": null,
+        "role": "SAP_BR_EMPLOYEE | SAP_BR_MANAGER_HRINFO | SAP_BR_PROJECT_MANAGER_PROF",
+        "component": "CA-TS-S4"
+      },
+      {
+        "step_no": 2,
+        "name": "My Inbox - Approve Timesheets",
+        "fiori_app_id": "F3328",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJECT_MANAGER_PROF",
+        "component": "CA-TS-S4"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "60071bb489a54e33b3b252b26c8510bc",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "60071bb489a54e33b3b252b26c8510bc",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Record Actual Working Times",
+        "type": "userTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Transfer Actual Working Times            (optional)",
+        "type": "serviceTask",
+        "role": "Employee",
+        "optional": true
+      },
+      {
+        "seq": 3,
+        "name": "Update Timesheet",
+        "type": "serviceTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Timesheet: Transfer to Target Components",
+        "type": "serviceTask",
+        "role": "Employee",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

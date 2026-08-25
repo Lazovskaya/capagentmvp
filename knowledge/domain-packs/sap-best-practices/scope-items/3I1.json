@@ -1,0 +1,20 @@
+{
+  "scope_item_id": "3I1",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": null,
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream still not populated -- linkedBy's one hop up lands on a flat L2 registry, not a further value-stream diagram; needs a manually curated L2->L1 lookup table, not more API calls.",
+  "signavio_model_id": "9ef0f34e6f8c4eb9b5d989f6d735e0f7",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "9ef0f34e6f8c4eb9b5d989f6d735e0f7",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [],
+    "dependencies": []
+  }
+}

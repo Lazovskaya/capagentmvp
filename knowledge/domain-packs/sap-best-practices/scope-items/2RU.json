@@ -1,0 +1,61 @@
+{
+  "scope_item_id": "2RU",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Inventory",
+      "Manufacturing Operations"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "0fd2390e9a8541f1b9f50718af2b4d6a",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "0fd2390e9a8541f1b9f50718af2b4d6a",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Process Order",
+        "type": "userTask",
+        "role": "Production Supervisor - Process Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Pick Components for process order",
+        "type": "userTask",
+        "role": "Production Operator - Process Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Confirm Process Order",
+        "type": "userTask",
+        "role": "Production Operator - Process Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Posting Goods Receipt for Process Order",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Check Stock Information",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

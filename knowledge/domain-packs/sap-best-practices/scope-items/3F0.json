@@ -1,0 +1,160 @@
+{
+  "scope_item_id": "3F0",
+  "title": "Event-Based Production Cost Posting",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Cost Management and Profitability Analysis"
+    ],
+    "L3_scope_item": "3F0 - Event-Based Production Cost Posting",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Postprocess Event-Based Postings - Overhead Calculation",
+        "fiori_app_id": "F5763",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_PRODN_ACCOUNTANT",
+        "component": "CO-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Postprocess Event-Based Posting - Product Costing",
+        "fiori_app_id": "F3669",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER | SAP_BR_PRODN_ACCOUNTANT",
+        "component": "CO-FIO-OBJ-CL"
+      },
+      {
+        "step_no": 3,
+        "name": "Work in Process - Event-Based",
+        "fiori_app_id": "F3498",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER | SAP_BR_PRODN_ACCOUNTANT",
+        "component": "CO-FIO-OBJ-IS"
+      },
+      {
+        "step_no": 4,
+        "name": "Analyze Production Costs - Event-Based",
+        "fiori_app_id": "F4059",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER | SAP_BR_PRODN_ACCOUNTANT",
+        "component": "CO-FIO-OBJ-IS"
+      },
+      {
+        "step_no": 5,
+        "name": "Order Costs Details - Event-Based",
+        "fiori_app_id": "F4254",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_SUPERVISOR_PROC | SAP_BR_PRODN_SUPERVISOR_DISC | SAP_BR_INTERNAL_SALES_REP | SAP_BR_PRODN_PLNR | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_PRODN_ACCOUNTANT | SAP_BR_PRODN_OPTR_DISC | SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_PRODN_OPTR_RPTV | SAP_BR_WAREHOUSE_CLERK | SAP_BR_PRODN_SUPERVISOR_RPTV | SAP_BR_PRODN_OPTR_PROC",
+        "component": "CO-FIO-OBJ-IS"
+      },
+      {
+        "step_no": 6,
+        "name": "Production Cost Overview - Event-Based",
+        "fiori_app_id": "F6248",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_ACCOUNTANT | SAP_BR_MAINTENANCE_PLANNER",
+        "component": "CO-FIO-OBJ-IS"
+      },
+      {
+        "step_no": 7,
+        "name": "Product Cost Collector Details - Event-Based",
+        "fiori_app_id": "F6965",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_ACCOUNTANT",
+        "component": "CO-FIO-OBJ-IS"
+      },
+      {
+        "step_no": 8,
+        "name": "Production Cost Summarization - Event-Based",
+        "fiori_app_id": "F7311",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_ACCOUNTANT",
+        "component": "CO-FIO-OBJ-IS"
+      },
+      {
+        "step_no": 9,
+        "name": "Actual Cost Rate Calculation - Cost Centers (New Version)",
+        "fiori_app_id": "F9080",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_PRODN_ACCOUNTANT",
+        "component": "CO-OM-ACT-F"
+      },
+      {
+        "step_no": 10,
+        "name": "Display Journal Entries in T-Account View",
+        "fiori_app_id": "F3664",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_MANAGER | SAP_BR_GL_ACCOUNTANT | SAP_BR_INVENTORY_MANAGER | SAP_BR_AP_MANAGER | SAP_BR_WAREHOUSE_CLERK | SAP_BR_CREDIT_CONTROLLER | SAP_BR_AP_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT | SAP_BR_RECONC_SPEC_APR_FICA",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 11,
+        "name": "Display Document Flow",
+        "fiori_app_id": "F3665",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-IS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "d7e180f040d54f2ba7fda0d28cbeb8ba",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "d7e180f040d54f2ba7fda0d28cbeb8ba",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Event-Based Production Accounting Overview",
+        "type": "userTask",
+        "role": "Cost Accountant - Production",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Event-Based Work in Process",
+        "type": "userTask",
+        "role": "Cost Accountant - Production",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Analyze Event-Based Production Costs",
+        "type": "userTask",
+        "role": "Cost Accountant - Production",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Postprocess Event-Based Postings - Overhead Calculation",
+        "type": "userTask",
+        "role": "Cost Accountant - Production",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Postprocess Event-Based Postings- Product Costing",
+        "type": "userTask",
+        "role": "Cost Accountant - Production",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "scope_item_id": "2G4",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Product Lifecycle Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "f1dc4a60035149b49939b1bb215ff3d2",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "f1dc4a60035149b49939b1bb215ff3d2",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create High-Level Dependencies",
+        "type": "userTask",
+        "role": "Product Configuration Modeler",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Assign Block Definition Diagram for High-Level Dependency",
+        "type": "userTask",
+        "role": "Product Configuration Modeler",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Simulate Configurable BOM",
+        "type": "userTask",
+        "role": "Product Configuration Modeler",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

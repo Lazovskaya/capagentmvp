@@ -1,0 +1,78 @@
+{
+  "scope_item_id": "1P7",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Inventory"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "07e3bfcc4c7a47e7b9e8b3330f3a50fc",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "07e3bfcc4c7a47e7b9e8b3330f3a50fc",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Check Stock Status",
+        "type": "userTask",
+        "role": "Warehouse Clerk (Delivering Plant)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "One Step stock transfer",
+        "type": "userTask",
+        "role": "Warehouse Clerk (Delivering Plant)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Transfer Posting - Remove from Storage",
+        "type": "userTask",
+        "role": "Warehouse Clerk (Delivering Plant)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Checking Status of Stock Transfer",
+        "type": "userTask",
+        "role": "Warehouse Clerk (Receiving Plant)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Check Stock Status",
+        "type": "userTask",
+        "role": "Warehouse Clerk (Receiving Plant)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Transfer Posting - Place in Storage",
+        "type": "userTask",
+        "role": "Warehouse Clerk (Receiving Plant)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

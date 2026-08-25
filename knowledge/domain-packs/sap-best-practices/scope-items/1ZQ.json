@@ -1,0 +1,89 @@
+{
+  "scope_item_id": "1ZQ",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash",
+      "Plan to Fulfill",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Inventory",
+      "Operational Procurement",
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "a3cf61ba632e4c86adfebddcb8536b23",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "a3cf61ba632e4c86adfebddcb8536b23",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Trigger Stock Transfer in one plant",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Trigger Goods Movement",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Trigger Goods Movement",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Trigger Goods Movement",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create material document and update stock information",
+        "type": "serviceTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Create material document and update stock information",
+        "type": "serviceTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Create material document and update stock information",
+        "type": "serviceTask",
+        "role": "Inventory Manager",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

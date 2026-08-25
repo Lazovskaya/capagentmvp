@@ -1,0 +1,43 @@
+{
+  "scope_item_id": "1YF",
+  "title": "Project Review",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Enterprise Portfolio and Project Management"
+    ],
+    "L3_scope_item": "1YF - Project Review",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Projects - Key Figures",
+        "fiori_app_id": "F3376",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJECT_STEER_MEMBER | SAP_BR_PROJ_FIN_CONTROLLER | SAP_BR_PROJECTMANAGER",
+        "component": "PPM-SCL-REP"
+      },
+      {
+        "step_no": 2,
+        "name": "My Projects - Steering Committee",
+        "fiori_app_id": "F2945",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJECT_STEER_MEMBER",
+        "component": "PPM-SCL-STR-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "f9357b411883478f81622182e181e594",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "f9357b411883478f81622182e181e594",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [],
+    "dependencies": []
+  }
+}

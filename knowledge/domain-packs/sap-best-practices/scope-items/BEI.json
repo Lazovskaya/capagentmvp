@@ -1,0 +1,239 @@
+{
+  "scope_item_id": "BEI",
+  "title": "Period-End Closing \u2013 Plant",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close"
+    ],
+    "L3_scope_item": "BEI - Period-End Closing \u2013 Plant",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Production Cost Analysis",
+        "fiori_app_id": "F1780",
+        "technical_transaction": "KKBC_ORD",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_ACCOUNTANT",
+        "component": "CO-FIO-OBJ-IS"
+      },
+      {
+        "step_no": 2,
+        "name": "Analyze Costs by Work Center/Operation",
+        "fiori_app_id": "F3331",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_ACCOUNTANT | SAP_BR_MAINTENANCE_PLANNER",
+        "component": "CO-FIO-OBJ-IS"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Allocations",
+        "fiori_app_id": "F3338",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_DIVISION_ACCOUNTANT | SAP_BR_SALES_ACCOUNTANT",
+        "component": "FIN-UA"
+      },
+      {
+        "step_no": 4,
+        "name": "Run Allocations",
+        "fiori_app_id": "F3548",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DIVISION_ACCOUNTANT | SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_SALES_ACCOUNTANT",
+        "component": "FIN-UA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "6988c135edc14b0fbb95651bca9cd9ad",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "6988c135edc14b0fbb95651bca9cd9ad",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Execute Allocation (Cost Centers)",
+        "type": "userTask",
+        "role": "Cost Accountant - Overhead",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Record Purchase Order Related Accounts Payable Transactions",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Release Blocked Invoices",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Ensure Goods Movements are Complete - Postprocess Faulty Goods Movements",
+        "type": "userTask",
+        "role": "Production Supervisor - Process Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Ensure Goods Movements are Complete - Postprocess Faulty Goods Movements",
+        "type": "userTask",
+        "role": "Production Supervisor - Repetitive Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Ensure Goods Movements are Complete - Postprocess Faulty Goods Movements",
+        "type": "userTask",
+        "role": "SAP S/4HANA Cloud",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Close Period and Open Period",
+        "type": "userTask",
+        "role": "Product Data Specialist (PIN)",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Run Overhead Calculation - Orders",
+        "type": "userTask",
+        "role": "Cost Accountant - Production",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "3F0 - Real-Time Production Cost Posting",
+        "type": "subProcess",
+        "role": "Cost Accountant - Production",
+        "optional": false,
+        "calls_scope_item": "3F0"
+      },
+      {
+        "seq": 10,
+        "name": "Settle Rework/Co-Products",
+        "type": "userTask",
+        "role": "Cost Accountant - Production",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Calculate Work in Process",
+        "type": "userTask",
+        "role": "Cost Accountant - Production",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Calculate Variance by Period",
+        "type": "userTask",
+        "role": "Cost Accountant - Production",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Settle Production Order",
+        "type": "userTask",
+        "role": "Cost Accountant - Production",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Analyze Cost by Work Center/Operation",
+        "type": "userTask",
+        "role": "Cost Accountant - Production",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Production Cost Analysis",
+        "type": "userTask",
+        "role": "Cost Accountant - Production",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Analyze Summarized Hierarchy",
+        "type": "userTask",
+        "role": "Cost Accountant - Production",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Release Rework Production Order",
+        "type": "userTask",
+        "role": "SAP S/4HANA Cloud",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 12,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 12,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 17,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 17,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 17,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "3F0",
+        "name": "3F0 - Real-Time Production Cost Posting",
+        "optional": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "scope_item_id": "7KW",
+  "title": "Customer Returns for Material with Variant Configuration",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Budget and Finance",
+    "L3_scope_item": "7KW - Customer Returns for Material with Variant Configuration",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Billing Documents",
+        "fiori_app_id": "F0797",
+        "technical_transaction": "VF02",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_TRANSPRT_MNGR_LMD | SAP_BR_BILLING_CLERK | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_ADMINISTRATOR_RFM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 2,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Customer Returns",
+        "fiori_app_id": "F1708",
+        "technical_transaction": "VA01",
+        "app_type": null,
+        "role": "SAP_BR_RETURNS_REFUND_CLERK",
+        "component": "SD-SLS-RE"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

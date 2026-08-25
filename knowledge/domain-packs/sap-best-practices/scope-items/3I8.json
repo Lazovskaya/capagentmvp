@@ -1,0 +1,134 @@
+{
+  "scope_item_id": "3I8",
+  "title": "Replenishment Planning for Distribution Centers",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Retail"
+    ],
+    "L2_core_process": [
+      "Retail"
+    ],
+    "L3_scope_item": "3I8 - Replenishment Planning for Distribution Centers",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Material Demand Forecast Runs",
+        "fiori_app_id": "F2464",
+        "technical_transaction": "MPBT",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_RPLNMT_SPCLST_ST_RFM | SAP_BR_RPLNMT_SPCLST_DC_RFM | SAP_BR_PRODN_PLNR",
+        "component": "PP-MP-DEM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "d1c78ea69de545d98dfb78172d16f93b",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "d1c78ea69de545d98dfb78172d16f93b",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Execution of forecast with automatic model selection",
+        "type": "serviceTask",
+        "role": "Replenishment Specialist - Distribution Centre (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Convert forecast results into PIRs (Mandatory)",
+        "type": "serviceTask",
+        "role": "Replenishment Specialist - Distribution Centre (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Periodic background job of MRP for site or site and parts of the assortment",
+        "type": "serviceTask",
+        "role": "Replenishment Specialist - Distribution Centre (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "MRP for selected planning objects (sites / articles)",
+        "type": "userTask",
+        "role": "Replenishment Specialist - Distribution Centre (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Solve possible errors",
+        "type": "userTask",
+        "role": "Replenishment Specialist - Distribution Centre (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Evaluate net requirements",
+        "type": "userTask",
+        "role": "Replenishment Specialist - Distribution Centre (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Evaluate created purchase requisitions",
+        "type": "userTask",
+        "role": "Replenishment Specialist - Distribution Centre (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Manual adjustment of net requirements (optional)",
+        "type": "userTask",
+        "role": "Replenishment Specialist - Distribution Centre (Retail)",
+        "optional": true
+      },
+      {
+        "seq": 9,
+        "name": "Manual adjustment of purchase requisition (optional)",
+        "type": "userTask",
+        "role": "Replenishment Specialist - Distribution Centre (Retail)",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

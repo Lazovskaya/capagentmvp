@@ -1,0 +1,127 @@
+{
+  "scope_item_id": "22K",
+  "title": "External Workforce Procurement via SAP Fieldglass",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Invoice Management"
+    ],
+    "L3_scope_item": "22K - External Workforce Procurement via SAP Fieldglass",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Post Outgoing Payments",
+        "fiori_app_id": "F1612",
+        "technical_transaction": "F-07",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT",
+        "component": "FI-FIO-AP-TRA"
+      },
+      {
+        "step_no": 2,
+        "name": "Schedule Supplier Invoice Jobs - Advanced",
+        "fiori_app_id": "F1683",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT",
+        "component": "MM-FIO-IV"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Purchase Orders (Version 2)",
+        "fiori_app_id": "F0842A",
+        "technical_transaction": "ME21",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-PO"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Purchase Requisition Professional",
+        "fiori_app_id": "F2229",
+        "technical_transaction": "ME51N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-PRF"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Service Entry Sheets - Lean Services",
+        "fiori_app_id": "F2027",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-PUR-SVC-SES"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "69d18d876a6048be88406b57c2db07e1",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "69d18d876a6048be88406b57c2db07e1",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create SOW",
+        "type": "userTask",
+        "role": "Manager",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Supplier Collaboration",
+        "type": "userTask",
+        "role": "Supplier",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Accept SOW and send response",
+        "type": "userTask",
+        "role": "Supplier",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Approve SOW",
+        "type": "userTask",
+        "role": "Manager",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Release SOW to Vendor to start service",
+        "type": "userTask",
+        "role": "Manager",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Mark deliverables complete",
+        "type": "userTask",
+        "role": "Supplier",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Approve completed deliverables",
+        "type": "userTask",
+        "role": "Manager",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Create Invoice",
+        "type": "userTask",
+        "role": "Supplier",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

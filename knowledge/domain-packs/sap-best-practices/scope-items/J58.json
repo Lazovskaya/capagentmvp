@@ -1,0 +1,738 @@
+{
+  "scope_item_id": "J58",
+  "title": "Accounting and Financial Close",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close",
+      "Advanced Financial Operations"
+    ],
+    "L3_scope_item": "J58 - Accounting and Financial Close",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Maintain Business Users",
+        "fiori_app_id": "F1303",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APPL_SUP_ENG_DEV_SUP | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_SYSTEM_AUDITOR | SAP_BR_ADMINISTRATOR",
+        "component": "BC-SRV-APS-IAM"
+      },
+      {
+        "step_no": 2,
+        "name": "My Inbox",
+        "fiori_app_id": "F0862",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER",
+        "component": "CA-INB-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Import Financial Plan Data",
+        "fiori_app_id": "F1711",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-OM-PL"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Profit Centers (Version 2)",
+        "fiori_app_id": "F3516",
+        "technical_transaction": "6KEA",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_FIN_CONTROLLER | SAP_BR_GL_ACCOUNTANT | SAP_BR_DIVISION_ACCOUNTANT",
+        "component": "CO-FIO-PCA-MD"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Profit Centers (Version 3)",
+        "fiori_app_id": "F3516A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_PROJ_FIN_CONTROLLER | SAP_BR_DIVISION_ACCOUNTANT",
+        "component": "CO-FIO-PCA-MD"
+      },
+      {
+        "step_no": 6,
+        "name": "Where-Used List - Profit Centers",
+        "fiori_app_id": "F3751",
+        "technical_transaction": "1KE4",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_DIVISION_ACCOUNTANT",
+        "component": "CO-FIO-PCA-MD"
+      },
+      {
+        "step_no": 7,
+        "name": "Change Log - Profit Centers",
+        "fiori_app_id": "F3810",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_DIVISION_ACCOUNTANT",
+        "component": "CO-FIO-PCA-MD"
+      },
+      {
+        "step_no": 8,
+        "name": "Withholding Tax Calculation Analysis",
+        "fiori_app_id": "F7977",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-AP-AP-Q"
+      },
+      {
+        "step_no": 9,
+        "name": "Post Incoming Payments",
+        "fiori_app_id": "F1345",
+        "technical_transaction": "F-04",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AR-TRA"
+      },
+      {
+        "step_no": 10,
+        "name": "Reset Cleared Items",
+        "fiori_app_id": "F2223",
+        "technical_transaction": "FBRA",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT",
+        "component": "FI-FIO-AR-TRA"
+      },
+      {
+        "step_no": 11,
+        "name": "Verify General Journal Entries - New Version",
+        "fiori_app_id": "F2547A",
+        "technical_transaction": "FBV4",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL"
+      },
+      {
+        "step_no": 12,
+        "name": "Edit Options for Journal Entries - My Settings",
+        "fiori_app_id": "F2130",
+        "technical_transaction": "FB00",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT | SAP_BR_AR_MANAGER | SAP_BR_CASH_SPECIALIST | SAP_BR_ADMIN_APR_FICA | SAP_BR_AP_MANAGER",
+        "component": "FI-FIO-GL-CA"
+      },
+      {
+        "step_no": 13,
+        "name": "Manage Workflows for Journal Entry Verification - In General Ledger",
+        "fiori_app_id": "F2720",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-CA"
+      },
+      {
+        "step_no": 14,
+        "name": "Currency Exchange Rates",
+        "fiori_app_id": "F3616",
+        "technical_transaction": "OB08",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_GRP_ACCOUNTANT",
+        "component": "FI-FIO-GL-CA"
+      },
+      {
+        "step_no": 15,
+        "name": "Display G/L Account Balances (New)",
+        "fiori_app_id": "F0707A",
+        "technical_transaction": "F.08",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 16,
+        "name": "Journal Entry Analyzer(New Version)",
+        "fiori_app_id": "F0956B",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_PROJECT_MANAGER_PROF | SAP_BR_EXTERNAL_AUDITOR",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 17,
+        "name": "Audit Journal",
+        "fiori_app_id": "F0997",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_EXTERNAL_AUDITOR",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 18,
+        "name": "Display Line Items in General Ledger",
+        "fiori_app_id": "F2217",
+        "technical_transaction": "FAGLL03",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_TREASURY_SPECIALIST_FOE | SAP_BR_DIVISION_ACCOUNTANT | SAP_BR_TREASURY_SPECIALIST_MOE",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 19,
+        "name": "Display Line Item Entry",
+        "fiori_app_id": "F2218",
+        "technical_transaction": "FAGLL03",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 20,
+        "name": "Display Journal Entries in T-Account View",
+        "fiori_app_id": "F3664",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_MANAGER | SAP_BR_GL_ACCOUNTANT | SAP_BR_INVENTORY_MANAGER | SAP_BR_AP_MANAGER | SAP_BR_WAREHOUSE_CLERK | SAP_BR_CREDIT_CONTROLLER | SAP_BR_AP_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT | SAP_BR_RECONC_SPEC_APR_FICA",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 21,
+        "name": "Display Document Flow",
+        "fiori_app_id": "F3665",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 22,
+        "name": "Display Journal Entries",
+        "fiori_app_id": "F7697",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_INTERNAL_SALES_REP_PRSV | SAP_BR_AR_MANAGER | SAP_BR_AP_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT_CN | SAP_BR_AR_ACCOUNTANT_HR | SAP_BR_AR_ACCOUNTANT_BG | SAP_BR_RECM_VALSPECIALIST | SAP_BR_BUDGET_RESPONSIBLE | SAP_BR_REV_ACCOUNTANT | SAP_BR_SETL_CLERK_ROYALTIES | SAP_BR_GRANT_RESPONSIBLE | SAP_BR_AP_MANAGER | SAP_BR_AR_ACCOUNTANT_KW | SAP_BR_AR_ACCOUNTANT_FR | SAP_BR_SALES_ACCOUNTANT | SAP_BR_RECM_ADMINISTRATOR | SAP_BR_GL_ACCOUNTANT | SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_PROJ_FIN_CONTROLLER | SAP_BR_AR_ACCOUNTANT_IT | SAP_BR_BILLING_CLERK | SAP_BR_TAX_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT_AR | SAP_BR_AR_ACCOUNTANT_ID | SAP_BR_RECM_AP_ACCOUNTANT | SAP_BR_RECONC_SPEC_APR_FICA | SAP_BR_AR_ACCOUNTANT_RS | SAP_BR_REV_ADMIN | SAP_BR_SOLN_ORDER_SPCLST | SAP_BR_WAREHOUSE_CLERK | SAP_BR_AR_ACCOUNTANT_JP | SAP_BR_RE_SPECIALIST_SETTLE | SAP_BR_AR_ACCOUNTANT_IN | SAP_BR_AR_ACCOUNTANT_TH | SAP_BR_INTERNAL_SALES_REP | SAP_BR_AA_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT_ES | SAP_BR_GRANT_SPECIALIST | SAP_BR_SETL_CLERK_COMMSN | SAP_BR_RE_ADMINISTRATOR | SAP_BR_CASH_SPECIALIST | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_RECM_AR_ACCOUNTANT | SAP_BR_RETURNS_REFUND_CLERK | SAP_BR_PROJECT_MANAGER_PROF | SAP_BR_TREASURY_SPEC_BOE_CN | SAP_BR_CUST_SRVC_REP_REPA | SAP_BR_AR_ACCOUNTANT_SI | SAP_BR_INVENTORY_MANAGER | SAP_BR_CASH_MANAGER_CN | SAP_BR_CASH_SPECIALIST_CN | SAP_BR_AR_ACCOUNTANT_TW | SAP_BR_RFM_STORE_ASSOCIATE | SAP_BR_AR_ACCOUNTANT_VN | SAP_BR_AR_ACCOUNTANT_TR | SAP_BR_GL_ACCOUNTANT_IN | SAP_BR_TREASURY_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT_CN | SAP_BR_BUDGET_SPECIALIST | SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_AR_ACCOUNTANT_PH | SAP_BR_CASH_MANAGER",
+        "component": "FI-FIO-GL-JE"
+      },
+      {
+        "step_no": 23,
+        "name": "Financial Statements Review Booklet",
+        "fiori_app_id": "F8587",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_PROJECT_MANAGER_PROF",
+        "component": "FI-FIO-GL-JE"
+      },
+      {
+        "step_no": 24,
+        "name": "Manage G/L Account Master Data (Version 2)",
+        "fiori_app_id": "F0731A",
+        "technical_transaction": "FS00",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "FI-FIO-GL-MD"
+      },
+      {
+        "step_no": 25,
+        "name": "Manage Operating G/L Accounts",
+        "fiori_app_id": "F0731B",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-MD"
+      },
+      {
+        "step_no": 26,
+        "name": "Manage Chart of Accounts",
+        "fiori_app_id": "F0763A",
+        "technical_transaction": "F.10",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-MD"
+      },
+      {
+        "step_no": 27,
+        "name": "Manage Operating Chart of Accounts",
+        "fiori_app_id": "F0763B",
+        "technical_transaction": "FS00",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-MD"
+      },
+      {
+        "step_no": 28,
+        "name": "Manage Alternative Chart of Accounts",
+        "fiori_app_id": "F8390",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-MD"
+      },
+      {
+        "step_no": 29,
+        "name": "Clear G/L Accounts - Manual Clearing",
+        "fiori_app_id": "F1579",
+        "technical_transaction": "F-03",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-PER"
+      },
+      {
+        "step_no": 30,
+        "name": "Schedule General Ledger Jobs",
+        "fiori_app_id": "F1927",
+        "technical_transaction": "FINS_FXV",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-PER"
+      },
+      {
+        "step_no": 31,
+        "name": "Manage Journal Entries",
+        "fiori_app_id": "F0717",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_AU | SAP_BR_AR_MANAGER | SAP_BR_GL_ACCOUNTANT_BE | SAP_BR_CREDIT_CONTROLLER | SAP_BR_GL_ACCOUNTANT_NL | SAP_BR_GL_ACCOUNTANT | SAP_BR_CASH_MANAGER | SAP_BR_GL_ACCOUNTANT_SG | SAP_BR_RECONC_SPEC_APR_FICA | SAP_BR_GL_ACCOUNTANT_TR | SAP_BR_PROJ_FIN_CONTROLLER | SAP_BR_GL_ACCOUNTANT_FR | SAP_BR_TREASURY_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT | SAP_BR_WAREHOUSE_CLERK | SAP_BR_GL_ACCOUNTANT_ES | SAP_BR_GL_ACCOUNTANT_SE | SAP_BR_CASH_MANAGER_MY | SAP_BR_GL_ACCOUNTANT_ZA | SAP_BR_GL_ACCOUNTANT_CA | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT_MY | SAP_BR_GL_ACCOUNTANT_IL | SAP_BR_ADMIN_APR_FICA | SAP_BR_GL_ACCOUNTANT_NZ | SAP_BR_AP_MANAGER | SAP_BR_CASH_MANAGER_TH | SAP_BR_GL_ACCOUNTANT_TH | SAP_BR_GL_ACCOUNTANT_CH | SAP_BR_CASH_SPECIALIST | SAP_BR_GL_ACCOUNTANT_PT | SAP_BR_GL_ACCOUNTANT_RU | SAP_BR_GL_ACCOUNTANT_FI | SAP_BR_TREASURY_RISK_MANAGER | SAP_BR_INVENTORY_MANAGER | SAP_BR_GL_ACCOUNTANT_IT | SAP_BR_GL_ACCOUNTANT_NO | SAP_BR_GL_ACCOUNTANT_AT | SAP_BR_GL_ACCOUNTANT_DK | SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_GL_ACCOUNTANT_LU",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 32,
+        "name": "Manage Journal Entries - New Version",
+        "fiori_app_id": "F0717A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 33,
+        "name": "Post General Journal Entries",
+        "fiori_app_id": "F0718",
+        "technical_transaction": "F-02",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 34,
+        "name": "Post Tax Payables",
+        "fiori_app_id": "F1597",
+        "technical_transaction": "FB41",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 35,
+        "name": "Manage Recurring Journal Entries",
+        "fiori_app_id": "F1598",
+        "technical_transaction": "F.14",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 36,
+        "name": "Post Currency Adjustments",
+        "fiori_app_id": "F1606",
+        "technical_transaction": "FBB1",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 37,
+        "name": "Upload General Journal Entries",
+        "fiori_app_id": "F2548",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 38,
+        "name": "Verify Journal Entries in General Ledger - For Processor (Inbox)",
+        "fiori_app_id": "F2728",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 39,
+        "name": "Manage Journal Entry Templates",
+        "fiori_app_id": "F3803",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 40,
+        "name": "Manage Teams and Responsibilities For Journal Entry Verification - In General Ledger",
+        "fiori_app_id": "F3932",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 41,
+        "name": "Verify Currency Adjustment-New Version",
+        "fiori_app_id": "F4670A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 42,
+        "name": "Manage Balance Validation Rules and Groups",
+        "fiori_app_id": "F6386",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-VE"
+      },
+      {
+        "step_no": 43,
+        "name": "View Balance Validation Results",
+        "fiori_app_id": "F6387",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-VE"
+      },
+      {
+        "step_no": 44,
+        "name": "Schedule Balance Validation Jobs - Accounting",
+        "fiori_app_id": "F7470",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-VE"
+      },
+      {
+        "step_no": 45,
+        "name": "Balance Sheet/Income Statement",
+        "fiori_app_id": "F0708",
+        "technical_transaction": "F.01",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-GL-GL"
+      },
+      {
+        "step_no": 46,
+        "name": "Tax Reconciliation Account Balance",
+        "fiori_app_id": "F2095",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_EXTERNAL_AUDITOR",
+        "component": "FI-GL-GL-F"
+      },
+      {
+        "step_no": 47,
+        "name": "Tax Declaration Reconciliation",
+        "fiori_app_id": "F2096",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_EXTERNAL_AUDITOR",
+        "component": "FI-GL-GL-F"
+      },
+      {
+        "step_no": 48,
+        "name": "Balance Carryforward Status",
+        "fiori_app_id": "F4683",
+        "technical_transaction": "FAGLGVTR",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-GL-GL-G"
+      },
+      {
+        "step_no": 49,
+        "name": "Balance Sheet/Income Statement \u2013 China",
+        "fiori_app_id": "F1698",
+        "technical_transaction": "IDCNBSAIS",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_CN",
+        "component": "FI-LOC-FI-CN"
+      },
+      {
+        "step_no": 50,
+        "name": "Display G/L Account Balances in Country/Region-Specific Format",
+        "fiori_app_id": "F2141",
+        "technical_transaction": "IDCNACCTBLN",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_MY | SAP_BR_GL_ACCOUNTANT_CH | SAP_BR_GL_ACCOUNTANT_JP | SAP_BR_GL_ACCOUNTANT_TW | SAP_BR_GL_ACCOUNTANT_ID | SAP_BR_GL_ACCOUNTANT_NZ | SAP_BR_GL_ACCOUNTANT_SG | SAP_BR_GL_ACCOUNTANT_NL | SAP_BR_GL_ACCOUNTANT_KR | SAP_BR_GL_ACCOUNTANT_CN | SAP_BR_GL_ACCOUNTANT_TH | SAP_BR_GL_ACCOUNTANT_AU | SAP_BR_GL_ACCOUNTANT_IN",
+        "component": "FI-LOC-FI-CN"
+      },
+      {
+        "step_no": 51,
+        "name": "Reallocate Taxes for Services - Japan",
+        "fiori_app_id": "F5492",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_JP",
+        "component": "FI-LOC-FI-JP"
+      },
+      {
+        "step_no": 52,
+        "name": "Schedule Post Closing and Opening Balances",
+        "fiori_app_id": "F6182",
+        "technical_transaction": "FAGL_IT_02",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_IT | SAP_BR_GL_ACCOUNTANT_TR | SAP_BR_GL_ACCOUNTANT_PT | SAP_BR_GL_ACCOUNTANT_SK | SAP_BR_GL_ACCOUNTANT_CO",
+        "component": "FI-LOC-FI-PT"
+      },
+      {
+        "step_no": 53,
+        "name": "Manage Incoming VAT Invoices - China",
+        "fiori_app_id": "F2325",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_CN",
+        "component": "FI-LOC-TIM-CN"
+      },
+      {
+        "step_no": 54,
+        "name": "Manage Input VAT Declaration - China",
+        "fiori_app_id": "F2326",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_CN",
+        "component": "FI-LOC-TIM-CN"
+      },
+      {
+        "step_no": 55,
+        "name": "Process Incoming VAT Invoices - China",
+        "fiori_app_id": "F2327",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCMT_CN",
+        "component": "FI-LOC-TIM-CN"
+      },
+      {
+        "step_no": 56,
+        "name": "Schedule Jobs to Reset Cleared Items",
+        "fiori_app_id": "F9296",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT",
+        "component": "FIN-FIO-AR-TRA"
+      },
+      {
+        "step_no": 57,
+        "name": "Import Foreign Exchange Rates",
+        "fiori_app_id": "F2092",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_GRP_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT",
+        "component": "FIN-FSCM-TRM"
+      },
+      {
+        "step_no": 58,
+        "name": "Manage Supplier Invoices",
+        "fiori_app_id": "F0859",
+        "technical_transaction": "F-41",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AA_ACCOUNTANT | SAP_BR_PURCHASING_MANAGER",
+        "component": "MM-FIO-IV"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "4182cc433bd84b1697c17596670388ed",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "4182cc433bd84b1697c17596670388ed",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Clear Open Items Automatically",
+        "type": "serviceTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Repost GR/IR Clearing",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Enter Reference Interest Value",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Enter Time Interest Terms",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Run Balance Interest Calculation",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Perform Foreign Currency Valuation",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Perform Foreign Currency Valuation",
+        "type": "userTask",
+        "role": "Accounts Receivable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Verify Data Flow",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Post Currency Adjustments",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Manage Workflows for General Journal Entry Verification",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Verify Currency Adjustment - For Requester",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Post Tax Payable",
+        "type": "userTask",
+        "role": "General Ledger Accountant for Germany",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Manage Posting Periods",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Create Advanced Return on Sales/Purchase Tax",
+        "type": "userTask",
+        "role": "General Ledger Accountant for Germany",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Balance Sheet / Income Statement",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Tax Reconciliation Account Balance",
+        "type": "userTask",
+        "role": "General Ledger Accountant for Germany",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Cash Flow Statement - Indirect Method",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Tax Declaration Reconciliation",
+        "type": "userTask",
+        "role": "General Ledger Accountant for Germany",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "EC Sales List in DME Format",
+        "type": "userTask",
+        "role": "General Ledger Accountant for Germany",
+        "optional": false
+      },
+      {
+        "seq": 20,
+        "name": "Trial Balance",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 21,
+        "name": "Prepare Electronic Tax Return",
+        "type": "userTask",
+        "role": "General Ledger Accountant for Germany",
+        "optional": false
+      },
+      {
+        "seq": 22,
+        "name": "Journal Entry Analyzer",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 23,
+        "name": "Run Foreign Trade Regulations Report Z5A (German)",
+        "type": "userTask",
+        "role": "General Ledger Accountant for Germany",
+        "optional": false
+      },
+      {
+        "seq": 24,
+        "name": "Run Foreign Trade Regulation Z4 Report (German)",
+        "type": "userTask",
+        "role": "General Ledger Accountant for Germany",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 11,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 18,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

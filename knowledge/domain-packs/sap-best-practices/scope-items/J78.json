@@ -1,0 +1,421 @@
+{
+  "scope_item_id": "J78",
+  "title": "Advanced Cash Operations",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": "J78 - Advanced Cash Operations",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Monitor Situations",
+        "fiori_app_id": "F3264",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BPC_EXPERT",
+        "component": "CA-SIT-DA"
+      },
+      {
+        "step_no": 2,
+        "name": "Approve Bank Payments (Version 2)",
+        "fiori_app_id": "F0673A",
+        "technical_transaction": "BNK_APP",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER | SAP_BR_AP_MANAGER",
+        "component": "FI-FIO-AP-BNK"
+      },
+      {
+        "step_no": 3,
+        "name": "Monitor Payments",
+        "fiori_app_id": "F2388",
+        "technical_transaction": "BNK_MONI",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_CASH_SPECIALIST | SAP_BR_AP_ACCOUNTANT | SAP_BR_CASH_MANAGER",
+        "component": "FI-FIO-AP-BNK"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Automatic Payments",
+        "fiori_app_id": "F0770",
+        "technical_transaction": "FBZ8",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-PAY"
+      },
+      {
+        "step_no": 5,
+        "name": "My Inbox-Process Rejected Payments",
+        "fiori_app_id": "F4546",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER_CN | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-PAY"
+      },
+      {
+        "step_no": 6,
+        "name": "Display Line Item Entry",
+        "fiori_app_id": "F2218",
+        "technical_transaction": "FAGLL03",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 7,
+        "name": "Bank Statement Monitor - Intraday",
+        "fiori_app_id": "F3671",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FIO-CLM"
+      },
+      {
+        "step_no": 8,
+        "name": "Bank Statement Monitor",
+        "fiori_app_id": "F6388",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMIN_APR_FICA | SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST | SAP_BR_AR_ACCOUNTANT",
+        "component": "FIN-FSCM-BNK"
+      },
+      {
+        "step_no": 9,
+        "name": "Schedule Jobs for Bank Statement Monitor",
+        "fiori_app_id": "F6866",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT",
+        "component": "FIN-FSCM-BNK"
+      },
+      {
+        "step_no": 10,
+        "name": "Display Status of Payment Documents",
+        "fiori_app_id": "F7084",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_AR_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-BNK"
+      },
+      {
+        "step_no": 11,
+        "name": "Manage Cash Pools (Version 2)",
+        "fiori_app_id": "F3266A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PAYM_SPECIALIST_IHB | SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM"
+      },
+      {
+        "step_no": 12,
+        "name": "Short-Term Cash Positioning",
+        "fiori_app_id": "F5380",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM"
+      },
+      {
+        "step_no": 13,
+        "name": "Check Liquidity Items on G/L Accounts",
+        "fiori_app_id": "F6459",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM"
+      },
+      {
+        "step_no": 14,
+        "name": "Schedule Jobs for Bank Account Balance Initialization",
+        "fiori_app_id": "F7146",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM"
+      },
+      {
+        "step_no": 15,
+        "name": "Manage Bank Accounts",
+        "fiori_app_id": "F1366A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 16,
+        "name": "Manage Banks - Cash Management",
+        "fiori_app_id": "F1574A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 17,
+        "name": "Manage Bank Account Hierarchies",
+        "fiori_app_id": "F4973",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 18,
+        "name": "Manage Bank Account Balances",
+        "fiori_app_id": "F5175",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 19,
+        "name": "Monitor Bank Account Balances",
+        "fiori_app_id": "F5176",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 20,
+        "name": "Define Bank Account Settings - Bank Statements",
+        "fiori_app_id": "F5488",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 21,
+        "name": "Monitor Instant Balances",
+        "fiori_app_id": "F7804",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 22,
+        "name": "Define Bank Account Settings - Instant Balances",
+        "fiori_app_id": "F7805",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 23,
+        "name": "Cash Position (S/4HANA)",
+        "fiori_app_id": "F1737",
+        "technical_transaction": "FF7A",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-COP"
+      },
+      {
+        "step_no": 24,
+        "name": "Manage Memo Records",
+        "fiori_app_id": "F2986",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP"
+      },
+      {
+        "step_no": 25,
+        "name": "Manage Cash Pools",
+        "fiori_app_id": "F3266",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP"
+      },
+      {
+        "step_no": 26,
+        "name": "Reconcile Cash Flows - Intraday",
+        "fiori_app_id": "F3418A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-COP"
+      },
+      {
+        "step_no": 27,
+        "name": "Manage Liquidity Item Hierarchies",
+        "fiori_app_id": "F4966",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-COP"
+      },
+      {
+        "step_no": 28,
+        "name": "Schedule Jobs for Cash Flow Reconciliation",
+        "fiori_app_id": "F5283",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP"
+      },
+      {
+        "step_no": 29,
+        "name": "Schedule Jobs for Cash Snapshots",
+        "fiori_app_id": "F8945",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP"
+      },
+      {
+        "step_no": 30,
+        "name": "Manage Cash Snapshots",
+        "fiori_app_id": "F8962",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-COP"
+      },
+      {
+        "step_no": 31,
+        "name": "Make Bank Transfers",
+        "fiori_app_id": "F0691",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP-BT"
+      },
+      {
+        "step_no": 32,
+        "name": "Define Bank Transfer Templates",
+        "fiori_app_id": "F3759",
+        "technical_transaction": "OT81",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP-BT"
+      },
+      {
+        "step_no": 33,
+        "name": "Make Bank Transfers - Create with Templates",
+        "fiori_app_id": "F3760",
+        "technical_transaction": "FRFT_B",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP-BT"
+      },
+      {
+        "step_no": 34,
+        "name": "Cash Flow Analyzer",
+        "fiori_app_id": "F2332",
+        "technical_transaction": "FF7AN",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP-CP"
+      },
+      {
+        "step_no": 35,
+        "name": "Check Cash Flow Items",
+        "fiori_app_id": "F0735",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_FOE | SAP_BR_TREASURY_SPECIALIST_MOE | SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-COP-PD"
+      },
+      {
+        "step_no": 36,
+        "name": "Document Chain Tracing for Cash Flow",
+        "fiori_app_id": "F7690",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-FQM"
+      },
+      {
+        "step_no": 37,
+        "name": "Actual Liquidity Analysis",
+        "fiori_app_id": "F7923",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-FQM"
+      },
+      {
+        "step_no": 38,
+        "name": "Manage Bank Messages",
+        "fiori_app_id": "F4385",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BANK_INT_SPECIALIST",
+        "component": "LOD-FSN-AGT"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "d10ad93d8de5472299dc0bcf7b99379e",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "d10ad93d8de5472299dc0bcf7b99379e",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Initiate Bank Transfer",
+        "type": "userTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Option 1: Create, Release and Clear Payment Request in One Single Action",
+        "type": "userTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Option 2: Create, Release and Clear Payment Request in Separate Steps",
+        "type": "userTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Define Bank Transfer Templates",
+        "type": "userTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Approve and Bank Integration",
+        "type": "userTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Check Cash Position (Smart Business)",
+        "type": "userTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "scope_item_id": "6MT",
+  "title": "Label Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Product Compliance",
+      "Safety Data Sheet and Label Management"
+    ],
+    "L3_scope_item": "6MT - Label Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Label Assignments - Products",
+        "fiori_app_id": "F6615",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_PCL | SAP_BR_PRODSTWRD_SPLST_PCL",
+        "component": "EHS-SUS-SDS"
+      },
+      {
+        "step_no": 2,
+        "name": "Validate and Print Labels",
+        "fiori_app_id": "F6656",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODSTWRD_SPLST_PCL | SAP_BR_MD_SPECIALIST_PCL",
+        "component": "EHS-SUS-SDS"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Configurations for Labels",
+        "fiori_app_id": "F6689",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_PCL | SAP_BR_PRODSTWRD_SPLST_PCL",
+        "component": "EHS-SUS-SDS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "ab8f9338941048238067876f21b889bc",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "ab8f9338941048238067876f21b889bc",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [],
+    "dependencies": []
+  }
+}

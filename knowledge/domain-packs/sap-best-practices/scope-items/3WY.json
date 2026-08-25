@@ -1,0 +1,528 @@
+{
+  "scope_item_id": "3WY",
+  "title": "Bond Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": "3WY - Bond Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Post General Journal Entries",
+        "fiori_app_id": "F0718",
+        "technical_transaction": "F-02",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 2,
+        "name": "Display Treasury Position Flows",
+        "fiori_app_id": "F1754",
+        "technical_transaction": "TPM13",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_TREASURY_ACCOUNTANT | SAP_BR_TREASURY_RISK_MANAGER",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 3,
+        "name": "Display Treasury Posting Journal",
+        "fiori_app_id": "F1755",
+        "technical_transaction": "TPM20",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_ACCOUNTANT",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 4,
+        "name": "Display Treasury Position Values",
+        "fiori_app_id": "F1867",
+        "technical_transaction": "TPM12",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_RISK_MANAGER | SAP_BR_TREASURY_ACCOUNTANT | SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 5,
+        "name": "Display Treasury Alerts - Settlement",
+        "fiori_app_id": "F4979",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 6,
+        "name": "Display Treasury Alerts - Release",
+        "fiori_app_id": "F4980",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 7,
+        "name": "Display Treasury Alerts - Payment",
+        "fiori_app_id": "F4981",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_TREASURY_ACCOUNTANT",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 8,
+        "name": "Display Treasury Alerts - Interest Rates",
+        "fiori_app_id": "F4982",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 9,
+        "name": "Display Treasury Alerts - Posting",
+        "fiori_app_id": "F4984",
+        "technical_transaction": "FTR_ALERT",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_ACCOUNTANT",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 10,
+        "name": "Manage Financial Transactions",
+        "fiori_app_id": "F6157",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_TREASURY_SPECIALIST_FOE",
+        "component": "FIN-FIO-TRM"
+      },
+      {
+        "step_no": 11,
+        "name": "Cash Flow Analyzer",
+        "fiori_app_id": "F2332",
+        "technical_transaction": "FF7AN",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP-CP"
+      },
+      {
+        "step_no": 12,
+        "name": "Manage Security Classes",
+        "fiori_app_id": "F8717",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_BOE",
+        "component": "FIN-FSCM-TRM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "3eeb5c3f467b4ae9b485dfe20f822b70",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "3eeb5c3f467b4ae9b485dfe20f822b70",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Analyze Cash Position (BFB)",
+        "type": "userTask",
+        "role": "Cash Manager",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Security Account for Investment",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Analyze Liquidity Forecast (BFB)",
+        "type": "userTask",
+        "role": "Cash Manager",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Start Public Offering or Private Placement Process",
+        "type": "manualTask",
+        "role": "Cash Manager",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Security Account for Issuance",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Create Security Class for Invested Zero-Coupon Bond",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Create Security Class for Invested Unit-Quoted Bond",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Create Security Class for Invested Fixed-Rate Bond",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Create Security Class for Invested Floating-Rate Bond",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Create Security Class for Issued Fixed-Rate Bond",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Import Securities Price",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Analyze Cash Position",
+        "type": "userTask",
+        "role": "Cash Manager",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Analyze Liquidity Forecast",
+        "type": "userTask",
+        "role": "Cash Manager",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Check Limit Utilization Report",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Bank Initiated Payment",
+        "type": "manualTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Generate Payment Request",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Create Fixed-Rate Bond Purchase Transaction",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Create Floating-Rate Bond Purchase Transaction",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Create Zero-Coupon Bond Purchase Transaction",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 20,
+        "name": "Create Unit-Quoted Bond Purchase Transaction",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 21,
+        "name": "Post Issuance Cost Manually",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 22,
+        "name": "Post to General Ledger",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 23,
+        "name": "Process Payment Request",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 24,
+        "name": "Import Reference Interest Rate",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 25,
+        "name": "Update Planned Records for Securities",
+        "type": "serviceTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 26,
+        "name": "Bank Initiated Payment",
+        "type": "manualTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 27,
+        "name": "Generate Payment Request",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 28,
+        "name": "Process Payment Request",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 29,
+        "name": "Post Outgoing Interest Payment",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 30,
+        "name": "Post to General Ledger",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 31,
+        "name": "Process Payment Request",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 32,
+        "name": "Import Reference Interest Rate",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 33,
+        "name": "Update Planned Records for Securities",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 34,
+        "name": "Post Scheduled Principal Repayment",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 35,
+        "name": "Process Payment Request",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 36,
+        "name": "Recognize Interest Receivable",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 37,
+        "name": "Post Incoming Interest Payment",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 38,
+        "name": "Recognize Redemption Receivable",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 39,
+        "name": "Post Incoming Principal Repayment",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 13,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 14,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 14,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 14,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 14,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 20,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 21,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 21,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 23,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 23,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 23,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 27,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 27,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 31,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 34,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

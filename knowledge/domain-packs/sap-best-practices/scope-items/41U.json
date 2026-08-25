@@ -1,0 +1,99 @@
+{
+  "scope_item_id": "41U",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Warehousing"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "82256fa18905482cb035e9676b8e2da6",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "82256fa18905482cb035e9676b8e2da6",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Post \nGR for Finished Material and GI for Raw Material",
+        "type": "serviceTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Check \nMaterial Document (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": true
+      },
+      {
+        "seq": 3,
+        "name": "Check Goods Movement Document (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 4,
+        "name": "Create \nWarehouse Task",
+        "type": "serviceTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Pack \nFinished Material (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 6,
+        "name": "Check \nWarehouse Task (optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 7,
+        "name": "Create \nHU Warehouse Task (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 8,
+        "name": "Create Product Warehouse Task",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Confirm \nWarehouse Task",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 7,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

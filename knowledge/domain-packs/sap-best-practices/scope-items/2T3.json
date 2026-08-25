@@ -1,0 +1,116 @@
+{
+  "scope_item_id": "2T3",
+  "title": "Convergent Invoicing \u2013 Recurring and One-Off Items",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting",
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Advanced Financial Operations",
+      "Subscription Billing and Revenue Management"
+    ],
+    "L3_scope_item": "2T3 - Convergent Invoicing \u2013 Recurring and One-Off Items",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Invoicing Documents",
+        "fiori_app_id": "F2048",
+        "technical_transaction": "FKKINVDOC_DISP",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_SPEC_CINV | SAP_BR_INVOICING_ADMIN_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Display Billing Documents",
+        "fiori_app_id": "F2250",
+        "technical_transaction": "FKKINVBILL_DISP",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV | SAP_BR_INVOICING_SPEC_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Billing Plans",
+        "fiori_app_id": "F2824",
+        "technical_transaction": "FKKBIX_BILLPLAN",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_SPEC_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 4,
+        "name": "Execute Invoicing",
+        "fiori_app_id": "F3524",
+        "technical_transaction": "FKKINV_MA",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 5,
+        "name": "Execute Billing",
+        "fiori_app_id": "F3525",
+        "technical_transaction": "FKKBIX_MA",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 6,
+        "name": "Request Billing Plan Items",
+        "fiori_app_id": "F3530",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV",
+        "component": "FI-CA-INV-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "6020dbe7abde465db918d84934fb04de",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "6020dbe7abde465db918d84934fb04de",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "2AR:Contract Accounting: Master Data and Basic Functions",
+        "type": "subProcess",
+        "role": "Accounts Payable and Receivable Accountant (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Billing Plan",
+        "type": "userTask",
+        "role": "Invoicing Specialist (Convergent Invoicing)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Request Billing Plan",
+        "type": "userTask",
+        "role": "Invoicing Specialist (Convergent Invoicing)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "2BG - Invoice Creation for Usage and Service",
+        "type": "userTask",
+        "role": "Invoicing Specialist (Convergent Invoicing)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

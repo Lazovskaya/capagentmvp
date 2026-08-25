@@ -1,0 +1,80 @@
+{
+  "scope_item_id": "65D",
+  "title": "MRP Change Request Integration with SAP Business Network",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Operational Procurement",
+      "Production Planning"
+    ],
+    "L3_scope_item": "65D - MRP Change Request Integration with SAP Business Network",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Material Coverage",
+        "fiori_app_id": "F0251",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RPLNMT_SPCLST_DC_RFM | SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_PRODN_PLNR",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 2,
+        "name": "Maintain PIRs",
+        "fiori_app_id": "F3445",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RPLNMT_SPCLST_ST_RFM | SAP_BR_PRODN_PLNR | SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 3,
+        "name": "Create MRP Change Requests",
+        "fiori_app_id": "F5416",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 4,
+        "name": "Schedule MRP Rescheduling Checks",
+        "fiori_app_id": "F5417",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 5,
+        "name": "Schedule Sending of MRP Change Requests",
+        "fiori_app_id": "F5418",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "9b0ee4c937e14ae99d0f3a880af39675",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "9b0ee4c937e14ae99d0f3a880af39675",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Map MRP Change Request from SOAP to json",
+        "type": "serviceTask",
+        "role": "SAP-managed",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

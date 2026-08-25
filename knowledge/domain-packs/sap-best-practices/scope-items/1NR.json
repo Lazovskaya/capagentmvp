@@ -1,0 +1,114 @@
+{
+  "scope_item_id": "1NR",
+  "title": "Engineering Bill of Material \u2013 Versions Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Product Engineering"
+    ],
+    "L3_scope_item": "1NR - Engineering Bill of Material \u2013 Versions Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Maintain Bill Of Material",
+        "fiori_app_id": "F1813",
+        "technical_transaction": "CS01",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_PCL | SAP_BR_ADMINISTRATOR_RCP_DEV | SAP_BR_PRODN_ENG_DISC | SAP_BR_MD_SPECIALIST_EAM | SAP_BR_PRODSTWRD_SPLST_PCL | SAP_BR_BOM_ENGINEER | SAP_BR_BOM_ENG_CUST_ORDER | SAP_BR_DESIGN_ENGINEER | SAP_BR_PRODN_ENG_PROC | SAP_BR_DEVELOPMENT_MANAGER_DIN",
+        "component": "PLM-FIO-BOM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "723bf9e21a96497f87eb670b2dcbafe3",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "723bf9e21a96497f87eb670b2dcbafe3",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Bill of Material",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Release Version",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Copy(Create) Header Material(Optional)",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": true
+      },
+      {
+        "seq": 4,
+        "name": "Copy(Create) Header Material(Optional)",
+        "type": "userTask",
+        "role": "Master Data \nSpecialist - Product \nData (MDG)",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "Create New Version of Bill of Material",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Release Version",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Copy Versioned Bill Of Material",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Change Versioned BOM",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Release Version",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "scope_item_id": "BH1",
+  "title": "Corrective Maintenance",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Maintenance Management"
+    ],
+    "L3_scope_item": "BH1 - Corrective Maintenance",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Process Purchase Requisitions",
+        "fiori_app_id": "F1048",
+        "technical_transaction": "ME59N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-SOC"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Service Entry Sheets - Lean Services",
+        "fiori_app_id": "F2027",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-PUR-SVC-SES"
+      },
+      {
+        "step_no": 3,
+        "name": "Find Maintenance Order",
+        "fiori_app_id": "F2175",
+        "technical_transaction": "IW39",
+        "app_type": null,
+        "role": "SAP_BR_MAINT_SUPERVISOR | SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_CHG_MGMT_COORDINATOR | SAP_BR_MAINTENANCE_TECHNICIAN | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PRODN_PLNR | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_SERVICE_MANAGER",
+        "component": "PM-FIO"
+      },
+      {
+        "step_no": 4,
+        "name": "Perform Maintenance Jobs",
+        "fiori_app_id": "F5104A",
+        "technical_transaction": "IW41",
+        "app_type": null,
+        "role": "SAP_BR_MAINT_SUPERVISOR | SAP_BR_MAINTENANCE_TECHNICIAN",
+        "component": "PM-FIO-WOC-JC"
+      },
+      {
+        "step_no": 5,
+        "name": "Request Maintenance",
+        "fiori_app_id": "F1511",
+        "technical_transaction": "IW21",
+        "app_type": null,
+        "role": "SAP_BR_EMPLOYEE_MAINTENANCE | SAP_BR_EMPLOYEE | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_MAINTENANCE_TECHNICIAN",
+        "component": "PM-FIO-WOC-MN"
+      },
+      {
+        "step_no": 6,
+        "name": "Find Maintenance Notification",
+        "fiori_app_id": "F2071",
+        "technical_transaction": "IW23",
+        "app_type": null,
+        "role": "SAP_BR_CHG_MGMT_COORDINATOR | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_MAINTENANCE_TECHNICIAN",
+        "component": "PM-FIO-WOC-MN"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "11486d3015e049a3b85794e86771888f",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "11486d3015e049a3b85794e86771888f",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Optional - Create Maintenance Notification",
+        "type": "userTask",
+        "role": "Maintenance Technician",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Request Maintenance",
+        "type": "userTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Maintenance Order",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Monitor Maintenance Requests",
+        "type": "userTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Release Maintenance Order",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Change Maintenance Request into Malfunction Report",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Print Job Card",
+        "type": "userTask",
+        "role": "Maintenance Technician",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Purchase Requisitions created for Lean Service Procurement",
+        "type": "serviceTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Purchase Requisitions Created for Spares Procurement",
+        "type": "serviceTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Convert Purchase Requisitions to Purchase Orders",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Convert Purchase Requisitions to Purchase Orders",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Confirm Maintenance Order",
+        "type": "userTask",
+        "role": "Maintenance Technician",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Accept \nService Entry Sheet",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Post \nGoods \nReceipt for Purchase Order",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Confirm Unplanned Job",
+        "type": "userTask",
+        "role": "Maintenance Technician",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Show \nCosts on Maintenance Order",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Create \nSupplier \nInvoice with PO/ GR relation",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Technically Complete Maintenance Order",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Release \nSupplier Invoice",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 12,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 15,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 19,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 19,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

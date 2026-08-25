@@ -1,0 +1,239 @@
+{
+  "scope_item_id": "3HU",
+  "title": "In-Store Customer Order Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Retail"
+    ],
+    "L2_core_process": [
+      "Retail"
+    ],
+    "L3_scope_item": "3HU - In-Store Customer Order Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage In-Store Sales Orders",
+        "fiori_app_id": "F7141",
+        "technical_transaction": "VA01",
+        "app_type": null,
+        "role": "SAP_BR_RFM_STORE_ASSOCIATE",
+        "component": "LO-RFM-STO-COM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "e910a902234946cb844ac4b7aa41e352",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "e910a902234946cb844ac4b7aa41e352",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Check Stock Availability in Store",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Verify Consumer Registration",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Master Data for Registering New Consumers (Optional)",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": true
+      },
+      {
+        "seq": 4,
+        "name": "Create Sales Order",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Print Sales Order Document",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Post Goods Receipt for STO/Outbound Delivery or Post Goods Receipt for PO/Inbound Delivery at Store (SA-15152 1.0)",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Transfer Stock",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Schedule Application Job to create Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Start Picking",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Scan Product GTIN and Provide Product Quantity",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Create Purchase Order (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 12,
+        "name": "Create Inbound Delivery for Purchase Order",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Scan Picking Request",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Schedule Application Job to create Stock Transport Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Finish Picking",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Verify Order Details of the Consumer",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Create Stock Transport Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Schedule Application Job to create Replenishment Delivery for STO",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Cancel Product (Optional)",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": true
+      },
+      {
+        "seq": 20,
+        "name": "Pick, Pack and Post Goods Issue for Replenishment Delivery from DC",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 21,
+        "name": "Scan the Picking Request to Withdraw",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 22,
+        "name": "Hand Over Orders",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 23,
+        "name": "Validate Follow-On Documents and Print Billing Documents",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 24,
+        "name": "Process Customer Order Payment from POS",
+        "type": "userTask",
+        "role": "Administrator (Retail)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 5,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 9,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 15,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

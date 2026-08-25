@@ -1,0 +1,58 @@
+{
+  "scope_item_id": "24F",
+  "title": "Transfer of Contact Person for SAP Global Trade Services",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Enterprise Risk and Compliance"
+    ],
+    "L3_scope_item": "24F - Transfer of Contact Person for SAP Global Trade Services",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Transfer of Contact Persons - Global Trade Services",
+        "fiori_app_id": "F2803",
+        "technical_transaction": "/SAPSLL/CPMAS_DIRR3",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_SLL",
+        "component": "FT-INT-GTS"
+      },
+      {
+        "step_no": 2,
+        "name": "Schedule Transfer of Changed Master Data - Global Trade Services",
+        "fiori_app_id": "F6041",
+        "technical_transaction": "/SAPSLL/MD_CHG_PTRR3",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_SLL",
+        "component": "FT-INT-GTS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "cd97e93a2d1f41d19635098f300b25c0",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "cd97e93a2d1f41d19635098f300b25c0",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Schedule Transfer of Contact Persons",
+        "type": "userTask",
+        "role": "Configuration Expert - Business Network Integration",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Check Application Logs for Changed Master Data Transfer         (Optional)",
+        "type": "userTask",
+        "role": "Configuration Expert - Business Network Integration",
+        "optional": true
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

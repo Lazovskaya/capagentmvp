@@ -1,0 +1,101 @@
+{
+  "scope_item_id": "6A6",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Central Procurement",
+      "Procurement Analytics",
+      "Supplier Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "890ceb7bc48844c88990f96a35474847",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "890ceb7bc48844c88990f96a35474847",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Supplier Evaluation Weighting and Scoring",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Sections and Questions in Question Library",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Evaluation Questionnaire",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create Group-Based Evaluation Template",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Start Group-Based Evaluation",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Maintain Evaluation Response as Appraiser 2",
+        "type": "userTask",
+        "role": "Employee - Procurement",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Maintain Evaluation Response as Appraiser 1",
+        "type": "userTask",
+        "role": "Employee - Procurement",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Maintain Evaluation Response as Appraiser 3",
+        "type": "userTask",
+        "role": "Employee - Procurement",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Display Scorecards",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 5,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

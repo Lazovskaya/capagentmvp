@@ -1,0 +1,279 @@
+{
+  "scope_item_id": "BJE",
+  "title": "Make-to-Order Production \u2013 Finished Goods Sales and Final Assembly",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Manufacturing Operations",
+      "Production Planning"
+    ],
+    "L3_scope_item": "BJE - Make-to-Order Production \u2013 Finished Goods Sales and Final Assembly",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Post Goods Receipt for Production Order",
+        "fiori_app_id": "F3110",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 2,
+        "name": "Maintain Bill Of Material",
+        "fiori_app_id": "F1813",
+        "technical_transaction": "CS01",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_PCL | SAP_BR_ADMINISTRATOR_RCP_DEV | SAP_BR_PRODN_ENG_DISC | SAP_BR_MD_SPECIALIST_EAM | SAP_BR_PRODSTWRD_SPLST_PCL | SAP_BR_BOM_ENGINEER | SAP_BR_BOM_ENG_CUST_ORDER | SAP_BR_DESIGN_ENGINEER | SAP_BR_PRODN_ENG_PROC | SAP_BR_DEVELOPMENT_MANAGER_DIN",
+        "component": "PLM-FIO-BOM"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Order Bill Of Material (Version 2)",
+        "fiori_app_id": "F4339A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DEVELOPMENT_MANAGER_DIN | SAP_BR_BOM_ENGINEER | SAP_BR_BOM_ENG_CUST_ORDER",
+        "component": "PLM-FIO-BOM"
+      },
+      {
+        "step_no": 4,
+        "name": "Monitor External Requirements (Version 2)",
+        "fiori_app_id": "F0246A",
+        "technical_transaction": "MD04",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR | SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 5,
+        "name": "Monitor Material Coverage - Net and Individual Segments (Version 2)",
+        "fiori_app_id": "F2101A",
+        "technical_transaction": "MB53",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR | SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 6,
+        "name": "Review Order Progress - Multilevel View",
+        "fiori_app_id": "F7681",
+        "technical_transaction": "MD4C",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_PRODN_PLNR",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Production Orders",
+        "fiori_app_id": "F2336",
+        "technical_transaction": "CO02",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_SUPERVISOR_DISC",
+        "component": "PP-FIO-SFC"
+      },
+      {
+        "step_no": 8,
+        "name": "Confirm Production Operation",
+        "fiori_app_id": "F3069",
+        "technical_transaction": "CO11N",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_OPTR_DISC",
+        "component": "PP-FIO-SFC"
+      },
+      {
+        "step_no": 9,
+        "name": "Manage Sales Quotations",
+        "fiori_app_id": "F1852",
+        "technical_transaction": "VA25",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      },
+      {
+        "step_no": 10,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "b1eaff0f97014182b22f1ddd6b09899d",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "b1eaff0f97014182b22f1ddd6b09899d",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create, and Send Sales Quotation to Customer",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Material Requirements Planning for Sales Order",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Change Sales Quotation",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create Down Payment Request (BKJ)",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Sales Order with Ref. to Quotation",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Change BoM for Sales Order",
+        "type": "userTask",
+        "role": "BOM Engineer - Customer Order",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Post Down Payment",
+        "type": "userTask",
+        "role": "Accounts Receivable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Recalculate Sales Price and Costs for Sales Order",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Create Production Order",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Release Production Orders",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Pick Components (Picking List)",
+        "type": "userTask",
+        "role": "Production Operator - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Confirm Assembly Activities",
+        "type": "userTask",
+        "role": "Production Operator - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Post Goods Receipt for Production Order",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Create Delivery with Order Reference",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Execute Picking (BKJ)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Post Goods Issue",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Change Sales Order (Remove Billing Block) (BKJ)",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Billing (BKJ)",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 8,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 18,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

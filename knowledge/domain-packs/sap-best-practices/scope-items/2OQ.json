@@ -1,0 +1,57 @@
+{
+  "scope_item_id": "2OQ",
+  "title": "Integration to SAP Enterprise Contract Assembly",
+  "hierarchy": {
+    "L1_value_stream": [
+      "IT and Cross-Application"
+    ],
+    "L2_core_process": [
+      "Enterprise Information Management"
+    ],
+    "L3_scope_item": "2OQ - Integration to SAP Enterprise Contract Assembly",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Legal Documents",
+        "fiori_app_id": "F2453",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_EMPLOYEE | SAP_BR_LEGAL_COUNSEL | SAP_BR_ADMINISTRATOR_LCM | SAP_BR_EMPLOYEE_LEGAL_CONTENT",
+        "component": "CM-DOC"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Legal Transactions",
+        "fiori_app_id": "F2310",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_LCM | SAP_BR_EMPLOYEE | SAP_BR_LEGAL_COUNSEL | SAP_BR_EMPLOYEE_LEGAL_CONTENT",
+        "component": "CM-LT"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "8856286f2a7c48d1a36e6264be2f2921",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "8856286f2a7c48d1a36e6264be2f2921",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Manage Legal Transactions",
+        "type": "userTask",
+        "role": "Legal Counsel",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

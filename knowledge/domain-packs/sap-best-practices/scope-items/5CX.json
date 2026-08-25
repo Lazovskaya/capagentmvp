@@ -1,0 +1,158 @@
+{
+  "scope_item_id": "5CX",
+  "title": "Customer Returns for Sales Kits",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": "5CX - Customer Returns for Sales Kits",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Display Nota Fiscal Return Delivery Log",
+        "fiori_app_id": "F8352",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BILLING_CLERK_BR | SAP_BR_SHIPPING_SPECIALIST_BR",
+        "component": "BC-SRV-APS-APL"
+      },
+      {
+        "step_no": 2,
+        "name": "Create Outbound Deliveries - From Sales Orders",
+        "fiori_app_id": "F0869A",
+        "technical_transaction": "VL10A",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Customer Returns",
+        "fiori_app_id": "F1708",
+        "technical_transaction": "VA01",
+        "app_type": null,
+        "role": "SAP_BR_RETURNS_REFUND_CLERK",
+        "component": "SD-SLS-RE"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "95bb7f943bc94a798e6d81a60f7ef31b",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "95bb7f943bc94a798e6d81a60f7ef31b",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "BD9 (Sell from Stock)",
+        "type": "subProcess",
+        "role": "Returns and Refund Clerk",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Return Order",
+        "type": "userTask",
+        "role": "Returns and Refund Clerk",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Generate Return Delivery",
+        "type": "serviceTask",
+        "role": "Returns and Refund Clerk",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Perform Picking",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Post Goods Receipt",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Determine Refund",
+        "type": "userTask",
+        "role": "Returns and Refund Clerk",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Display Return Overview",
+        "type": "userTask",
+        "role": "Returns and Refund Clerk",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Perform Material Inspection",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Generate Credit memo request",
+        "type": "serviceTask",
+        "role": "Returns and Refund Clerk",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Create Credit Memo",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "inclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 4,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

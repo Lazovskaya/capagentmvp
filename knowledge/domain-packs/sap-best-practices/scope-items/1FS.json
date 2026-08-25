@@ -1,0 +1,132 @@
+{
+  "scope_item_id": "1FS",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Warehousing"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "7a1ed115ccb3427a838710f5883f9c78",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "7a1ed115ccb3427a838710f5883f9c78",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Inbound Delivery",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Replicate Inbound Delivery",
+        "type": "serviceTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Process Goods Receipt",
+        "type": "userTask",
+        "role": "Warehouse Operative",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Check Warehouse Orders (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 6,
+        "name": "Move Product to Clarification Zone",
+        "type": "userTask",
+        "role": "Warehouse Operative",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Putaway of Products to Bulk Storage",
+        "type": "userTask",
+        "role": "Warehouse Operative",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Putaway of Products",
+        "type": "userTask",
+        "role": "Warehouse Operative",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Putaway of Products",
+        "type": "userTask",
+        "role": "Warehouse Operative",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Repack at the Clarification Zone",
+        "type": "userTask",
+        "role": "Warehouse Operative",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Create Warehouse Tasks to Move Handling Units from the Clarification Zone",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Check the Inbound Delivery",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Move the Product from Clarification Zone to Mezzanine",
+        "type": "userTask",
+        "role": "Warehouse Operative",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Unspecified"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "scope_item_id": "34M",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "af07e132d46a41a293276a51e2d20454",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "af07e132d46a41a293276a51e2d20454",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "2F2 - Intercompany Process for Foreign Exchange",
+        "type": "subProcess",
+        "role": "Treasury Accountant (Selling Company)",
+        "optional": false,
+        "calls_scope_item": "2F2"
+      },
+      {
+        "seq": 2,
+        "name": "2F2 - Intercompany Foreign Exchange Management",
+        "type": "subProcess",
+        "role": "Treasury Accountant (Buying Company)",
+        "optional": false,
+        "calls_scope_item": "2F2"
+      },
+      {
+        "seq": 3,
+        "name": "34D - Foreign Currency Risk Management - Group Ledger US GAAP",
+        "type": "subProcess",
+        "role": "Treasury Accountant (Selling Company)",
+        "optional": false,
+        "calls_scope_item": "34D"
+      },
+      {
+        "seq": 4,
+        "name": "34M - Intercompany Foreign Exchange - Group Ledger US GAAP",
+        "type": "subProcess",
+        "role": "Treasury Accountant (Buying Company)",
+        "optional": false,
+        "calls_scope_item": "34M"
+      }
+    ],
+    "gateways": [],
+    "dependencies": [
+      {
+        "scope_item_id": "2F2",
+        "name": "2F2 - Intercompany Process for Foreign Exchange",
+        "optional": false
+      },
+      {
+        "scope_item_id": "34D",
+        "name": "34D - Foreign Currency Risk Management - Group Ledger US GAAP",
+        "optional": false
+      },
+      {
+        "scope_item_id": "34M",
+        "name": "34M - Intercompany Foreign Exchange - Group Ledger US GAAP",
+        "optional": false
+      }
+    ]
+  }
+}

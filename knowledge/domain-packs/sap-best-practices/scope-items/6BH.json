@@ -1,0 +1,291 @@
+{
+  "scope_item_id": "6BH",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Delivery and Transportation"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "e38f8616f7834ad994d73734e0ca515a",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "e38f8616f7834ad994d73734e0ca515a",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Intercompany Stock Transfer Order (5HP)",
+        "type": "userTask",
+        "role": "Purchaser (Receiving Company)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create \nFreight Unit",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Perform Manual Transportation Planning (On-Carriage)",
+        "type": "userTask",
+        "role": "Dispatcher (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Perform Manual Transportation Planning (Pick-Up and Main Leg)",
+        "type": "userTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Perform Subcontracting (On-Carriage)",
+        "type": "userTask",
+        "role": "Dispatcher (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Perform Subcontracting (Pick-Up and Main Leg)",
+        "type": "userTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Receive Freight Order Confirmation (On-Carriage)",
+        "type": "userTask",
+        "role": "Dispatcher (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Receive Booking Confirmation (Pick-Up and Main Leg)",
+        "type": "userTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Charge Calculation",
+        "type": "serviceTask",
+        "role": "Dispatcher (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Charge Calculation",
+        "type": "serviceTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Create Freight Order for Pick-Up",
+        "type": "userTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Cost Distribution",
+        "type": "serviceTask",
+        "role": "Dispatcher (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Cost Distribution",
+        "type": "serviceTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Trigger Delivery Creation",
+        "type": "userTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Set Truck Arrived and Checked-In at Shipping Point Location (Pick-Up)",
+        "type": "userTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Create Outbound Delivery for Stock Transfer Order (5HP)",
+        "type": "serviceTask",
+        "role": "Shipping Specialist (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Set Truck \nChecked-Out and Departed at Shipping Point Location (Pick-Up)",
+        "type": "userTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Perform Picking",
+        "type": "userTask",
+        "role": "Shipping Specialist (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Arrival of Truck at Port of Loading (Pick-Up)",
+        "type": "userTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 20,
+        "name": "Post Goods Issue",
+        "type": "userTask",
+        "role": "Shipping Specialist (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 21,
+        "name": "Departure of Vessel from Port of Loading (Main Leg)",
+        "type": "userTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 22,
+        "name": "Inbound Delivery Creation",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 23,
+        "name": "Arrival of Vessel at Port of Discharge (Main Leg)",
+        "type": "userTask",
+        "role": "Dispatcher (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 24,
+        "name": "Confirm Internal Transfer of Control Date for Goods in Transit (5HP)",
+        "type": "userTask",
+        "role": "Shipping Specialist (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 25,
+        "name": "Confirm Freight Booking for Accrual Posting",
+        "type": "userTask",
+        "role": "Transportation Manager (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 26,
+        "name": "Confirm Quantities for Inbound Delivery",
+        "type": "userTask",
+        "role": "Receiving Specialist (Receiving Plant)",
+        "optional": false
+      },
+      {
+        "seq": 27,
+        "name": "Create Supplier Invoice for Freight Costs (Pick-Up and Main Leg)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs) (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 28,
+        "name": "Departure of Truck at Port of Discharge (On-Carriage)",
+        "type": "userTask",
+        "role": "Dispatcher (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 29,
+        "name": "Post Goods Receipt for Inbound Delivery",
+        "type": "userTask",
+        "role": "Receiving Specialist (Receiving Plant)",
+        "optional": false
+      },
+      {
+        "seq": 30,
+        "name": "Release Blocked Supplier Invoice (Optional)",
+        "type": "userTask",
+        "role": "Purchasing Manager",
+        "optional": true
+      },
+      {
+        "seq": 31,
+        "name": "Set Truck Arrived and Checked-In at Receiving Point Location (On-Carriage)",
+        "type": "userTask",
+        "role": "Dispatcher (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 32,
+        "name": "Confirm Freight Order for Accrual Posting (On-Carriage)",
+        "type": "userTask",
+        "role": "Transportation Manager (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 33,
+        "name": "Set Ready for Warehousing",
+        "type": "userTask",
+        "role": "Dispatcher (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 34,
+        "name": "Set Truck \nChecked-Out and Departed at Receiving Point Location (On-Carriage)",
+        "type": "userTask",
+        "role": "Dispatcher (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 35,
+        "name": "Create Supplier Invoice for Freight Costs (On-Carriage)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Receiving Company)",
+        "optional": false
+      },
+      {
+        "seq": 36,
+        "name": "Create Intercompany Billing Document (5HP)",
+        "type": "userTask",
+        "role": "Billing Clerk (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 37,
+        "name": "Create Supplier Invoice",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 38,
+        "name": "Display Supplier Invoice (5HP)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Receiving Company)",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

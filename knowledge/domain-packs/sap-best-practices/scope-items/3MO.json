@@ -1,0 +1,200 @@
+{
+  "scope_item_id": "3MO",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Service"
+    ],
+    "L2_core_process": [
+      "Service Master Data and Agreement Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "e5db67c6fbcf4265828b936c6e3ddf29",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "e5db67c6fbcf4265828b936c6e3ddf29",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Service Contract and Add Service Contract Items with Periodic and/or Ad-Hoc Billing Plan",
+        "type": "userTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Maintain Product List and Create Price Agreements",
+        "type": "userTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Adapt Service Contract Prices",
+        "type": "userTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Release Service Contract and Service Contract Items",
+        "type": "userTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Billing Request Lines",
+        "type": "userTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "3M3 - Event-Based Revenue Recognition - Service Contracts",
+        "type": "subProcess",
+        "role": "Cost Accountant - Sales",
+        "optional": false,
+        "calls_scope_item": "3M3"
+      },
+      {
+        "seq": 7,
+        "name": "3D2 - Service Order Management and Monitoring",
+        "type": "subProcess",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false,
+        "calls_scope_item": "3D2"
+      },
+      {
+        "seq": 8,
+        "name": "Billing Document Request Created Based on Billing Request Lines from Billing Plan",
+        "type": "serviceTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "[Optional] Cancel Service Contract or Service Contract item",
+        "type": "userTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "(Optional) Change Sold-to-Party in Service Contract",
+        "type": "userTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": true
+      },
+      {
+        "seq": 11,
+        "name": "(Optional) Manually Renew Entire Service Contract",
+        "type": "userTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": true
+      },
+      {
+        "seq": 12,
+        "name": "(Optional) Manually Renew Service Contract Item",
+        "type": "userTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": true
+      },
+      {
+        "seq": 13,
+        "name": "(Optional) Auto Renewal of Service Contract Item",
+        "type": "serviceTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": true
+      },
+      {
+        "seq": 14,
+        "name": "Create Invoice (part of 3MO-01)",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Service Contract or Service Contract Item is Cancelled and End Date is Adjusted",
+        "type": "serviceTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "New Service Contract is Created",
+        "type": "serviceTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "New Service Contract Items in Existing Service Contract are Created",
+        "type": "serviceTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "New Service Contract Item is Created in Existing Service Contract",
+        "type": "serviceTask",
+        "role": "Customer Service Manager (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "(Optional) 4GG - Credit Memo Processing for Service Management",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": true
+      },
+      {
+        "seq": 20,
+        "name": "J59 - Accounts Receivable",
+        "type": "subProcess",
+        "role": "Accounts Receivable Accountant",
+        "optional": false,
+        "calls_scope_item": "J59"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Unspecified"
+      },
+      {
+        "seq_position": 13,
+        "type": "exclusiveGateway",
+        "direction": "Unspecified"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "3M3",
+        "name": "3M3 - Event-Based Revenue Recognition - Service Contracts",
+        "optional": false
+      },
+      {
+        "scope_item_id": "3D2",
+        "name": "3D2 - Service Order Management and Monitoring",
+        "optional": false
+      },
+      {
+        "scope_item_id": "J59",
+        "name": "J59 - Accounts Receivable",
+        "optional": false
+      }
+    ]
+  }
+}

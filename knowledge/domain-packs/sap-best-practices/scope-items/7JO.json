@@ -1,0 +1,21 @@
+{
+  "scope_item_id": "7JO",
+  "title": "Sales Integration for SAP S/4HANA Utilities",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Budget and Finance",
+    "L3_scope_item": "7JO - Sales Integration for SAP S/4HANA Utilities",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

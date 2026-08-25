@@ -1,0 +1,118 @@
+{
+  "scope_item_id": "1P9",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash",
+      "Plan to Fulfill",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Delivery and Transportation",
+      "Invoice Management",
+      "Operational Procurement",
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "870890ce41054e9992c0f3d8d50d682f",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "870890ce41054e9992c0f3d8d50d682f",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Intercompany Stock Transport Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Replenishment Delivery for Stock Transport Order",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Pick and Post Goods Issue for Stock Transfer Order",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Check Batches (Optional)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "Check Status of Stock Transfer",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Post Goods Receipt for Stock Transport Order",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Confirm Quantities for Putaway",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Post Goods Receipt For Inbound Delivery",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Check Status of Stock Transfer",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Create Inter-company Billing Document",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Create Supplier Invoice",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

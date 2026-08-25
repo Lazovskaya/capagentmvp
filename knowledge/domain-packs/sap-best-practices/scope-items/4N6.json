@@ -1,0 +1,74 @@
+{
+  "scope_item_id": "4N6",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Invoice Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "88338be44016451b85eda9b4ab55ee79",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "88338be44016451b85eda9b4ab55ee79",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Send New Invoices and Invoice Updates for status not draft",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Edit Supplier Invoice",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Reject Supplier Invoice",
+        "type": "userTask",
+        "role": "Approver",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Approve Supplier invoice",
+        "type": "userTask",
+        "role": "Approver",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "scope_item_id": "35E",
+  "title": "Project Control \u2013 Research and Development Projects",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Enterprise Portfolio and Project Management"
+    ],
+    "L3_scope_item": "35E - Project Control \u2013 Research and Development Projects",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Project Financial Controller Overview",
+        "fiori_app_id": "F3078",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-REP"
+      },
+      {
+        "step_no": 2,
+        "name": "Monitor Projects",
+        "fiori_app_id": "F3088",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-REP"
+      },
+      {
+        "step_no": 3,
+        "name": "Project Budget Report - Overview",
+        "fiori_app_id": "F3377",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-REP"
+      },
+      {
+        "step_no": 4,
+        "name": "Project Control - Enterprise Projects",
+        "fiori_app_id": "F3215",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_PROJ_PROC_CONTROLLER | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_PROJECTMANAGER | SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-STR-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "b99b7a71d4fd44bf86001692b8c1b427",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "b99b7a71d4fd44bf86001692b8c1b427",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create R&D Project",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Inform Project Manager",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "1YF - Describe Project",
+        "type": "subProcess",
+        "role": "Project Manager",
+        "optional": false,
+        "calls_scope_item": "1YF"
+      },
+      {
+        "seq": 4,
+        "name": "Predict Project Costs (Optional)",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "Upload Planned Costs",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "1YF - Central Project Review",
+        "type": "subProcess",
+        "role": "Project Steering Committee Member",
+        "optional": false,
+        "calls_scope_item": "1YF"
+      },
+      {
+        "seq": 7,
+        "name": "Assign Project Budget",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "4RF - Define Demand",
+        "type": "subProcess",
+        "role": "Project Controller - Procurement",
+        "optional": false,
+        "calls_scope_item": "4RF"
+      },
+      {
+        "seq": 9,
+        "name": "Release Project",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "1YF - Project Milestones Review",
+        "type": "subProcess",
+        "role": "Project Steering Committee Member",
+        "optional": false,
+        "calls_scope_item": "1YF"
+      },
+      {
+        "seq": 11,
+        "name": "Post General Journal Entries",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "4RF - Project Control - Procurement",
+        "type": "subProcess",
+        "role": "Project Controller - Procurement",
+        "optional": false,
+        "calls_scope_item": "4RF"
+      },
+      {
+        "seq": 13,
+        "name": "1Q4 - Time Recording",
+        "type": "subProcess",
+        "role": "Project Manager",
+        "optional": false,
+        "calls_scope_item": "1Q4"
+      },
+      {
+        "seq": 14,
+        "name": "Close Project",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Monitor Project",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "BNA - Period End Closing",
+        "type": "subProcess",
+        "role": "Project Financial Controller",
+        "optional": false,
+        "calls_scope_item": "BNA"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 9,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 13,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 13,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "1YF",
+        "name": "1YF - Describe Project",
+        "optional": false
+      },
+      {
+        "scope_item_id": "4RF",
+        "name": "4RF - Define Demand",
+        "optional": false
+      },
+      {
+        "scope_item_id": "1Q4",
+        "name": "1Q4 - Time Recording",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BNA",
+        "name": "BNA - Period End Closing",
+        "optional": false
+      }
+    ]
+  }
+}

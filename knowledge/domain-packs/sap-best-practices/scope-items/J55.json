@@ -1,0 +1,185 @@
+{
+  "scope_item_id": "J55",
+  "title": "Margin Analysis",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Cost Management and Profitability Analysis"
+    ],
+    "L3_scope_item": "J55 - Margin Analysis",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Project Profitability Overview",
+        "fiori_app_id": "F2794",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJECT_MANAGER_PROF | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-FIO-PA"
+      },
+      {
+        "step_no": 2,
+        "name": "Solution Order Margins",
+        "fiori_app_id": "F6061",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-FIO-PA"
+      },
+      {
+        "step_no": 3,
+        "name": "Service Profitability Review Booklet",
+        "fiori_app_id": "F6600",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-FIO-PA"
+      },
+      {
+        "step_no": 4,
+        "name": "Project Financial Booklet - Professional Services",
+        "fiori_app_id": "F7479",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT | SAP_BR_PROJECT_MANAGER_PROF | SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-PA"
+      },
+      {
+        "step_no": 5,
+        "name": "Product Profitability Review Booklet",
+        "fiori_app_id": "F8348",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-FIO-PA"
+      },
+      {
+        "step_no": 6,
+        "name": "Project Financial Booklet - Enterprise Projects",
+        "fiori_app_id": "F8698",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_FIN_CONTROLLER | SAP_BR_SALES_ACCOUNTANT | SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-PA"
+      },
+      {
+        "step_no": 7,
+        "name": "Market Segement - Plan/Actual (New Version)",
+        "fiori_app_id": "F9103",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-FIO-PA"
+      },
+      {
+        "step_no": 8,
+        "name": "Product and Service Margins (New Version)",
+        "fiori_app_id": "F9104",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-FIO-PA"
+      },
+      {
+        "step_no": 9,
+        "name": "Realignment Results - Profitability Analysis",
+        "fiori_app_id": "F2549",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-PA"
+      },
+      {
+        "step_no": 10,
+        "name": "Company Profitability Review Booklet (Template)",
+        "fiori_app_id": "F8300",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-PA"
+      },
+      {
+        "step_no": 11,
+        "name": "Post General Journal Entries",
+        "fiori_app_id": "F0718",
+        "technical_transaction": "F-02",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 12,
+        "name": "Manage Allocations",
+        "fiori_app_id": "F3338",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_DIVISION_ACCOUNTANT | SAP_BR_SALES_ACCOUNTANT",
+        "component": "FIN-UA"
+      },
+      {
+        "step_no": 13,
+        "name": "Run Allocations",
+        "fiori_app_id": "F3548",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DIVISION_ACCOUNTANT | SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_SALES_ACCOUNTANT",
+        "component": "FIN-UA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "b728d0ac0581472d9b9c15aded969150",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "b728d0ac0581472d9b9c15aded969150",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Execute Assessment Cycle (CO-PA)",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Run Market Segments Actual Report",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Run Market Segments Actual vs Plan Report",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create Profitability Realignment Run",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Execute Profitability Realignment Run",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Analyze Realignments Results",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,420 @@
+{
+  "scope_item_id": "1SG",
+  "title": "Group Reporting \u2013 Financial Consolidation",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Accounting and Financial Close"
+    ],
+    "L3_scope_item": "1SG - Group Reporting \u2013 Financial Consolidation",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Global Hierarchies",
+        "fiori_app_id": "F2918",
+        "technical_transaction": "OB58",
+        "app_type": null,
+        "role": "SAP_BR_TAX_ACCOUNTANT_CIT | SAP_BR_BUDGET_RESPONSIBLE | SAP_BR_GRANT_RESPONSIBLE | SAP_BR_BUDGET_SPECIALIST | SAP_BR_SALES_ACCOUNTANT | SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_ADMINISTRATOR_GRP | SAP_BR_DIVISION_ACCOUNTANT | SAP_BR_GRP_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_GRANT_SPECIALIST",
+        "component": "FI-FIO-GL-HIE"
+      },
+      {
+        "step_no": 2,
+        "name": "Upload General Journal Entries",
+        "fiori_app_id": "F2548",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Substitution and Validation Rules",
+        "fiori_app_id": "F4406",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_CMM_RISK_HACC | SAP_BR_TAX_ACCOUNTANT_CIT",
+        "component": "FI-SL-VSR"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Balance Validation Rules and Rule Groups",
+        "fiori_app_id": "F8001",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GRP_ACCOUNTANT | SAP_BR_EXTERNAL_AUDITOR_GRP | SAP_BR_ADMINISTRATOR_GRP | SAP_BR_GL_ACCOUNTANT_GRP",
+        "component": "FIN-CS-BV"
+      },
+      {
+        "step_no": 5,
+        "name": "Assign Rule Group for Balance Validation",
+        "fiori_app_id": "F8138",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_EXTERNAL_AUDITOR_GRP | SAP_BR_GL_ACCOUNTANT_GRP | SAP_BR_ADMINISTRATOR_GRP",
+        "component": "FIN-CS-BV"
+      },
+      {
+        "step_no": 6,
+        "name": "Schedule jobs for consolidation tasks 2502",
+        "fiori_app_id": "F5572",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GRP_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT_GRP",
+        "component": "FIN-CS-COR-DT"
+      },
+      {
+        "step_no": 7,
+        "name": "Consolidation Monitor (New)",
+        "fiori_app_id": "F7271",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GRP_ACCOUNTANT",
+        "component": "FIN-CS-COR-MON"
+      },
+      {
+        "step_no": 8,
+        "name": "Reconciliation Status Overview and Balances",
+        "fiori_app_id": "F3865",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECON_ACCOUNTANT",
+        "component": "FIN-CS-ICR"
+      },
+      {
+        "step_no": 9,
+        "name": "Manage Reconciliation Close",
+        "fiori_app_id": "F4774",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECON_ACCOUNTANT",
+        "component": "FIN-CS-ICR"
+      },
+      {
+        "step_no": 10,
+        "name": "Import Group Journal Entries",
+        "fiori_app_id": "F3073",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GRP_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT_GRP",
+        "component": "FIN-CS-JE"
+      },
+      {
+        "step_no": 11,
+        "name": "Define Master Data for Consolidation Fields",
+        "fiori_app_id": "F3007",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_GRP | SAP_BR_EXTERNAL_AUDITOR_GRP | SAP_BR_GL_ACCOUNTANT_GRP | SAP_BR_GRP_ACCOUNTANT",
+        "component": "FIN-CS-MD"
+      },
+      {
+        "step_no": 12,
+        "name": "Define Financial Statement Items",
+        "fiori_app_id": "F3297",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_GRP | SAP_BR_EXTERNAL_AUDITOR_GRP | SAP_BR_ADMINISTRATOR_GRP | SAP_BR_GRP_ACCOUNTANT",
+        "component": "FIN-CS-MD"
+      },
+      {
+        "step_no": 13,
+        "name": "Map FS Items with G/L Accounts",
+        "fiori_app_id": "F3333",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GRP_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT_GRP | SAP_BR_ADMINISTRATOR_GRP | SAP_BR_EXTERNAL_AUDITOR_GRP",
+        "component": "FIN-CS-MD"
+      },
+      {
+        "step_no": 14,
+        "name": "Assign FS Item Mappings",
+        "fiori_app_id": "F3334",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_GRP | SAP_BR_EXTERNAL_AUDITOR_GRP | SAP_BR_GRP_ACCOUNTANT | SAP_BR_ADMINISTRATOR_GRP",
+        "component": "FIN-CS-MD"
+      },
+      {
+        "step_no": 15,
+        "name": "Import FS Item Mappings",
+        "fiori_app_id": "F3335",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GRP_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT_GRP | SAP_BR_ADMINISTRATOR_GRP | SAP_BR_EXTERNAL_AUDITOR_GRP",
+        "component": "FIN-CS-MD"
+      },
+      {
+        "step_no": 16,
+        "name": "Define Selections",
+        "fiori_app_id": "F3725",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GRP_ACCOUNTANT | SAP_BR_ADMINISTRATOR_GRP | SAP_BR_EXTERNAL_AUDITOR_GRP | SAP_BR_GL_ACCOUNTANT_GRP",
+        "component": "FIN-CS-MD"
+      },
+      {
+        "step_no": 17,
+        "name": "Manage Consolidation Group Structure - Group View",
+        "fiori_app_id": "F3733",
+        "technical_transaction": "CX1X",
+        "app_type": null,
+        "role": "SAP_BR_GRP_ACCOUNTANT | SAP_BR_EXTERNAL_AUDITOR_GRP | SAP_BR_GL_ACCOUNTANT_GRP | SAP_BR_ADMINISTRATOR_GRP",
+        "component": "FIN-CS-MD"
+      },
+      {
+        "step_no": 18,
+        "name": "Import Consolidation Master Data",
+        "fiori_app_id": "F3924",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GRP_ACCOUNTANT | SAP_BR_EXTERNAL_AUDITOR_GRP | SAP_BR_ADMINISTRATOR_GRP | SAP_BR_GL_ACCOUNTANT_GRP",
+        "component": "FIN-CS-MD"
+      },
+      {
+        "step_no": 19,
+        "name": "Define Consolidation Units",
+        "fiori_app_id": "F4685",
+        "technical_transaction": "CX1M",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_GRP | SAP_BR_EXTERNAL_AUDITOR_GRP | SAP_BR_GRP_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT_GRP",
+        "component": "FIN-CS-MD"
+      },
+      {
+        "step_no": 20,
+        "name": "Define Consolidation Groups",
+        "fiori_app_id": "F7959",
+        "technical_transaction": "CX1P",
+        "app_type": null,
+        "role": "SAP_BR_EXTERNAL_AUDITOR_GRP | SAP_BR_GL_ACCOUNTANT_GRP | SAP_BR_ADMINISTRATOR_GRP | SAP_BR_GRP_ACCOUNTANT",
+        "component": "FIN-CS-MD"
+      },
+      {
+        "step_no": 21,
+        "name": "Define Validation Rules",
+        "fiori_app_id": "F2627",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_GRP | SAP_BR_ADMINISTRATOR_GRP | SAP_BR_EXTERNAL_AUDITOR_GRP | SAP_BR_GRP_ACCOUNTANT",
+        "component": "FIN-CS-VE"
+      },
+      {
+        "step_no": 22,
+        "name": "Import/Export Current Settings - Group Reporting",
+        "fiori_app_id": "F3663",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_GRP | SAP_BR_GRP_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT_GRP",
+        "component": "FIN-CS-VE"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "1a2a6373487049db89caf9c3095fbd16",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "1a2a6373487049db89caf9c3095fbd16",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Preparation for S4 Companies' Integration",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Self-Service Configuration UI",
+        "type": "userTask",
+        "role": "Configuration Expert - Business Process Configuration",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Upload General Journal Entries",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Organization Structure Creation",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Set global parameters",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Master Data Configuration with Fiori UI",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Release Universal Journal",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Validation",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Data Monitor for S4 Companies",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Administration",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Check Late Coming Data Posted in Previous Period",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Balance Carryforward for S4 Companies",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Check Late Coming Data Posted in Previous Period",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Check Time Dependent Assignment FS Items Mappings",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Check and Maintain Consolidation Units",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Set Up Group Structure",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Activity based COI - 2018.12 Initial Consolidation",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Rule based COI - 2015.12 Initial Consolidation",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Activity based COI - 2019.01 Full Consolidation",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 20,
+        "name": "Rule based COI - 2016.01 Full Consolidation",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 21,
+        "name": "Activity based COI - 2019.02 Subsequent Consolidation",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 22,
+        "name": "Rule based COI - 2016.02 Subsequent Consolidation",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 23,
+        "name": "Activity based COI - 2019.03 Subsequent Consolidation",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 24,
+        "name": "Rule based COI - 2016.03 Subsequent Consolidation",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 25,
+        "name": "Reporting",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 14,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 14,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 16,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 24,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

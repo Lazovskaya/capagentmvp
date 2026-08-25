@@ -1,0 +1,30 @@
+{
+  "scope_item_id": "7V9",
+  "title": "Make-to-Order Production \u2013 Discrete Manufacturing",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Operations",
+    "L3_scope_item": "7V9 - Make-to-Order Production \u2013 Discrete Manufacturing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule MRP Runs",
+        "fiori_app_id": "F1339",
+        "technical_transaction": "MD01",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_PRODN_PLNR | SAP_BR_RPLNMT_SPCLST_DC_RFM",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

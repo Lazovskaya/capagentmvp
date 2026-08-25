@@ -1,0 +1,63 @@
+{
+  "scope_item_id": "BH2",
+  "title": "Emergency Maintenance",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Maintenance Management"
+    ],
+    "L3_scope_item": "BH2 - Emergency Maintenance",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Report and Repair Malfunction",
+        "fiori_app_id": "F2023",
+        "technical_transaction": "IW31",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_TECHNICIAN",
+        "component": "PM-FIO-WOC-JC"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "88ee270df19a417d8fcb03c36dce40fd",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "88ee270df19a417d8fcb03c36dce40fd",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Report Malfunction",
+        "type": "userTask",
+        "role": "Maintenance Technician",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Repair Malfunction",
+        "type": "userTask",
+        "role": "Maintenance Technician",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Post \nGoods Issue",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Complete Malfunction Report",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

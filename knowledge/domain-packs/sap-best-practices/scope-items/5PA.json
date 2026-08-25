@@ -1,0 +1,167 @@
+{
+  "scope_item_id": "5PA",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Enterprise Risk and Compliance"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "50c767e1cd99421196787e93134b47ea",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "50c767e1cd99421196787e93134b47ea",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Manage Commodity Codes",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Person Responsible for International Trade",
+        "type": "userTask",
+        "role": "Master Data Specialist - Business Partner Data",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Manage Providers of Information",
+        "type": "userTask",
+        "role": "Intrastat Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Classify Products Commodity Codes",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Reclassify Products Commodity Codes (Optional)",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": true
+      },
+      {
+        "seq": 6,
+        "name": "Display Classified Products",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Create Intrastat Declarations Automatically (Background Job)",
+        "type": "serviceTask",
+        "role": "Trade Classification Specialist",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Create Intrastat Declarations Manually",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Display Intrastat Declarations",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Change Intrastat Declaration Item (Optional)",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": true
+      },
+      {
+        "seq": 11,
+        "name": "Release Intrastat Declarations and Create Declaration File",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Add Intrastat Declaration Item for Existing Declarations (Optional)",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": true
+      },
+      {
+        "seq": 13,
+        "name": "Cancel Release Intrastat Declarations (Optional)",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 12,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 12,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

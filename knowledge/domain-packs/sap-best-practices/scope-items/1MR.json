@@ -1,0 +1,90 @@
+{
+  "scope_item_id": "1MR",
+  "title": "Quality Management in Stock Handling",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Inventory",
+      "Quality Management"
+    ],
+    "L3_scope_item": "1MR - Quality Management in Stock Handling",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Transfer Stock - In Plant",
+        "fiori_app_id": "F1061",
+        "technical_transaction": "MB1B",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_INVENTORY_MANAGER | SAP_BR_WAREHOUSE_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 2,
+        "name": "Stock - Single Material",
+        "fiori_app_id": "F1076",
+        "technical_transaction": "MB52",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_INVENTORY_MANAGER | SAP_BR_PRODN_PLNR | SAP_BR_WAREHOUSE_CLERK | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Inspection Lots",
+        "fiori_app_id": "F2343",
+        "technical_transaction": "QA32",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER | SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_TECHNICIAN",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Usage Decisions",
+        "fiori_app_id": "F2345",
+        "technical_transaction": "QA11",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER | SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-FIO-IM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "28a7e9d205c94e2998720e2d13231358",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "28a7e9d205c94e2998720e2d13231358",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Display Quality Inspection Stock Before Change of Storage Location (Optional)",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": true
+      },
+      {
+        "seq": 2,
+        "name": "Change Storage Location for Quality Stock with Reference to Inspection Lot",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Display Quality Inspection Stock After Change of Storage Location (Optional)",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

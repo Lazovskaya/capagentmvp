@@ -1,0 +1,111 @@
+{
+  "scope_item_id": "1IQ",
+  "title": "Sales Inquiry",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": "1IQ - Sales Inquiry",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Sales Inquiries",
+        "fiori_app_id": "F2370",
+        "technical_transaction": "VA15",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS-QUT"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "35207bba548e4f50a2d53f8205c66396",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "35207bba548e4f50a2d53f8205c66396",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Sales Inquiry",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Change Sales Inquiry",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Accept Sales Inquiry",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Reject Sales Inquiry",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "BD9 - Sell from Stock (Optional)",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": true,
+        "calls_scope_item": "BD9"
+      },
+      {
+        "seq": 6,
+        "name": "BDG - Sales Quotation (Optional)",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": true,
+        "calls_scope_item": "BDG"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "BD9",
+        "name": "BD9 - Sell from Stock (Optional)",
+        "optional": true
+      },
+      {
+        "scope_item_id": "BDG",
+        "name": "BDG - Sales Quotation (Optional)",
+        "optional": true
+      }
+    ]
+  }
+}

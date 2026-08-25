@@ -1,0 +1,96 @@
+{
+  "scope_item_id": "5FO",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Retail",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Operational Procurement",
+      "Retail"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "b5cd79ffc2624a88bac8adb08ca1b54b",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "b5cd79ffc2624a88bac8adb08ca1b54b",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Returns Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Monitor Returns Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Outbound Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Pick and Post Goods Issue",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Credit Memo",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Receive Replacement Material",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Post Goods Receipt",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Follow-Up Activities For Replacement Materal",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Check Invoice Document",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

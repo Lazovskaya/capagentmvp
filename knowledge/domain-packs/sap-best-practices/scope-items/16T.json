@@ -1,0 +1,43 @@
+{
+  "scope_item_id": "16T",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Professional Services"
+    ],
+    "L2_core_process": [
+      "Professional Services"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "571d09233b5846a1982a23cbc7f8b32a",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "571d09233b5846a1982a23cbc7f8b32a",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Check Intercompany Sales Order (optional)",
+        "type": "userTask",
+        "role": "Internal Sales Representative (Delivering Company)",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "inclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

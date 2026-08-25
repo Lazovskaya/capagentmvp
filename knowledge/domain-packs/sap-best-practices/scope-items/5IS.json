@@ -1,0 +1,88 @@
+{
+  "scope_item_id": "5IS",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Financial Operations"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "01558ea970324c3391fd9551f3e02c15",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "01558ea970324c3391fd9551f3e02c15",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Purchase Order",
+        "type": "subProcess",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "J45: Material Required - Manual Process",
+        "type": "subProcess",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Accounts Payable",
+        "type": "subProcess",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "J60 Accounts Payable",
+        "type": "subProcess",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Advance return on Sales / Purchase tax",
+        "type": "subProcess",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Prepare Electronic Tax return",
+        "type": "subProcess",
+        "role": "General Ledger Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

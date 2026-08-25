@@ -1,0 +1,157 @@
+{
+  "scope_item_id": "33Q",
+  "title": "Actual Costing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close",
+      "Cost Management and Profitability Analysis"
+    ],
+    "L3_scope_item": "33Q - Actual Costing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Display Material Value Chain",
+        "fiori_app_id": "F4095",
+        "technical_transaction": "CKM3N",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_ACCOUNTANT",
+        "component": "CO-FIO-ACT"
+      },
+      {
+        "step_no": 2,
+        "name": "Display Actual Costing Result",
+        "fiori_app_id": "F6073",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_ACCOUNTANT",
+        "component": "CO-FIO-ACT"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Custom Exports - Actual Costing",
+        "fiori_app_id": "F9098",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_ACCOUNTANT",
+        "component": "CO-FIO-ACT"
+      },
+      {
+        "step_no": 4,
+        "name": "Application Log - Actual Costing",
+        "fiori_app_id": "F9243",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECON_ACCOUNTANT | SAP_BR_INVENTORY_ACCOUNTANT",
+        "component": "CO-FIO-ACT"
+      },
+      {
+        "step_no": 5,
+        "name": "Schedule Actual Costing Jobs",
+        "fiori_app_id": "F9244",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_ACCOUNTANT",
+        "component": "CO-FIO-ACT"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Material Valuations",
+        "fiori_app_id": "F2680",
+        "technical_transaction": "MR21",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_ACCOUNTANT",
+        "component": "CO-FIO-ML"
+      },
+      {
+        "step_no": 7,
+        "name": "Schedule Product Costing Jobs",
+        "fiori_app_id": "F3683",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_ACCOUNTANT | SAP_BR_MAINTENANCE_PLANNER",
+        "component": "CO-FIO-OBJ-CL"
+      },
+      {
+        "step_no": 8,
+        "name": "Actual Cost Rate Calculation - Cost Centers (New Version)",
+        "fiori_app_id": "F9080",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_PRODN_ACCOUNTANT",
+        "component": "CO-OM-ACT-F"
+      },
+      {
+        "step_no": 9,
+        "name": "Analyze Material Actual Values",
+        "fiori_app_id": "F9097",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_ACCOUNTANT",
+        "component": "CO-PC-ACT"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "bfa7c391d8d74bb2b0d380892f41c4d5",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "bfa7c391d8d74bb2b0d380892f41c4d5",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Actual Cost Rate Calculation",
+        "type": "userTask",
+        "role": "Cost Accountant - Overhead",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Optional: Post WIP Quantity Document",
+        "type": "userTask",
+        "role": "Cost Accountant - Production",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Actual Costing Ledger Run",
+        "type": "userTask",
+        "role": "Inventory Accountant",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Material Price Analyis",
+        "type": "userTask",
+        "role": "Inventory Accountant",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Display Actual Costing Result",
+        "type": "userTask",
+        "role": "Inventory Accountant",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Monitor Material Value Flow",
+        "type": "userTask",
+        "role": "Inventory Accountant",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Display Material Value Chain",
+        "type": "userTask",
+        "role": "Inventory Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

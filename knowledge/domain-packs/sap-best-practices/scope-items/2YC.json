@@ -1,0 +1,71 @@
+{
+  "scope_item_id": "2YC",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate",
+      "IT and Cross-Application"
+    ],
+    "L2_core_process": [
+      "Enterprise Information Management",
+      "Product Lifecycle Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "71fa48148bf94925b9353360314592f9",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "71fa48148bf94925b9353360314592f9",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create New Document",
+        "type": "userTask",
+        "role": "Design Engineer",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Retrieve Auto-Classification",
+        "type": "userTask",
+        "role": "Design Engineer",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Validate Auto-Classification",
+        "type": "userTask",
+        "role": "Design Engineer",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Save Document",
+        "type": "userTask",
+        "role": "Design Engineer",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

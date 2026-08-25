@@ -1,0 +1,227 @@
+{
+  "scope_item_id": "BJ2",
+  "title": "Preventive Maintenance",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Maintenance Management"
+    ],
+    "L3_scope_item": "BJ2 - Preventive Maintenance",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Find Maintenance Order",
+        "fiori_app_id": "F2175",
+        "technical_transaction": "IW39",
+        "app_type": null,
+        "role": "SAP_BR_MAINT_SUPERVISOR | SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_CHG_MGMT_COORDINATOR | SAP_BR_MAINTENANCE_TECHNICIAN | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PRODN_PLNR | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_SERVICE_MANAGER",
+        "component": "PM-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Mass Schedule Maintenance Plans",
+        "fiori_app_id": "F2774",
+        "technical_transaction": "IP30",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER",
+        "component": "PM-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Maintenance Items",
+        "fiori_app_id": "F5356",
+        "technical_transaction": "IP03",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER",
+        "component": "PM-FIO"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Maintenance Plans",
+        "fiori_app_id": "F5325",
+        "technical_transaction": "IP01",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER",
+        "component": "PM-FIO-PRM-MP"
+      },
+      {
+        "step_no": 5,
+        "name": "Perform Maintenance Jobs",
+        "fiori_app_id": "F5104A",
+        "technical_transaction": "IW41",
+        "app_type": null,
+        "role": "SAP_BR_MAINT_SUPERVISOR | SAP_BR_MAINTENANCE_TECHNICIAN",
+        "component": "PM-FIO-WOC-JC"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "4dae2323144c4041ac1a1d2dda9a5e4c",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "4dae2323144c4041ac1a1d2dda9a5e4c",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create \nGeneral Task List",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create \nGeneral Task List",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Maintain \nMaintenance Strategies",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create \nMaintenance Plan",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create \nMaintenance Plan",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Create \nGeneral Task List",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Create \nMeasurement Document",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Create \nMeasurement Document",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Create \nMaintenance Plan",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Schedule \nMaintenance Plan",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Schedule \nMaintenance Plan",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Create \nMeasurement Document",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Schedule \nMaintenance Plan",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Release Preventive Maintenance Order and Printing to Job List",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Print Job Card",
+        "type": "userTask",
+        "role": "Maintenance Technician",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Confirm Preventive Maintenance Order",
+        "type": "userTask",
+        "role": "Maintenance Technician",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Show Costs on Preventive Maintenance Order",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Create \nFollow-On Order",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Technically Complete Preventive Maintenance Order",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 20,
+        "name": "Review Document Flow of Preventive Maintenance Order",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 12,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 16,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

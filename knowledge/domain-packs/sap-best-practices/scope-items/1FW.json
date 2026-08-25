@@ -1,0 +1,128 @@
+{
+  "scope_item_id": "1FW",
+  "title": "Physical Inventory in Warehouse",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Warehousing"
+    ],
+    "L3_scope_item": "1FW - Physical Inventory in Warehouse",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Create Physical Inventory Documents",
+        "fiori_app_id": "F3197",
+        "technical_transaction": "MI01",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_INVENTORY_MANAGER",
+        "component": "MM-FIO-IM-PI"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "144579010e484d4f803dc923777c26a8",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "144579010e484d4f803dc923777c26a8",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Physical Inventory Documents for Mezzanine",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Print Physical Inventory Documents",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Count Storage Bins or Products (Outside System)",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Count Storage Bins or Products and note Results on Printout (Outside System)",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Enter Count Results in System",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Enter Count Results in System",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Post Physical Inventory Documents",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Create Recount Physical Inventory Documents",
+        "type": "serviceTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Post Physical Inventory Differences",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Monitor Recount Physical Inventory Documents (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 11,
+        "name": "Review and Post Differences with Difference Analyzer",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Mixed"
+      },
+      {
+        "seq_position": 6,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

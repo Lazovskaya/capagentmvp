@@ -1,0 +1,96 @@
+{
+  "scope_item_id": "5FS",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill",
+      "Retail"
+    ],
+    "L2_core_process": [
+      "Inventory",
+      "Retail"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "d7cfbf7dc24e491ca85ab46b2edc75ad",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "d7cfbf7dc24e491ca85ab46b2edc75ad",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Check \nOpen Physical Inventory Document",
+        "type": "userTask",
+        "role": "Inventory Manager (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Physical Inventory Documents",
+        "type": "userTask",
+        "role": "Inventory Manager (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Print Physical Inventory Documents (Only Relevant for S/4HANA Cloud System)",
+        "type": "userTask",
+        "role": "Inventory Manager (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Physical Count",
+        "type": "manualTask",
+        "role": "Warehouse Clerk (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Enter Inventory Count",
+        "type": "userTask",
+        "role": "Warehouse Clerk (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "List Count Differences",
+        "type": "userTask",
+        "role": "Inventory Manager (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Post Inventory Count Differences",
+        "type": "userTask",
+        "role": "Inventory Manager (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Recount",
+        "type": "userTask",
+        "role": "Inventory Manager (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Display Physical Inventory Document Object Page",
+        "type": "userTask",
+        "role": "Inventory Manager (Retail)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

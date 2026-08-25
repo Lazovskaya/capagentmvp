@@ -1,0 +1,65 @@
+{
+  "scope_item_id": "43Y",
+  "title": "Contract Accounting \u2013 Integration with Sales Documents",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Financial Operations"
+    ],
+    "L3_scope_item": "43Y - Contract Accounting \u2013 Integration with Sales Documents",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Electronic Documents",
+        "fiori_app_id": "F4306",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BILLING_CLERK",
+        "component": "CA-GTF-CSC-EDO-DCC"
+      },
+      {
+        "step_no": 2,
+        "name": "Reconcile SD Billing Documents",
+        "fiori_app_id": "F4866",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECONC_SPEC_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CA-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "eedcaf141d8145e7b96b7a238b444726",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "eedcaf141d8145e7b96b7a238b444726",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Sales Order",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Billing Documents",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Reconcile SD Billing Documents",
+        "type": "userTask",
+        "role": "Accounts Payable and Receivable \nAccountant (FI-CA)",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

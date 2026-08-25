@@ -1,0 +1,120 @@
+{
+  "scope_item_id": "1JI",
+  "title": "Real-Time Reporting and Monitoring for Procurement",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Supply Chain",
+    "L3_scope_item": "1JI - Real-Time Reporting and Monitoring for Procurement",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Overdue Purchase Order Items",
+        "fiori_app_id": "F0343",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER | SAP_BR_BUYER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 2,
+        "name": "Monitor Scheduling Agreement Items",
+        "fiori_app_id": "F3143",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 3,
+        "name": "Material Price Variance",
+        "fiori_app_id": "F3294",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BUYER | SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 4,
+        "name": "Monitor Central Purchase Contract Items",
+        "fiori_app_id": "F3492",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CENTRAL_PURCHASER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 5,
+        "name": "Monitor Purchase Order Items Centrally",
+        "fiori_app_id": "F3676",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CENTRAL_PURCHASER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 6,
+        "name": "Purchasing Spend Dashboard",
+        "fiori_app_id": "F4517",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER | SAP_BR_PURCHASER_RFM",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 7,
+        "name": "Supplier Invoice Inbound Automation Rate",
+        "fiori_app_id": "F4518",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER | SAP_BR_BUYER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 8,
+        "name": "Monitor Request For Quotation Items",
+        "fiori_app_id": "F2425",
+        "technical_transaction": "ME4C",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-RFQ"
+      },
+      {
+        "step_no": 9,
+        "name": "Monitor Purchase Order Items",
+        "fiori_app_id": "F2358",
+        "technical_transaction": "ME2C",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK | SAP_BR_PURCHASER | SAP_BR_INVENTORY_MANAGER",
+        "component": "MM-PUR-GF-MON"
+      },
+      {
+        "step_no": 10,
+        "name": "Monitor Supplier Confirmations",
+        "fiori_app_id": "F2359",
+        "technical_transaction": "ME2A",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-PUR-GF-MON"
+      },
+      {
+        "step_no": 11,
+        "name": "Monitor Purchase Contract Items",
+        "fiori_app_id": "F2423",
+        "technical_transaction": "ME3C",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-PUR-GF-MON"
+      },
+      {
+        "step_no": 12,
+        "name": "Procurement Overview Page",
+        "fiori_app_id": "F1990",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER | SAP_BR_BUYER",
+        "component": "MM-PUR-HBA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

@@ -1,0 +1,111 @@
+{
+  "scope_item_id": "2EL",
+  "title": "Integration of Sales with External Buyers",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": "2EL - Integration of Sales with External Buyers",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Outbound Deliveries",
+        "fiori_app_id": "F0867A",
+        "technical_transaction": "VL06G",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Sales Documents with Customer-Expected Price",
+        "fiori_app_id": "F2713",
+        "technical_transaction": "VA02",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_SOLN_BUSINESS_SPCLST",
+        "component": "SD-ANA"
+      },
+      {
+        "step_no": 3,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Customer Returns",
+        "fiori_app_id": "F1708",
+        "technical_transaction": "VA01",
+        "app_type": null,
+        "role": "SAP_BR_RETURNS_REFUND_CLERK",
+        "component": "SD-SLS-RE"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "5c2af84d47ed4ee38cc2421867fb5830",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "5c2af84d47ed4ee38cc2421867fb5830",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Display and Release Return Order (Optional)",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": true
+      },
+      {
+        "seq": 2,
+        "name": "BKP - Accelerated Customer Returns",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "BKP"
+      },
+      {
+        "seq": 3,
+        "name": "BKP - Accelerated Customer Returns",
+        "type": "subProcess",
+        "role": "Returns and Refund Clerk",
+        "optional": false,
+        "calls_scope_item": "BKP"
+      },
+      {
+        "seq": 4,
+        "name": "Create Refund Credit Request (Optional)",
+        "type": "userTask",
+        "role": "Returns and Refund Clerk",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "Create Billing Document (Optional)",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "BKP",
+        "name": "BKP - Accelerated Customer Returns",
+        "optional": false
+      }
+    ]
+  }
+}

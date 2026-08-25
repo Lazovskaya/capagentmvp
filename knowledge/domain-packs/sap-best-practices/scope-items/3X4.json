@@ -1,0 +1,172 @@
+{
+  "scope_item_id": "3X4",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "ebedb95bc32c4b46b3de4ddc9fc9609c",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "ebedb95bc32c4b46b3de4ddc9fc9609c",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "1XN - Market Rates Management - Manually via Upload",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "1S4 - Automatic Market Rates Management",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Define or Adjust Hedging Area",
+        "type": "userTask",
+        "role": "Treasury Specialist - Middle Office",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Collect and Determine Exposure Data",
+        "type": "userTask",
+        "role": "Treasury Specialist - Middle Office",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Raw Exposure",
+        "type": "userTask",
+        "role": "Treasury Specialist - Middle Office",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Take Snapshot",
+        "type": "userTask",
+        "role": "Treasury Specialist - Middle Office",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Review Net Open Exposure in Hedge Management Cockpit",
+        "type": "userTask",
+        "role": "Treasury Specialist - Middle Office",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Agree on Hedging Instrument",
+        "type": "userTask",
+        "role": "Treasury Specialist - Middle Office",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Check Limit Utilization Report",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Create Foreign Exchange Contract with Hedging Classification",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Automatic Designation (Planned)",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Set Contract Settlement Status with Incoming Confirmation",
+        "type": "subProcess",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Release Hedging Relationship",
+        "type": "subProcess",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Calculate NPV of Hedging Instrument and Hypothetical Derivative",
+        "type": "subProcess",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Run Key Date Valuation",
+        "type": "subProcess",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Run Classification",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Process Dedesignation for Hedging Business Transaction at Maturity Date for Hedging Instrument",
+        "type": "userTask",
+        "role": "Treasury Specialist - Back Office",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Reclassify Hedging Reserve and Cost of Hedging Reserve at Exposure Subitem End Date",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Display Treasury Position Flows",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 20,
+        "name": "Display Treasury Posting Journal",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 21,
+        "name": "Display Treasury Position Values",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

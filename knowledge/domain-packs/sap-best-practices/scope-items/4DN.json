@@ -1,0 +1,90 @@
+{
+  "scope_item_id": "4DN",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Manufacturing Operations"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "8a97a7169d63421492ae40eae66adfd9",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "8a97a7169d63421492ae40eae66adfd9",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Release Shop Floor Order",
+        "type": "userTask",
+        "role": "Production Supervisor",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Read Work Instructions",
+        "type": "userTask",
+        "role": "Production Operator",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Report Goods Issue Consumption",
+        "type": "userTask",
+        "role": "Production Operator",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Report Yield/Scrap",
+        "type": "userTask",
+        "role": "Production Operator",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Report Activities",
+        "type": "userTask",
+        "role": "Production Operator",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Report Data Collection",
+        "type": "userTask",
+        "role": "Production Operator",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Report Goods Receipt",
+        "type": "userTask",
+        "role": "Production Operator",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

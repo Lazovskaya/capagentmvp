@@ -1,0 +1,202 @@
+{
+  "scope_item_id": "1S2",
+  "title": "Digital Payments",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Financial Operations"
+    ],
+    "L3_scope_item": "1S2 - Digital Payments",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Automatic Payments",
+        "fiori_app_id": "F0770",
+        "technical_transaction": "FBZ8",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-PAY"
+      },
+      {
+        "step_no": 2,
+        "name": "Assign Open Items",
+        "fiori_app_id": "F2626",
+        "technical_transaction": "FB15",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT",
+        "component": "FI-FIO-AR"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Customer Line Items",
+        "fiori_app_id": "F0711",
+        "technical_transaction": "FBL5",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT",
+        "component": "FI-FIO-AR-IS"
+      },
+      {
+        "step_no": 4,
+        "name": "Schedule Accounts Receivable Jobs",
+        "fiori_app_id": "F2366",
+        "technical_transaction": "FCC1",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT",
+        "component": "FI-FIO-AR-IS"
+      },
+      {
+        "step_no": 5,
+        "name": "Display Payment Card Data",
+        "fiori_app_id": "F2935",
+        "technical_transaction": "FB03",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT",
+        "component": "FI-FIO-AR-PAY"
+      },
+      {
+        "step_no": 6,
+        "name": "Schedule General Ledger Jobs",
+        "fiori_app_id": "F1927",
+        "technical_transaction": "FINS_FXV",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-PER"
+      },
+      {
+        "step_no": 7,
+        "name": "Create Refunds for Digital Payments",
+        "fiori_app_id": "F7326",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT",
+        "component": "FIN-FSCM-DP-DP"
+      },
+      {
+        "step_no": 8,
+        "name": "Application Jobs - Public Sector",
+        "fiori_app_id": "F4519",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BUDGET_SPECIALIST",
+        "component": "PSM-FM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "9106665854ad43c6a068951574ef7860",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "9106665854ad43c6a068951574ef7860",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "1Z1 - SAP Digital \nPayments Add-on - Sales",
+        "type": "callActivity",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "1Z1"
+      },
+      {
+        "seq": 2,
+        "name": "2BI - Payment Credit Card",
+        "type": "subProcess",
+        "role": "Administrator - Accounts Payable and Receivable (FI-CA)",
+        "optional": false,
+        "calls_scope_item": "2BI"
+      },
+      {
+        "seq": 3,
+        "name": "Create a Billing Document",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Schedule AR Jobs - Credit Card Settlement",
+        "type": "serviceTask",
+        "role": "Accounts Receivable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Schedule AR Jobs - SAP Digital Payments: Advice Processing",
+        "type": "serviceTask",
+        "role": "Accounts Receivable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Schedule GL Jobs - Automatic Clearing Job",
+        "type": "serviceTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "BFB - Cash Operations - Standard",
+        "type": "callActivity",
+        "role": "Cash Management Specialist for USA",
+        "optional": false,
+        "calls_scope_item": "BFB"
+      },
+      {
+        "seq": 8,
+        "name": "J58 - Accounting and Financial Close",
+        "type": "subProcess",
+        "role": "General Ledger Accountant",
+        "optional": false,
+        "calls_scope_item": "J58"
+      },
+      {
+        "seq": 9,
+        "name": "Display Payment Card Data",
+        "type": "userTask",
+        "role": "Accounts Receivable Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "1Z1",
+        "name": "1Z1 - SAP Digital \nPayments Add-on - Sales",
+        "optional": false
+      },
+      {
+        "scope_item_id": "2BI",
+        "name": "2BI - Payment Credit Card",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BFB",
+        "name": "BFB - Cash Operations - Standard",
+        "optional": false
+      },
+      {
+        "scope_item_id": "J58",
+        "name": "J58 - Accounting and Financial Close",
+        "optional": false
+      }
+    ]
+  }
+}

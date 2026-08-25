@@ -1,0 +1,165 @@
+{
+  "scope_item_id": "1YI",
+  "title": "Intercompany Process for Debt and Investment Mgmt",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": "1YI - Intercompany Process for Debt and Investment Mgmt",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Cash Flow Analyzer",
+        "fiori_app_id": "F2332",
+        "technical_transaction": "FF7AN",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP-CP"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "e372a39cf722473fa1240bffea18b7cf",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "e372a39cf722473fa1240bffea18b7cf",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Analyze Cash Position",
+        "type": "manualTask",
+        "role": "Cash Manager (Treasury Center)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "J78 - Advanced Cash Operations",
+        "type": "subProcess",
+        "role": "Cash Manager (Treasury Center)",
+        "optional": false,
+        "calls_scope_item": "J78"
+      },
+      {
+        "seq": 3,
+        "name": "BFB - Basic Cash Operations",
+        "type": "subProcess",
+        "role": "Cash Manager (Treasury Center)",
+        "optional": false,
+        "calls_scope_item": "BFB"
+      },
+      {
+        "seq": 4,
+        "name": "Help to promote loan deal",
+        "type": "manualTask",
+        "role": "Cash Manager (Treasury Center)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Determine Interest Rates",
+        "type": "manualTask",
+        "role": "Treasury Specialist - Front Office (Treasury Center)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Agree the loan contract",
+        "type": "manualTask",
+        "role": "Treasury Specialist - Front Office (Borrowing Company)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Agree the loan contract",
+        "type": "manualTask",
+        "role": "Treasury Specialist - Front Office (Lending Company)",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Create loan contract",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office (Lending Company)",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Generate mirror deal",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "1WV - Debt and Investment Management",
+        "type": "subProcess",
+        "role": "Treasury Specialist - Front Office (Lending Company)",
+        "optional": false,
+        "calls_scope_item": "1WV"
+      },
+      {
+        "seq": 11,
+        "name": "Check Mirror Deal",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office (Borrowing Company)",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "1WV - Debt and Investment Management",
+        "type": "subProcess",
+        "role": "Treasury Specialist - Front Office (Borrowing Company)",
+        "optional": false,
+        "calls_scope_item": "1WV"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 7,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "J78",
+        "name": "J78 - Advanced Cash Operations",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BFB",
+        "name": "BFB - Basic Cash Operations",
+        "optional": false
+      },
+      {
+        "scope_item_id": "1WV",
+        "name": "1WV - Debt and Investment Management",
+        "optional": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "scope_item_id": "2VL",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Warehousing"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "a9e99cc0b7ea445ab7aa80312a76adf4",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "a9e99cc0b7ea445ab7aa80312a76adf4",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Stock Transport Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Replenishment Delivery for Stock Transport Order",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

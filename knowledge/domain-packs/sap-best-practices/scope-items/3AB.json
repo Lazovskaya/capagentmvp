@@ -1,0 +1,89 @@
+{
+  "scope_item_id": "3AB",
+  "title": "Automated Provisioning via SAP Cloud Identity Access Governance",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Enterprise Risk and Compliance"
+    ],
+    "L3_scope_item": "3AB - Automated Provisioning via SAP Cloud Identity Access Governance",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Maintain Business Users",
+        "fiori_app_id": "F1303",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APPL_SUP_ENG_DEV_SUP | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_SYSTEM_AUDITOR | SAP_BR_ADMINISTRATOR",
+        "component": "BC-SRV-APS-IAM"
+      },
+      {
+        "step_no": 2,
+        "name": "Maintain Deleted Business Users",
+        "fiori_app_id": "F4347",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR",
+        "component": "BC-SRV-APS-IAM"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Workforce V2",
+        "fiori_app_id": "F6097A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR | SAP_BR_ADMINISTRATOR_HRINFO",
+        "component": "CA-GTF-BUM"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Service Level Agreements V2",
+        "fiori_app_id": "F6183A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PAYMENT_SPECIALIST",
+        "component": "FIN-FSCM-PF"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "60f79920492542eeb912e30b6c2f4f59",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "60f79920492542eeb912e30b6c2f4f59",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Business User",
+        "type": "serviceTask",
+        "role": "System Administrator",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Employee and Business Partner",
+        "type": "serviceTask",
+        "role": "System Administrator",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "User authorizations maintained",
+        "type": "serviceTask",
+        "role": "System Administrator",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

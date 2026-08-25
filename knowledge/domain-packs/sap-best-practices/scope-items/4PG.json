@@ -1,0 +1,82 @@
+{
+  "scope_item_id": "4PG",
+  "title": "Organizational Flexibility in Financial Accounting",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close"
+    ],
+    "L3_scope_item": "4PG - Organizational Flexibility in Financial Accounting",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Where-Used List - Profit Centers",
+        "fiori_app_id": "F3751",
+        "technical_transaction": "1KE4",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_DIVISION_ACCOUNTANT",
+        "component": "CO-FIO-PCA-MD"
+      },
+      {
+        "step_no": 2,
+        "name": "Display Line Items in General Ledger",
+        "fiori_app_id": "F2217",
+        "technical_transaction": "FAGLL03",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_TREASURY_SPECIALIST_FOE | SAP_BR_DIVISION_ACCOUNTANT | SAP_BR_TREASURY_SPECIALIST_MOE",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Organizational Changes",
+        "fiori_app_id": "F4567",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DIVISION_ACCOUNTANT",
+        "component": "FI-GL-OC"
+      },
+      {
+        "step_no": 4,
+        "name": "Organizational Change Report \u2013 Master Data",
+        "fiori_app_id": "F4868",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DIVISION_ACCOUNTANT",
+        "component": "FI-GL-OC"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "693a39873c1f4e98b15feaeb123e83fb",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "693a39873c1f4e98b15feaeb123e83fb",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Define Extension Ledger for Simulation",
+        "type": "userTask",
+        "role": "Configuration Expert",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Custom Fields and Logic - Develop",
+        "type": "userTask",
+        "role": "Analytics Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

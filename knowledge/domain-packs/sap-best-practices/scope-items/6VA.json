@@ -1,0 +1,48 @@
+{
+  "scope_item_id": "6VA",
+  "title": "Field Logistics Analytics",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Industry - Oil",
+    "L3_scope_item": "6VA - Field Logistics Analytics",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Logistics Tracking",
+        "fiori_app_id": "F7382",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SC_ANALYST_IOG",
+        "component": "CA-FL-MT"
+      },
+      {
+        "step_no": 2,
+        "name": "Initiate Returns - By product",
+        "fiori_app_id": "F4252",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_IOG",
+        "component": "CA-FL-RET"
+      },
+      {
+        "step_no": 3,
+        "name": "Process Cross-Plant Receipts",
+        "fiori_app_id": "F4713",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_IOG",
+        "component": "CA-FL-RET"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Logistics - Supplier Items",
+        "fiori_app_id": "F5082",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SC_ANALYST_IOG | SAP_BR_RCVG_SPECIALIST_IOG",
+        "component": "CA-FL-SRV"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

@@ -1,0 +1,39 @@
+{
+  "scope_item_id": "2U6",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Accounting and Financial Close"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "bb0756f4349b4aabb492030dd311331e",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "bb0756f4349b4aabb492030dd311331e",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Check Exposed Service",
+        "type": "userTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Validate Exposed Information (Optional)",
+        "type": "userTask",
+        "role": "System",
+        "optional": true
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

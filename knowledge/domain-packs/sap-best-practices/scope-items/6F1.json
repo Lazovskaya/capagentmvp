@@ -1,0 +1,96 @@
+{
+  "scope_item_id": "6F1",
+  "title": "Recurring Services with Advanced Execution",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Service"
+    ],
+    "L2_core_process": [
+      "Service Master Data and Agreement Management",
+      "Service Operations and Processes"
+    ],
+    "L3_scope_item": "6F1 - Recurring Services with Advanced Execution",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Service Contracts",
+        "fiori_app_id": "F3763",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SERVICE_MANAGER",
+        "component": "CRM-S4-SRV-CTR"
+      },
+      {
+        "step_no": 2,
+        "name": "Mass Schedule Maintenance Plans - Service",
+        "fiori_app_id": "F4929",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SERVICE_MANAGER",
+        "component": "CRM-S4-SRV-MNP"
+      },
+      {
+        "step_no": 3,
+        "name": "Monitor Mass Scheduling Logs - Service",
+        "fiori_app_id": "F4930",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SERVICE_MANAGER",
+        "component": "CRM-S4-SRV-MNP"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "d8f255bcaa974a35ab9ba5a32683a5d9",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "d8f255bcaa974a35ab9ba5a32683a5d9",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "426 - Service Contract Management",
+        "type": "subProcess",
+        "role": "Customer Service Manager",
+        "optional": false,
+        "calls_scope_item": "426"
+      },
+      {
+        "seq": 2,
+        "name": "6AU Corrective Maintenance Process",
+        "type": "subProcess",
+        "role": "Service Technician - Customer Service",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "parallelGateway",
+        "direction": "Mixed"
+      },
+      {
+        "seq_position": 1,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "426",
+        "name": "426 - Service Contract Management",
+        "optional": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "scope_item_id": "2HU",
+  "title": "Intercompany Foreign Exchange \u2013 Group Ledger IFRS",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": "2HU - Intercompany Foreign Exchange \u2013 Group Ledger IFRS",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Cash Flow Analyzer",
+        "fiori_app_id": "F2332",
+        "technical_transaction": "FF7AN",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP-CP"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "9a031da3c9024010ac70a4ba430394fa",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "9a031da3c9024010ac70a4ba430394fa",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "(2F2) Intercompany Process for Foreign Exchange",
+        "type": "subProcess",
+        "role": "Treasury Accountant (Selling Company)",
+        "optional": false,
+        "calls_scope_item": "2F2"
+      },
+      {
+        "seq": 2,
+        "name": "(2F2) Intercompany process Foreign Currency",
+        "type": "subProcess",
+        "role": "Treasury Accountant (Buying Company)",
+        "optional": false,
+        "calls_scope_item": "2F2"
+      },
+      {
+        "seq": 3,
+        "name": "(1X9) Foreign Currency Risk Management - Parallel Ledger",
+        "type": "subProcess",
+        "role": "Treasury Accountant (Selling Company)",
+        "optional": false,
+        "calls_scope_item": "1X9"
+      },
+      {
+        "seq": 4,
+        "name": "(1X9) Foreign Currency Risk Management - Group Ledger IFRS",
+        "type": "subProcess",
+        "role": "Treasury Accountant (Buying Company)",
+        "optional": false,
+        "calls_scope_item": "1X9"
+      }
+    ],
+    "gateways": [],
+    "dependencies": [
+      {
+        "scope_item_id": "2F2",
+        "name": "(2F2) Intercompany Process for Foreign Exchange",
+        "optional": false
+      },
+      {
+        "scope_item_id": "1X9",
+        "name": "(1X9) Foreign Currency Risk Management - Parallel Ledger",
+        "optional": false
+      }
+    ]
+  }
+}

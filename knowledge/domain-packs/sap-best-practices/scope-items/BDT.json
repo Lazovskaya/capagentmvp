@@ -1,0 +1,240 @@
+{
+  "scope_item_id": "BDT",
+  "title": "Intrastat Processing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Enterprise Risk and Compliance"
+    ],
+    "L3_scope_item": "BDT - Intrastat Processing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Classify Products - Commodity Codes",
+        "fiori_app_id": "F2151",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CLS_SPECIALIST",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 2,
+        "name": "Reclassify Products - Commodity Codes",
+        "fiori_app_id": "F2152",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CLS_SPECIALIST",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 3,
+        "name": "Classify Products - Intrastat Service Codes",
+        "fiori_app_id": "F2156",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CLS_SPECIALIST",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Commodity Codes",
+        "fiori_app_id": "F2516",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CLS_SPECIALIST",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Intrastat Service Codes",
+        "fiori_app_id": "F2517",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CLS_SPECIALIST",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 6,
+        "name": "Display Classified Products - International Trade",
+        "fiori_app_id": "F3789",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CLS_SPECIALIST",
+        "component": "FT-ITR-CLS"
+      },
+      {
+        "step_no": 7,
+        "name": "Select Dispatches and Customer Returns - Intrastat Declaration",
+        "fiori_app_id": "F2507",
+        "technical_transaction": "VE01",
+        "app_type": null,
+        "role": "SAP_BR_INTRASTAT_SPECIALIST",
+        "component": "FT-ITR-ISR"
+      },
+      {
+        "step_no": 8,
+        "name": "Select Receipts and Returns to Supplier - Intrastat Declaration",
+        "fiori_app_id": "F2508",
+        "technical_transaction": "MEIS",
+        "app_type": null,
+        "role": "SAP_BR_INTRASTAT_SPECIALIST",
+        "component": "FT-ITR-ISR"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "3d59ab79501a47628d481390d423c12d",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "3d59ab79501a47628d481390d423c12d",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Manage \nCommodity Codes",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Person Responsible for International Trade",
+        "type": "userTask",
+        "role": "Master Data Specialist - Business Partner Data",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Manage Providers of Information",
+        "type": "userTask",
+        "role": "Intrastat Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Classify Products Commodity Codes",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Intrastat Declarations Automatically (Background Job)",
+        "type": "serviceTask",
+        "role": "Intrastat Specialist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Create Intrastat Declarations Manually",
+        "type": "userTask",
+        "role": "Intrastat Specialist",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Reclassify Products Commodity Codes (Optional)",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": true
+      },
+      {
+        "seq": 8,
+        "name": "Display Intrastat Declarations",
+        "type": "userTask",
+        "role": "Intrastat Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Display Classified Products",
+        "type": "userTask",
+        "role": "Trade Classification Specialist",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Change Intrastat Declaration Item (Optional)",
+        "type": "userTask",
+        "role": "Intrastat Specialist",
+        "optional": true
+      },
+      {
+        "seq": 11,
+        "name": "Release Intrastat Declarations and Create Declaration File",
+        "type": "userTask",
+        "role": "Intrastat Specialist",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Add Intrastat Declaration Item for Existing Declarations (Optional)",
+        "type": "userTask",
+        "role": "Intrastat Specialist",
+        "optional": true
+      },
+      {
+        "seq": 13,
+        "name": "Cancel Release Intrastat Declarations (Optional)",
+        "type": "userTask",
+        "role": "Intrastat Specialist",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 12,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 12,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

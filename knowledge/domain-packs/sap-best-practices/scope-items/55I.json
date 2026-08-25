@@ -1,0 +1,117 @@
+{
+  "scope_item_id": "55I",
+  "title": "Royalties Settlement for Sales",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Financial Operations"
+    ],
+    "L3_scope_item": "55I - Royalties Settlement for Sales",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Inbox",
+        "fiori_app_id": "F0862",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER",
+        "component": "CA-INB-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Settlement Documents",
+        "fiori_app_id": "F3254",
+        "technical_transaction": "WB2R_AB_DOCS",
+        "app_type": null,
+        "role": "SAP_BR_SETL_CLERK_ROYALTIES | SAP_BR_SETL_CLERK_COMMSN | SAP_BR_BILLING_CLERK | SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_SET_CLERK",
+        "component": "LO-AB"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Scheduling Worklists - Settlement Management",
+        "fiori_app_id": "F5856",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CONTRACT_MANAGER_CCM | SAP_BR_SET_CLERK | SAP_BR_SETL_CLERK_COMMSN",
+        "component": "LO-AB"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Condition Contracts - Royalties",
+        "fiori_app_id": "F5414",
+        "technical_transaction": "WCOCOALL",
+        "app_type": null,
+        "role": "SAP_BR_SETL_CLERK_ROYALTIES | SAP_BR_CONTRACT_MANAGER_CCM | SAP_BR_CONTR_MGR_ROYALTIES",
+        "component": "LO-GT-CHB"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "a65b3b68c70b4eb3aaaf9fcb81c9678e",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "a65b3b68c70b4eb3aaaf9fcb81c9678e",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Condition Contract for a Licenser as Contract Partner",
+        "type": "userTask",
+        "role": "Contract Manager - Royalties",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Check Business Volume (Optional)",
+        "type": "userTask",
+        "role": "Settlement Clerk - Royalties",
+        "optional": true
+      },
+      {
+        "seq": 3,
+        "name": "BD9 - Sell from Stock",
+        "type": "subProcess",
+        "role": "Contract Manager - Royalties",
+        "optional": false,
+        "calls_scope_item": "BD9"
+      },
+      {
+        "seq": 4,
+        "name": "Post Accruals (Optional)",
+        "type": "userTask",
+        "role": "Settlement Clerk - Royalties",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "Partial Settlement with Reversal of Accruals (Optional)",
+        "type": "userTask",
+        "role": "Settlement Clerk - Royalties",
+        "optional": true
+      },
+      {
+        "seq": 6,
+        "name": "Final Settlement with Reversal of Accruals",
+        "type": "userTask",
+        "role": "Settlement Clerk - Royalties",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "BD9",
+        "name": "BD9 - Sell from Stock",
+        "optional": false
+      }
+    ]
+  }
+}

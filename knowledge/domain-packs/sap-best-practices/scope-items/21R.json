@@ -1,0 +1,162 @@
+{
+  "scope_item_id": "21R",
+  "title": "Service Contract",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Accounting and Financial Close",
+      "Real Estate Management"
+    ],
+    "L3_scope_item": "21R - Service Contract",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Contract Management",
+        "fiori_app_id": "F5273",
+        "technical_transaction": "RECN",
+        "app_type": null,
+        "role": "SAP_BR_RECM_AR_ACCOUNTANT | SAP_BR_RECM_SPECIALIST | SAP_BR_RECM_VALSPECIALIST | SAP_BR_RECM_AP_ACCOUNTANT",
+        "component": "RE-FX-CN"
+      },
+      {
+        "step_no": 2,
+        "name": "Create Adjustment Letters",
+        "fiori_app_id": "F7435",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECM_SPECIALIST",
+        "component": "RE-FX-CP"
+      },
+      {
+        "step_no": 3,
+        "name": "Contract and Lease Management Dashboard",
+        "fiori_app_id": "F4555",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECM_SPECIALIST | SAP_BR_RECM_VALSPECIALIST",
+        "component": "RE-FX-FIO"
+      },
+      {
+        "step_no": 4,
+        "name": "Contract and Lease Cashflow Dashboard",
+        "fiori_app_id": "F5379",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECM_AP_ACCOUNTANT | SAP_BR_RECM_AR_ACCOUNTANT | SAP_BR_RECM_VALSPECIALIST",
+        "component": "RE-FX-FIO"
+      },
+      {
+        "step_no": 5,
+        "name": "Periodic Posting - Background Job",
+        "fiori_app_id": "F4607",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECM_AP_ACCOUNTANT | SAP_BR_RECM_AR_ACCOUNTANT",
+        "component": "RE-FX-RA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "63e9280f62a84528ab11e12f2de214d2",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "63e9280f62a84528ab11e12f2de214d2",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Change General Data",
+        "type": "userTask",
+        "role": "Contract Manager",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Assign other business partner",
+        "type": "userTask",
+        "role": "Contract Manager",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Maintain Terms",
+        "type": "userTask",
+        "role": "Contract Manager",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Maintain contract objects",
+        "type": "userTask",
+        "role": "Contract Manager",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Maintain contract conditions",
+        "type": "userTask",
+        "role": "Contract Manager",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Maintain notice, renewal options",
+        "type": "userTask",
+        "role": "Contract Manager",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Maintain Critical dates and reminders for contracts",
+        "type": "userTask",
+        "role": "Contract Manager",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Link contract documents",
+        "type": "userTask",
+        "role": "Contract Manager",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Simulate Cash Flow",
+        "type": "userTask",
+        "role": "Contract Manager",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Update Valuation",
+        "type": "userTask",
+        "role": "Contract Valuation Specialist - Leasing",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Update Valuation role, change fixed asset",
+        "type": "userTask",
+        "role": "Contract Valuation Specialist - Leasing",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Update Valuation cash flow",
+        "type": "userTask",
+        "role": "Contract Valuation Specialist - Leasing",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "scope_item_id": "21T",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Manufacturing Operations"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "e84dcae65f6d44f1b8adc5c4ec0fd2ae",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "e84dcae65f6d44f1b8adc5c4ec0fd2ae",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Material Staging into Production Storage Location",
+        "type": "userTask",
+        "role": "Production Operator - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Pick Components for Production (BJE)",
+        "type": "userTask",
+        "role": "Production Operator - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Confirm Assembly Activities (BJE)",
+        "type": "userTask",
+        "role": "Production Operator - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Post Goods Receipt for Production Order (BJE)",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Delivery (2EL)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Execute Picking",
+        "type": "subProcess",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Post Goods Issue for Delivery (2EL)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Send Advanced Shipping Notification (2EL)",
+        "type": "subProcess",
+        "role": "Shipping Specialist",
+        "optional": false,
+        "calls_scope_item": "2EL"
+      },
+      {
+        "seq": 9,
+        "name": "Create Billing Document (2EL)",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Send Invoice (2EL)",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": false,
+        "calls_scope_item": "2EL"
+      }
+    ],
+    "gateways": [],
+    "dependencies": [
+      {
+        "scope_item_id": "2EL",
+        "name": "Send Advanced Shipping Notification (2EL)",
+        "optional": false
+      }
+    ]
+  }
+}

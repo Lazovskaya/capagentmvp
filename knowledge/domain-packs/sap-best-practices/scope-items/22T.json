@@ -1,0 +1,172 @@
+{
+  "scope_item_id": "22T",
+  "title": "Set Up Configurable Model using Variant Configuration",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Product Engineering",
+      "Product Lifecycle Management"
+    ],
+    "L3_scope_item": "22T - Set Up Configurable Model using Variant Configuration",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Product Master",
+        "fiori_app_id": "F1602",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_RAW_SUBST | SAP_BR_PRODN_SUPERVISOR_DISC | SAP_BR_PRODN_OPTR_RPTV | SAP_BR_PRODN_PLNR | SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_TRD_CMPLNC_SPECIALIST | SAP_BR_PRODN_SUPERVISOR_PROC | SAP_BR_EMPLOYEE_PROC_PPS | SAP_BR_TRD_CLS_SPECIALIST | SAP_BR_SALES_MANAGER | SAP_BR_CMMDTY_MD_SPECIALIST | SAP_BR_BILLING_CLERK | SAP_BR_INTRNAL_SALESREP_SOM | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_MD_SPECIALIST_PCL | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_MAINTENANCE_TECHNICIAN | SAP_BR_BATCH_MASTER_SPCLST | SAP_BR_EMPLOYEE_PROCUREMENT | SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SERVICE_MANAGER | SAP_BR_PURCHASER | SAP_BR_PRODN_ENG_DISC | SAP_BR_RETURNS_REFUND_CLERK | SAP_BR_INDUSTRIAL_HYGIENIST | SAP_BR_BUYER | SAP_BR_ADMINISTRATOR_RCP_DEV | SAP_BR_SYSTEMS_ENGINEER | SAP_BR_PRODMASTER_SPECIALIST | SAP_BR_BOM_ENGINEER | SAP_BR_DESIGN_ENGINEER | SAP_BR_ENVIRONMENTAL_MANAGER | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PRODN_ENG_PROC | SAP_BR_PRODSTWRD_SPLST_PCL | SAP_BR_ADMINISTRATOR_SLL | SAP_BR_MD_SPCLST_ITEM_RFM | SAP_BR_ORG_PLANNER | SAP_BR_SOURCING_MANAGER_PPS | SAP_BR_SOURCING_MANAGER | SAP_BR_CMMFDOF_TRADER | SAP_BR_PRODN_SUPERVISOR_RPTV | SAP_BR_PRODN_OPTR_DISC | SAP_BR_DEVELOPMENT_MANAGER_DIN | SAP_BR_INTERNAL_SALES_REP | SAP_BR_PROD_CONF_MODELR_SOM | SAP_BR_PRODN_OPTR_PROC | SAP_BR_BOM_ENG_CUST_ORDER | SAP_BR_MAINTENANCE_PLANNER",
+        "component": "LO-MD-MM"
+      },
+      {
+        "step_no": 2,
+        "name": "Simulate Configuration Models",
+        "fiori_app_id": "F2570",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODUCT_CONFIG_MODELER | SAP_BR_BOM_ENGINEER",
+        "component": "LO-VCH-FIO-SIM"
+      },
+      {
+        "step_no": 3,
+        "name": "Maintain Bill Of Material",
+        "fiori_app_id": "F1813",
+        "technical_transaction": "CS01",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_PCL | SAP_BR_ADMINISTRATOR_RCP_DEV | SAP_BR_PRODN_ENG_DISC | SAP_BR_MD_SPECIALIST_EAM | SAP_BR_PRODSTWRD_SPLST_PCL | SAP_BR_BOM_ENGINEER | SAP_BR_BOM_ENG_CUST_ORDER | SAP_BR_DESIGN_ENGINEER | SAP_BR_PRODN_ENG_PROC | SAP_BR_DEVELOPMENT_MANAGER_DIN",
+        "component": "PLM-FIO-BOM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "d723854971a84846bfaaa2b4408e7abf",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "d723854971a84846bfaaa2b4408e7abf",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Characteristic",
+        "type": "userTask",
+        "role": "Product Configuration Modeler",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Class - Class type 300: Variants",
+        "type": "userTask",
+        "role": "Product Configuration Modeler",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Assign Class to Product",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create Variant Table",
+        "type": "userTask",
+        "role": "Product Configuration Modeler",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Maintain Variant Table Content",
+        "type": "userTask",
+        "role": "Product Configuration Modeler",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Create Configuration Profile",
+        "type": "userTask",
+        "role": "Product Configuration Modeler",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Create and Assign Grouping",
+        "type": "userTask",
+        "role": "Product Configuration Modeler",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Create Constraint Net",
+        "type": "userTask",
+        "role": "Product Configuration Modeler",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Create High-Level Dependency and Simulate",
+        "type": "userTask",
+        "role": "Product Configuration Modeler",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Create Super BOM",
+        "type": "userTask",
+        "role": "Production Engineer - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Add Stock Item",
+        "type": "userTask",
+        "role": "Production Engineer - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Add Class Node Item",
+        "type": "userTask",
+        "role": "Production Engineer - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Add Low Level Dependencies",
+        "type": "userTask",
+        "role": "Production Engineer - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Simulate Single-Level Con-figurable BOM",
+        "type": "userTask",
+        "role": "Production Engineer - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "(Optional) Simulate Multi-Level Configurable BOM",
+        "type": "userTask",
+        "role": "Production Engineer - Discrete Manufacturing",
+        "optional": true
+      },
+      {
+        "seq": 16,
+        "name": "Simulate Configurable Routing",
+        "type": "userTask",
+        "role": "Production Engineer - Discrete Manufacturing",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 16,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

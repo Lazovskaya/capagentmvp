@@ -1,0 +1,155 @@
+{
+  "scope_item_id": "2XT",
+  "title": "Central Purchasing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Central Procurement"
+    ],
+    "L3_scope_item": "2XT - Central Purchasing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Inbox",
+        "fiori_app_id": "F0862",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER",
+        "component": "CA-INB-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Monitor Purchase Order Items Centrally",
+        "fiori_app_id": "F3676",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CENTRAL_PURCHASER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 3,
+        "name": "Monitor Purchase Requisition Items Centrally",
+        "fiori_app_id": "F3976",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CENTRAL_PURCHASER",
+        "component": "MM-FIO-PUR-ANA"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Central Supplier Confirmations",
+        "fiori_app_id": "F6634",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CENTRAL_PURCHASER",
+        "component": "MM-PUR-HUB-CSC"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Central Purchase Contracts",
+        "fiori_app_id": "F3144",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SOURCING_MANAGER | SAP_BR_CENTRAL_PURCHASER",
+        "component": "MM-PUR-HUB-CTR"
+      },
+      {
+        "step_no": 6,
+        "name": "Schedule Import of Purchasing Documents",
+        "fiori_app_id": "F3268",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BPC_EXPERT",
+        "component": "MM-PUR-HUB-PO"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Purchase Orders Centrally",
+        "fiori_app_id": "F3292",
+        "technical_transaction": "ME21N",
+        "app_type": null,
+        "role": "SAP_BR_CENTRAL_PURCHASER",
+        "component": "MM-PUR-HUB-PO"
+      },
+      {
+        "step_no": 8,
+        "name": "Schedule Output for Centrally Managed Purchase Orders",
+        "fiori_app_id": "F5471",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BPC_EXPERT",
+        "component": "MM-PUR-HUB-PO"
+      },
+      {
+        "step_no": 9,
+        "name": "Schedule Automation of Business Processes",
+        "fiori_app_id": "F3983",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BPC_EXPERT",
+        "component": "MM-PUR-HUB-PR"
+      },
+      {
+        "step_no": 10,
+        "name": "Manage Rules for Automation of Business Processes",
+        "fiori_app_id": "F4042",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BPC_EXPERT | SAP_BR_CONF_EXPERT_BUS_NET_INT",
+        "component": "MM-PUR-HUB-PR"
+      },
+      {
+        "step_no": 11,
+        "name": "Process Purchase Requisitions Centrally",
+        "fiori_app_id": "F3290",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CENTRAL_PURCHASER | SAP_BR_MANAGER | SAP_BR_MANAGER_PROCUREMENT",
+        "component": "MM-PUR-HUB-REQ"
+      },
+      {
+        "step_no": 12,
+        "name": "Mass Changes to Centrally Managed Purchase requisitions",
+        "fiori_app_id": "F7377",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CENTRAL_PURCHASER",
+        "component": "MM-PUR-HUB-REQ"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "da5b668ef8e944b8984492b21eebc150",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "da5b668ef8e944b8984492b21eebc150",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Central Purchase Contracts from Manage Purchase Requisitions Centrally",
+        "type": "userTask",
+        "role": "Purchaser - Central Procurement",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Add Purchase Requisiton to Central Purchase Contracts from Manage Purchase Requisitions Centrally",
+        "type": "userTask",
+        "role": "Purchaser - Central Procurement",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Check Central Purchase Contract",
+        "type": "userTask",
+        "role": "Purchaser - Central Procurement",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

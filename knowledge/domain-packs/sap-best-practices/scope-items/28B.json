@@ -1,0 +1,195 @@
+{
+  "scope_item_id": "28B",
+  "title": "Group Reporting \u2013 Plan Consolidation",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Accounting and Financial Close"
+    ],
+    "L3_scope_item": "28B - Group Reporting \u2013 Plan Consolidation",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Communication Arrangements",
+        "fiori_app_id": "F1763",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APPL_SUP_ENG_DEV_SUP | SAP_BR_CONF_EXPERT_BUS_NET_INT | SAP_BR_ADMINISTRATOR",
+        "component": "BC-SRV-APS-COM"
+      },
+      {
+        "step_no": 2,
+        "name": "Currency Exchange Rates",
+        "fiori_app_id": "F3616",
+        "technical_transaction": "OB08",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_GRP_ACCOUNTANT",
+        "component": "FI-FIO-GL-CA"
+      },
+      {
+        "step_no": 3,
+        "name": "Assign Rule Group for Balance Validation",
+        "fiori_app_id": "F8138",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_EXTERNAL_AUDITOR_GRP | SAP_BR_GL_ACCOUNTANT_GRP | SAP_BR_ADMINISTRATOR_GRP",
+        "component": "FIN-CS-BV"
+      },
+      {
+        "step_no": 4,
+        "name": "Consolidation Monitor (New)",
+        "fiori_app_id": "F7271",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GRP_ACCOUNTANT",
+        "component": "FIN-CS-COR-MON"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "ace9f695e66c46c49b1ada1d07f468c2",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "ace9f695e66c46c49b1ada1d07f468c2",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Maintain Exchange Rates",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Set global parameters",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Export SAC Data to S/4HANA using the SAC Export to S/4HANA Feature",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Data and Consolidation Monitor",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Data Preparation by Copying Totals Records 12/2015 from Y10 to Y11",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Copy Totals Records 01-03/2016 from Y10 to YB2",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Copy Totals Records Periods 01-02/2016 from Y10 to YF2",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Execute the Data and Consolidation Monitor",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Flexible Upload of Subsequent Period Reported Financial Data First Year in One Step as Multiperiod Loading (04-12/2016)",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Load Reported Financial Data 03-12/2016 in YF2",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Check Comparison Report (Optional)",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": true
+      },
+      {
+        "seq": 12,
+        "name": "Data and Consolidation Monitor as of 04-12/2016",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Data and Consolidation Monitor in 01-12/2016",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Data and Consolidation Monitor 12/2017 (Flexible Upload of Reported Financial Data Second Year)",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Data and Consolidation Monitor 12/2018 (Flexible Upload of Reported Financial Data Third Year)",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Data and Consolidation Monitor 12/2019 (Flexible Upload of Reported Financial Data Forth Year)",
+        "type": "userTask",
+        "role": "Consolidation Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 7,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

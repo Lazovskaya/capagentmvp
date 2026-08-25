@@ -1,0 +1,224 @@
+{
+  "scope_item_id": "BKK",
+  "title": "Sales Order Fulfillment Monitoring and Operations",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": "BKK - Sales Order Fulfillment Monitoring and Operations",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Analyze Delivery Logs",
+        "fiori_app_id": "F0870A",
+        "technical_transaction": "V_SA",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "List Incomplete Sales Documents",
+        "fiori_app_id": "F2430",
+        "technical_transaction": "V.02",
+        "app_type": null,
+        "role": "SAP_BR_SALES_MANAGER | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-ANA"
+      },
+      {
+        "step_no": 3,
+        "name": "Schedule Billing Release",
+        "fiori_app_id": "F1518",
+        "technical_transaction": "VFX3",
+        "app_type": null,
+        "role": "SAP_BR_BILLING_CLERK",
+        "component": "SD-BIL"
+      },
+      {
+        "step_no": 4,
+        "name": "Schedule Billing Creation",
+        "fiori_app_id": "F1519",
+        "technical_transaction": "VF06",
+        "app_type": null,
+        "role": "SAP_BR_BILLING_CLERK",
+        "component": "SD-BIL"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Billing Documents",
+        "fiori_app_id": "F0797",
+        "technical_transaction": "VF02",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_TRANSPRT_MNGR_LMD | SAP_BR_BILLING_CLERK | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_ADMINISTRATOR_RFM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 6,
+        "name": "Sales Order Fulfillment Issues (Version 2)",
+        "fiori_app_id": "F0029A",
+        "technical_transaction": "V.00",
+        "app_type": null,
+        "role": "SAP_BR_SALES_MANAGER | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-FIO-HBA"
+      },
+      {
+        "step_no": 7,
+        "name": "Track Sales Orders (S/4HANA)",
+        "fiori_app_id": "F2577",
+        "technical_transaction": "VA03",
+        "app_type": null,
+        "role": "SAP_BR_SALES_MANAGER | SAP_BR_INTERNAL_SALES_REP | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM",
+        "component": "SD-FIO-HBA"
+      },
+      {
+        "step_no": 8,
+        "name": "Mass Change of Sales Documents",
+        "fiori_app_id": "F5091",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS-MCC"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "e639ff2f56e34590b2a3fed6bae3acc7",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "e639ff2f56e34590b2a3fed6bae3acc7",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Track Sales Order",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "List Incomplete Sales Inquiries",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Review Sales Orders Due for Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Review Billing Due List",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Review Duplicate Sales Documents",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "List Incomplete Sales Quotations",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Review Log of Delivery Creation",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Review Log of Collective Invoice Creation",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Review Sales Order Fulfillment Issues",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "List Incomplete Sales Documents",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Review Outbound Deliveries for Goods Issue",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Review List of Blocked Billing Documents (for Accounting)",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Review Sales Documents Blocked for Credit",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "List Incomplete Sales Contracts",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Review Schedule Billing Release for Accounting",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Review Incomplete Sales Orders",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Review Sales Documents Blocked for Delivery",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Review Sales Documents Blocked for Billing",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

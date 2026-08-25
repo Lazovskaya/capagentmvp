@@ -1,0 +1,21 @@
+{
+  "scope_item_id": "81Y",
+  "title": "SAP Ariba Buying Procurement Expansion Package",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Sourcing and Procurement",
+    "L3_scope_item": "81Y - SAP Ariba Buying Procurement Expansion Package",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Inbox for Legal Contract",
+        "fiori_app_id": "F5331",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_LEGAL_COUNSEL | SAP_BR_EMPLOYEE_LEGAL_CONTENT | SAP_BR_ADMINISTRATOR_LCM",
+        "component": "CM-GF"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

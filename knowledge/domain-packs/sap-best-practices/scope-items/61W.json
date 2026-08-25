@@ -1,0 +1,171 @@
+{
+  "scope_item_id": "61W",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate",
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close",
+      "Cost Management and Profitability Analysis",
+      "Production Engineering"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "2fda422f9aee4a709a11c4c7466a186f",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "2fda422f9aee4a709a11c4c7466a186f",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Change Master",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Changes of Info Record Condition",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Enter Future Prices",
+        "type": "userTask",
+        "role": "Inventory Accountant",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Change Material Costs",
+        "type": "userTask",
+        "role": "Inventory Accountant",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Exchange a Component in the Material BOM",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Release Planned Price Change",
+        "type": "userTask",
+        "role": "Inventory Accountant",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Set Change Master Status to Inactive",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Create Costing Run",
+        "type": "userTask",
+        "role": "Inventory Accountant",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Manually Create Production Order (Optional)",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing",
+        "optional": true
+      },
+      {
+        "seq": 10,
+        "name": "Execute Costing Run",
+        "type": "userTask",
+        "role": "Inventory Accountant",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Material Price Analysis",
+        "type": "userTask",
+        "role": "Inventory Accountant",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Execute Costing Run Comparison",
+        "type": "userTask",
+        "role": "Inventory Accountant",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Create Change Master (Optional)",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": true
+      },
+      {
+        "seq": 14,
+        "name": "Change to Original Component in the Material BOM (Optional)",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": true
+      },
+      {
+        "seq": 15,
+        "name": "Set Change Master Status to Inactive (Optional)",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": true
+      },
+      {
+        "seq": 16,
+        "name": "Manually Create Production Order (Optional)",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 10,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 12,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

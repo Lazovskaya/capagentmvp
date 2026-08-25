@@ -1,0 +1,30 @@
+{
+  "scope_item_id": "6W1",
+  "title": "External Transportation Planning",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Supply Chain",
+    "L3_scope_item": "6W1 - External Transportation Planning",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Freight Orders",
+        "fiori_app_id": "F3635",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DISPATCHER",
+        "component": "TM-FRM-FRO"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Freight Units",
+        "fiori_app_id": "F3637",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DISPATCHER",
+        "component": "TM-PLN-FU"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

@@ -1,0 +1,98 @@
+{
+  "scope_item_id": "1N3",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "IT and Cross-Application"
+    ],
+    "L2_core_process": [
+      "Enterprise Information Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "33a64512c4c442f18d9198ad92b604a6",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "33a64512c4c442f18d9198ad92b604a6",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Import Source Data",
+        "type": "serviceTask",
+        "role": "Master Data Specialist - Business Partner Data",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Initial Check",
+        "type": "userTask",
+        "role": "Master Data Specialist - Business Partner Data",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Execute Matching Step",
+        "type": "serviceTask",
+        "role": "Master Data Specialist - Business Partner Data",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Best Record Calculation",
+        "type": "serviceTask",
+        "role": "Master Data Specialist - Business Partner Data",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Validation",
+        "type": "serviceTask",
+        "role": "Master Data Specialist - Business Partner Data",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Activation",
+        "type": "serviceTask",
+        "role": "Master Data Specialist - Business Partner Data",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "scope_item_id": "1WE",
+  "title": "Restricted Party Screening with SAP Watch List Screening",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Enterprise Risk and Compliance"
+    ],
+    "L3_scope_item": "1WE - Restricted Party Screening with SAP Watch List Screening",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Business Partner Screening \u2013 Watch List Screening",
+        "fiori_app_id": "F8016",
+        "technical_transaction": "/SAPSLL/WLS_POSTPRO",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_SLL",
+        "component": "FT-INT-SCR"
+      },
+      {
+        "step_no": 2,
+        "name": "Schedule Postprocessing - Watch List Screening",
+        "fiori_app_id": "F3052",
+        "technical_transaction": "/SAPSLL/WLS_POSTPRO",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_SLL",
+        "component": "FT-ITR-TRC"
+      },
+      {
+        "step_no": 3,
+        "name": "Create Outbound Deliveries - From Sales Orders",
+        "fiori_app_id": "F0869A",
+        "technical_transaction": "VL10A",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Scheduling Agreement",
+        "fiori_app_id": "F2179",
+        "technical_transaction": "ME31L",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST | SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-SQ-SCH"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "0425c94a8ee34259a298eec60dd98929",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "0425c94a8ee34259a298eec60dd98929",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Schedule Postprocessing for SAP Watchlist Screening Integration",
+        "type": "userTask",
+        "role": "Configuration Expert - Business Network Integration",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Sales Order with Sanctioned Destination",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create Purchase Order with Sanctioned Address",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Delivery while decision pending (Optional)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "scope_item_id": "34O",
+  "title": "Lease-Out for Sublease Accounting \u2013 Group Ledger US GAAP",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Accounting and Financial Close",
+      "Real Estate Management"
+    ],
+    "L3_scope_item": "34O - Lease-Out for Sublease Accounting \u2013 Group Ledger US GAAP",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Generic Rental Object Check",
+        "fiori_app_id": "F7963",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RE_ADMINISTRATOR | SAP_BR_RECM_ADMINISTRATOR",
+        "component": "RE-FX-BD"
+      },
+      {
+        "step_no": 2,
+        "name": "Create Adjustment Letters",
+        "fiori_app_id": "F7435",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECM_SPECIALIST",
+        "component": "RE-FX-CP"
+      },
+      {
+        "step_no": 3,
+        "name": "Schedule Invoice Output Request",
+        "fiori_app_id": "F7932",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECM_AR_ACCOUNTANT",
+        "component": "RE-FX-CP"
+      },
+      {
+        "step_no": 4,
+        "name": "Contract and Lease Management Dashboard",
+        "fiori_app_id": "F4555",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECM_SPECIALIST | SAP_BR_RECM_VALSPECIALIST",
+        "component": "RE-FX-FIO"
+      },
+      {
+        "step_no": 5,
+        "name": "Contract and Lease Cashflow Dashboard",
+        "fiori_app_id": "F5379",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECM_AP_ACCOUNTANT | SAP_BR_RECM_AR_ACCOUNTANT | SAP_BR_RECM_VALSPECIALIST",
+        "component": "RE-FX-FIO"
+      },
+      {
+        "step_no": 6,
+        "name": "Periodic Valuation Posting - Background Job",
+        "fiori_app_id": "F4608",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECM_VALSPECIALIST",
+        "component": "RE-FX-LA"
+      },
+      {
+        "step_no": 7,
+        "name": "Periodic Posting - Background Job",
+        "fiori_app_id": "F4607",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECM_AP_ACCOUNTANT | SAP_BR_RECM_AR_ACCOUNTANT",
+        "component": "RE-FX-RA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "e58faaf2e9f044c89ea36ac132c1c390",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "e58faaf2e9f044c89ea36ac132c1c390",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Chose Change Object",
+        "type": "userTask",
+        "role": "Contract Specialist - Leasing",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Chose Adjustment",
+        "type": "userTask",
+        "role": "Contract Specialist - Leasing",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Change Condition",
+        "type": "userTask",
+        "role": "Contract Specialist - Leasing",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Chose Assign Free Conditions",
+        "type": "userTask",
+        "role": "Contract Specialist - Leasing",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,270 @@
+{
+  "scope_item_id": "1NT",
+  "title": "Project Control \u2013 Finance",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate",
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Cost Management and Profitability Analysis",
+      "Enterprise Portfolio and Project Management"
+    ],
+    "L3_scope_item": "1NT - Project Control \u2013 Finance",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage My Timesheet",
+        "fiori_app_id": "F1823",
+        "technical_transaction": "CAT2",
+        "app_type": null,
+        "role": "SAP_BR_EMPLOYEE | SAP_BR_MANAGER_HRINFO | SAP_BR_PROJECT_MANAGER_PROF",
+        "component": "CA-TS-S4"
+      },
+      {
+        "step_no": 2,
+        "name": "Project Financial Controller Overview",
+        "fiori_app_id": "F3078",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-REP"
+      },
+      {
+        "step_no": 3,
+        "name": "Monitor Projects",
+        "fiori_app_id": "F3088",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-REP"
+      },
+      {
+        "step_no": 4,
+        "name": "Project Budget Report - Overview",
+        "fiori_app_id": "F3377",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-REP"
+      },
+      {
+        "step_no": 5,
+        "name": "Project Control - Enterprise Projects",
+        "fiori_app_id": "F3215",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_PROJ_PROC_CONTROLLER | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_PROJECTMANAGER | SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-STR-FIO"
+      },
+      {
+        "step_no": 6,
+        "name": "Mass Changes to Projects",
+        "fiori_app_id": "F3891",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-STR-FIO"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Budget Documents \u2013 Projects",
+        "fiori_app_id": "F5342",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-STR-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "c1c41607786641b0bcc728c518b23bc4",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "c1c41607786641b0bcc728c518b23bc4",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Project",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "1YF - Project Review                   (Optional)",
+        "type": "subProcess",
+        "role": "Project Manager",
+        "optional": true,
+        "calls_scope_item": "1YF"
+      },
+      {
+        "seq": 3,
+        "name": "Predict Project Costs (Optional)",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": true
+      },
+      {
+        "seq": 4,
+        "name": "Close Project Parts and Project",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Capture Planned Costs",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Capture Project Budget (Optional)",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": true
+      },
+      {
+        "seq": 7,
+        "name": "4RF - Define Demand",
+        "type": "subProcess",
+        "role": "Project Controller - Procurement",
+        "optional": false,
+        "calls_scope_item": "4RF"
+      },
+      {
+        "seq": 8,
+        "name": "Release Projects/Project Parts",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "4RF - Project Control Procurement",
+        "type": "subProcess",
+        "role": "Project Controller - Procurement",
+        "optional": false,
+        "calls_scope_item": "4RF"
+      },
+      {
+        "seq": 10,
+        "name": "1Q4 - Time Recording",
+        "type": "subProcess",
+        "role": "Employee",
+        "optional": false,
+        "calls_scope_item": "1Q4"
+      },
+      {
+        "seq": 11,
+        "name": "Monitor Project via Monitor Projects App",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Post General Journal Entry",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Direct Activity Allocation",
+        "type": "userTask",
+        "role": "Controller",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Check/Update Settlement Rule",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "BNA - Period-End Closing Projects                    (Optional)",
+        "type": "subProcess",
+        "role": "Project Financial Controller",
+        "optional": true,
+        "calls_scope_item": "BNA"
+      },
+      {
+        "seq": 16,
+        "name": "Complete Project Parts and Project",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 8,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 8,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 13,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 14,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "1YF",
+        "name": "1YF - Project Review                   (Optional)",
+        "optional": true
+      },
+      {
+        "scope_item_id": "4RF",
+        "name": "4RF - Define Demand",
+        "optional": false
+      },
+      {
+        "scope_item_id": "1Q4",
+        "name": "1Q4 - Time Recording",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BNA",
+        "name": "BNA - Period-End Closing Projects                    (Optional)",
+        "optional": true
+      }
+    ]
+  }
+}

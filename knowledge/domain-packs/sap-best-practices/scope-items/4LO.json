@@ -1,0 +1,40 @@
+{
+  "scope_item_id": "4LO",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "IT and Cross-Application",
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Enterprise Information Management",
+      "Inventory"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "5c39f271e68e42e1b5039f218cd60fe9",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "5c39f271e68e42e1b5039f218cd60fe9",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Request Material Master",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

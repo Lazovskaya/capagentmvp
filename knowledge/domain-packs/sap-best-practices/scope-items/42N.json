@@ -1,0 +1,102 @@
+{
+  "scope_item_id": "42N",
+  "title": "Tank Trailer Filling with Residuals",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Manufacturing Operations"
+    ],
+    "L3_scope_item": "42N - Tank Trailer Filling with Residuals",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Batches",
+        "fiori_app_id": "F2462",
+        "technical_transaction": "MSC1N",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_MANAGER | SAP_BR_QUALITY_ENGINEER_EPO | SAP_BR_PRODN_OPTR_DISC | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_PRODN_SUPERVISOR_RPTV | SAP_BR_BATCH_MASTER_SPCLST | SAP_BR_PRODN_OPTR_PROC | SAP_BR_PRODN_SUPRVSR_DISC_CAM | SAP_BR_PRODN_SUPRVSR_DISC_EPO | SAP_BR_WAREHOUSE_CLERK | SAP_BR_QUALITY_TECHNICIAN | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RETURNS_REFUND_CLERK | SAP_BR_CHG_MGMT_COORDINATOR | SAP_BR_PRODN_OPTR_RPTV | SAP_BR_PRODN_SUPERVISOR_DISC | SAP_BR_INTERNAL_SALES_REP | SAP_BR_PRODN_SUPERVISOR_PROC",
+        "component": "LO-BM-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "4e35ab7ab7fe474bb3229f60c862d401",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "4e35ab7ab7fe474bb3229f60c862d401",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Process Order with batch for tank trailer filling",
+        "type": "userTask",
+        "role": "Production Supervisor - Process Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Assign Container ID to the batch",
+        "type": "userTask",
+        "role": "Production Supervisor - Process Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Execute Batch Determination in Process Order",
+        "type": "userTask",
+        "role": "Production Supervisor - Process Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Goods Issue via Pick List",
+        "type": "userTask",
+        "role": "Production Operator - Process Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Manual Goods Issue       (Instead of Picking List)",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Confirm Process Order",
+        "type": "userTask",
+        "role": "Production Operator - Process Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Post Goods Receipt for process order",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Review Process Order",
+        "type": "userTask",
+        "role": "Production Supervisor - Process Manufacturing",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

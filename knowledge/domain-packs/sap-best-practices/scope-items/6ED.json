@@ -1,0 +1,39 @@
+{
+  "scope_item_id": "6ED",
+  "title": "Lease-Out for Sublease Accounting (UPA)",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "6ED - Lease-Out for Sublease Accounting (UPA)",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Contract Cash Flow",
+        "fiori_app_id": "F5491",
+        "technical_transaction": "RECN",
+        "app_type": null,
+        "role": "SAP_BR_RE_COST_ACCOUNTANT | SAP_BR_RECM_SPECIALIST",
+        "component": "RE-FX-CF"
+      },
+      {
+        "step_no": 2,
+        "name": "Contract Management",
+        "fiori_app_id": "F5273",
+        "technical_transaction": "RECN",
+        "app_type": null,
+        "role": "SAP_BR_RECM_AR_ACCOUNTANT | SAP_BR_RECM_SPECIALIST | SAP_BR_RECM_VALSPECIALIST | SAP_BR_RECM_AP_ACCOUNTANT",
+        "component": "RE-FX-CN"
+      },
+      {
+        "step_no": 3,
+        "name": "Valuation Management",
+        "fiori_app_id": "F6170",
+        "technical_transaction": "RECN",
+        "app_type": null,
+        "role": "SAP_BR_RECM_VALSPECIALIST",
+        "component": "RE-FX-LA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

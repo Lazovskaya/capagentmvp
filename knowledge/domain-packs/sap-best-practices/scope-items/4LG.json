@@ -1,0 +1,60 @@
+{
+  "scope_item_id": "4LG",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "86387935ecb24ecebd25ea442ec2d2fd",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "86387935ecb24ecebd25ea442ec2d2fd",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Choose Matching Method for Machine Learning",
+        "type": "userTask",
+        "role": "Configuration Expert",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Deploy and Activate the Model",
+        "type": "userTask",
+        "role": "Analytics Specialist",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Inference Phase",
+        "type": "userTask",
+        "role": "General Ledger Accountant - Intercompany",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Review Machine Learning Result",
+        "type": "userTask",
+        "role": "General Ledger Accountant - Intercompany",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Intelligent Service Monitoring",
+        "type": "userTask",
+        "role": "General Ledger Accountant - Intercompany",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

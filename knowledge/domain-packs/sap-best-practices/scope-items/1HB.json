@@ -1,0 +1,99 @@
+{
+  "scope_item_id": "1HB",
+  "title": "Financial Plan Data Upload from File",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Cost Management and Profitability Analysis"
+    ],
+    "L3_scope_item": "1HB - Financial Plan Data Upload from File",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Commitments by Cost Center",
+        "fiori_app_id": "F3016",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-CCA-IS"
+      },
+      {
+        "step_no": 2,
+        "name": "Import Financial Plan Data",
+        "fiori_app_id": "F1711",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-OM-PL"
+      },
+      {
+        "step_no": 3,
+        "name": "Copy Financial Plan Data",
+        "fiori_app_id": "F3396",
+        "technical_transaction": "CJ40",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-OM-PL"
+      },
+      {
+        "step_no": 4,
+        "name": "Import Statistical Key Figures Plan Data",
+        "fiori_app_id": "F3779",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-OM-PL"
+      },
+      {
+        "step_no": 5,
+        "name": "Delete Financial Plan Data - with Timestamp",
+        "fiori_app_id": "F4074",
+        "technical_transaction": "CJ40",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-OM-PL"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "26ca490d07564661b8a9e81263822dd6",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "26ca490d07564661b8a9e81263822dd6",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create P&L Actual Data (optional)",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": true
+      },
+      {
+        "seq": 2,
+        "name": "Profit & Loss File",
+        "type": "subProcess",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "P&L Actual versus Plan",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Update Plan Data",
+        "type": "subProcess",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

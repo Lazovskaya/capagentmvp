@@ -1,0 +1,184 @@
+{
+  "scope_item_id": "5FT",
+  "title": "Sales Price Valuation for Retail",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Retail"
+    ],
+    "L2_core_process": [
+      "Retail"
+    ],
+    "L3_scope_item": "5FT - Sales Price Valuation for Retail",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Initialization of Valuation at Retail",
+        "fiori_app_id": "F5393",
+        "technical_transaction": "VKU10",
+        "app_type": null,
+        "role": "SAP_BR_PRICING_SPCLST_RFM",
+        "component": "LO-RFM-LG-SPV"
+      },
+      {
+        "step_no": 2,
+        "name": "Schedule Automatic Total Revaluation at Retail",
+        "fiori_app_id": "F5394",
+        "technical_transaction": "VKU7",
+        "app_type": null,
+        "role": "SAP_BR_PRICING_SPCLST_RFM",
+        "component": "LO-RFM-LG-SPV"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "cf6ffbf49778468e8cdc0d7ba0bfc9e7",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "cf6ffbf49778468e8cdc0d7ba0bfc9e7",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Run automatic sales price revaluation",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Execute revaluation run: Retail inventory",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create sales price revaluation",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Display sales price revaluation documents",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Initialize or correct Valuation at Retail",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Initialize valuation: Retail inventory",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Display Stock Overview including sales price values",
+        "type": "userTask",
+        "role": "Allocator (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Create Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Display Stock Overview including sales price values",
+        "type": "userTask",
+        "role": "Allocator (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Create inbound delivery",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Display Stock Overview including sales price values",
+        "type": "userTask",
+        "role": "Allocator (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Post Goods Receipt for inbound delivery",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Display Stock Overview including sales price values",
+        "type": "userTask",
+        "role": "Allocator (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Create supplier invoice using purchase order",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Display Stock Overview including sales price values",
+        "type": "userTask",
+        "role": "Allocator (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Transfer Products (DC to store)",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Display Stock Overview including sales price values",
+        "type": "userTask",
+        "role": "Allocator (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Process Aggregated sales from POS",
+        "type": "serviceTask",
+        "role": "Administrator",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Schedule job for posting of POS inbound for sales",
+        "type": "serviceTask",
+        "role": "Administrator",
+        "optional": false
+      },
+      {
+        "seq": 20,
+        "name": "Display Stock Overview including sales price values",
+        "type": "userTask",
+        "role": "Allocator (Retail)",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

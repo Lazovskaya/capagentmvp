@@ -1,0 +1,105 @@
+{
+  "scope_item_id": "2F9",
+  "title": "Quality Management for Complaints Against Suppliers",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Inventory",
+      "Quality Management"
+    ],
+    "L3_scope_item": "2F9 - Quality Management for Complaints Against Suppliers",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Complaints Against Suppliers",
+        "fiori_app_id": "F8685",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-QN-CMP-SUP"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "2bd78020ff0f456ba5679803515d658f",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "2bd78020ff0f456ba5679803515d658f",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Quality Notification with Basic Data",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Capture Defects and Document Immediate Actions",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Define Tasks",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Execute Tasks and Document Outcome",
+        "type": "userTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Review Tasks",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Document Supplier Root Cause Analysis",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Complete Notification",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Display a List of Quality Notifications (Optional)",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": true
+      },
+      {
+        "seq": 9,
+        "name": "Display a List of Quality Notification Tasks (optional)",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

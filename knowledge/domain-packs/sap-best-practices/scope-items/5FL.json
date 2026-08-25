@@ -1,0 +1,115 @@
+{
+  "scope_item_id": "5FL",
+  "title": "Merchandise Allocation",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Retail"
+    ],
+    "L2_core_process": [
+      "Retail"
+    ],
+    "L3_scope_item": "5FL - Merchandise Allocation",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Follow-On Document Generation - Allocation Table",
+        "fiori_app_id": "F5327",
+        "technical_transaction": "WA08",
+        "app_type": null,
+        "role": "SAP_BR_ALLOCATOR_RETAIL",
+        "component": "LO-RFM-PUR-AL"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "a9ccd430a43e48dfa145b486c6a66b1c",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "a9ccd430a43e48dfa145b486c6a66b1c",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Allocation Table",
+        "type": "userTask",
+        "role": "Allocator (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Deletion of Allocation Tables",
+        "type": "userTask",
+        "role": "Allocator (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Force Deletion of Allocation Tables",
+        "type": "userTask",
+        "role": "Allocator (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Change Allocation Table",
+        "type": "userTask",
+        "role": "Allocator (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Display Allocation Table",
+        "type": "userTask",
+        "role": "Allocator (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Generate Follow-on Document Manually",
+        "type": "userTask",
+        "role": "Allocator (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Scheduled Job to Generate Follow-On Document",
+        "type": "serviceTask",
+        "role": "Allocator (Retail)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

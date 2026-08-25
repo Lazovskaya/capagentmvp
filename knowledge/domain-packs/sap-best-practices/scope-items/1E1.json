@@ -1,0 +1,274 @@
+{
+  "scope_item_id": "1E1",
+  "title": "Quality Management in Discrete Manufacturing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Quality Management"
+    ],
+    "L3_scope_item": "1E1 - Quality Management in Discrete Manufacturing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Batches",
+        "fiori_app_id": "F2462",
+        "technical_transaction": "MSC1N",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_MANAGER | SAP_BR_QUALITY_ENGINEER_EPO | SAP_BR_PRODN_OPTR_DISC | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_PRODN_SUPERVISOR_RPTV | SAP_BR_BATCH_MASTER_SPCLST | SAP_BR_PRODN_OPTR_PROC | SAP_BR_PRODN_SUPRVSR_DISC_CAM | SAP_BR_PRODN_SUPRVSR_DISC_EPO | SAP_BR_WAREHOUSE_CLERK | SAP_BR_QUALITY_TECHNICIAN | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RETURNS_REFUND_CLERK | SAP_BR_CHG_MGMT_COORDINATOR | SAP_BR_PRODN_OPTR_RPTV | SAP_BR_PRODN_SUPERVISOR_DISC | SAP_BR_INTERNAL_SALES_REP | SAP_BR_PRODN_SUPERVISOR_PROC",
+        "component": "LO-BM-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Stock",
+        "fiori_app_id": "F1062",
+        "technical_transaction": "MIGO",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_MANAGER | SAP_BR_INVENTORY_MGR_RFM",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 3,
+        "name": "Stock - Single Material",
+        "fiori_app_id": "F1076",
+        "technical_transaction": "MB52",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_INVENTORY_MANAGER | SAP_BR_PRODN_PLNR | SAP_BR_WAREHOUSE_CLERK | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 4,
+        "name": "Post Goods Receipt for Production Order",
+        "fiori_app_id": "F3110",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Production Orders",
+        "fiori_app_id": "F2336",
+        "technical_transaction": "CO02",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_SUPERVISOR_DISC",
+        "component": "PP-FIO-SFC"
+      },
+      {
+        "step_no": 6,
+        "name": "Confirm Production Operation",
+        "fiori_app_id": "F3069",
+        "technical_transaction": "CO11N",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_OPTR_DISC",
+        "component": "PP-FIO-SFC"
+      },
+      {
+        "step_no": 7,
+        "name": "Record Inspection Results (Version 2)",
+        "fiori_app_id": "F1685A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_TECHNICIAN | SAP_BR_MAINTENANCE_PLANNER",
+        "component": "QM-FIO"
+      },
+      {
+        "step_no": 8,
+        "name": "Inspection Method (S/4HANA)",
+        "fiori_app_id": "F0311A",
+        "technical_transaction": "QS34",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_TECHNICIAN | SAP_BR_QUALITY_PLANNER | SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 9,
+        "name": "Manage Inspection Lots",
+        "fiori_app_id": "F2343",
+        "technical_transaction": "QA32",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER | SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_TECHNICIAN",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 10,
+        "name": "Manage Usage Decisions",
+        "fiori_app_id": "F2345",
+        "technical_transaction": "QA11",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER | SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 11,
+        "name": "Quality Engineer Overview",
+        "fiori_app_id": "F2360",
+        "technical_transaction": "QA32",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 12,
+        "name": "Quality Technician Overview",
+        "fiori_app_id": "F2361",
+        "technical_transaction": "QA32",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_TECHNICIAN",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 13,
+        "name": "Results History",
+        "fiori_app_id": "F2428",
+        "technical_transaction": "QGA4",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_TECHNICIAN | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_QUALITY_MANAGER | SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 14,
+        "name": "Record Results for Inspection Points",
+        "fiori_app_id": "F2689",
+        "technical_transaction": "QE51N",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_TECHNICIAN | SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-IM-RR"
+      },
+      {
+        "step_no": 15,
+        "name": "Record Inspection Results in Table Form",
+        "fiori_app_id": "F3365",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_TECHNICIAN",
+        "component": "QM-IM-RR"
+      },
+      {
+        "step_no": 16,
+        "name": "Manage Control Charts",
+        "fiori_app_id": "F2810",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-QC-AQC-CHT"
+      },
+      {
+        "step_no": 17,
+        "name": "Manage Defects",
+        "fiori_app_id": "F2649",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_TECHNICIAN | SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-QN"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "2bdc9d59636f4ea7a1d57e2488904edc",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "2bdc9d59636f4ea7a1d57e2488904edc",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create and Release Production Order",
+        "type": "userTask",
+        "role": "Production Engineer - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Display Routing for Inspection Characteristics",
+        "type": "userTask",
+        "role": "Production Engineer - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Display Quality Technician Overview (optional)",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": true
+      },
+      {
+        "seq": 4,
+        "name": "Display Open Inspection Lot",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Display Inspection Methods",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Record Quantitative and Qualitative Inspection Results",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Analyze and Activate Control Chart (Optional)",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": true
+      },
+      {
+        "seq": 8,
+        "name": "Record Quantitative and Qualitative Inspection Results",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Display Quality Engineer Overview (Optional)",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": true
+      },
+      {
+        "seq": 10,
+        "name": "Make Usage Decision",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Confirm Production Order Operation",
+        "type": "userTask",
+        "role": "Production Operator - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Review Production Order",
+        "type": "userTask",
+        "role": "Production Engineer - Discrete Manufacturing",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

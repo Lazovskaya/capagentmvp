@@ -1,0 +1,51 @@
+{
+  "scope_item_id": "3LQ",
+  "title": "Production Capacity Leveling",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Production Planning"
+    ],
+    "L3_scope_item": "3LQ - Production Capacity Leveling",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Capacity Scheduling Board",
+        "fiori_app_id": "F3951",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR",
+        "component": "PP-CFS-GNT"
+      },
+      {
+        "step_no": 2,
+        "name": "Capacity Scheduling Table",
+        "fiori_app_id": "F3770",
+        "technical_transaction": "CM01",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR",
+        "component": "PP-CFS-SCH"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "ef4a184ebd274d13a94eef46c14f6ede",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "ef4a184ebd274d13a94eef46c14f6ede",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Execute Capacity leveling",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

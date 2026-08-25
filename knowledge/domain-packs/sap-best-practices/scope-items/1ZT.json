@@ -1,0 +1,105 @@
+{
+  "scope_item_id": "1ZT",
+  "title": "Managing Material Price Changes and Inventory Values",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close"
+    ],
+    "L3_scope_item": "1ZT - Managing Material Price Changes and Inventory Values",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Material Inventory Values - Balance Summary Review Booklet",
+        "fiori_app_id": "F1422B",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_ACCOUNTANT | SAP_BR_INVENTORY_MANAGER",
+        "component": "CO-FIO-ML"
+      },
+      {
+        "step_no": 2,
+        "name": "Material Inventory Values - Line Items (New Version)",
+        "fiori_app_id": "F1423B",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_ACCOUNTANT | SAP_BR_INVENTORY_MANAGER",
+        "component": "CO-FIO-ML"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Material Valuations",
+        "fiori_app_id": "F2680",
+        "technical_transaction": "MR21",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_ACCOUNTANT",
+        "component": "CO-FIO-ML"
+      },
+      {
+        "step_no": 4,
+        "name": "Upload Material Inventory Prices",
+        "fiori_app_id": "F4006",
+        "technical_transaction": "MR21",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_ACCOUNTANT",
+        "component": "CO-FIO-ML"
+      },
+      {
+        "step_no": 5,
+        "name": "Change Material Prices",
+        "fiori_app_id": "F6489",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_ACCOUNTANT",
+        "component": "CO-FIO-ML"
+      },
+      {
+        "step_no": 6,
+        "name": "Display Material Price Change Documents",
+        "fiori_app_id": "F6684",
+        "technical_transaction": "MR21",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_ACCOUNTANT",
+        "component": "CO-FIO-ML"
+      },
+      {
+        "step_no": 7,
+        "name": "Monitor Material Prices",
+        "fiori_app_id": "F7245",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_ACCOUNTANT",
+        "component": "CO-FIO-ML"
+      },
+      {
+        "step_no": 8,
+        "name": "Display Material Debit/Credit Documents",
+        "fiori_app_id": "F8982",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_ACCOUNTANT",
+        "component": "CO-FIO-ML"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "6c4aee70ef984d86944951bb6d51895f",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "6c4aee70ef984d86944951bb6d51895f",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Change Material Costs",
+        "type": "userTask",
+        "role": "Cost Accountant - Inventory",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

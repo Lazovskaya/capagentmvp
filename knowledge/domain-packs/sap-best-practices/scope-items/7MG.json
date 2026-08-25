@@ -1,0 +1,75 @@
+{
+  "scope_item_id": "7MG",
+  "title": "Payables Financing with Taulia",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "7MG - Payables Financing with Taulia",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Display Payables Financing Orders",
+        "fiori_app_id": "F8343",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_EXTERNAL_AUDITOR | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-AP-AP-PF"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Supplier Line Items",
+        "fiori_app_id": "F0712",
+        "technical_transaction": "FBL1",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-IS"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Automatic Payments",
+        "fiori_app_id": "F0770",
+        "technical_transaction": "FBZ8",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-PAY"
+      },
+      {
+        "step_no": 4,
+        "name": "Revise Payment Proposals",
+        "fiori_app_id": "F0771",
+        "technical_transaction": "F110",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-PAY"
+      },
+      {
+        "step_no": 5,
+        "name": "Clear G/L Accounts - Manual Clearing",
+        "fiori_app_id": "F1579",
+        "technical_transaction": "F-03",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-PER"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Supplier Master Data",
+        "fiori_app_id": "F1053A",
+        "technical_transaction": "BP",
+        "app_type": null,
+        "role": "SAP_BR_BUPA_MASTER_SPECIALIST",
+        "component": "LO-MD-FIO-VM"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Supplier Invoices",
+        "fiori_app_id": "F0859",
+        "technical_transaction": "F-41",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AA_ACCOUNTANT | SAP_BR_PURCHASING_MANAGER",
+        "component": "MM-FIO-IV"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

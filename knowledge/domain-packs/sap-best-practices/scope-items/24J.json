@@ -1,0 +1,96 @@
+{
+  "scope_item_id": "24J",
+  "title": "Compliance Management with SAP Global Trade Services",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Enterprise Risk and Compliance"
+    ],
+    "L3_scope_item": "24J - Compliance Management with SAP Global Trade Services",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Reprocessing of Documents - Global Trade Services",
+        "fiori_app_id": "F3050",
+        "technical_transaction": "/SAPSLL/DOC_REPR_R3",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_SLL",
+        "component": "FT-INT-GTS"
+      },
+      {
+        "step_no": 2,
+        "name": "Schedule Transfer of Purchasing Documents - Global Trade Services",
+        "fiori_app_id": "F3742",
+        "technical_transaction": "/SAPSLL/DS_D_MM0A_R3",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_SLL",
+        "component": "FT-INT-GTS"
+      },
+      {
+        "step_no": 3,
+        "name": "Schedule Transfer of Outbound Deliveries - Global Trade Services",
+        "fiori_app_id": "F4539",
+        "technical_transaction": "/SAPSLL/DS_D_SD0B_R3",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_SLL",
+        "component": "FT-INT-GTS"
+      },
+      {
+        "step_no": 4,
+        "name": "Schedule Transfer of Sales Documents - Global Trade Services",
+        "fiori_app_id": "F4540",
+        "technical_transaction": "/SAPSLL/DS_D_SD0A_R3",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_SLL",
+        "component": "FT-INT-GTS"
+      },
+      {
+        "step_no": 5,
+        "name": "Schedule Transfer of Inbound Deliveries - Global Trade Services",
+        "fiori_app_id": "F4541",
+        "technical_transaction": "/SAPSLL/DS_D_MM0B_R3",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_SLL",
+        "component": "FT-INT-GTS"
+      },
+      {
+        "step_no": 6,
+        "name": "Schedule Sales Document Status Update \u2013 Global Trade Services",
+        "fiori_app_id": "F5721",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_SLL",
+        "component": "FT-INT-GTS"
+      },
+      {
+        "step_no": 7,
+        "name": "Sales Order Fulfillment Issues (Version 2)",
+        "fiori_app_id": "F0029A",
+        "technical_transaction": "V.00",
+        "app_type": null,
+        "role": "SAP_BR_SALES_MANAGER | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-FIO-HBA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "52f259230c7c429f8385d934aa3c0ee5",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "52f259230c7c429f8385d934aa3c0ee5",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Schedule Reprocessing of Documents (optional)",
+        "type": "userTask",
+        "role": "Configuration Expert - Business Network Integration",
+        "optional": true
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

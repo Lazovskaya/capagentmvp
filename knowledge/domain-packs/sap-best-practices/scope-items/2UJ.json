@@ -1,0 +1,497 @@
+{
+  "scope_item_id": "2UJ",
+  "title": "Contract Accounting \u2013 Open Item Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Financial Operations"
+    ],
+    "L3_scope_item": "2UJ - Contract Accounting \u2013 Open Item Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Maintain Dunning Notices",
+        "fiori_app_id": "F3678",
+        "technical_transaction": "FPM3",
+        "app_type": null,
+        "role": "SAP_BR_ADMIN_APR_FICA | SAP_BR_EXT_AUDITOR_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_RECONC_SPEC_APR_FICA | SAP_BR_APR_MANAGER_FICA | SAP_BR_COLL_SPECIALIST_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Transfer Business Partner Items",
+        "fiori_app_id": "F4398",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Creditworthiness",
+        "fiori_app_id": "F4408",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_COLL_SPECIALIST_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Security Deposits",
+        "fiori_app_id": "F4415",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMIN_APR_FICA | SAP_BR_EXT_AUDITOR_APR_FICA | SAP_BR_APR_MANAGER_FICA | SAP_BR_COLL_SPECIALIST_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Dispute Cases (FI-CA)",
+        "fiori_app_id": "F4443",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 6,
+        "name": "Interest Run for Security Deposits",
+        "fiori_app_id": "F4547",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMIN_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 7,
+        "name": "Create Reconnection Requests",
+        "fiori_app_id": "F4654",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 8,
+        "name": "Send Disconnection/Reconnection Request",
+        "fiori_app_id": "F4658",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 9,
+        "name": "Display Interest Calculations",
+        "fiori_app_id": "F4761",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA | SAP_BR_EXT_AUDITOR_APR_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 10,
+        "name": "Compare Credit Score",
+        "fiori_app_id": "F4903",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMIN_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 11,
+        "name": "Replicate Creditworthiness",
+        "fiori_app_id": "F4904",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 12,
+        "name": "Transfer Credit Data",
+        "fiori_app_id": "F4905",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMIN_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 13,
+        "name": "Post Receivables for Collection Agency",
+        "fiori_app_id": "F4923",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMIN_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 14,
+        "name": "Process Information from Collection Agency",
+        "fiori_app_id": "F4924",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 15,
+        "name": "Monitor Disconnection Requests",
+        "fiori_app_id": "F4943",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA | SAP_BR_COLL_SPECIALIST_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 16,
+        "name": "Valuate Promise to Pay",
+        "fiori_app_id": "F5058",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMIN_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 17,
+        "name": "Manage Teams and Responsibilities for Contract Accounting",
+        "fiori_app_id": "F5134",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BPC_EXPERT",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 18,
+        "name": "Manage Workflows for FI-CA Documents",
+        "fiori_app_id": "F5135",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BPC_EXPERT",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 19,
+        "name": "Manage Installment Plans",
+        "fiori_app_id": "F5720",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_MANAGER_FICA | SAP_BR_COLL_SPECIALIST_FICA | SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_EXT_AUDITOR_APR_FICA | SAP_BR_RECONC_SPEC_APR_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 20,
+        "name": "Display Dunning Run Exception",
+        "fiori_app_id": "F7575",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_MANAGER_FICA | SAP_BR_EXT_AUDITOR_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_COLL_SPECIALIST_FICA | SAP_BR_RECONC_SPEC_APR_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 21,
+        "name": "Delete Trigger Data for Data Transfer to External Systems",
+        "fiori_app_id": "F8475",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 22,
+        "name": "Transfer Business Partner Postings to External Systems",
+        "fiori_app_id": "F8476",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 23,
+        "name": "Transfer Documents to Accounts Receivable/Payable",
+        "fiori_app_id": "F8633",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 24,
+        "name": "Create Credit List",
+        "fiori_app_id": "F3526",
+        "technical_transaction": "FPCRPO_DET",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 25,
+        "name": "Interest Run",
+        "fiori_app_id": "F3527",
+        "technical_transaction": "FPINTM1",
+        "app_type": null,
+        "role": "SAP_BR_ADMIN_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 26,
+        "name": "Payment Run / Debit Memo Run",
+        "fiori_app_id": "F3529",
+        "technical_transaction": "FPY1",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 27,
+        "name": "Maintain Accounts Run",
+        "fiori_app_id": "F3531",
+        "technical_transaction": "FPMA",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 28,
+        "name": "Print Correspondence",
+        "fiori_app_id": "F3537",
+        "technical_transaction": "FPCOPARA",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV | SAP_BR_ADMIN_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 29,
+        "name": "Dunning Runs",
+        "fiori_app_id": "F3545",
+        "technical_transaction": "FPVA",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 30,
+        "name": "Reverse Documents Run",
+        "fiori_app_id": "F3546",
+        "technical_transaction": "FP08MP",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 31,
+        "name": "Process Master Data Change from External System",
+        "fiori_app_id": "F4901",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMIN_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 32,
+        "name": "Prepare Master Data Change from External System",
+        "fiori_app_id": "F4902",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 33,
+        "name": "My Inbox for FI-CA",
+        "fiori_app_id": "F5136",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_MANAGER_FICA | SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_COLL_SPECIALIST_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 34,
+        "name": "Offer Receivables for Sale",
+        "fiori_app_id": "F5384",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMIN_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 35,
+        "name": "Process Response of Factor",
+        "fiori_app_id": "F5385",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 36,
+        "name": "Send Update to Factor",
+        "fiori_app_id": "F5386",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 37,
+        "name": "Reverse Offer",
+        "fiori_app_id": "F5388",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 38,
+        "name": "Reset Excepted Receivables",
+        "fiori_app_id": "F5389",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 39,
+        "name": "Forward Data from Information Container",
+        "fiori_app_id": "F5792",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMIN_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 40,
+        "name": "Buy Back Receivables from Factor",
+        "fiori_app_id": "F5975",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 41,
+        "name": "Create Installment Plans from Trigger Records",
+        "fiori_app_id": "F6163",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMIN_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 42,
+        "name": "Interest Run for Installment Plan",
+        "fiori_app_id": "F6289",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 43,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 44,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "080cb344b73941f8993cbc5fd9975635",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "080cb344b73941f8993cbc5fd9975635",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Execute Dunning Proposal Run",
+        "type": "userTask",
+        "role": "Administrator - Accounts Payable and Receivable (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Display Dunning Exception List",
+        "type": "userTask",
+        "role": "Administrator - Accounts Payable and Receivable (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Execute Dunning Activity Run",
+        "type": "userTask",
+        "role": "Administrator - Accounts Payable and Receivable (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Delete Dunning Exception",
+        "type": "userTask",
+        "role": "Administrator - Accounts Payable and Receivable (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Display Dunning History",
+        "type": "userTask",
+        "role": "Administrator - Accounts Payable and Receivable (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Valuate Success of Dunning",
+        "type": "userTask",
+        "role": "Administrator - Accounts Payable and Receivable (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Reverse of Dunning Notice",
+        "type": "userTask",
+        "role": "Administrator - Accounts Payable and Receivable (FI-CA)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

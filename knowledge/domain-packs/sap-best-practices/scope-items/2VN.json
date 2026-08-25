@@ -1,0 +1,99 @@
+{
+  "scope_item_id": "2VN",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Warehousing"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "f25954ccbea945ffb261893e03d58322",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "f25954ccbea945ffb261893e03d58322",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Check Inbound Delivery (Optional)",
+        "type": "serviceTask",
+        "role": "N/A",
+        "optional": true
+      },
+      {
+        "seq": 2,
+        "name": "Create Warehouse Tasks for Putaway",
+        "type": "userTask",
+        "role": "N/A",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Check Physical Stock - Batch after Creation (Optional)",
+        "type": "userTask",
+        "role": "N/A",
+        "optional": true
+      },
+      {
+        "seq": 4,
+        "name": "Check Physical Stock - Batch after Changes (Optional)",
+        "type": "userTask",
+        "role": "N/A",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "Putaway of Products",
+        "type": "userTask",
+        "role": "N/A",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Create and Assign Batch",
+        "type": "userTask",
+        "role": "N/A",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Post Goods Receipt",
+        "type": "userTask",
+        "role": "N/A",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Replicate Batch to SAP S/4HANA Cloud",
+        "type": "serviceTask",
+        "role": "N/A",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Maintain Batches for Product",
+        "type": "userTask",
+        "role": "N/A",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

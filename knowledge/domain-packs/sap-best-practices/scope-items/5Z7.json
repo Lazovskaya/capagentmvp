@@ -1,0 +1,53 @@
+{
+  "scope_item_id": "5Z7",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Accounting and Financial Close"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "30af43d74fc542488655c4a37baf9622",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "30af43d74fc542488655c4a37baf9622",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Run Compliance Reports - Czech Republic VAT Return",
+        "type": "userTask",
+        "role": "General Ledger Accountant for Czech Republic",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "EC Sales List - Czech Republic",
+        "type": "userTask",
+        "role": "General Ledger Accountant for Czech Republic",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Financial Statement - Czech Republic",
+        "type": "userTask",
+        "role": "General Ledger Accountant for Czech Republic",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Cash Flow Statement - Czech Republic",
+        "type": "userTask",
+        "role": "General Ledger Accountant for Czech Republic",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

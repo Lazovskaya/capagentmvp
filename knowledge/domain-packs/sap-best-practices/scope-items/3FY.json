@@ -1,0 +1,30 @@
+{
+  "scope_item_id": "3FY",
+  "title": "Prediction of Delivery Date for Purchase Order Items",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Intelligent Technologies",
+    "L3_scope_item": "3FY - Prediction of Delivery Date for Purchase Order Items",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Intelligent Scenario Management",
+        "fiori_app_id": "F4470",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ANALYTICS_SPECIALIST",
+        "component": "BC-ISM"
+      },
+      {
+        "step_no": 2,
+        "name": "Monitor Purchase Order Items",
+        "fiori_app_id": "F2358",
+        "technical_transaction": "ME2C",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK | SAP_BR_PURCHASER | SAP_BR_INVENTORY_MANAGER",
+        "component": "MM-PUR-GF-MON"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

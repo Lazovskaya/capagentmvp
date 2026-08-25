@@ -1,0 +1,207 @@
+{
+  "scope_item_id": "1GA",
+  "title": "Accounting and Financial Close \u2013 Group Ledger IFRS",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close"
+    ],
+    "L3_scope_item": "1GA - Accounting and Financial Close \u2013 Group Ledger IFRS",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Maintain Business Users",
+        "fiori_app_id": "F1303",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APPL_SUP_ENG_DEV_SUP | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_SYSTEM_AUDITOR | SAP_BR_ADMINISTRATOR",
+        "component": "BC-SRV-APS-IAM"
+      },
+      {
+        "step_no": 2,
+        "name": "Reset Cleared Items",
+        "fiori_app_id": "F2223",
+        "technical_transaction": "FBRA",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT",
+        "component": "FI-FIO-AR-TRA"
+      },
+      {
+        "step_no": 3,
+        "name": "Verify General Journal Entries - New Version",
+        "fiori_app_id": "F2547A",
+        "technical_transaction": "FBV4",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Workflows for Journal Entry Verification - In General Ledger",
+        "fiori_app_id": "F2720",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-CA"
+      },
+      {
+        "step_no": 5,
+        "name": "Display G/L Account Balances (New)",
+        "fiori_app_id": "F0707A",
+        "technical_transaction": "F.08",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 6,
+        "name": "Audit Journal",
+        "fiori_app_id": "F0997",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_EXTERNAL_AUDITOR",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 7,
+        "name": "Display Line Items in General Ledger",
+        "fiori_app_id": "F2217",
+        "technical_transaction": "FAGLL03",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_TREASURY_SPECIALIST_FOE | SAP_BR_DIVISION_ACCOUNTANT | SAP_BR_TREASURY_SPECIALIST_MOE",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 8,
+        "name": "Display Line Item Entry",
+        "fiori_app_id": "F2218",
+        "technical_transaction": "FAGLL03",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 9,
+        "name": "Clear G/L Accounts - Manual Clearing",
+        "fiori_app_id": "F1579",
+        "technical_transaction": "F-03",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-PER"
+      },
+      {
+        "step_no": 10,
+        "name": "Schedule General Ledger Jobs",
+        "fiori_app_id": "F1927",
+        "technical_transaction": "FINS_FXV",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-PER"
+      },
+      {
+        "step_no": 11,
+        "name": "Manage Journal Entries",
+        "fiori_app_id": "F0717",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_AU | SAP_BR_AR_MANAGER | SAP_BR_GL_ACCOUNTANT_BE | SAP_BR_CREDIT_CONTROLLER | SAP_BR_GL_ACCOUNTANT_NL | SAP_BR_GL_ACCOUNTANT | SAP_BR_CASH_MANAGER | SAP_BR_GL_ACCOUNTANT_SG | SAP_BR_RECONC_SPEC_APR_FICA | SAP_BR_GL_ACCOUNTANT_TR | SAP_BR_PROJ_FIN_CONTROLLER | SAP_BR_GL_ACCOUNTANT_FR | SAP_BR_TREASURY_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT | SAP_BR_WAREHOUSE_CLERK | SAP_BR_GL_ACCOUNTANT_ES | SAP_BR_GL_ACCOUNTANT_SE | SAP_BR_CASH_MANAGER_MY | SAP_BR_GL_ACCOUNTANT_ZA | SAP_BR_GL_ACCOUNTANT_CA | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT_MY | SAP_BR_GL_ACCOUNTANT_IL | SAP_BR_ADMIN_APR_FICA | SAP_BR_GL_ACCOUNTANT_NZ | SAP_BR_AP_MANAGER | SAP_BR_CASH_MANAGER_TH | SAP_BR_GL_ACCOUNTANT_TH | SAP_BR_GL_ACCOUNTANT_CH | SAP_BR_CASH_SPECIALIST | SAP_BR_GL_ACCOUNTANT_PT | SAP_BR_GL_ACCOUNTANT_RU | SAP_BR_GL_ACCOUNTANT_FI | SAP_BR_TREASURY_RISK_MANAGER | SAP_BR_INVENTORY_MANAGER | SAP_BR_GL_ACCOUNTANT_IT | SAP_BR_GL_ACCOUNTANT_NO | SAP_BR_GL_ACCOUNTANT_AT | SAP_BR_GL_ACCOUNTANT_DK | SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_GL_ACCOUNTANT_LU",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 12,
+        "name": "Manage Journal Entries - New Version",
+        "fiori_app_id": "F0717A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 13,
+        "name": "Post General Journal Entries",
+        "fiori_app_id": "F0718",
+        "technical_transaction": "F-02",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 14,
+        "name": "Post Currency Adjustments",
+        "fiori_app_id": "F1606",
+        "technical_transaction": "FBB1",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 15,
+        "name": "Verify Journal Entries in General Ledger - For Processor (Inbox)",
+        "fiori_app_id": "F2728",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 16,
+        "name": "Manage Teams and Responsibilities For Journal Entry Verification - In General Ledger",
+        "fiori_app_id": "F3932",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 17,
+        "name": "Schedule Jobs to Reset Cleared Items",
+        "fiori_app_id": "F9296",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT",
+        "component": "FIN-FIO-AR-TRA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "ecb0ccea54fe4f6485150fdbaabc4731",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "ecb0ccea54fe4f6485150fdbaabc4731",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Perform Foreign Currency Valuation",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Balance Sheet / Income Statement",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Trial Balance",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Trial Balance Comparison",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

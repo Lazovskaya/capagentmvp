@@ -1,0 +1,152 @@
+{
+  "scope_item_id": "1IL",
+  "title": "Event-Based Revenue Recognition \u2013 Project-Based Services",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting",
+      "Professional Services"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close",
+      "Professional Services"
+    ],
+    "L3_scope_item": "1IL - Event-Based Revenue Recognition \u2013 Project-Based Services",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Display Project WIP Details",
+        "fiori_app_id": "F4766",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJECT_MANAGER_PROF | SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-PC-OBJ-EBR"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "f3257279b15843a697218122caad98b2",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "f3257279b15843a697218122caad98b2",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Revenue Recognition (Event-Based) - Projects",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Manage Real-Time Revenue Recognition Issues",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Run Revenue Recognition  - Projects",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "2V8 - Advanced Financial Closing",
+        "type": "subProcess",
+        "role": "General Ledger Accountant",
+        "optional": false,
+        "calls_scope_item": "2V8"
+      },
+      {
+        "seq": 5,
+        "name": "Manage Revenue Recognition Issues - Projects",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Run Revenue Recognition  - Projects",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Revenue Recognition Reversal                    (optional)",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": true
+      },
+      {
+        "seq": 8,
+        "name": "Review Projects - Actuals",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Review Project WIP Details",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Review Project WIP Details (2)",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Inspect Revenue Recognition Postings",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "2V8",
+        "name": "2V8 - Advanced Financial Closing",
+        "optional": false
+      }
+    ]
+  }
+}

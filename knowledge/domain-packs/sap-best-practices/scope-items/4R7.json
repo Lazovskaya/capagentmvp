@@ -1,0 +1,39 @@
+{
+  "scope_item_id": "4R7",
+  "title": "Group Reporting \u2013 Environmental, Social, and Governance Data",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "4R7 - Group Reporting \u2013 Environmental, Social, and Governance Data",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Consolidation Group Structure - Group View",
+        "fiori_app_id": "F3733",
+        "technical_transaction": "CX1X",
+        "app_type": null,
+        "role": "SAP_BR_GRP_ACCOUNTANT | SAP_BR_EXTERNAL_AUDITOR_GRP | SAP_BR_GL_ACCOUNTANT_GRP | SAP_BR_ADMINISTRATOR_GRP",
+        "component": "FIN-CS-MD"
+      },
+      {
+        "step_no": 2,
+        "name": "Define Consolidation Units",
+        "fiori_app_id": "F4685",
+        "technical_transaction": "CX1M",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_GRP | SAP_BR_EXTERNAL_AUDITOR_GRP | SAP_BR_GRP_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT_GRP",
+        "component": "FIN-CS-MD"
+      },
+      {
+        "step_no": 3,
+        "name": "Define Consolidation Groups",
+        "fiori_app_id": "F7959",
+        "technical_transaction": "CX1P",
+        "app_type": null,
+        "role": "SAP_BR_EXTERNAL_AUDITOR_GRP | SAP_BR_GL_ACCOUNTANT_GRP | SAP_BR_ADMINISTRATOR_GRP | SAP_BR_GRP_ACCOUNTANT",
+        "component": "FIN-CS-MD"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

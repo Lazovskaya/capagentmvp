@@ -1,0 +1,361 @@
+{
+  "scope_item_id": "J11",
+  "title": "Customer Project Management \u2013 Project-Based Services",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Professional Services"
+    ],
+    "L2_core_process": [
+      "Professional Services"
+    ],
+    "L3_scope_item": "J11 - Customer Project Management \u2013 Project-Based Services",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Plan Customer Projects",
+        "fiori_app_id": "F0719",
+        "technical_transaction": "CJ20N",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_ORDER_SPCLST | SAP_BR_PROJECT_MANAGER_PROF",
+        "component": "CA-CPD-SS"
+      },
+      {
+        "step_no": 2,
+        "name": "Review Customer Projects",
+        "fiori_app_id": "F1659",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJECT_MANAGER_PROF | SAP_BR_SOLN_ORDER_SPCLST",
+        "component": "CA-CPD-SS"
+      },
+      {
+        "step_no": 3,
+        "name": "Project Control - Professional Services Projects",
+        "fiori_app_id": "F6869",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP_PRSV | SAP_BR_BILLING_CLERK | SAP_BR_PROJ_BILLG_SPCLST | SAP_BR_PROJECT_MANAGER_PROF",
+        "component": "CA-CPD-SS"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Direct Activity Allocation - New Version",
+        "fiori_app_id": "F3697A",
+        "technical_transaction": "KB21N",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "CO-FIO-CCA-TRA"
+      },
+      {
+        "step_no": 5,
+        "name": "Release Billing Proposals",
+        "fiori_app_id": "F0780",
+        "technical_transaction": "DP95",
+        "app_type": null,
+        "role": "",
+        "component": "PPM-SCL-BIL"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Project Billing",
+        "fiori_app_id": "F4374",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJECT_MANAGER_PROF | SAP_BR_PROJ_BILLG_SPCLST",
+        "component": "PPM-SCL-BIL"
+      },
+      {
+        "step_no": 7,
+        "name": "Schedule Repricing for Projects",
+        "fiori_app_id": "F4422",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_BILLG_SPCLST | SAP_BR_PROJECT_MANAGER_PROF",
+        "component": "PPM-SCL-BIL"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "b9bd59a405ce411db294e843a8baf687",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "b9bd59a405ce411db294e843a8baf687",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Analyze Customer Project (optional)",
+        "type": "userTask",
+        "role": "Project Manager - Commercial Services",
+        "optional": true
+      },
+      {
+        "seq": 2,
+        "name": "Customer Project Factsheet (Optional)",
+        "type": "userTask",
+        "role": "Project Manager - Commercial Services",
+        "optional": true
+      },
+      {
+        "seq": 3,
+        "name": "Maintain Customer Project",
+        "type": "userTask",
+        "role": "Project Manager - Commercial Services",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "1KC - Advanced Resource Management - Project-Based Services",
+        "type": "subProcess",
+        "role": "Resource Manager",
+        "optional": false,
+        "calls_scope_item": "1KC"
+      },
+      {
+        "seq": 5,
+        "name": "Maintain Work Package Staffing",
+        "type": "userTask",
+        "role": "Project Manager - Commercial Services",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "J13 \u2013 Service and Material Procurement (for consumption) for Project-Based Services",
+        "type": "subProcess",
+        "role": "Purchaser",
+        "optional": false,
+        "calls_scope_item": "J13"
+      },
+      {
+        "seq": 7,
+        "name": "BNX - Consumable Purchasing",
+        "type": "subProcess",
+        "role": "Purchaser",
+        "optional": false,
+        "calls_scope_item": "BNX"
+      },
+      {
+        "seq": 8,
+        "name": "16T - Intercompany Processes for Project-Based Services",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": false,
+        "calls_scope_item": "16T"
+      },
+      {
+        "seq": 9,
+        "name": "J14 - Sales Order Processing for Project-Based Services \u2013 Order Management",
+        "type": "subProcess",
+        "role": "Internal Sales Representative - Professional Services",
+        "optional": false,
+        "calls_scope_item": "J14"
+      },
+      {
+        "seq": 10,
+        "name": "Capture Service Units (optional)",
+        "type": "userTask",
+        "role": "Cost Accountant - Overhead",
+        "optional": true
+      },
+      {
+        "seq": 11,
+        "name": "J12 - Time Recording",
+        "type": "subProcess",
+        "role": "Employee - HR Info",
+        "optional": false,
+        "calls_scope_item": "J12"
+      },
+      {
+        "seq": 12,
+        "name": "Create Extracts for Project Billing",
+        "type": "serviceTask",
+        "role": "Project Manager - Commercial Services",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Review Customer Project",
+        "type": "userTask",
+        "role": "Project Manager - Commercial Services",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "J14 - Sales Order Processing for Project-Based Services",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": false,
+        "calls_scope_item": "J14"
+      },
+      {
+        "seq": 15,
+        "name": "Set Project Status to Completed",
+        "type": "userTask",
+        "role": "Project Manager - Commercial Services",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "J58 - Accounting & Financial Close",
+        "type": "subProcess",
+        "role": "General Ledger Accountant",
+        "optional": false,
+        "calls_scope_item": "J58"
+      },
+      {
+        "seq": 17,
+        "name": "Close Customer Project",
+        "type": "userTask",
+        "role": "Project Manager - Commercial Services",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "1IL - Event-Based Revenue Recognition - Project-Based Services",
+        "type": "subProcess",
+        "role": "Cost Accountant - Overhead",
+        "optional": false,
+        "calls_scope_item": "1IL"
+      },
+      {
+        "seq": 19,
+        "name": "Reset Project Status to Completed (Optional)",
+        "type": "userTask",
+        "role": "Project Manager - Commercial Services",
+        "optional": true
+      },
+      {
+        "seq": 20,
+        "name": "J55 - Profitability & Cost Analysis (including Revenue Recognition)",
+        "type": "subProcess",
+        "role": "Cost Accountant - Overhead",
+        "optional": false,
+        "calls_scope_item": "J55"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "inclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 7,
+        "type": "inclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 11,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 11,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 12,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 15,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 15,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "1KC",
+        "name": "1KC - Advanced Resource Management - Project-Based Services",
+        "optional": false
+      },
+      {
+        "scope_item_id": "J13",
+        "name": "J13 \u2013 Service and Material Procurement (for consumption) for Project-Based Services",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BNX",
+        "name": "BNX - Consumable Purchasing",
+        "optional": false
+      },
+      {
+        "scope_item_id": "16T",
+        "name": "16T - Intercompany Processes for Project-Based Services",
+        "optional": false
+      },
+      {
+        "scope_item_id": "J14",
+        "name": "J14 - Sales Order Processing for Project-Based Services \u2013 Order Management",
+        "optional": false
+      },
+      {
+        "scope_item_id": "J12",
+        "name": "J12 - Time Recording",
+        "optional": false
+      },
+      {
+        "scope_item_id": "J58",
+        "name": "J58 - Accounting & Financial Close",
+        "optional": false
+      },
+      {
+        "scope_item_id": "1IL",
+        "name": "1IL - Event-Based Revenue Recognition - Project-Based Services",
+        "optional": false
+      },
+      {
+        "scope_item_id": "J55",
+        "name": "J55 - Profitability & Cost Analysis (including Revenue Recognition)",
+        "optional": false
+      }
+    ]
+  }
+}

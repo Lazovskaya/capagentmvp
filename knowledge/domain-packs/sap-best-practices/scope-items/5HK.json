@@ -1,0 +1,61 @@
+{
+  "scope_item_id": "5HK",
+  "title": "Quality Management in Discrete Manufacturing \u2013 Consumer Products",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate",
+      "Plan to Fulfill",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Central Procurement",
+      "Manufacturing Operations",
+      "Production Engineering",
+      "Production Planning",
+      "Quality Management"
+    ],
+    "L3_scope_item": "5HK - Quality Management in Discrete Manufacturing \u2013 Consumer Products",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Confirm Production Operation",
+        "fiori_app_id": "F3069",
+        "technical_transaction": "CO11N",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_OPTR_DISC",
+        "component": "PP-FIO-SFC"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "e9f8550ebe824e62b10159f464a5d17a",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "e9f8550ebe824e62b10159f464a5d17a",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Initial Material Stock",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Execute Process Steps starting from \"Convert Planned Orders to Production Orders\" to \"Display Material Stock after Usage Decision\"",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

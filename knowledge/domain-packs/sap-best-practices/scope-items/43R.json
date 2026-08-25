@@ -1,0 +1,209 @@
+{
+  "scope_item_id": "43R",
+  "title": "Maintenance Resource Scheduling",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Maintenance Management"
+    ],
+    "L3_scope_item": "43R - Maintenance Resource Scheduling",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Work Center Utilization",
+        "fiori_app_id": "F2222",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER_RSH",
+        "component": "CA-RSH-EAM"
+      },
+      {
+        "step_no": 2,
+        "name": "Resource Scheduling for Maintenance Planners",
+        "fiori_app_id": "F2227",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER_RSH",
+        "component": "CA-RSH-EAM"
+      },
+      {
+        "step_no": 3,
+        "name": "Maintenance Scheduling Board",
+        "fiori_app_id": "F2603",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER_RSH",
+        "component": "CA-RSH-EAM"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Schedules",
+        "fiori_app_id": "F3326",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER_RSH",
+        "component": "CA-RSH-EAM"
+      },
+      {
+        "step_no": 5,
+        "name": "Assign Maintenance Order Operations",
+        "fiori_app_id": "F3423",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER_RSH",
+        "component": "CA-RSH-EAM"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Maintenance Schedule for Assets",
+        "fiori_app_id": "F4577",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER_RSH",
+        "component": "CA-RSH-EAM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "20ff4bc7179e40c19ff9ba0cf6058591",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "20ff4bc7179e40c19ff9ba0cf6058591",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Check Due Operations",
+        "type": "userTask",
+        "role": "Maintenance Planner - Resource Scheduling",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Open \nScheduling Board",
+        "type": "userTask",
+        "role": "Maintenance Planner - Resource Scheduling",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Add \nOperations to Schedule",
+        "type": "userTask",
+        "role": "Maintenance Planner - Resource Scheduling",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Select Due Operations",
+        "type": "userTask",
+        "role": "Maintenance Planner - Resource Scheduling",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Check \nWeekly Capacity",
+        "type": "userTask",
+        "role": "Maintenance Planner - Resource Scheduling",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Change and Dispatch",
+        "type": "userTask",
+        "role": "Maintenance Planner - Resource Scheduling",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Refine Schedule",
+        "type": "userTask",
+        "role": "Maintenance Planner - Resource Scheduling",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Freeze",
+        "type": "userTask",
+        "role": "Maintenance Planner - Resource Scheduling",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Track \nScheduling Status",
+        "type": "userTask",
+        "role": "Maintenance Planner - Resource Scheduling",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 8,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "scope_item_id": "78S",
+  "title": "Earmarked Funds",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Budget and Finance",
+    "L3_scope_item": "78S - Earmarked Funds",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Workflows for Earmarked Funds",
+        "fiori_app_id": "F6951",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BPC_EXPERT",
+        "component": "PSM-BM"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Earmarked Funds Documents",
+        "fiori_app_id": "F4657",
+        "technical_transaction": "FMX1",
+        "app_type": null,
+        "role": "SAP_BR_GRANT_RESPONSIBLE | SAP_BR_BUDGET_SPECIALIST | SAP_BR_GRANT_SPECIALIST | SAP_BR_BUDGET_RESPONSIBLE",
+        "component": "PSM-FM-PO-EF"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

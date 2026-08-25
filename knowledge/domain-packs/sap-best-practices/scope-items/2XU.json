@@ -1,0 +1,98 @@
+{
+  "scope_item_id": "2XU",
+  "title": "Procurement of Materials with Variant Configuration",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Operational Procurement",
+      "Product Engineering",
+      "Product Lifecycle Management"
+    ],
+    "L3_scope_item": "2XU - Procurement of Materials with Variant Configuration",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Inbox for Legal Contract",
+        "fiori_app_id": "F5331",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_LEGAL_COUNSEL | SAP_BR_EMPLOYEE_LEGAL_CONTENT | SAP_BR_ADMINISTRATOR_LCM",
+        "component": "CM-GF"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Supplier Invoices",
+        "fiori_app_id": "F0859",
+        "technical_transaction": "F-41",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AA_ACCOUNTANT | SAP_BR_PURCHASING_MANAGER",
+        "component": "MM-FIO-IV"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Purchase Orders (Version 2)",
+        "fiori_app_id": "F0842A",
+        "technical_transaction": "ME21",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-PO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "1b25147468a34b919824d490652ed781",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "1b25147468a34b919824d490652ed781",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Purchase Orders",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Preview Purchase Order (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 3,
+        "name": "Change Purchase Order (optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 4,
+        "name": "Post Goods Receipt",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Supplier Invoice",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Review Supplier Invoice (Optional)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": true
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

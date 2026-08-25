@@ -1,0 +1,134 @@
+{
+  "scope_item_id": "4B5",
+  "title": "Predictive Material and Resource Planning",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Production Planning"
+    ],
+    "L3_scope_item": "4B5 - Predictive Material and Resource Planning",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Maintain PIRs",
+        "fiori_app_id": "F3445",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RPLNMT_SPCLST_ST_RFM | SAP_BR_PRODN_PLNR | SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 2,
+        "name": "Process pMRP Simulations",
+        "fiori_app_id": "F3934",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR | SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-PMR-UI"
+      },
+      {
+        "step_no": 3,
+        "name": "Schedule pMRP Simulation Creation",
+        "fiori_app_id": "F3968",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_PRODN_PLNR",
+        "component": "PP-PMR-UI"
+      },
+      {
+        "step_no": 4,
+        "name": "Define Flexible Constraints",
+        "fiori_app_id": "F4449",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR | SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-PMR-UI"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "faffa0073fc44a1997e822c4c303abdb",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "faffa0073fc44a1997e822c4c303abdb",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Planned Independent Requirements",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Define Constrains for Production line",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Schedule pMRP Simulation Creation",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Variant 1: Define Constraints for Multiple Suppliers",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Variant 2: Define Constraints for Multiple Materials",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Process pMRP Simulations",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Check Planned Independent Requirements",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Download Component Data from pMRP Simulation",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

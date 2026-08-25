@@ -1,0 +1,128 @@
+{
+  "scope_item_id": "31H",
+  "title": "Assess Marketability of a Product",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Product Compliance"
+    ],
+    "L3_scope_item": "31H - Assess Marketability of a Product",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Basic Compliance Data - Unpackaged Products",
+        "fiori_app_id": "F2641",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODSTWRD_SPLST_PCL | SAP_BR_MD_SPECIALIST_PCL",
+        "component": "EHS-SUS-FND"
+      },
+      {
+        "step_no": 2,
+        "name": "Process Product Compliance Events",
+        "fiori_app_id": "F4005",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_PCL | SAP_BR_PRODSTWRD_SPLST_PCL",
+        "component": "EHS-SUS-FND"
+      },
+      {
+        "step_no": 3,
+        "name": "Process Compliance Disclosures - For Suppliers",
+        "fiori_app_id": "F7370",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_PCL",
+        "component": "EHS-SUS-FND"
+      },
+      {
+        "step_no": 4,
+        "name": "Assess Markets - For Products",
+        "fiori_app_id": "F2612",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODSTWRD_SPLST_PCL | SAP_BR_MD_SPECIALIST_PCL",
+        "component": "EHS-SUS-PMA"
+      },
+      {
+        "step_no": 5,
+        "name": "Assess Marketability Requirements - For Products",
+        "fiori_app_id": "F3219",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_PCL | SAP_BR_PRODSTWRD_SPLST_PCL",
+        "component": "EHS-SUS-PMA"
+      },
+      {
+        "step_no": 6,
+        "name": "Assess Marketability Requirements - For Substances",
+        "fiori_app_id": "F3220",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_PCL",
+        "component": "EHS-SUS-PMA"
+      },
+      {
+        "step_no": 7,
+        "name": "Assess Compliance Requirements - For Raw Materials",
+        "fiori_app_id": "F3221",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_PCL",
+        "component": "EHS-SUS-PMA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "5c4696268331447a8d0f8a3534226ff4",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "5c4696268331447a8d0f8a3534226ff4",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Maintain Compliance \nRelevance for Product Master",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Process Compliance \nRequest from Logistic",
+        "type": "userTask",
+        "role": "Product Stewardship Specialist - Product Compliance",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Assess Compliance \nRequirements for Products",
+        "type": "userTask",
+        "role": "Product Stewardship Specialist - Product Compliance",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Assess Markets for a Product",
+        "type": "userTask",
+        "role": "Product Stewardship Specialist - Product Compliance",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

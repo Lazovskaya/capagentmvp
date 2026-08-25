@@ -1,0 +1,322 @@
+{
+  "scope_item_id": "6AA",
+  "title": "From Planning to Fulfillment \u2013 Consumer Products",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash",
+      "Plan to Fulfill",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Central Procurement",
+      "Manufacturing Insights",
+      "Manufacturing Options",
+      "Order and Contract Management",
+      "Quality Management",
+      "Sourcing and Contract Management"
+    ],
+    "L3_scope_item": "6AA - From Planning to Fulfillment \u2013 Consumer Products",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Inbox for Legal Contract",
+        "fiori_app_id": "F5331",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_LEGAL_COUNSEL | SAP_BR_EMPLOYEE_LEGAL_CONTENT | SAP_BR_ADMINISTRATOR_LCM",
+        "component": "CM-GF"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Documented Credit Decisions (New Version)",
+        "fiori_app_id": "F5587A",
+        "technical_transaction": "UKM_CASE",
+        "app_type": null,
+        "role": "SAP_BR_CREDIT_CONTROLLER",
+        "component": "FIN-FIO-CCD-CR"
+      },
+      {
+        "step_no": 3,
+        "name": "Confirm Production Operation",
+        "fiori_app_id": "F3069",
+        "technical_transaction": "CO11N",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_OPTR_DISC",
+        "component": "PP-FIO-SFC"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "851b4eed5c92418aad0421b4a22cff40",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "851b4eed5c92418aad0421b4a22cff40",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Evaluate Stock / Requirements Situation",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Convert Planned Orders to Production Orders",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Review Material Availability Status for Production Orders",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Execute Material Staging",
+        "type": "userTask",
+        "role": "Production Operator - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Release Production Order",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Goods Issue of Batch-managed Raw Materials via Pick-List",
+        "type": "userTask",
+        "role": "Production Operator - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Quality Inspection Lots after Release of Production Order",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Confirm Production for Operation Roasting",
+        "type": "userTask",
+        "role": "Production Operator - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Confirm Production for Operation Cooling",
+        "type": "userTask",
+        "role": "Production Operator - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Display Routing for Inspection Characteristics",
+        "type": "userTask",
+        "role": "Production Engineer - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Display Inspection Plan for Inspection Characteristics",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Monitor Order Progress (Optional)",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing",
+        "optional": true
+      },
+      {
+        "seq": 13,
+        "name": "Display Quality Technician Overview (Optional)",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": true
+      },
+      {
+        "seq": 14,
+        "name": "Display Quality Technician Overview (Optional)",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": true
+      },
+      {
+        "seq": 15,
+        "name": "Confirm Production incl. Component Backflush for Operation Packaging",
+        "type": "userTask",
+        "role": "Production Operator - Discrete Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Display Open Inspection Lot",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Display Open Inspection Lot",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Post Goods Receipt for Production Order",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Execute Quality Inspection with Inspection Points (Operation 0010 Roasting)",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 20,
+        "name": "Evaluate Stock/Requirements Situation after Goods Receipt for Production Order",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 21,
+        "name": "Display Inspection Results History (Optional)",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": true
+      },
+      {
+        "seq": 22,
+        "name": "Record Inspection Results",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 23,
+        "name": "Display Material Stock before Usage Decision",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 24,
+        "name": "Record Inspection Results (Hierarchical Worklist)",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 25,
+        "name": "Display Inspection Result History (Optional)",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": true
+      },
+      {
+        "seq": 26,
+        "name": "Display Inspection Lot after Goods Receipt",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 27,
+        "name": "Display Inspection Results History (Optional)",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": true
+      },
+      {
+        "seq": 28,
+        "name": "Record Inspection Results",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 29,
+        "name": "Display Quality Engineer Overview (Optional)",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": true
+      },
+      {
+        "seq": 30,
+        "name": "Display Quality Engineer Overview (Optional)",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": true
+      },
+      {
+        "seq": 31,
+        "name": "Make Usage Decision",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": false
+      },
+      {
+        "seq": 32,
+        "name": "Make Usage Decision",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": false
+      },
+      {
+        "seq": 33,
+        "name": "Display Material Stock after Usage Decision",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 19,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 33,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

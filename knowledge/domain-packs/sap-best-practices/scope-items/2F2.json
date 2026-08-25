@@ -1,0 +1,134 @@
+{
+  "scope_item_id": "2F2",
+  "title": "Intercompany Foreign Exchange Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": "2F2 - Intercompany Foreign Exchange Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Cash Flow Analyzer",
+        "fiori_app_id": "F2332",
+        "technical_transaction": "FF7AN",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP-CP"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "3234b6090eb94c51867b23b5cf526230",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "3234b6090eb94c51867b23b5cf526230",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Analyze Cash Position - basic cash management",
+        "type": "userTask",
+        "role": "Cash Manager (Treasury Center)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "J78 - Advanced Cash Operations",
+        "type": "subProcess",
+        "role": "Cash Manager (Treasury Center)",
+        "optional": false,
+        "calls_scope_item": "J78"
+      },
+      {
+        "seq": 3,
+        "name": "BFB - Basic Cash Operations",
+        "type": "subProcess",
+        "role": "Cash Manager (Treasury Center)",
+        "optional": false,
+        "calls_scope_item": "BFB"
+      },
+      {
+        "seq": 4,
+        "name": "Help to bring about the Foreign Currency Exchange Deals",
+        "type": "userTask",
+        "role": "Cash Manager (Treasury Center)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Determine FX rates based on internal giudelines and external market environment",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office (Treasury Center)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Agree on Internal FX Contract",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Agree on Internal FX Contract",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office (Buying Company)",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Create FX contract",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office (Selling Company)",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Generate FX mirror deal as a FX contract in same status",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Check Mirror Deal",
+        "type": "userTask",
+        "role": "Treasury Specialist - Front Office (Buying Company)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 8,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "J78",
+        "name": "J78 - Advanced Cash Operations",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BFB",
+        "name": "BFB - Basic Cash Operations",
+        "optional": false
+      }
+    ]
+  }
+}

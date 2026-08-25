@@ -1,0 +1,48 @@
+{
+  "scope_item_id": "71S",
+  "title": "Grants Management",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Budget and Finance",
+    "L3_scope_item": "71S - Grants Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Grant Overview",
+        "fiori_app_id": "F6174",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GRANT_RESPONSIBLE | SAP_BR_GRANT_SPECIALIST",
+        "component": "PSM-FM"
+      },
+      {
+        "step_no": 2,
+        "name": "Monitor Grants",
+        "fiori_app_id": "F7716",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GRANT_RESPONSIBLE | SAP_BR_GRANT_SPECIALIST",
+        "component": "PSM-FM"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Grants Billing Proposal",
+        "fiori_app_id": "F5523",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GRANT_SPECIALIST",
+        "component": "PSM-GM-GTE-GM"
+      },
+      {
+        "step_no": 4,
+        "name": "Application Jobs - Grants Management",
+        "fiori_app_id": "F6218",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GRANT_SPECIALIST",
+        "component": "PSM-GM-GTE-GM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

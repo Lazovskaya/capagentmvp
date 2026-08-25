@@ -1,0 +1,30 @@
+{
+  "scope_item_id": "7GD",
+  "title": "Service Parts Logistics and Procurement",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Supply Chain",
+    "L3_scope_item": "7GD - Service Parts Logistics and Procurement",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Create Outbound Deliveries - From Sales Orders",
+        "fiori_app_id": "F0869A",
+        "technical_transaction": "VL10A",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Pick Outbound Delivery",
+        "fiori_app_id": "F0868",
+        "technical_transaction": "VL06P",
+        "app_type": null,
+        "role": "SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_SHIPPING_SPECIALIST",
+        "component": "LE-SHP-FIO-NAT"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

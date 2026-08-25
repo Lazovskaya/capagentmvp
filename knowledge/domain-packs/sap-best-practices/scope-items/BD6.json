@@ -1,0 +1,123 @@
+{
+  "scope_item_id": "BD6",
+  "title": "Basic Credit Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Financial Operations"
+    ],
+    "L3_scope_item": "BD6 - Basic Credit Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Analyze Credit Exposure",
+        "fiori_app_id": "F2541",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CREDIT_CONTROLLER",
+        "component": "FI-FIO-AR-ANA"
+      },
+      {
+        "step_no": 2,
+        "name": "Credit Limit Utilization (S/4HANA)",
+        "fiori_app_id": "F1751",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CREDIT_CONTROLLER",
+        "component": "FIN-FIO-CCD"
+      },
+      {
+        "step_no": 3,
+        "name": "Display Credit Management Log",
+        "fiori_app_id": "F2162",
+        "technical_transaction": "UKM_LOGS_DISPLAY",
+        "app_type": null,
+        "role": "SAP_BR_CREDIT_CONTROLLER",
+        "component": "FIN-FIO-CCD"
+      },
+      {
+        "step_no": 4,
+        "name": "Schedule Credit Management Jobs",
+        "fiori_app_id": "F3748",
+        "technical_transaction": "UKM_MASS_UPD5",
+        "app_type": null,
+        "role": "SAP_BR_CREDIT_CONTROLLER",
+        "component": "FIN-FIO-CCD"
+      },
+      {
+        "step_no": 5,
+        "name": "Rebuild Credit Management Data",
+        "fiori_app_id": "F4234",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CREDIT_CONTROLLER",
+        "component": "FIN-FIO-CCD"
+      },
+      {
+        "step_no": 6,
+        "name": "Display Credit Account Data",
+        "fiori_app_id": "F4825",
+        "technical_transaction": "UKM_BP_DISPLAY",
+        "app_type": null,
+        "role": "SAP_BR_CREDIT_CONTROLLER",
+        "component": "FIN-FIO-CCD"
+      },
+      {
+        "step_no": 7,
+        "name": "Display Credit Exposure",
+        "fiori_app_id": "F4826",
+        "technical_transaction": "UKM_COMMITMENTS",
+        "app_type": null,
+        "role": "SAP_BR_CREDIT_CONTROLLER",
+        "component": "FIN-FIO-CCD"
+      },
+      {
+        "step_no": 8,
+        "name": "Manage Credit Accounts",
+        "fiori_app_id": "F4596",
+        "technical_transaction": "UKM_BP",
+        "app_type": null,
+        "role": "SAP_BR_CREDIT_CONTROLLER",
+        "component": "FIN-FIO-CCD-CR"
+      },
+      {
+        "step_no": 9,
+        "name": "Manage Documented Credit Decisions",
+        "fiori_app_id": "F5587",
+        "technical_transaction": "UKM_MY_DCDS",
+        "app_type": null,
+        "role": "SAP_BR_CREDIT_CONTROLLER",
+        "component": "FIN-FIO-CCD-CR"
+      },
+      {
+        "step_no": 10,
+        "name": "Manage Documented Credit Decisions (New Version)",
+        "fiori_app_id": "F5587A",
+        "technical_transaction": "UKM_CASE",
+        "app_type": null,
+        "role": "SAP_BR_CREDIT_CONTROLLER",
+        "component": "FIN-FIO-CCD-CR"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "3cb846d8e09b4bddbc403a95934a964b",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "3cb846d8e09b4bddbc403a95934a964b",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Manage Credit Accounts",
+        "type": "userTask",
+        "role": "Credit Controller",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

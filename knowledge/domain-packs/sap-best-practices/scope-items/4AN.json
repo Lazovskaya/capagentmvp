@@ -1,0 +1,98 @@
+{
+  "scope_item_id": "4AN",
+  "title": "Intercompany Billing for Cross-Company Cost Accounting Postings",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Professional Services"
+    ],
+    "L2_core_process": [
+      "Professional Services"
+    ],
+    "L3_scope_item": "4AN - Intercompany Billing for Cross-Company Cost Accounting Postings",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Generate Intercompany Billing Request",
+        "fiori_app_id": "F1829",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP_PRSV",
+        "component": "PPM-SCL-BIL-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "ed70cf10138c44bb9251f2806c662a5e",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "ed70cf10138c44bb9251f2806c662a5e",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Debit Memo Request for Intercompany Billing",
+        "type": "userTask",
+        "role": "Internal Sales Representative (Sending Company)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Manage Debit Memo Request (Optional)",
+        "type": "userTask",
+        "role": "Internal Sales Representative (Sending Company)",
+        "optional": true
+      },
+      {
+        "seq": 3,
+        "name": "Create Intercompany Invoice",
+        "type": "userTask",
+        "role": "Billing Clerk (Sending Company)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create IC documents for Accounts Receivable / General Ledger / Profitability Segment",
+        "type": "serviceTask",
+        "role": "Billing Clerk (Sending Company)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Send IC Invoice via IDOC to Ordering Company",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Incoming IDOC creates IC documents for Accounts Payable / General Ledger / Profitability Segment in Ordering Company",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

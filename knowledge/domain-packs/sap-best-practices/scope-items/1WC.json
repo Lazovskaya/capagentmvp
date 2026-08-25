@@ -1,0 +1,212 @@
+{
+  "scope_item_id": "1WC",
+  "title": "Embargo Control",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Enterprise Risk and Compliance"
+    ],
+    "L3_scope_item": "1WC - Embargo Control",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Countries under Embargo",
+        "fiori_app_id": "F2791",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CMPLNC_SPECIALIST",
+        "component": "FT-ITR-TRC"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Documents - Trade Compliance",
+        "fiori_app_id": "F2826",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CMPLNC_SPECIALIST",
+        "component": "FT-ITR-TRC"
+      },
+      {
+        "step_no": 3,
+        "name": "Schedule Recheck Documents - Trade Compliance",
+        "fiori_app_id": "F4285",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CMPLNC_SPECIALIST",
+        "component": "FT-ITR-TRC"
+      },
+      {
+        "step_no": 4,
+        "name": "Analyze and Resolve Blocked Documents - Trade Compliance",
+        "fiori_app_id": "F5445",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRD_CMPLNC_SPECIALIST",
+        "component": "FT-ITR-TRC"
+      },
+      {
+        "step_no": 5,
+        "name": "Create Outbound Deliveries - From Sales Orders",
+        "fiori_app_id": "F0869A",
+        "technical_transaction": "VL10A",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Scheduling Agreement",
+        "fiori_app_id": "F2179",
+        "technical_transaction": "ME31L",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST | SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-SQ-SCH"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "d9c346d91cff488bae5463461dde6e1f",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "d9c346d91cff488bae5463461dde6e1f",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Schedule mass recheck of trade compliance documents",
+        "type": "userTask",
+        "role": "Trade Compliance Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Embargo Management",
+        "type": "subProcess",
+        "role": "Trade Compliance Specialist",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create relevant Sales document",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create relevant Purchasing document",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Embargo Check",
+        "type": "serviceTask",
+        "role": "Trade Compliance Specialist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Manage Documents - Trade Compliance",
+        "type": "userTask",
+        "role": "Trade Compliance Specialist",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Continue purchasing process",
+        "type": "subProcess",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Continue sales process",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Continue delivery process",
+        "type": "subProcess",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Release Block",
+        "type": "userTask",
+        "role": "Trade Compliance Specialist",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Option 1: Confirm Block",
+        "type": "userTask",
+        "role": "Trade Compliance Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

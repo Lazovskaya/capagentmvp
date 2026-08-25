@@ -1,0 +1,327 @@
+{
+  "scope_item_id": "40G",
+  "title": "Field Logistics Planning and Execution",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Oil and Gas"
+    ],
+    "L2_core_process": [
+      "Oil and Gas"
+    ],
+    "L3_scope_item": "40G - Field Logistics Planning and Execution",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Process Receipt",
+        "fiori_app_id": "F5316",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RCVG_SPECIALIST_IOG | SAP_BR_SC_ANALYST_IOG",
+        "component": "CA-FL-GR"
+      },
+      {
+        "step_no": 2,
+        "name": "Initiate Returns - By product",
+        "fiori_app_id": "F4252",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_IOG",
+        "component": "CA-FL-RET"
+      },
+      {
+        "step_no": 3,
+        "name": "Initiate Returns - By order",
+        "fiori_app_id": "F4682",
+        "technical_transaction": "O3O_RT01",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_IOG",
+        "component": "CA-FL-RET"
+      },
+      {
+        "step_no": 4,
+        "name": "Process Cross-Plant Receipts",
+        "fiori_app_id": "F4713",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_IOG",
+        "component": "CA-FL-RET"
+      },
+      {
+        "step_no": 5,
+        "name": "Supply Process Document Flow",
+        "fiori_app_id": "F4915",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SC_ANALYST_IOG",
+        "component": "CA-FL-SC"
+      },
+      {
+        "step_no": 6,
+        "name": "My Inbox",
+        "fiori_app_id": "F0862",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER",
+        "component": "CA-INB-FIO"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Purchase Orders (Version 2)",
+        "fiori_app_id": "F0842A",
+        "technical_transaction": "ME21",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-PO"
+      },
+      {
+        "step_no": 8,
+        "name": "Process Purchase Requisitions",
+        "fiori_app_id": "F1048",
+        "technical_transaction": "ME59N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-SOC"
+      },
+      {
+        "step_no": 9,
+        "name": "Perform Maintenance Jobs",
+        "fiori_app_id": "F5104A",
+        "technical_transaction": "IW41",
+        "app_type": null,
+        "role": "SAP_BR_MAINT_SUPERVISOR | SAP_BR_MAINTENANCE_TECHNICIAN",
+        "component": "PM-FIO-WOC-JC"
+      },
+      {
+        "step_no": 10,
+        "name": "Create Maintenance Request",
+        "fiori_app_id": "F1511A",
+        "technical_transaction": "IW21",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_EAM | SAP_BR_MAINTENANCE_TECHNICIAN | SAP_BR_MAINT_SUPERVISOR | SAP_BR_EMPLOYEE | SAP_BR_MAINTENANCE_PLANNER",
+        "component": "PM-FIO-WOC-MN"
+      },
+      {
+        "step_no": 11,
+        "name": "Screen Maintenance Requests",
+        "fiori_app_id": "F4072",
+        "technical_transaction": "IW21",
+        "app_type": null,
+        "role": "SAP_BR_MAINT_SUPERVISOR",
+        "component": "PM-FIO-WOC-MN"
+      },
+      {
+        "step_no": 12,
+        "name": "Monitor Material Coverage - Net and Individual Segments (Version 2)",
+        "fiori_app_id": "F2101A",
+        "technical_transaction": "MB53",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR | SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 13,
+        "name": "Record Inspection Results",
+        "fiori_app_id": "F1685",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_TECHNICIAN",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 14,
+        "name": "Manage Inspection Lots",
+        "fiori_app_id": "F2343",
+        "technical_transaction": "QA32",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER | SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_TECHNICIAN",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 15,
+        "name": "Change Inbound Delivery",
+        "fiori_app_id": "F1706",
+        "technical_transaction": "/SCWM/PRDI",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_EWM",
+        "component": "SCM-EWM-DLP-UI"
+      },
+      {
+        "step_no": 16,
+        "name": "Manage Outbound Delivery Orders",
+        "fiori_app_id": "F6498",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_EWM",
+        "component": "SCM-EWM-DLP-UI"
+      },
+      {
+        "step_no": 17,
+        "name": "Process Warehouse Tasks",
+        "fiori_app_id": "F4595",
+        "technical_transaction": "/SCWM/MON",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_OPERATIVE_EWM | SAP_BR_WAREHOUSE_CLERK_EWM",
+        "component": "SCM-EWM-FIO"
+      },
+      {
+        "step_no": 18,
+        "name": "Process Warehouse Tasks - Picking",
+        "fiori_app_id": "F3880",
+        "technical_transaction": "/SCWM/MON",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_EWM | SAP_BR_WAREHOUSE_OPERATIVE_EWM",
+        "component": "SCM-EWM-FIO-WOP"
+      },
+      {
+        "step_no": 19,
+        "name": "Process Warehouse Tasks - Putaway",
+        "fiori_app_id": "F4150",
+        "technical_transaction": "/SCWM/MON",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_EWM | SAP_BR_WAREHOUSE_OPERATIVE_EWM",
+        "component": "SCM-EWM-FIO-WOP"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "d1be372b9edd4cbdb128f29c88ae1e99",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "d1be372b9edd4cbdb128f29c88ae1e99",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Query for items in Maintenance Order view",
+        "type": "userTask",
+        "role": "Warehouse Clerk (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Select item for Return through Maintenance Order View",
+        "type": "userTask",
+        "role": "Warehouse Clerk (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Initiate Return",
+        "type": "userTask",
+        "role": "Warehouse Clerk (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create Outbound Deliveries from due list",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Enter Load Quantity",
+        "type": "userTask",
+        "role": "Warehouse Clerk (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Pack Items to Container At Remote",
+        "type": "userTask",
+        "role": "Warehouse Clerk (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Not Found",
+        "type": "userTask",
+        "role": "Warehouse Clerk (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Set Container to Unloaded",
+        "type": "userTask",
+        "role": "Warehouse Clerk (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Seal Container At Remote",
+        "type": "userTask",
+        "role": "Warehouse Clerk (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Set Item to Unloaded",
+        "type": "userTask",
+        "role": "Warehouse Clerk (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Set Handling Decision & Process item",
+        "type": "manualTask",
+        "role": "Warehouse Clerk (IOG)",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Post Goods Issue (Base)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

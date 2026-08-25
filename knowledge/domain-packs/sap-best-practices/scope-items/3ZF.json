@@ -1,0 +1,127 @@
+{
+  "scope_item_id": "3ZF",
+  "title": "Central Sourcing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Central Procurement",
+      "Sourcing and Contract Management"
+    ],
+    "L3_scope_item": "3ZF - Central Sourcing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Process Purchase Requisitions",
+        "fiori_app_id": "F1048",
+        "technical_transaction": "ME59N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-SOC"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Central RFQs",
+        "fiori_app_id": "F3974",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER | SAP_BR_CENTRAL_PURCHASER",
+        "component": "MM-FIO-PUR-RFQ"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Central Supplier Quotations",
+        "fiori_app_id": "F3975",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CENTRAL_PURCHASER",
+        "component": "MM-FIO-PUR-RFQ"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Central Purchase Contracts",
+        "fiori_app_id": "F3144",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SOURCING_MANAGER | SAP_BR_CENTRAL_PURCHASER",
+        "component": "MM-PUR-HUB-CTR"
+      },
+      {
+        "step_no": 5,
+        "name": "Process Purchase Requisitions Centrally",
+        "fiori_app_id": "F3290",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CENTRAL_PURCHASER | SAP_BR_MANAGER | SAP_BR_MANAGER_PROCUREMENT",
+        "component": "MM-PUR-HUB-REQ"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "023239e4fa3f450fa6fd6cb6a9b4176a",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "023239e4fa3f450fa6fd6cb6a9b4176a",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Manage Purchase Requisitions Centrally",
+        "type": "userTask",
+        "role": "Purchaser - Central Procurement",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Manage Central Request for Quotations",
+        "type": "userTask",
+        "role": "Purchaser - Central Procurement",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Approve Purchase Requisitions (optional)",
+        "type": "subProcess",
+        "role": "Purchasing Manager",
+        "optional": true
+      },
+      {
+        "seq": 4,
+        "name": "Receive invitation for bid",
+        "type": "subProcess",
+        "role": "Supplier",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Submit Quote",
+        "type": "subProcess",
+        "role": "Supplier",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Manage Central Supplier Quotations",
+        "type": "userTask",
+        "role": "Purchaser - Central Procurement",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Manage Central Contracts(optional)",
+        "type": "userTask",
+        "role": "Purchaser - Central Procurement",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

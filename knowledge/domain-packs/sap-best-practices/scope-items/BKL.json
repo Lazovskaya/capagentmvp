@@ -1,0 +1,125 @@
+{
+  "scope_item_id": "BKL",
+  "title": "Invoice Correction Process with Credit Memo",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": "BKL - Invoice Correction Process with Credit Memo",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Display Billing Documents",
+        "fiori_app_id": "F2250",
+        "technical_transaction": "FKKINVBILL_DISP",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV | SAP_BR_INVOICING_SPEC_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Billing Documents",
+        "fiori_app_id": "F0797",
+        "technical_transaction": "VF02",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_TRANSPRT_MNGR_LMD | SAP_BR_BILLING_CLERK | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_ADMINISTRATOR_RFM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 3,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 4,
+        "name": "Billing Document",
+        "fiori_app_id": "F1901",
+        "technical_transaction": "VF03",
+        "app_type": null,
+        "role": "SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_INTERNAL_SALES_REP | SAP_BR_SALES_MANAGER | SAP_BR_SERVICE_MANAGER | SAP_BR_RETURNS_REFUND_CLERK | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_BILLING_CLERK | SAP_BR_ADMINISTRATOR_SLL",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Credit Memo Requests",
+        "fiori_app_id": "F1989",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_RETURNS_REFUND_CLERK | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS-CMR"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "12c6dc1f24a1465aa5ab3ad4270fe703",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "12c6dc1f24a1465aa5ab3ad4270fe703",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Credit Memo Requests",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Remove Billing Block",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Credit Memo",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "BKK - Sales Order Fulfillment Monitoring",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": false,
+        "calls_scope_item": "BKK"
+      },
+      {
+        "seq": 5,
+        "name": "J59 - Accounts Receivable",
+        "type": "subProcess",
+        "role": "Accounts Receivable Accountant",
+        "optional": false,
+        "calls_scope_item": "J59"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 3,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "BKK",
+        "name": "BKK - Sales Order Fulfillment Monitoring",
+        "optional": false
+      },
+      {
+        "scope_item_id": "J59",
+        "name": "J59 - Accounts Receivable",
+        "optional": false
+      }
+    ]
+  }
+}

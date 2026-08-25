@@ -1,0 +1,34 @@
+{
+  "scope_item_id": "47I",
+  "title": "Contract Accounting \u2013 Cash Application",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Subscription Billing and Revenue Management"
+    ],
+    "L3_scope_item": "47I - Contract Accounting \u2013 Cash Application",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Data Exchange with Cash Application",
+        "fiori_app_id": "F4203",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMIN_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CAC-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "b4ce718ef3d241659199a3acb901cd72",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "b4ce718ef3d241659199a3acb901cd72",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [],
+    "dependencies": []
+  }
+}

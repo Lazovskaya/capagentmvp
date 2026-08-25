@@ -1,0 +1,169 @@
+{
+  "scope_item_id": "3F7",
+  "title": "Joint Venture Accounting",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Accounting and Financial Close"
+    ],
+    "L3_scope_item": "3F7 - Joint Venture Accounting",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Job for JVA Billing",
+        "fiori_app_id": "F3953",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_JVA_ACCOUNTANT",
+        "component": "CA-JVA"
+      },
+      {
+        "step_no": 2,
+        "name": "Schedule Job for JVA Cash Call",
+        "fiori_app_id": "F3954",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_JVA_ACCOUNTANT",
+        "component": "CA-JVA"
+      },
+      {
+        "step_no": 3,
+        "name": "Schedule Job for JVA Funding",
+        "fiori_app_id": "F3955",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_JVA_ACCOUNTANT",
+        "component": "CA-JVA"
+      },
+      {
+        "step_no": 4,
+        "name": "Schedule Job for JVA Suspense",
+        "fiori_app_id": "F3957",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_JVA_ACCOUNTANT",
+        "component": "CA-JVA"
+      },
+      {
+        "step_no": 5,
+        "name": "Schedule Job for JVA Equity Change",
+        "fiori_app_id": "F3958",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_JVA_ACCOUNTANT",
+        "component": "CA-JVA"
+      },
+      {
+        "step_no": 6,
+        "name": "Schedule Job for JVA Netting",
+        "fiori_app_id": "F3959",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_JVA_ACCOUNTANT",
+        "component": "CA-JVA"
+      },
+      {
+        "step_no": 7,
+        "name": "Schedule Job for JVA Cutback",
+        "fiori_app_id": "F3960",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_JVA_ACCOUNTANT",
+        "component": "CA-JVA"
+      },
+      {
+        "step_no": 8,
+        "name": "Venture Object Page",
+        "fiori_app_id": "F4011",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_JVA_ACCOUNTANT",
+        "component": "CA-JVA"
+      },
+      {
+        "step_no": 9,
+        "name": "Display Joint Operating Agreements",
+        "fiori_app_id": "F4169",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_JVA_ACCOUNTANT",
+        "component": "CA-JVA"
+      },
+      {
+        "step_no": 10,
+        "name": "JVA Cost Analysis",
+        "fiori_app_id": "F4498",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_JVA_ACCOUNTANT",
+        "component": "CA-JVA"
+      },
+      {
+        "step_no": 11,
+        "name": "Manage JVA Output Items",
+        "fiori_app_id": "F4602",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_JVA_ACCOUNTANT",
+        "component": "CA-JVA-JVA"
+      },
+      {
+        "step_no": 12,
+        "name": "Manage Cost Centers (Version 2)",
+        "fiori_app_id": "F1443A",
+        "technical_transaction": "KS01",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_FIN_CONTROLLER | SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-CCA-MD"
+      },
+      {
+        "step_no": 13,
+        "name": "Post Outgoing Payments",
+        "fiori_app_id": "F1612",
+        "technical_transaction": "F-07",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT",
+        "component": "FI-FIO-AP-TRA"
+      },
+      {
+        "step_no": 14,
+        "name": "Run Statutory Reports",
+        "fiori_app_id": "F1515",
+        "technical_transaction": "F1515",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_MX | SAP_BR_GL_ACCOUNTANT_KZ | SAP_BR_GL_ACCOUNTANT_KR | SAP_BR_AP_MANAGER_IE | SAP_BR_GL_ACCOUNTANT_NZ | SAP_BR_GL_ACCOUNTANT_AU | SAP_BR_GL_ACCOUNTANT_BR | SAP_BR_GL_ACCOUNTANT_DK | SAP_BR_GL_ACCOUNTANT_ES | SAP_BR_AP_MANAGER_US | SAP_BR_AP_MANAGER_SK | SAP_BR_GL_ACCOUNTANT_AT | SAP_BR_GL_ACCOUNTANT_LU | SAP_BR_AP_MANAGER_VE | SAP_BR_GL_ACCOUNTANT_NL | SAP_BR_AP_MANAGER_BZ | SAP_BR_GL_ACCOUNTANT_HU | SAP_BR_GL_ACCOUNTANT_PE | SAP_BR_AP_MANAGER_AR | SAP_BR_GL_ACCOUNTANT_IE | SAP_BR_GL_ACCOUNTANT_DE | SAP_BR_GL_ACCOUNTANT_IT | SAP_BR_AP_MANAGER_TH | SAP_BR_GL_ACCOUNTANT_IN | SAP_BR_AR_MANAGER_TH | SAP_BR_GL_ACCOUNTANT_CO | SAP_BR_AP_MANAGER_ES | SAP_BR_GL_ACCOUNTANT_CZ | SAP_BR_GL_ACCOUNTANT_ZA | SAP_BR_AR_ACCOUNTANT_PL | SAP_BR_AA_ACCOUNTANT_RO | SAP_BR_GL_ACCOUNTANT_IL | SAP_BR_GL_ACCOUNTANT_TW | SAP_BR_AP_ACCOUNTANT_PL | SAP_BR_GL_ACCOUNTANT_PL | SAP_BR_GL_ACCOUNTANT_CA | SAP_BR_GL_ACCOUNTANT_FR | SAP_BR_GL_ACCOUNTANT_NO | SAP_BR_AP_MANAGER_MX | SAP_BR_GL_ACCOUNTANT_AE | SAP_BR_GL_ACCOUNTANT_CH | SAP_BR_GL_ACCOUNTANT_FI | SAP_BR_AP_MANAGER_IT | SAP_BR_GL_ACCOUNTANT_SG | SAP_BR_GL_ACCOUNTANT_VE | SAP_BR_GL_ACCOUNTANT_SE | SAP_BR_GL_ACCOUNTANT_ID | SAP_BR_GL_ACCOUNTANT_EG | SAP_BR_AP_MANAGER_SA | SAP_BR_AP_MANAGER_JP | SAP_BR_AP_ACCOUNTANT_NO | SAP_BR_AP_MANAGER_AU | SAP_BR_AA_ACCOUNTANT_PL | SAP_BR_GL_ACCOUNTANT_TR | SAP_BR_AP_MANAGER_PL | SAP_BR_GL_ACCOUNTANT_CN | SAP_BR_AR_ACCOUNTANT_NO | SAP_BR_AP_MANAGER_KR | SAP_BR_AA_ACCOUNTANT_PT | SAP_BR_GL_ACCOUNTANT_SK | SAP_BR_AP_MANAGER_SG | SAP_BR_AP_MANAGER_GB | SAP_BR_AP_MANAGER_BE | SAP_BR_GL_ACCOUNTANT_PT | SAP_BR_AP_MANAGER_ID | SAP_BR_GL_ACCOUNTANT_RO | SAP_BR_AP_MANAGER_MY | SAP_BR_AP_MANAGER_PT | SAP_BR_GL_ACCOUNTANT_GB | SAP_BR_AP_MANAGER_ZA | SAP_BR_GL_ACCOUNTANT_CL | SAP_BR_CASH_MANAGER_MY | SAP_BR_AA_ACCOUNTANT_IT | SAP_BR_AP_MANAGER_FR | SAP_BR_GL_ACCOUNTANT_SA | SAP_BR_GL_ACCOUNTANT_MY | SAP_BR_GL_ACCOUNTANT_RU | SAP_BR_GL_ACCOUNTANT_AR | SAP_BR_GL_ACCOUNTANT_BE | SAP_BR_GL_ACCOUNTANT_UA | SAP_BR_GL_ACCOUNTANT_PH | SAP_BR_AA_ACCOUNTANT_SK | SAP_BR_AP_MANAGER_PH | SAP_BR_GL_ACCOUNTANT_TH",
+        "component": "FI-LOC-SRF-RUN"
+      },
+      {
+        "step_no": 15,
+        "name": "Manage Allocations",
+        "fiori_app_id": "F3338",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_DIVISION_ACCOUNTANT | SAP_BR_SALES_ACCOUNTANT",
+        "component": "FIN-UA"
+      },
+      {
+        "step_no": 16,
+        "name": "Run Allocations",
+        "fiori_app_id": "F3548",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DIVISION_ACCOUNTANT | SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_SALES_ACCOUNTANT",
+        "component": "FIN-UA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "f13e27fb016b44b69255eea361e37e0f",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "f13e27fb016b44b69255eea361e37e0f",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [],
+    "dependencies": []
+  }
+}

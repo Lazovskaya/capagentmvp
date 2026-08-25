@@ -1,0 +1,49 @@
+{
+  "scope_item_id": "19E",
+  "title": "Supplier Classification and Segmentation",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Supplier Management"
+    ],
+    "L3_scope_item": "19E - Supplier Classification and Segmentation",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Purchasing Categories",
+        "fiori_app_id": "F0337",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER | SAP_BR_BUYER",
+        "component": "SLC-CAT"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "45956a6f11944db38a0954a35d4d5f00",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "45956a6f11944db38a0954a35d4d5f00",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Purchasing Categories",
+        "type": "userTask",
+        "role": "Strategic Buyer",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Manage Purchasing Categories",
+        "type": "userTask",
+        "role": "Strategic Buyer",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

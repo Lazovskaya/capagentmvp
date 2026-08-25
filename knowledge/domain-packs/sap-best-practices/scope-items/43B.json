@@ -1,0 +1,30 @@
+{
+  "scope_item_id": "43B",
+  "title": "Service Monitoring and Analytics",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Service",
+    "L3_scope_item": "43B - Service Monitoring and Analytics",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Service Contract Issues",
+        "fiori_app_id": "F4032",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SERVICE_MANAGER",
+        "component": "CRM-S4-ANA-BI"
+      },
+      {
+        "step_no": 2,
+        "name": "Service Order Issues",
+        "fiori_app_id": "F4033",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SERVICE_MANAGER",
+        "component": "CRM-S4-ANA-BI"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

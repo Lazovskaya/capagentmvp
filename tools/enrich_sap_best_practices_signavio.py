@@ -183,9 +183,9 @@ def fetch_l2_process_groups(client, folder_id):
     return groups, model_id
 
 
-def enrich_scope_items_dir(scope_items_dir, code, l2_groups):
-    """Merges L2 into the existing per-scope-item JSON from ingest_sap_best_practices.py
-    if present; creates a minimal new file (L2 only, no L4 steps) if this scope item
+def enrich_scope_items_dir(scope_items_dir, code, l2_groups, model_id=None):
+    """Merges L2 (and optionally model_id) into the existing per-scope-item JSON from
+    ingest_sap_best_practices.py if present; creates a minimal new file if this scope item
     wasn't in the Fiori-derived cache. Never touches L4 steps/apps -- those come from the
     Fiori export, a different source this script doesn't re-derive."""
     path = scope_items_dir / f"{code}.json"
@@ -196,6 +196,8 @@ def enrich_scope_items_dir(scope_items_dir, code, l2_groups):
         "note": "",
     }
     doc["hierarchy"]["L2_core_process"] = sorted(l2_groups) if l2_groups else doc["hierarchy"].get("L2_core_process")
+    if model_id is not None:
+        doc["signavio_model_id"] = model_id
     doc["note"] = (
         "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. "
         "L1 value stream still not populated -- linkedBy's one hop up lands on a flat L2 registry, not a "
@@ -218,12 +220,12 @@ def run(client, scope_items_dir, only_codes=None, limit=None):
     for code, title, folder_id in items:
         print(f"  [{code}] {title}...")
         try:
-            l2_groups, _ = fetch_l2_process_groups(client, folder_id)
+            l2_groups, model_id = fetch_l2_process_groups(client, folder_id)
         except RuntimeError as error:
             print(f"    SKIPPED: {error}", file=sys.stderr)
             failures.append(code)
             continue
-        enrich_scope_items_dir(scope_items_dir, code, l2_groups)
+        enrich_scope_items_dir(scope_items_dir, code, l2_groups, model_id)
 
     print(f"\nEnriched {len(items) - len(failures)}/{len(items)} scope items in {scope_items_dir}/")
     if failures:

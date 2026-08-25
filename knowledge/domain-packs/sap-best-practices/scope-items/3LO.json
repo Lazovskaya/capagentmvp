@@ -1,0 +1,102 @@
+{
+  "scope_item_id": "3LO",
+  "title": "Change Manufacturing Bill of Material for Production",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Production Engineering"
+    ],
+    "L3_scope_item": "3LO - Change Manufacturing Bill of Material for Production",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Maintain Bill Of Material",
+        "fiori_app_id": "F1813",
+        "technical_transaction": "CS01",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_PCL | SAP_BR_ADMINISTRATOR_RCP_DEV | SAP_BR_PRODN_ENG_DISC | SAP_BR_MD_SPECIALIST_EAM | SAP_BR_PRODSTWRD_SPLST_PCL | SAP_BR_BOM_ENGINEER | SAP_BR_BOM_ENG_CUST_ORDER | SAP_BR_DESIGN_ENGINEER | SAP_BR_PRODN_ENG_PROC | SAP_BR_DEVELOPMENT_MANAGER_DIN",
+        "component": "PLM-FIO-BOM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "00b91fb49e9a4204baebcbd9a1b246c2",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "00b91fb49e9a4204baebcbd9a1b246c2",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Change Master",
+        "type": "userTask",
+        "role": "Production Engineer - Discrete Manufacturing (EME)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Exchange a Component in the MBOM",
+        "type": "userTask",
+        "role": "Production Engineer - Discrete Manufacturing (EME)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Set Change Master Status to Inactive",
+        "type": "userTask",
+        "role": "Production Engineer - Discrete Manufacturing (EME)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Manually Create Production Order",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing (EPO)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Change Master",
+        "type": "userTask",
+        "role": "Production Engineer - Discrete Manufacturing (EME)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Change to Original Component in the MBOM",
+        "type": "userTask",
+        "role": "Production Engineer - Discrete Manufacturing (EME)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Set Change Master Status to Inactive",
+        "type": "userTask",
+        "role": "Production Engineer - Discrete Manufacturing (EME)",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Manually Create Production Order",
+        "type": "userTask",
+        "role": "Production Supervisor - Discrete Manufacturing (EPO)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Unspecified"
+      }
+    ],
+    "dependencies": []
+  }
+}

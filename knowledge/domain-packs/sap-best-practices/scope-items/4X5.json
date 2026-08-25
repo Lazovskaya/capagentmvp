@@ -1,0 +1,104 @@
+{
+  "scope_item_id": "4X5",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Service"
+    ],
+    "L2_core_process": [
+      "Service Operations and Processes"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "f551b391ac654a4898066578dbb9dc2d",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "f551b391ac654a4898066578dbb9dc2d",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Maintenance Plan",
+        "type": "userTask",
+        "role": "Service Planner",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Mass scheduling / Background job",
+        "type": "scriptTask",
+        "role": "Service Planner",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Schedule maintenance plant",
+        "type": "userTask",
+        "role": "Service Planner",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Monitor scheduling log",
+        "type": "userTask",
+        "role": "Service Planner",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Service Order",
+        "type": "scriptTask",
+        "role": "Service Planner",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "3D2 - Service Order Management and Monitoring",
+        "type": "subProcess",
+        "role": "Service Technician - Customer Service",
+        "optional": false,
+        "calls_scope_item": "3D2"
+      },
+      {
+        "seq": 7,
+        "name": "Update SO completion date in the Plan",
+        "type": "scriptTask",
+        "role": "Service Technician - Customer Service",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Update Counter reading for the Technical objects",
+        "type": "userTask",
+        "role": "Service Technician - Customer Service",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "3D2",
+        "name": "3D2 - Service Order Management and Monitoring",
+        "optional": false
+      }
+    ]
+  }
+}

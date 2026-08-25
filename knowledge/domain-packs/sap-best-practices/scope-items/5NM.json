@@ -1,0 +1,50 @@
+{
+  "scope_item_id": "5NM",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Oil and Gas"
+    ],
+    "L2_core_process": [
+      "Oil and Gas"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "2dc5fdd7c20a40ba9e71d7c5be33690d",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "2dc5fdd7c20a40ba9e71d7c5be33690d",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

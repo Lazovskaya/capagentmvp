@@ -1,0 +1,168 @@
+{
+  "scope_item_id": "2WL",
+  "title": "Enable Manufacturing Subsidiary to Handle Assembly for Headquarter",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Manufacturing Operations"
+    ],
+    "L3_scope_item": "2WL - Enable Manufacturing Subsidiary to Handle Assembly for Headquarter",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Confirm Production Operation",
+        "fiori_app_id": "F3069",
+        "technical_transaction": "CO11N",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_OPTR_DISC",
+        "component": "PP-FIO-SFC"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "eaf000bf6ee0449b840f8e2de34a36ca",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "eaf000bf6ee0449b840f8e2de34a36ca",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Display Sales Order and Order Confirmation (Optional)",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": true
+      },
+      {
+        "seq": 2,
+        "name": "Monitor Material Coverage",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Convert Planned Order to Production Order",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Convert Purchase Requisition to Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Release Production Order",
+        "type": "userTask",
+        "role": "Production Supervisor",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Release Production Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Pick Components for Production",
+        "type": "userTask",
+        "role": "Production Operator",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Confirm Assembly Activities",
+        "type": "userTask",
+        "role": "Production Operator",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Material Staging into Production Storage Location",
+        "type": "userTask",
+        "role": "Production Operator",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Post Goods Receipt for Production Order",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Create Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Execute Picking",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Post Goods Issue for Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Send Advance Shipping Notification",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Create Billing Document",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Send Invoice",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "scope_item_id": "57Z",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "9bd1ef63018c402da90f3061769de67a",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "9bd1ef63018c402da90f3061769de67a",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Rate Element",
+        "type": "userTask",
+        "role": "SAP Subscription Billing User",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Rate Plan Template",
+        "type": "userTask",
+        "role": "SAP Subscription Billing User",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Rate Plan",
+        "type": "userTask",
+        "role": "SAP Subscription Billing User",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create Product",
+        "type": "userTask",
+        "role": "SAP Subscription Billing User",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Display Product",
+        "type": "userTask",
+        "role": "SAP Subscription Billing User",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Create Product",
+        "type": "scriptTask",
+        "role": "Master Data Specialist - Product Data",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Display and Edit Product",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Maintain Sales Area",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Maintain Plant",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Save Product",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 4,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

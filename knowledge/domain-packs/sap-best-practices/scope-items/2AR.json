@@ -1,0 +1,103 @@
+{
+  "scope_item_id": "2AR",
+  "title": "Contract Accounting \u2013 Master Data and Basic Functions",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Financial Operations"
+    ],
+    "L3_scope_item": "2AR - Contract Accounting \u2013 Master Data and Basic Functions",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Output Queues",
+        "fiori_app_id": "F7127",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR",
+        "component": "BC-CCM-PRN-OM-PQ"
+      },
+      {
+        "step_no": 2,
+        "name": "Create Balance Notifications",
+        "fiori_app_id": "F3818",
+        "technical_transaction": "FPCC0026",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Contract Accounts",
+        "fiori_app_id": "F5474",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_MANAGER_FICA | SAP_BR_INTRNAL_SALESREP_SOM | SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_RECONC_SPEC_APR_FICA | SAP_BR_COLL_SPECIALIST_FICA | SAP_BR_EXT_AUDITOR_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 4,
+        "name": "Print Correspondence",
+        "fiori_app_id": "F3537",
+        "technical_transaction": "FPCOPARA",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV | SAP_BR_ADMIN_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 5,
+        "name": "Create Account Statements",
+        "fiori_app_id": "F3544",
+        "technical_transaction": "FPCC0002",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "8f882acaf3cd4153af2b3e3c3283ccfe",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "8f882acaf3cd4153af2b3e3c3283ccfe",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Account Statement",
+        "type": "userTask",
+        "role": "Administrator - Accounts Payable and \nReceivable (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Print Correspondence",
+        "type": "userTask",
+        "role": "Administrator - Accounts Payable and \nReceivable (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Display Correspondence History",
+        "type": "userTask",
+        "role": "Accounts Payable and Receivable Accountant (FI-CA)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

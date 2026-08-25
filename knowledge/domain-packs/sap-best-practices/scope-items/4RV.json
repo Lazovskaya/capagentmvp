@@ -1,0 +1,71 @@
+{
+  "scope_item_id": "4RV",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Maintenance Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "8f8127f879fa4ac2a9135e9727528768",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "8f8127f879fa4ac2a9135e9727528768",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create \nMaintenance Request",
+        "type": "userTask",
+        "role": "Maintenance Technician",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Time \nConfirmation of Operations",
+        "type": "userTask",
+        "role": "Maintenance Technician",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Monitor \nMaintenance Request",
+        "type": "userTask",
+        "role": "Maintenance Technician",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Record Failure Data",
+        "type": "userTask",
+        "role": "Maintenance Technician",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Complete \nMaintenance Request",
+        "type": "userTask",
+        "role": "Maintenance Technician",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "scope_item_id": "BGC",
+  "title": "SAP Fiori Analytical Apps for G/L Accounting in Finance",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "BGC - SAP Fiori Analytical Apps for G/L Accounting in Finance",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Audit Journal",
+        "fiori_app_id": "F0997",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_EXTERNAL_AUDITOR",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 2,
+        "name": "Display Line Items in General Ledger",
+        "fiori_app_id": "F2217",
+        "technical_transaction": "FAGLL03",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_TREASURY_SPECIALIST_FOE | SAP_BR_DIVISION_ACCOUNTANT | SAP_BR_TREASURY_SPECIALIST_MOE",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 3,
+        "name": "General Ledger Overview",
+        "fiori_app_id": "F2445",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 4,
+        "name": "Sales Accounting Overview",
+        "fiori_app_id": "F3228",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 5,
+        "name": "Clear G/L Accounts - Manual Clearing",
+        "fiori_app_id": "F1579",
+        "technical_transaction": "F-03",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-PER"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Journal Entries - New Version",
+        "fiori_app_id": "F0717A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 7,
+        "name": "Post General Journal Entries",
+        "fiori_app_id": "F0718",
+        "technical_transaction": "F-02",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

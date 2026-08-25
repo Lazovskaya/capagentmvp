@@ -1,0 +1,197 @@
+{
+  "scope_item_id": "1J2",
+  "title": "Compliance Formats \u2013 Support Preparation",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close",
+      "Advanced Accounting and Financial Close"
+    ],
+    "L3_scope_item": "1J2 - Compliance Formats \u2013 Support Preparation",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Document and Reporting Compliance",
+        "fiori_app_id": "F5218",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_IT | SAP_BR_GL_ACCOUNTANT_AR | SAP_BR_AP_MANAGER_CL | SAP_BR_AP_MANAGER_AR | SAP_BR_AP_MANAGER_SA | SAP_BR_AP_MANAGER_ES | SAP_BR_GL_ACCOUNTANT_TR | SAP_BR_AR_MANAGER_TH | SAP_BR_GL_ACCOUNTANT_BE | SAP_BR_AR_ACCOUNTANT_PL | SAP_BR_AA_ACCOUNTANT_SG | SAP_BR_AP_MANAGER_PL | SAP_BR_AA_ACCOUNTANT_RO | SAP_BR_CASH_MANAGER_ID | SAP_BR_AA_ACCOUNTANT_PL | SAP_BR_AP_MANAGER_AU | SAP_BR_AA_ACCOUNTANT_SK | SAP_BR_GL_ACCOUNTANT_CZ | SAP_BR_GL_ACCOUNTANT_ID | SAP_BR_TAX_ACCOUNTANT_REP | SAP_BR_AP_MANAGER_PH | SAP_BR_AP_MANAGER_KZ | SAP_BR_AP_MANAGER_PE | SAP_BR_GL_ACCOUNTANT_AU | SAP_BR_AP_MANAGER_MY | SAP_BR_CASH_MANAGER_CN | SAP_BR_GL_ACCOUNTANT_NZ | SAP_BR_GL_ACCOUNTANT_HR | SAP_BR_AP_MANAGER_BE | SAP_BR_ACS_AUDITOR_IL | SAP_BR_GL_ACCOUNTANT_IL | SAP_BR_AP_MANAGER_FR | SAP_BR_GL_ACCOUNTANT_LU | SAP_BR_AP_ACCOUNTANT_IL | SAP_BR_GL_ACCOUNTANT_IE | SAP_BR_GL_ACCOUNTANT_GB | SAP_BR_AP_MANAGER_SI | SAP_BR_GL_ACCOUNTANT_SE | SAP_BR_GL_ACCOUNTANT_SI | SAP_BR_AP_ACCOUNTANT_CN | SAP_BR_GL_ACCOUNTANT_DK | SAP_BR_GL_ACCOUNTANT_ZA | SAP_BR_GL_ACCOUNTANT_SK | SAP_BR_GL_ACCOUNTANT_SG | SAP_BR_GL_ACCOUNTANT_GR | SAP_BR_AP_MANAGER_CA | SAP_BR_GL_ACCOUNTANT_PL | SAP_BR_AP_MANAGER_CO | SAP_BR_AA_ACCOUNTANT_IT | SAP_BR_GL_ACCOUNTANT_MY | SAP_BR_AP_MANAGER_JP | SAP_BR_AP_MANAGER_PT | SAP_BR_AP_MANAGER_EG | SAP_BR_CASH_MANAGER_TH | SAP_BR_AP_MANAGER_US | SAP_BR_AR_ACCOUNTANT_NO | SAP_BR_AP_MANAGER_TH | SAP_BR_GL_ACCOUNTANT_JP | SAP_BR_GL_ACCOUNTANT_IN | SAP_BR_AP_MANAGER_ID | SAP_BR_GL_ACCOUNTANT_FI | SAP_BR_AP_ACCOUNTANT_PL | SAP_BR_AP_MANAGER_BZ | SAP_BR_AP_MANAGER_GB | SAP_BR_GL_ACCOUNTANT_AT | SAP_BR_GL_ACCOUNTANT_OM | SAP_BR_GL_ACCOUNTANT_PH | SAP_BR_AP_MANAGER_SG | SAP_BR_GL_ACCOUNTANT_TH | SAP_BR_GL_ACCOUNTANT_UA | SAP_BR_AP_MANAGER_KR | SAP_BR_AP_ACCOUNTANT_NO | SAP_BR_AP_MANAGER_VE | SAP_BR_AA_ACCOUNTANT_IL | SAP_BR_AA_ACCOUNTANT_RS | SAP_BR_AP_MANAGER_HR | SAP_BR_GL_ACCOUNTANT_NL | SAP_BR_AP_MANAGER_IT | SAP_BR_GL_ACCOUNTANT_CA | SAP_BR_GL_ACCOUNTANT_FR | SAP_BR_GL_ACCOUNTANT_KZ | SAP_BR_BILLING_CLERK | SAP_BR_GL_ACCOUNTANT_NO | SAP_BR_AP_MANAGER_MX | SAP_BR_AP_MANAGER_SK | SAP_BR_AA_ACCOUNTANT_PT | SAP_BR_AP_MANAGER_GR | SAP_BR_GL_ACCOUNTANT_DE | SAP_BR_GL_ACCOUNTANT_ES | SAP_BR_AP_MANAGER_RS | SAP_BR_AP_MANAGER_IE | SAP_BR_GL_ACCOUNTANT_RO | SAP_BR_GL_ACCOUNTANT_HU | SAP_BR_GL_ACCOUNTANT_CH | SAP_BR_AP_MANAGER_BG | SAP_BR_AP_MANAGER_DE | SAP_BR_GL_ACCOUNTANT_PT | SAP_BR_GL_ACCOUNTANT_RU",
+        "component": "CA-GTF-CSC-DRC-DSH"
+      },
+      {
+        "step_no": 2,
+        "name": "Run Compliance Reports / Philippines AP Analytics / Pending Reports",
+        "fiori_app_id": "F1515_PH_1",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER_PH",
+        "component": "FI-AP-AP-Q1"
+      },
+      {
+        "step_no": 3,
+        "name": "Run Compliance Reports / Serbia AP Analytics / Pending Reports",
+        "fiori_app_id": "F1515_RS_2",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER_RS",
+        "component": "FI-AP-AP-Q1"
+      },
+      {
+        "step_no": 4,
+        "name": "Run Statutory Reports - Germany euBP Reporting",
+        "fiori_app_id": "F1515_DE_4",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_DE",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 5,
+        "name": "Post General Journal Entries",
+        "fiori_app_id": "F0718",
+        "technical_transaction": "F-02",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 6,
+        "name": "Post Tax Payables",
+        "fiori_app_id": "F1597",
+        "technical_transaction": "FB41",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 7,
+        "name": "Run Advanced Compliance Reports/China GL Reporting",
+        "fiori_app_id": "F1515_CN_3",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_CN",
+        "component": "FI-LOC-FI-CN"
+      },
+      {
+        "step_no": 8,
+        "name": "Run Statutory Reports / Italy GL Reporting",
+        "fiori_app_id": "F1515_IT_3",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_IT",
+        "component": "FI-LOC-FI-IT"
+      },
+      {
+        "step_no": 9,
+        "name": "Run Compliance Reports / Oman AP Analytics / Pending Reports",
+        "fiori_app_id": "F1515_OM_1",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER_OM",
+        "component": "FI-LOC-FI-OM"
+      },
+      {
+        "step_no": 10,
+        "name": "Run Statutory Reports / Portugal GL Reporting",
+        "fiori_app_id": "F1515_PT_4",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_PT",
+        "component": "FI-LOC-FI-PT"
+      },
+      {
+        "step_no": 11,
+        "name": "Run Statutory Reports - Vietnam",
+        "fiori_app_id": "F1515_VN",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_VN",
+        "component": "FI-LOC-FI-VN"
+      },
+      {
+        "step_no": 12,
+        "name": "Run Statutory Reports - Bulgaria AA Reporting",
+        "fiori_app_id": "F1515_BG_2",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AA_ACCOUNTANT_BG",
+        "component": "FI-LOC-SRF-RUN"
+      },
+      {
+        "step_no": 13,
+        "name": "Run Statutory Reports - Bulgaria GL Reporting / Pending Reports",
+        "fiori_app_id": "F1515_BG",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_BG",
+        "component": "FI-LOC-SRF-RUN"
+      },
+      {
+        "step_no": 14,
+        "name": "Run Compliance Reports / Egypt AP Analytics / Pending Reports",
+        "fiori_app_id": "F1515_EG_1",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER_EG",
+        "component": "FI-LOC-SRF-RUN"
+      },
+      {
+        "step_no": 15,
+        "name": "Run Statutory Reports - Romania",
+        "fiori_app_id": "F1515_RO_2",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_RO",
+        "component": "FI-LOC-SRF-RUN"
+      },
+      {
+        "step_no": 16,
+        "name": "Run Compliance Reports / Saudi Arabia AP Analytics / Pending Reports",
+        "fiori_app_id": "F1515_SA_1",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AP_MANAGER_SA",
+        "component": "FI-LOC-SRF-RUN"
+      },
+      {
+        "step_no": 17,
+        "name": "Run Statutory Reports - Slovenia",
+        "fiori_app_id": "F1515_SI_1",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_SI",
+        "component": "FI-LOC-SRF-RUN"
+      },
+      {
+        "step_no": 18,
+        "name": "Run Statutory Reports",
+        "fiori_app_id": "F1515",
+        "technical_transaction": "F1515",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_MX | SAP_BR_GL_ACCOUNTANT_KZ | SAP_BR_GL_ACCOUNTANT_KR | SAP_BR_AP_MANAGER_IE | SAP_BR_GL_ACCOUNTANT_NZ | SAP_BR_GL_ACCOUNTANT_AU | SAP_BR_GL_ACCOUNTANT_BR | SAP_BR_GL_ACCOUNTANT_DK | SAP_BR_GL_ACCOUNTANT_ES | SAP_BR_AP_MANAGER_US | SAP_BR_AP_MANAGER_SK | SAP_BR_GL_ACCOUNTANT_AT | SAP_BR_GL_ACCOUNTANT_LU | SAP_BR_AP_MANAGER_VE | SAP_BR_GL_ACCOUNTANT_NL | SAP_BR_AP_MANAGER_BZ | SAP_BR_GL_ACCOUNTANT_HU | SAP_BR_GL_ACCOUNTANT_PE | SAP_BR_AP_MANAGER_AR | SAP_BR_GL_ACCOUNTANT_IE | SAP_BR_GL_ACCOUNTANT_DE | SAP_BR_GL_ACCOUNTANT_IT | SAP_BR_AP_MANAGER_TH | SAP_BR_GL_ACCOUNTANT_IN | SAP_BR_AR_MANAGER_TH | SAP_BR_GL_ACCOUNTANT_CO | SAP_BR_AP_MANAGER_ES | SAP_BR_GL_ACCOUNTANT_CZ | SAP_BR_GL_ACCOUNTANT_ZA | SAP_BR_AR_ACCOUNTANT_PL | SAP_BR_AA_ACCOUNTANT_RO | SAP_BR_GL_ACCOUNTANT_IL | SAP_BR_GL_ACCOUNTANT_TW | SAP_BR_AP_ACCOUNTANT_PL | SAP_BR_GL_ACCOUNTANT_PL | SAP_BR_GL_ACCOUNTANT_CA | SAP_BR_GL_ACCOUNTANT_FR | SAP_BR_GL_ACCOUNTANT_NO | SAP_BR_AP_MANAGER_MX | SAP_BR_GL_ACCOUNTANT_AE | SAP_BR_GL_ACCOUNTANT_CH | SAP_BR_GL_ACCOUNTANT_FI | SAP_BR_AP_MANAGER_IT | SAP_BR_GL_ACCOUNTANT_SG | SAP_BR_GL_ACCOUNTANT_VE | SAP_BR_GL_ACCOUNTANT_SE | SAP_BR_GL_ACCOUNTANT_ID | SAP_BR_GL_ACCOUNTANT_EG | SAP_BR_AP_MANAGER_SA | SAP_BR_AP_MANAGER_JP | SAP_BR_AP_ACCOUNTANT_NO | SAP_BR_AP_MANAGER_AU | SAP_BR_AA_ACCOUNTANT_PL | SAP_BR_GL_ACCOUNTANT_TR | SAP_BR_AP_MANAGER_PL | SAP_BR_GL_ACCOUNTANT_CN | SAP_BR_AR_ACCOUNTANT_NO | SAP_BR_AP_MANAGER_KR | SAP_BR_AA_ACCOUNTANT_PT | SAP_BR_GL_ACCOUNTANT_SK | SAP_BR_AP_MANAGER_SG | SAP_BR_AP_MANAGER_GB | SAP_BR_AP_MANAGER_BE | SAP_BR_GL_ACCOUNTANT_PT | SAP_BR_AP_MANAGER_ID | SAP_BR_GL_ACCOUNTANT_RO | SAP_BR_AP_MANAGER_MY | SAP_BR_AP_MANAGER_PT | SAP_BR_GL_ACCOUNTANT_GB | SAP_BR_AP_MANAGER_ZA | SAP_BR_GL_ACCOUNTANT_CL | SAP_BR_CASH_MANAGER_MY | SAP_BR_AA_ACCOUNTANT_IT | SAP_BR_AP_MANAGER_FR | SAP_BR_GL_ACCOUNTANT_SA | SAP_BR_GL_ACCOUNTANT_MY | SAP_BR_GL_ACCOUNTANT_RU | SAP_BR_GL_ACCOUNTANT_AR | SAP_BR_GL_ACCOUNTANT_BE | SAP_BR_GL_ACCOUNTANT_UA | SAP_BR_GL_ACCOUNTANT_PH | SAP_BR_AA_ACCOUNTANT_SK | SAP_BR_AP_MANAGER_PH | SAP_BR_GL_ACCOUNTANT_TH",
+        "component": "FI-LOC-SRF-RUN"
+      },
+      {
+        "step_no": 19,
+        "name": "Define Settings for Standardized Data Interface",
+        "fiori_app_id": "F2546",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_CN",
+        "component": "XX-CSC-CN-GAI"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "e83505f561a4477da3473b5635dc99c2",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "e83505f561a4477da3473b5635dc99c2",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [],
+    "dependencies": []
+  }
+}

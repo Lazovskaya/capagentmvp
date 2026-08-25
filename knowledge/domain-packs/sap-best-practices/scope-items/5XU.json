@@ -1,0 +1,222 @@
+{
+  "scope_item_id": "5XU",
+  "title": "Document and Reporting Compliance",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Accounting and Financial Close"
+    ],
+    "L3_scope_item": "5XU - Document and Reporting Compliance",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Jobs for Electronic Document Consistency",
+        "fiori_app_id": "F7494",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BILLING_CLERK",
+        "component": "CA-GTF-CSC-EDC"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Workflow - Electronic Document Consistency Notifications",
+        "fiori_app_id": "F8647",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BPC_EXPERT",
+        "component": "CA-GTF-CSC-EDC"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Electronic Documents",
+        "fiori_app_id": "F4306",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BILLING_CLERK",
+        "component": "CA-GTF-CSC-EDO-DCC"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Teams and Responsibilities",
+        "fiori_app_id": "F2412",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BUSINESS_PROCESS_SPEC | SAP_BR_PROCESSOR_TCP | SAP_BR_BPC_EXPERT",
+        "component": "CA-GTF-RM"
+      },
+      {
+        "step_no": 5,
+        "name": "My Inbox",
+        "fiori_app_id": "F0862",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER",
+        "component": "CA-INB-FIO"
+      },
+      {
+        "step_no": 6,
+        "name": "Run Statutory Reports",
+        "fiori_app_id": "F1515",
+        "technical_transaction": "F1515",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_MX | SAP_BR_GL_ACCOUNTANT_KZ | SAP_BR_GL_ACCOUNTANT_KR | SAP_BR_AP_MANAGER_IE | SAP_BR_GL_ACCOUNTANT_NZ | SAP_BR_GL_ACCOUNTANT_AU | SAP_BR_GL_ACCOUNTANT_BR | SAP_BR_GL_ACCOUNTANT_DK | SAP_BR_GL_ACCOUNTANT_ES | SAP_BR_AP_MANAGER_US | SAP_BR_AP_MANAGER_SK | SAP_BR_GL_ACCOUNTANT_AT | SAP_BR_GL_ACCOUNTANT_LU | SAP_BR_AP_MANAGER_VE | SAP_BR_GL_ACCOUNTANT_NL | SAP_BR_AP_MANAGER_BZ | SAP_BR_GL_ACCOUNTANT_HU | SAP_BR_GL_ACCOUNTANT_PE | SAP_BR_AP_MANAGER_AR | SAP_BR_GL_ACCOUNTANT_IE | SAP_BR_GL_ACCOUNTANT_DE | SAP_BR_GL_ACCOUNTANT_IT | SAP_BR_AP_MANAGER_TH | SAP_BR_GL_ACCOUNTANT_IN | SAP_BR_AR_MANAGER_TH | SAP_BR_GL_ACCOUNTANT_CO | SAP_BR_AP_MANAGER_ES | SAP_BR_GL_ACCOUNTANT_CZ | SAP_BR_GL_ACCOUNTANT_ZA | SAP_BR_AR_ACCOUNTANT_PL | SAP_BR_AA_ACCOUNTANT_RO | SAP_BR_GL_ACCOUNTANT_IL | SAP_BR_GL_ACCOUNTANT_TW | SAP_BR_AP_ACCOUNTANT_PL | SAP_BR_GL_ACCOUNTANT_PL | SAP_BR_GL_ACCOUNTANT_CA | SAP_BR_GL_ACCOUNTANT_FR | SAP_BR_GL_ACCOUNTANT_NO | SAP_BR_AP_MANAGER_MX | SAP_BR_GL_ACCOUNTANT_AE | SAP_BR_GL_ACCOUNTANT_CH | SAP_BR_GL_ACCOUNTANT_FI | SAP_BR_AP_MANAGER_IT | SAP_BR_GL_ACCOUNTANT_SG | SAP_BR_GL_ACCOUNTANT_VE | SAP_BR_GL_ACCOUNTANT_SE | SAP_BR_GL_ACCOUNTANT_ID | SAP_BR_GL_ACCOUNTANT_EG | SAP_BR_AP_MANAGER_SA | SAP_BR_AP_MANAGER_JP | SAP_BR_AP_ACCOUNTANT_NO | SAP_BR_AP_MANAGER_AU | SAP_BR_AA_ACCOUNTANT_PL | SAP_BR_GL_ACCOUNTANT_TR | SAP_BR_AP_MANAGER_PL | SAP_BR_GL_ACCOUNTANT_CN | SAP_BR_AR_ACCOUNTANT_NO | SAP_BR_AP_MANAGER_KR | SAP_BR_AA_ACCOUNTANT_PT | SAP_BR_GL_ACCOUNTANT_SK | SAP_BR_AP_MANAGER_SG | SAP_BR_AP_MANAGER_GB | SAP_BR_AP_MANAGER_BE | SAP_BR_GL_ACCOUNTANT_PT | SAP_BR_AP_MANAGER_ID | SAP_BR_GL_ACCOUNTANT_RO | SAP_BR_AP_MANAGER_MY | SAP_BR_AP_MANAGER_PT | SAP_BR_GL_ACCOUNTANT_GB | SAP_BR_AP_MANAGER_ZA | SAP_BR_GL_ACCOUNTANT_CL | SAP_BR_CASH_MANAGER_MY | SAP_BR_AA_ACCOUNTANT_IT | SAP_BR_AP_MANAGER_FR | SAP_BR_GL_ACCOUNTANT_SA | SAP_BR_GL_ACCOUNTANT_MY | SAP_BR_GL_ACCOUNTANT_RU | SAP_BR_GL_ACCOUNTANT_AR | SAP_BR_GL_ACCOUNTANT_BE | SAP_BR_GL_ACCOUNTANT_UA | SAP_BR_GL_ACCOUNTANT_PH | SAP_BR_AA_ACCOUNTANT_SK | SAP_BR_AP_MANAGER_PH | SAP_BR_GL_ACCOUNTANT_TH",
+        "component": "FI-LOC-SRF-RUN"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Workflows /  Advanced Compliance Reporting",
+        "fiori_app_id": "F5110",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_CZ | SAP_BR_GL_ACCOUNTANT_GR | SAP_BR_GL_ACCOUNTANT_RO | SAP_BR_JVA_ACCOUNTANT | SAP_BR_AA_ACCOUNTANT_LU | SAP_BR_AA_ACCOUNTANT_SG | SAP_BR_GL_ACCOUNTANT_BG | SAP_BR_BPC_EXPERT | SAP_BR_AA_ACCOUNTANT_BG | SAP_BR_AA_ACCOUNTANT_PT | SAP_BR_GL_ACCOUNTANT_HR | SAP_BR_AA_ACCOUNTANT_PL | SAP_BR_AA_ACCOUNTANT_SK",
+        "component": "FI-LOC-SRF-RUN"
+      },
+      {
+        "step_no": 8,
+        "name": "Manage Supplier Master Data",
+        "fiori_app_id": "F1053A",
+        "technical_transaction": "BP",
+        "app_type": null,
+        "role": "SAP_BR_BUPA_MASTER_SPECIALIST",
+        "component": "LO-MD-FIO-VM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "ab00b17762d3444b88148e3d7fb31b80",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "ab00b17762d3444b88148e3d7fb31b80",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Retrieve and validate Business Partner details",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Initiate statutory reporting task",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Complete all activities prior report creation (e.g. Manage Tax Items)",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Accounts Receivable (J59)",
+        "type": "subProcess",
+        "role": "Accounts Receivable Accountant",
+        "optional": false,
+        "calls_scope_item": "J59"
+      },
+      {
+        "seq": 5,
+        "name": "Compliance Formats - Support Preparation (1J2)",
+        "type": "subProcess",
+        "role": "General Ledger Accountant",
+        "optional": false,
+        "calls_scope_item": "1J2"
+      },
+      {
+        "seq": 6,
+        "name": "Accounts Payable (J60)",
+        "type": "subProcess",
+        "role": "Accounts Payable Accountant",
+        "optional": false,
+        "calls_scope_item": "J60"
+      },
+      {
+        "seq": 7,
+        "name": "Display output preview",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Drill-down and analyze data",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Edit and regenerate the report",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Monitor, review and correct open rejections/errors",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Trigger approval request",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Submit and close reporting task",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "J59",
+        "name": "Accounts Receivable (J59)",
+        "optional": false
+      },
+      {
+        "scope_item_id": "1J2",
+        "name": "Compliance Formats - Support Preparation (1J2)",
+        "optional": false
+      },
+      {
+        "scope_item_id": "J60",
+        "name": "Accounts Payable (J60)",
+        "optional": false
+      }
+    ]
+  }
+}

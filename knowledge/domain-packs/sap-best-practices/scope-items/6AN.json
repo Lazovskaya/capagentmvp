@@ -1,0 +1,21 @@
+{
+  "scope_item_id": "6AN",
+  "title": "Contract Price Renegotiation",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Supply Chain",
+    "L3_scope_item": "6AN - Contract Price Renegotiation",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Central Purchase Contracts",
+        "fiori_app_id": "F3144",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SOURCING_MANAGER | SAP_BR_CENTRAL_PURCHASER",
+        "component": "MM-PUR-HUB-CTR"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

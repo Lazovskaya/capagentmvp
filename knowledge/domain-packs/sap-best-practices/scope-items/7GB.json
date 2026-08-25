@@ -1,0 +1,30 @@
+{
+  "scope_item_id": "7GB",
+  "title": "In-House Service",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Sales and Marketing",
+    "L3_scope_item": "7GB - In-House Service",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage In-House Services",
+        "fiori_app_id": "F4025",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RETURNS_REFUND_CLERK | SAP_BR_SERVICE_MANAGER",
+        "component": "CRM-S4-IHR"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Customer Returns - Version 2",
+        "fiori_app_id": "F4832",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RETURNS_REFUND_CLERK",
+        "component": "SD-SLS-RE"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

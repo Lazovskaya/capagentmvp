@@ -1,0 +1,52 @@
+{
+  "scope_item_id": "637",
+  "title": "Retail Promotions",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Retail"
+    ],
+    "L2_core_process": [
+      "Retail"
+    ],
+    "L3_scope_item": "637 - Retail Promotions",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Promotion Price Activation",
+        "fiori_app_id": "F6441",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROMOTION_SPCLST_RFM",
+        "component": "LO-RFM-MD-PR"
+      },
+      {
+        "step_no": 2,
+        "name": "Schedule Promotion Allocation Table Generation",
+        "fiori_app_id": "F6442",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROMOTION_SPCLST_RFM",
+        "component": "LO-RFM-MD-PR"
+      },
+      {
+        "step_no": 3,
+        "name": "Schedule Promotion Supply Source Determination",
+        "fiori_app_id": "F6443",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROMOTION_SPCLST_RFM",
+        "component": "LO-RFM-MD-PR"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "b06ede7b38174c0ebe37102c1a4eadd3",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "b06ede7b38174c0ebe37102c1a4eadd3",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [],
+    "dependencies": []
+  }
+}

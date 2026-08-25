@@ -1,0 +1,168 @@
+{
+  "scope_item_id": "1NJ",
+  "title": "Responsibility Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "IT and Cross-Application"
+    ],
+    "L2_core_process": [
+      "Enterprise Information Management",
+      "Process Management and Integration"
+    ],
+    "L3_scope_item": "1NJ - Responsibility Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Teams and Responsibilities",
+        "fiori_app_id": "F2412",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BUSINESS_PROCESS_SPEC | SAP_BR_PROCESSOR_TCP | SAP_BR_BPC_EXPERT",
+        "component": "CA-GTF-RM"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Responsibility Contexts",
+        "fiori_app_id": "F4636",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_EXTENSIBILITY_SPEC",
+        "component": "CA-GTF-RM"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Responsibility Rules",
+        "fiori_app_id": "F4637",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_EXTENSIBILITY_SPEC",
+        "component": "CA-GTF-RM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "9067ce1be07d44ee980e90ee4cc3e5b9",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "9067ce1be07d44ee980e90ee4cc3e5b9",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Log on to the Fiori LaunchPad",
+        "type": "userTask",
+        "role": "Business Process Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Log on to the Fiori LaunchPad",
+        "type": "userTask",
+        "role": "Business Process Specialist (SolMan)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Maintain Teams and Responsibilities",
+        "type": "userTask",
+        "role": "Business Process Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Manage Team Hierarchies",
+        "type": "userTask",
+        "role": "Business Process Specialist (SolMan)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Enter the Team Name and Team Type",
+        "type": "userTask",
+        "role": "Business Process Specialist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Copy from the Existing Team",
+        "type": "userTask",
+        "role": "Business Process Specialist",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Select a team in the list, choose show hierarchy",
+        "type": "subProcess",
+        "role": "Business Process Specialist (SolMan)",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Select a team in the list and go to the object page",
+        "type": "subProcess",
+        "role": "Business Process Specialist (SolMan)",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Enter the new Member Details/ Copy from the Existing",
+        "type": "userTask",
+        "role": "Business Process Specialist",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Select a team, choose manage hierachies",
+        "type": "subProcess",
+        "role": "Business Process Specialist (SolMan)",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Choose create subteam",
+        "type": "subProcess",
+        "role": "Business Process Specialist (SolMan)",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Line of Business Scenarios(PLM/LCM etc..)",
+        "type": "userTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Add a subteam by using yes/no toggle button",
+        "type": "subProcess",
+        "role": "Business Process Specialist (SolMan)",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Enter the required fields and choose save",
+        "type": "subProcess",
+        "role": "Business Process Specialist (SolMan)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

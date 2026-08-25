@@ -1,0 +1,39 @@
+{
+  "scope_item_id": "1GP",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "5aaeb11c672f420b9b3e6c65998cf2ae",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "5aaeb11c672f420b9b3e6c65998cf2ae",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Maintain Teams and Responsibilities",
+        "type": "userTask",
+        "role": "Business Process Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Manage Workflows for General Journal Entry Verification",
+        "type": "userTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

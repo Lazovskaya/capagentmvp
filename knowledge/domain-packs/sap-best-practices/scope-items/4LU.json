@@ -1,0 +1,152 @@
+{
+  "scope_item_id": "4LU",
+  "title": "Physical Inventory \u2013 Cycle Counting",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Inventory"
+    ],
+    "L3_scope_item": "4LU - Physical Inventory \u2013 Cycle Counting",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Physical Inventory Documents",
+        "fiori_app_id": "F0379A",
+        "technical_transaction": "MI03",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_MANAGER | SAP_BR_WAREHOUSE_CLERK",
+        "component": "MM-FIO-IM-PI"
+      },
+      {
+        "step_no": 2,
+        "name": "Create Physical Inventory Documents",
+        "fiori_app_id": "F3197",
+        "technical_transaction": "MI01",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_INVENTORY_MANAGER",
+        "component": "MM-FIO-IM-PI"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Physical Inventory Item List",
+        "fiori_app_id": "F8634",
+        "technical_transaction": "MI20",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_MANAGER | SAP_BR_WAREHOUSE_CLERK",
+        "component": "MM-FIO-IM-PI"
+      },
+      {
+        "step_no": 4,
+        "name": "Job Scheduling and Mass Processing - Physical Inventory",
+        "fiori_app_id": "F4550",
+        "technical_transaction": "MI01",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_MANAGER",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Physical Inventory Count",
+        "fiori_app_id": "F5430",
+        "technical_transaction": "MI04",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK | SAP_BR_INVENTORY_MANAGER",
+        "component": "MM-FIO-IM-SGM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "f3115137efea429484f7c11949c6193d",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "f3115137efea429484f7c11949c6193d",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Schedule Physical Inventory Document Creation",
+        "type": "serviceTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Physical Inventory Documents",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Print Physical Inventory Documents",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Physical Count",
+        "type": "manualTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Enter Inventory Count",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "List Count Differences",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Request Physical Inventory Recount",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Post Inventory Count Difference",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Physical Inventory Document Overview (Optional)",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": true
+      },
+      {
+        "seq": 10,
+        "name": "Physical Inventory Analysis (Optional)",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

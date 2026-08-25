@@ -1,0 +1,110 @@
+{
+  "scope_item_id": "4AU",
+  "title": "Project Control \u2013 Intercompany",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Enterprise Portfolio and Project Management"
+    ],
+    "L3_scope_item": "4AU - Project Control \u2013 Intercompany",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage My Timesheet",
+        "fiori_app_id": "F1823",
+        "technical_transaction": "CAT2",
+        "app_type": null,
+        "role": "SAP_BR_EMPLOYEE | SAP_BR_MANAGER_HRINFO | SAP_BR_PROJECT_MANAGER_PROF",
+        "component": "CA-TS-S4"
+      },
+      {
+        "step_no": 2,
+        "name": "Project Control - Enterprise Projects",
+        "fiori_app_id": "F3215",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_PROJ_PROC_CONTROLLER | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_PROJECTMANAGER | SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-STR-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "a383e230e2214d0ca3036f2344154245",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "a383e230e2214d0ca3036f2344154245",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "1NT - Create Project",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "1NT - Release Project",
+        "type": "userTask",
+        "role": "Project Financial Controller",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "1Q4 - Time Recording",
+        "type": "subProcess",
+        "role": "Employee",
+        "optional": false,
+        "calls_scope_item": "1Q4"
+      },
+      {
+        "seq": 4,
+        "name": "Post IC Expenses",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "IC Activity Allocation",
+        "type": "userTask",
+        "role": "Cost Accountant - Overhead",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "4AN - Intercompany Billing for Cross-Company Cost Accounting Postings",
+        "type": "subProcess",
+        "role": "Internal Sales Representative (Sending Company)",
+        "optional": false,
+        "calls_scope_item": "4AN"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "1Q4",
+        "name": "1Q4 - Time Recording",
+        "optional": false
+      },
+      {
+        "scope_item_id": "4AN",
+        "name": "4AN - Intercompany Billing for Cross-Company Cost Accounting Postings",
+        "optional": false
+      }
+    ]
+  }
+}

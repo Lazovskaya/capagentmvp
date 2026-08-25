@@ -1,0 +1,39 @@
+{
+  "scope_item_id": "6WD",
+  "title": "Convergent Invoicing \u2013 Cost Handling for Subscriptions and Usage",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "6WD - Convergent Invoicing \u2013 Cost Handling for Subscriptions and Usage",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Execute Invoicing",
+        "fiori_app_id": "F3524",
+        "technical_transaction": "FKKINV_MA",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Execute Billing",
+        "fiori_app_id": "F3525",
+        "technical_transaction": "FKKBIX_MA",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Upload Billable Items",
+        "fiori_app_id": "F4664",
+        "technical_transaction": "FKKBIXBIT_UPLOAD",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_SPEC_CINV",
+        "component": "FI-CA-INV-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

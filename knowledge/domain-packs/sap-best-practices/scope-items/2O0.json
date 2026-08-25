@@ -1,0 +1,117 @@
+{
+  "scope_item_id": "2O0",
+  "title": "Bank Fee Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": "2O0 - Bank Fee Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Banks - Cash Management",
+        "fiori_app_id": "F1574A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 2,
+        "name": "Monitor Bank Fees",
+        "fiori_app_id": "F3001",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 3,
+        "name": "Import Bank Services Billing Files",
+        "fiori_app_id": "F3002",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Bank Fee Conditions",
+        "fiori_app_id": "F3185",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 5,
+        "name": "Monitor Bank Account Interest",
+        "fiori_app_id": "F9015",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 6,
+        "name": "Schedule Jobs for Bank Account Interest Calculation",
+        "fiori_app_id": "F9016",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Bank Account Interest Conditions",
+        "fiori_app_id": "F9017",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-BAM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "05c48b3a4beb4651aaf2466e8ba320e7",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "05c48b3a4beb4651aaf2466e8ba320e7",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Bank Fees General Check",
+        "type": "userTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Assign Validation Conditon",
+        "type": "userTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Change Pricing Validation Status",
+        "type": "userTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Bank service mapping",
+        "type": "userTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

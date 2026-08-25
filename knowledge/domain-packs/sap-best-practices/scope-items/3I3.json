@@ -1,0 +1,21 @@
+{
+  "scope_item_id": "3I3",
+  "title": "Sites for Retail",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Supply Chain",
+    "L3_scope_item": "3I3 - Sites for Retail",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Maintain Retail Site",
+        "fiori_app_id": "F5375",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RPLNMT_SPCLST_ST_RFM | SAP_BR_MD_SPCLST_SITE_RFM",
+        "component": "LO-RFM-MD-SIT"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

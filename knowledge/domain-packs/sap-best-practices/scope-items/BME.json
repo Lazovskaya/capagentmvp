@@ -1,0 +1,147 @@
+{
+  "scope_item_id": "BME",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Inventory"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "c2c190ef90184d7192b5f06c4034ab02",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "c2c190ef90184d7192b5f06c4034ab02",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "MRP Run for Single Item",
+        "type": "userTask",
+        "role": "Material Planner - External Procurement",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Optional: Create \nStock Transport Order in App Transfer Stock-Cross Plant",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Optional: Create \nStock Transport Order (without MRP)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Evaluate Stock/Requirements Situation",
+        "type": "userTask",
+        "role": "Material Planner - External Procurement",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Process Stock \nTransport Requisition (with MRP)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Change Stock Transport Order (with MRP)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Optional: Change Confirmation Control for Inbound Delivery",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Create \nReplenishment Delivery for Stock Transport Order",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Pick and Post \nGoods Issue for Stock Transport Order",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Check Status \nof Stock Transfer - Stock Transfer (STO)",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Post Goods Receipt for Stock Transport Order",
+        "type": "userTask",
+        "role": "Warehouse Clerk (Receiving Plant)",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Optional: Confirm Quantities for Putaway",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Optional: Post Goods Receipt for Inbound Delivery",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 12,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

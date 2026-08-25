@@ -1,0 +1,30 @@
+{
+  "scope_item_id": "7O6",
+  "title": "Accounting Principles and Fund Accounting for GASB",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "7O6 - Accounting Principles and Fund Accounting for GASB",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Interest Apportionment",
+        "fiori_app_id": "F5512",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_PSM_CA | SAP_BR_GL_ACCOUNTANT_PSM_US",
+        "component": "PSM-FA"
+      },
+      {
+        "step_no": 2,
+        "name": "Application Jobs - Public Sector General Ledger US",
+        "fiori_app_id": "F5737",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_PSM_CA | SAP_BR_GL_ACCOUNTANT_PSM_US",
+        "component": "PSM-FA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

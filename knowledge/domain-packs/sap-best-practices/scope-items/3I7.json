@@ -1,0 +1,43 @@
+{
+  "scope_item_id": "3I7",
+  "title": "Replenishment Planning for Stores",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Retail"
+    ],
+    "L2_core_process": [
+      "Retail"
+    ],
+    "L3_scope_item": "3I7 - Replenishment Planning for Stores",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Rapid Replenishment",
+        "fiori_app_id": "F5478",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RPLNMT_SPCLST_ST_RFM",
+        "component": "LO-RFM-PUR-FC"
+      },
+      {
+        "step_no": 2,
+        "name": "Schedule Material Demand Forecast Runs",
+        "fiori_app_id": "F2464",
+        "technical_transaction": "MPBT",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_RPLNMT_SPCLST_ST_RFM | SAP_BR_RPLNMT_SPCLST_DC_RFM | SAP_BR_PRODN_PLNR",
+        "component": "PP-MP-DEM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "d8e5f170faac44f4829707d7a7284967",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "d8e5f170faac44f4829707d7a7284967",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [],
+    "dependencies": []
+  }
+}

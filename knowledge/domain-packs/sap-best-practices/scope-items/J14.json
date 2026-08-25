@@ -1,0 +1,55 @@
+{
+  "scope_item_id": "J14",
+  "title": "Sales Order Processing \u2013 Project-Based Services",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Professional Services"
+    ],
+    "L2_core_process": [
+      "Professional Services"
+    ],
+    "L3_scope_item": "J14 - Sales Order Processing \u2013 Project-Based Services",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Debit Memo Requests - Version 2",
+        "fiori_app_id": "F1988A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_MANAGER | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_INTERNAL_SALES_REP_PRSV | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS-CMR"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "6045c1acc3e14fb583db6e1748089694",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "6045c1acc3e14fb583db6e1748089694",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Down Payment Request (Optional)",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": true
+      },
+      {
+        "seq": 2,
+        "name": "Manage Customer Invoices (Optional)",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Mixed"
+      }
+    ],
+    "dependencies": []
+  }
+}

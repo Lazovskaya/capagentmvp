@@ -1,0 +1,134 @@
+{
+  "scope_item_id": "2LZ",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Financial Operations"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "eaf8e6e413674ac89f588d27af020b18",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "eaf8e6e413674ac89f588d27af020b18",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "1Z1 - Digital Payments - Sales",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "1Z1"
+      },
+      {
+        "seq": 2,
+        "name": "2BI - Payment Service Provider",
+        "type": "subProcess",
+        "role": "Administrator - Accounts Payable and Receivable (FI-CA)",
+        "optional": false,
+        "calls_scope_item": "2BI"
+      },
+      {
+        "seq": 3,
+        "name": "Create a Billing Document",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Schedule AR Jobs - Credit Card Settlement",
+        "type": "serviceTask",
+        "role": "Accounts Receivable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Schedule AR Jobs - SAP Digital Payments: Advice Processing",
+        "type": "serviceTask",
+        "role": "Accounts Receivable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Schedule GL Jobs - Automatic Clearing Job",
+        "type": "serviceTask",
+        "role": "General Ledger Accountant",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "BFB - Basic Cash Operations",
+        "type": "callActivity",
+        "role": "Cash Management Specialist",
+        "optional": false,
+        "calls_scope_item": "BFB"
+      },
+      {
+        "seq": 8,
+        "name": "J58 - Accounting and Financial Close",
+        "type": "subProcess",
+        "role": "General Ledger Accountant",
+        "optional": false,
+        "calls_scope_item": "J58"
+      },
+      {
+        "seq": 9,
+        "name": "Display Payment Card Data",
+        "type": "userTask",
+        "role": "Accounts Receivable Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "1Z1",
+        "name": "1Z1 - Digital Payments - Sales",
+        "optional": false
+      },
+      {
+        "scope_item_id": "2BI",
+        "name": "2BI - Payment Service Provider",
+        "optional": false
+      },
+      {
+        "scope_item_id": "BFB",
+        "name": "BFB - Basic Cash Operations",
+        "optional": false
+      },
+      {
+        "scope_item_id": "J58",
+        "name": "J58 - Accounting and Financial Close",
+        "optional": false
+      }
+    ]
+  }
+}

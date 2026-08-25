@@ -1,0 +1,60 @@
+{
+  "scope_item_id": "34C",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "21ec274e3d124063b729bd29ebffe1b5",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "21ec274e3d124063b729bd29ebffe1b5",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Post Flows to General Ledger (Parallel Valuation Area)",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Run accrual (Parallel Valuation)",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Reclassify from Long Term to Short Term (Parallel Valuation Area)",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Post Realized Profit and Loss (Parallel Valuation)",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Perform Key Date Valuation (Parallel Valuation)",
+        "type": "userTask",
+        "role": "Treasury Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

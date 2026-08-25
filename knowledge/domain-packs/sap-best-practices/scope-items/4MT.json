@@ -1,0 +1,181 @@
+{
+  "scope_item_id": "4MT",
+  "title": "Advanced Payment Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": "4MT - Advanced Payment Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Map Format Data for Advanced Payment Management",
+        "fiori_app_id": "F5617",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PAYMENT_SPECIALIST",
+        "component": "CA-GTF-CSC-DME"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Situation Types",
+        "fiori_app_id": "F2947",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BPC_EXPERT",
+        "component": "CA-SIT-WB"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Incoming Payment Files",
+        "fiori_app_id": "F1680",
+        "technical_transaction": "FF.5",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-FIO-AR-PAY"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Payments",
+        "fiori_app_id": "F3647",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PAYMENT_SPECIALIST",
+        "component": "FIN-FSCM-PF"
+      },
+      {
+        "step_no": 5,
+        "name": "Repair Payments",
+        "fiori_app_id": "F3651",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PAYMENT_SPECIALIST",
+        "component": "FIN-FSCM-PF"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "216c2406a6b449de849aa14415e5cedf",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "216c2406a6b449de849aa14415e5cedf",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Import Electronic Bank Statement",
+        "type": "userTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Post Document",
+        "type": "serviceTask",
+        "role": "Accounts Payable and Receivable Accountant (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Update of Cash Management",
+        "type": "scriptTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Execute a Payment Run",
+        "type": "scriptTask",
+        "role": "Accounts Payable and Receivable Accountant (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Determine Approver",
+        "type": "scriptTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Monitor Batch and Payment",
+        "type": "userTask",
+        "role": "Accounts Payable and Receivable Accountant (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Approval of Batch-File",
+        "type": "scriptTask",
+        "role": "Payment Specialist",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Update of Cash Management",
+        "type": "scriptTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Check notification",
+        "type": "subProcess",
+        "role": "Accounts Payable and Receivable Accountant (FI-CA)",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Payment Format Management Outbound",
+        "type": "scriptTask",
+        "role": "Payment Specialist",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Update Payment Management Monitor",
+        "type": "scriptTask",
+        "role": "Payment Specialist",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Update of Cash Management",
+        "type": "scriptTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

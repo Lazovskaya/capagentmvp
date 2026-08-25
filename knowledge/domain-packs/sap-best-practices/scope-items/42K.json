@@ -1,0 +1,334 @@
+{
+  "scope_item_id": "42K",
+  "title": "Automation of Source-to-Pay with SAP Business Network",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Operational Procurement"
+    ],
+    "L3_scope_item": "42K - Automation of Source-to-Pay with SAP Business Network",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Communication Systems",
+        "fiori_app_id": "F1762",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR | SAP_BR_APPL_SUP_ENG_DEV_SUP | SAP_BR_CONF_EXPERT_BUS_NET_INT",
+        "component": "BC-SRV-APS-COM"
+      },
+      {
+        "step_no": 2,
+        "name": "My Inbox",
+        "fiori_app_id": "F0862",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER",
+        "component": "CA-INB-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Approve Bank Payments (Version 2)",
+        "fiori_app_id": "F0673A",
+        "technical_transaction": "BNK_APP",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER | SAP_BR_AP_MANAGER",
+        "component": "FI-FIO-AP-BNK"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Automatic Payments",
+        "fiori_app_id": "F0770",
+        "technical_transaction": "FBZ8",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-PAY"
+      },
+      {
+        "step_no": 5,
+        "name": "Revise Payment Proposals",
+        "fiori_app_id": "F0771",
+        "technical_transaction": "F110",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-PAY"
+      },
+      {
+        "step_no": 6,
+        "name": "Reset Cleared Items",
+        "fiori_app_id": "F2223",
+        "technical_transaction": "FBRA",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT",
+        "component": "FI-FIO-AR-TRA"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Journal Entries",
+        "fiori_app_id": "F0717",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT_AU | SAP_BR_AR_MANAGER | SAP_BR_GL_ACCOUNTANT_BE | SAP_BR_CREDIT_CONTROLLER | SAP_BR_GL_ACCOUNTANT_NL | SAP_BR_GL_ACCOUNTANT | SAP_BR_CASH_MANAGER | SAP_BR_GL_ACCOUNTANT_SG | SAP_BR_RECONC_SPEC_APR_FICA | SAP_BR_GL_ACCOUNTANT_TR | SAP_BR_PROJ_FIN_CONTROLLER | SAP_BR_GL_ACCOUNTANT_FR | SAP_BR_TREASURY_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT | SAP_BR_WAREHOUSE_CLERK | SAP_BR_GL_ACCOUNTANT_ES | SAP_BR_GL_ACCOUNTANT_SE | SAP_BR_CASH_MANAGER_MY | SAP_BR_GL_ACCOUNTANT_ZA | SAP_BR_GL_ACCOUNTANT_CA | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT_MY | SAP_BR_GL_ACCOUNTANT_IL | SAP_BR_ADMIN_APR_FICA | SAP_BR_GL_ACCOUNTANT_NZ | SAP_BR_AP_MANAGER | SAP_BR_CASH_MANAGER_TH | SAP_BR_GL_ACCOUNTANT_TH | SAP_BR_GL_ACCOUNTANT_CH | SAP_BR_CASH_SPECIALIST | SAP_BR_GL_ACCOUNTANT_PT | SAP_BR_GL_ACCOUNTANT_RU | SAP_BR_GL_ACCOUNTANT_FI | SAP_BR_TREASURY_RISK_MANAGER | SAP_BR_INVENTORY_MANAGER | SAP_BR_GL_ACCOUNTANT_IT | SAP_BR_GL_ACCOUNTANT_NO | SAP_BR_GL_ACCOUNTANT_AT | SAP_BR_GL_ACCOUNTANT_DK | SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_GL_ACCOUNTANT_LU",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 8,
+        "name": "Manage Supplier Master Data",
+        "fiori_app_id": "F1053A",
+        "technical_transaction": "BP",
+        "app_type": null,
+        "role": "SAP_BR_BUPA_MASTER_SPECIALIST",
+        "component": "LO-MD-FIO-VM"
+      },
+      {
+        "step_no": 9,
+        "name": "Material Documents Overview",
+        "fiori_app_id": "F1077",
+        "technical_transaction": "MB51",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_MAINT_SUPERVISOR | SAP_BR_EMPLOYEE_PROCUREMENT | SAP_BR_GL_ACCOUNTANT | SAP_BR_INVENTORY_MANAGER | SAP_BR_PRODN_PLNR | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_WAREHOUSE_CLERK | SAP_BR_ADMINISTRATOR_RFM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_SERVICE_MANAGER | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_EMPLOYEE | SAP_BR_CUSTOMER_SALES_MGR",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 10,
+        "name": "Post Goods Receipt for Inbound Delivery",
+        "fiori_app_id": "F2502",
+        "technical_transaction": "MIGO",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SETTLEMENT_CLERK_ACM",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 11,
+        "name": "Manage Purchase Orders (Version 2)",
+        "fiori_app_id": "F0842A",
+        "technical_transaction": "ME21",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-PO"
+      },
+      {
+        "step_no": 12,
+        "name": "Manage Supplier Quotations",
+        "fiori_app_id": "F1991",
+        "technical_transaction": "ME47",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-RFQ"
+      },
+      {
+        "step_no": 13,
+        "name": "Manage RFQs",
+        "fiori_app_id": "F2049",
+        "technical_transaction": "ME41",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-RFQ"
+      },
+      {
+        "step_no": 14,
+        "name": "Manage Service Entry Sheets - Lean Services",
+        "fiori_app_id": "F2027",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-PUR-SVC-SES"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "54900fc001bb4b7da1bb5e9f5132da97",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "54900fc001bb4b7da1bb5e9f5132da97",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Request for Quotation",
+        "type": "manualTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Check Purchase Order Confirmation (Optional)",
+        "type": "manualTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 3,
+        "name": "Display Supplier Quotation (optional)",
+        "type": "manualTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 4,
+        "name": "Award Quote",
+        "type": "manualTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Approval of Supplier Quotation (optional)",
+        "type": "manualTask",
+        "role": "Purchasing Manager",
+        "optional": true
+      },
+      {
+        "seq": 6,
+        "name": "Review and Approval Service Entry Sheet (Optional)",
+        "type": "manualTask",
+        "role": "Purchasing Manager",
+        "optional": true
+      },
+      {
+        "seq": 7,
+        "name": "Check Inbound Delivery for Purchase Order (Optional)",
+        "type": "manualTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 8,
+        "name": "Create Purchase Order",
+        "type": "manualTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Set Up the Putaway of Goods for Inbound Delivery",
+        "type": "manualTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Display Automatically Created  Infor Record from Award (Optional)",
+        "type": "manualTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 11,
+        "name": "Post Goods Receipt for Purchase Order",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Display Automatically Created Purchase Order (Optional)",
+        "type": "manualTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 13,
+        "name": "Create Good Return",
+        "type": "manualTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Release Supplier Invoice for Payment (Optional)",
+        "type": "manualTask",
+        "role": "Accounts Payable Accountant",
+        "optional": true
+      },
+      {
+        "seq": 15,
+        "name": "Reverse the Good Return",
+        "type": "manualTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Payment",
+        "type": "manualTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Update invoice with discount",
+        "type": "manualTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Cancel Payment",
+        "type": "manualTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 12,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 12,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 13,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 14,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 15,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 17,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 18,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 18,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

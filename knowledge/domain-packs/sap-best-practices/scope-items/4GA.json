@@ -1,0 +1,162 @@
+{
+  "scope_item_id": "4GA",
+  "title": "Service Quotation",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Service"
+    ],
+    "L2_core_process": [
+      "Service Operations and Processes"
+    ],
+    "L3_scope_item": "4GA - Service Quotation",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Service Quotations",
+        "fiori_app_id": "F4251",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CUSTOMER_SRVC_MGR | SAP_BR_INTERNAL_SALES_REP | SAP_BR_SOLN_ORDER_SPCLST | SAP_BR_SERVICE_PLANNER | SAP_BR_CREDIT_CONTROLLER",
+        "component": "CRM-S4-SRV-SVQ"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "029d4b972f6442c09d098276052bffb3",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "029d4b972f6442c09d098276052bffb3",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create / Change Service Quotation",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Service Quotation Status set to 'Open'",
+        "type": "serviceTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Send Service Quotation to Customer",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Service Quotation set to Status 'Sent to Customer'",
+        "type": "serviceTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Email to Customer",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Print Service Quotation",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Change/Update Service Quotation",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Reject Service Quotation",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Accept Service Quotation",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Service Quotation set to Status 'Under Review'",
+        "type": "serviceTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Service Quotation set to Status 'Rejected' with Rejection reason",
+        "type": "serviceTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Service Quotation set to Status 'Accepted'",
+        "type": "serviceTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Service Order created Automatically by the system",
+        "type": "serviceTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

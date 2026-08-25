@@ -1,0 +1,76 @@
+{
+  "scope_item_id": "1EG",
+  "title": "Bank Integration with File Interface",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": "1EG - Bank Integration with File Interface",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Payment Media",
+        "fiori_app_id": "F1868",
+        "technical_transaction": "FDTA",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-PAY"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Bank Statements",
+        "fiori_app_id": "F1564",
+        "technical_transaction": "FF.6",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_ADMIN_APR_FICA | SAP_BR_CASH_MANAGER",
+        "component": "FI-FIO-AR-PAY"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Incoming Payment Files",
+        "fiori_app_id": "F1680",
+        "technical_transaction": "FF.5",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-FIO-AR-PAY"
+      },
+      {
+        "step_no": 4,
+        "name": "Check Cash Flow Items",
+        "fiori_app_id": "F0735",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_FOE | SAP_BR_TREASURY_SPECIALIST_MOE | SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-COP-PD"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "d9605630b01f44708ab309ba0d7d64c9",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "d9605630b01f44708ab309ba0d7d64c9",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Upload Bank Statement",
+        "type": "userTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Import Electronic Bank Statement",
+        "type": "serviceTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

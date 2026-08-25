@@ -1,0 +1,60 @@
+{
+  "scope_item_id": "19C",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Supplier Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "6c61fba2a0d84aba943f708361744423",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "6c61fba2a0d84aba943f708361744423",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Activity",
+        "type": "userTask",
+        "role": "Buyer",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Tasks",
+        "type": "userTask",
+        "role": "Buyer",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Send Tasks",
+        "type": "userTask",
+        "role": "Buyer",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Submit Tasks",
+        "type": "userTask",
+        "role": "Employee - Procurement",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Monitor Tasks",
+        "type": "userTask",
+        "role": "Buyer",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

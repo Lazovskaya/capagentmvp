@@ -1,0 +1,53 @@
+{
+  "scope_item_id": "1QC",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Product Lifecycle Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "da103beaa940413aa04123da0d5f76ff",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "da103beaa940413aa04123da0d5f76ff",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Review Recipe",
+        "type": "userTask",
+        "role": "Recipe Developer",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create a New Recipe from an Existing Recipe",
+        "type": "userTask",
+        "role": "Recipe Developer",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Modify Recipe Ingredients",
+        "type": "userTask",
+        "role": "Recipe Developer",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Release Recipe",
+        "type": "userTask",
+        "role": "Recipe Developer",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

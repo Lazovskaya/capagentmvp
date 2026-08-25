@@ -1,0 +1,227 @@
+{
+  "scope_item_id": "1FM",
+  "title": "Quality Management in Procurement",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Inventory",
+      "Quality Management"
+    ],
+    "L3_scope_item": "1FM - Quality Management in Procurement",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Post Goods Receipt for Purchasing Document",
+        "fiori_app_id": "F0843",
+        "technical_transaction": "MB01",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_INVENTORY_MANAGER | SAP_BR_WAREHOUSE_CLERK",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 2,
+        "name": "Stock - Single Material",
+        "fiori_app_id": "F1076",
+        "technical_transaction": "MB52",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_INVENTORY_MANAGER | SAP_BR_PRODN_PLNR | SAP_BR_WAREHOUSE_CLERK | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Purchase Orders (Version 2)",
+        "fiori_app_id": "F0842A",
+        "technical_transaction": "ME21",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-PO"
+      },
+      {
+        "step_no": 4,
+        "name": "Review Certificate Document Matches",
+        "fiori_app_id": "F8537",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_TECHNICIAN",
+        "component": "QM-CA"
+      },
+      {
+        "step_no": 5,
+        "name": "Record Inspection Results (Version 2)",
+        "fiori_app_id": "F1685A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_TECHNICIAN | SAP_BR_MAINTENANCE_PLANNER",
+        "component": "QM-FIO"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Inspection Lots",
+        "fiori_app_id": "F2343",
+        "technical_transaction": "QA32",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER | SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_TECHNICIAN",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Usage Decisions",
+        "fiori_app_id": "F2345",
+        "technical_transaction": "QA11",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER | SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 8,
+        "name": "Quality Engineer Overview",
+        "fiori_app_id": "F2360",
+        "technical_transaction": "QA32",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 9,
+        "name": "Quality Technician Overview",
+        "fiori_app_id": "F2361",
+        "technical_transaction": "QA32",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_TECHNICIAN",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 10,
+        "name": "Results History",
+        "fiori_app_id": "F2428",
+        "technical_transaction": "QGA4",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_TECHNICIAN | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_QUALITY_MANAGER | SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 11,
+        "name": "Record Inspection Results in Table Form",
+        "fiori_app_id": "F3365",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_TECHNICIAN",
+        "component": "QM-IM-RR"
+      },
+      {
+        "step_no": 12,
+        "name": "Manage Inspection Plans",
+        "fiori_app_id": "F3788",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_TECHNICIAN | SAP_BR_QUALITY_PLANNER | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-PT-IP"
+      },
+      {
+        "step_no": 13,
+        "name": "Manage Quality Info Records",
+        "fiori_app_id": "F2256A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_PLANNER | SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-PT-RP-PRC"
+      },
+      {
+        "step_no": 14,
+        "name": "Manage Quality Levels",
+        "fiori_app_id": "F2914",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-QC"
+      },
+      {
+        "step_no": 15,
+        "name": "Quality Level History",
+        "fiori_app_id": "F2915",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-QC-AQC-LEV"
+      },
+      {
+        "step_no": 16,
+        "name": "Manage Defects",
+        "fiori_app_id": "F2649",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_TECHNICIAN | SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-QN"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "ee081b44bdff4b8e80d6ad4a51775ebe",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "ee081b44bdff4b8e80d6ad4a51775ebe",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Review Quality Settings in Material Master (optional)",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data",
+        "optional": true
+      },
+      {
+        "seq": 2,
+        "name": "Create Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Post Goods Receipt for Purchase Order",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Review Inspection \nLot Status Before Receipt of Quality Certificate (optional)",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "Enter Receipt of Quality Certificate",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Review Inspection \nLot Status After Receipt of Quality Certificate (optional)",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": true
+      },
+      {
+        "seq": 7,
+        "name": "Record Inspection Results",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Make Usage Decision",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

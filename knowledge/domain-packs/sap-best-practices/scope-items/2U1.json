@@ -1,0 +1,67 @@
+{
+  "scope_item_id": "2U1",
+  "title": "Customs Management with SAP Global Trade Services",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Enterprise Risk and Compliance"
+    ],
+    "L3_scope_item": "2U1 - Customs Management with SAP Global Trade Services",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Transfer of Purchasing Documents - Global Trade Services",
+        "fiori_app_id": "F3742",
+        "technical_transaction": "/SAPSLL/DS_D_MM0A_R3",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_SLL",
+        "component": "FT-INT-GTS"
+      },
+      {
+        "step_no": 2,
+        "name": "Schedule Transfer of Inbound Deliveries - Global Trade Services",
+        "fiori_app_id": "F4541",
+        "technical_transaction": "/SAPSLL/DS_D_MM0B_R3",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_SLL",
+        "component": "FT-INT-GTS"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "806eb89a826e4a10a7ec9e755b3ed235",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "806eb89a826e4a10a7ec9e755b3ed235",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Purchase Document to Foreign Supplier",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Inbound Delivery",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

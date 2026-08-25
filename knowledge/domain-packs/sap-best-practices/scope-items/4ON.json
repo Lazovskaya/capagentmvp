@@ -1,0 +1,24 @@
+{
+  "scope_item_id": "4ON",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Oil and Gas"
+    ],
+    "L2_core_process": [
+      "Oil and Gas"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "d839c290ccab4678aa6cc5ce0fc5798d",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "d839c290ccab4678aa6cc5ce0fc5798d",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [],
+    "dependencies": []
+  }
+}

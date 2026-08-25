@@ -1,0 +1,70 @@
+{
+  "scope_item_id": "5FY",
+  "title": "In-Store Purchase Order Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Retail"
+    ],
+    "L2_core_process": [
+      "Retail"
+    ],
+    "L3_scope_item": "5FY - In-Store Purchase Order Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Clean Up of Operational Data - Receive Products",
+        "fiori_app_id": "F5595",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_RFM",
+        "component": "LO-RFM-STO-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "9c8a63de28144deb94a8e42eaca50b03",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "9c8a63de28144deb94a8e42eaca50b03",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Review Order Proposals",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Receive Products - Trusted",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Receive Products - Standard",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Look Up General Product Information",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Look Up General Product Information",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

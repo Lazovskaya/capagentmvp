@@ -1,0 +1,166 @@
+{
+  "scope_item_id": "5DS",
+  "title": "Event-Based Revenue Recognition \u2013 Subscription Billing \u2013 US GAAP",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close"
+    ],
+    "L3_scope_item": "5DS - Event-Based Revenue Recognition \u2013 Subscription Billing \u2013 US GAAP",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Run Revenue Recognition - Provider Contracts",
+        "fiori_app_id": "F5405",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-PC-OBJ-EBR"
+      },
+      {
+        "step_no": 2,
+        "name": "Event-Based Revenue Recognition - Provider Contracts",
+        "fiori_app_id": "F5406",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-PC-OBJ-EBR"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Revenue Recognition Issues - Provider Contracts",
+        "fiori_app_id": "F5407",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-PC-OBJ-EBR"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "dbef53ac5ff74c4f9509ea3e06b24778",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "dbef53ac5ff74c4f9509ea3e06b24778",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "4GT - Solution Order",
+        "type": "subProcess",
+        "role": "Solution Order Specialist",
+        "optional": false,
+        "calls_scope_item": "4GT"
+      },
+      {
+        "seq": 2,
+        "name": "57Z - Subscription Management with Sales Billing",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": false,
+        "calls_scope_item": "57Z"
+      },
+      {
+        "seq": 3,
+        "name": "Revenue Recognition (Event-Based) - Provider Contracts",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Manage Real-Time Revenue Recognition Issues",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Run Revenue Recognition - Provider Contracts",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "2V8 - Advanced Financial Closing",
+        "type": "subProcess",
+        "role": "General Ledger Accountant",
+        "optional": false,
+        "calls_scope_item": "2V8"
+      },
+      {
+        "seq": 7,
+        "name": "Manage Revenue Recognition Issues - Provider Contracts",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Revenue Recognition (Event-Based) - Provider Contracts",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Revenue Recognition Reversal                    (optional)",
+        "type": "userTask",
+        "role": "Cost Accountant - Sales",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "4GT",
+        "name": "4GT - Solution Order",
+        "optional": false
+      },
+      {
+        "scope_item_id": "57Z",
+        "name": "57Z - Subscription Management with Sales Billing",
+        "optional": false
+      },
+      {
+        "scope_item_id": "2V8",
+        "name": "2V8 - Advanced Financial Closing",
+        "optional": false
+      }
+    ]
+  }
+}

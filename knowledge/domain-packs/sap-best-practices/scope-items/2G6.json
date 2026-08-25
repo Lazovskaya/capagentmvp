@@ -1,0 +1,79 @@
+{
+  "scope_item_id": "2G6",
+  "title": "Embedded Software Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Product Lifecycle Management"
+    ],
+    "L3_scope_item": "2G6 - Embedded Software Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Documents",
+        "fiori_app_id": "F2733",
+        "technical_transaction": "CV01N",
+        "app_type": null,
+        "role": "SAP_BR_DESIGN_ENGINEER | SAP_BR_MD_SPECIALIST_RAW_SUBST | SAP_BR_DEVELOPMENT_MANAGER_DIN | SAP_BR_BOM_ENGINEER | SAP_BR_CHG_MGMT_COORDINATOR | SAP_BR_AR_ACCOUNTANT_CN | SAP_BR_MAINT_SUPERVISOR | SAP_BR_CASH_SPECIALIST | SAP_BR_COMPL_ENG_FOOD_BEV | SAP_BR_MD_SPECIALIST_EAM | SAP_BR_CASH_MANAGER | SAP_BR_SYSTEMS_ENGINEER | SAP_BR_ADMINISTRATOR_RCP_DEV",
+        "component": "CA-DMS"
+      },
+      {
+        "step_no": 2,
+        "name": "Maintain Bill Of Material",
+        "fiori_app_id": "F1813",
+        "technical_transaction": "CS01",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_PCL | SAP_BR_ADMINISTRATOR_RCP_DEV | SAP_BR_PRODN_ENG_DISC | SAP_BR_MD_SPECIALIST_EAM | SAP_BR_PRODSTWRD_SPLST_PCL | SAP_BR_BOM_ENGINEER | SAP_BR_BOM_ENG_CUST_ORDER | SAP_BR_DESIGN_ENGINEER | SAP_BR_PRODN_ENG_PROC | SAP_BR_DEVELOPMENT_MANAGER_DIN",
+        "component": "PLM-FIO-BOM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "9d283f128f0a4a09a3d144dbcb21a9f4",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "9d283f128f0a4a09a3d144dbcb21a9f4",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Software Material",
+        "type": "userTask",
+        "role": "Systems Engineer",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Software Document and Link the Software Material",
+        "type": "userTask",
+        "role": "Systems Engineer",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Add new Software Item to BOM",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create New Software Version",
+        "type": "userTask",
+        "role": "Systems Engineer",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Update Software Item with New Version in BoM",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

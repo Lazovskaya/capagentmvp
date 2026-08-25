@@ -1,0 +1,188 @@
+{
+  "scope_item_id": "2BG",
+  "title": "Convergent Invoicing \u2013 Invoice Creation for Usage and Service",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Subscription Billing and Revenue Management"
+    ],
+    "L3_scope_item": "2BG - Convergent Invoicing \u2013 Invoice Creation for Usage and Service",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Invoicing Documents",
+        "fiori_app_id": "F2048",
+        "technical_transaction": "FKKINVDOC_DISP",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_SPEC_CINV | SAP_BR_INVOICING_ADMIN_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Display Billing Documents",
+        "fiori_app_id": "F2250",
+        "technical_transaction": "FKKINVBILL_DISP",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV | SAP_BR_INVOICING_SPEC_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Clarification Cases",
+        "fiori_app_id": "F2349",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_SPEC_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 4,
+        "name": "Execute Invoicing",
+        "fiori_app_id": "F3524",
+        "technical_transaction": "FKKINV_MA",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 5,
+        "name": "Execute Billing",
+        "fiori_app_id": "F3525",
+        "technical_transaction": "FKKBIX_MA",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 6,
+        "name": "Upload Billable Items",
+        "fiori_app_id": "F4664",
+        "technical_transaction": "FKKBIXBIT_UPLOAD",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_SPEC_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 7,
+        "name": "Print Correspondence",
+        "fiori_app_id": "F3537",
+        "technical_transaction": "FPCOPARA",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV | SAP_BR_ADMIN_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 8,
+        "name": "Manage Billable Items",
+        "fiori_app_id": "F2621",
+        "technical_transaction": "FKKBIXBIT_MON",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_INVOICING_ADMIN_CINV | SAP_BR_INTRNAL_SALESREP_SOM | SAP_BR_INVOICING_SPEC_CINV",
+        "component": "FI-CAX-INV-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "d7ef865819ca41f0ab4edad0285857f0",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "d7ef865819ca41f0ab4edad0285857f0",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "2T3 - Recurring and One-off items",
+        "type": "subProcess",
+        "role": "Invoicing Specialist (Convergent Invoicing)",
+        "optional": false,
+        "calls_scope_item": "2T3"
+      },
+      {
+        "seq": 2,
+        "name": "3DX - Rating of Consumption Items",
+        "type": "subProcess",
+        "role": "Invoicing Specialist (Convergent Invoicing)",
+        "optional": false,
+        "calls_scope_item": "3DX"
+      },
+      {
+        "seq": 3,
+        "name": "2BE - Invoice Correction Processing",
+        "type": "subProcess",
+        "role": "Invoicing Specialist (Convergent Invoicing)",
+        "optional": false,
+        "calls_scope_item": "2BE"
+      },
+      {
+        "seq": 4,
+        "name": "2DP - Company initiated Payment",
+        "type": "subProcess",
+        "role": "Accounts Payable and Receivable Accountant (FI-CA)",
+        "optional": false,
+        "calls_scope_item": "2DP"
+      },
+      {
+        "seq": 5,
+        "name": "2BI - Customer Initiated Payment",
+        "type": "subProcess",
+        "role": "Accounts Payable and Receivable Accountant (FI-CA)",
+        "optional": false,
+        "calls_scope_item": "2BI"
+      },
+      {
+        "seq": 6,
+        "name": "2UJ - Open Item Management",
+        "type": "subProcess",
+        "role": "Accounts Payable and Receivable Accountant (FI-CA)",
+        "optional": false,
+        "calls_scope_item": "2UJ"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "2T3",
+        "name": "2T3 - Recurring and One-off items",
+        "optional": false
+      },
+      {
+        "scope_item_id": "3DX",
+        "name": "3DX - Rating of Consumption Items",
+        "optional": false
+      },
+      {
+        "scope_item_id": "2BE",
+        "name": "2BE - Invoice Correction Processing",
+        "optional": false
+      },
+      {
+        "scope_item_id": "2DP",
+        "name": "2DP - Company initiated Payment",
+        "optional": false
+      },
+      {
+        "scope_item_id": "2BI",
+        "name": "2BI - Customer Initiated Payment",
+        "optional": false
+      },
+      {
+        "scope_item_id": "2UJ",
+        "name": "2UJ - Open Item Management",
+        "optional": false
+      }
+    ]
+  }
+}

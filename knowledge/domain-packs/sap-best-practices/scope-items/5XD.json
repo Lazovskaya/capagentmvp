@@ -1,0 +1,171 @@
+{
+  "scope_item_id": "5XD",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Delivery and Transportation"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "782866228d384b6497219670a12612ad",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "782866228d384b6497219670a12612ad",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create \nStock Transport Order Without MRP(BME)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Change \nConfirmation Control for Inbound Delivery (BME)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Perform Manual Transportation Planning (4MO)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Perform Carrier Subcontracting (4MO)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Monitor Freight \nOrder and Trigger Delivery Creation (4MO)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Pick Stock Transport Order (BME)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Set Truck \nArrived and Checked-In in the Supplying Plant (4MO)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Post Goods Issue (BME)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Check \nStatus of Stock Transfer Order (BME)",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Set Truck \nChecked-Out and Departed in the Supplying Plant (4MO)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Set Truck Arrived and Checked-In in the Receiving Plant (4MO)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Set Ready for Warehousing",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Confirm Quantities for Putaway (BME)",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Post Goods Receipt for Inbound Delivery (BME))",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Set Truck \nChecked-Out and Departed in the Receiving Plant (5OS)",
+        "type": "userTask",
+        "role": "Dispatcher",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Confirm Freight Order For Accrual Posting (4MO)",
+        "type": "userTask",
+        "role": "Transportation Manager",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Execute Evaluated Receipt Settlement for Freight Costs (2LH)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs)",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Create Supplier Invoice for Freight Costs (22Z)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs)",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Check Supplier Invoice List (2LH)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs)",
+        "optional": false
+      },
+      {
+        "seq": 20,
+        "name": "Release Blocked Supplier Invoice (Optional) (22Z)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs)",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 16,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

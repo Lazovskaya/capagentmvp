@@ -1,0 +1,82 @@
+{
+  "scope_item_id": "16R",
+  "title": "Bank Integration with SAP Multi-Bank Connectivity",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": "16R - Bank Integration with SAP Multi-Bank Connectivity",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Monitor Situations",
+        "fiori_app_id": "F3264",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BPC_EXPERT",
+        "component": "CA-SIT-DA"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Bank Statements",
+        "fiori_app_id": "F1564",
+        "technical_transaction": "FF.6",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_ADMIN_APR_FICA | SAP_BR_CASH_MANAGER",
+        "component": "FI-FIO-AR-PAY"
+      },
+      {
+        "step_no": 3,
+        "name": "Check Cash Flow Items",
+        "fiori_app_id": "F0735",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TREASURY_SPECIALIST_FOE | SAP_BR_TREASURY_SPECIALIST_MOE | SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-COP-PD"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Bank Messages",
+        "fiori_app_id": "F4385",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BANK_INT_SPECIALIST",
+        "component": "LOD-FSN-AGT"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "5a2fbe447e494a5f9cf9635adab8e171",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "5a2fbe447e494a5f9cf9635adab8e171",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "ISO CAMT.053 Format",
+        "type": "userTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Import Electronic Bank Statement",
+        "type": "serviceTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

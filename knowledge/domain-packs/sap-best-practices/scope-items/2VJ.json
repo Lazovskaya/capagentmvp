@@ -1,0 +1,85 @@
+{
+  "scope_item_id": "2VJ",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Warehousing"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "3aeba67508d349a6b29afcb44d251db5",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "3aeba67508d349a6b29afcb44d251db5",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Check Inbound Delivery (Optional)",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": true
+      },
+      {
+        "seq": 3,
+        "name": "Check Inbound Delivery (Optional)",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": true
+      },
+      {
+        "seq": 4,
+        "name": "Option 1: Generate Expected Goods Receipt Documents",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Inbound Delivery",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Check Material Document (Optional)",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": true
+      },
+      {
+        "seq": 7,
+        "name": "Replicate Inbound Delivery",
+        "type": "serviceTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

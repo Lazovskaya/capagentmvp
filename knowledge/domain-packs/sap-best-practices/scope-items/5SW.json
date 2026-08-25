@@ -1,0 +1,75 @@
+{
+  "scope_item_id": "5SW",
+  "title": "Subscription Management for Software",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Marketing",
+    "L3_scope_item": "5SW - Subscription Management for Software",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Subscriptions",
+        "fiori_app_id": "F6801",
+        "technical_transaction": "F6801",
+        "app_type": null,
+        "role": "SAP_BR_EXT_AUDITOR_APR_FICA | SAP_BR_APR_MANAGER_FICA | SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_RECONC_SPEC_APR_FICA | SAP_BR_ADMIN_APR_FICA | SAP_BR_SUBSCR_BILLG_SPCLST | SAP_BR_BILLING_CLERK | SAP_BR_COLL_SPECIALIST_FICA | SAP_BR_SOLN_ORDER_SPCLST",
+        "component": "CEC-SAL-SB-FLP"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Usage Records - Subscription Billing",
+        "fiori_app_id": "F6802A",
+        "technical_transaction": "F6802A",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_SPEC_CINV | SAP_BR_SUBSCR_BILLG_SPCLST | SAP_BR_BILLING_CLERK",
+        "component": "CEC-SAL-SB-FLP"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Billing Data - Subscription Billing",
+        "fiori_app_id": "F6803",
+        "technical_transaction": "F6803",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_SPEC_CINV | SAP_BR_BILLING_CLERK | SAP_BR_SUBSCR_BILLG_SPCLST",
+        "component": "CEC-SAL-SB-FLP"
+      },
+      {
+        "step_no": 4,
+        "name": "Run Revenue Recognition - Provider Contracts",
+        "fiori_app_id": "F5405",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-PC-OBJ-EBR"
+      },
+      {
+        "step_no": 5,
+        "name": "Event-Based Revenue Recognition - Provider Contracts",
+        "fiori_app_id": "F5406",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-PC-OBJ-EBR"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Revenue Recognition Issues - Provider Contracts",
+        "fiori_app_id": "F5407",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-PC-OBJ-EBR"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Solution Orders",
+        "fiori_app_id": "F4615",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_MANAGER | SAP_BR_BILLING_CLERK | SAP_BR_SOLN_ORDER_SPCLST | SAP_BR_CUSTOMER_SRVC_TEC | SAP_BR_CUSTOMER_SRVC_MGR",
+        "component": "CRM-S4-SOL-SLO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

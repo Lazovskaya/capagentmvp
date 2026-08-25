@@ -1,0 +1,109 @@
+{
+  "scope_item_id": "4Q5",
+  "title": "Solution Quotation",
+  "hierarchy": {
+    "L1_value_stream": [
+      "IT and Cross-Application"
+    ],
+    "L2_core_process": [
+      "Solution Business Management"
+    ],
+    "L3_scope_item": "4Q5 - Solution Quotation",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Service Contracts",
+        "fiori_app_id": "F3763",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SERVICE_MANAGER",
+        "component": "CRM-S4-SRV-CTR"
+      },
+      {
+        "step_no": 2,
+        "name": "Create Outbound Deliveries - From Sales Orders",
+        "fiori_app_id": "F0869A",
+        "technical_transaction": "VL10A",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "da560b3ddf994037b3c0294d7403cf89",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "da560b3ddf994037b3c0294d7403cf89",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Solution Quotation",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Accept solution quotation",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Process Service Order",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Process service contract",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Process sales order",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Create billing document",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Create billing document",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Create Billing Document",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

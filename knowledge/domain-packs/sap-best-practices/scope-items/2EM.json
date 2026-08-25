@@ -1,0 +1,365 @@
+{
+  "scope_item_id": "2EM",
+  "title": "Just-In-Time Supply to Customer",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Manufacturing Options"
+    ],
+    "L3_scope_item": "2EM - Just-In-Time Supply to Customer",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage JIT Customer Supply Control",
+        "fiori_app_id": "F3010",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_JIT",
+        "component": "LE-JIT-S2C"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage JIT Customer data",
+        "fiori_app_id": "F3011",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_JIT",
+        "component": "LE-JIT-S2C"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Packing Group Specification for Sequenced JIT Calls",
+        "fiori_app_id": "F3896",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_JIT",
+        "component": "LE-JIT-S2C"
+      },
+      {
+        "step_no": 4,
+        "name": "Create Outbound Deliveries from Sequenced JIT Calls",
+        "fiori_app_id": "F3897",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-JIT-S2C"
+      },
+      {
+        "step_no": 5,
+        "name": "Confirm Production for Just-In-Time Calls",
+        "fiori_app_id": "F4315",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_OPTR_LEAN_MFG",
+        "component": "LE-JIT-S2C"
+      },
+      {
+        "step_no": 6,
+        "name": "Release JIT Calls to Production - Summarized JIT Call",
+        "fiori_app_id": "F4330",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR_LEAN_MFG",
+        "component": "LE-JIT-S2C"
+      },
+      {
+        "step_no": 7,
+        "name": "Release JIT Calls to Production -  Sequenced JIT Call",
+        "fiori_app_id": "F4331",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR_LEAN_MFG",
+        "component": "LE-JIT-S2C"
+      },
+      {
+        "step_no": 8,
+        "name": "Manage JIT Delivery Sequence Groups for Sequence JIT Calls",
+        "fiori_app_id": "F4879",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_JIT",
+        "component": "LE-JIT-S2C"
+      },
+      {
+        "step_no": 9,
+        "name": "Schedule Packing Group Creation/ Update for Sequenced JIT calls",
+        "fiori_app_id": "F4960",
+        "technical_transaction": "SM36",
+        "app_type": null,
+        "role": "SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-JIT-S2C"
+      },
+      {
+        "step_no": 10,
+        "name": "Create JIT Delivery Schedule (In Background)",
+        "fiori_app_id": "F5001",
+        "technical_transaction": "SM36",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_JIT_S_TO_C",
+        "component": "LE-JIT-S2C"
+      },
+      {
+        "step_no": 11,
+        "name": "Manage Reprocessing List for Customer JIT Calls",
+        "fiori_app_id": "F5092",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_SUPVR_LEAN_MFG",
+        "component": "LE-JIT-S2C"
+      },
+      {
+        "step_no": 12,
+        "name": "Process Customer JIT Calls - by Scan/ Data Entry",
+        "fiori_app_id": "F5138",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_OPTR_LEAN_MFG",
+        "component": "LE-JIT-S2C"
+      },
+      {
+        "step_no": 13,
+        "name": "Manage Teams and Responsibilities - Just-In-Time",
+        "fiori_app_id": "F5787",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_JIT",
+        "component": "LE-JIT-S2C"
+      },
+      {
+        "step_no": 14,
+        "name": "Schedule Custom Actions for JIT/ JIS Calls",
+        "fiori_app_id": "F5804",
+        "technical_transaction": "SM36",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_JIT_S_TO_C",
+        "component": "LE-JIT-S2C"
+      },
+      {
+        "step_no": 15,
+        "name": "Manage Customer JIT Calls - by Component Groups",
+        "fiori_app_id": "F6077",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_JIT_S_TO_C",
+        "component": "LE-JIT-S2C"
+      },
+      {
+        "step_no": 16,
+        "name": "Manage Customer JIT Calls - Create, Manage",
+        "fiori_app_id": "F6078",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_JIT_S_TO_C",
+        "component": "LE-JIT-S2C"
+      },
+      {
+        "step_no": 17,
+        "name": "Pick Outbound Delivery",
+        "fiori_app_id": "F0868",
+        "technical_transaction": "VL06P",
+        "app_type": null,
+        "role": "SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_SHIPPING_SPECIALIST",
+        "component": "LE-SHP-FIO-NAT"
+      },
+      {
+        "step_no": 18,
+        "name": "Manage Billing Documents",
+        "fiori_app_id": "F0797",
+        "technical_transaction": "VF02",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_TRANSPRT_MNGR_LMD | SAP_BR_BILLING_CLERK | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_ADMINISTRATOR_RFM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 19,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 20,
+        "name": "Manage Sales Scheduling Agreements",
+        "fiori_app_id": "F3515",
+        "technical_transaction": "VA31",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS-OA-SCH"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "93672c1bbee442b1b4a8ae143e6f1867",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "93672c1bbee442b1b4a8ae143e6f1867",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "3NR  Sales Scheduling Agreement [Create a scheduling agreement with doc type LZJ or LKJ(For Consignment)]",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "(Optional) 3NR - Sales Scheduling Agreement (Monitor Material Coverage)",
+        "type": "subProcess",
+        "role": "Production Planner",
+        "optional": true
+      },
+      {
+        "seq": 3,
+        "name": "Create Handling Units from Package Groups",
+        "type": "userTask",
+        "role": "Material Planner - Just-In-Time Supply",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "(Optional) 3BS - Warehouse Outbound Processing",
+        "type": "subProcess",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "(Optional) 4MM - Handling Unit Management",
+        "type": "subProcess",
+        "role": "Shipping Specialist - Just-In-Time Supply",
+        "optional": true
+      },
+      {
+        "seq": 6,
+        "name": "Create Billing Documents",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Pick Outbound Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist - Just-In-Time Supply",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Post Goods Issue",
+        "type": "userTask",
+        "role": "Shipping Specialist - Just-In-Time Supply",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Accounts Receivable (J59)",
+        "type": "subProcess",
+        "role": "Accounts Receivable Accountant",
+        "optional": false,
+        "calls_scope_item": "J59"
+      },
+      {
+        "seq": 10,
+        "name": "53X - Just-In-Time Supply to Customer with Delivery Confirmation",
+        "type": "subProcess",
+        "role": "Shipping Specialist - Just-In-Time Supply",
+        "optional": false,
+        "calls_scope_item": "53X"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "J59",
+        "name": "Accounts Receivable (J59)",
+        "optional": false
+      },
+      {
+        "scope_item_id": "53X",
+        "name": "53X - Just-In-Time Supply to Customer with Delivery Confirmation",
+        "optional": false
+      }
+    ]
+  }
+}

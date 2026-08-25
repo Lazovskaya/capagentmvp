@@ -1,0 +1,144 @@
+{
+  "scope_item_id": "J12",
+  "title": "Time Recording \u2013 Project-Based Services",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Recruit to Retire"
+    ],
+    "L2_core_process": [
+      "Core HR and Time Recording"
+    ],
+    "L3_scope_item": "J12 - Time Recording \u2013 Project-Based Services",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage My Timesheet",
+        "fiori_app_id": "F1823",
+        "technical_transaction": "CAT2",
+        "app_type": null,
+        "role": "SAP_BR_EMPLOYEE | SAP_BR_MANAGER_HRINFO | SAP_BR_PROJECT_MANAGER_PROF",
+        "component": "CA-TS-S4"
+      },
+      {
+        "step_no": 2,
+        "name": "Notify Missing Times",
+        "fiori_app_id": "F2556",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJECT_MANAGER_PROF",
+        "component": "CA-TS-S4"
+      },
+      {
+        "step_no": 3,
+        "name": "Team Utilization",
+        "fiori_app_id": "F2582",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER_HRINFO",
+        "component": "CA-TS-S4"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Project Billing",
+        "fiori_app_id": "F4374",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJECT_MANAGER_PROF | SAP_BR_PROJ_BILLG_SPCLST",
+        "component": "PPM-SCL-BIL"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "691e1735b754426e8774d2b5ba50ab8d",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "691e1735b754426e8774d2b5ba50ab8d",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Transfer Actual Working Times \n           (optional)",
+        "type": "serviceTask",
+        "role": "Employee",
+        "optional": true
+      },
+      {
+        "seq": 2,
+        "name": "Notify Missing Time",
+        "type": "userTask",
+        "role": "Project Manager - Commercial Services",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Analyze Team Utilization",
+        "type": "userTask",
+        "role": "Manager - HR Info",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Record Actual Working Times",
+        "type": "userTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Approval of Working Times",
+        "type": "userTask",
+        "role": "Project Manager - Commercial Services",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Timesheet on behalf",
+        "type": "userTask",
+        "role": "Project Manager - Commercial Services",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Timesheet on behalf",
+        "type": "userTask",
+        "role": "Manager - HR Info",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Timesheet: Transfer \nto Target Components",
+        "type": "serviceTask",
+        "role": "Project Manager - Commercial Services",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Mixed"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

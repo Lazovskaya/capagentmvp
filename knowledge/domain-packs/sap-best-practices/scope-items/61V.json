@@ -1,0 +1,122 @@
+{
+  "scope_item_id": "61V",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "033a4f74c5424112ad3d547620c9c6a5",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "033a4f74c5424112ad3d547620c9c6a5",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "5HL (Sell from Stock - Consumer Products)",
+        "type": "callActivity",
+        "role": "Returns and Refund Clerk",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Return Order",
+        "type": "userTask",
+        "role": "Returns and Refund Clerk",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Determine Refund",
+        "type": "userTask",
+        "role": "Returns and Refund Clerk",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Generate Credit Memo",
+        "type": "serviceTask",
+        "role": "Returns and Refund Clerk",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Generate Return Delivery",
+        "type": "serviceTask",
+        "role": "Returns and Refund Clerk",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Generate Credit Memo Request",
+        "type": "serviceTask",
+        "role": "Returns and Refund Clerk",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Display Return Overview",
+        "type": "userTask",
+        "role": "Returns and Refund Clerk",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Perform Picking",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Create Credit Memo",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Post Goods Receipt",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Sales Order Fulfillment Monitoring (BKK) (Optional)",
+        "type": "callActivity",
+        "role": "Billing Clerk",
+        "optional": true,
+        "calls_scope_item": "BKK"
+      },
+      {
+        "seq": 12,
+        "name": "Perform Material Inspection",
+        "type": "userTask",
+        "role": "Receiving Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "inclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "BKK",
+        "name": "Sales Order Fulfillment Monitoring (BKK) (Optional)",
+        "optional": true
+      }
+    ]
+  }
+}

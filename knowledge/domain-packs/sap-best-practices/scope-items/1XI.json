@@ -1,0 +1,110 @@
+{
+  "scope_item_id": "1XI",
+  "title": "Central Requisitioning",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Central Procurement"
+    ],
+    "L3_scope_item": "1XI - Central Requisitioning",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Inbox",
+        "fiori_app_id": "F0862",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER",
+        "component": "CA-INB-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Supplier Invoices",
+        "fiori_app_id": "F0859",
+        "technical_transaction": "F-41",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AA_ACCOUNTANT | SAP_BR_PURCHASING_MANAGER",
+        "component": "MM-FIO-IV"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Purchase Requisition Professional",
+        "fiori_app_id": "F2229",
+        "technical_transaction": "ME51N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-PRF"
+      },
+      {
+        "step_no": 4,
+        "name": "My Purchase Requisitions - New",
+        "fiori_app_id": "F1639A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER | SAP_BR_EMPLOYEE | SAP_BR_EMPLOYEE_PROCUREMENT",
+        "component": "MM-FIO-PUR-REQ-SSP"
+      },
+      {
+        "step_no": 5,
+        "name": "Create Purchase Requisition - New",
+        "fiori_app_id": "F1643A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_EMPLOYEE_PROCUREMENT | SAP_BR_EMPLOYEE",
+        "component": "MM-FIO-PUR-REQ-SSP"
+      },
+      {
+        "step_no": 6,
+        "name": "Default settings for users",
+        "fiori_app_id": "F1995",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BPC_EXPERT | SAP_BR_EMPLOYEE | SAP_BR_EMPLOYEE_PROCUREMENT | SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-SSP"
+      },
+      {
+        "step_no": 7,
+        "name": "Confirm Receipt of Goods-New",
+        "fiori_app_id": "F4489",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_EMPLOYEE_PROCUREMENT | SAP_BR_EMPLOYEE_PROC_PPS | SAP_BR_EMPLOYEE",
+        "component": "MM-PUR-HUB-CNF"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "f90a4bbd66624823bf3f9d35b2b72845",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "f90a4bbd66624823bf3f9d35b2b72845",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Maintain the Default Setting for Expert Users",
+        "type": "userTask",
+        "role": "Employee - Procurement",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Expert Purchase Requisition\u2013 In HUB System",
+        "type": "userTask",
+        "role": "Employee - Procurement",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Check Expert Purchase Requisition (Optional) \u2013 In HUB System",
+        "type": "userTask",
+        "role": "Employee - Procurement",
+        "optional": true
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

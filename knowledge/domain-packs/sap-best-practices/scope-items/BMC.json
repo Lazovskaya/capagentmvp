@@ -1,0 +1,156 @@
+{
+  "scope_item_id": "BMC",
+  "title": "Core Inventory Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Inventory"
+    ],
+    "L3_scope_item": "BMC - Core Inventory Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Transfer Stock - In Plant",
+        "fiori_app_id": "F1061",
+        "technical_transaction": "MB1B",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_INVENTORY_MANAGER | SAP_BR_WAREHOUSE_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Stock",
+        "fiori_app_id": "F1062",
+        "technical_transaction": "MIGO",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_MANAGER | SAP_BR_INVENTORY_MGR_RFM",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 3,
+        "name": "Stock - Single Material",
+        "fiori_app_id": "F1076",
+        "technical_transaction": "MB52",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_INVENTORY_MANAGER | SAP_BR_PRODN_PLNR | SAP_BR_WAREHOUSE_CLERK | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 4,
+        "name": "Material Documents Overview",
+        "fiori_app_id": "F1077",
+        "technical_transaction": "MB51",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_MAINT_SUPERVISOR | SAP_BR_EMPLOYEE_PROCUREMENT | SAP_BR_GL_ACCOUNTANT | SAP_BR_INVENTORY_MANAGER | SAP_BR_PRODN_PLNR | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_WAREHOUSE_CLERK | SAP_BR_ADMINISTRATOR_RFM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_SERVICE_MANAGER | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_EMPLOYEE | SAP_BR_CUSTOMER_SALES_MGR",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 5,
+        "name": "Slow or Non-Moving Materials",
+        "fiori_app_id": "F2137",
+        "technical_transaction": "MC46",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_MGR_RFM | SAP_BR_WAREHOUSE_CLERK | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_INVENTORY_MANAGER",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 6,
+        "name": "Dead Stock Analysis",
+        "fiori_app_id": "F2899",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_MANAGER | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_WAREHOUSE_CLERK | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_RECEIVING_SPECIALIST",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 7,
+        "name": "Post Goods Receipt without Reference",
+        "fiori_app_id": "F3244",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_WAREHOUSE_CLERK",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 8,
+        "name": "Analyze Stock in Date Range",
+        "fiori_app_id": "F6185",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_INVENTORY_MANAGER | SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_WAREHOUSE_CLERK | SAP_BR_PRODN_PLNR",
+        "component": "MM-FIO-IM-SGM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "99864b03bc0f448295c73c0a1e5ba60b",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "99864b03bc0f448295c73c0a1e5ba60b",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Inspect Product",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "General Stock Scrapping: Goods Issue to Cost Center",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Unblock Material - Stock Transfer Blocked to Unrestricted",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Block Material - Stock Transfer Unrestricted to Blocked",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Customer Returns Scrapping: Goods Issue to CO-PA",
+        "type": "manualTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Unblock Material - Stock Transfer Blocked to Quality Inspection Stock",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "scope_item_id": "5FQ",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Retail"
+    ],
+    "L2_core_process": [
+      "Retail"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "2bb6e3e860a147ed8459448c036b9c9e",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "2bb6e3e860a147ed8459448c036b9c9e",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Post Goods Receipt Without Reference",
+        "type": "userTask",
+        "role": "Warehouse Clerk (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Transfer-Unrestricted to Blocked",
+        "type": "userTask",
+        "role": "Warehouse Clerk (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Scrapping / Goods Issue",
+        "type": "userTask",
+        "role": "Inventory Manager (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Transfer-Blocked to Unrestricted",
+        "type": "userTask",
+        "role": "Warehouse Clerk (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Transfer-Blocked to Quality Inspection",
+        "type": "userTask",
+        "role": "Warehouse Clerk (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "One Step Stock Transfer",
+        "type": "businessRuleTask",
+        "role": "Warehouse Clerk (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Two Steps Stock Transfer (Remove from Storage Location)",
+        "type": "businessRuleTask",
+        "role": "Warehouse Clerk (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Two Steps Stock Transfer (Place to Storage Location)",
+        "type": "businessRuleTask",
+        "role": "Warehouse Clerk (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Stock Overview - Single Material",
+        "type": "userTask",
+        "role": "Warehouse Clerk (Retail)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

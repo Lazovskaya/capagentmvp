@@ -1,0 +1,118 @@
+{
+  "scope_item_id": "49X",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Service"
+    ],
+    "L2_core_process": [
+      "Service Operations and Processes"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "7e26f1a9878243d5a571115087fe3485",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "7e26f1a9878243d5a571115087fe3485",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create a service order with line items",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "3MO - Service Contract Management",
+        "type": "subProcess",
+        "role": "Customer Service Manager",
+        "optional": false,
+        "calls_scope_item": "3MO"
+      },
+      {
+        "seq": 3,
+        "name": "Release service order",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create a new service item",
+        "type": "serviceTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Update service item",
+        "type": "serviceTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Update service order and link attachments",
+        "type": "serviceTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Create completed Service Confirmation",
+        "type": "serviceTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Release Service Confirmation for billing",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Create Billing Document Request",
+        "type": "serviceTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Create Invoice",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "3MO",
+        "name": "3MO - Service Contract Management",
+        "optional": false
+      }
+    ]
+  }
+}

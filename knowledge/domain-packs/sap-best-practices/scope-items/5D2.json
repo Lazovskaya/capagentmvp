@@ -1,0 +1,130 @@
+{
+  "scope_item_id": "5D2",
+  "title": "Advanced Intercompany Sales",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": "5D2 - Advanced Intercompany Sales",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Monitor Value Chains",
+        "fiori_app_id": "F4854",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP | SAP_BR_INVENTORY_ACCOUNTANT | SAP_BR_BILLING_CLERK | SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_PURCHASER | SAP_BR_RECEIVING_SPECIALIST",
+        "component": "CA-VCM-MON"
+      },
+      {
+        "step_no": 2,
+        "name": "Create Outbound Deliveries - From Sales Orders",
+        "fiori_app_id": "F0869A",
+        "technical_transaction": "VL10A",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Sales Orders",
+        "fiori_app_id": "F1873",
+        "technical_transaction": "VA05",
+        "app_type": null,
+        "role": "SAP_BR_SOLN_BUSINESS_SPCLST | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_INTERNAL_SALES_REP",
+        "component": "SD-SLS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "c5f36cc078564bbc83ddf8a1730de914",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "c5f36cc078564bbc83ddf8a1730de914",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Sales Orders",
+        "type": "userTask",
+        "role": "Internal Sales Representative (Ordering Company)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Outbound Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Perform Picking",
+        "type": "userTask",
+        "role": "Shipping Specialist (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Post Goods Issue",
+        "type": "userTask",
+        "role": "Shipping Specialist (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Customer Invoice (F2)",
+        "type": "userTask",
+        "role": "Billing Clerk (Ordering Company)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Create Intercompany Invoice",
+        "type": "userTask",
+        "role": "Billing Clerk (Delivering Company)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 4,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 6,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

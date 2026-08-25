@@ -1,0 +1,57 @@
+{
+  "scope_item_id": "6W3",
+  "title": "Transportation Execution",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Supply Chain",
+    "L3_scope_item": "6W3 - Transportation Execution",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Outbound Deliveries",
+        "fiori_app_id": "F0867A",
+        "technical_transaction": "VL06G",
+        "app_type": null,
+        "role": "SAP_BR_SHIPPING_SPECIALIST | SAP_BR_SHIP_SPECIALIST_JIT",
+        "component": "LE-SHP-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Create Billing Documents",
+        "fiori_app_id": "F0798",
+        "technical_transaction": "VF01",
+        "app_type": null,
+        "role": "SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_BILLING_CLERK | SAP_BR_OPERATION_CLERK_ACM",
+        "component": "SD-FIO-BIL"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Ocean Freight Bookings",
+        "fiori_app_id": "F6213",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DISPATCHER",
+        "component": "TM-FRM-FRB"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Air Freight Bookings",
+        "fiori_app_id": "F6535",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DISPATCHER",
+        "component": "TM-FRM-FRB"
+      },
+      {
+        "step_no": 5,
+        "name": "Monitor Execution - Freight Orders",
+        "fiori_app_id": "F4368",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DISPATCHER",
+        "component": "TM-FRM-FRO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

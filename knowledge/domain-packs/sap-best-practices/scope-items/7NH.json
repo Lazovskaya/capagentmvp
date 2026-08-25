@@ -1,0 +1,48 @@
+{
+  "scope_item_id": "7NH",
+  "title": "Product Cost Breakdown in Plan/Actual Value Flow",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "7NH - Product Cost Breakdown in Plan/Actual Value Flow",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Cost of Goods Manufactured - Review Booklet",
+        "fiori_app_id": "F8625",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_ACCOUNTANT",
+        "component": "CO-FIO-OBJ-IS"
+      },
+      {
+        "step_no": 2,
+        "name": "Product Profitability Review Booklet",
+        "fiori_app_id": "F8348",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-FIO-PA"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Material Cost Estimates",
+        "fiori_app_id": "F7650",
+        "technical_transaction": "CK82",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_ACCOUNTANT",
+        "component": "CO-FIO-PCP"
+      },
+      {
+        "step_no": 4,
+        "name": "Display Journal Entries",
+        "fiori_app_id": "F7697",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_INTERNAL_SALES_REP_PRSV | SAP_BR_AR_MANAGER | SAP_BR_AP_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT_CN | SAP_BR_AR_ACCOUNTANT_HR | SAP_BR_AR_ACCOUNTANT_BG | SAP_BR_RECM_VALSPECIALIST | SAP_BR_BUDGET_RESPONSIBLE | SAP_BR_REV_ACCOUNTANT | SAP_BR_SETL_CLERK_ROYALTIES | SAP_BR_GRANT_RESPONSIBLE | SAP_BR_AP_MANAGER | SAP_BR_AR_ACCOUNTANT_KW | SAP_BR_AR_ACCOUNTANT_FR | SAP_BR_SALES_ACCOUNTANT | SAP_BR_RECM_ADMINISTRATOR | SAP_BR_GL_ACCOUNTANT | SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_PROJ_FIN_CONTROLLER | SAP_BR_AR_ACCOUNTANT_IT | SAP_BR_BILLING_CLERK | SAP_BR_TAX_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT_AR | SAP_BR_AR_ACCOUNTANT_ID | SAP_BR_RECM_AP_ACCOUNTANT | SAP_BR_RECONC_SPEC_APR_FICA | SAP_BR_AR_ACCOUNTANT_RS | SAP_BR_REV_ADMIN | SAP_BR_SOLN_ORDER_SPCLST | SAP_BR_WAREHOUSE_CLERK | SAP_BR_AR_ACCOUNTANT_JP | SAP_BR_RE_SPECIALIST_SETTLE | SAP_BR_AR_ACCOUNTANT_IN | SAP_BR_AR_ACCOUNTANT_TH | SAP_BR_INTERNAL_SALES_REP | SAP_BR_AA_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT_ES | SAP_BR_GRANT_SPECIALIST | SAP_BR_SETL_CLERK_COMMSN | SAP_BR_RE_ADMINISTRATOR | SAP_BR_CASH_SPECIALIST | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_RECM_AR_ACCOUNTANT | SAP_BR_RETURNS_REFUND_CLERK | SAP_BR_PROJECT_MANAGER_PROF | SAP_BR_TREASURY_SPEC_BOE_CN | SAP_BR_CUST_SRVC_REP_REPA | SAP_BR_AR_ACCOUNTANT_SI | SAP_BR_INVENTORY_MANAGER | SAP_BR_CASH_MANAGER_CN | SAP_BR_CASH_SPECIALIST_CN | SAP_BR_AR_ACCOUNTANT_TW | SAP_BR_RFM_STORE_ASSOCIATE | SAP_BR_AR_ACCOUNTANT_VN | SAP_BR_AR_ACCOUNTANT_TR | SAP_BR_GL_ACCOUNTANT_IN | SAP_BR_TREASURY_ACCOUNTANT | SAP_BR_AR_ACCOUNTANT_CN | SAP_BR_BUDGET_SPECIALIST | SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_AR_ACCOUNTANT_PH | SAP_BR_CASH_MANAGER",
+        "component": "FI-FIO-GL-JE"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

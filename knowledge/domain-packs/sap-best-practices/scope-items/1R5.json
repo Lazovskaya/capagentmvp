@@ -1,0 +1,53 @@
+{
+  "scope_item_id": "1R5",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Product Engineering"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "0fe4aaed700444f58b066169f207b003",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "0fe4aaed700444f58b066169f207b003",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Change Master",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Display Where- Used List",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Replace Material",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Set Change Master Status to Inactive",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

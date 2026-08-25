@@ -1,0 +1,99 @@
+{
+  "scope_item_id": "4RP",
+  "title": "Decentralized EWM \u2013 Outbound Processing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Warehousing"
+    ],
+    "L3_scope_item": "4RP - Decentralized EWM \u2013 Outbound Processing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Pack Outbound Deliveries",
+        "fiori_app_id": "F3193",
+        "technical_transaction": "/SCWM/PACK",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_OPERATIVE_EWM",
+        "component": "SCM-EWM-FIO-WC"
+      },
+      {
+        "step_no": 2,
+        "name": "Process Warehouse Tasks - Picking",
+        "fiori_app_id": "F3880",
+        "technical_transaction": "/SCWM/MON",
+        "app_type": null,
+        "role": "SAP_BR_WAREHOUSE_CLERK_EWM | SAP_BR_WAREHOUSE_OPERATIVE_EWM",
+        "component": "SCM-EWM-FIO-WOP"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "a971f992383944e59f40e2a3193316c5",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "a971f992383944e59f40e2a3193316c5",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Hand over Outbound Delivery to Warehouse Management",
+        "type": "serviceTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Assign Carrier (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 3,
+        "name": "Create Pick Warehouse Tasks",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Confirm Pick Warehouse Tasks",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Pack Goods into Shipping Handling Units (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Operative (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 6,
+        "name": "Print Loading Instruction (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": true
+      },
+      {
+        "seq": 7,
+        "name": "Post Goods Issue",
+        "type": "userTask",
+        "role": "Warehouse Clerk (EWM)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

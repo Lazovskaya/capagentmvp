@@ -1,0 +1,454 @@
+{
+  "scope_item_id": "4HI",
+  "title": "Proactive Maintenance",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Maintenance Management"
+    ],
+    "L3_scope_item": "4HI - Proactive Maintenance",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Inbox",
+        "fiori_app_id": "F0862",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER",
+        "component": "CA-INB-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Service Entry Sheets - Lean Services",
+        "fiori_app_id": "F2027",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-PUR-SVC-SES"
+      },
+      {
+        "step_no": 3,
+        "name": "Find Maintenance Order and Operation",
+        "fiori_app_id": "F2173",
+        "technical_transaction": "IW37N",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_TECHNICIAN | SAP_BR_MAINT_SUPERVISOR | SAP_BR_MAINTENANCE_PLANNER",
+        "component": "PM-FIO"
+      },
+      {
+        "step_no": 4,
+        "name": "Find Maintenance Order",
+        "fiori_app_id": "F2175",
+        "technical_transaction": "IW39",
+        "app_type": null,
+        "role": "SAP_BR_MAINT_SUPERVISOR | SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_CHG_MGMT_COORDINATOR | SAP_BR_MAINTENANCE_TECHNICIAN | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PRODN_PLNR | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_SERVICE_MANAGER",
+        "component": "PM-FIO"
+      },
+      {
+        "step_no": 5,
+        "name": "Mass Schedule Maintenance Plans",
+        "fiori_app_id": "F2774",
+        "technical_transaction": "IP30",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER",
+        "component": "PM-FIO"
+      },
+      {
+        "step_no": 6,
+        "name": "Maintenance Order Costs",
+        "fiori_app_id": "F4603",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER | SAP_BR_MAINT_SUPERVISOR",
+        "component": "PM-FIO"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Maintenance Notifications and Orders",
+        "fiori_app_id": "F4604",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER",
+        "component": "PM-FIO"
+      },
+      {
+        "step_no": 8,
+        "name": "Maintenance Backlog Overview",
+        "fiori_app_id": "F5105",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER | SAP_BR_MAINT_SUPERVISOR",
+        "component": "PM-FIO"
+      },
+      {
+        "step_no": 9,
+        "name": "Manage Maintenance Items",
+        "fiori_app_id": "F5356",
+        "technical_transaction": "IP03",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER",
+        "component": "PM-FIO"
+      },
+      {
+        "step_no": 10,
+        "name": "Manage Work Packs",
+        "fiori_app_id": "F6065",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER | SAP_BR_MAINT_SUPERVISOR",
+        "component": "PM-FIO"
+      },
+      {
+        "step_no": 11,
+        "name": "Manage Maintenance Plans",
+        "fiori_app_id": "F5325",
+        "technical_transaction": "IP01",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER",
+        "component": "PM-FIO-PRM-MP"
+      },
+      {
+        "step_no": 12,
+        "name": "Perform Maintenance Jobs",
+        "fiori_app_id": "F5104A",
+        "technical_transaction": "IW41",
+        "app_type": null,
+        "role": "SAP_BR_MAINT_SUPERVISOR | SAP_BR_MAINTENANCE_TECHNICIAN",
+        "component": "PM-FIO-WOC-JC"
+      },
+      {
+        "step_no": 13,
+        "name": "Screen Maintenance Requests",
+        "fiori_app_id": "F4072",
+        "technical_transaction": "IW21",
+        "app_type": null,
+        "role": "SAP_BR_MAINT_SUPERVISOR",
+        "component": "PM-FIO-WOC-MN"
+      },
+      {
+        "step_no": 14,
+        "name": "Manage Maintenance Notification",
+        "fiori_app_id": "F5777",
+        "technical_transaction": "IW21",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER | SAP_BR_MAINTENANCE_TECHNICIAN | SAP_BR_EMPLOYEE_MAINTENANCE | SAP_BR_MAINT_SUPERVISOR",
+        "component": "PM-FIO-WOC-MN"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "fce45b4106744c6989193c62f25d80d9",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "fce45b4106744c6989193c62f25d80d9",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Maintain Maintenance Strategies",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Maintain Maintenance Strategies",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Time Confirmation of Pre and Main Operations",
+        "type": "userTask",
+        "role": "Maintenance Technician",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create Task List",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Task List",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Review \nand Set Main Work Completed",
+        "type": "userTask",
+        "role": "Maintenance Supervisor",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Create Maintenance Plan",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Create Measuring Point as Counter",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Time Confirmation of Post Operations",
+        "type": "userTask",
+        "role": "Maintenance Technician",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Schedule Maintenance Plan",
+        "type": "serviceTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Create Measuring Document",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Record Failure Data",
+        "type": "userTask",
+        "role": "Maintenance Technician",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Create Maintenance Plan",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Technically Complete",
+        "type": "userTask",
+        "role": "Maintenance Supervisor",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Proactive Request Created",
+        "type": "serviceTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Proactive \nOrder Created",
+        "type": "serviceTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Screen \nMaintenance Requests",
+        "type": "userTask",
+        "role": "Maintenance Supervisor",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Plan \nProactive  Order",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Create \nProactive Order",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 20,
+        "name": "Monitor Maintenance Backlog for Readiness",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 21,
+        "name": "Review Maintenance Orders",
+        "type": "userTask",
+        "role": "Maintenance Supervisor",
+        "optional": false
+      },
+      {
+        "seq": 22,
+        "name": "Submit \nProactive Order for an Approval",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 23,
+        "name": "Release Proactive Order for Preparation",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 24,
+        "name": "Set Orders to Ready for Scheduling",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 25,
+        "name": "Create \nMaterial / Service PR",
+        "type": "serviceTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 26,
+        "name": "Schedule Orders",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 27,
+        "name": "Set Orders to Ready for Execution",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 28,
+        "name": "Convert \nMaterial PR into PO",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 29,
+        "name": "Convert \nService PR into PO",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 30,
+        "name": "Post \nGoods Receipt",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 31,
+        "name": "Manage \nService Entry Sheet",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 32,
+        "name": "Create \nSupplier Invoice",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 33,
+        "name": "Release \nSupplier Invoice",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 12,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 16,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 17,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 17,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 17,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 19,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 19,
+        "type": "exclusiveGateway",
+        "direction": "Mixed"
+      },
+      {
+        "seq_position": 19,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 24,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 24,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 24,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 26,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 31,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 33,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "scope_item_id": "22P",
+  "title": "Manage Documents",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Product Engineering",
+      "Product Lifecycle Management"
+    ],
+    "L3_scope_item": "22P - Manage Documents",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Documents",
+        "fiori_app_id": "F2733",
+        "technical_transaction": "CV01N",
+        "app_type": null,
+        "role": "SAP_BR_DESIGN_ENGINEER | SAP_BR_MD_SPECIALIST_RAW_SUBST | SAP_BR_DEVELOPMENT_MANAGER_DIN | SAP_BR_BOM_ENGINEER | SAP_BR_CHG_MGMT_COORDINATOR | SAP_BR_AR_ACCOUNTANT_CN | SAP_BR_MAINT_SUPERVISOR | SAP_BR_CASH_SPECIALIST | SAP_BR_COMPL_ENG_FOOD_BEV | SAP_BR_MD_SPECIALIST_EAM | SAP_BR_CASH_MANAGER | SAP_BR_SYSTEMS_ENGINEER | SAP_BR_ADMINISTRATOR_RCP_DEV",
+        "component": "CA-DMS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "476830325f1943dbbed0f32fa75a1191",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "476830325f1943dbbed0f32fa75a1191",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Search for Document",
+        "type": "userTask",
+        "role": "Design Engineer",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create a New Version of the Document",
+        "type": "userTask",
+        "role": "Design Engineer",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create New Document",
+        "type": "userTask",
+        "role": "Design Engineer",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Document Service",
+        "type": "serviceTask",
+        "role": "N/A",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "(Optional) Maintain Attachments",
+        "type": "userTask",
+        "role": "Design Engineer",
+        "optional": true
+      },
+      {
+        "seq": 6,
+        "name": "Propose Classification automatically (2YC) (optional)",
+        "type": "subProcess",
+        "role": "Design Engineer",
+        "optional": true,
+        "calls_scope_item": "2YC"
+      },
+      {
+        "seq": 7,
+        "name": "(Optional) Maintain Classification Metadata",
+        "type": "userTask",
+        "role": "Design Engineer",
+        "optional": true
+      },
+      {
+        "seq": 8,
+        "name": "Release Document",
+        "type": "userTask",
+        "role": "Design Engineer",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "2YC",
+        "name": "Propose Classification automatically (2YC) (optional)",
+        "optional": true
+      }
+    ]
+  }
+}

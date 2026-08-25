@@ -1,0 +1,39 @@
+{
+  "scope_item_id": "5XC",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Delivery and Transportation"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "9c2f0a9ce67c47bbb7c91c07d1349f9e",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "9c2f0a9ce67c47bbb7c91c07d1349f9e",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Stock Transfer Order (Without MRP)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Freight Unit Creation",
+        "type": "serviceTask",
+        "role": "Dispatcher",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

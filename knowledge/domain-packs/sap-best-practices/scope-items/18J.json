@@ -1,0 +1,270 @@
+{
+  "scope_item_id": "18J",
+  "title": "Requisitioning",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Invoice Management",
+      "Operational Procurement"
+    ],
+    "L3_scope_item": "18J - Requisitioning",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Inbox for Legal Contract",
+        "fiori_app_id": "F5331",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_LEGAL_COUNSEL | SAP_BR_EMPLOYEE_LEGAL_CONTENT | SAP_BR_ADMINISTRATOR_LCM",
+        "component": "CM-GF"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Supplier Invoices",
+        "fiori_app_id": "F0859",
+        "technical_transaction": "F-41",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AA_ACCOUNTANT | SAP_BR_PURCHASING_MANAGER",
+        "component": "MM-FIO-IV"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Purchase Orders (Version 2)",
+        "fiori_app_id": "F0842A",
+        "technical_transaction": "ME21",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-PO"
+      },
+      {
+        "step_no": 4,
+        "name": "Mass Changes to Purchase Requisitions",
+        "fiori_app_id": "F2594",
+        "technical_transaction": "MEMASSRQ",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Purchase Requisition Professional",
+        "fiori_app_id": "F2229",
+        "technical_transaction": "ME51N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-PRF"
+      },
+      {
+        "step_no": 6,
+        "name": "Process Purchase Requisitions ( Version 2 )",
+        "fiori_app_id": "F1048A",
+        "technical_transaction": "ME59N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-SOC"
+      },
+      {
+        "step_no": 7,
+        "name": "Create Purchase Requisition - New",
+        "fiori_app_id": "F1643A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_EMPLOYEE_PROCUREMENT | SAP_BR_EMPLOYEE",
+        "component": "MM-FIO-PUR-REQ-SSP"
+      },
+      {
+        "step_no": 8,
+        "name": "Redistribute Workload",
+        "fiori_app_id": "F2504",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-SQ-CON"
+      },
+      {
+        "step_no": 9,
+        "name": "Monitor Purchase Requisition Items By Account Assignment",
+        "fiori_app_id": "F2422",
+        "technical_transaction": "ME5K",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT",
+        "component": "MM-PUR-GF-MON"
+      },
+      {
+        "step_no": 10,
+        "name": "Monitor Purchase Requisition Items",
+        "fiori_app_id": "F2424",
+        "technical_transaction": "ME5A",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-PUR-GF-MON"
+      },
+      {
+        "step_no": 11,
+        "name": "Confirm Receipt of Goods-New",
+        "fiori_app_id": "F4489",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_EMPLOYEE_PROCUREMENT | SAP_BR_EMPLOYEE_PROC_PPS | SAP_BR_EMPLOYEE",
+        "component": "MM-PUR-HUB-CNF"
+      },
+      {
+        "step_no": 12,
+        "name": "Manage Catalog Items",
+        "fiori_app_id": "F3149",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BPC_EXPERT",
+        "component": "MM-PUR-SQ"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "45a79bd5b7ea480db903b7995591ae01",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "45a79bd5b7ea480db903b7995591ae01",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Purchase Requisition with Cost Center",
+        "type": "userTask",
+        "role": "Employee - Procurement",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Manage Catalog Items",
+        "type": "userTask",
+        "role": "Employee - Procurement",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Purchase Requisition with Catalog",
+        "type": "userTask",
+        "role": "Employee - Procurement",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Check Purchase Requisition (Optional)",
+        "type": "userTask",
+        "role": "Employee - Procurement",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "Copy Purchase Requisition (Optional)",
+        "type": "userTask",
+        "role": "Employee - Procurement",
+        "optional": true
+      },
+      {
+        "seq": 6,
+        "name": "Mass Changes to Purchase Requisitions (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 7,
+        "name": "Purchase Requisition Items by Account Assignment (optional)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": true
+      },
+      {
+        "seq": 8,
+        "name": "Approve Purchase Requisition",
+        "type": "userTask",
+        "role": "Manager",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Monitor Purchase Requistion Items (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 10,
+        "name": "Redistribute Workload (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 11,
+        "name": "Generate Goods Issue",
+        "type": "userTask",
+        "role": "Warehouse Clerk - Procurement",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Convert Purchase Requisition to Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Approve Purchase Order",
+        "type": "userTask",
+        "role": "Purchasing Manager",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Change Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Confirm Receipt of Goods",
+        "type": "userTask",
+        "role": "Employee - Procurement",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Create Supplier Invoice",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Release Blocked Supplier Invoice",
+        "type": "userTask",
+        "role": "Purchasing Manager",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

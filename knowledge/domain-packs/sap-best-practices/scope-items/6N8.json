@@ -1,0 +1,39 @@
+{
+  "scope_item_id": "6N8",
+  "title": "Real Estate Cost Settlement",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "6N8 - Real Estate Cost Settlement",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Finance Notifications",
+        "fiori_app_id": "F8825",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-GL-BTI"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Cost Settlements",
+        "fiori_app_id": "F7391",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RE_SPECIALIST_SETTLE",
+        "component": "RE-FX-CS"
+      },
+      {
+        "step_no": 3,
+        "name": "Display Results of Cost Settlement Process Steps",
+        "fiori_app_id": "F9079",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RE_SPECIALIST_SETTLE",
+        "component": "RE-FX-CS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

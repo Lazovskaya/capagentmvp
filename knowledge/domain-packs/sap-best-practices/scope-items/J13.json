@@ -1,0 +1,52 @@
+{
+  "scope_item_id": "J13",
+  "title": "Service and Material Procurement \u2013 Project-Based Services",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Professional Services"
+    ],
+    "L2_core_process": [
+      "Professional Services"
+    ],
+    "L3_scope_item": "J13 - Service and Material Procurement \u2013 Project-Based Services",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Project Control - Professional Services Projects",
+        "fiori_app_id": "F6869",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INTERNAL_SALES_REP_PRSV | SAP_BR_BILLING_CLERK | SAP_BR_PROJ_BILLG_SPCLST | SAP_BR_PROJECT_MANAGER_PROF",
+        "component": "CA-CPD-SS"
+      },
+      {
+        "step_no": 2,
+        "name": "My Inbox for Legal Contract",
+        "fiori_app_id": "F5331",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_LEGAL_COUNSEL | SAP_BR_EMPLOYEE_LEGAL_CONTENT | SAP_BR_ADMINISTRATOR_LCM",
+        "component": "CM-GF"
+      },
+      {
+        "step_no": 3,
+        "name": "Monitor Service Entry Sheet Generation Log",
+        "fiori_app_id": "F3495",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TRANSP_BUYER | SAP_BR_PURCHASER_RFM | SAP_BR_PURCHASER",
+        "component": "MM-FIO-SRV"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "a2ff35ca3af147c5b25bf71ade50525d",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "a2ff35ca3af147c5b25bf71ade50525d",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [],
+    "dependencies": []
+  }
+}

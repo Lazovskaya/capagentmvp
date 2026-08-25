@@ -1,0 +1,46 @@
+{
+  "scope_item_id": "1NX",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "IT and Cross-Application"
+    ],
+    "L2_core_process": [
+      "Enterprise Information Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "aa9b813825a440808398b14d77981f85",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "aa9b813825a440808398b14d77981f85",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create approved suppliers",
+        "type": "manualTask",
+        "role": "Master Data Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "RFQ created",
+        "type": "serviceTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Quote",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

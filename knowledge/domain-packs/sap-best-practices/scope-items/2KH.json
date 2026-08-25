@@ -1,0 +1,183 @@
+{
+  "scope_item_id": "2KH",
+  "title": "SAP Fiori Analytical Apps for Contract Accounting Manager",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "2KH - SAP Fiori Analytical Apps for Contract Accounting Manager",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Open Worklists (Version 2)",
+        "fiori_app_id": "F1611A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_APR_MANAGER_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Analyze Posting Locks (Version 2)",
+        "fiori_app_id": "F1652A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_APR_MANAGER_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Analyze Payment Run Exceptions (Version 2)",
+        "fiori_app_id": "F2124A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_MANAGER_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 4,
+        "name": "Business Partner Financial Overview",
+        "fiori_app_id": "F2429",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_MANAGER_FICA | SAP_BR_COLL_SPECIALIST_FICA | SAP_BR_RECONC_SPEC_APR_FICA | SAP_BR_EXT_AUDITOR_APR_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 5,
+        "name": "Analyze Dunning Run Exceptions (Version 2)",
+        "fiori_app_id": "F2596A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_APR_MANAGER_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 6,
+        "name": "Analyze Returns (Version 2)",
+        "fiori_app_id": "F2600A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_APR_MANAGER_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 7,
+        "name": "Analyze Incoming Payments",
+        "fiori_app_id": "F5588",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_APR_MANAGER_FICA",
+        "component": "FI-CA-FIO"
+      },
+      {
+        "step_no": 8,
+        "name": "Analyze Overdue Items (Version 2)",
+        "fiori_app_id": "F0860A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_MANAGER_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 9,
+        "name": "Analyze Write-Offs (Version 2)",
+        "fiori_app_id": "F0861A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_MANAGER_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 10,
+        "name": "Analyze Clearing Locks (Version 2)",
+        "fiori_app_id": "F1653A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_MANAGER_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 11,
+        "name": "Analyze Dunning Locks (Version 2)",
+        "fiori_app_id": "F1655A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_MANAGER_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 12,
+        "name": "Analyze Dunning Volume (Version 2)",
+        "fiori_app_id": "F2122A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_APR_MANAGER_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 13,
+        "name": "Analyze Dunning Success (Version 2)",
+        "fiori_app_id": "F2123A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_APR_MANAGER_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 14,
+        "name": "Analyze Clearing Reasons (Version 2)",
+        "fiori_app_id": "F2125A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_APR_MANAGER_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 15,
+        "name": "Analyze Installment Plans (Version 2)",
+        "fiori_app_id": "F2363A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_MANAGER_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 16,
+        "name": "Analyze Open Credits (Version 2)",
+        "fiori_app_id": "F2364A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_APR_MANAGER_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 17,
+        "name": "Analyze External Collections Volume (Version 2)",
+        "fiori_app_id": "F2402A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_APR_MANAGER_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 18,
+        "name": "Analyze Payment Locks (Version 2)",
+        "fiori_app_id": "F6134",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_MANAGER_FICA | SAP_BR_APR_ACCOUNTANT_FICA",
+        "component": "FI-CAC-FIO"
+      },
+      {
+        "step_no": 19,
+        "name": "Create Snapshot of Locked Open Items",
+        "fiori_app_id": "F6214",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APR_ACCOUNTANT_FICA | SAP_BR_APR_MANAGER_FICA | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-CAC-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

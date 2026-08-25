@@ -1,0 +1,83 @@
+{
+  "scope_item_id": "BEG",
+  "title": "Standard Cost Calculation",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Cost Management and Profitability Analysis"
+    ],
+    "L3_scope_item": "BEG - Standard Cost Calculation",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Cost Rates - Plan",
+        "fiori_app_id": "F3162",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-CCA-MD"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Material Valuations",
+        "fiori_app_id": "F2680",
+        "technical_transaction": "MR21",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_ACCOUNTANT",
+        "component": "CO-FIO-ML"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Costing Runs - Estimated Costs",
+        "fiori_app_id": "F1865",
+        "technical_transaction": "CK40N",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_ACCOUNTANT",
+        "component": "CO-FIO-PCP"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Material Cost Estimates",
+        "fiori_app_id": "F7650",
+        "technical_transaction": "CK82",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_ACCOUNTANT",
+        "component": "CO-FIO-PCP"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "3c0314021cea422a8105b7b34a51fda3",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "3c0314021cea422a8105b7b34a51fda3",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Enter Activity Price",
+        "type": "userTask",
+        "role": "Cost Accountant - Overhead",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Costing Run",
+        "type": "userTask",
+        "role": "Cost Accountant - Inventory",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Execute Costing Run",
+        "type": "userTask",
+        "role": "Cost Accountant - Inventory",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

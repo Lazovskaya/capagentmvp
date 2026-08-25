@@ -1,0 +1,116 @@
+{
+  "scope_item_id": "3EN",
+  "title": "Guided Buying for Central Procurement with SAP Ariba Buying",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Central Procurement",
+      "Operational Procurement"
+    ],
+    "L3_scope_item": "3EN - Guided Buying for Central Procurement with SAP Ariba Buying",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Post Goods Receipt for Purchasing Document",
+        "fiori_app_id": "F0843",
+        "technical_transaction": "MB01",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_INVENTORY_MANAGER | SAP_BR_WAREHOUSE_CLERK",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Supplier Invoices",
+        "fiori_app_id": "F0859",
+        "technical_transaction": "F-41",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_AR_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_AA_ACCOUNTANT | SAP_BR_PURCHASING_MANAGER",
+        "component": "MM-FIO-IV"
+      },
+      {
+        "step_no": 3,
+        "name": "Process Purchase Requisitions Centrally",
+        "fiori_app_id": "F3290",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CENTRAL_PURCHASER | SAP_BR_MANAGER | SAP_BR_MANAGER_PROCUREMENT",
+        "component": "MM-PUR-HUB-REQ"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Service Entry Sheets - Lean Services",
+        "fiori_app_id": "F2027",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-PUR-SVC-SES"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "947a5903c5eb440385b671bb8130a2d8",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "947a5903c5eb440385b671bb8130a2d8",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Open Guided Buying app on SAP Fiori Launchpad",
+        "type": "userTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Receive Purchase Requisition and validate",
+        "type": "serviceTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Purchase Requisition CREATE",
+        "type": "serviceTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Receive Purchase Requisition and validate",
+        "type": "serviceTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Purchase Requisition UPDATED",
+        "type": "serviceTask",
+        "role": "Employee",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Purchase Requisition APPROVED",
+        "type": "serviceTask",
+        "role": "Employee",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 6,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

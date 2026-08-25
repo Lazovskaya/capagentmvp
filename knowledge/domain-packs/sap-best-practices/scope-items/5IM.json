@@ -1,0 +1,30 @@
+{
+  "scope_item_id": "5IM",
+  "title": "Product Footprint Management",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Supply Chain",
+    "L3_scope_item": "5IM - Product Footprint Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Purchase Requisition Professional",
+        "fiori_app_id": "F2229",
+        "technical_transaction": "ME51N",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-REQ-PRF"
+      },
+      {
+        "step_no": 2,
+        "name": "View Product Footprints",
+        "fiori_app_id": "F5783",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMIN_SUS_PFM",
+        "component": "SUS-PFM-INT"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

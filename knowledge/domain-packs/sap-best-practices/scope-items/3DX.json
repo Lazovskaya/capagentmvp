@@ -1,0 +1,80 @@
+{
+  "scope_item_id": "3DX",
+  "title": "Convergent Invoicing \u2013 Management and Rating of Consumption Items",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting",
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Advanced Financial Operations",
+      "Subscription Billing and Revenue Management"
+    ],
+    "L3_scope_item": "3DX - Convergent Invoicing \u2013 Management and Rating of Consumption Items",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Consumption Items",
+        "fiori_app_id": "F3410",
+        "technical_transaction": "FKKBIXCIT_MON",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_SPEC_CINV | SAP_BR_INVOICING_ADMIN_CINV",
+        "component": "FI-CA-INV-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Execute Rating",
+        "fiori_app_id": "F3773",
+        "technical_transaction": "FKKBIX_RATE_MA",
+        "app_type": null,
+        "role": "SAP_BR_INVOICING_ADMIN_CINV",
+        "component": "FI-CA-INV-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "ef91b07c6c624489b40cfc52706fdd70",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "ef91b07c6c624489b40cfc52706fdd70",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Consumption Items",
+        "type": "userTask",
+        "role": "Invoicing Specialist (Convergent Invoicing)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Rating of Consumption Item",
+        "type": "userTask",
+        "role": "Invoicing Specialist (Convergent Invoicing)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "2BG - Invoice Creation for Usage and Service",
+        "type": "subProcess",
+        "role": "Invoicing Specialist (Convergent Invoicing)",
+        "optional": false,
+        "calls_scope_item": "2BG"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "2BG",
+        "name": "2BG - Invoice Creation for Usage and Service",
+        "optional": false
+      }
+    ]
+  }
+}

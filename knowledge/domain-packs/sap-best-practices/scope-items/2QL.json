@@ -1,0 +1,211 @@
+{
+  "scope_item_id": "2QL",
+  "title": "Universal Allocation",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Cost Management and Profitability Analysis"
+    ],
+    "L3_scope_item": "2QL - Universal Allocation",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Sales Accounting Jobs",
+        "fiori_app_id": "F1483",
+        "technical_transaction": "KEU5",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Schedule Overhead Accounting Jobs",
+        "fiori_app_id": "F3767",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-CCA-TRA"
+      },
+      {
+        "step_no": 3,
+        "name": "Import Financial Plan Data",
+        "fiori_app_id": "F1711",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-OM-PL"
+      },
+      {
+        "step_no": 4,
+        "name": "Import Statistical Key Figures Plan Data",
+        "fiori_app_id": "F3779",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-OM-PL"
+      },
+      {
+        "step_no": 5,
+        "name": "Schedule Division Accounting Jobs",
+        "fiori_app_id": "F5288",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DIVISION_ACCOUNTANT",
+        "component": "CO-FIO-PCA-TR"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Global Hierarchies",
+        "fiori_app_id": "F2918",
+        "technical_transaction": "OB58",
+        "app_type": null,
+        "role": "SAP_BR_TAX_ACCOUNTANT_CIT | SAP_BR_BUDGET_RESPONSIBLE | SAP_BR_GRANT_RESPONSIBLE | SAP_BR_BUDGET_SPECIALIST | SAP_BR_SALES_ACCOUNTANT | SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_ADMINISTRATOR_GRP | SAP_BR_DIVISION_ACCOUNTANT | SAP_BR_GRP_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_GRANT_SPECIALIST",
+        "component": "FI-FIO-GL-HIE"
+      },
+      {
+        "step_no": 7,
+        "name": "Post General Journal Entries",
+        "fiori_app_id": "F0718",
+        "technical_transaction": "F-02",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 8,
+        "name": "Manage Allocations",
+        "fiori_app_id": "F3338",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_DIVISION_ACCOUNTANT | SAP_BR_SALES_ACCOUNTANT",
+        "component": "FIN-UA"
+      },
+      {
+        "step_no": 9,
+        "name": "Run Allocations",
+        "fiori_app_id": "F3548",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DIVISION_ACCOUNTANT | SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_SALES_ACCOUNTANT",
+        "component": "FIN-UA"
+      },
+      {
+        "step_no": 10,
+        "name": "Allocation Results",
+        "fiori_app_id": "F4363",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DIVISION_ACCOUNTANT | SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_SALES_ACCOUNTANT",
+        "component": "FIN-UA"
+      },
+      {
+        "step_no": 11,
+        "name": "Manage Cycle Run Groups",
+        "fiori_app_id": "F4935",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DIVISION_ACCOUNTANT",
+        "component": "FIN-UA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "fe7cb8c72d00414b9c8e686c7a8c4859",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "fe7cb8c72d00414b9c8e686c7a8c4859",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Template for File Upload",
+        "type": "userTask",
+        "role": "Cost Accountant - Overhead",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Import File",
+        "type": "userTask",
+        "role": "Cost Accountant - Overhead",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Prepare the File for Statistical Key Figure",
+        "type": "userTask",
+        "role": "Cost Accountant - Overhead",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Import Statistical Key Figure Plan Data",
+        "type": "userTask",
+        "role": "Cost Accountant - Overhead",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Execute Plan Profit Center Distribution",
+        "type": "userTask",
+        "role": "Divisional Accountant",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "View Plan Profit Center Distribution",
+        "type": "userTask",
+        "role": "Divisional Accountant",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Execute Plan Assessment Cycle of Shared Expenses",
+        "type": "userTask",
+        "role": "Cost Accountant - Overhead",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Create Allocations in Groups",
+        "type": "userTask",
+        "role": "Cost Accountant - Overhead",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Run Allocation Groups",
+        "type": "userTask",
+        "role": "Cost Accountant - Overhead",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Plan Data Reporting for Cost Centers",
+        "type": "userTask",
+        "role": "Cost Accountant - Overhead",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

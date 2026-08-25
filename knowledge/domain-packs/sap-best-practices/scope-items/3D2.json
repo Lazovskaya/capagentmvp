@@ -1,0 +1,390 @@
+{
+  "scope_item_id": "3D2",
+  "title": "Service Order Management and Monitoring",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Service"
+    ],
+    "L2_core_process": [
+      "Service Operations and Processes"
+    ],
+    "L3_scope_item": "3D2 - Service Order Management and Monitoring",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Release for Billing",
+        "fiori_app_id": "F3573",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SERVICE_PLANNER | SAP_BR_SOLN_ORDER_SPCLST | SAP_BR_CREDIT_CONTROLLER | SAP_BR_CUSTOMER_SRVC_MGR",
+        "component": "CRM-S4-SRV-BIL"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Service Orders (Version 2)",
+        "fiori_app_id": "F3571A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BILLING_CLERK | SAP_BR_SOLN_ORDER_SPCLST | SAP_BR_INTERNAL_SALES_REP | SAP_BR_SERVICE_PLANNER | SAP_BR_CREDIT_CONTROLLER | SAP_BR_CUSTOMER_SRVC_MGR",
+        "component": "CRM-S4-SRV-SVO-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Service Order Templates",
+        "fiori_app_id": "F5007",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SERVICE_PLANNER | SAP_BR_CREDIT_CONTROLLER | SAP_BR_CUST_SRVC_MGR_REPA | SAP_BR_SOLN_ORDER_SPCLST | SAP_BR_CUSTOMER_SRVC_MGR | SAP_BR_CUST_SRVC_REP_REPA",
+        "component": "CRM-S4-SRV-SVT"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "ec5cc39ef779486b9b87f0a7d30cf026",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "ec5cc39ef779486b9b87f0a7d30cf026",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "4GA - Service Quote (Optional)",
+        "type": "subProcess",
+        "role": "Customer Service Manager",
+        "optional": true,
+        "calls_scope_item": "4GA"
+      },
+      {
+        "seq": 2,
+        "name": "Create Service Order",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Service Order created automatically in background",
+        "type": "serviceTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "6GS - Service Management with Advanced Variant Configuration (Optional)",
+        "type": "subProcess",
+        "role": "Customer Service Manager",
+        "optional": true,
+        "calls_scope_item": "6GS"
+      },
+      {
+        "seq": 5,
+        "name": "Release Service Order line item (Optional)",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": true
+      },
+      {
+        "seq": 6,
+        "name": "1QM - Advanced Credit Management (Optional)",
+        "type": "subProcess",
+        "role": "Customer Service Manager",
+        "optional": true,
+        "calls_scope_item": "1QM"
+      },
+      {
+        "seq": 7,
+        "name": "Change Service Order (Optional)",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": true
+      },
+      {
+        "seq": 8,
+        "name": "Purchase Requisition created against Service Order line item",
+        "type": "serviceTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Release Service Order",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "3NI - Procurement for Service Management",
+        "type": "callActivity",
+        "role": "Purchaser",
+        "optional": false,
+        "calls_scope_item": "3NI"
+      },
+      {
+        "seq": 11,
+        "name": "Set Service Order Status to \"Completed\"",
+        "type": "serviceTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Service Order status set to \"Released\"",
+        "type": "serviceTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Create Confirmation",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Post Confirmation",
+        "type": "serviceTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "53Y - Intercompany for Service Documents",
+        "type": "subProcess",
+        "role": "Customer Service Manager",
+        "optional": false,
+        "calls_scope_item": "53Y"
+      },
+      {
+        "seq": 16,
+        "name": "6GS - Service Management with Advanced Variant Configuration (Optional)",
+        "type": "subProcess",
+        "role": "Customer Service Manager",
+        "optional": true,
+        "calls_scope_item": "6GS"
+      },
+      {
+        "seq": 17,
+        "name": "Release Service Order for Billing.",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Create Billing Document Request",
+        "type": "serviceTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 19,
+        "name": "Post Expenses",
+        "type": "serviceTask",
+        "role": "Service Technician",
+        "optional": false
+      },
+      {
+        "seq": 20,
+        "name": "Post Goods Issue",
+        "type": "serviceTask",
+        "role": "Service Technician",
+        "optional": false
+      },
+      {
+        "seq": 21,
+        "name": "Post Time Sheet Entry",
+        "type": "serviceTask",
+        "role": "Service Technician",
+        "optional": false
+      },
+      {
+        "seq": 22,
+        "name": "Cancel Confirmation (Optional)",
+        "type": "userTask",
+        "role": "Customer Service Manager",
+        "optional": true
+      },
+      {
+        "seq": 23,
+        "name": "Create Billing Document",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 24,
+        "name": "Release to Controlling",
+        "type": "serviceTask",
+        "role": "Service Technician",
+        "optional": false
+      },
+      {
+        "seq": 25,
+        "name": "Cancel subsequent posted documents",
+        "type": "serviceTask",
+        "role": "Customer Service Manager",
+        "optional": false
+      },
+      {
+        "seq": 26,
+        "name": "3M3 - Event-Based Revenue Recognition - Service Documents",
+        "type": "subProcess",
+        "role": "Cost Accountant - Sales",
+        "optional": false,
+        "calls_scope_item": "3M3"
+      },
+      {
+        "seq": 27,
+        "name": "J59 - Accounts Receivable",
+        "type": "callActivity",
+        "role": "Accounts Receivable Accountant",
+        "optional": false,
+        "calls_scope_item": "J59"
+      },
+      {
+        "seq": 28,
+        "name": "43B - Service Analytics and Monitoring (optional)",
+        "type": "subProcess",
+        "role": "Customer Service Manager",
+        "optional": true,
+        "calls_scope_item": "43B"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "parallelGateway",
+        "direction": "Mixed"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 10,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 12,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 13,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 13,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 14,
+        "type": "inclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 16,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 17,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 17,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 17,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 25,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 25,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "4GA",
+        "name": "4GA - Service Quote (Optional)",
+        "optional": true
+      },
+      {
+        "scope_item_id": "6GS",
+        "name": "6GS - Service Management with Advanced Variant Configuration (Optional)",
+        "optional": true
+      },
+      {
+        "scope_item_id": "1QM",
+        "name": "1QM - Advanced Credit Management (Optional)",
+        "optional": true
+      },
+      {
+        "scope_item_id": "3NI",
+        "name": "3NI - Procurement for Service Management",
+        "optional": false
+      },
+      {
+        "scope_item_id": "53Y",
+        "name": "53Y - Intercompany for Service Documents",
+        "optional": false
+      },
+      {
+        "scope_item_id": "3M3",
+        "name": "3M3 - Event-Based Revenue Recognition - Service Documents",
+        "optional": false
+      },
+      {
+        "scope_item_id": "J59",
+        "name": "J59 - Accounts Receivable",
+        "optional": false
+      },
+      {
+        "scope_item_id": "43B",
+        "name": "43B - Service Analytics and Monitoring (optional)",
+        "optional": true
+      }
+    ]
+  }
+}

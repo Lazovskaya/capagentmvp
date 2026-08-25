@@ -1,0 +1,60 @@
+{
+  "scope_item_id": "1QA",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Product Lifecycle Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "e1bb1fc53b7a47669e2462a61e869657",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "e1bb1fc53b7a47669e2462a61e869657",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Assign Allergen to Allergen Group",
+        "type": "userTask",
+        "role": "Administrator - Recipe Development",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create New Nutrient",
+        "type": "userTask",
+        "role": "Administrator - Recipe Development",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Assign Nutrient to Nutrient Group",
+        "type": "userTask",
+        "role": "Administrator - Recipe Development",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create New Pure Substance",
+        "type": "userTask",
+        "role": "Administrator - Recipe Development",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create New Raw Substance",
+        "type": "userTask",
+        "role": "Master Data Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

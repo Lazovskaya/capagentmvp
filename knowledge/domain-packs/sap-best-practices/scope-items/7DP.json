@@ -1,0 +1,30 @@
+{
+  "scope_item_id": "7DP",
+  "title": "Tax Operations",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "7DP - Tax Operations",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Tax Payables",
+        "fiori_app_id": "F4755",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TAX_ACCOUNTANT",
+        "component": "FI-TXL-OPS"
+      },
+      {
+        "step_no": 2,
+        "name": "Display Tax Items",
+        "fiori_app_id": "F4756",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_TAX_ACCOUNTANT",
+        "component": "FI-TXL-OPS"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

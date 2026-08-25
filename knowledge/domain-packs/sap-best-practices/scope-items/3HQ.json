@@ -1,0 +1,60 @@
+{
+  "scope_item_id": "3HQ",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Retail"
+    ],
+    "L2_core_process": [
+      "Retail"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "0c1ed108f1684286af86d87cc94027b7",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "0c1ed108f1684286af86d87cc94027b7",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Start FIORI app PRINT LABELS (F1563)",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Scan or select manually article",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Select shelf label",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Select printer (optional)",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": true
+      },
+      {
+        "seq": 5,
+        "name": "Print shelf label",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

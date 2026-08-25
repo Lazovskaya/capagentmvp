@@ -1,0 +1,30 @@
+{
+  "scope_item_id": "6V2",
+  "title": "Integration to Icertis for Contract Assembly",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Supply Chain",
+    "L3_scope_item": "6V2 - Integration to Icertis for Contract Assembly",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Legal Documents",
+        "fiori_app_id": "F2453",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_EMPLOYEE | SAP_BR_LEGAL_COUNSEL | SAP_BR_ADMINISTRATOR_LCM | SAP_BR_EMPLOYEE_LEGAL_CONTENT",
+        "component": "CM-DOC"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Legal Transactions",
+        "fiori_app_id": "F2310",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR_LCM | SAP_BR_EMPLOYEE | SAP_BR_LEGAL_COUNSEL | SAP_BR_EMPLOYEE_LEGAL_CONTENT",
+        "component": "CM-LT"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

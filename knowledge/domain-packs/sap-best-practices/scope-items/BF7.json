@@ -1,0 +1,74 @@
+{
+  "scope_item_id": "BF7",
+  "title": "Period-End Closing \u2013 Maintenance Orders",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close"
+    ],
+    "L3_scope_item": "BF7 - Period-End Closing \u2013 Maintenance Orders",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Overhead Accounting Jobs",
+        "fiori_app_id": "F3767",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-CCA-TRA"
+      },
+      {
+        "step_no": 2,
+        "name": "Run Settlement - Actual",
+        "fiori_app_id": "F4568",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-OM"
+      },
+      {
+        "step_no": 3,
+        "name": "Find Maintenance Order",
+        "fiori_app_id": "F2175",
+        "technical_transaction": "IW39",
+        "app_type": null,
+        "role": "SAP_BR_MAINT_SUPERVISOR | SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_CHG_MGMT_COORDINATOR | SAP_BR_MAINTENANCE_TECHNICIAN | SAP_BR_CUSTOMER_SALES_MGR | SAP_BR_PRODN_PLNR | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_SERVICE_MANAGER",
+        "component": "PM-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "af7b7c6b9a824825b3cd738de287fef3",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "af7b7c6b9a824825b3cd738de287fef3",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Run Settlement - Orders",
+        "type": "userTask",
+        "role": "Cost Accountant - Overhead",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Set Status to Closed - Orders - Collective",
+        "type": "userTask",
+        "role": "Cost Accountant - Overhead",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Analyze Production Order",
+        "type": "userTask",
+        "role": "Cost Accountant - Production",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

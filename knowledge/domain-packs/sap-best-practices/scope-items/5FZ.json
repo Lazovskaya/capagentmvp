@@ -1,0 +1,60 @@
+{
+  "scope_item_id": "5FZ",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Retail"
+    ],
+    "L2_core_process": [
+      "Retail"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "a57d4b29f70d461a86fd0122a4323612",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "a57d4b29f70d461a86fd0122a4323612",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Sales Order",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Schedule Application Job for Outbound Delivery Creation",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Pick, Pack and Post Goods Issue for Outbound Delivery from Distribution Center",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create Billing Document",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Validate Follow-On Documents (Optional)",
+        "type": "userTask",
+        "role": "Retail Store Associate",
+        "optional": true
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

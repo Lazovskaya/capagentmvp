@@ -1,0 +1,39 @@
+{
+  "scope_item_id": "1GF",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "4f99aafa707b4b128d8a5d7cc1f740cb",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "4f99aafa707b4b128d8a5d7cc1f740cb",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Define Distribution Rules for AuC (Periodic Processing)",
+        "type": "userTask",
+        "role": "Asset Accountant",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Execute Settlement for AuC (Periodic Processing)",
+        "type": "userTask",
+        "role": "Asset Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

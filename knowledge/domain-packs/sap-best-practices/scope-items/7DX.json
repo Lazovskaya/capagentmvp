@@ -1,0 +1,48 @@
+{
+  "scope_item_id": "7DX",
+  "title": "Receivables Financing with Taulia",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "7DX - Receivables Financing with Taulia",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Receivables Financing Documents",
+        "fiori_app_id": "F7983",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_AR_MANAGER",
+        "component": "FI-AR-AR-RF"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Receivables Financing Agreements",
+        "fiori_app_id": "F8158",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_MANAGER | SAP_BR_AR_ACCOUNTANT | SAP_BR_EXTERNAL_AUDITOR",
+        "component": "FI-AR-AR-RF"
+      },
+      {
+        "step_no": 3,
+        "name": "Reprocess Bank Statement Items",
+        "fiori_app_id": "F1520",
+        "technical_transaction": "FEBAN",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_CASH_SPECIALIST | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-FIO-AR-PAY"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Bank Statements",
+        "fiori_app_id": "F1564",
+        "technical_transaction": "FF.6",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_ADMIN_APR_FICA | SAP_BR_CASH_MANAGER",
+        "component": "FI-FIO-AR-PAY"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

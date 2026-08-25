@@ -1,0 +1,75 @@
+{
+  "scope_item_id": "1WQ",
+  "title": "Bill of Exchange",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "1WQ - Bill of Exchange",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Supplier Line Items",
+        "fiori_app_id": "F0712",
+        "technical_transaction": "FBL1",
+        "app_type": null,
+        "role": "SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-IS"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Automatic Payments",
+        "fiori_app_id": "F0770",
+        "technical_transaction": "FBZ8",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-PAY"
+      },
+      {
+        "step_no": 3,
+        "name": "Revise Payment Proposals",
+        "fiori_app_id": "F0771",
+        "technical_transaction": "F110",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-PAY"
+      },
+      {
+        "step_no": 4,
+        "name": "Schedule Job for BoE Liability",
+        "fiori_app_id": "F4292",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT_VN | SAP_BR_AR_ACCOUNTANT_JP | SAP_BR_AR_ACCOUNTANT_FR | SAP_BR_AR_ACCOUNTANT_HR | SAP_BR_AR_ACCOUNTANT_RS | SAP_BR_AR_ACCOUNTANT_KR | SAP_BR_AR_ACCOUNTANT_ES | SAP_BR_AR_ACCOUNTANT_AR | SAP_BR_AR_ACCOUNTANT_IT | SAP_BR_AR_ACCOUNTANT_BG | SAP_BR_AR_ACCOUNTANT_KW | SAP_BR_AR_ACCOUNTANT_TW | SAP_BR_AR_ACCOUNTANT_SI",
+        "component": "FI-LOC-BOE"
+      },
+      {
+        "step_no": 5,
+        "name": "Accept Electronic BoE - China",
+        "fiori_app_id": "F6048",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST_CN",
+        "component": "FI-LOC-EPI-CN"
+      },
+      {
+        "step_no": 6,
+        "name": "Schedule Electronic BoE Jobs - China",
+        "fiori_app_id": "F6050",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST_CN",
+        "component": "FI-LOC-EPI-CN"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Bank Accounts",
+        "fiori_app_id": "F1366A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-BAM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

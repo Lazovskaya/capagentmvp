@@ -1,0 +1,86 @@
+{
+  "scope_item_id": "4B0",
+  "title": "Contract for Central Procurement with SAP Ariba Contracts",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Central Procurement"
+    ],
+    "L3_scope_item": "4B0 - Contract for Central Procurement with SAP Ariba Contracts",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Central Purchase Contracts",
+        "fiori_app_id": "F3144",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SOURCING_MANAGER | SAP_BR_CENTRAL_PURCHASER",
+        "component": "MM-PUR-HUB-CTR"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "61852a2d2cd449f09b7abd90433ddccb",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "61852a2d2cd449f09b7abd90433ddccb",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Contract",
+        "type": "userTask",
+        "role": "Strategic Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Set up and          review\ncontract terms",
+        "type": "userTask",
+        "role": "Strategic Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Approve Contract",
+        "type": "userTask",
+        "role": "Approver",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Release Contract",
+        "type": "userTask",
+        "role": "Approver",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Update       Contract Status",
+        "type": "userTask",
+        "role": "Strategic Purchaser",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

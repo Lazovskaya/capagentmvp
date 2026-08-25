@@ -1,0 +1,75 @@
+{
+  "scope_item_id": "3F4",
+  "title": "Sales-Based Rent",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "3F4 - Sales-Based Rent",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Generic Rental Object Check",
+        "fiori_app_id": "F7963",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RE_ADMINISTRATOR | SAP_BR_RECM_ADMINISTRATOR",
+        "component": "RE-FX-BD"
+      },
+      {
+        "step_no": 2,
+        "name": "Create Adjustment Letters",
+        "fiori_app_id": "F7435",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECM_SPECIALIST",
+        "component": "RE-FX-CP"
+      },
+      {
+        "step_no": 3,
+        "name": "Schedule Invoice Output Request",
+        "fiori_app_id": "F7932",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECM_AR_ACCOUNTANT",
+        "component": "RE-FX-CP"
+      },
+      {
+        "step_no": 4,
+        "name": "Schedule Creation of Sales-based rent letter",
+        "fiori_app_id": "F8316",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECM_SPECIALIST",
+        "component": "RE-FX-CP"
+      },
+      {
+        "step_no": 5,
+        "name": "Contract and Lease Management Dashboard",
+        "fiori_app_id": "F4555",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECM_SPECIALIST | SAP_BR_RECM_VALSPECIALIST",
+        "component": "RE-FX-FIO"
+      },
+      {
+        "step_no": 6,
+        "name": "Contract and Lease Cashflow Dashboard",
+        "fiori_app_id": "F5379",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECM_AP_ACCOUNTANT | SAP_BR_RECM_AR_ACCOUNTANT | SAP_BR_RECM_VALSPECIALIST",
+        "component": "RE-FX-FIO"
+      },
+      {
+        "step_no": 7,
+        "name": "Periodic Posting - Background Job",
+        "fiori_app_id": "F4607",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RECM_AP_ACCOUNTANT | SAP_BR_RECM_AR_ACCOUNTANT",
+        "component": "RE-FX-RA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

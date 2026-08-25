@@ -1,0 +1,102 @@
+{
+  "scope_item_id": "41W",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Service"
+    ],
+    "L2_core_process": [
+      "Service Operations and Processes"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "5d37ff7c481e431cbeb3fba225bb0747",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "5d37ff7c481e431cbeb3fba225bb0747",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Customer calls service desk",
+        "type": "userTask",
+        "role": "Customer",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Identify Account and Equipment",
+        "type": "userTask",
+        "role": "Customer Service Representative",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Create Service Request",
+        "type": "userTask",
+        "role": "Customer Service Representative",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Search for Solution",
+        "type": "userTask",
+        "role": "Customer Service Representative",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Dispatch Service Request and End Call",
+        "type": "userTask",
+        "role": "Customer Service Representative",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Process Service Request from Inbox",
+        "type": "userTask",
+        "role": "Customer Service Representative \u2013 Interaction Center Agent",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Customer receives confirmation e-mail",
+        "type": "userTask",
+        "role": "Customer",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Provide Solution via E-Mail",
+        "type": "userTask",
+        "role": "Customer Service Representative \u2013 Interaction Center Agent",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Complete Service Request",
+        "type": "userTask",
+        "role": "Customer Service Representative \u2013 Interaction Center Agent",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Customer receives solution and replies via e-mail",
+        "type": "userTask",
+        "role": "Customer",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Optional: Reply to E-Mail from Customer",
+        "type": "userTask",
+        "role": "Customer Service Representative",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

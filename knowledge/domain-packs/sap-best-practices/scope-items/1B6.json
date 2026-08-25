@@ -1,0 +1,291 @@
+{
+  "scope_item_id": "1B6",
+  "title": "Sales Rebate Processing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": "1B6 - Sales Rebate Processing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Inbox",
+        "fiori_app_id": "F0862",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_MANAGER",
+        "component": "CA-INB-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Settlement Documents",
+        "fiori_app_id": "F3254",
+        "technical_transaction": "WB2R_AB_DOCS",
+        "app_type": null,
+        "role": "SAP_BR_SETL_CLERK_ROYALTIES | SAP_BR_SETL_CLERK_COMMSN | SAP_BR_BILLING_CLERK | SAP_BR_AP_ACCOUNTANT_PROCUREMT | SAP_BR_SET_CLERK",
+        "component": "LO-AB"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Condition Contracts - Sales Rebates",
+        "fiori_app_id": "F6739",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BILLING_CLERK | SAP_BR_CONTRACT_MANAGER_CCM | SAP_BR_INTERNAL_SALES_REP | SAP_BR_SET_CLERK",
+        "component": "LO-GT-CHB"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "448d465e5cf344888e5c083e9e70d696",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "448d465e5cf344888e5c083e9e70d696",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Sell from Stock (BD9)                     (Optional)",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": true,
+        "calls_scope_item": "BD9"
+      },
+      {
+        "seq": 2,
+        "name": "BD9 - Sell from Stock",
+        "type": "subProcess",
+        "role": "Internal Sales Representative",
+        "optional": false,
+        "calls_scope_item": "BD9"
+      },
+      {
+        "seq": 3,
+        "name": "Create Condition Contract for One Customer as Contract Partner",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create Condition Contract for Multiple Customers as Contract Partners",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Check Business Volume",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Final Settlement with Reversal of Accruals",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Condition Contract Type: Sales Rebate",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Condition Contract Type: Sales Rebate Goods Related",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Condition Contract Type: Sales Rebate Goods Related - Multiple Customers",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Condition Contract Type: Sales Rebate - Multiple Customers",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Create collective settlement document",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Condition Contract Type: Sales Rebate Goods Related - 2step",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Condition Contract Type: Sales Rebate Goods Related - Multiple Customers - 2step",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Condition Contract Type: Sales Rebate - Multiple Customers - 2step",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "BKK - Sales Order Fulfillment Monitoring",
+        "type": "subProcess",
+        "role": "Billing Clerk",
+        "optional": false,
+        "calls_scope_item": "BKK"
+      },
+      {
+        "seq": 16,
+        "name": "Check Business Volume (Optional)",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": true
+      },
+      {
+        "seq": 17,
+        "name": "Post Accruals (Optional)",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": true
+      },
+      {
+        "seq": 18,
+        "name": "Partial Settlement with Reversal of Accruals (Optional)",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": true
+      },
+      {
+        "seq": 19,
+        "name": "Create collective settlement document",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 13,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 13,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 15,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 15,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 15,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 18,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "BD9",
+        "name": "Sell from Stock (BD9)                     (Optional)",
+        "optional": true
+      },
+      {
+        "scope_item_id": "BKK",
+        "name": "BKK - Sales Order Fulfillment Monitoring",
+        "optional": false
+      }
+    ]
+  }
+}

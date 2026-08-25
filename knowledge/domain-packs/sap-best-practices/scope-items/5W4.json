@@ -1,0 +1,222 @@
+{
+  "scope_item_id": "5W4",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate",
+      "Lead to Cash",
+      "Plan to Fulfill",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Central Procurement",
+      "Invoice Management",
+      "Manufacturing Options",
+      "Operational Procurement",
+      "Order Promising",
+      "Production Engineering",
+      "Production Planning",
+      "Quality Management",
+      "Supplier Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "a2e3b1b60cf640bebe8c81c08032d20d",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "a2e3b1b60cf640bebe8c81c08032d20d",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Planned Independent Requirements",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Purchase Order manually",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Material Requirements Planning at Plant Level",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Evaluate Stock/Requirements Situation and Prepare Planned Order for Subcontracting",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Approve Purchase Orders (Optional)",
+        "type": "userTask",
+        "role": "Purchasing Manager",
+        "optional": true
+      },
+      {
+        "seq": 6,
+        "name": "Convert Planned Order to Purchase Requisition",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Monitor Subcontracting Documents (Optional)",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": true
+      },
+      {
+        "seq": 8,
+        "name": "Convert Purchase Requisition to Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Execute Material Requirements Planning at Plant Level (Optional)",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": true
+      },
+      {
+        "seq": 10,
+        "name": "Evaluate Stock/Requirements Situation (Optional)",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": true
+      },
+      {
+        "seq": 11,
+        "name": "Transfer Components to the Subcontractor",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Evaluate Stock / Requirements Situation",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Receive Goods from Subcontracting Purchase Order",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Evaluate Stock / Requirements Situation",
+        "type": "userTask",
+        "role": "Production Planner",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Display Material Stock Before Quality Inspection (Optional)",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": true
+      },
+      {
+        "seq": 16,
+        "name": "Display Inspection Plan for Inspection Characteristics (Optional)",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": true
+      },
+      {
+        "seq": 17,
+        "name": "Display Quality Technician Overview (Optional)",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": true
+      },
+      {
+        "seq": 18,
+        "name": "Display Open Inspection Lots (Optional)",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": true
+      },
+      {
+        "seq": 19,
+        "name": "Record Inspection Results",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      },
+      {
+        "seq": 20,
+        "name": "Display Quality Engineer Overview (Optional)",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": true
+      },
+      {
+        "seq": 21,
+        "name": "Make Usage Decision",
+        "type": "userTask",
+        "role": "Quality Engineer",
+        "optional": false
+      },
+      {
+        "seq": 22,
+        "name": "Display Material Stock after Quality Inspection (Optional)",
+        "type": "userTask",
+        "role": "Warehouse Clerk",
+        "optional": true
+      },
+      {
+        "seq": 23,
+        "name": "Create Supplier Invoice",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs)",
+        "optional": false
+      },
+      {
+        "seq": 24,
+        "name": "Review Supplier Invoice (Optional)",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant (Freight Costs)",
+        "optional": true
+      },
+      {
+        "seq": 25,
+        "name": "Batch Information Cockpit - Top Down and Bottom-Up Analysis",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

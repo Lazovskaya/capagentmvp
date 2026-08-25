@@ -1,0 +1,250 @@
+{
+  "scope_item_id": "J54",
+  "title": "Overhead Cost Accounting",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Cost Management and Profitability Analysis"
+    ],
+    "L3_scope_item": "J54 - Overhead Cost Accounting",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Commitments by Cost Center",
+        "fiori_app_id": "F3016",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-CCA-IS"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Cost Centers (Version 2)",
+        "fiori_app_id": "F1443A",
+        "technical_transaction": "KS01",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_FIN_CONTROLLER | SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-CCA-MD"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Cost Centers (Version 3)",
+        "fiori_app_id": "F1443B",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_PROJ_FIN_CONTROLLER | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_BUSINESS_PROCESS_SPEC",
+        "component": "CO-FIO-CCA-MD"
+      },
+      {
+        "step_no": 4,
+        "name": "Where-Used List \u2013 Cost Centers",
+        "fiori_app_id": "F3549",
+        "technical_transaction": "KS03",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-CCA-MD"
+      },
+      {
+        "step_no": 5,
+        "name": "Where-Used List - Statistical Key Figures",
+        "fiori_app_id": "F4078",
+        "technical_transaction": "KK03",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-CCA-MD"
+      },
+      {
+        "step_no": 6,
+        "name": "Reassign Costs and Revenues",
+        "fiori_app_id": "F2009",
+        "technical_transaction": "KB11N",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-CCA-TRA"
+      },
+      {
+        "step_no": 7,
+        "name": "Reassign Costs and Revenues - New Version",
+        "fiori_app_id": "F2009A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-CCA-TRA"
+      },
+      {
+        "step_no": 8,
+        "name": "Manage Direct Activity Allocation - New Version",
+        "fiori_app_id": "F3697A",
+        "technical_transaction": "KB21N",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "CO-FIO-CCA-TRA"
+      },
+      {
+        "step_no": 9,
+        "name": "Manage Statistical Key Figure Values",
+        "fiori_app_id": "F3915",
+        "technical_transaction": "KB31N",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-CCA-TRA"
+      },
+      {
+        "step_no": 10,
+        "name": "Repost Line Items - Cost Accounting",
+        "fiori_app_id": "F5549",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-CCA-TRA"
+      },
+      {
+        "step_no": 11,
+        "name": "Import Financial Plan Data",
+        "fiori_app_id": "F1711",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT | SAP_BR_GL_ACCOUNTANT | SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-OM-PL"
+      },
+      {
+        "step_no": 12,
+        "name": "Copy Financial Plan Data",
+        "fiori_app_id": "F3396",
+        "technical_transaction": "CJ40",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-OM-PL"
+      },
+      {
+        "step_no": 13,
+        "name": "Cost Center Budget Report",
+        "fiori_app_id": "F3871",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-OM-CCA-AVC"
+      },
+      {
+        "step_no": 14,
+        "name": "Manage Cost Center Budgets",
+        "fiori_app_id": "F4307",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-OM-CCA-AVC"
+      },
+      {
+        "step_no": 15,
+        "name": "Display Line Items - Cost Accounting",
+        "fiori_app_id": "F4023",
+        "technical_transaction": "FAGLL03",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "FI-FIO-GL-IS"
+      },
+      {
+        "step_no": 16,
+        "name": "Post General Journal Entries",
+        "fiori_app_id": "F0718",
+        "technical_transaction": "F-02",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-FIO-GL-TRA"
+      },
+      {
+        "step_no": 17,
+        "name": "Manage Allocations",
+        "fiori_app_id": "F3338",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_DIVISION_ACCOUNTANT | SAP_BR_SALES_ACCOUNTANT",
+        "component": "FIN-UA"
+      },
+      {
+        "step_no": 18,
+        "name": "Run Allocations",
+        "fiori_app_id": "F3548",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DIVISION_ACCOUNTANT | SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_SALES_ACCOUNTANT",
+        "component": "FIN-UA"
+      },
+      {
+        "step_no": 19,
+        "name": "Manage Statistical Key Figure Values - New Version",
+        "fiori_app_id": "F3915A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "FIN-UA"
+      },
+      {
+        "step_no": 20,
+        "name": "Allocation Flow",
+        "fiori_app_id": "F4022",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_DIVISION_ACCOUNTANT",
+        "component": "FIN-UA"
+      },
+      {
+        "step_no": 21,
+        "name": "Allocation Results",
+        "fiori_app_id": "F4363",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DIVISION_ACCOUNTANT | SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_SALES_ACCOUNTANT",
+        "component": "FIN-UA"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "0d29f5ee2a384b4fa436ed0c6ac86d3e",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "0d29f5ee2a384b4fa436ed0c6ac86d3e",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Set Cost Center Master Budgeting Parameters",
+        "type": "userTask",
+        "role": "Cost Accountant - Overhead",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Download Template for File Upload",
+        "type": "userTask",
+        "role": "Cost Accountant - Overhead",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Import Financial Plan Data",
+        "type": "userTask",
+        "role": "Cost Accountant - Overhead",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "View Budget by Cost Center",
+        "type": "userTask",
+        "role": "Cost Accountant - Overhead",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

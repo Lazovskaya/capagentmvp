@@ -1,0 +1,160 @@
+{
+  "scope_item_id": "5HL",
+  "title": "Sell from Stock \u2013 Consumer Products",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": "5HL - Sell from Stock \u2013 Consumer Products",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Documented Credit Decisions (New Version)",
+        "fiori_app_id": "F5587A",
+        "technical_transaction": "UKM_CASE",
+        "app_type": null,
+        "role": "SAP_BR_CREDIT_CONTROLLER",
+        "component": "FIN-FIO-CCD-CR"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "684810652ec84b368923515e6a385b24",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "684810652ec84b368923515e6a385b24",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Sales Order",
+        "type": "userTask",
+        "role": "Internal Sales Representative",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Release Sales Order",
+        "type": "userTask",
+        "role": "Credit Controller",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Review Sales Order",
+        "type": "userTask",
+        "role": "Credit Controller",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Execute Picking",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Reject Sales Order",
+        "type": "userTask",
+        "role": "Credit Controller",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Check Batches (Optional)",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": true
+      },
+      {
+        "seq": 8,
+        "name": "Post Goods Issue",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Proof of Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Create Billing Document",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Create Invoice List",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Account Receivable (J59)",
+        "type": "userTask",
+        "role": "Accounts Receivable Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 12,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

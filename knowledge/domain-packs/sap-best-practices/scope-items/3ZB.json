@@ -1,0 +1,102 @@
+{
+  "scope_item_id": "3ZB",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Operational Procurement",
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "5a62448325394b619a9323e37e4959c7",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "5a62448325394b619a9323e37e4959c7",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Purchase Order",
+        "type": "userTask",
+        "role": "Purchaser (Receiving Company)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Approve Purchase Order (optional)",
+        "type": "manualTask",
+        "role": "Purchasing Manager (Receiving Company)",
+        "optional": true
+      },
+      {
+        "seq": 3,
+        "name": "Maintain Service Entry Sheet (optional)",
+        "type": "userTask",
+        "role": "Purchasing Manager (Receiving Company)",
+        "optional": true
+      },
+      {
+        "seq": 4,
+        "name": "Create Sales Order",
+        "type": "userTask",
+        "role": "Internal Sales Representative (Sending Company)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Approve Service Entry Sheet (optional)",
+        "type": "userTask",
+        "role": "Purchasing Manager (Receiving Company)",
+        "optional": true
+      },
+      {
+        "seq": 6,
+        "name": "Change Sales Order",
+        "type": "manualTask",
+        "role": "Internal Sales Representative (Sending Company)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Create Invoice",
+        "type": "manualTask",
+        "role": "Billing Clerk (Sending Company)",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 6,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 7,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 7,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

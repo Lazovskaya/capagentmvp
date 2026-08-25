@@ -1,0 +1,21 @@
+{
+  "scope_item_id": "3I5",
+  "title": "Assortments",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Supply Chain",
+    "L3_scope_item": "3I5 - Assortments",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Listing Overview",
+        "fiori_app_id": "F7745",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ASSTMT_SPCLST_RFM",
+        "component": "LO-RFM-MD-LST"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

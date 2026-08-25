@@ -1,0 +1,32 @@
+{
+  "scope_item_id": "2YL",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Warehousing"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "88f147ab48e1485e94eaa8035557adb2",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "88f147ab48e1485e94eaa8035557adb2",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Check Material Documents (Optional)",
+        "type": "userTask",
+        "role": "Inventory Manager",
+        "optional": true
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

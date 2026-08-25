@@ -1,0 +1,21 @@
+{
+  "scope_item_id": "7Z6",
+  "title": "Omnichannel Sales Promotions for Sales Orders in Retail",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Sales and Marketing",
+    "L3_scope_item": "7Z6 - Omnichannel Sales Promotions for Sales Orders in Retail",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage In-Store Sales Orders",
+        "fiori_app_id": "F7141",
+        "technical_transaction": "VA01",
+        "app_type": null,
+        "role": "SAP_BR_RFM_STORE_ASSOCIATE",
+        "component": "LO-RFM-STO-COM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

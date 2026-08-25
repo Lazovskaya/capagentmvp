@@ -1,0 +1,95 @@
+{
+  "scope_item_id": "41V",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Sales Force Support"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "1a0e446c8e41451eb323bdf236cfb8d5",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "1a0e446c8e41451eb323bdf236cfb8d5",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Customer shows interest in product",
+        "type": "userTask",
+        "role": "Customer",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Lead",
+        "type": "userTask",
+        "role": "Field Sales Representative (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Qualify and Distribute Lead",
+        "type": "userTask",
+        "role": "Field Sales Representative (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Create Opportunity",
+        "type": "serviceTask",
+        "role": "Field Sales Representative (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Qualify Opportunity",
+        "type": "userTask",
+        "role": "Field Sales Representative (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Create Quotation",
+        "type": "userTask",
+        "role": "Field Sales Representative (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Customer accepts Quotation",
+        "type": "userTask",
+        "role": "Customer",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Close Opportunity",
+        "type": "userTask",
+        "role": "Field Sales Representative (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Create Order",
+        "type": "userTask",
+        "role": "Field Sales Representative (Customer Management)",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "BD9 Sales from Stock",
+        "type": "userTask",
+        "role": "Field Sales Representative (Customer Management)",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

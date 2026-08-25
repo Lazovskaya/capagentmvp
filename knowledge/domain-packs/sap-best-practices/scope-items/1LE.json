@@ -1,0 +1,83 @@
+{
+  "scope_item_id": "1LE",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Invoice Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "73479a8c0ad54c5d9fc3186a8abc0709",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "73479a8c0ad54c5d9fc3186a8abc0709",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Upload PO Referenced Invoice",
+        "type": "userTask",
+        "role": "Employee - Procurement",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create and check invoice draft",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Post Supplier Invoice automatically",
+        "type": "userTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Park Complete Supplier Invoice",
+        "type": "userTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Approve Supplier Invoice",
+        "type": "userTask",
+        "role": "Approver",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Post Supplier Invoice",
+        "type": "userTask",
+        "role": "Accounts Payable Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

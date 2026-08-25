@@ -1,0 +1,63 @@
+{
+  "scope_item_id": "1WO",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "d1eb0ceaa1854fd5ae6676b75ebcc416",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "d1eb0ceaa1854fd5ae6676b75ebcc416",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "(01) Intercompany Process Free of Charge Delivery",
+        "type": "subProcess",
+        "role": "System",
+        "optional": false,
+        "calls_scope_item": "01"
+      },
+      {
+        "seq": 2,
+        "name": "(02) Intercompany Process for Credit / Debit Memo",
+        "type": "subProcess",
+        "role": "System",
+        "optional": false,
+        "calls_scope_item": "02"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "inclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "inclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "01",
+        "name": "(01) Intercompany Process Free of Charge Delivery",
+        "optional": false
+      },
+      {
+        "scope_item_id": "02",
+        "name": "(02) Intercompany Process for Credit / Debit Memo",
+        "optional": false
+      }
+    ]
+  }
+}

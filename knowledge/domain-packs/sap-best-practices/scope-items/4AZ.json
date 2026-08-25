@@ -1,0 +1,102 @@
+{
+  "scope_item_id": "4AZ",
+  "title": "Contract Management with SAP Ariba Contracts",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Sourcing and Contract Management"
+    ],
+    "L3_scope_item": "4AZ - Contract Management with SAP Ariba Contracts",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Purchase Contracts (Version 2)",
+        "fiori_app_id": "F1600A",
+        "technical_transaction": "ME31K",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-SQ-CON"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Scheduling Agreement",
+        "fiori_app_id": "F2179",
+        "technical_transaction": "ME31L",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST | SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-SQ-SCH"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "7d0de2173fb44bda9fcfa8b76c4e1135",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "7d0de2173fb44bda9fcfa8b76c4e1135",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Contract",
+        "type": "userTask",
+        "role": "Strategic Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Update Contract",
+        "type": "manualTask",
+        "role": "Strategic Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Set up and audit contract terms",
+        "type": "userTask",
+        "role": "Strategic Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Approve Contract",
+        "type": "userTask",
+        "role": "Approver",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Publish Contract",
+        "type": "userTask",
+        "role": "Approver",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Update Contract information",
+        "type": "userTask",
+        "role": "Strategic Purchaser",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

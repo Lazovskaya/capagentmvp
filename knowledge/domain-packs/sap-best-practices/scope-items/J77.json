@@ -1,0 +1,207 @@
+{
+  "scope_item_id": "J77",
+  "title": "Advanced Bank Account Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": "J77 - Advanced Bank Account Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Maintain Business Users",
+        "fiori_app_id": "F1303",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APPL_SUP_ENG_DEV_SUP | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_SYSTEM_AUDITOR | SAP_BR_ADMINISTRATOR",
+        "component": "BC-SRV-APS-IAM"
+      },
+      {
+        "step_no": 2,
+        "name": "Maintain Business Roles",
+        "fiori_app_id": "F1492",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_APPL_SUP_ENG_DEV_SUP | SAP_BR_SYSTEM_AUDITOR",
+        "component": "BC-SRV-APS-IAM"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Banks - Master Data",
+        "fiori_app_id": "F6437",
+        "technical_transaction": "FI01",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_MD_SPECIALIST_BNK",
+        "component": "CA-BK-BNK"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage G/L Account Master Data (Version 2)",
+        "fiori_app_id": "F0731A",
+        "technical_transaction": "FS00",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "FI-FIO-GL-MD"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Bank Accounts",
+        "fiori_app_id": "F1366A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 6,
+        "name": "My Sent Requests (Version 2)",
+        "fiori_app_id": "F1371A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Banks - Cash Management",
+        "fiori_app_id": "F1574A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 8,
+        "name": "Foreign Bank Account Report",
+        "fiori_app_id": "F1575",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 9,
+        "name": "My Inbox for Manage Bank Accounts",
+        "fiori_app_id": "F2797",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 10,
+        "name": "Manage Bank Account Hierarchies",
+        "fiori_app_id": "F4973",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 11,
+        "name": "Manage Powers of Attorney for Banking Transactions",
+        "fiori_app_id": "F5742",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 12,
+        "name": "Approve Bank Account Applications",
+        "fiori_app_id": "F5859",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 13,
+        "name": "Bank Account Applications",
+        "fiori_app_id": "F5860",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 14,
+        "name": "Submit Bank Account Applications",
+        "fiori_app_id": "F5861",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 15,
+        "name": "Approve Bank Account Changes - Two Person Verification",
+        "fiori_app_id": "F6264",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 16,
+        "name": "Bank Account Change Requests - Two-Person Verification",
+        "fiori_app_id": "F6265",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 17,
+        "name": "Implement Powers of Attorney for Banking Transactions",
+        "fiori_app_id": "F6374",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 18,
+        "name": "Manage Payment Approval Rules",
+        "fiori_app_id": "F6959",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-BAM"
+      },
+      {
+        "step_no": 19,
+        "name": "Manage Bank Account Reviews",
+        "fiori_app_id": "F7510",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-BAM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "7976dab8a95a482ca6c885c988704d93",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "7976dab8a95a482ca6c885c988704d93",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

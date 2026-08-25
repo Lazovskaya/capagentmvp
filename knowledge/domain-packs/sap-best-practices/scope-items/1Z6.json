@@ -1,0 +1,85 @@
+{
+  "scope_item_id": "1Z6",
+  "title": "External Billing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": "1Z6 - External Billing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Assign Recipients to Users",
+        "fiori_app_id": "F2949",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CONF_EXPERT_BUS_NET_INT",
+        "component": "CA-GTF-AIF"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Billing Documents",
+        "fiori_app_id": "F0797",
+        "technical_transaction": "VF02",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_TRANSPRT_MNGR_LMD | SAP_BR_BILLING_CLERK | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_ADMINISTRATOR_RFM",
+        "component": "SD-FIO-BIL"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "e26420e6de544ea1a44e89ddcd4b2cec",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "e26420e6de544ea1a44e89ddcd4b2cec",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Billing Document",
+        "type": "userTask",
+        "role": "Billing Clerk",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "19M Direct Debit",
+        "type": "subProcess",
+        "role": "Accounts Receivable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "J59 Incoming Payment",
+        "type": "subProcess",
+        "role": "Accounts Receivable Accountant",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "1S2 - Digital Payments Integration",
+        "type": "subProcess",
+        "role": "Accounts Receivable Accountant",
+        "optional": false,
+        "calls_scope_item": "1S2"
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "1S2",
+        "name": "1S2 - Digital Payments Integration",
+        "optional": false
+      }
+    ]
+  }
+}

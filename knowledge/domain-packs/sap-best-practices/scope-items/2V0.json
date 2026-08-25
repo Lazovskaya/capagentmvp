@@ -1,0 +1,202 @@
+{
+  "scope_item_id": "2V0",
+  "title": "SAP Fiori Analytical Apps for Quality Management",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Quality Management"
+    ],
+    "L3_scope_item": "2V0 - SAP Fiori Analytical Apps for Quality Management",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Inspection Lots",
+        "fiori_app_id": "F2343",
+        "technical_transaction": "QA32",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER | SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_TECHNICIAN",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Usage Decisions",
+        "fiori_app_id": "F2345",
+        "technical_transaction": "QA11",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER | SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 3,
+        "name": "Quality Engineer Overview",
+        "fiori_app_id": "F2360",
+        "technical_transaction": "QA32",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 4,
+        "name": "Quality Technician Overview",
+        "fiori_app_id": "F2361",
+        "technical_transaction": "QA32",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_TECHNICIAN",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 5,
+        "name": "Results History",
+        "fiori_app_id": "F2428",
+        "technical_transaction": "QGA4",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_TECHNICIAN | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_QUALITY_MANAGER | SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-FIO-IM"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Quality Levels",
+        "fiori_app_id": "F2914",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-QC"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Control Charts",
+        "fiori_app_id": "F2810",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-QC-AQC-CHT"
+      },
+      {
+        "step_no": 8,
+        "name": "Quality Level History",
+        "fiori_app_id": "F2915",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-QC-AQC-LEV"
+      },
+      {
+        "step_no": 9,
+        "name": "Inspection Lot Analytics",
+        "fiori_app_id": "F3239",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_MANAGER",
+        "component": "QM-QC-IS"
+      },
+      {
+        "step_no": 10,
+        "name": "Inspection Lot Detailed Analytics",
+        "fiori_app_id": "F3273",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_MANAGER",
+        "component": "QM-QC-IS"
+      },
+      {
+        "step_no": 11,
+        "name": "Characteristic Detailed Analytics",
+        "fiori_app_id": "F3382",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_MANAGER",
+        "component": "QM-QC-IS"
+      },
+      {
+        "step_no": 12,
+        "name": "Characteristic Analytics",
+        "fiori_app_id": "F3383",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_MANAGER",
+        "component": "QM-QC-IS"
+      },
+      {
+        "step_no": 13,
+        "name": "Nonconformance Detailed Analytics",
+        "fiori_app_id": "F3583",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_MANAGER | SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-QC-IS"
+      },
+      {
+        "step_no": 14,
+        "name": "Nonconformance Analytics",
+        "fiori_app_id": "F3584",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_MANAGER",
+        "component": "QM-QC-IS"
+      },
+      {
+        "step_no": 15,
+        "name": "Manage Defects",
+        "fiori_app_id": "F2649",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_TECHNICIAN | SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-QN"
+      },
+      {
+        "step_no": 16,
+        "name": "Process Quality Tasks",
+        "fiori_app_id": "F3250",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_ENGINEER | SAP_BR_QUALITY_TECHNICIAN",
+        "component": "QM-QN"
+      },
+      {
+        "step_no": 17,
+        "name": "Manage Quality Tasks",
+        "fiori_app_id": "F3381",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_QUALITY_TECHNICIAN | SAP_BR_QUALITY_ENGINEER",
+        "component": "QM-QN"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "afd14bcc97664f149edf70a7906d6918",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "afd14bcc97664f149edf70a7906d6918",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Manage Defects",
+        "type": "userTask",
+        "role": "Quality Technician",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

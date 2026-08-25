@@ -1,0 +1,93 @@
+{
+  "scope_item_id": "7MA",
+  "title": "Collections and Dispute Automation",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Finance",
+    "L3_scope_item": "7MA - Collections and Dispute Automation",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Maintain Business Roles",
+        "fiori_app_id": "F1492",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_APPL_SUP_ENG_DEV_SUP | SAP_BR_SYSTEM_AUDITOR",
+        "component": "BC-SRV-APS-IAM"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Receivable Items",
+        "fiori_app_id": "F7877",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT",
+        "component": "FIN-FIO-CCD-COL"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Master Data in Collections and Dispute Automation",
+        "fiori_app_id": "F8606",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_MANAGER",
+        "component": "FIN-FIO-CCD-COL"
+      },
+      {
+        "step_no": 4,
+        "name": "Process Accounts in Collections and Dispute Automation",
+        "fiori_app_id": "F8607",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_AR_MANAGER",
+        "component": "FIN-FIO-CCD-COL"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Activities in Collections and Dispute Automation",
+        "fiori_app_id": "F8610",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_MANAGER | SAP_BR_AR_ACCOUNTANT",
+        "component": "FIN-FIO-CCD-COL"
+      },
+      {
+        "step_no": 6,
+        "name": "Schedule Jobs for Dispute Resolution in Collections and Dispute Automation",
+        "fiori_app_id": "F8713",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT",
+        "component": "FIN-FIO-CCD-COL"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Account Prioritization Rules",
+        "fiori_app_id": "F8833",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_MANAGER",
+        "component": "FIN-FIO-CCD-COL"
+      },
+      {
+        "step_no": 8,
+        "name": "Process Worklist in Collections and Dispute Automation",
+        "fiori_app_id": "F8832",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_AR_MANAGER",
+        "component": "FIN-FSCM-COL"
+      },
+      {
+        "step_no": 9,
+        "name": "Manage Disputes",
+        "fiori_app_id": "F7876",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_AR_MANAGER | SAP_BR_AR_ACCOUNTANT",
+        "component": "FIN-FSCM-DM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

@@ -1,0 +1,112 @@
+{
+  "scope_item_id": "6GD",
+  "title": "Engineer Products and Systems \u2013 Project with Production",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate",
+      "Finance and Accounting",
+      "IT and Cross-Application",
+      "Lead to Cash",
+      "Plan to Fulfill",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close",
+      "Cost Management and Profitability Analysis",
+      "Enterprise Information Management",
+      "Enterprise Portfolio and Project Management",
+      "Financial Operations",
+      "Inventory",
+      "Invoice Management",
+      "Manufacturing Operations",
+      "Manufacturing Options",
+      "Operational Procurement",
+      "Order and Contract Management",
+      "Process Management and Integration",
+      "Production Planning"
+    ],
+    "L3_scope_item": "6GD - Engineer Products and Systems \u2013 Project with Production",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage My Timesheet",
+        "fiori_app_id": "F1823",
+        "technical_transaction": "CAT2",
+        "app_type": null,
+        "role": "SAP_BR_EMPLOYEE | SAP_BR_MANAGER_HRINFO | SAP_BR_PROJECT_MANAGER_PROF",
+        "component": "CA-TS-S4"
+      },
+      {
+        "step_no": 2,
+        "name": "My Inbox for Legal Contract",
+        "fiori_app_id": "F5331",
+        "technical_transaction": "SBWP",
+        "app_type": null,
+        "role": "SAP_BR_LEGAL_COUNSEL | SAP_BR_EMPLOYEE_LEGAL_CONTENT | SAP_BR_ADMINISTRATOR_LCM",
+        "component": "CM-GF"
+      },
+      {
+        "step_no": 3,
+        "name": "Monitor External Requirements (Version 2)",
+        "fiori_app_id": "F0246A",
+        "technical_transaction": "MD04",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR | SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 4,
+        "name": "Confirm Production Operation",
+        "fiori_app_id": "F3069",
+        "technical_transaction": "CO11N",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_OPTR_DISC",
+        "component": "PP-FIO-SFC"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Project Demand",
+        "fiori_app_id": "F4562",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_PROC_CONTROLLER | SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-DMN-FIO"
+      },
+      {
+        "step_no": 6,
+        "name": "Project Control - Enterprise Projects",
+        "fiori_app_id": "F3215",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_OVERHEAD_ACCOUNTANT | SAP_BR_PROJ_PROC_CONTROLLER | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_PROJECTMANAGER | SAP_BR_PROJ_FIN_CONTROLLER",
+        "component": "PPM-SCL-STR-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "307a1a4aa9de46a38683d20d5d10a8e5",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "307a1a4aa9de46a38683d20d5d10a8e5",
+    "fetched": "2026-08-24",
+    "steps": [],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

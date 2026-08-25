@@ -1,0 +1,30 @@
+{
+  "scope_item_id": "2RP",
+  "title": "Electronic Documents",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Budget and Finance",
+    "L3_scope_item": "2RP - Electronic Documents",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Verify Nota Fiscal",
+        "fiori_app_id": "F2056",
+        "technical_transaction": "J1B3N",
+        "app_type": null,
+        "role": "SAP_BR_BILLING_CLERK | SAP_BR_GL_ACCOUNTANT_BR | SAP_BR_AP_ACCOUNTANT_PROCMT_BR",
+        "component": "FI-LOC-LO-BR"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Customer Master Data",
+        "fiori_app_id": "F0850A",
+        "technical_transaction": "BP",
+        "app_type": null,
+        "role": "SAP_BR_BUPA_MASTER_SPECIALIST | SAP_BR_RFM_STORE_ASSOCIATE | SAP_BR_RFM_STORE_MANAGER",
+        "component": "LO-MD-FIO-CM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

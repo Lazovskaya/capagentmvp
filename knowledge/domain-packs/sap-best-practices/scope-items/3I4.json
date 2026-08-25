@@ -1,0 +1,264 @@
+{
+  "scope_item_id": "3I4",
+  "title": "Sales Pricing for Retail",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Retail"
+    ],
+    "L2_core_process": [
+      "Retail"
+    ],
+    "L3_scope_item": "3I4 - Sales Pricing for Retail",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Schedule Sales Price Calculation",
+        "fiori_app_id": "F5412",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRICING_SPCLST_RFM",
+        "component": "LO-RFM-MD-RPC"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "5332a098150b45d6964e42e05140186e",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "5332a098150b45d6964e42e05140186e",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Change Purchasing Price",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Supplier (Vendor) Discount Condition",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Maintain Price List type for Site and Merchandise category",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Maintain Pricing Reference Article for Generic Articles and Variants",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create Freight Condition",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Data (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Generate Pricing Worklist",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Displaying Purchasing Conditions",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Release Pricing Worklist",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Create Planned Markup for Distribution chain",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Create Planned Markup for PriceList",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Display Price Overview (Optional)",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": true
+      },
+      {
+        "seq": 12,
+        "name": "Change Planned Markup for Distribution chain (Optional)",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": true
+      },
+      {
+        "seq": 13,
+        "name": "Change Planned Markup for PriceList (Optional)",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": true
+      },
+      {
+        "seq": 14,
+        "name": "Pricing Document Display (Optional)",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": true
+      },
+      {
+        "seq": 15,
+        "name": "Create Sales Price for Store in Foreground",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 16,
+        "name": "Create Sales Price for Store in Background",
+        "type": "serviceTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 17,
+        "name": "Create Sales Price for DC and Store in background",
+        "type": "serviceTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 18,
+        "name": "Display Planned Markup for Distribution chain (Optional)",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": true
+      },
+      {
+        "seq": 19,
+        "name": "Display Planned Markup for PriceList(Optional)",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": true
+      },
+      {
+        "seq": 20,
+        "name": "Create Sales Price for DC in Foreground",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 21,
+        "name": "Create Sales Price for DC and Store in Foreground",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": false
+      },
+      {
+        "seq": 22,
+        "name": "Change Price Calculation (Optional)",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": true
+      },
+      {
+        "seq": 23,
+        "name": "Pricing Documents for Organization, List Display (Optional)",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": true
+      },
+      {
+        "seq": 24,
+        "name": "Pricing Documents for Material, List Display (Optional)",
+        "type": "userTask",
+        "role": "Pricing Specialist (Retail)",
+        "optional": true
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 7,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 16,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 19,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 21,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 21,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 21,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 21,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

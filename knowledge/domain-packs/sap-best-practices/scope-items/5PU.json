@@ -1,0 +1,53 @@
+{
+  "scope_item_id": "5PU",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Advanced Accounting and Financial Close"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "8e0295aa3c144e7aba3878c486a98fac",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "8e0295aa3c144e7aba3878c486a98fac",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Load Master and Actual Data from SAP S/4HANA",
+        "type": "userTask",
+        "role": "Account Planner (IBP)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Perform Planning Admin Tasks",
+        "type": "userTask",
+        "role": "Account Planner (IBP)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Perform Group Reporting Planning",
+        "type": "userTask",
+        "role": "Account Planner (IBP)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Review Group Reporting Planning Reports",
+        "type": "userTask",
+        "role": "Account Planner (IBP)",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

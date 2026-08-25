@@ -1,0 +1,39 @@
+{
+  "scope_item_id": "7DO",
+  "title": "Product Compliance Document Authoring",
+  "hierarchy": {
+    "L1_value_stream": null,
+    "L2_core_process": "Supply Chain",
+    "L3_scope_item": "7DO - Product Compliance Document Authoring",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "My Unpackaged Dangerous Goods",
+        "fiori_app_id": "F3643",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DG_SPLST_PCL",
+        "component": "EHS-SUS-DG"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Substances Compliance",
+        "fiori_app_id": "F2578",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ENVIRONMENTAL_MANAGER | SAP_BR_MD_SPECIALIST_PCL | SAP_BR_PRODSTWRD_SPLST_PCL | SAP_BR_INDUSTRIAL_HYGIENIST",
+        "component": "EHS-SUS-FND"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Basic Compliance Data - Unpackaged Products",
+        "fiori_app_id": "F2641",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PRODSTWRD_SPLST_PCL | SAP_BR_MD_SPECIALIST_PCL",
+        "component": "EHS-SUS-FND"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py)."
+}

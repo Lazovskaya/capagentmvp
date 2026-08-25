@@ -1,0 +1,32 @@
+{
+  "scope_item_id": "6AJ",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Sourcing and Contract Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "7be6d2fd31b846708f610425cd89c51c",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "7be6d2fd31b846708f610425cd89c51c",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create and Submit Supplier Quotations",
+        "type": "userTask",
+        "role": "Supplier",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

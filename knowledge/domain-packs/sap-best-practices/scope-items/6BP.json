@@ -1,0 +1,226 @@
+{
+  "scope_item_id": "6BP",
+  "title": "In-House Banking",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": "6BP - In-House Banking",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Maintain Business Users",
+        "fiori_app_id": "F1303",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_APPL_SUP_ENG_DEV_SUP | SAP_BR_EXTERNAL_AUDITOR | SAP_BR_SYSTEM_AUDITOR | SAP_BR_ADMINISTRATOR",
+        "component": "BC-SRV-APS-IAM"
+      },
+      {
+        "step_no": 2,
+        "name": "Maintain Business User Groups",
+        "fiori_app_id": "F6399",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_ADMINISTRATOR",
+        "component": "BC-SRV-APS-IAM"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Cost Centers (Version 2)",
+        "fiori_app_id": "F1443A",
+        "technical_transaction": "KS01",
+        "app_type": null,
+        "role": "SAP_BR_PROJ_FIN_CONTROLLER | SAP_BR_OVERHEAD_ACCOUNTANT",
+        "component": "CO-FIO-CCA-MD"
+      },
+      {
+        "step_no": 4,
+        "name": "Reprocess Bank Statement Items",
+        "fiori_app_id": "F1520",
+        "technical_transaction": "FEBAN",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_CASH_SPECIALIST | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-FIO-AR-PAY"
+      },
+      {
+        "step_no": 5,
+        "name": "Manage Bank Statements",
+        "fiori_app_id": "F1564",
+        "technical_transaction": "FF.6",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_ADMIN_APR_FICA | SAP_BR_CASH_MANAGER",
+        "component": "FI-FIO-AR-PAY"
+      },
+      {
+        "step_no": 6,
+        "name": "Manage Incoming Payment Files",
+        "fiori_app_id": "F1680",
+        "technical_transaction": "FF.5",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-FIO-AR-PAY"
+      },
+      {
+        "step_no": 7,
+        "name": "Manage Bank Statement Reprocessing Rules",
+        "fiori_app_id": "F3555",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_ADMIN_APR_FICA | SAP_BR_CASH_SPECIALIST_US | SAP_BR_AR_ACCOUNTANT",
+        "component": "FI-FIO-AR-PAY"
+      },
+      {
+        "step_no": 8,
+        "name": "Manage Finance Notifications",
+        "fiori_app_id": "F8825",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT",
+        "component": "FI-GL-BTI"
+      },
+      {
+        "step_no": 9,
+        "name": "Manage Payments",
+        "fiori_app_id": "F3647",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PAYMENT_SPECIALIST",
+        "component": "FIN-FSCM-PF"
+      },
+      {
+        "step_no": 10,
+        "name": "Manage Service Level Agreements V2",
+        "fiori_app_id": "F6183A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PAYMENT_SPECIALIST",
+        "component": "FIN-FSCM-PF"
+      },
+      {
+        "step_no": 11,
+        "name": "Manage In-House Bank Limits",
+        "fiori_app_id": "F5940",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PAYM_SPECIALIST_IHB",
+        "component": "FIN-FSCM-PF-IHB"
+      },
+      {
+        "step_no": 12,
+        "name": "Manage In-House Bank Conditions",
+        "fiori_app_id": "F5941",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PAYM_SPECIALIST_IHB",
+        "component": "FIN-FSCM-PF-IHB"
+      },
+      {
+        "step_no": 13,
+        "name": "Manage In-House Bank Accounts",
+        "fiori_app_id": "F5942",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PAYM_SPECIALIST_IHB",
+        "component": "FIN-FSCM-PF-IHB"
+      },
+      {
+        "step_no": 14,
+        "name": "Manage In-House Bank End of Day",
+        "fiori_app_id": "F6338",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PAYM_SPECIALIST_IHB",
+        "component": "FIN-FSCM-PF-IHB"
+      },
+      {
+        "step_no": 15,
+        "name": "Manage In-House Bank Account Balances",
+        "fiori_app_id": "F6341",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PAYM_SPECIALIST_IHB",
+        "component": "FIN-FSCM-PF-IHB"
+      },
+      {
+        "step_no": 16,
+        "name": "Manage In-House Bank Application Jobs",
+        "fiori_app_id": "F6653",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_PAYM_SPECIALIST_IHB",
+        "component": "FIN-FSCM-PF-IHB"
+      },
+      {
+        "step_no": 17,
+        "name": "Manage Bank Messages",
+        "fiori_app_id": "F4385",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BANK_INT_SPECIALIST",
+        "component": "LOD-FSN-AGT"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "3c5b47d9e9954df292477703669d29b0",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "3c5b47d9e9954df292477703669d29b0",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Request In-house Banking Account Opening",
+        "type": "manualTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Entering and Saving all Attributes of the In-house Banking Account",
+        "type": "manualTask",
+        "role": "Payment Specialist IHB",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "In-house Banking Account in Status Active",
+        "type": "serviceTask",
+        "role": "Payment Specialist IHB",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

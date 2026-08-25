@@ -1,0 +1,136 @@
+{
+  "scope_item_id": "1HO",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
+    "L2_core_process": [
+      "Order and Contract Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "96973b8bdd014d269665a7a66b55dacf",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "96973b8bdd014d269665a7a66b55dacf",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Sales Order",
+        "type": "userTask",
+        "role": "Internal Sales Representative (Ordering Company)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Create Delivery",
+        "type": "userTask",
+        "role": "Shipping Specialist (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Perform Picking",
+        "type": "userTask",
+        "role": "Shipping Specialist (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Post Goods Issue",
+        "type": "userTask",
+        "role": "Shipping Specialist (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Create F2 Invoice",
+        "type": "userTask",
+        "role": "Billing Clerk (Ordering Company)",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Create Intercompany Invoice",
+        "type": "userTask",
+        "role": "Billing Clerk (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Create documents for Accounts Receivable / General Ledger / Profitability Segment",
+        "type": "serviceTask",
+        "role": "Billing Clerk (Ordering Company)",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Display AP Journal Entry",
+        "type": "serviceTask",
+        "role": "Billing Clerk (Delivering Company)",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Send IC-Invoice via IDOC to Ordering Company",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Incoming IDOC creates IC documents for Accounts Payable / General Ledger / Profitability Segment in Ordering Company (SA-13934 1.0)",
+        "type": "serviceTask",
+        "role": "System",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 7,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 7,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 9,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 10,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "scope_item_id": "4B4",
+  "title": "Material Replenishment with Kanban \u2013 Stock Transfer",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Manufacturing Options"
+    ],
+    "L3_scope_item": "4B4 - Material Replenishment with Kanban \u2013 Stock Transfer",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Set Kanban Container Status",
+        "fiori_app_id": "F3717",
+        "technical_transaction": "PKBC",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_OPTR_LEAN_MFG",
+        "component": "PP-KAB-FIO"
+      },
+      {
+        "step_no": 2,
+        "name": "Kanban Board",
+        "fiori_app_id": "F4630",
+        "technical_transaction": "PK13N",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR_LEAN_MFG | SAP_BR_PRODN_SUPVR_LEAN_MFG | SAP_BR_PRODN_OPTR_LEAN_MFG",
+        "component": "PP-KAB-FIO"
+      },
+      {
+        "step_no": 3,
+        "name": "Kanban Control Cycle Analysis",
+        "fiori_app_id": "F5235",
+        "technical_transaction": "PK11",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR_LEAN_MFG | SAP_BR_PRODN_SUPVR_LEAN_MFG",
+        "component": "PP-KAB-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "90a7c03b7a1c47cdb8d36d78e24e704e",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "90a7c03b7a1c47cdb8d36d78e24e704e",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Set available container to Empty",
+        "type": "subProcess",
+        "role": "Production Operator - Lean Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Set Kanban container to Full",
+        "type": "subProcess",
+        "role": "Production Operator - Lean Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Withdraw Container Quantity",
+        "type": "subProcess",
+        "role": "Production Operator - Lean Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Set new container to Full & Withdraw current container till Empty",
+        "type": "subProcess",
+        "role": "Production Operator - Lean Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Optional: Monitor Replenishment Situation",
+        "type": "subProcess",
+        "role": "Production Planner - Lean Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Optional: Analyze Kanban Control Cycles",
+        "type": "subProcess",
+        "role": "Production Planner - Lean Manufacturing",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

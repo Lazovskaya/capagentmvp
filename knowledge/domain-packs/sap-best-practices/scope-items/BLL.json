@@ -1,0 +1,97 @@
+{
+  "scope_item_id": "BLL",
+  "title": "Serial Number Management in Logistics",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Logistics Cross Topics",
+      "Manufacturing Operations",
+      "Manufacturing Options",
+      "Operational Procurement"
+    ],
+    "L3_scope_item": "BLL - Serial Number Management in Logistics",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Serial Number History",
+        "fiori_app_id": "F7368",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_INVENTORY_MANAGER | SAP_BR_MAINTENANCE_PLANNER",
+        "component": "LO-MD-FIO-SN"
+      },
+      {
+        "step_no": 2,
+        "name": "Manage Material Serial Numbers",
+        "fiori_app_id": "F6879",
+        "technical_transaction": "IQ03",
+        "app_type": null,
+        "role": "SAP_BR_MAINTENANCE_PLANNER | SAP_BR_INVENTORY_MANAGER | SAP_BR_PRODN_SUPERVISOR_DISC | SAP_BR_MD_SPECIALIST_EAM | SAP_BR_MAINTENANCE_PLNR_RSH",
+        "component": "PM-FIO-EQM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "1b6999ab2fbf437cbc6c35f9f177be92",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "1b6999ab2fbf437cbc6c35f9f177be92",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Maintain Serial Number Master",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Display Serial Number Data",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Display Serial Number History",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Display Serial Number Status",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Display Serial Number Usage List",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Display Serial Number Action Log",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Display Serial Number Changes",
+        "type": "userTask",
+        "role": "Maintenance Planner",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

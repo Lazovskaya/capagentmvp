@@ -1,0 +1,98 @@
+{
+  "scope_item_id": "64E",
+  "title": "Product Change Management with Change Records",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
+    "L2_core_process": [
+      "Product Lifecycle Management"
+    ],
+    "L3_scope_item": "64E - Product Change Management with Change Records",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Change Records (Version 2)",
+        "fiori_app_id": "F2097A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_BOM_ENGINEER | SAP_BR_DEV_MANAGER_PIC | SAP_BR_DEVELOPMENT_MANAGER_DIN",
+        "component": "PLM-FIO-CR"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "372aba2a7d3a4c948e33742f2cffdbfe",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "372aba2a7d3a4c948e33742f2cffdbfe",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Change Records",
+        "type": "userTask",
+        "role": "Development Manager - Discrete Industry",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Assign BOMs / Products & Set Processing Status",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Submit Change Request",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Check Change Request",
+        "type": "userTask",
+        "role": "Development Manager - Discrete Industry",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Approve Change Request",
+        "type": "userTask",
+        "role": "Development Manager - Discrete Industry",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Start Change Implementation",
+        "type": "userTask",
+        "role": "Development Manager - Discrete Industry",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Perform BOM / Product Master Changes",
+        "type": "userTask",
+        "role": "BOM Engineer",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Close Change Implementation",
+        "type": "userTask",
+        "role": "Development Manager - Discrete Industry",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Release Change",
+        "type": "userTask",
+        "role": "Development Manager - Discrete Industry",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

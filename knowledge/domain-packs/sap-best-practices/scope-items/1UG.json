@@ -1,0 +1,39 @@
+{
+  "scope_item_id": "1UG",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "IT and Cross-Application"
+    ],
+    "L2_core_process": [
+      "Enterprise Information Management"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "4938393c4e2a4a97a123c2c7943e9da0",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "4938393c4e2a4a97a123c2c7943e9da0",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create \nor update interactions",
+        "type": "serviceTask",
+        "role": "Business Analyst - Marketing",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Segmentation based on sales data",
+        "type": "manualTask",
+        "role": "Marketing Expert",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

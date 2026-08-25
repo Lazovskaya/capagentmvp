@@ -1,0 +1,216 @@
+{
+  "scope_item_id": "63Y",
+  "title": "Warranty Claim Management \u2013 Customer Claim Processing",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Service"
+    ],
+    "L2_core_process": [
+      "Service Master Data and Agreement Management"
+    ],
+    "L3_scope_item": "63Y - Warranty Claim Management \u2013 Customer Claim Processing",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Claims-Customer facing process",
+        "fiori_app_id": "F6204",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CLAIMS_ANALYST_COMPL",
+        "component": "LO-WTY-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "274b4cc82f7c4213ab304f94641ed595",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "274b4cc82f7c4213ab304f94641ed595",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Create Claim",
+        "type": "userTask",
+        "role": "Customer",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Adjust / enhance claim",
+        "type": "userTask",
+        "role": "Claim Analyst",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Discard claim",
+        "type": "userTask",
+        "role": "Claim Analyst",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Adjust Master Data / settings",
+        "type": "userTask",
+        "role": "Master Data Clerk",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Maintain additional information",
+        "type": "manualTask",
+        "role": "Customer",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Reject Claim",
+        "type": "manualTask",
+        "role": "Claim Analyst",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Close claim",
+        "type": "userTask",
+        "role": "Claim Analyst",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Reprocess Claim",
+        "type": "manualTask",
+        "role": "Claim Analyst",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Reject Claim",
+        "type": "manualTask",
+        "role": "Claim Analyst",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Reprocess Claim",
+        "type": "manualTask",
+        "role": "Claim Analyst",
+        "optional": false
+      },
+      {
+        "seq": 11,
+        "name": "Post Claim",
+        "type": "userTask",
+        "role": "Claim Analyst",
+        "optional": false
+      },
+      {
+        "seq": 12,
+        "name": "Close claim",
+        "type": "userTask",
+        "role": "Claim Analyst",
+        "optional": false
+      },
+      {
+        "seq": 13,
+        "name": "Reverse Posting",
+        "type": "manualTask",
+        "role": "Claim Analyst",
+        "optional": false
+      },
+      {
+        "seq": 14,
+        "name": "Adjust / Correct claim",
+        "type": "userTask",
+        "role": "Claim Analyst",
+        "optional": false
+      },
+      {
+        "seq": 15,
+        "name": "Adjust settings",
+        "type": "userTask",
+        "role": "Master Data Clerk",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 3,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Mixed"
+      },
+      {
+        "seq_position": 8,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 8,
+        "type": "parallelGateway",
+        "direction": "Converging"
+      },
+      {
+        "seq_position": 9,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 11,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 13,
+        "type": "parallelGateway",
+        "direction": "Diverging"
+      }
+    ],
+    "dependencies": []
+  }
+}

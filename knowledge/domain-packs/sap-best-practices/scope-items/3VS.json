@@ -1,0 +1,125 @@
+{
+  "scope_item_id": "3VS",
+  "title": "Contract-Based Revenue Recognition \u2013 US GAAP",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Accounting and Financial Close"
+    ],
+    "L3_scope_item": "3VS - Contract-Based Revenue Recognition \u2013 US GAAP",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Revenue Recognition Issues - Revenue Contracts",
+        "fiori_app_id": "F7557",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-PC-EBJ-EBR"
+      },
+      {
+        "step_no": 2,
+        "name": "Run Revenue Recognition - Revenue Contracts",
+        "fiori_app_id": "F7347",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_SALES_ACCOUNTANT",
+        "component": "CO-PC-OBJ-EBR"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "538e40f99dd540649d79b769f4d37032",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "538e40f99dd540649d79b769f4d37032",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Perform relevant business transaction",
+        "type": "userTask",
+        "role": "Administrator (Convergent Invoicing)",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Open and Close Revenue Accounting Period",
+        "type": "userTask",
+        "role": "Revenue Accountant",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Call API of Revenue Accounting",
+        "type": "serviceTask",
+        "role": "Administrator (Convergent Invoicing)",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Process Revenue Accounting Items (RAIs)",
+        "type": "userTask",
+        "role": "System",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Manage Postponed Revenue Accounting Items",
+        "type": "userTask",
+        "role": "Administrator - Revenue Accounting",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Revenue Accounting Overview",
+        "type": "userTask",
+        "role": "Revenue Accountant",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Manage Revenue Contracts",
+        "type": "userTask",
+        "role": "Revenue Accountant",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Review Revenue Schedule",
+        "type": "userTask",
+        "role": "Revenue Accountant",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Review \nRevenue Explanation",
+        "type": "userTask",
+        "role": "Revenue Accountant",
+        "optional": false
+      },
+      {
+        "seq": 10,
+        "name": "Review Change History",
+        "type": "userTask",
+        "role": "Revenue Accountant",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 4,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 5,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": []
+  }
+}

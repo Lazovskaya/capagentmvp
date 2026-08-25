@@ -1,0 +1,43 @@
+{
+  "scope_item_id": "4MM",
+  "title": null,
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Logistics Cross Topics"
+    ],
+    "L3_scope_item": null,
+    "L4_steps": []
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "b448a59e0d8642a5b9fabd9d60803f7d",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "b448a59e0d8642a5b9fabd9d60803f7d",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Execute Manual Packing",
+        "type": "userTask",
+        "role": "Shipping Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Mixed"
+      },
+      {
+        "seq_position": 1,
+        "type": "exclusiveGateway",
+        "direction": "Mixed"
+      }
+    ],
+    "dependencies": []
+  }
+}

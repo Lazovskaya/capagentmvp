@@ -10,11 +10,12 @@ Delivery Pipeline track, `Knowledge: process` bucket).
 
 ## What lives here
 
-- `scope-items/` — **regenerable cache**, not curated knowledge. One JSON file per SAP Best
-  Practice scope item (e.g. `BD9.json`), each mapping the scope item to its Fiori apps, TCodes,
-  business roles and components. Produced by `tools/ingest_sap_best_practices.py` from a locally
-  downloaded Fiori Apps Reference Library export (see below). Gitignored — see "Why this is a
-  cache, not committed content" below.
+- `scope-items/` — enriched scope-item JSON, one file per scope item (e.g. `BD9.json`). Committed
+  as a snapshot (2026-08-24) because the files carry our own processed data: L1/L2 hierarchy from
+  Signavio `linkedBy`, BPMN step sequences, and curated L1 lookup — not just a raw FAL export.
+  Regenerate with `ingest → enrich → bpmn → populate_l1` when SAP updates FAL or Signavio content
+  (see "How to (re)generate the cache" below). The snapshot will drift as SAP releases new scope
+  items; treat it as authoritative for the release date noted in each file's `note` field.
 - Curated markdown (taxonomy overview, L1/L2 value-stream summaries, per-scope-item process notes
   in `order-to-cash/`'s style) is the intended next layer once enrichment below is further along.
   Not written yet — this pack currently has the raw scope-item JSON only. L2 is partially
@@ -58,14 +59,17 @@ as a majority vote across an app row's Line Of Business path when a scope item's
 best-effort hint, not an authoritative grouping; each file's `note` field names the runner-up LOBs
 whenever the vote was contested, so a reader can judge how much to trust it.
 
-## Why this is a cache, not committed content
+## Why scope-items/ is now committed (policy change 2026-08-25)
 
-`order-to-cash/README.md` states the policy this pack follows too: *"Live SAP resources are a
-runtime concern, not baked in ... never a copied snapshot committed here."* A live OData pull is
-exactly that — a point-in-time snapshot of SAP's own reference data, not our distilled expertise.
-So `scope-items/*.json` is gitignored and regenerated on demand, while any curated markdown this
-pack grows (our own summaries, pointers to scope-item IDs and SAP Note numbers) is the part that
-gets committed, matching `order-to-cash`'s "reference, don't copy" rule.
+The original policy (gitignored cache) applied when `scope-items/` held only raw FAL export data.
+After the full enrichment pipeline (Signavio L2, BPMN parsing, L1 lookup), each JSON carries our
+own processed work — L1/L2 hierarchy, ordered BPMN steps, dependency graph — not just a SAP
+snapshot. Committing it lets any team member use the taxonomy without re-running a ~11-minute
+pipeline requiring FAL login and Signavio credentials.
+
+`workspace/bpmn/*.bpmn` (raw Signavio XML, 24 MB) and `workspace/AppList.xlsx` (raw FAL export)
+remain gitignored: they are the upstream source files already fully consumed into scope-items JSON,
+carry SAP proprietary content, and add nothing a reader can't get from the JSON.
 
 ## Method 1 — SAP Cloud ALM Process Content API: dead end for hierarchy
 
@@ -117,19 +121,94 @@ python3 tools/enrich_sap_best_practices_signavio.py --env-file ~/.config/sap-bes
 python3 tools/enrich_sap_best_practices_signavio.py --env-file ~/.config/sap-best-practices/sessions/default.env               # full ~602-item run (~1200+ requests, several minutes)
 ```
 
-## Planned enrichment (not yet built)
+## Method 3 — BPMN 2.0 download and parse: gives real process flow
+
+`tools/fetch_bpmn_signavio.py` (new 2026-08-24) downloads the BPMN 2.0 XML for each scope item's
+main variant (prefers `{CODE} - 01 -` without country suffixes) via
+`GET /p/model/{model_id}/bpmn2_0_xml` — the same authenticated `/p/` session Method 2 already uses,
+no new credentials required.
+
+Parses into a `bpmn_flow` block written into each scope-item JSON alongside the existing `hierarchy`
+data. What `bpmn_flow` adds that the FAL export cannot:
+
+- **`steps`** — tasks in topological execution order (BFS from `startEvent`), with human-readable
+  role name from the swimlane and `optional` flag from `"(Optional)"` in the step name. Handles
+  both `callActivity` (older diagrams) and `subProcess` (newer SAP format) transparently.
+- **`gateways`** — parallel/exclusive/inclusive gateways with their position in the sequence,
+  indicating branches and joins (e.g. BD9's parallel split into monitoring + AR at step 13).
+- **`dependencies`** — other scope items called as subprocesses, forming a cross-scope-item
+  dependency graph (BD9 depends on BD6, BDG, 1JW, J59, BKK).
+
+The `signavio_model_id` (written by `enrich_sap_best_practices_signavio.py`) lets subsequent
+`fetch_bpmn_signavio.py` runs skip folder navigation — one API call per scope item.
+
+Run (requires `signavio_model_id` in JSON, so run enrich first):
+
+```bash
+# Enrich all (writes signavio_model_id into every JSON, ~11 min):
+python3 tools/enrich_sap_best_practices_signavio.py --env-file /path/to/.env
+
+# Fetch BPMN for all that have model_id, skip already-done:
+python3 tools/fetch_bpmn_signavio.py --env-file /path/to/.env --all --skip-existing
+
+# Single scope item (navigates if model_id missing):
+python3 tools/fetch_bpmn_signavio.py --env-file /path/to/.env --scope-item BD9 --navigate
+
+# Also save draw.io-compatible .bpmn files:
+python3 tools/fetch_bpmn_signavio.py --env-file /path/to/.env --scope-item BD9 --navigate --save-xml workspace/bpmn
+```
+
+Confirmed 2026-08-24: 592/594 scope items processed successfully. 2 items (`4RF`, `6NL`) returned
+HTTP 500 from Signavio (server-side issue with those specific diagrams). 61 items have 0 steps
+(integration/stub scope items with no swimlane tasks in their BPMN). 103 items have cross-scope-item
+dependencies.
+
+## Planned enrichment
 
 - **L1 value stream**: a small, stable, publicly documented set (~10 value streams per line of
   business) — worth curating once by hand as a static L2 -> L1 lookup table rather than chasing a
-  third API hop through BPMN call-activity content for marginal gain.
-- Curated markdown layer (taxonomy overview, per-scope-item process notes in `order-to-cash/`'s
-  style) — not started; still only the raw JSON cache exists.
+  third API hop.
+- **Curated markdown layer** — generated from JSON by `tools/generate_sap_bp_markdown.py`
+  (see below). Structural/taxonomy layer is done; expert content (troubleshooting trees, failure
+  modes, configuration gotchas) is the remaining gap — those require consultant expertise or SAP
+  Help Portal content and belong in separate, hand-written files that the generator never touches.
+
+## Curated markdown layer
+
+`tools/generate_sap_bp_markdown.py` generates three kinds of committed markdown from the JSON cache:
+
+- `taxonomy-overview.md` — L1/L2/L3 hierarchy tables + full alphabetical index of all 732 scope items
+- `dependency-map.md` — cross-scope-item subprocess dependency graph (103 items with deps)
+- `value-streams/<slug>.md` — one file per L1 value stream (12 files); per-L2 group tables with
+  BPMN step sequences, Fiori apps, mandatory/optional dependencies, and key roles
+
+Run after any cache regeneration step:
+
+```bash
+python3 tools/generate_sap_bp_markdown.py
+```
+
+All output files carry an `AUTO-GENERATED` banner and are safe to overwrite. Do not hand-edit them.
+Consultant notes (troubleshooting trees, failure modes) belong in separate files alongside them —
+the generator never touches files it did not create.
+
+**Why a separate script rather than baking generation into ingest/enrich/fetch:**
+The JSON cache and the markdown layer have different lifecycles. The cache is regenerated rarely
+(when SAP updates FAL or Signavio content); the markdown can be regenerated from the existing cache
+at any time without new credentials or API calls. Keeping them separate lets a consultant regenerate
+the markdown locally without having to re-run the Signavio/FAL pipeline.
 
 ## Status
 
-`scope-items/` cache generation is verified end to end against a real FAL 2.0 export (498 scope
-items, real titles/TCodes/roles, best-effort L2 from Line Of Business) and, separately, against a
-real Signavio tenant for L2 via `linkedBy` (confirmed on a 20-item sample, script written but the
-full 602-item run hasn't been executed yet). Method 1 (Cloud ALM) is a confirmed dead end for
-hierarchy, documented above rather than retried. L1 value streams and the curated markdown layer
-remain unstarted.
+Cache generation and markdown generation verified end to end (2026-08-24 / 2026-08-25):
+
+| Source | Result |
+|--------|--------|
+| FAL 2.0 export (`ingest_sap_best_practices.py`) | 498 scope items, real titles/TCodes/roles |
+| Signavio `linkedBy` enrichment (`enrich_sap_best_practices_signavio.py`) | 594/594 items, L2 + `signavio_model_id` written |
+| BPMN download + parse (`fetch_bpmn_signavio.py`) | 592/594 items, `bpmn_flow` with ordered steps/gateways/deps |
+| L1 population (`populate_l1_value_streams.py`) | ~613/732 items updated; remaining nulls are ingest artifacts (single-char L2 values from LOB path splitting in `ingest_sap_best_practices.py`) |
+| Markdown generation (`generate_sap_bp_markdown.py`) | taxonomy-overview.md + dependency-map.md + 12 value-stream files |
+
+**732 scope-item files** in the cache (union of all sources). Structural markdown layer generated
+2026-08-25. Expert content layer (troubleshooting, failure modes, gotchas) not yet written.

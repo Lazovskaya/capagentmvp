@@ -1,0 +1,127 @@
+{
+  "scope_item_id": "5OJ",
+  "title": "Supplier Compliance in the Value Chain",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill",
+      "Source to Pay"
+    ],
+    "L2_core_process": [
+      "Product Compliance",
+      "Sourcing and Contract Management"
+    ],
+    "L3_scope_item": "5OJ - Supplier Compliance in the Value Chain",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Monitor Raw Material Compliance",
+        "fiori_app_id": "F3024",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_PCL",
+        "component": "EHS-SUS-FND"
+      },
+      {
+        "step_no": 2,
+        "name": "Supplier Compliance for Raw Material",
+        "fiori_app_id": "F3040",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_MD_SPECIALIST_PCL | SAP_BR_PRODSTWRD_SPLST_PCL",
+        "component": "EHS-SUS-FND"
+      },
+      {
+        "step_no": 3,
+        "name": "Process Requests from Logistics",
+        "fiori_app_id": "F3342",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_DG_SPLST_PCL | SAP_BR_MD_SPECIALIST_PCL | SAP_BR_PRODSTWRD_SPLST_PCL",
+        "component": "EHS-SUS-PMA"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Purchase Orders (Version 2)",
+        "fiori_app_id": "F0842A",
+        "technical_transaction": "ME21",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-PO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "cb5dbfd23cbb4bfba5b2c483f050a705",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "cb5dbfd23cbb4bfba5b2c483f050a705",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Manage Raw Material - Basic Compliance Data",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Compliance",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Manage Raw Material Compliance",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Compliance",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Manage Supplier Compliance for Raw Material",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Compliance",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Manage Purchase Orders",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      },
+      {
+        "seq": 5,
+        "name": "Process Compliance Request from Logistics",
+        "type": "userTask",
+        "role": "Product Stewardship Specialist - Product Compliance",
+        "optional": false
+      },
+      {
+        "seq": 6,
+        "name": "Manage Raw Material - Basic Compliance Data",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Compliance",
+        "optional": false
+      },
+      {
+        "seq": 7,
+        "name": "Manage Raw Material Compliance",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Compliance",
+        "optional": false
+      },
+      {
+        "seq": 8,
+        "name": "Manage Supplier Compliance for Raw Material",
+        "type": "userTask",
+        "role": "Master Data Specialist - Product Compliance",
+        "optional": false
+      },
+      {
+        "seq": 9,
+        "name": "Manage Purchase Orders",
+        "type": "userTask",
+        "role": "Purchaser",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

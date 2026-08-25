@@ -1,0 +1,144 @@
+{
+  "scope_item_id": "1E3",
+  "title": "Material Replenishment with Kanban \u2013 External Procurement",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
+    "L2_core_process": [
+      "Manufacturing Options"
+    ],
+    "L3_scope_item": "1E3 - Material Replenishment with Kanban \u2013 External Procurement",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Post Goods Receipt for Purchasing Document",
+        "fiori_app_id": "F0843",
+        "technical_transaction": "MB01",
+        "app_type": null,
+        "role": "SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_INVENTORY_MANAGER | SAP_BR_WAREHOUSE_CLERK",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 2,
+        "name": "Material Documents Overview",
+        "fiori_app_id": "F1077",
+        "technical_transaction": "MB51",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_MAINT_SUPERVISOR | SAP_BR_EMPLOYEE_PROCUREMENT | SAP_BR_GL_ACCOUNTANT | SAP_BR_INVENTORY_MANAGER | SAP_BR_PRODN_PLNR | SAP_BR_MAINTENANCE_PLANNER | SAP_BR_INVENTORY_MGR_RFM | SAP_BR_WAREHOUSE_CLERK | SAP_BR_ADMINISTRATOR_RFM | SAP_BR_SETTLEMENT_CLERK_ACM | SAP_BR_OPERATION_CLERK_ACM | SAP_BR_SHIPPING_SPECIALIST | SAP_BR_RECEIVING_SPECIALIST | SAP_BR_WAREHOUSE_CLERK_RFM | SAP_BR_PROJECTMGR_COMMPRJ | SAP_BR_SERVICE_MANAGER | SAP_BR_SHIP_SPECIALIST_JIT | SAP_BR_EMPLOYEE | SAP_BR_CUSTOMER_SALES_MGR",
+        "component": "MM-FIO-IM-SGM"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Purchase Orders (Version 2)",
+        "fiori_app_id": "F0842A",
+        "technical_transaction": "ME21",
+        "app_type": null,
+        "role": "SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-PO"
+      },
+      {
+        "step_no": 4,
+        "name": "Manage Scheduling Agreement",
+        "fiori_app_id": "F2179",
+        "technical_transaction": "ME31L",
+        "app_type": null,
+        "role": "SAP_BR_GL_ACCOUNTANT | SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST | SAP_BR_PURCHASER",
+        "component": "MM-FIO-PUR-SQ-SCH"
+      },
+      {
+        "step_no": 5,
+        "name": "Schedule MRP Runs",
+        "fiori_app_id": "F1339",
+        "technical_transaction": "MD01",
+        "app_type": null,
+        "role": "SAP_BR_MATL_PLNR_EXT_PROC | SAP_BR_PRODN_PLNR | SAP_BR_RPLNMT_SPCLST_DC_RFM",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 6,
+        "name": "Monitor Material Coverage - Net and Individual Segments (Version 2)",
+        "fiori_app_id": "F2101A",
+        "technical_transaction": "MB53",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR | SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 7,
+        "name": "Maintain PIRs",
+        "fiori_app_id": "F3445",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_RPLNMT_SPCLST_ST_RFM | SAP_BR_PRODN_PLNR | SAP_BR_MATL_PLNR_EXT_PROC",
+        "component": "PP-FIO-MRP"
+      },
+      {
+        "step_no": 8,
+        "name": "Set Kanban Container Status",
+        "fiori_app_id": "F3717",
+        "technical_transaction": "PKBC",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_OPTR_LEAN_MFG",
+        "component": "PP-KAB-FIO"
+      },
+      {
+        "step_no": 9,
+        "name": "Kanban Board",
+        "fiori_app_id": "F4630",
+        "technical_transaction": "PK13N",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR_LEAN_MFG | SAP_BR_PRODN_SUPVR_LEAN_MFG | SAP_BR_PRODN_OPTR_LEAN_MFG",
+        "component": "PP-KAB-FIO"
+      },
+      {
+        "step_no": 10,
+        "name": "Kanban Control Cycle Analysis",
+        "fiori_app_id": "F5235",
+        "technical_transaction": "PK11",
+        "app_type": null,
+        "role": "SAP_BR_PRODN_PLNR_LEAN_MFG | SAP_BR_PRODN_SUPVR_LEAN_MFG",
+        "component": "PP-KAB-FIO"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "1e31819e3d9a47bfbfc222d75d46fc3b",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "1e31819e3d9a47bfbfc222d75d46fc3b",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "Set Available Kanban to EMPTY",
+        "type": "userTask",
+        "role": "Production Operator - Lean Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 2,
+        "name": "Set Kanban to FULL",
+        "type": "userTask",
+        "role": "Production Operator - Lean Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 3,
+        "name": "Optional: Monitor Replenishment Situation",
+        "type": "subProcess",
+        "role": "Production Planner - Lean Manufacturing",
+        "optional": false
+      },
+      {
+        "seq": 4,
+        "name": "Optional: Analyze Kanban Control Cycles",
+        "type": "subProcess",
+        "role": "Production Planner - Lean Manufacturing",
+        "optional": false
+      }
+    ],
+    "gateways": [],
+    "dependencies": []
+  }
+}

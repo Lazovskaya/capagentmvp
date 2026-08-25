@@ -1,0 +1,224 @@
+{
+  "scope_item_id": "BFB",
+  "title": "Basic Cash Operations",
+  "hierarchy": {
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
+    "L2_core_process": [
+      "Treasury Management"
+    ],
+    "L3_scope_item": "BFB - Basic Cash Operations",
+    "L4_steps": [
+      {
+        "step_no": 1,
+        "name": "Manage Payment Media",
+        "fiori_app_id": "F1868",
+        "technical_transaction": "FDTA",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST | SAP_BR_AP_ACCOUNTANT",
+        "component": "FI-FIO-AP-PAY"
+      },
+      {
+        "step_no": 2,
+        "name": "Reprocess Bank Statement Items",
+        "fiori_app_id": "F1520",
+        "technical_transaction": "FEBAN",
+        "app_type": null,
+        "role": "SAP_BR_AR_ACCOUNTANT | SAP_BR_CASH_SPECIALIST | SAP_BR_ADMIN_APR_FICA",
+        "component": "FI-FIO-AR-PAY"
+      },
+      {
+        "step_no": 3,
+        "name": "Manage Bank Statements",
+        "fiori_app_id": "F1564",
+        "technical_transaction": "FF.6",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_ADMIN_APR_FICA | SAP_BR_CASH_MANAGER",
+        "component": "FI-FIO-AR-PAY"
+      },
+      {
+        "step_no": 4,
+        "name": "Schedule Jobs for Health Check",
+        "fiori_app_id": "F3030",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM"
+      },
+      {
+        "step_no": 5,
+        "name": "Schedule Jobs for Health Check - With Free Selections",
+        "fiori_app_id": "F5285",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM"
+      },
+      {
+        "step_no": 6,
+        "name": "Schedule Job for Value Date Correction",
+        "fiori_app_id": "F6679",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM"
+      },
+      {
+        "step_no": 7,
+        "name": "Schedule Job for Rebuild Flow Types in Accounting Documents",
+        "fiori_app_id": "F6799",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM"
+      },
+      {
+        "step_no": 8,
+        "name": "Manage Memo Records",
+        "fiori_app_id": "F2986",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP"
+      },
+      {
+        "step_no": 9,
+        "name": "Manage Memo Records 2.0",
+        "fiori_app_id": "F2986A",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-COP"
+      },
+      {
+        "step_no": 10,
+        "name": "Bank Account Balance",
+        "fiori_app_id": "F3940",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-COP"
+      },
+      {
+        "step_no": 11,
+        "name": "Display Cash Management Logs",
+        "fiori_app_id": "F4991",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP"
+      },
+      {
+        "step_no": 12,
+        "name": "Import Memo Records 2.0",
+        "fiori_app_id": "F6124",
+        "technical_transaction": "FF63",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP"
+      },
+      {
+        "step_no": 13,
+        "name": "Schedule Jobs for Deactivating Memo Records 2.0",
+        "fiori_app_id": "F8915",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP"
+      },
+      {
+        "step_no": 14,
+        "name": "Cash Flow Analyzer",
+        "fiori_app_id": "F2332",
+        "technical_transaction": "FF7AN",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_CASH_SPECIALIST",
+        "component": "FIN-FSCM-CLM-COP-CP"
+      },
+      {
+        "step_no": 15,
+        "name": "Schedule Jobs for Cash Register",
+        "fiori_app_id": "F8948",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-FQM"
+      },
+      {
+        "step_no": 16,
+        "name": "Schedule Jobs for Flow Builder Utility Toolset",
+        "fiori_app_id": "F8949",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_SPECIALIST | SAP_BR_CASH_MANAGER",
+        "component": "FIN-FSCM-CLM-FQM"
+      },
+      {
+        "step_no": 17,
+        "name": "Schedule Jobs for Flow Builder",
+        "fiori_app_id": "F3804",
+        "technical_transaction": "",
+        "app_type": null,
+        "role": "SAP_BR_CASH_MANAGER | SAP_BR_TREASURY_SPEC_BOE_TH | SAP_BR_AP_ACCOUNTANT | SAP_BR_TREASURY_SPEC_BOE_CN | SAP_BR_AP_ACCOUNTANT_CN | SAP_BR_CASH_SPECIALIST | SAP_BR_AP_ACCOUNTANT_TH | SAP_BR_TREASURY_SPECIALIST_BOE | SAP_BR_AP_ACCOUNTANT_SG | SAP_BR_TREASURY_SPEC_BOE_SG",
+        "component": "FIN-FSCM-FQM"
+      }
+    ]
+  },
+  "note": "L2 sourced from SAP Signavio linkedBy reverse-references (Method 2), confirmed live 2026-08-24. L1 value stream populated from hand-curated L2->L1 lookup table (populate_l1_value_streams.py).",
+  "signavio_model_id": "613efb2eab204131ae2a148dee16905b",
+  "bpmn_flow": {
+    "source": "signavio",
+    "model_id": "613efb2eab204131ae2a148dee16905b",
+    "fetched": "2026-08-24",
+    "steps": [
+      {
+        "seq": 1,
+        "name": "16R - Bank Integration with FSN (outgoing)",
+        "type": "subProcess",
+        "role": "Cash Management Specialist",
+        "optional": false,
+        "calls_scope_item": "16R"
+      },
+      {
+        "seq": 2,
+        "name": "1EG - Bank Integration with file interface (outgoing)",
+        "type": "subProcess",
+        "role": "Cash Management Specialist",
+        "optional": false,
+        "calls_scope_item": "1EG"
+      },
+      {
+        "seq": 3,
+        "name": "Cash Position",
+        "type": "userTask",
+        "role": "Cash Management Specialist",
+        "optional": false
+      }
+    ],
+    "gateways": [
+      {
+        "seq_position": 0,
+        "type": "exclusiveGateway",
+        "direction": "Diverging"
+      },
+      {
+        "seq_position": 2,
+        "type": "exclusiveGateway",
+        "direction": "Converging"
+      }
+    ],
+    "dependencies": [
+      {
+        "scope_item_id": "16R",
+        "name": "16R - Bank Integration with FSN (outgoing)",
+        "optional": false
+      },
+      {
+        "scope_item_id": "1EG",
+        "name": "1EG - Bank Integration with file interface (outgoing)",
+        "optional": false
+      }
+    ]
+  }
+}

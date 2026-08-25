@@ -19,7 +19,7 @@ Ten buckets split into two fundamentally different kinds.
 | `operations/` | Run-loop contract + 6 operational templates (cutover runbook, hypercare playbook, rollback/escalation, SLO baseline, known-issues, production conversion) |
 | `testing/` | Defect-history register template + test-script template |
 | `standards/` | `source-synthesis.md` (document-construction methodology), `sap-architecture-references.md` (curated SAP GitHub/resource index) |
-| `clean-core/` | SAP clean-core guardrail rules — **schema defined, content not yet written** (highest-priority gap: wired into skills as a guardrail input) |
+| `clean-core/` | SAP clean-core guardrail rules — API release classification, upgrade-safety checklist, violation pattern catalog, in-app vs. side-by-side criteria |
 
 ---
 
@@ -44,6 +44,5 @@ validation rules are.
 
 ## What's missing (priority order)
 
-1. `clean-core/` content — guardrail already referenced by skills, nothing written yet
-2. Expert content layer for `domain-packs/sap-best-practices/` — troubleshooting trees, failure modes, config gotchas per scope item
-3. Second hand-curated domain pack (Source to Pay or Finance and Accounting — see `domain-packs/README.md`)
+1. Expert content layer for `domain-packs/sap-best-practices/` — troubleshooting trees, failure modes, config gotchas per scope item (needs resolved tickets or consultant input as source)
+2. Second hand-curated domain pack (Source to Pay or Finance and Accounting — see `domain-packs/README.md`)

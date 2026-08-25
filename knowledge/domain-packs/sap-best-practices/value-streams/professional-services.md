@@ -5,9 +5,12 @@
 
 Generated 2026-08-25. 14 scope items across 2 process groups.
 
-## Accounting and Financial Close
+| L2 process group | Items | Detail |
+|---|---|---|
+| Accounting and Financial Close | 3 | [accounting-and-financial-close.md](professional-services/accounting-and-financial-close.md) |
+| Professional Services | 11 | [professional-services.md](professional-services/professional-services.md) |
 
-3 scope items.
+## Accounting and Financial Close
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -15,74 +18,9 @@ Generated 2026-08-25. 14 scope items across 2 process groups.
 | `1P0` | Event-Based Revenue Recognition – Project-Based Services – IFRS | 12 | `2V8` | — | SAP_BR_SALES_ACCOUNTANT, SAP_BR_PROJECT_MANAGER_PROF |
 | `33O` | Event-Based Revenue Recognition – Project-Based Services – US GAAP | 12 | `2V8` | — | SAP_BR_SALES_ACCOUNTANT, SAP_BR_PROJECT_MANAGER_PROF |
 
-### 1IL — Event-Based Revenue Recognition – Project-Based Services
-
-**Process steps** (BPMN execution order):
-
-1. **Revenue Recognition (Event-Based) - Projects** — *Cost Accountant - Sales*
-2. **Manage Real-Time Revenue Recognition Issues** — *Cost Accountant - Sales*
-3. **Run Revenue Recognition  - Projects** — *Cost Accountant - Sales*
-4. **2V8 - Advanced Financial Closing** — *General Ledger Accountant* → calls `2V8`
-5. **Manage Revenue Recognition Issues - Projects** — *Cost Accountant - Sales*
-6. **Run Revenue Recognition  - Projects** — *Cost Accountant - Sales*
-7. **Revenue Recognition Reversal                    (optional)** *(optional)* — *Cost Accountant - Sales*
-8. **Review Projects - Actuals** — *Cost Accountant - Sales*
-9. **Review Project WIP Details** — *Cost Accountant - Sales*
-10. **Review Project WIP Details (2)** — *Cost Accountant - Sales*
-11. **Inspect Revenue Recognition Postings** — *Cost Accountant - Sales*
-
-**Key Fiori apps / TCodes:**
-
-- `F4766` — Display Project WIP Details
-
-### 1P0 — Event-Based Revenue Recognition – Project-Based Services – IFRS
-
-**Process steps** (BPMN execution order):
-
-1. **Revenue Recognition (Event Based) - Projects** — *Cost Accountant - Sales*
-2. **Review Allocated Revenue (optional)** *(optional)* — *Cost Accountant - Sales*
-3. **Manage Real-Time Revenue Recognition Issues** — *Cost Accountant - Sales*
-4. **Run Revenue Recognition  - Projects** — *Cost Accountant - Sales*
-5. **2V8 - Advanced Financial Closing** — *General Ledger Accountant* → calls `2V8`
-6. **Manage Revenue Recognition Issues - Projects** — *Cost Accountant - Sales*
-7. **Run Revenue Recognition  - Projects** — *Cost Accountant - Sales*
-8. **Revenue Recognition Reversal                    (optional)** *(optional)* — *Cost Accountant - Sales*
-9. **Review Projects - Actuals** — *Cost Accountant - Sales*
-10. **Review Project WIP Details** — *Cost Accountant - Sales*
-11. **Review Project WIP Details (2)** — *Cost Accountant - Sales*
-12. **Inspect Revenue Recognition Postings** — *Cost Accountant - Sales*
-
-**Key Fiori apps / TCodes:**
-
-- `F3039` — Allocated Revenue
-- `F4766` — Display Project WIP Details
-
-### 33O — Event-Based Revenue Recognition – Project-Based Services – US GAAP
-
-**Process steps** (BPMN execution order):
-
-1. **Revenue Recognition (Event Based) - Projects** — *Cost Accountant - Sales*
-2. **Review Allocated Revenue (optional)** *(optional)* — *Cost Accountant - Sales*
-3. **Manage Real-Time Revenue Recognition Issues** — *Cost Accountant - Sales*
-4. **2V8 - Advanced Financial Closing** — *General Ledger Accountant* → calls `2V8`
-5. **Run Revenue Recognition  - Projects** — *Cost Accountant - Sales*
-6. **Manage Revenue Recognition Issues - Projects** — *Cost Accountant - Sales*
-7. **Run Revenue Recognition  - Projects** — *Cost Accountant - Sales*
-8. **Revenue Recognition
-Reversal                    (optional)** *(optional)* — *Cost Accountant - Sales*
-9. **Review Projects - Actuals** — *Cost Accountant - Sales*
-10. **Review Project WIP Details (2)** — *Cost Accountant - Sales*
-11. **Review Project WIP Details** — *Cost Accountant - Sales*
-12. **Inspect Revenue Recognition Postings** — *Cost Accountant - Sales*
-
-**Key Fiori apps / TCodes:**
-
-- `F3039` — Allocated Revenue
-- `F4766` — Display Project WIP Details
+*Full BPMN detail → [accounting-and-financial-close.md](professional-services/accounting-and-financial-close.md)*
 
 ## Professional Services
-
-11 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -98,195 +36,5 @@ Reversal                    (optional)** *(optional)* — *Cost Accountant - Sal
 | `J13` | Service and Material Procurement – Project-Based Services | 0 | — | — | SAP_BR_INTERNAL_SALES_REP_PRSV, SAP_BR_BILLING_CLERK, SAP_BR_PROJ_BILLG_SPCLST, SAP_BR_PROJECT_MANAGER_PROF |
 | `J14` | Sales Order Processing – Project-Based Services | 2 | — | — | SAP_BR_SALES_MANAGER, SAP_BR_EXTERNAL_AUDITOR, SAP_BR_INTERNAL_SALES_REP_PRSV, SAP_BR_INTERNAL_SALES_REP |
 
-### 16T — None
-
-**Process steps** (BPMN execution order):
-
-1. **Check Intercompany Sales Order (optional)** *(optional)* — *Internal Sales Representative (Delivering Company)*
-
-### 1A8 — Internal Project Management – Project-Based Services
-
-**Process steps** (BPMN execution order):
-
-1. **Analyze Internal Project (Optional)** *(optional)* — *Project Manager - Commercial Services*
-2. **Internal Project Factsheet** — *Project Manager - Commercial Services*
-3. **Maintain Settlement Rules** — *Project Manager - Commercial Services*
-4. **Maintain Work Packages and Time Based Planning** — *Project Manager - Commercial Services*
-5. **Maintain Work Package Staffing** — *Project Manager - Commercial Services*
-6. **Maintain Work Package Staffing** — *Resource Manager*
-7. **J12 - Time Recording for Project based Services** — *Employee* → calls `J12`
-8. **J13 – Service & Material Procurement (into consumption) for Project-based Services Intercompany/ Intracompany** — *Purchaser* → calls `J13`
-9. **BNX - Consumable Purchasing** — *Purchaser* → calls `BNX`
-10. **Set Project Status (Completed)** — *Project Manager - Commercial Services*
-11. **Review Internal Projects** — *Project Manager - Commercial Services*
-12. **16T - Intercompany Processes - Project-Based Services** — *Billing Clerk* → calls `16T`
-13. **J58 - Accounting & Financial Close** — *General Ledger Accountant* → calls `J58`
-14. **Close Internal Project** — *Project Manager - Commercial Services*
-15. **J55 - Profitability & Cost Analysis** — *Cost Accountant - Overhead* → calls `J55`
-16. **Reset Project Status to Completed (Optional)** *(optional)* — *Project Manager - Commercial Services*
-
-**Key Fiori apps / TCodes:**
-
-- `F1656` / `CJ06` — Plan Internal Projects
-- `F6869` — Project Control - Professional Services Projects
-- `F8336` — Manage Projects - Professional Services Projects
-
-### 1IL — Event-Based Revenue Recognition – Project-Based Services
-
-**Process steps** (BPMN execution order):
-
-1. **Revenue Recognition (Event-Based) - Projects** — *Cost Accountant - Sales*
-2. **Manage Real-Time Revenue Recognition Issues** — *Cost Accountant - Sales*
-3. **Run Revenue Recognition  - Projects** — *Cost Accountant - Sales*
-4. **2V8 - Advanced Financial Closing** — *General Ledger Accountant* → calls `2V8`
-5. **Manage Revenue Recognition Issues - Projects** — *Cost Accountant - Sales*
-6. **Run Revenue Recognition  - Projects** — *Cost Accountant - Sales*
-7. **Revenue Recognition Reversal                    (optional)** *(optional)* — *Cost Accountant - Sales*
-8. **Review Projects - Actuals** — *Cost Accountant - Sales*
-9. **Review Project WIP Details** — *Cost Accountant - Sales*
-10. **Review Project WIP Details (2)** — *Cost Accountant - Sales*
-11. **Inspect Revenue Recognition Postings** — *Cost Accountant - Sales*
-
-**Key Fiori apps / TCodes:**
-
-- `F4766` — Display Project WIP Details
-
-### 1P0 — Event-Based Revenue Recognition – Project-Based Services – IFRS
-
-**Process steps** (BPMN execution order):
-
-1. **Revenue Recognition (Event Based) - Projects** — *Cost Accountant - Sales*
-2. **Review Allocated Revenue (optional)** *(optional)* — *Cost Accountant - Sales*
-3. **Manage Real-Time Revenue Recognition Issues** — *Cost Accountant - Sales*
-4. **Run Revenue Recognition  - Projects** — *Cost Accountant - Sales*
-5. **2V8 - Advanced Financial Closing** — *General Ledger Accountant* → calls `2V8`
-6. **Manage Revenue Recognition Issues - Projects** — *Cost Accountant - Sales*
-7. **Run Revenue Recognition  - Projects** — *Cost Accountant - Sales*
-8. **Revenue Recognition Reversal                    (optional)** *(optional)* — *Cost Accountant - Sales*
-9. **Review Projects - Actuals** — *Cost Accountant - Sales*
-10. **Review Project WIP Details** — *Cost Accountant - Sales*
-11. **Review Project WIP Details (2)** — *Cost Accountant - Sales*
-12. **Inspect Revenue Recognition Postings** — *Cost Accountant - Sales*
-
-**Key Fiori apps / TCodes:**
-
-- `F3039` — Allocated Revenue
-- `F4766` — Display Project WIP Details
-
-### 33O — Event-Based Revenue Recognition – Project-Based Services – US GAAP
-
-**Process steps** (BPMN execution order):
-
-1. **Revenue Recognition (Event Based) - Projects** — *Cost Accountant - Sales*
-2. **Review Allocated Revenue (optional)** *(optional)* — *Cost Accountant - Sales*
-3. **Manage Real-Time Revenue Recognition Issues** — *Cost Accountant - Sales*
-4. **2V8 - Advanced Financial Closing** — *General Ledger Accountant* → calls `2V8`
-5. **Run Revenue Recognition  - Projects** — *Cost Accountant - Sales*
-6. **Manage Revenue Recognition Issues - Projects** — *Cost Accountant - Sales*
-7. **Run Revenue Recognition  - Projects** — *Cost Accountant - Sales*
-8. **Revenue Recognition
-Reversal                    (optional)** *(optional)* — *Cost Accountant - Sales*
-9. **Review Projects - Actuals** — *Cost Accountant - Sales*
-10. **Review Project WIP Details (2)** — *Cost Accountant - Sales*
-11. **Review Project WIP Details** — *Cost Accountant - Sales*
-12. **Inspect Revenue Recognition Postings** — *Cost Accountant - Sales*
-
-**Key Fiori apps / TCodes:**
-
-- `F3039` — Allocated Revenue
-- `F4766` — Display Project WIP Details
-
-### 4AN — Intercompany Billing for Cross-Company Cost Accounting Postings
-
-**Process steps** (BPMN execution order):
-
-1. **Create Debit Memo Request for Intercompany Billing** — *Internal Sales Representative (Sending Company)*
-2. **Manage Debit Memo Request (Optional)** *(optional)* — *Internal Sales Representative (Sending Company)*
-3. **Create Intercompany Invoice** — *Billing Clerk (Sending Company)*
-4. **Create IC documents for Accounts Receivable / General Ledger / Profitability Segment** — *Billing Clerk (Sending Company)*
-5. **Send IC Invoice via IDOC to Ordering Company** — *System*
-6. **Incoming IDOC creates IC documents for Accounts Payable / General Ledger / Profitability Segment in Ordering Company** — *System*
-
-**Key Fiori apps / TCodes:**
-
-- `F1829` — Generate Intercompany Billing Request
-
-### 4E9 — Project Billing – Project-Based Services
-
-**Process steps** (BPMN execution order):
-
-1. **Manage Billing Document Requests** — *Billing Clerk*
-2. **Automatic creation of Billing Document Request** — *Approver*
-
-**Key Fiori apps / TCodes:**
-
-- `F5980` — Manage Project Billing Request Workflow
-- `F0719` / `CJ20N` — Plan Customer Projects
-- `F4374` — Manage Project Billing
-- `F4422` — Schedule Repricing for Projects
-- `F6545` — Manage Project Billing Requests
-- `F6990` — Manage Preliminary Billing Documents - Services
-
-### 6JO — Resource Management for Projects
-
-**Process steps** (BPMN execution order):
-
-1. **Create Resource Request** — *Project Manager*
-
-**Key Fiori apps / TCodes:**
-
-- `F0719` / `CJ20N` — Plan Customer Projects
-- `F1656` / `CJ06` — Plan Internal Projects
-- `F8336` — Manage Projects - Professional Services Projects
-- `F4705` / `F4705` — My Project Experience
-- `F4723` / `F4723` — Manage Resource Requests
-- `F5991` / `F5991` — My Assignments
-- `F4562` — Manage Project Demand
-- `F3215` — Project Control - Enterprise Projects
-
-### J11 — Customer Project Management – Project-Based Services
-
-**Process steps** (BPMN execution order):
-
-1. **Analyze Customer Project (optional)** *(optional)* — *Project Manager - Commercial Services*
-2. **Customer Project Factsheet (Optional)** *(optional)* — *Project Manager - Commercial Services*
-3. **Maintain Customer Project** — *Project Manager - Commercial Services*
-4. **1KC - Advanced Resource Management - Project-Based Services** — *Resource Manager* → calls `1KC`
-5. **Maintain Work Package Staffing** — *Project Manager - Commercial Services*
-6. **J13 – Service and Material Procurement (for consumption) for Project-Based Services** — *Purchaser* → calls `J13`
-7. **BNX - Consumable Purchasing** — *Purchaser* → calls `BNX`
-8. **16T - Intercompany Processes for Project-Based Services** — *Billing Clerk* → calls `16T`
-9. **J14 - Sales Order Processing for Project-Based Services – Order Management** — *Internal Sales Representative - Professional Services* → calls `J14`
-10. **Capture Service Units (optional)** *(optional)* — *Cost Accountant - Overhead*
-11. **J12 - Time Recording** — *Employee - HR Info* → calls `J12`
-12. **Create Extracts for Project Billing** — *Project Manager - Commercial Services*
-13. **Review Customer Project** — *Project Manager - Commercial Services*
-14. **J14 - Sales Order Processing for Project-Based Services** — *Billing Clerk* → calls `J14`
-15. **Set Project Status to Completed** — *Project Manager - Commercial Services*
-16. **J58 - Accounting & Financial Close** — *General Ledger Accountant* → calls `J58`
-17. **Close Customer Project** — *Project Manager - Commercial Services*
-18. **1IL - Event-Based Revenue Recognition - Project-Based Services** — *Cost Accountant - Overhead* → calls `1IL`
-19. **Reset Project Status to Completed (Optional)** *(optional)* — *Project Manager - Commercial Services*
-20. **J55 - Profitability & Cost Analysis (including Revenue Recognition)** — *Cost Accountant - Overhead* → calls `J55`
-
-**Key Fiori apps / TCodes:**
-
-- `F0719` / `CJ20N` — Plan Customer Projects
-- `F1659` — Review Customer Projects
-- `F6869` — Project Control - Professional Services Projects
-- `F3697A` / `KB21N` — Manage Direct Activity Allocation - New Version
-- `F0780` / `DP95` — Release Billing Proposals
-- `F4374` — Manage Project Billing
-- `F4422` — Schedule Repricing for Projects
-
-### J14 — Sales Order Processing – Project-Based Services
-
-**Process steps** (BPMN execution order):
-
-1. **Create Down Payment Request (Optional)** *(optional)* — *Billing Clerk*
-2. **Manage Customer Invoices (Optional)** *(optional)* — *Billing Clerk*
-
-**Key Fiori apps / TCodes:**
-
-- `F1988A` — Manage Debit Memo Requests - Version 2
+*Full BPMN detail → [professional-services.md](professional-services/professional-services.md)*
 

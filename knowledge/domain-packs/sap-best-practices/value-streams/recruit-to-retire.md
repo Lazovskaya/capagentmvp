@@ -5,9 +5,12 @@
 
 Generated 2026-08-25. 10 scope items across 2 process groups.
 
-## Core HR and Time Recording
+| L2 process group | Items | Detail |
+|---|---|---|
+| Core HR and Time Recording | 6 | [core-hr-and-time-recording.md](recruit-to-retire/core-hr-and-time-recording.md) |
+| Enterprise Information Management | 4 | [enterprise-information-management.md](recruit-to-retire/enterprise-information-management.md) |
 
-6 scope items.
+## Core HR and Time Recording
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -18,70 +21,9 @@ Generated 2026-08-25. 10 scope items across 2 process groups.
 | `J12` | Time Recording – Project-Based Services | 8 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_PROJ_BILLG_SPCLST |
 | `JB1` | None | 1 | — | — | — |
 
-### 1FD — None
-
-**Process steps** (BPMN execution order):
-
-1. **Creating Employee** — *HR Administrator (OM)*
-
-### 1NL — None
-
-**Process steps** (BPMN execution order):
-
-1. **Maintain cost center** — *Cost Accountant - Overhead*
-2. **View cost center data** — *HR Administrator (PA)*
-
-### 1Q4 — Time Recording
-
-**Process steps** (BPMN execution order):
-
-1. **Record Actual Working Times** — *Employee*
-2. **Transfer Actual Working Times            (optional)** *(optional)* — *Employee*
-3. **Update Timesheet** — *Employee*
-4. **Timesheet: Transfer to Target Components** — *Employee*
-
-**Key Fiori apps / TCodes:**
-
-- `F1823` / `CAT2` — Manage My Timesheet
-- `F3328` — My Inbox - Approve Timesheets
-
-### 3UP — None
-
-**Process steps** (BPMN execution order):
-
-1. **View transferred documents in SAP S/4HANA Cloud** — *General Ledger Accountant*
-
-### J12 — Time Recording – Project-Based Services
-
-**Process steps** (BPMN execution order):
-
-1. **Transfer Actual Working Times 
-           (optional)** *(optional)* — *Employee*
-2. **Notify Missing Time** — *Project Manager - Commercial Services*
-3. **Analyze Team Utilization** — *Manager - HR Info*
-4. **Record Actual Working Times** — *Employee*
-5. **Approval of Working Times** — *Project Manager - Commercial Services*
-6. **Timesheet on behalf** — *Project Manager - Commercial Services*
-7. **Timesheet on behalf** — *Manager - HR Info*
-8. **Timesheet: Transfer 
-to Target Components** — *Project Manager - Commercial Services*
-
-**Key Fiori apps / TCodes:**
-
-- `F1823` / `CAT2` — Manage My Timesheet
-- `F2556` — Notify Missing Times
-- `F2582` — Team Utilization
-- `F4374` — Manage Project Billing
-
-### JB1 — None
-
-**Process steps** (BPMN execution order):
-
-1. **Maintain Company Code** — *Controller*
+*Full BPMN detail → [core-hr-and-time-recording.md](recruit-to-retire/core-hr-and-time-recording.md)*
 
 ## Enterprise Information Management
-
-4 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -90,28 +32,5 @@ to Target Components** — *Project Manager - Commercial Services*
 | `3UP` | None | 1 | — | — | — |
 | `JB1` | None | 1 | — | — | — |
 
-### 1FD — None
-
-**Process steps** (BPMN execution order):
-
-1. **Creating Employee** — *HR Administrator (OM)*
-
-### 1NL — None
-
-**Process steps** (BPMN execution order):
-
-1. **Maintain cost center** — *Cost Accountant - Overhead*
-2. **View cost center data** — *HR Administrator (PA)*
-
-### 3UP — None
-
-**Process steps** (BPMN execution order):
-
-1. **View transferred documents in SAP S/4HANA Cloud** — *General Ledger Accountant*
-
-### JB1 — None
-
-**Process steps** (BPMN execution order):
-
-1. **Maintain Company Code** — *Controller*
+*Full BPMN detail → [enterprise-information-management.md](recruit-to-retire/enterprise-information-management.md)*
 

@@ -18,13 +18,26 @@ the same SAP domain, unlike `process`/`config`/etc. which are always this-client
   condition-technique reference, billing/AR account-determination reference, IDoc ORDERS/INVOIC
   message catalog, and 10 troubleshooting diagnostic trees.
 
-Other domains (not built yet) would bring their own pack here, following `order-to-cash/`'s shape,
-without changing the generic engine skills (`incident-triage`, `root-cause-playbook`,
-`defect-pattern-analysis`, `idoc-failure-analyzer`, `fix-doc-and-regression`) that orchestrate
-whichever pack is in scope.
+- `sap-best-practices/` — SAP Best Practices process taxonomy (L1-L4 hierarchy, 732 scope items,
+  BPMN flow steps, Fiori apps, cross-item dependency graph). Structural/taxonomy layer generated
+  from Signavio + FAL 2.0 data. Expert content layer (troubleshooting trees, failure modes,
+  configuration gotchas per scope item) not yet written.
+
+## Planned domain packs (not yet built)
+
+Following `order-to-cash/`'s shape — generic engine skills stay unchanged, only the pack swaps:
+
+| Domain | Priority driver |
+|---|---|
+| Source to Pay / Procure-to-Pay | Second most common engagement type after O2C |
+| Finance and Accounting | FI-CO defects form a large share of AMS volume |
+| Manufacturing / Plan to Fulfill | PP/MM defects, BOM/routing issues |
+
+Each pack needs: incident taxonomy, signal catalog, routing matrix, subprocess adjacency, and
+at least 5 troubleshooting trees to be useful. `sap-best-practices/` taxonomy data is available
+for all three as a starting point for scope-item scoping.
 
 ## Status
 
-Progress. `order-to-cash/` is real, ported content; the bucket itself (as a concept distinct from
-the other eight) is new this cycle, not yet re-verified end to end inside this factory's own
-pipeline wiring.
+`order-to-cash/` is real, ported content. `sap-best-practices/` has the structural taxonomy layer
+(2026-08-25); expert content layer not yet written. Other domain packs not started.

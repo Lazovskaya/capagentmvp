@@ -5,89 +5,50 @@
 
 Generated 2026-08-25. 107 scope items across 22 process groups.
 
-## Accounting and Financial Close
+| L2 process group | Items | Detail |
+|---|---|---|
+| Accounting and Financial Close | 2 | [accounting-and-financial-close.md](design-to-operate/accounting-and-financial-close.md) |
+| Central Procurement | 2 | [central-procurement.md](design-to-operate/central-procurement.md) |
+| Cost Management and Profitability Analysis | 4 | [cost-management-and-profitability-analysis.md](design-to-operate/cost-management-and-profitability-analysis.md) |
+| Enterprise Information Management | 3 | [enterprise-information-management.md](design-to-operate/enterprise-information-management.md) |
+| Enterprise Portfolio and Project Management | 10 | [enterprise-portfolio-and-project-management.md](design-to-operate/enterprise-portfolio-and-project-management.md) |
+| Environment, Health, and Safety | 6 | [environment-health-and-safety.md](design-to-operate/environment-health-and-safety.md) |
+| Financial Operations | 2 | [financial-operations.md](design-to-operate/financial-operations.md) |
+| Inventory | 2 | [inventory.md](design-to-operate/inventory.md) |
+| Invoice Management | 3 | [invoice-management.md](design-to-operate/invoice-management.md) |
+| Maintenance Management | 9 | [maintenance-management.md](design-to-operate/maintenance-management.md) |
+| Manufacturing Operations | 6 | [manufacturing-operations.md](design-to-operate/manufacturing-operations.md) |
+| Manufacturing Options | 3 | [manufacturing-options.md](design-to-operate/manufacturing-options.md) |
+| Operational Procurement | 4 | [operational-procurement.md](design-to-operate/operational-procurement.md) |
+| Order Promising | 2 | [order-promising.md](design-to-operate/order-promising.md) |
+| Order and Contract Management | 2 | [order-and-contract-management.md](design-to-operate/order-and-contract-management.md) |
+| Process Management and Integration | 1 | [process-management-and-integration.md](design-to-operate/process-management-and-integration.md) |
+| Product Engineering | 9 | [product-engineering.md](design-to-operate/product-engineering.md) |
+| Product Lifecycle Management | 21 | [product-lifecycle-management.md](design-to-operate/product-lifecycle-management.md) |
+| Production Engineering | 5 | [production-engineering.md](design-to-operate/production-engineering.md) |
+| Production Planning | 7 | [production-planning.md](design-to-operate/production-planning.md) |
+| Quality Management | 3 | [quality-management.md](design-to-operate/quality-management.md) |
+| Supplier Management | 1 | [supplier-management.md](design-to-operate/supplier-management.md) |
 
-2 scope items.
+## Accounting and Financial Close
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `61W` | None | 16 | — | — | — |
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-### 61W — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create Change Master** — *BOM Engineer*
-2. **Changes of Info Record Condition** — *Purchaser*
-3. **Enter Future Prices** — *Inventory Accountant*
-4. **Change Material Costs** — *Inventory Accountant*
-5. **Exchange a Component in the Material BOM** — *BOM Engineer*
-6. **Release Planned Price Change** — *Inventory Accountant*
-7. **Set Change Master Status to Inactive** — *BOM Engineer*
-8. **Create Costing Run** — *Inventory Accountant*
-9. **Manually Create Production Order (Optional)** *(optional)* — *Production Supervisor - Discrete Manufacturing*
-10. **Execute Costing Run** — *Inventory Accountant*
-11. **Material Price Analysis** — *Inventory Accountant*
-12. **Execute Costing Run Comparison** — *Inventory Accountant*
-13. **Create Change Master (Optional)** *(optional)* — *BOM Engineer*
-14. **Change to Original Component in the Material BOM (Optional)** *(optional)* — *BOM Engineer*
-15. **Set Change Master Status to Inactive (Optional)** *(optional)* — *BOM Engineer*
-16. **Manually Create Production Order (Optional)** *(optional)* — *Production Supervisor - Discrete Manufacturing*
+*Full BPMN detail → [accounting-and-financial-close.md](design-to-operate/accounting-and-financial-close.md)*
 
 ## Central Procurement
-
-2 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `5HK` | Quality Management in Discrete Manufacturing – Consumer Products | 2 | — | — | SAP_BR_PRODN_OPTR_DISC |
 | `5W4` | None | 25 | — | — | — |
 
-### 5HK — Quality Management in Discrete Manufacturing – Consumer Products
-
-**Process steps** (BPMN execution order):
-
-1. **Create Initial Material Stock** — *Warehouse Clerk*
-2. **Execute Process Steps starting from "Convert Planned Orders to Production Orders" to "Display Material Stock after Usage Decision"** — *Production Planner*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
-
-### 5W4 — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create Planned Independent Requirements** — *Production Planner*
-2. **Create Purchase Order manually** — *Purchaser*
-3. **Material Requirements Planning at Plant Level** — *Production Planner*
-4. **Evaluate Stock/Requirements Situation and Prepare Planned Order for Subcontracting** — *Production Planner*
-5. **Approve Purchase Orders (Optional)** *(optional)* — *Purchasing Manager*
-6. **Convert Planned Order to Purchase Requisition** — *Production Planner*
-7. **Monitor Subcontracting Documents (Optional)** *(optional)* — *Purchaser*
-8. **Convert Purchase Requisition to Purchase Order** — *Purchaser*
-9. **Execute Material Requirements Planning at Plant Level (Optional)** *(optional)* — *Production Planner*
-10. **Evaluate Stock/Requirements Situation (Optional)** *(optional)* — *Production Planner*
-11. **Transfer Components to the Subcontractor** — *Inventory Manager*
-12. **Evaluate Stock / Requirements Situation** — *Production Planner*
-13. **Receive Goods from Subcontracting Purchase Order** — *Warehouse Clerk*
-14. **Evaluate Stock / Requirements Situation** — *Production Planner*
-15. **Display Material Stock Before Quality Inspection (Optional)** *(optional)* — *Inventory Manager*
-16. **Display Inspection Plan for Inspection Characteristics (Optional)** *(optional)* — *Quality Technician*
-17. **Display Quality Technician Overview (Optional)** *(optional)* — *Quality Technician*
-18. **Display Open Inspection Lots (Optional)** *(optional)* — *Quality Technician*
-19. **Record Inspection Results** — *Quality Technician*
-20. **Display Quality Engineer Overview (Optional)** *(optional)* — *Quality Engineer*
-21. **Make Usage Decision** — *Quality Engineer*
-22. **Display Material Stock after Quality Inspection (Optional)** *(optional)* — *Warehouse Clerk*
-23. **Create Supplier Invoice** — *Accounts Payable Accountant (Freight Costs)*
-24. **Review Supplier Invoice (Optional)** *(optional)* — *Accounts Payable Accountant (Freight Costs)*
-25. **Batch Information Cockpit - Top Down and Bottom-Up Analysis** — *Quality Technician*
+*Full BPMN detail → [central-procurement.md](design-to-operate/central-procurement.md)*
 
 ## Cost Management and Profitability Analysis
-
-4 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -96,61 +57,9 @@ Generated 2026-08-25. 107 scope items across 22 process groups.
 | `61W` | None | 16 | — | — | — |
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-### 1NT — Project Control – Finance
-
-**Process steps** (BPMN execution order):
-
-1. **Create Project** — *Project Financial Controller*
-2. **1YF - Project Review                   (Optional)** *(optional)* — *Project Manager* → calls `1YF`
-3. **Predict Project Costs (Optional)** *(optional)* — *Project Financial Controller*
-4. **Close Project Parts and Project** — *Project Financial Controller*
-5. **Capture Planned Costs** — *Project Financial Controller*
-6. **Capture Project Budget (Optional)** *(optional)* — *Project Financial Controller*
-7. **4RF - Define Demand** — *Project Controller - Procurement* → calls `4RF`
-8. **Release Projects/Project Parts** — *Project Financial Controller*
-9. **4RF - Project Control Procurement** — *Project Controller - Procurement* → calls `4RF`
-10. **1Q4 - Time Recording** — *Employee* → calls `1Q4`
-11. **Monitor Project via Monitor Projects App** — *Project Financial Controller*
-12. **Post General Journal Entry** — *General Ledger Accountant*
-13. **Direct Activity Allocation** — *Controller*
-14. **Check/Update Settlement Rule** — *Project Financial Controller*
-15. **BNA - Period-End Closing Projects                    (Optional)** *(optional)* — *Project Financial Controller* → calls `BNA`
-16. **Complete Project Parts and Project** — *Project Financial Controller*
-
-**Key Fiori apps / TCodes:**
-
-- `F1823` / `CAT2` — Manage My Timesheet
-- `F3078` — Project Financial Controller Overview
-- `F3088` — Monitor Projects
-- `F3377` — Project Budget Report - Overview
-- `F3215` — Project Control - Enterprise Projects
-- `F3891` — Mass Changes to Projects
-- `F5342` — Manage Budget Documents – Projects
-
-### 61W — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create Change Master** — *BOM Engineer*
-2. **Changes of Info Record Condition** — *Purchaser*
-3. **Enter Future Prices** — *Inventory Accountant*
-4. **Change Material Costs** — *Inventory Accountant*
-5. **Exchange a Component in the Material BOM** — *BOM Engineer*
-6. **Release Planned Price Change** — *Inventory Accountant*
-7. **Set Change Master Status to Inactive** — *BOM Engineer*
-8. **Create Costing Run** — *Inventory Accountant*
-9. **Manually Create Production Order (Optional)** *(optional)* — *Production Supervisor - Discrete Manufacturing*
-10. **Execute Costing Run** — *Inventory Accountant*
-11. **Material Price Analysis** — *Inventory Accountant*
-12. **Execute Costing Run Comparison** — *Inventory Accountant*
-13. **Create Change Master (Optional)** *(optional)* — *BOM Engineer*
-14. **Change to Original Component in the Material BOM (Optional)** *(optional)* — *BOM Engineer*
-15. **Set Change Master Status to Inactive (Optional)** *(optional)* — *BOM Engineer*
-16. **Manually Create Production Order (Optional)** *(optional)* — *Production Supervisor - Discrete Manufacturing*
+*Full BPMN detail → [cost-management-and-profitability-analysis.md](design-to-operate/cost-management-and-profitability-analysis.md)*
 
 ## Enterprise Information Management
-
-3 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -158,18 +67,9 @@ Generated 2026-08-25. 107 scope items across 22 process groups.
 | `55E` | Lot Size of One with Advanced Variant Configuration | 0 | — | — | SAP_BR_PRODN_OPTR_DISC |
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-### 2YC — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create New Document** — *Design Engineer*
-2. **Retrieve Auto-Classification** — *Design Engineer*
-3. **Validate Auto-Classification** — *Design Engineer*
-4. **Save Document** — *Design Engineer*
+*Full BPMN detail → [enterprise-information-management.md](design-to-operate/enterprise-information-management.md)*
 
 ## Enterprise Portfolio and Project Management
-
-10 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -184,142 +84,9 @@ Generated 2026-08-25. 107 scope items across 22 process groups.
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 | `6JN` | Collaborative Project Management | 3 | — | — | SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_PROJECTMANAGER, SAP_BR_PROJ_FIN_CONTROLLER, SAP_BR_PROJECT_STEER_MEMBER |
 
-### 1NT — Project Control – Finance
-
-**Process steps** (BPMN execution order):
-
-1. **Create Project** — *Project Financial Controller*
-2. **1YF - Project Review                   (Optional)** *(optional)* — *Project Manager* → calls `1YF`
-3. **Predict Project Costs (Optional)** *(optional)* — *Project Financial Controller*
-4. **Close Project Parts and Project** — *Project Financial Controller*
-5. **Capture Planned Costs** — *Project Financial Controller*
-6. **Capture Project Budget (Optional)** *(optional)* — *Project Financial Controller*
-7. **4RF - Define Demand** — *Project Controller - Procurement* → calls `4RF`
-8. **Release Projects/Project Parts** — *Project Financial Controller*
-9. **4RF - Project Control Procurement** — *Project Controller - Procurement* → calls `4RF`
-10. **1Q4 - Time Recording** — *Employee* → calls `1Q4`
-11. **Monitor Project via Monitor Projects App** — *Project Financial Controller*
-12. **Post General Journal Entry** — *General Ledger Accountant*
-13. **Direct Activity Allocation** — *Controller*
-14. **Check/Update Settlement Rule** — *Project Financial Controller*
-15. **BNA - Period-End Closing Projects                    (Optional)** *(optional)* — *Project Financial Controller* → calls `BNA`
-16. **Complete Project Parts and Project** — *Project Financial Controller*
-
-**Key Fiori apps / TCodes:**
-
-- `F1823` / `CAT2` — Manage My Timesheet
-- `F3078` — Project Financial Controller Overview
-- `F3088` — Monitor Projects
-- `F3377` — Project Budget Report - Overview
-- `F3215` — Project Control - Enterprise Projects
-- `F3891` — Mass Changes to Projects
-- `F5342` — Manage Budget Documents – Projects
-
-### 2Y7 — None
-
-**Process steps** (BPMN execution order):
-
-1. **Train the Model** — *Analytics Specialist*
-
-### 35E — Project Control – Research and Development Projects
-
-**Process steps** (BPMN execution order):
-
-1. **Create R&D Project** — *Project Financial Controller*
-2. **Inform Project Manager** — *Project Financial Controller*
-3. **1YF - Describe Project** — *Project Manager* → calls `1YF`
-4. **Predict Project Costs (Optional)** *(optional)* — *Project Financial Controller*
-5. **Upload Planned Costs** — *Project Financial Controller*
-6. **1YF - Central Project Review** — *Project Steering Committee Member* → calls `1YF`
-7. **Assign Project Budget** — *Project Financial Controller*
-8. **4RF - Define Demand** — *Project Controller - Procurement* → calls `4RF`
-9. **Release Project** — *Project Financial Controller*
-10. **1YF - Project Milestones Review** — *Project Steering Committee Member* → calls `1YF`
-11. **Post General Journal Entries** — *General Ledger Accountant*
-12. **4RF - Project Control - Procurement** — *Project Controller - Procurement* → calls `4RF`
-13. **1Q4 - Time Recording** — *Project Manager* → calls `1Q4`
-14. **Close Project** — *Project Financial Controller*
-15. **Monitor Project** — *Project Financial Controller*
-16. **BNA - Period End Closing** — *Project Financial Controller* → calls `BNA`
-
-**Key Fiori apps / TCodes:**
-
-- `F3078` — Project Financial Controller Overview
-- `F3088` — Monitor Projects
-- `F3377` — Project Budget Report - Overview
-- `F3215` — Project Control - Enterprise Projects
-
-### 35F — Project Control – Capital Projects
-
-**Process steps** (BPMN execution order):
-
-1. **Create Project** — *Project Financial Controller*
-2. **Inform Project Manager Using Co-pilot** — *Project Financial Controller*
-3. **1YF - Describe Project (Optional)** *(optional)* — *Project Manager* → calls `1YF`
-4. **Predict Project Costs (Optional)** *(optional)* — *Project Financial Controller*
-5. **Capture Planned Costs** — *Project Financial Controller*
-6. **1YF - Review and Approve Project (Optional)** *(optional)* — *Project Steering Committee Member* → calls `1YF`
-7. **Upload Project Budget** — *Project Financial Controller*
-8. **4RF - Define Demand** — *Project Controller - Procurement* → calls `4RF`
-9. **Release Projects** — *Project Financial Controller*
-10. **Post General Journal Entries** — *General Ledger Accountant*
-11. **1Q4 - Time Recording** — *Project Team Member* → calls `1Q4`
-12. **4RF - Project Control - Procurement** — *Project Controller - Procurement* → calls `4RF`
-13. **Monitor Project** — *Project Financial Controller*
-14. **BNA - Run Actual Overhead** — *Project Financial Controller* → calls `BNA`
-15. **BNA - Asset Under Construction Settlement** — *Project Financial Controller* → calls `BNA`
-16. **1YF - Update Project Status (Optional)** *(optional)* — *Project Manager* → calls `1YF`
-17. **1YF - Review Project (Optional)** *(optional)* — *Project Steering Committee Member* → calls `1YF`
-18. **Adjust Project Budget (Optional)** *(optional)* — *Project Financial Controller*
-19. **Complete Project** — *Project Financial Controller*
-20. **1Q4 - Time Recording** — *Project Team Member* → calls `1Q4`
-21. **Post General Journal Entries** — *General Ledger Accountant*
-22. **Monitor Projects via Project Budget Report** — *Project Financial Controller*
-23. **BFH - Create Fixed Asset** — *Asset Accountant* → calls `BFH`
-24. **BNA - Period-End Closing Projects** — *Project Financial Controller* → calls `BNA`
-25. **Close Project** — *Project Financial Controller*
-
-**Key Fiori apps / TCodes:**
-
-- `F3078` — Project Financial Controller Overview
-- `F3088` — Monitor Projects
-- `F3377` — Project Budget Report - Overview
-- `F3215` — Project Control - Enterprise Projects
-- `F5090` — Schedule Project Accounting Jobs
-- `F5342` — Manage Budget Documents – Projects
-
-### 4AU — Project Control – Intercompany
-
-**Process steps** (BPMN execution order):
-
-1. **1NT - Create Project** — *Project Financial Controller*
-2. **1NT - Release Project** — *Project Financial Controller*
-3. **1Q4 - Time Recording** — *Employee* → calls `1Q4`
-4. **Post IC Expenses** — *Accounts Payable Accountant*
-5. **IC Activity Allocation** — *Cost Accountant - Overhead*
-6. **4AN - Intercompany Billing for Cross-Company Cost Accounting Postings** — *Internal Sales Representative (Sending Company)* → calls `4AN`
-
-**Key Fiori apps / TCodes:**
-
-- `F1823` / `CAT2` — Manage My Timesheet
-- `F3215` — Project Control - Enterprise Projects
-
-### 6JN — Collaborative Project Management
-
-**Process steps** (BPMN execution order):
-
-1. **Create Collaboration Project** — *Project Manager*
-2. **Invite Stakeholders** — *Project Manager*
-3. **Import Project Plan** — *Project Manager*
-
-**Key Fiori apps / TCodes:**
-
-- `F3145` / `F3145` — My Collaborative Projects
-- `F2602` — Project Briefs
+*Full BPMN detail → [enterprise-portfolio-and-project-management.md](design-to-operate/enterprise-portfolio-and-project-management.md)*
 
 ## Environment, Health, and Safety
-
-6 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -330,69 +97,27 @@ Generated 2026-08-25. 107 scope items across 22 process groups.
 | `54A` | None | 0 | — | — | — |
 | `60H` | None | 0 | — | — | — |
 
-### 3FP — None
-
-**Process steps** (BPMN execution order):
-
-1. **Capture Initial Incident Record** — *Employee - EHS Info*
-2. **Capture Initial Incident Record** — *Industrial Hygienist*
-3. **Review and Complete Incident Record** — *Industrial Hygienist*
-4. **Perform Investigation** — *Industrial Hygienist*
-5. **Create and Send Incident Report** — *Industrial Hygienist*
-6. **Define and Manage Tasks** — *Industrial Hygienist*
-
-### 4C8 — None
-
-**Process steps** (BPMN execution order):
-
-1. **Manage Locations** — *Environmental Manager*
-2. **Manage Compliance Requirements** — *Environmental Manager*
-3. **Plan, Monitor and Manage Compliance Tasks** — *Environmental Manager*
-4. **Analyze Compliance Task Execution** — *Environmental Manager*
-5. **Manage Deviations** — *Environmental Manager*
-
-### 4XD — None
-
-**Process steps** (BPMN execution order):
-
-1. **Identify Requirements** — *Environmental Manager*
-2. **Manage Master Data** — *Environmental Manager*
-3. **Plan Compliance Activities** — *Environmental Manager*
-4. **Collect and Calculate Data** — *Environmental Manager*
-5. **Monitor Data** — *Environmental Manager*
-6. **Data Analysis** — *Environmental Manager*
-7. **Manage Deviations** — *Environmental Manager*
-
-### 4YX — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create Change Request** — *Change Management Coordinator*
-2. **Carry out Initial Review** — *Change Management Coordinator*
-3. **Approve Change Request** — *Change Management Coordinator*
-4. **Drive Change Request and Perform Activities** — *Change Management Coordinator*
+*Full BPMN detail → [environment-health-and-safety.md](design-to-operate/environment-health-and-safety.md)*
 
 ## Financial Operations
 
-2 scope items.
-
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `55E` | Lot Size of One with Advanced Variant Configuration | 0 | — | — | SAP_BR_PRODN_OPTR_DISC |
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
+
+*Full BPMN detail → [financial-operations.md](design-to-operate/financial-operations.md)*
 
 ## Inventory
 
-2 scope items.
-
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `55E` | Lot Size of One with Advanced Variant Configuration | 0 | — | — | SAP_BR_PRODN_OPTR_DISC |
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-## Invoice Management
+*Full BPMN detail → [inventory.md](design-to-operate/inventory.md)*
 
-3 scope items.
+## Invoice Management
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -400,39 +125,9 @@ Generated 2026-08-25. 107 scope items across 22 process groups.
 | `5W4` | None | 25 | — | — | — |
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-### 5W4 — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create Planned Independent Requirements** — *Production Planner*
-2. **Create Purchase Order manually** — *Purchaser*
-3. **Material Requirements Planning at Plant Level** — *Production Planner*
-4. **Evaluate Stock/Requirements Situation and Prepare Planned Order for Subcontracting** — *Production Planner*
-5. **Approve Purchase Orders (Optional)** *(optional)* — *Purchasing Manager*
-6. **Convert Planned Order to Purchase Requisition** — *Production Planner*
-7. **Monitor Subcontracting Documents (Optional)** *(optional)* — *Purchaser*
-8. **Convert Purchase Requisition to Purchase Order** — *Purchaser*
-9. **Execute Material Requirements Planning at Plant Level (Optional)** *(optional)* — *Production Planner*
-10. **Evaluate Stock/Requirements Situation (Optional)** *(optional)* — *Production Planner*
-11. **Transfer Components to the Subcontractor** — *Inventory Manager*
-12. **Evaluate Stock / Requirements Situation** — *Production Planner*
-13. **Receive Goods from Subcontracting Purchase Order** — *Warehouse Clerk*
-14. **Evaluate Stock / Requirements Situation** — *Production Planner*
-15. **Display Material Stock Before Quality Inspection (Optional)** *(optional)* — *Inventory Manager*
-16. **Display Inspection Plan for Inspection Characteristics (Optional)** *(optional)* — *Quality Technician*
-17. **Display Quality Technician Overview (Optional)** *(optional)* — *Quality Technician*
-18. **Display Open Inspection Lots (Optional)** *(optional)* — *Quality Technician*
-19. **Record Inspection Results** — *Quality Technician*
-20. **Display Quality Engineer Overview (Optional)** *(optional)* — *Quality Engineer*
-21. **Make Usage Decision** — *Quality Engineer*
-22. **Display Material Stock after Quality Inspection (Optional)** *(optional)* — *Warehouse Clerk*
-23. **Create Supplier Invoice** — *Accounts Payable Accountant (Freight Costs)*
-24. **Review Supplier Invoice (Optional)** *(optional)* — *Accounts Payable Accountant (Freight Costs)*
-25. **Batch Information Cockpit - Top Down and Bottom-Up Analysis** — *Quality Technician*
+*Full BPMN detail → [invoice-management.md](design-to-operate/invoice-management.md)*
 
 ## Maintenance Management
-
-9 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -446,360 +141,9 @@ Generated 2026-08-25. 107 scope items across 22 process groups.
 | `BH2` | Emergency Maintenance | 4 | — | — | SAP_BR_MAINTENANCE_TECHNICIAN |
 | `BJ2` | Preventive Maintenance | 20 | — | — | SAP_BR_MAINT_SUPERVISOR, SAP_BR_MATL_PLNR_EXT_PROC, SAP_BR_CHG_MGMT_COORDINATOR, SAP_BR_MAINTENANCE_TECHNICIAN |
 
-### 43R — Maintenance Resource Scheduling
-
-**Process steps** (BPMN execution order):
-
-1. **Check Due Operations** — *Maintenance Planner - Resource Scheduling*
-2. **Open 
-Scheduling Board** — *Maintenance Planner - Resource Scheduling*
-3. **Add 
-Operations to Schedule** — *Maintenance Planner - Resource Scheduling*
-4. **Select Due Operations** — *Maintenance Planner - Resource Scheduling*
-5. **Check 
-Weekly Capacity** — *Maintenance Planner - Resource Scheduling*
-6. **Change and Dispatch** — *Maintenance Planner - Resource Scheduling*
-7. **Refine Schedule** — *Maintenance Planner - Resource Scheduling*
-8. **Freeze** — *Maintenance Planner - Resource Scheduling*
-9. **Track 
-Scheduling Status** — *Maintenance Planner - Resource Scheduling*
-
-**Key Fiori apps / TCodes:**
-
-- `F2222` — Manage Work Center Utilization
-- `F2227` — Resource Scheduling for Maintenance Planners
-- `F2603` — Maintenance Scheduling Board
-- `F3326` — Manage Schedules
-- `F3423` — Assign Maintenance Order Operations
-- `F4577` — Manage Maintenance Schedule for Assets
-
-### 4HH — Reactive Maintenance
-
-**Process steps** (BPMN execution order):
-
-1. **Create 
-Maintenance 
-Request** — *Employee*
-2. **Create 
-Maintenance Request** — *Maintenance Technician*
-3. **Time 
-Confirmation of Pre and Main Operations** — *Maintenance Technician*
-4. **Review 
-and Set Main Work Completed** — *Maintenance Supervisor*
-5. **Monitor 
-Maintenance Request** — *Employee*
-6. **Monitor 
-Maintenance Request** — *Maintenance Technician*
-7. **Time 
-Confirmation of Post Operations** — *Maintenance Technician*
-8. **Screen Maintenance Requests** — *Maintenance Supervisor*
-9. **Record Failure Data** — *Maintenance Technician*
-10. **Review 
-Maintenance Order and Failure Data** — *Maintenance Supervisor*
-11. **Technically Complete Order** — *Maintenance Supervisor*
-12. **Create Maintenance Order** — *Maintenance Planner*
-13. **Assign Existing Maintenance Order** — *Maintenance Planner*
-14. **Plan 
-Maintenance Order** — *Maintenance Planner*
-15. **Submit 
-Maintenance Order for an Approval** — *Maintenance Planner*
-16. **Release 
-Order for Preparation** — *Maintenance Planner*
-17. **Review Maintenance Orders** — *Maintenance Supervisor*
-18. **Monitor Maintenance Backlog for Readiness** — *Maintenance Planner*
-19. **Create 
-Material and Service PR** — *Maintenance Planner*
-20. **Set 
-Orders for Ready to Schedule** — *Maintenance Planner*
-21. **Convert 
-Service PR into PO** — *Purchaser*
-22. **Convert 
-Material PR into PO** — *Purchaser*
-23. **Schedule Orders** — *Maintenance Planner*
-24. **Manage 
-Service Entry Sheet** — *Purchaser*
-25. **Post 
-Good Receipt** — *Warehouse Clerk*
-26. **Set Orders to Ready for Execution** — *Maintenance Planner*
-27. **Create 
-Supplier Invoice** — *Accounts Payable Accountant*
-28. **Release 
-Supplier Invoice** — *Accounts Payable Accountant*
-
-**Key Fiori apps / TCodes:**
-
-- `F0862` / `SBWP` — My Inbox
-- `F2027` — Manage Service Entry Sheets - Lean Services
-- `F2173` / `IW37N` — Find Maintenance Order and Operation
-- `F2175` / `IW39` — Find Maintenance Order
-- `F4603` — Maintenance Order Costs
-- `F4604` — Manage Maintenance Notifications and Orders
-- `F5105` — Maintenance Backlog Overview
-- `F6065` — Manage Work Packs
-- *…and 5 more (see scope-items/4HH.json)*
-
-### 4HI — Proactive Maintenance
-
-**Process steps** (BPMN execution order):
-
-1. **Maintain Maintenance Strategies** — *Maintenance Planner*
-2. **Maintain Maintenance Strategies** — *Maintenance Planner*
-3. **Time Confirmation of Pre and Main Operations** — *Maintenance Technician*
-4. **Create Task List** — *Maintenance Planner*
-5. **Create Task List** — *Maintenance Planner*
-6. **Review 
-and Set Main Work Completed** — *Maintenance Supervisor*
-7. **Create Maintenance Plan** — *Maintenance Planner*
-8. **Create Measuring Point as Counter** — *Maintenance Planner*
-9. **Time Confirmation of Post Operations** — *Maintenance Technician*
-10. **Schedule Maintenance Plan** — *Maintenance Planner*
-11. **Create Measuring Document** — *Maintenance Planner*
-12. **Record Failure Data** — *Maintenance Technician*
-13. **Create Maintenance Plan** — *Maintenance Planner*
-14. **Technically Complete** — *Maintenance Supervisor*
-15. **Proactive Request Created** — *Maintenance Planner*
-16. **Proactive 
-Order Created** — *Maintenance Planner*
-17. **Screen 
-Maintenance Requests** — *Maintenance Supervisor*
-18. **Plan 
-Proactive  Order** — *Maintenance Planner*
-19. **Create 
-Proactive Order** — *Maintenance Planner*
-20. **Monitor Maintenance Backlog for Readiness** — *Maintenance Planner*
-21. **Review Maintenance Orders** — *Maintenance Supervisor*
-22. **Submit 
-Proactive Order for an Approval** — *Maintenance Planner*
-23. **Release Proactive Order for Preparation** — *Maintenance Planner*
-24. **Set Orders to Ready for Scheduling** — *Maintenance Planner*
-25. **Create 
-Material / Service PR** — *Maintenance Planner*
-26. **Schedule Orders** — *Maintenance Planner*
-27. **Set Orders to Ready for Execution** — *Maintenance Planner*
-28. **Convert 
-Material PR into PO** — *Purchaser*
-29. **Convert 
-Service PR into PO** — *Purchaser*
-30. **Post 
-Goods Receipt** — *Warehouse Clerk*
-31. **Manage 
-Service Entry Sheet** — *Purchaser*
-32. **Create 
-Supplier Invoice** — *Accounts Payable Accountant*
-33. **Release 
-Supplier Invoice** — *Accounts Payable Accountant*
-
-**Key Fiori apps / TCodes:**
-
-- `F0862` / `SBWP` — My Inbox
-- `F2027` — Manage Service Entry Sheets - Lean Services
-- `F2173` / `IW37N` — Find Maintenance Order and Operation
-- `F2175` / `IW39` — Find Maintenance Order
-- `F2774` / `IP30` — Mass Schedule Maintenance Plans
-- `F4603` — Maintenance Order Costs
-- `F4604` — Manage Maintenance Notifications and Orders
-- `F5105` — Maintenance Backlog Overview
-- *…and 6 more (see scope-items/4HI.json)*
-
-### 4RV — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create 
-Maintenance Request** — *Maintenance Technician*
-2. **Time 
-Confirmation of Operations** — *Maintenance Technician*
-3. **Monitor 
-Maintenance Request** — *Maintenance Technician*
-4. **Record Failure Data** — *Maintenance Technician*
-5. **Complete 
-Maintenance Request** — *Maintenance Technician*
-
-### 4VT — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create Improvement Order** — *Maintenance Planner*
-2. **Time 
-Confirmation of Pre and Main Operations** — *Maintenance Technician*
-3. **Review 
-and Set Main Work Completed** — *Maintenance Supervisor*
-4. **Plan 
-Improvement Order** — *Maintenance Planner*
-5. **Time Confirmation of Post Operations** — *Maintenance Technician*
-6. **Assign 
-Work Package to Order** — *Maintenance Planner*
-7. **Review Improvement Orders** — *Maintenance Supervisor*
-8. **Submit 
-Order for Approval** — *Maintenance Planner*
-9. **Technically Compete Order** — *Maintenance Supervisor*
-10. **Review Maintenance Orders** — *Project Financial Controller*
-11. **Release 
-Order for Preparation** — *Maintenance Planner*
-12. **Monitor 
-Maintenance Backlog for Readiness** — *Maintenance Planner*
-13. **Create 
-Material / Service PR** — *Maintenance Planner*
-14. **Set Order 
-to Ready for Scheduling** — *Maintenance Planner*
-15. **Convert 
-Service PR into PO** — *Purchaser*
-16. **Convert 
-Material PR into PO** — *Purchaser*
-17. **Schedule Orders** — *Maintenance Planner*
-18. **Manage 
-Service Entry Sheet** — *Purchaser*
-19. **Post 
-Goods Receipt** — *Warehouse Clerk*
-20. **Set 
-Orders to Ready for Execution** — *Maintenance Planner*
-21. **Create 
-Supplier Invoice** — *Accounts Payable Accountant*
-22. **Release 
-Supplier Invoice** — *Accounts Payable Accountant*
-
-### 4WM — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create Operational Order** — *Maintenance Planner*
-2. **Time Confirmation of Pre and Main Operations** — *Production Operator*
-3. **Review and Main Work Completed** — *Maintenance Supervisor*
-4. **Plan 
-Operational Order** — *Maintenance Planner*
-5. **Time Confirmation of Post Operations** — *Production Operator*
-6. **Submit 
-Orders for Approval** — *Maintenance Planner*
-7. **Review Orders** — *Maintenance Supervisor*
-8. **Technically Compete Order** — *Maintenance Supervisor*
-9. **Review Maintenance Orders** — *Maintenance Supervisor*
-10. **Review 
-and Release Orders for Preparation** — *Maintenance Planner*
-11. **Create
- Material / Service PR** — *Maintenance Planner*
-12. **Monitor Maintenance Backlog** — *Maintenance Planner*
-13. **Set 
-Orders to Ready for Scheduling** — *Maintenance Planner*
-14. **Convert 
-Service PR into PO** — *Purchaser*
-15. **Convert 
-Material PR into PO** — *Purchaser*
-16. **Manage 
-Service Entry Sheet** — *Purchaser*
-17. **Post 
-Goods Receipt** — *Warehouse Clerk*
-18. **Schedule Orders** — *Maintenance Planner*
-19. **Set 
-Orders to Ready for Execution** — *Maintenance Planner*
-20. **Create 
-Supplier Invoice** — *Accounts Payable Accountant*
-21. **Release 
-Supplier Invoice** — *Accounts Payable Accountant*
-
-### BH1 — Corrective Maintenance
-
-**Process steps** (BPMN execution order):
-
-1. **Optional - Create Maintenance Notification** — *Maintenance Technician*
-2. **Request Maintenance** — *Employee*
-3. **Create Maintenance Order** — *Maintenance Planner*
-4. **Monitor Maintenance Requests** — *Employee*
-5. **Release Maintenance Order** — *Maintenance Planner*
-6. **Change Maintenance Request into Malfunction Report** — *Maintenance Planner*
-7. **Print Job Card** — *Maintenance Technician*
-8. **Purchase Requisitions created for Lean Service Procurement** — *Purchaser*
-9. **Purchase Requisitions Created for Spares Procurement** — *Purchaser*
-10. **Convert Purchase Requisitions to Purchase Orders** — *Purchaser*
-11. **Convert Purchase Requisitions to Purchase Orders** — *Purchaser*
-12. **Confirm Maintenance Order** — *Maintenance Technician*
-13. **Accept 
-Service Entry Sheet** — *Warehouse Clerk*
-14. **Post 
-Goods 
-Receipt for Purchase Order** — *Warehouse Clerk*
-15. **Confirm Unplanned Job** — *Maintenance Technician*
-16. **Show 
-Costs on Maintenance Order** — *Maintenance Planner*
-17. **Create 
-Supplier 
-Invoice with PO/ GR relation** — *Accounts Payable Accountant*
-18. **Technically Complete Maintenance Order** — *Maintenance Planner*
-19. **Release 
-Supplier Invoice** — *Accounts Payable Accountant*
-
-**Key Fiori apps / TCodes:**
-
-- `F1048` / `ME59N` — Process Purchase Requisitions
-- `F2027` — Manage Service Entry Sheets - Lean Services
-- `F2175` / `IW39` — Find Maintenance Order
-- `F5104A` / `IW41` — Perform Maintenance Jobs
-- `F1511` / `IW21` — Request Maintenance
-- `F2071` / `IW23` — Find Maintenance Notification
-
-### BH2 — Emergency Maintenance
-
-**Process steps** (BPMN execution order):
-
-1. **Report Malfunction** — *Maintenance Technician*
-2. **Repair Malfunction** — *Maintenance Technician*
-3. **Post 
-Goods Issue** — *Warehouse Clerk*
-4. **Complete Malfunction Report** — *Maintenance Planner*
-
-**Key Fiori apps / TCodes:**
-
-- `F2023` / `IW31` — Report and Repair Malfunction
-
-### BJ2 — Preventive Maintenance
-
-**Process steps** (BPMN execution order):
-
-1. **Create 
-General Task List** — *Maintenance Planner*
-2. **Create 
-General Task List** — *Maintenance Planner*
-3. **Maintain 
-Maintenance Strategies** — *Maintenance Planner*
-4. **Create 
-Maintenance Plan** — *Maintenance Planner*
-5. **Create 
-Maintenance Plan** — *Maintenance Planner*
-6. **Create 
-General Task List** — *Maintenance Planner*
-7. **Create 
-Measurement Document** — *Maintenance Planner*
-8. **Create 
-Measurement Document** — *Maintenance Planner*
-9. **Create 
-Maintenance Plan** — *Maintenance Planner*
-10. **Schedule 
-Maintenance Plan** — *Maintenance Planner*
-11. **Schedule 
-Maintenance Plan** — *Maintenance Planner*
-12. **Create 
-Measurement Document** — *Maintenance Planner*
-13. **Schedule 
-Maintenance Plan** — *Maintenance Planner*
-14. **Release Preventive Maintenance Order and Printing to Job List** — *Maintenance Planner*
-15. **Print Job Card** — *Maintenance Technician*
-16. **Confirm Preventive Maintenance Order** — *Maintenance Technician*
-17. **Show Costs on Preventive Maintenance Order** — *Maintenance Planner*
-18. **Create 
-Follow-On Order** — *Maintenance Planner*
-19. **Technically Complete Preventive Maintenance Order** — *Maintenance Planner*
-20. **Review Document Flow of Preventive Maintenance Order** — *Maintenance Planner*
-
-**Key Fiori apps / TCodes:**
-
-- `F2175` / `IW39` — Find Maintenance Order
-- `F2774` / `IP30` — Mass Schedule Maintenance Plans
-- `F5356` / `IP03` — Manage Maintenance Items
-- `F5325` / `IP01` — Manage Maintenance Plans
-- `F5104A` / `IW41` — Perform Maintenance Jobs
+*Full BPMN detail → [maintenance-management.md](design-to-operate/maintenance-management.md)*
 
 ## Manufacturing Operations
-
-6 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -810,73 +154,9 @@ Follow-On Order** — *Maintenance Planner*
 | `5HK` | Quality Management in Discrete Manufacturing – Consumer Products | 2 | — | — | SAP_BR_PRODN_OPTR_DISC |
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-### 1YT — Make-to-Order Production with Variant Configuration
-
-**Process steps** (BPMN execution order):
-
-1. **Create Sales Order For Single-Level Configurable Material** — *Internal Sales Representative*
-2. **Create Down Payment Request (BKJ)** — *Billing Clerk* → calls `BKJ`
-3. **Post Down Payment (BKJ)** — *Accounts Receivable Accountant* → calls `BKJ`
-4. **Manufacturing Steps for Production Order Processing (BJE)** — *Production Planner* → calls `BJE`
-5. **2XU - Procurement of Materials with Variable Configuration** — *Purchaser* → calls `2XU`
-6. **Delivery Processing (BD9)** — *Shipping Specialist* → calls `BD9`
-7. **Delivery Processing (BKJ)** — *Shipping Specialist* → calls `BKJ`
-8. **Billing (BD9)** — *Billing Clerk* → calls `BD9`
-9. **Billing (BKJ)** — *Billing Clerk* → calls `BKJ`
-
-**Key Fiori apps / TCodes:**
-
-- `F2336` / `CO02` — Manage Production Orders
-- `F1852` / `VA25` — Manage Sales Quotations
-- `F1873` / `VA05` — Manage Sales Orders
-
-### 21D — Make-to-Stock Production with Variant Configuration
-
-**Process steps** (BPMN execution order):
-
-1. **Production Planning for Material Variant** — *Production Planner*
-2. **Production Execution for Material Variant** — *Production Supervisor*
-3. **Create Sales Order With Material Variant** — *Internal Sales Representative*
-4. **Delivery Processing of Sales Order** — *Shipping Specialist*
-5. **Billing of Sales Order** — *Billing Clerk*
-
-**Key Fiori apps / TCodes:**
-
-- `F1873` / `VA05` — Manage Sales Orders
-
-### 4R8 — Engineer-to-Order Production with Variant Configuration
-
-**Process steps** (BPMN execution order):
-
-1. **Check Configuration Profile** — *Product Configuration Modeler*
-2. **Simulate Configuration Model** — *Product Configuration Modeler*
-3. **Create Sales Order** — *Internal Sales Representative*
-4. **Start Multi-Level Valuation** — *Internal Sales Representative*
-5. **Switch to EtO** — *Internal Sales Representative*
-6. **Check Multi-Level Configuration** — *Internal Sales Representative*
-7. **Release for Order Engineering** — *Internal Sales Representative*
-8. **Accept Changes from Order Engineering** — *Internal Sales Representative*
-9. **Calculate Sales Order Costs** — *Internal Sales Representative*
-10. **Save Sales Order** — *Internal Sales Representative*
-
-**Key Fiori apps / TCodes:**
-
-- `F4770` / `CU51` — Order Engineering Worklist
-
-### 5HK — Quality Management in Discrete Manufacturing – Consumer Products
-
-**Process steps** (BPMN execution order):
-
-1. **Create Initial Material Stock** — *Warehouse Clerk*
-2. **Execute Process Steps starting from "Convert Planned Orders to Production Orders" to "Display Material Stock after Usage Decision"** — *Production Planner*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
+*Full BPMN detail → [manufacturing-operations.md](design-to-operate/manufacturing-operations.md)*
 
 ## Manufacturing Options
-
-3 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -884,39 +164,9 @@ Follow-On Order** — *Maintenance Planner*
 | `5W4` | None | 25 | — | — | — |
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-### 5W4 — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create Planned Independent Requirements** — *Production Planner*
-2. **Create Purchase Order manually** — *Purchaser*
-3. **Material Requirements Planning at Plant Level** — *Production Planner*
-4. **Evaluate Stock/Requirements Situation and Prepare Planned Order for Subcontracting** — *Production Planner*
-5. **Approve Purchase Orders (Optional)** *(optional)* — *Purchasing Manager*
-6. **Convert Planned Order to Purchase Requisition** — *Production Planner*
-7. **Monitor Subcontracting Documents (Optional)** *(optional)* — *Purchaser*
-8. **Convert Purchase Requisition to Purchase Order** — *Purchaser*
-9. **Execute Material Requirements Planning at Plant Level (Optional)** *(optional)* — *Production Planner*
-10. **Evaluate Stock/Requirements Situation (Optional)** *(optional)* — *Production Planner*
-11. **Transfer Components to the Subcontractor** — *Inventory Manager*
-12. **Evaluate Stock / Requirements Situation** — *Production Planner*
-13. **Receive Goods from Subcontracting Purchase Order** — *Warehouse Clerk*
-14. **Evaluate Stock / Requirements Situation** — *Production Planner*
-15. **Display Material Stock Before Quality Inspection (Optional)** *(optional)* — *Inventory Manager*
-16. **Display Inspection Plan for Inspection Characteristics (Optional)** *(optional)* — *Quality Technician*
-17. **Display Quality Technician Overview (Optional)** *(optional)* — *Quality Technician*
-18. **Display Open Inspection Lots (Optional)** *(optional)* — *Quality Technician*
-19. **Record Inspection Results** — *Quality Technician*
-20. **Display Quality Engineer Overview (Optional)** *(optional)* — *Quality Engineer*
-21. **Make Usage Decision** — *Quality Engineer*
-22. **Display Material Stock after Quality Inspection (Optional)** *(optional)* — *Warehouse Clerk*
-23. **Create Supplier Invoice** — *Accounts Payable Accountant (Freight Costs)*
-24. **Review Supplier Invoice (Optional)** *(optional)* — *Accounts Payable Accountant (Freight Costs)*
-25. **Batch Information Cockpit - Top Down and Bottom-Up Analysis** — *Quality Technician*
+*Full BPMN detail → [manufacturing-options.md](design-to-operate/manufacturing-options.md)*
 
 ## Operational Procurement
-
-4 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -925,131 +175,35 @@ Follow-On Order** — *Maintenance Planner*
 | `5W4` | None | 25 | — | — | — |
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-### 2XU — Procurement of Materials with Variant Configuration
-
-**Process steps** (BPMN execution order):
-
-1. **Create Purchase Orders** — *Purchaser*
-2. **Preview Purchase Order (Optional)** *(optional)* — *Purchaser*
-3. **Change Purchase Order (optional)** *(optional)* — *Purchaser*
-4. **Post Goods Receipt** — *Warehouse Clerk*
-5. **Create Supplier Invoice** — *Accounts Payable Accountant*
-6. **Review Supplier Invoice (Optional)** *(optional)* — *Accounts Payable Accountant*
-
-**Key Fiori apps / TCodes:**
-
-- `F5331` / `SBWP` — My Inbox for Legal Contract
-- `F0859` / `F-41` — Manage Supplier Invoices
-- `F0842A` / `ME21` — Manage Purchase Orders (Version 2)
-
-### 5W4 — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create Planned Independent Requirements** — *Production Planner*
-2. **Create Purchase Order manually** — *Purchaser*
-3. **Material Requirements Planning at Plant Level** — *Production Planner*
-4. **Evaluate Stock/Requirements Situation and Prepare Planned Order for Subcontracting** — *Production Planner*
-5. **Approve Purchase Orders (Optional)** *(optional)* — *Purchasing Manager*
-6. **Convert Planned Order to Purchase Requisition** — *Production Planner*
-7. **Monitor Subcontracting Documents (Optional)** *(optional)* — *Purchaser*
-8. **Convert Purchase Requisition to Purchase Order** — *Purchaser*
-9. **Execute Material Requirements Planning at Plant Level (Optional)** *(optional)* — *Production Planner*
-10. **Evaluate Stock/Requirements Situation (Optional)** *(optional)* — *Production Planner*
-11. **Transfer Components to the Subcontractor** — *Inventory Manager*
-12. **Evaluate Stock / Requirements Situation** — *Production Planner*
-13. **Receive Goods from Subcontracting Purchase Order** — *Warehouse Clerk*
-14. **Evaluate Stock / Requirements Situation** — *Production Planner*
-15. **Display Material Stock Before Quality Inspection (Optional)** *(optional)* — *Inventory Manager*
-16. **Display Inspection Plan for Inspection Characteristics (Optional)** *(optional)* — *Quality Technician*
-17. **Display Quality Technician Overview (Optional)** *(optional)* — *Quality Technician*
-18. **Display Open Inspection Lots (Optional)** *(optional)* — *Quality Technician*
-19. **Record Inspection Results** — *Quality Technician*
-20. **Display Quality Engineer Overview (Optional)** *(optional)* — *Quality Engineer*
-21. **Make Usage Decision** — *Quality Engineer*
-22. **Display Material Stock after Quality Inspection (Optional)** *(optional)* — *Warehouse Clerk*
-23. **Create Supplier Invoice** — *Accounts Payable Accountant (Freight Costs)*
-24. **Review Supplier Invoice (Optional)** *(optional)* — *Accounts Payable Accountant (Freight Costs)*
-25. **Batch Information Cockpit - Top Down and Bottom-Up Analysis** — *Quality Technician*
+*Full BPMN detail → [operational-procurement.md](design-to-operate/operational-procurement.md)*
 
 ## Order Promising
-
-2 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `55E` | Lot Size of One with Advanced Variant Configuration | 0 | — | — | SAP_BR_PRODN_OPTR_DISC |
 | `5W4` | None | 25 | — | — | — |
 
-### 5W4 — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create Planned Independent Requirements** — *Production Planner*
-2. **Create Purchase Order manually** — *Purchaser*
-3. **Material Requirements Planning at Plant Level** — *Production Planner*
-4. **Evaluate Stock/Requirements Situation and Prepare Planned Order for Subcontracting** — *Production Planner*
-5. **Approve Purchase Orders (Optional)** *(optional)* — *Purchasing Manager*
-6. **Convert Planned Order to Purchase Requisition** — *Production Planner*
-7. **Monitor Subcontracting Documents (Optional)** *(optional)* — *Purchaser*
-8. **Convert Purchase Requisition to Purchase Order** — *Purchaser*
-9. **Execute Material Requirements Planning at Plant Level (Optional)** *(optional)* — *Production Planner*
-10. **Evaluate Stock/Requirements Situation (Optional)** *(optional)* — *Production Planner*
-11. **Transfer Components to the Subcontractor** — *Inventory Manager*
-12. **Evaluate Stock / Requirements Situation** — *Production Planner*
-13. **Receive Goods from Subcontracting Purchase Order** — *Warehouse Clerk*
-14. **Evaluate Stock / Requirements Situation** — *Production Planner*
-15. **Display Material Stock Before Quality Inspection (Optional)** *(optional)* — *Inventory Manager*
-16. **Display Inspection Plan for Inspection Characteristics (Optional)** *(optional)* — *Quality Technician*
-17. **Display Quality Technician Overview (Optional)** *(optional)* — *Quality Technician*
-18. **Display Open Inspection Lots (Optional)** *(optional)* — *Quality Technician*
-19. **Record Inspection Results** — *Quality Technician*
-20. **Display Quality Engineer Overview (Optional)** *(optional)* — *Quality Engineer*
-21. **Make Usage Decision** — *Quality Engineer*
-22. **Display Material Stock after Quality Inspection (Optional)** *(optional)* — *Warehouse Clerk*
-23. **Create Supplier Invoice** — *Accounts Payable Accountant (Freight Costs)*
-24. **Review Supplier Invoice (Optional)** *(optional)* — *Accounts Payable Accountant (Freight Costs)*
-25. **Batch Information Cockpit - Top Down and Bottom-Up Analysis** — *Quality Technician*
+*Full BPMN detail → [order-promising.md](design-to-operate/order-promising.md)*
 
 ## Order and Contract Management
-
-2 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `4R8` | Engineer-to-Order Production with Variant Configuration | 10 | — | — | SAP_BR_BOM_ENG_CUST_ORDER |
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-### 4R8 — Engineer-to-Order Production with Variant Configuration
-
-**Process steps** (BPMN execution order):
-
-1. **Check Configuration Profile** — *Product Configuration Modeler*
-2. **Simulate Configuration Model** — *Product Configuration Modeler*
-3. **Create Sales Order** — *Internal Sales Representative*
-4. **Start Multi-Level Valuation** — *Internal Sales Representative*
-5. **Switch to EtO** — *Internal Sales Representative*
-6. **Check Multi-Level Configuration** — *Internal Sales Representative*
-7. **Release for Order Engineering** — *Internal Sales Representative*
-8. **Accept Changes from Order Engineering** — *Internal Sales Representative*
-9. **Calculate Sales Order Costs** — *Internal Sales Representative*
-10. **Save Sales Order** — *Internal Sales Representative*
-
-**Key Fiori apps / TCodes:**
-
-- `F4770` / `CU51` — Order Engineering Worklist
+*Full BPMN detail → [order-and-contract-management.md](design-to-operate/order-and-contract-management.md)*
 
 ## Process Management and Integration
-
-1 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-## Product Engineering
+*Full BPMN detail → [process-management-and-integration.md](design-to-operate/process-management-and-integration.md)*
 
-9 scope items.
+## Product Engineering
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -1063,155 +217,9 @@ Follow-On Order** — *Maintenance Planner*
 | `2XU` | Procurement of Materials with Variant Configuration | 6 | — | — | SAP_BR_LEGAL_COUNSEL, SAP_BR_EMPLOYEE_LEGAL_CONTENT, SAP_BR_ADMINISTRATOR_LCM, SAP_BR_AP_ACCOUNTANT_PROCUREMT |
 | `35Q` | None | 2 | — | — | — |
 
-### 1NR — Engineering Bill of Material – Versions Management
-
-**Process steps** (BPMN execution order):
-
-1. **Create Bill of Material** — *BOM Engineer*
-2. **Release Version** — *BOM Engineer*
-3. **Copy(Create) Header Material(Optional)** *(optional)* — *BOM Engineer*
-4. **Copy(Create) Header Material(Optional)** *(optional)* — *Master Data 
-Specialist - Product 
-Data (MDG)*
-5. **Create New Version of Bill of Material** — *BOM Engineer*
-6. **Release Version** — *BOM Engineer*
-7. **Copy Versioned Bill Of Material** — *BOM Engineer*
-8. **Change Versioned BOM** — *BOM Engineer*
-9. **Release Version** — *BOM Engineer*
-
-**Key Fiori apps / TCodes:**
-
-- `F1813` / `CS01` — Maintain Bill Of Material
-
-### 1R3 — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create Change Master** — *BOM Engineer*
-2. **Create Bill of Material** — *BOM Engineer*
-3. **Set Change Master Status to Inactive** — *BOM Engineer*
-4. **Copy(Create) Header Material(Optional)** *(optional)* — *Master Data Specialist - Product Data*
-5. **Change BOM** — *BOM Engineer*
-6. **Copy(Create) Header Material(Optional)** *(optional)* — *BOM Engineer*
-7. **Set Change Master Status to Inactive** — *BOM Engineer*
-8. **Create Change Master** — *BOM Engineer*
-9. **Change BOM** — *BOM Engineer*
-10. **Set Change Master Status to Inactive** — *BOM Engineer*
-
-### 1R5 — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create Change Master** — *BOM Engineer*
-2. **Display Where- Used List** — *BOM Engineer*
-3. **Replace Material** — *BOM Engineer*
-4. **Set Change Master Status to Inactive** — *BOM Engineer*
-
-### 1YT — Make-to-Order Production with Variant Configuration
-
-**Process steps** (BPMN execution order):
-
-1. **Create Sales Order For Single-Level Configurable Material** — *Internal Sales Representative*
-2. **Create Down Payment Request (BKJ)** — *Billing Clerk* → calls `BKJ`
-3. **Post Down Payment (BKJ)** — *Accounts Receivable Accountant* → calls `BKJ`
-4. **Manufacturing Steps for Production Order Processing (BJE)** — *Production Planner* → calls `BJE`
-5. **2XU - Procurement of Materials with Variable Configuration** — *Purchaser* → calls `2XU`
-6. **Delivery Processing (BD9)** — *Shipping Specialist* → calls `BD9`
-7. **Delivery Processing (BKJ)** — *Shipping Specialist* → calls `BKJ`
-8. **Billing (BD9)** — *Billing Clerk* → calls `BD9`
-9. **Billing (BKJ)** — *Billing Clerk* → calls `BKJ`
-
-**Key Fiori apps / TCodes:**
-
-- `F2336` / `CO02` — Manage Production Orders
-- `F1852` / `VA25` — Manage Sales Quotations
-- `F1873` / `VA05` — Manage Sales Orders
-
-### 21D — Make-to-Stock Production with Variant Configuration
-
-**Process steps** (BPMN execution order):
-
-1. **Production Planning for Material Variant** — *Production Planner*
-2. **Production Execution for Material Variant** — *Production Supervisor*
-3. **Create Sales Order With Material Variant** — *Internal Sales Representative*
-4. **Delivery Processing of Sales Order** — *Shipping Specialist*
-5. **Billing of Sales Order** — *Billing Clerk*
-
-**Key Fiori apps / TCodes:**
-
-- `F1873` / `VA05` — Manage Sales Orders
-
-### 22P — Manage Documents
-
-**Process steps** (BPMN execution order):
-
-1. **Search for Document** — *Design Engineer*
-2. **Create a New Version of the Document** — *Design Engineer*
-3. **Create New Document** — *Design Engineer*
-4. **Document Service** — *N/A*
-5. **(Optional) Maintain Attachments** *(optional)* — *Design Engineer*
-6. **Propose Classification automatically (2YC) (optional)** *(optional)* — *Design Engineer* → calls `2YC`
-7. **(Optional) Maintain Classification Metadata** *(optional)* — *Design Engineer*
-8. **Release Document** — *Design Engineer*
-
-**Key Fiori apps / TCodes:**
-
-- `F2733` / `CV01N` — Manage Documents
-
-### 22T — Set Up Configurable Model using Variant Configuration
-
-**Process steps** (BPMN execution order):
-
-1. **Create Characteristic** — *Product Configuration Modeler*
-2. **Create Class - Class type 300: Variants** — *Product Configuration Modeler*
-3. **Assign Class to Product** — *Master Data Specialist - Product Data*
-4. **Create Variant Table** — *Product Configuration Modeler*
-5. **Maintain Variant Table Content** — *Product Configuration Modeler*
-6. **Create Configuration Profile** — *Product Configuration Modeler*
-7. **Create and Assign Grouping** — *Product Configuration Modeler*
-8. **Create Constraint Net** — *Product Configuration Modeler*
-9. **Create High-Level Dependency and Simulate** — *Product Configuration Modeler*
-10. **Create Super BOM** — *Production Engineer - Discrete Manufacturing*
-11. **Add Stock Item** — *Production Engineer - Discrete Manufacturing*
-12. **Add Class Node Item** — *Production Engineer - Discrete Manufacturing*
-13. **Add Low Level Dependencies** — *Production Engineer - Discrete Manufacturing*
-14. **Simulate Single-Level Con-figurable BOM** — *Production Engineer - Discrete Manufacturing*
-15. **(Optional) Simulate Multi-Level Configurable BOM** *(optional)* — *Production Engineer - Discrete Manufacturing*
-16. **Simulate Configurable Routing** — *Production Engineer - Discrete Manufacturing*
-
-**Key Fiori apps / TCodes:**
-
-- `F1602` — Manage Product Master
-- `F2570` — Simulate Configuration Models
-- `F1813` / `CS01` — Maintain Bill Of Material
-
-### 2XU — Procurement of Materials with Variant Configuration
-
-**Process steps** (BPMN execution order):
-
-1. **Create Purchase Orders** — *Purchaser*
-2. **Preview Purchase Order (Optional)** *(optional)* — *Purchaser*
-3. **Change Purchase Order (optional)** *(optional)* — *Purchaser*
-4. **Post Goods Receipt** — *Warehouse Clerk*
-5. **Create Supplier Invoice** — *Accounts Payable Accountant*
-6. **Review Supplier Invoice (Optional)** *(optional)* — *Accounts Payable Accountant*
-
-**Key Fiori apps / TCodes:**
-
-- `F5331` / `SBWP` — My Inbox for Legal Contract
-- `F0859` / `F-41` — Manage Supplier Invoices
-- `F0842A` / `ME21` — Manage Purchase Orders (Version 2)
-
-### 35Q — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create High Level Product Structure Template** — *Design Engineer*
-2. **Update High Level Product Structure Template** — *Design Engineer*
+*Full BPMN detail → [product-engineering.md](design-to-operate/product-engineering.md)*
 
 ## Product Lifecycle Management
-
-21 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -1237,275 +245,9 @@ Data (MDG)*
 | `64F` | Bill of Material Management | 2 | — | — | SAP_BR_DESIGN_ENGINEER, SAP_BR_MD_SPECIALIST_RAW_SUBST, SAP_BR_DEVELOPMENT_MANAGER_DIN, SAP_BR_BOM_ENGINEER |
 | `6OT` | Bill of Material Management Professional | 0 | — | — | SAP_BR_MD_SPECIALIST_EAM, SAP_BR_DEVELOPMENT_MANAGER_DIN, SAP_BR_ADMINISTRATOR_RCP_DEV, SAP_BR_BOM_ENGINEER |
 
-### 1QA — None
-
-**Process steps** (BPMN execution order):
-
-1. **Assign Allergen to Allergen Group** — *Administrator - Recipe Development*
-2. **Create New Nutrient** — *Administrator - Recipe Development*
-3. **Assign Nutrient to Nutrient Group** — *Administrator - Recipe Development*
-4. **Create New Pure Substance** — *Administrator - Recipe Development*
-5. **Create New Raw Substance** — *Master Data Specialist*
-
-### 1QC — None
-
-**Process steps** (BPMN execution order):
-
-1. **Review Recipe** — *Recipe Developer*
-2. **Create a New Recipe from an Existing Recipe** — *Recipe Developer*
-3. **Modify Recipe Ingredients** — *Recipe Developer*
-4. **Release Recipe** — *Recipe Developer*
-
-### 1QG — Recipe Handover to Production – Bill of Material
-
-**Process steps** (BPMN execution order):
-
-1. **Review Recipe and 
-Decide Handover 
-to Production - BOM** — *Production Engineer*
-2. **Copy General Recipe to 
-Site Recipe and 
-Assign Plant** — *Production Engineer*
-3. **Check Assigned Materials 
-and Release Site Recipe** — *Production Engineer*
-4. **Define Plant Specific Target Bill of Material for the Recipe for Synchronization** — *Production Engineer*
-5. **Simulate and Execute Synchronization of the Recipe into Bill of Material** — *Production Engineer*
-6. **Check Manufacturing Bill of Material (MBOM)** — *Production Engineer*
-
-**Key Fiori apps / TCodes:**
-
-- `F1813` / `CS01` — Maintain Bill Of Material
-
-### 1YT — Make-to-Order Production with Variant Configuration
-
-**Process steps** (BPMN execution order):
-
-1. **Create Sales Order For Single-Level Configurable Material** — *Internal Sales Representative*
-2. **Create Down Payment Request (BKJ)** — *Billing Clerk* → calls `BKJ`
-3. **Post Down Payment (BKJ)** — *Accounts Receivable Accountant* → calls `BKJ`
-4. **Manufacturing Steps for Production Order Processing (BJE)** — *Production Planner* → calls `BJE`
-5. **2XU - Procurement of Materials with Variable Configuration** — *Purchaser* → calls `2XU`
-6. **Delivery Processing (BD9)** — *Shipping Specialist* → calls `BD9`
-7. **Delivery Processing (BKJ)** — *Shipping Specialist* → calls `BKJ`
-8. **Billing (BD9)** — *Billing Clerk* → calls `BD9`
-9. **Billing (BKJ)** — *Billing Clerk* → calls `BKJ`
-
-**Key Fiori apps / TCodes:**
-
-- `F2336` / `CO02` — Manage Production Orders
-- `F1852` / `VA25` — Manage Sales Quotations
-- `F1873` / `VA05` — Manage Sales Orders
-
-### 1ZI — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create Change Master** — *Production Engineer*
-2. **Create Manufacturing Bill of Material as Copy of Engineering Bill of Material** — *Production Engineer*
-3. **Rework Manufacturing BOM** — *Production Engineer*
-4. **Release Manufacturing BOM** — *Production Engineer*
-5. **Set Status of Change Master to Inactive** — *Production Engineer*
-
-### 21D — Make-to-Stock Production with Variant Configuration
-
-**Process steps** (BPMN execution order):
-
-1. **Production Planning for Material Variant** — *Production Planner*
-2. **Production Execution for Material Variant** — *Production Supervisor*
-3. **Create Sales Order With Material Variant** — *Internal Sales Representative*
-4. **Delivery Processing of Sales Order** — *Shipping Specialist*
-5. **Billing of Sales Order** — *Billing Clerk*
-
-**Key Fiori apps / TCodes:**
-
-- `F1873` / `VA05` — Manage Sales Orders
-
-### 22P — Manage Documents
-
-**Process steps** (BPMN execution order):
-
-1. **Search for Document** — *Design Engineer*
-2. **Create a New Version of the Document** — *Design Engineer*
-3. **Create New Document** — *Design Engineer*
-4. **Document Service** — *N/A*
-5. **(Optional) Maintain Attachments** *(optional)* — *Design Engineer*
-6. **Propose Classification automatically (2YC) (optional)** *(optional)* — *Design Engineer* → calls `2YC`
-7. **(Optional) Maintain Classification Metadata** *(optional)* — *Design Engineer*
-8. **Release Document** — *Design Engineer*
-
-**Key Fiori apps / TCodes:**
-
-- `F2733` / `CV01N` — Manage Documents
-
-### 22R — None
-
-**Process steps** (BPMN execution order):
-
-1. **Determine Usage of Material in Recipes** — *Recipe Developer*
-2. **Analyze Search Result List** — *Recipe Developer*
-3. **Export Selection to Excel (Optional)** *(optional)* — *Recipe Developer*
-4. **Decide for Ingredient to Replace** — *Recipe Developer*
-
-### 22T — Set Up Configurable Model using Variant Configuration
-
-**Process steps** (BPMN execution order):
-
-1. **Create Characteristic** — *Product Configuration Modeler*
-2. **Create Class - Class type 300: Variants** — *Product Configuration Modeler*
-3. **Assign Class to Product** — *Master Data Specialist - Product Data*
-4. **Create Variant Table** — *Product Configuration Modeler*
-5. **Maintain Variant Table Content** — *Product Configuration Modeler*
-6. **Create Configuration Profile** — *Product Configuration Modeler*
-7. **Create and Assign Grouping** — *Product Configuration Modeler*
-8. **Create Constraint Net** — *Product Configuration Modeler*
-9. **Create High-Level Dependency and Simulate** — *Product Configuration Modeler*
-10. **Create Super BOM** — *Production Engineer - Discrete Manufacturing*
-11. **Add Stock Item** — *Production Engineer - Discrete Manufacturing*
-12. **Add Class Node Item** — *Production Engineer - Discrete Manufacturing*
-13. **Add Low Level Dependencies** — *Production Engineer - Discrete Manufacturing*
-14. **Simulate Single-Level Con-figurable BOM** — *Production Engineer - Discrete Manufacturing*
-15. **(Optional) Simulate Multi-Level Configurable BOM** *(optional)* — *Production Engineer - Discrete Manufacturing*
-16. **Simulate Configurable Routing** — *Production Engineer - Discrete Manufacturing*
-
-**Key Fiori apps / TCodes:**
-
-- `F1602` — Manage Product Master
-- `F2570` — Simulate Configuration Models
-- `F1813` / `CS01` — Maintain Bill Of Material
-
-### 2G4 — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create High-Level Dependencies** — *Product Configuration Modeler*
-2. **Assign Block Definition Diagram for High-Level Dependency** — *Product Configuration Modeler*
-3. **Simulate Configurable BOM** — *Product Configuration Modeler*
-
-### 2G5 — Software Compatibility Management
-
-**Process steps** (BPMN execution order):
-
-1. **Define Software Compatibility** — *Systems Engineer*
-2. **Check Software Compatibility** — *BOM Engineer*
-3. **Fix Conflicts** — *BOM Engineer*
-
-**Key Fiori apps / TCodes:**
-
-- `F1813` / `CS01` — Maintain Bill Of Material
-- `F2098` — Manage Software Constraints
-
-### 2G6 — Embedded Software Management
-
-**Process steps** (BPMN execution order):
-
-1. **Create Software Material** — *Systems Engineer*
-2. **Create Software Document and Link the Software Material** — *Systems Engineer*
-3. **Add new Software Item to BOM** — *BOM Engineer*
-4. **Create New Software Version** — *Systems Engineer*
-5. **Update Software Item with New Version in BoM** — *BOM Engineer*
-
-**Key Fiori apps / TCodes:**
-
-- `F2733` / `CV01N` — Manage Documents
-- `F1813` / `CS01` — Maintain Bill Of Material
-
-### 2XU — Procurement of Materials with Variant Configuration
-
-**Process steps** (BPMN execution order):
-
-1. **Create Purchase Orders** — *Purchaser*
-2. **Preview Purchase Order (Optional)** *(optional)* — *Purchaser*
-3. **Change Purchase Order (optional)** *(optional)* — *Purchaser*
-4. **Post Goods Receipt** — *Warehouse Clerk*
-5. **Create Supplier Invoice** — *Accounts Payable Accountant*
-6. **Review Supplier Invoice (Optional)** *(optional)* — *Accounts Payable Accountant*
-
-**Key Fiori apps / TCodes:**
-
-- `F5331` / `SBWP` — My Inbox for Legal Contract
-- `F0859` / `F-41` — Manage Supplier Invoices
-- `F0842A` / `ME21` — Manage Purchase Orders (Version 2)
-
-### 2YC — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create New Document** — *Design Engineer*
-2. **Retrieve Auto-Classification** — *Design Engineer*
-3. **Validate Auto-Classification** — *Design Engineer*
-4. **Save Document** — *Design Engineer*
-
-### 4R8 — Engineer-to-Order Production with Variant Configuration
-
-**Process steps** (BPMN execution order):
-
-1. **Check Configuration Profile** — *Product Configuration Modeler*
-2. **Simulate Configuration Model** — *Product Configuration Modeler*
-3. **Create Sales Order** — *Internal Sales Representative*
-4. **Start Multi-Level Valuation** — *Internal Sales Representative*
-5. **Switch to EtO** — *Internal Sales Representative*
-6. **Check Multi-Level Configuration** — *Internal Sales Representative*
-7. **Release for Order Engineering** — *Internal Sales Representative*
-8. **Accept Changes from Order Engineering** — *Internal Sales Representative*
-9. **Calculate Sales Order Costs** — *Internal Sales Representative*
-10. **Save Sales Order** — *Internal Sales Representative*
-
-**Key Fiori apps / TCodes:**
-
-- `F4770` / `CU51` — Order Engineering Worklist
-
-### 5QC — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create Change Records** — *Development Manager - Process Industry*
-2. **Assign Master Recipes / Products & Set Processing Status** — *Production Engineer - Process Manufacturing*
-3. **Submit Change Request** — *Production Engineer - Process Manufacturing*
-4. **Check Change Request** — *Development Manager - Process Industry*
-5. **Approve Change Request** — *Development Manager - Process Industry*
-6. **Start Change Implementation** — *Development Manager - Process Industry*
-7. **Perform Master Recipe / Product Master Changes** — *Production Engineer - Process Manufacturing*
-8. **Close Change Implementation** — *Development Manager - Process Industry*
-9. **Release Change** — *Development Manager - Process Industry*
-
-### 64E — Product Change Management with Change Records
-
-**Process steps** (BPMN execution order):
-
-1. **Create Change Records** — *Development Manager - Discrete Industry*
-2. **Assign BOMs / Products & Set Processing Status** — *BOM Engineer*
-3. **Submit Change Request** — *BOM Engineer*
-4. **Check Change Request** — *Development Manager - Discrete Industry*
-5. **Approve Change Request** — *Development Manager - Discrete Industry*
-6. **Start Change Implementation** — *Development Manager - Discrete Industry*
-7. **Perform BOM / Product Master Changes** — *BOM Engineer*
-8. **Close Change Implementation** — *Development Manager - Discrete Industry*
-9. **Release Change** — *Development Manager - Discrete Industry*
-
-**Key Fiori apps / TCodes:**
-
-- `F2097A` — Manage Change Records (Version 2)
-
-### 64F — Bill of Material Management
-
-**Process steps** (BPMN execution order):
-
-1. **Create Change Master** — *BOM Engineer*
-2. **Create Bill of Material with components** — *BOM Engineer*
-
-**Key Fiori apps / TCodes:**
-
-- `F2733` / `CV01N` — Manage Documents
-- `F1602` — Manage Product Master
-- `F2570` — Simulate Configuration Models
-- `F1813` / `CS01` — Maintain Bill Of Material
-- `F2214` / `CS15` — Material Where Used List for BOMs
-- `F5238` — Manage Multilevel Bill Of Material
-- `F2212` / `CC01` — Manage Change Masters
+*Full BPMN detail → [product-lifecycle-management.md](design-to-operate/product-lifecycle-management.md)*
 
 ## Production Engineering
-
-5 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -1515,105 +257,9 @@ and Release Site Recipe** — *Production Engineer*
 | `5W4` | None | 25 | — | — | — |
 | `61W` | None | 16 | — | — | — |
 
-### 3LO — Change Manufacturing Bill of Material for Production
-
-**Process steps** (BPMN execution order):
-
-1. **Create Change Master** — *Production Engineer - Discrete Manufacturing (EME)*
-2. **Exchange a Component in the MBOM** — *Production Engineer - Discrete Manufacturing (EME)*
-3. **Set Change Master Status to Inactive** — *Production Engineer - Discrete Manufacturing (EME)*
-4. **Manually Create Production Order** — *Production Supervisor - Discrete Manufacturing (EPO)*
-5. **Create Change Master** — *Production Engineer - Discrete Manufacturing (EME)*
-6. **Change to Original Component in the MBOM** — *Production Engineer - Discrete Manufacturing (EME)*
-7. **Set Change Master Status to Inactive** — *Production Engineer - Discrete Manufacturing (EME)*
-8. **Manually Create Production Order** — *Production Supervisor - Discrete Manufacturing (EPO)*
-
-**Key Fiori apps / TCodes:**
-
-- `F1813` / `CS01` — Maintain Bill Of Material
-
-### 3LP — Mass Change Manufacturing Bill of Material for Production
-
-**Process steps** (BPMN execution order):
-
-1. **Display Where-Used List for the Material** — *Production Engineer - Discrete Manufacturing (EME)*
-2. **Create Change Master** — *Production Engineer - Discrete Manufacturing (EME)*
-3. **Replace Material** — *Production Engineer - Discrete Manufacturing (EME)*
-4. **Check Draft BOM** — *Production Engineer - Discrete Manufacturing (EME)*
-5. **Confirm Material Replacement** — *Production Engineer - Discrete Manufacturing (EME)*
-6. **Set Change Master Status to Inactive** — *Production Engineer - Discrete Manufacturing (EME)*
-7. **Manually Create Production Order** — *Production Supervisor - Discrete Manufacturing (EPO)*
-
-**Key Fiori apps / TCodes:**
-
-- `F1813` / `CS01` — Maintain Bill Of Material
-- `F2214` / `CS15` — Material Where Used List for BOMs
-
-### 5HK — Quality Management in Discrete Manufacturing – Consumer Products
-
-**Process steps** (BPMN execution order):
-
-1. **Create Initial Material Stock** — *Warehouse Clerk*
-2. **Execute Process Steps starting from "Convert Planned Orders to Production Orders" to "Display Material Stock after Usage Decision"** — *Production Planner*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
-
-### 5W4 — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create Planned Independent Requirements** — *Production Planner*
-2. **Create Purchase Order manually** — *Purchaser*
-3. **Material Requirements Planning at Plant Level** — *Production Planner*
-4. **Evaluate Stock/Requirements Situation and Prepare Planned Order for Subcontracting** — *Production Planner*
-5. **Approve Purchase Orders (Optional)** *(optional)* — *Purchasing Manager*
-6. **Convert Planned Order to Purchase Requisition** — *Production Planner*
-7. **Monitor Subcontracting Documents (Optional)** *(optional)* — *Purchaser*
-8. **Convert Purchase Requisition to Purchase Order** — *Purchaser*
-9. **Execute Material Requirements Planning at Plant Level (Optional)** *(optional)* — *Production Planner*
-10. **Evaluate Stock/Requirements Situation (Optional)** *(optional)* — *Production Planner*
-11. **Transfer Components to the Subcontractor** — *Inventory Manager*
-12. **Evaluate Stock / Requirements Situation** — *Production Planner*
-13. **Receive Goods from Subcontracting Purchase Order** — *Warehouse Clerk*
-14. **Evaluate Stock / Requirements Situation** — *Production Planner*
-15. **Display Material Stock Before Quality Inspection (Optional)** *(optional)* — *Inventory Manager*
-16. **Display Inspection Plan for Inspection Characteristics (Optional)** *(optional)* — *Quality Technician*
-17. **Display Quality Technician Overview (Optional)** *(optional)* — *Quality Technician*
-18. **Display Open Inspection Lots (Optional)** *(optional)* — *Quality Technician*
-19. **Record Inspection Results** — *Quality Technician*
-20. **Display Quality Engineer Overview (Optional)** *(optional)* — *Quality Engineer*
-21. **Make Usage Decision** — *Quality Engineer*
-22. **Display Material Stock after Quality Inspection (Optional)** *(optional)* — *Warehouse Clerk*
-23. **Create Supplier Invoice** — *Accounts Payable Accountant (Freight Costs)*
-24. **Review Supplier Invoice (Optional)** *(optional)* — *Accounts Payable Accountant (Freight Costs)*
-25. **Batch Information Cockpit - Top Down and Bottom-Up Analysis** — *Quality Technician*
-
-### 61W — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create Change Master** — *BOM Engineer*
-2. **Changes of Info Record Condition** — *Purchaser*
-3. **Enter Future Prices** — *Inventory Accountant*
-4. **Change Material Costs** — *Inventory Accountant*
-5. **Exchange a Component in the Material BOM** — *BOM Engineer*
-6. **Release Planned Price Change** — *Inventory Accountant*
-7. **Set Change Master Status to Inactive** — *BOM Engineer*
-8. **Create Costing Run** — *Inventory Accountant*
-9. **Manually Create Production Order (Optional)** *(optional)* — *Production Supervisor - Discrete Manufacturing*
-10. **Execute Costing Run** — *Inventory Accountant*
-11. **Material Price Analysis** — *Inventory Accountant*
-12. **Execute Costing Run Comparison** — *Inventory Accountant*
-13. **Create Change Master (Optional)** *(optional)* — *BOM Engineer*
-14. **Change to Original Component in the Material BOM (Optional)** *(optional)* — *BOM Engineer*
-15. **Set Change Master Status to Inactive (Optional)** *(optional)* — *BOM Engineer*
-16. **Manually Create Production Order (Optional)** *(optional)* — *Production Supervisor - Discrete Manufacturing*
+*Full BPMN detail → [production-engineering.md](design-to-operate/production-engineering.md)*
 
 ## Production Planning
-
-7 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -1625,103 +271,9 @@ and Release Site Recipe** — *Production Engineer*
 | `5W4` | None | 25 | — | — | — |
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-### 1YT — Make-to-Order Production with Variant Configuration
-
-**Process steps** (BPMN execution order):
-
-1. **Create Sales Order For Single-Level Configurable Material** — *Internal Sales Representative*
-2. **Create Down Payment Request (BKJ)** — *Billing Clerk* → calls `BKJ`
-3. **Post Down Payment (BKJ)** — *Accounts Receivable Accountant* → calls `BKJ`
-4. **Manufacturing Steps for Production Order Processing (BJE)** — *Production Planner* → calls `BJE`
-5. **2XU - Procurement of Materials with Variable Configuration** — *Purchaser* → calls `2XU`
-6. **Delivery Processing (BD9)** — *Shipping Specialist* → calls `BD9`
-7. **Delivery Processing (BKJ)** — *Shipping Specialist* → calls `BKJ`
-8. **Billing (BD9)** — *Billing Clerk* → calls `BD9`
-9. **Billing (BKJ)** — *Billing Clerk* → calls `BKJ`
-
-**Key Fiori apps / TCodes:**
-
-- `F2336` / `CO02` — Manage Production Orders
-- `F1852` / `VA25` — Manage Sales Quotations
-- `F1873` / `VA05` — Manage Sales Orders
-
-### 21D — Make-to-Stock Production with Variant Configuration
-
-**Process steps** (BPMN execution order):
-
-1. **Production Planning for Material Variant** — *Production Planner*
-2. **Production Execution for Material Variant** — *Production Supervisor*
-3. **Create Sales Order With Material Variant** — *Internal Sales Representative*
-4. **Delivery Processing of Sales Order** — *Shipping Specialist*
-5. **Billing of Sales Order** — *Billing Clerk*
-
-**Key Fiori apps / TCodes:**
-
-- `F1873` / `VA05` — Manage Sales Orders
-
-### 4R8 — Engineer-to-Order Production with Variant Configuration
-
-**Process steps** (BPMN execution order):
-
-1. **Check Configuration Profile** — *Product Configuration Modeler*
-2. **Simulate Configuration Model** — *Product Configuration Modeler*
-3. **Create Sales Order** — *Internal Sales Representative*
-4. **Start Multi-Level Valuation** — *Internal Sales Representative*
-5. **Switch to EtO** — *Internal Sales Representative*
-6. **Check Multi-Level Configuration** — *Internal Sales Representative*
-7. **Release for Order Engineering** — *Internal Sales Representative*
-8. **Accept Changes from Order Engineering** — *Internal Sales Representative*
-9. **Calculate Sales Order Costs** — *Internal Sales Representative*
-10. **Save Sales Order** — *Internal Sales Representative*
-
-**Key Fiori apps / TCodes:**
-
-- `F4770` / `CU51` — Order Engineering Worklist
-
-### 5HK — Quality Management in Discrete Manufacturing – Consumer Products
-
-**Process steps** (BPMN execution order):
-
-1. **Create Initial Material Stock** — *Warehouse Clerk*
-2. **Execute Process Steps starting from "Convert Planned Orders to Production Orders" to "Display Material Stock after Usage Decision"** — *Production Planner*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
-
-### 5W4 — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create Planned Independent Requirements** — *Production Planner*
-2. **Create Purchase Order manually** — *Purchaser*
-3. **Material Requirements Planning at Plant Level** — *Production Planner*
-4. **Evaluate Stock/Requirements Situation and Prepare Planned Order for Subcontracting** — *Production Planner*
-5. **Approve Purchase Orders (Optional)** *(optional)* — *Purchasing Manager*
-6. **Convert Planned Order to Purchase Requisition** — *Production Planner*
-7. **Monitor Subcontracting Documents (Optional)** *(optional)* — *Purchaser*
-8. **Convert Purchase Requisition to Purchase Order** — *Purchaser*
-9. **Execute Material Requirements Planning at Plant Level (Optional)** *(optional)* — *Production Planner*
-10. **Evaluate Stock/Requirements Situation (Optional)** *(optional)* — *Production Planner*
-11. **Transfer Components to the Subcontractor** — *Inventory Manager*
-12. **Evaluate Stock / Requirements Situation** — *Production Planner*
-13. **Receive Goods from Subcontracting Purchase Order** — *Warehouse Clerk*
-14. **Evaluate Stock / Requirements Situation** — *Production Planner*
-15. **Display Material Stock Before Quality Inspection (Optional)** *(optional)* — *Inventory Manager*
-16. **Display Inspection Plan for Inspection Characteristics (Optional)** *(optional)* — *Quality Technician*
-17. **Display Quality Technician Overview (Optional)** *(optional)* — *Quality Technician*
-18. **Display Open Inspection Lots (Optional)** *(optional)* — *Quality Technician*
-19. **Record Inspection Results** — *Quality Technician*
-20. **Display Quality Engineer Overview (Optional)** *(optional)* — *Quality Engineer*
-21. **Make Usage Decision** — *Quality Engineer*
-22. **Display Material Stock after Quality Inspection (Optional)** *(optional)* — *Warehouse Clerk*
-23. **Create Supplier Invoice** — *Accounts Payable Accountant (Freight Costs)*
-24. **Review Supplier Invoice (Optional)** *(optional)* — *Accounts Payable Accountant (Freight Costs)*
-25. **Batch Information Cockpit - Top Down and Bottom-Up Analysis** — *Quality Technician*
+*Full BPMN detail → [production-planning.md](design-to-operate/production-planning.md)*
 
 ## Quality Management
-
-3 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -1729,82 +281,13 @@ and Release Site Recipe** — *Production Engineer*
 | `5HK` | Quality Management in Discrete Manufacturing – Consumer Products | 2 | — | — | SAP_BR_PRODN_OPTR_DISC |
 | `5W4` | None | 25 | — | — | — |
 
-### 5HK — Quality Management in Discrete Manufacturing – Consumer Products
-
-**Process steps** (BPMN execution order):
-
-1. **Create Initial Material Stock** — *Warehouse Clerk*
-2. **Execute Process Steps starting from "Convert Planned Orders to Production Orders" to "Display Material Stock after Usage Decision"** — *Production Planner*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
-
-### 5W4 — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create Planned Independent Requirements** — *Production Planner*
-2. **Create Purchase Order manually** — *Purchaser*
-3. **Material Requirements Planning at Plant Level** — *Production Planner*
-4. **Evaluate Stock/Requirements Situation and Prepare Planned Order for Subcontracting** — *Production Planner*
-5. **Approve Purchase Orders (Optional)** *(optional)* — *Purchasing Manager*
-6. **Convert Planned Order to Purchase Requisition** — *Production Planner*
-7. **Monitor Subcontracting Documents (Optional)** *(optional)* — *Purchaser*
-8. **Convert Purchase Requisition to Purchase Order** — *Purchaser*
-9. **Execute Material Requirements Planning at Plant Level (Optional)** *(optional)* — *Production Planner*
-10. **Evaluate Stock/Requirements Situation (Optional)** *(optional)* — *Production Planner*
-11. **Transfer Components to the Subcontractor** — *Inventory Manager*
-12. **Evaluate Stock / Requirements Situation** — *Production Planner*
-13. **Receive Goods from Subcontracting Purchase Order** — *Warehouse Clerk*
-14. **Evaluate Stock / Requirements Situation** — *Production Planner*
-15. **Display Material Stock Before Quality Inspection (Optional)** *(optional)* — *Inventory Manager*
-16. **Display Inspection Plan for Inspection Characteristics (Optional)** *(optional)* — *Quality Technician*
-17. **Display Quality Technician Overview (Optional)** *(optional)* — *Quality Technician*
-18. **Display Open Inspection Lots (Optional)** *(optional)* — *Quality Technician*
-19. **Record Inspection Results** — *Quality Technician*
-20. **Display Quality Engineer Overview (Optional)** *(optional)* — *Quality Engineer*
-21. **Make Usage Decision** — *Quality Engineer*
-22. **Display Material Stock after Quality Inspection (Optional)** *(optional)* — *Warehouse Clerk*
-23. **Create Supplier Invoice** — *Accounts Payable Accountant (Freight Costs)*
-24. **Review Supplier Invoice (Optional)** *(optional)* — *Accounts Payable Accountant (Freight Costs)*
-25. **Batch Information Cockpit - Top Down and Bottom-Up Analysis** — *Quality Technician*
+*Full BPMN detail → [quality-management.md](design-to-operate/quality-management.md)*
 
 ## Supplier Management
-
-1 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `5W4` | None | 25 | — | — | — |
 
-### 5W4 — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create Planned Independent Requirements** — *Production Planner*
-2. **Create Purchase Order manually** — *Purchaser*
-3. **Material Requirements Planning at Plant Level** — *Production Planner*
-4. **Evaluate Stock/Requirements Situation and Prepare Planned Order for Subcontracting** — *Production Planner*
-5. **Approve Purchase Orders (Optional)** *(optional)* — *Purchasing Manager*
-6. **Convert Planned Order to Purchase Requisition** — *Production Planner*
-7. **Monitor Subcontracting Documents (Optional)** *(optional)* — *Purchaser*
-8. **Convert Purchase Requisition to Purchase Order** — *Purchaser*
-9. **Execute Material Requirements Planning at Plant Level (Optional)** *(optional)* — *Production Planner*
-10. **Evaluate Stock/Requirements Situation (Optional)** *(optional)* — *Production Planner*
-11. **Transfer Components to the Subcontractor** — *Inventory Manager*
-12. **Evaluate Stock / Requirements Situation** — *Production Planner*
-13. **Receive Goods from Subcontracting Purchase Order** — *Warehouse Clerk*
-14. **Evaluate Stock / Requirements Situation** — *Production Planner*
-15. **Display Material Stock Before Quality Inspection (Optional)** *(optional)* — *Inventory Manager*
-16. **Display Inspection Plan for Inspection Characteristics (Optional)** *(optional)* — *Quality Technician*
-17. **Display Quality Technician Overview (Optional)** *(optional)* — *Quality Technician*
-18. **Display Open Inspection Lots (Optional)** *(optional)* — *Quality Technician*
-19. **Record Inspection Results** — *Quality Technician*
-20. **Display Quality Engineer Overview (Optional)** *(optional)* — *Quality Engineer*
-21. **Make Usage Decision** — *Quality Engineer*
-22. **Display Material Stock after Quality Inspection (Optional)** *(optional)* — *Warehouse Clerk*
-23. **Create Supplier Invoice** — *Accounts Payable Accountant (Freight Costs)*
-24. **Review Supplier Invoice (Optional)** *(optional)* — *Accounts Payable Accountant (Freight Costs)*
-25. **Batch Information Cockpit - Top Down and Bottom-Up Analysis** — *Quality Technician*
+*Full BPMN detail → [supplier-management.md](design-to-operate/supplier-management.md)*
 

@@ -5,17 +5,34 @@
 
 Generated 2026-08-25. 141 scope items across 16 process groups.
 
-## (Unknown)
+| L2 process group | Items | Detail |
+|---|---|---|
+| (Unknown) | 1 | [unknown.md](unclassified/unknown.md) |
+| Application Development and Integration | 3 | [application-development-and-integration.md](unclassified/application-development-and-integration.md) |
+| Budget and Finance | 17 | [budget-and-finance.md](unclassified/budget-and-finance.md) |
+| Database and Data Management | 2 | [database-and-data-management.md](unclassified/database-and-data-management.md) |
+| Finance | 59 | [finance.md](unclassified/finance.md) |
+| Industry - Oil | 1 | [industry-oil.md](unclassified/industry-oil.md) |
+| Intelligent Technologies | 3 | [intelligent-technologies.md](unclassified/intelligent-technologies.md) |
+| Manufacturing | 4 | [manufacturing.md](unclassified/manufacturing.md) |
+| Marketing | 1 | [marketing.md](unclassified/marketing.md) |
+| Mine Operations | 1 | [mine-operations.md](unclassified/mine-operations.md) |
+| Operations | 10 | [operations.md](unclassified/operations.md) |
+| R&D and Product Management | 1 | [r-d-and-product-management.md](unclassified/r-d-and-product-management.md) |
+| Sales and Marketing | 3 | [sales-and-marketing.md](unclassified/sales-and-marketing.md) |
+| Service | 2 | [service.md](unclassified/service.md) |
+| Sourcing and Procurement | 3 | [sourcing-and-procurement.md](unclassified/sourcing-and-procurement.md) |
+| Supply Chain | 30 | [supply-chain.md](unclassified/supply-chain.md) |
 
-1 scope items.
+## (Unknown)
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `3I1` | None | 0 | — | — | — |
 
-## Application Development and Integration
+*Full BPMN detail → [unknown.md](unclassified/unknown.md)*
 
-3 scope items.
+## Application Development and Integration
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -23,9 +40,9 @@ Generated 2026-08-25. 141 scope items across 16 process groups.
 | `1NN` | Business Event Handling | 0 | — | — | SAP_BR_ADMINISTRATOR |
 | `3I2` | Store Connectivity – Outbound | 0 | — | — | SAP_BR_APPL_SUP_ENG_DEV_SUP, SAP_BR_CONF_EXPERT_BUS_NET_INT, SAP_BR_ADMINISTRATOR |
 
-## Budget and Finance
+*Full BPMN detail → [application-development-and-integration.md](unclassified/application-development-and-integration.md)*
 
-17 scope items.
+## Budget and Finance
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -47,18 +64,18 @@ Generated 2026-08-25. 141 scope items across 16 process groups.
 | `7YH` | Invoice Processing with SAP Ariba Invoicing | 0 | — | — | SAP_BR_OPERATION_CLERK_ACM, SAP_BR_SETTLEMENT_CLERK_ACM, SAP_BR_INVENTORY_MANAGER, SAP_BR_WAREHOUSE_CLERK |
 | `7YY` | Multistage Intercompany Sales | 0 | — | — | SAP_BR_INTERNAL_SALES_REP, SAP_BR_INVENTORY_ACCOUNTANT, SAP_BR_BILLING_CLERK, SAP_BR_AP_ACCOUNTANT_PROCUREMT |
 
-## Database and Data Management
+*Full BPMN detail → [budget-and-finance.md](unclassified/budget-and-finance.md)*
 
-2 scope items.
+## Database and Data Management
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `2Q2` | Data Migration to SAP S/4HANA from Staging | 0 | — | — | SAP_BR_CONFIG_EXPERT_DATA_MIG |
 | `7MI` | Mass Load and Mass Maintenance for Business Partners | 0 | — | — | SAP_BR_PRODMASTER_SPECIALIST |
 
-## Finance
+*Full BPMN detail → [database-and-data-management.md](unclassified/database-and-data-management.md)*
 
-59 scope items.
+## Finance
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -122,57 +139,17 @@ Generated 2026-08-25. 141 scope items across 16 process groups.
 | `830` | Produce to Sell – Process Industry – Consumer Products | 0 | — | — | SAP_BR_CREDIT_CONTROLLER |
 | `BGC` | SAP Fiori Analytical Apps for G/L Accounting in Finance | 0 | — | — | SAP_BR_GL_ACCOUNTANT, SAP_BR_EXTERNAL_AUDITOR, SAP_BR_TREASURY_SPECIALIST_FOE, SAP_BR_DIVISION_ACCOUNTANT |
 
-### 2BK — Contract Accounting – Daily and Monthly Closing
-
-**Process steps** (BPMN execution order):
-
-1. **Close the Previous Accounting Period** — *General Ledger Accountant - Group Reporting*
-2. **Reconcile Open Items with G/L** — *Reconciliation Specialist - Accounts Payable and Receivable (FI-CA)*
-
-**Key Fiori apps / TCodes:**
-
-- `F3125` / `FP04H` — Display Write-Offs
-- `F4824` — Display Posted Value Adjustments
-- `F3535` / `FPRW` — Adjust Receivables according to Age
-- `F3538` / `FPO1P` — Creation Run Open Item List for Key Date
-- `F3539` / `FPRV` — Post Value Adjustments
-- `F3540` / `FP04M` — Write Off Run
-- `F5985` — Foreign Currency Valuation Run
-- `F6280` — Deferred Tax Transfer Posting
-- *…and 2 more (see scope-items/2BK.json)*
-
-### 6ND — Securities Option Management
-
-**Process steps** (BPMN execution order):
-
-1. **Generate Payment Request for Premium** — *Treasury Specialist - Back Office*
-2. **Bank Initiated Payment** — *Treasury Specialist - Back Office*
-3. **Process Payment Request** — *Treasury Specialist - Back Office*
-4. **Post to General Ledger** — *Treasury Accountant*
-
-**Key Fiori apps / TCodes:**
-
-- `F1754` / `TPM13` — Display Treasury Position Flows
-- `F1755` / `TPM20` — Display Treasury Posting Journal
-- `F1867` / `TPM12` — Display Treasury Position Values
-- `F4979` / `FTR_ALERT` — Display Treasury Alerts - Settlement
-- `F4980` / `FTR_ALERT` — Display Treasury Alerts - Release
-- `F4981` / `FTR_ALERT` — Display Treasury Alerts - Payment
-- `F4982` / `FTR_ALERT` — Display Treasury Alerts - Interest Rates
-- `F4984` / `FTR_ALERT` — Display Treasury Alerts - Posting
-- *…and 2 more (see scope-items/6ND.json)*
+*Full BPMN detail → [finance.md](unclassified/finance.md)*
 
 ## Industry - Oil
-
-1 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `6VA` | Field Logistics Analytics | 0 | — | — | SAP_BR_SC_ANALYST_IOG, SAP_BR_WAREHOUSE_CLERK_IOG, SAP_BR_RCVG_SPECIALIST_IOG |
 
-## Intelligent Technologies
+*Full BPMN detail → [industry-oil.md](unclassified/industry-oil.md)*
 
-3 scope items.
+## Intelligent Technologies
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -180,9 +157,9 @@ Generated 2026-08-25. 141 scope items across 16 process groups.
 | `20N` | Predictive Analytics Model Training – Supply Chain | 0 | — | — | SAP_BR_ANALYTICS_SPECIALIST, SAP_BR_WAREHOUSE_CLERK_RFM, SAP_BR_INVENTORY_MGR_RFM, SAP_BR_INVENTORY_MANAGER |
 | `3FY` | Prediction of Delivery Date for Purchase Order Items | 0 | — | — | SAP_BR_ANALYTICS_SPECIALIST, SAP_BR_WAREHOUSE_CLERK, SAP_BR_PURCHASER, SAP_BR_INVENTORY_MANAGER |
 
-## Manufacturing
+*Full BPMN detail → [intelligent-technologies.md](unclassified/intelligent-technologies.md)*
 
-4 scope items.
+## Manufacturing
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -191,25 +168,25 @@ Generated 2026-08-25. 141 scope items across 16 process groups.
 | `7VA` | Stocking and Destocking Positions | 0 | — | — | SAP_BR_MD_SPECIALIST_RAW_SUBST, SAP_BR_PRODN_SUPERVISOR_DISC, SAP_BR_PRODN_OPTR_RPTV, SAP_BR_PRODN_PLNR |
 | `7VB` | Calculation of Economic Order Quantity and Safety Stock | 0 | — | — | SAP_BR_MD_SPECIALIST_RAW_SUBST, SAP_BR_PRODN_SUPERVISOR_DISC, SAP_BR_PRODN_OPTR_RPTV, SAP_BR_PRODN_PLNR |
 
-## Marketing
+*Full BPMN detail → [manufacturing.md](unclassified/manufacturing.md)*
 
-1 scope items.
+## Marketing
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `5SW` | Subscription Management for Software | 0 | — | — | SAP_BR_EXT_AUDITOR_APR_FICA, SAP_BR_APR_MANAGER_FICA, SAP_BR_APR_ACCOUNTANT_FICA, SAP_BR_RECONC_SPEC_APR_FICA |
 
-## Mine Operations
+*Full BPMN detail → [marketing.md](unclassified/marketing.md)*
 
-1 scope items.
+## Mine Operations
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `6BA` | Field Logistics Planning and Execution – Containers and Voyages | 0 | — | — | SAP_BR_RCVG_SPECIALIST_IOG, SAP_BR_SC_ANALYST_IOG, SAP_BR_WAREHOUSE_CLERK_IOG, SAP_BR_TRANSP_PLANNER_IOG |
 
-## Operations
+*Full BPMN detail → [mine-operations.md](unclassified/mine-operations.md)*
 
-10 scope items.
+## Operations
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -224,17 +201,17 @@ Generated 2026-08-25. 141 scope items across 16 process groups.
 | `7V9` | Make-to-Order Production – Discrete Manufacturing | 0 | — | — | SAP_BR_MATL_PLNR_EXT_PROC, SAP_BR_PRODN_PLNR, SAP_BR_RPLNMT_SPCLST_DC_RFM, SAP_BR_SOLN_BUSINESS_SPCLST |
 | `7Z2` | Maintenance Order Processing with SAP Field Service Management | 0 | — | — | SAP_BR_MAINTENANCE_PLANNER, SAP_BR_MAINTENANCE_TECHNICIAN, SAP_BR_EMPLOYEE_MAINTENANCE, SAP_BR_MAINT_SUPERVISOR |
 
-## R&D and Product Management
+*Full BPMN detail → [operations.md](unclassified/operations.md)*
 
-1 scope items.
+## R&D and Product Management
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `83I` | Advanced Solution Bundle Setup | 0 | — | — | SAP_BR_BOM_ENG_CUST_ORDER |
 
-## Sales and Marketing
+*Full BPMN detail → [r-d-and-product-management.md](unclassified/r-d-and-product-management.md)*
 
-3 scope items.
+## Sales and Marketing
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -242,18 +219,18 @@ Generated 2026-08-25. 141 scope items across 16 process groups.
 | `7Z6` | Omnichannel Sales Promotions for Sales Orders in Retail | 0 | — | — | SAP_BR_RFM_STORE_ASSOCIATE |
 | `7ZJ` | Advanced Down Payment in Retail | 0 | — | — | SAP_BR_RFM_STORE_ASSOCIATE |
 
-## Service
+*Full BPMN detail → [sales-and-marketing.md](unclassified/sales-and-marketing.md)*
 
-2 scope items.
+## Service
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `43B` | Service Monitoring and Analytics | 0 | — | — | SAP_BR_SERVICE_MANAGER |
 | `6GS` | Service Management with Advanced Variant Configuration | 0 | — | — | SAP_BR_SERVICE_PLANNER, SAP_BR_SOLN_ORDER_SPCLST, SAP_BR_CREDIT_CONTROLLER, SAP_BR_CUSTOMER_SRVC_MGR |
 
-## Sourcing and Procurement
+*Full BPMN detail → [service.md](unclassified/service.md)*
 
-3 scope items.
+## Sourcing and Procurement
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -261,9 +238,9 @@ Generated 2026-08-25. 141 scope items across 16 process groups.
 | `7YM` | SAP Ariba Buying Base Edition | 0 | — | — | SAP_BR_LEGAL_COUNSEL, SAP_BR_EMPLOYEE_LEGAL_CONTENT, SAP_BR_ADMINISTRATOR_LCM |
 | `81Y` | SAP Ariba Buying Procurement Expansion Package | 0 | — | — | SAP_BR_LEGAL_COUNSEL, SAP_BR_EMPLOYEE_LEGAL_CONTENT, SAP_BR_ADMINISTRATOR_LCM |
 
-## Supply Chain
+*Full BPMN detail → [sourcing-and-procurement.md](unclassified/sourcing-and-procurement.md)*
 
-30 scope items.
+## Supply Chain
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -297,4 +274,6 @@ Generated 2026-08-25. 141 scope items across 16 process groups.
 | `7VG` | Unitized Make-to-Order Production – Extended Production Operation | 0 | — | — | SAP_BR_SHIPPING_SPECIALIST, SAP_BR_SHIP_SPECIALIST_JIT, SAP_BR_PRODN_PLNR, SAP_BR_MATL_PLNR_EXT_PROC |
 | `83B` | Manufacturing for Retail | 0 | — | — | SAP_BR_PRODN_PLNR, SAP_BR_MATL_PLNR_EXT_PROC, SAP_BR_PRODN_OPTR_DISC |
 | `BGG` | SAP Fiori Analytical Apps for Inventory and Warehouse Management | 0 | — | — | SAP_BR_WAREHOUSE_CLERK, SAP_BR_WAREHOUSE_CLERK_RFM, SAP_BR_INVENTORY_MANAGER, SAP_BR_INVENTORY_MGR_RFM |
+
+*Full BPMN detail → [supply-chain.md](unclassified/supply-chain.md)*
 

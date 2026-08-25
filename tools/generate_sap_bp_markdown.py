@@ -174,19 +174,28 @@ def generate_taxonomy_overview(l1_map: dict, items: list[dict]) -> str:
 # value-streams/<slug>.md
 # ---------------------------------------------------------------------------
 
-def generate_value_stream(l1: str, l2_map: dict, by_id: dict) -> str:
+def generate_value_stream_index(l1: str, l2_map: dict, slug: str) -> str:
+    """Top-level index file: one table per L2 group, no BPMN detail."""
     today = date.today().isoformat()
     total = sum(len(v) for v in l2_map.values())
     lines = [
         GENERATED_BANNER,
         f"# {l1}\n",
         f"Generated {today}. {total} scope items across {len(l2_map)} process groups.\n",
+        "| L2 process group | Items | Detail |",
+        "|---|---|---|",
     ]
+    for l2, scope_items in sorted(l2_map.items()):
+        l2_slug = slugify(l2)
+        lines.append(
+            f"| {l2} | {len(scope_items)} | [{l2_slug}.md]({slug}/{l2_slug}.md) |"
+        )
+    lines += [""]
 
     for l2, scope_items in sorted(l2_map.items()):
+        l2_slug = slugify(l2)
         lines += [
             f"## {l2}\n",
-            f"{len(scope_items)} scope items.\n",
             "| Code | Title | Steps | Mandatory deps | Optional deps | Key roles |",
             "|---|---|---|---|---|---|",
         ]
@@ -201,41 +210,46 @@ def generate_value_stream(l1: str, l2_map: dict, by_id: dict) -> str:
             lines.append(
                 f"| `{item['scope_item_id']}` | {item['title']} | {steps} | {m_str} | {o_str} | {roles_str} |"
             )
-        lines.append("")
+        lines.append(f"\n*Full BPMN detail → [{l2_slug}.md]({slug}/{l2_slug}.md)*\n")
 
-        # BPMN step detail for items that have steps
-        for item in sorted(scope_items, key=lambda x: x["scope_item_id"]):
-            bf = item.get("bpmn_flow") or {}
-            steps = bf.get("steps") or []
-            if not steps:
-                continue
-            lines += [
-                f"### {item['scope_item_id']} — {item['title']}\n",
-                "**Process steps** (BPMN execution order):\n",
-            ]
+    return "\n".join(lines) + "\n"
+
+
+def generate_l2_detail(l1: str, l2: str, scope_items: list, slug: str) -> str:
+    """Per-L2 detail file: BPMN steps + Fiori apps for every scope item in this group."""
+    today = date.today().isoformat()
+    lines = [
+        GENERATED_BANNER,
+        f"# {l1} / {l2}\n",
+        f"Generated {today}. {len(scope_items)} scope items.\n",
+        f"← [Back to {l1} index](../index.md) (or [`../{slug}.md`](../{slug}.md))\n",
+    ]
+    for item in sorted(scope_items, key=lambda x: x["scope_item_id"]):
+        bf = item.get("bpmn_flow") or {}
+        steps = bf.get("steps") or []
+        fiori = [s for s in (item["hierarchy"].get("L4_steps") or []) if s.get("fiori_app_id")]
+
+        lines += [f"## {item['scope_item_id']} — {item['title']}\n"]
+
+        if steps:
+            lines.append("**Process steps** (BPMN execution order):\n")
             for s in steps:
                 opt_marker = " *(optional)*" if s.get("optional") else ""
                 role = s.get("role") or "—"
-                name = s["name"]
-                dep_ref = ""
-                if s.get("calls_scope_item"):
-                    dep_ref = f" → calls `{s['calls_scope_item']}`"
-                lines.append(f"{s['seq']}. **{name}**{opt_marker} — *{role}*{dep_ref}")
+                dep_ref = f" → calls `{s['calls_scope_item']}`" if s.get("calls_scope_item") else ""
+                lines.append(f"{s['seq']}. **{s['name']}**{opt_marker} — *{role}*{dep_ref}")
             lines.append("")
+        else:
+            lines.append("*No BPMN steps available for this scope item.*\n")
 
-            # Key Fiori apps from L4
-            fiori = [
-                s for s in (item["hierarchy"].get("L4_steps") or [])
-                if s.get("fiori_app_id")
-            ]
-            if fiori:
-                lines += ["**Key Fiori apps / TCodes:**\n"]
-                for s in fiori[:8]:
-                    tcode = f" / `{s['technical_transaction']}`" if s.get("technical_transaction") else ""
-                    lines.append(f"- `{s['fiori_app_id']}`{tcode} — {s['name']}")
-                if len(fiori) > 8:
-                    lines.append(f"- *…and {len(fiori) - 8} more (see scope-items/{item['scope_item_id']}.json)*")
-                lines.append("")
+        if fiori:
+            lines.append("**Key Fiori apps / TCodes:**\n")
+            for s in fiori[:8]:
+                tcode = f" / `{s['technical_transaction']}`" if s.get("technical_transaction") else ""
+                lines.append(f"- `{s['fiori_app_id']}`{tcode} — {s['name']}")
+            if len(fiori) > 8:
+                lines.append(f"- *…and {len(fiori) - 8} more (see scope-items/{item['scope_item_id']}.json)*")
+            lines.append("")
 
     return "\n".join(lines) + "\n"
 
@@ -347,14 +361,30 @@ def main():
     dep_path.write_text(generate_dependency_map(items, by_id), encoding="utf-8")
     print(f"  wrote {dep_path.relative_to(REPO_ROOT)}")
 
-    # value-streams/<slug>.md
-    written = 0
+    # value-streams/<slug>.md  +  value-streams/<slug>/<l2-slug>.md
+    index_written = 0
+    detail_written = 0
+    # Remove stale flat files from previous runs
+    for stale in VALUE_STREAMS_DIR.glob("*.md"):
+        stale.unlink()
     for l1, l2_map in sorted(l1_map.items()):
         slug = slugify(l1)
+        # Top-level index
         vs_path = VALUE_STREAMS_DIR / f"{slug}.md"
-        vs_path.write_text(generate_value_stream(l1, l2_map, by_id), encoding="utf-8")
-        written += 1
-    print(f"  wrote {written} value-stream files → {VALUE_STREAMS_DIR.relative_to(REPO_ROOT)}/")
+        vs_path.write_text(generate_value_stream_index(l1, l2_map, slug), encoding="utf-8")
+        index_written += 1
+        # Per-L2 detail files
+        l1_dir = VALUE_STREAMS_DIR / slug
+        l1_dir.mkdir(exist_ok=True)
+        # Remove stale detail files
+        for stale in l1_dir.glob("*.md"):
+            stale.unlink()
+        for l2, scope_items in l2_map.items():
+            l2_slug = slugify(l2)
+            detail_path = l1_dir / f"{l2_slug}.md"
+            detail_path.write_text(generate_l2_detail(l1, l2, scope_items, slug), encoding="utf-8")
+            detail_written += 1
+    print(f"  wrote {index_written} index + {detail_written} L2 detail files → {VALUE_STREAMS_DIR.relative_to(REPO_ROOT)}/")
 
     print("Done.")
 

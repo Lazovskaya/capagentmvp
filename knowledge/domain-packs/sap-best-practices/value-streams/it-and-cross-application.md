@@ -5,45 +5,47 @@
 
 Generated 2026-08-25. 93 scope items across 21 process groups.
 
-## Accounting and Financial Close
+| L2 process group | Items | Detail |
+|---|---|---|
+| Accounting and Financial Close | 1 | [accounting-and-financial-close.md](it-and-cross-application/accounting-and-financial-close.md) |
+| Administration and Usability | 1 | [administration-and-usability.md](it-and-cross-application/administration-and-usability.md) |
+| Core HR and Time Recording | 4 | [core-hr-and-time-recording.md](it-and-cross-application/core-hr-and-time-recording.md) |
+| Cost Management and Profitability Analysis | 1 | [cost-management-and-profitability-analysis.md](it-and-cross-application/cost-management-and-profitability-analysis.md) |
+| Enterprise Information Management | 31 | [enterprise-information-management.md](it-and-cross-application/enterprise-information-management.md) |
+| Enterprise Portfolio and Project Management | 1 | [enterprise-portfolio-and-project-management.md](it-and-cross-application/enterprise-portfolio-and-project-management.md) |
+| Financial Operations | 5 | [financial-operations.md](it-and-cross-application/financial-operations.md) |
+| Inventory | 7 | [inventory.md](it-and-cross-application/inventory.md) |
+| Invoice Management | 3 | [invoice-management.md](it-and-cross-application/invoice-management.md) |
+| Manufacturing Operations | 5 | [manufacturing-operations.md](it-and-cross-application/manufacturing-operations.md) |
+| Manufacturing Options | 5 | [manufacturing-options.md](it-and-cross-application/manufacturing-options.md) |
+| Operational Procurement | 3 | [operational-procurement.md](it-and-cross-application/operational-procurement.md) |
+| Order Promising | 4 | [order-promising.md](it-and-cross-application/order-promising.md) |
+| Order and Contract Management | 4 | [order-and-contract-management.md](it-and-cross-application/order-and-contract-management.md) |
+| Process Management and Integration | 3 | [process-management-and-integration.md](it-and-cross-application/process-management-and-integration.md) |
+| Product Lifecycle Management | 2 | [product-lifecycle-management.md](it-and-cross-application/product-lifecycle-management.md) |
+| Production Planning | 5 | [production-planning.md](it-and-cross-application/production-planning.md) |
+| Quality Management | 2 | [quality-management.md](it-and-cross-application/quality-management.md) |
+| Solution Business Management | 4 | [solution-business-management.md](it-and-cross-application/solution-business-management.md) |
+| Sourcing and Contract Management | 1 | [sourcing-and-contract-management.md](it-and-cross-application/sourcing-and-contract-management.md) |
+| Warehousing | 1 | [warehousing.md](it-and-cross-application/warehousing.md) |
 
-1 scope items.
+## Accounting and Financial Close
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-## Administration and Usability
+*Full BPMN detail → [accounting-and-financial-close.md](it-and-cross-application/accounting-and-financial-close.md)*
 
-1 scope items.
+## Administration and Usability
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `1LQ` | Output Management | 11 | — | — | SAP_BR_ADMINISTRATOR |
 
-### 1LQ — Output Management
-
-**Process steps** (BPMN execution order):
-
-1. **Determine master template** — *Administrator*
-2. **Determine content form template** — *Administrator*
-3. **Company Code** — *Administrator*
-4. **Document Type** — *Administrator*
-5. **Purchasing Org** — *Administrator*
-6. **Receiver** — *Administrator*
-7. **Output Channel** — *Administrator*
-8. **Country** — *Administrator*
-9. **Resolve to content form template** — *Administrator*
-10. **Content form template** — *Administrator*
-11. **Resolve to master form template** — *Administrator*
-
-**Key Fiori apps / TCodes:**
-
-- `F2279` — Manage Output Items
+*Full BPMN detail → [administration-and-usability.md](it-and-cross-application/administration-and-usability.md)*
 
 ## Core HR and Time Recording
-
-4 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -52,42 +54,17 @@ Generated 2026-08-25. 93 scope items across 21 process groups.
 | `3UP` | None | 1 | — | — | — |
 | `JB1` | None | 1 | — | — | — |
 
-### 1FD — None
-
-**Process steps** (BPMN execution order):
-
-1. **Creating Employee** — *HR Administrator (OM)*
-
-### 1NL — None
-
-**Process steps** (BPMN execution order):
-
-1. **Maintain cost center** — *Cost Accountant - Overhead*
-2. **View cost center data** — *HR Administrator (PA)*
-
-### 3UP — None
-
-**Process steps** (BPMN execution order):
-
-1. **View transferred documents in SAP S/4HANA Cloud** — *General Ledger Accountant*
-
-### JB1 — None
-
-**Process steps** (BPMN execution order):
-
-1. **Maintain Company Code** — *Controller*
+*Full BPMN detail → [core-hr-and-time-recording.md](it-and-cross-application/core-hr-and-time-recording.md)*
 
 ## Cost Management and Profitability Analysis
-
-1 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-## Enterprise Information Management
+*Full BPMN detail → [cost-management-and-profitability-analysis.md](it-and-cross-application/cost-management-and-profitability-analysis.md)*
 
-31 scope items.
+## Enterprise Information Management
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -123,336 +100,17 @@ Generated 2026-08-25. 93 scope items across 21 process groups.
 | `6N4` | None | 1 | — | — | — |
 | `JB1` | None | 1 | — | — | — |
 
-### 1FD — None
-
-**Process steps** (BPMN execution order):
-
-1. **Creating Employee** — *HR Administrator (OM)*
-
-### 1N1 — Master Data Consolidation for Product
-
-**Process steps** (BPMN execution order):
-
-1. **Describe Data Source** — *Master Data Specialist - Product Data*
-2. **Import Source Data** — *Master Data Specialist - Product Data*
-3. **Execute Matching Step** — *Master Data Specialist - Product Data*
-4. **Best Record Calculation** — *Master Data Specialist - Product Data*
-5. **Validation** — *Master Data Specialist - Product Data*
-6. **Perform Validation of Log Messages** — *Master Data Specialist - Product Data*
-7. **Activation** — *Master Data Specialist - Product Data*
-
-**Key Fiori apps / TCodes:**
-
-- `F8469` — Track Changes - Products
-- `F8545` — Import Master Data - Products
-
-### 1N3 — None
-
-**Process steps** (BPMN execution order):
-
-1. **Import Source Data** — *Master Data Specialist - Business Partner Data*
-2. **Initial Check** — *Master Data Specialist - Business Partner Data*
-3. **Execute Matching Step** — *Master Data Specialist - Business Partner Data*
-4. **Best Record Calculation** — *Master Data Specialist - Business Partner Data*
-5. **Validation** — *Master Data Specialist - Business Partner Data*
-6. **Activation** — *Master Data Specialist - Business Partner Data*
-
-### 1N5 — Central Governance for Product
-
-**Process steps** (BPMN execution order):
-
-1. **Scope Definition** — *Master Data Specialist - Product Data*
-2. **Record Selection** — *Master Data Specialist - Product Data*
-3. **Validation** — *Master Data Specialist - Product Data*
-4. **Activation** — *Master Data Specialist - Product Data*
-
-**Key Fiori apps / TCodes:**
-
-- `F8466` — Manage Governance Processes - Products
-- `F8467` — Manage Products - Central Governance
-- `F8469` — Track Changes - Products
-
-### 1N7 — None
-
-**Process steps** (BPMN execution order):
-
-1. **Scope Definition** — *Master Data Specialist - Business Partner Data*
-2. **Record Selection** — *Master Data Specialist - Business Partner Data*
-3. **Validation** — *Master Data Specialist - Business Partner Data*
-4. **Activation** — *Master Data Specialist - Business Partner Data*
-
-### 1NJ — Responsibility Management
-
-**Process steps** (BPMN execution order):
-
-1. **Log on to the Fiori LaunchPad** — *Business Process Specialist*
-2. **Log on to the Fiori LaunchPad** — *Business Process Specialist (SolMan)*
-3. **Maintain Teams and Responsibilities** — *Business Process Specialist*
-4. **Manage Team Hierarchies** — *Business Process Specialist (SolMan)*
-5. **Enter the Team Name and Team Type** — *Business Process Specialist*
-6. **Copy from the Existing Team** — *Business Process Specialist*
-7. **Select a team in the list, choose show hierarchy** — *Business Process Specialist (SolMan)*
-8. **Select a team in the list and go to the object page** — *Business Process Specialist (SolMan)*
-9. **Enter the new Member Details/ Copy from the Existing** — *Business Process Specialist*
-10. **Select a team, choose manage hierachies** — *Business Process Specialist (SolMan)*
-11. **Choose create subteam** — *Business Process Specialist (SolMan)*
-12. **Line of Business Scenarios(PLM/LCM etc..)** — *System*
-13. **Add a subteam by using yes/no toggle button** — *Business Process Specialist (SolMan)*
-14. **Enter the required fields and choose save** — *Business Process Specialist (SolMan)*
-
-**Key Fiori apps / TCodes:**
-
-- `F2412` — Manage Teams and Responsibilities
-- `F4636` — Manage Responsibility Contexts
-- `F4637` — Manage Responsibility Rules
-
-### 1NL — None
-
-**Process steps** (BPMN execution order):
-
-1. **Maintain cost center** — *Cost Accountant - Overhead*
-2. **View cost center data** — *HR Administrator (PA)*
-
-### 1NX — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create approved suppliers** — *Master Data Specialist*
-2. **RFQ created** — *Purchaser*
-3. **Create Quote** — *Purchaser*
-
-### 1RK — None
-
-**Process steps** (BPMN execution order):
-
-1. **Record Selection** — *Master Data Specialist - Business Partner Data*
-
-### 1RM — Mass Load and Mass Maintenance for Product
-
-**Process steps** (BPMN execution order):
-
-1. **Validation** — *Master Data Specialist - Product Data*
-
-**Key Fiori apps / TCodes:**
-
-- `F8327` — Manage Remediation Processes - Products
-- `F8465` — Export Master Data - Products (Version 2)
-- `F8469` — Track Changes - Products
-- `F8544` — Manage Consolidation Processes - Products (Version 2)
-- `F8545` — Import Master Data - Products
-- `F9335` — Manage Mass Maintenance - Products (Version 2)
-
-### 1UG — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create 
-or update interactions** — *Business Analyst - Marketing*
-2. **Segmentation based on sales data** — *Marketing Expert*
-
-### 1XV — SAP S/4HANA for Enterprise Contract Management
-
-**Process steps** (BPMN execution order):
-
-1. **Legal Content Overview** — *Legal Counsel*
-2. **Request Legal Content** — *Employee - Legal Content Management*
-3. **Manage Legal Transactions** — *Legal Counsel*
-4. **Manage Legal Documents** — *Legal Counsel*
-5. **Approve/ Review/ Process       Legal Transactions** — *Processor*
-
-**Key Fiori apps / TCodes:**
-
-- `F2346` — Manage Context for Legal Contract
-- `F2453` — Manage Legal Documents
-- `F4344` — Schedule Envelope Status Updates
-- `F2310` — Manage Legal Transactions
-- `F2403` — Request Legal Contract
-- `F2933` — Enterprise Contract Overview
-- `F2304` — Manage Tasks for Legal Contract
-
-### 2OQ — Integration to SAP Enterprise Contract Assembly
-
-**Process steps** (BPMN execution order):
-
-1. **Manage Legal Transactions** — *Legal Counsel*
-
-**Key Fiori apps / TCodes:**
-
-- `F2453` — Manage Legal Documents
-- `F2310` — Manage Legal Transactions
-
-### 2YC — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create New Document** — *Design Engineer*
-2. **Retrieve Auto-Classification** — *Design Engineer*
-3. **Validate Auto-Classification** — *Design Engineer*
-4. **Save Document** — *Design Engineer*
-
-### 35D — None
-
-**Process steps** (BPMN execution order):
-
-1. **Communication Scenario - SAP_COM_0042 available for customers for gaining their first experiences with the first couple of extractors** — *Analytics Specialist*
-
-### 3UP — None
-
-**Process steps** (BPMN execution order):
-
-1. **View transferred documents in SAP S/4HANA Cloud** — *General Ledger Accountant*
-
-### 4AP — None
-
-**Process steps** (BPMN execution order):
-
-1. **Manage Data Quality Rules** — *Master Data Steward - Business Partner Data*
-2. **Configure Score Calculation** — *Master Data Steward - Business Partner Data*
-3. **Manage Data Quality Evaluation** — *Master Data Steward - Business Partner Data*
-4. **Master Data Quality Evaluation Overview** — *Master Data Steward - Business Partner Data*
-
-### 4AQ — Data Quality Management for Product
-
-**Process steps** (BPMN execution order):
-
-1. **Manage Data Quality Rules** — *Master Data Steward - Product Data*
-2. **Configure Score Calculation** — *Master Data Steward - Product Data*
-3. **Manage Data Quality Evaluation** — *Master Data Steward - Product Data*
-4. **Master Data Quality Evaluation Overview** — *Master Data Steward - Product Data*
-
-**Key Fiori apps / TCodes:**
-
-- `F9311` — Manage Evaluation Processes - Products
-
-### 4LO — None
-
-**Process steps** (BPMN execution order):
-
-1. **Request Material Master** — *System*
-
-### 53L — None
-
-**Process steps** (BPMN execution order):
-
-1. **Communication Scenario - SAP_COM_053 available for customers to access the extractors** — *Analytics Specialist*
-
-### 53M — None
-
-**Process steps** (BPMN execution order):
-
-1. **Communication Scenario - SAP_COM_0532 available for customers for gaining experiences with extractors** — *Analytics Specialist*
-
-### 53V — None
-
-**Process steps** (BPMN execution order):
-
-1. **Register Payment Card at third-party Party Provider** — *System*
-
-### 54U — Produce and Sell Standard Products – Inventory Management
-
-**Process steps** (BPMN execution order):
-
-1. **Confirm Production Operations of Production Order** — *Production Operator - Discrete Manufacturing*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
-
-### 54V — Produce and Sell Standard Products – Warehouse Managed
-
-**Process steps** (BPMN execution order):
-
-1. **Conversion of Planned Order to Production Order** — *Production Planner*
-2. **Maintain Serial Numbers** — *Production Supervisor - Discrete Manufacturing*
-3. **Review Production Order** — *Production Supervisor - Discrete Manufacturing*
-4. **Material Staging for Production Order** — *Production Operator - Discrete Manufacturing*
-5. **Create Staging Warehouse Task** — *Warehouse Clerk (EWM)*
-6. **Confirm Staging Warehouse Task** — *Warehouse Operative (EWM)*
-7. **Post Goods Issue for Staging** — *Warehouse Clerk (EWM)*
-8. **Release Production Order** — *Production Supervisor - Discrete Manufacturing*
-9. **Confirm Production Operations of Production Order** — *Production Operator - Discrete Manufacturing*
-10. **Review Production Order** — *Production Supervisor - Discrete Manufacturing*
-11. **Create Inbound Delivery for Production Order** — *Warehouse Clerk*
-12. **Create Handling Unit (Optional)** *(optional)* — *Warehouse Clerk (EWM)*
-13. **Post Goods Receipt** — *Warehouse Clerk (EWM)*
-14. **Create Putaway Warehouse Tasks** — *Warehouse Clerk (EWM)*
-15. **Confirm Putaway Warehouse Tasks** — *Warehouse Operative (EWM)*
-16. **Record Inspection Results** — *Quality Technician*
-17. **Repack Handling Units (Optional)** *(optional)* — *Warehouse Operative (EWM)*
-18. **Create Adhoc Warehouse Tasks** — *Warehouse Clerk (EWM)*
-19. **Confirm Putaway Warehouse Tasks** — *Warehouse Operative (EWM)*
-20. **Evaluate Stock/Requirements Situation** — *Production Planner*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
-- `F6498` — Manage Outbound Delivery Orders
-
-### 55F — None
-
-**Process steps** (BPMN execution order):
-
-1. **Evaluate Stock / Requirement Situation** — *Material Planner - External Procurement*
-2. **Schedule MRP** — *Production Planner*
-3. **Display Purchase Scheduling Agreement w/o Release doc** — *Purchaser*
-4. **Evaluate Stock / Requirement Situation** — *Production Planner*
-5. **Display Delivery Schedule** — *Purchaser*
-6. **Release Summerized JIT Call to Production** — *Production Planner - Lean Manufacturing*
-7. **Create package Unit** — *Shipping Specialist - Just-In-Time Supply*
-8. **Check Planning in Planning Table (Optional)** *(optional)* — *Production Supervisor - Repetitive Manufacturing*
-9. **Printing Scheduling Agreement (Optional)** *(optional)* — *Purchaser*
-10. **Create Inbound Delivery** — *Receiving Specialist*
-11. **Release Sequenced JIT Call to Production** — *Production Planner - Lean Manufacturing*
-12. **Check Range of Stock Coverage** — *Production Planner*
-13. **Confirm Quantities for Putaway** — *Receiving Specialist*
-14. **Post Goods Receipt For Inbound Delivery** — *Receiving Specialist*
-15. **Material Staging** — *Production Operator - Repetitive Manufacturing*
-16. **Evaluate Stock/Requirements Situation (Optional)** *(optional)* — *Production Planner*
-17. **Execute Evaluated Receipt Settlement** — *Accounts Payable Accountant*
-18. **Confirm Production of JIT Calls** — *Production Operator - Lean Manufacturing*
-19. **Confirm Repetitive Manufacturing Inclusive Backflush of Materials (non-JIT)** — *Production Operator - Repetitive Manufacturing*
-20. **Check Supplier Invoice List (Optional)** *(optional)* — *Accounts Payable Accountant*
-21. **Manage JIT Packing Groups** — *Material Planner - Just-In-Time Supply*
-22. **Post Processing of Error Records (non-JIT)** — *Production Operator - Repetitive Manufacturing*
-23. **Display Procurement Overview (Optional)** *(optional)* — *Purchaser*
-24. **Schedule Goods Movement from Production for Customer JIT Calls** — *Production Operator - Lean Manufacturing*
-25. **Post Outgoing Payment** — *Accounts Payable Accountant*
-26. **Reprocessing of Failed Stock Posting After Confirmation of Production (Optional)** *(optional)* — *Production Supervisor - Lean Manufacturing*
-27. **Evaluate Stock/Requierments Situation** — *Production Planner*
-28. **Stock Availability analysis** — *Material Planner - Just-In-Time Supply*
-
-### 62R — None
-
-**Process steps** (BPMN execution order):
-
-1. **Execute 
-Document Selection** — *Tax Responsible*
-2. **Display Stock Ledger** — *Tax Responsible*
-3. **Verify Documents** — *Tax Responsible*
-
-### 6N4 — None
-
-**Process steps** (BPMN execution order):
-
-1. **S/4HANA Cloud** — *Analytics Specialist*
-
-### JB1 — None
-
-**Process steps** (BPMN execution order):
-
-1. **Maintain Company Code** — *Controller*
+*Full BPMN detail → [enterprise-information-management.md](it-and-cross-application/enterprise-information-management.md)*
 
 ## Enterprise Portfolio and Project Management
-
-1 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-## Financial Operations
+*Full BPMN detail → [enterprise-portfolio-and-project-management.md](it-and-cross-application/enterprise-portfolio-and-project-management.md)*
 
-5 scope items.
+## Financial Operations
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -462,82 +120,9 @@ Document Selection** — *Tax Responsible*
 | `55F` | None | 28 | — | — | — |
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-### 54U — Produce and Sell Standard Products – Inventory Management
-
-**Process steps** (BPMN execution order):
-
-1. **Confirm Production Operations of Production Order** — *Production Operator - Discrete Manufacturing*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
-
-### 54V — Produce and Sell Standard Products – Warehouse Managed
-
-**Process steps** (BPMN execution order):
-
-1. **Conversion of Planned Order to Production Order** — *Production Planner*
-2. **Maintain Serial Numbers** — *Production Supervisor - Discrete Manufacturing*
-3. **Review Production Order** — *Production Supervisor - Discrete Manufacturing*
-4. **Material Staging for Production Order** — *Production Operator - Discrete Manufacturing*
-5. **Create Staging Warehouse Task** — *Warehouse Clerk (EWM)*
-6. **Confirm Staging Warehouse Task** — *Warehouse Operative (EWM)*
-7. **Post Goods Issue for Staging** — *Warehouse Clerk (EWM)*
-8. **Release Production Order** — *Production Supervisor - Discrete Manufacturing*
-9. **Confirm Production Operations of Production Order** — *Production Operator - Discrete Manufacturing*
-10. **Review Production Order** — *Production Supervisor - Discrete Manufacturing*
-11. **Create Inbound Delivery for Production Order** — *Warehouse Clerk*
-12. **Create Handling Unit (Optional)** *(optional)* — *Warehouse Clerk (EWM)*
-13. **Post Goods Receipt** — *Warehouse Clerk (EWM)*
-14. **Create Putaway Warehouse Tasks** — *Warehouse Clerk (EWM)*
-15. **Confirm Putaway Warehouse Tasks** — *Warehouse Operative (EWM)*
-16. **Record Inspection Results** — *Quality Technician*
-17. **Repack Handling Units (Optional)** *(optional)* — *Warehouse Operative (EWM)*
-18. **Create Adhoc Warehouse Tasks** — *Warehouse Clerk (EWM)*
-19. **Confirm Putaway Warehouse Tasks** — *Warehouse Operative (EWM)*
-20. **Evaluate Stock/Requirements Situation** — *Production Planner*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
-- `F6498` — Manage Outbound Delivery Orders
-
-### 55F — None
-
-**Process steps** (BPMN execution order):
-
-1. **Evaluate Stock / Requirement Situation** — *Material Planner - External Procurement*
-2. **Schedule MRP** — *Production Planner*
-3. **Display Purchase Scheduling Agreement w/o Release doc** — *Purchaser*
-4. **Evaluate Stock / Requirement Situation** — *Production Planner*
-5. **Display Delivery Schedule** — *Purchaser*
-6. **Release Summerized JIT Call to Production** — *Production Planner - Lean Manufacturing*
-7. **Create package Unit** — *Shipping Specialist - Just-In-Time Supply*
-8. **Check Planning in Planning Table (Optional)** *(optional)* — *Production Supervisor - Repetitive Manufacturing*
-9. **Printing Scheduling Agreement (Optional)** *(optional)* — *Purchaser*
-10. **Create Inbound Delivery** — *Receiving Specialist*
-11. **Release Sequenced JIT Call to Production** — *Production Planner - Lean Manufacturing*
-12. **Check Range of Stock Coverage** — *Production Planner*
-13. **Confirm Quantities for Putaway** — *Receiving Specialist*
-14. **Post Goods Receipt For Inbound Delivery** — *Receiving Specialist*
-15. **Material Staging** — *Production Operator - Repetitive Manufacturing*
-16. **Evaluate Stock/Requirements Situation (Optional)** *(optional)* — *Production Planner*
-17. **Execute Evaluated Receipt Settlement** — *Accounts Payable Accountant*
-18. **Confirm Production of JIT Calls** — *Production Operator - Lean Manufacturing*
-19. **Confirm Repetitive Manufacturing Inclusive Backflush of Materials (non-JIT)** — *Production Operator - Repetitive Manufacturing*
-20. **Check Supplier Invoice List (Optional)** *(optional)* — *Accounts Payable Accountant*
-21. **Manage JIT Packing Groups** — *Material Planner - Just-In-Time Supply*
-22. **Post Processing of Error Records (non-JIT)** — *Production Operator - Repetitive Manufacturing*
-23. **Display Procurement Overview (Optional)** *(optional)* — *Purchaser*
-24. **Schedule Goods Movement from Production for Customer JIT Calls** — *Production Operator - Lean Manufacturing*
-25. **Post Outgoing Payment** — *Accounts Payable Accountant*
-26. **Reprocessing of Failed Stock Posting After Confirmation of Production (Optional)** *(optional)* — *Production Supervisor - Lean Manufacturing*
-27. **Evaluate Stock/Requierments Situation** — *Production Planner*
-28. **Stock Availability analysis** — *Material Planner - Just-In-Time Supply*
+*Full BPMN detail → [financial-operations.md](it-and-cross-application/financial-operations.md)*
 
 ## Inventory
-
-7 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -549,111 +134,20 @@ Document Selection** — *Tax Responsible*
 | `62R` | None | 3 | — | — | — |
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-### 4LO — None
-
-**Process steps** (BPMN execution order):
-
-1. **Request Material Master** — *System*
-
-### 54U — Produce and Sell Standard Products – Inventory Management
-
-**Process steps** (BPMN execution order):
-
-1. **Confirm Production Operations of Production Order** — *Production Operator - Discrete Manufacturing*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
-
-### 55F — None
-
-**Process steps** (BPMN execution order):
-
-1. **Evaluate Stock / Requirement Situation** — *Material Planner - External Procurement*
-2. **Schedule MRP** — *Production Planner*
-3. **Display Purchase Scheduling Agreement w/o Release doc** — *Purchaser*
-4. **Evaluate Stock / Requirement Situation** — *Production Planner*
-5. **Display Delivery Schedule** — *Purchaser*
-6. **Release Summerized JIT Call to Production** — *Production Planner - Lean Manufacturing*
-7. **Create package Unit** — *Shipping Specialist - Just-In-Time Supply*
-8. **Check Planning in Planning Table (Optional)** *(optional)* — *Production Supervisor - Repetitive Manufacturing*
-9. **Printing Scheduling Agreement (Optional)** *(optional)* — *Purchaser*
-10. **Create Inbound Delivery** — *Receiving Specialist*
-11. **Release Sequenced JIT Call to Production** — *Production Planner - Lean Manufacturing*
-12. **Check Range of Stock Coverage** — *Production Planner*
-13. **Confirm Quantities for Putaway** — *Receiving Specialist*
-14. **Post Goods Receipt For Inbound Delivery** — *Receiving Specialist*
-15. **Material Staging** — *Production Operator - Repetitive Manufacturing*
-16. **Evaluate Stock/Requirements Situation (Optional)** *(optional)* — *Production Planner*
-17. **Execute Evaluated Receipt Settlement** — *Accounts Payable Accountant*
-18. **Confirm Production of JIT Calls** — *Production Operator - Lean Manufacturing*
-19. **Confirm Repetitive Manufacturing Inclusive Backflush of Materials (non-JIT)** — *Production Operator - Repetitive Manufacturing*
-20. **Check Supplier Invoice List (Optional)** *(optional)* — *Accounts Payable Accountant*
-21. **Manage JIT Packing Groups** — *Material Planner - Just-In-Time Supply*
-22. **Post Processing of Error Records (non-JIT)** — *Production Operator - Repetitive Manufacturing*
-23. **Display Procurement Overview (Optional)** *(optional)* — *Purchaser*
-24. **Schedule Goods Movement from Production for Customer JIT Calls** — *Production Operator - Lean Manufacturing*
-25. **Post Outgoing Payment** — *Accounts Payable Accountant*
-26. **Reprocessing of Failed Stock Posting After Confirmation of Production (Optional)** *(optional)* — *Production Supervisor - Lean Manufacturing*
-27. **Evaluate Stock/Requierments Situation** — *Production Planner*
-28. **Stock Availability analysis** — *Material Planner - Just-In-Time Supply*
-
-### 62R — None
-
-**Process steps** (BPMN execution order):
-
-1. **Execute 
-Document Selection** — *Tax Responsible*
-2. **Display Stock Ledger** — *Tax Responsible*
-3. **Verify Documents** — *Tax Responsible*
+*Full BPMN detail → [inventory.md](it-and-cross-application/inventory.md)*
 
 ## Invoice Management
 
-3 scope items.
-
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `55E` | Lot Size of One with Advanced Variant Configuration | 0 | — | — | SAP_BR_PRODN_OPTR_DISC |
 | `55F` | None | 28 | — | — | — |
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-### 55F — None
-
-**Process steps** (BPMN execution order):
-
-1. **Evaluate Stock / Requirement Situation** — *Material Planner - External Procurement*
-2. **Schedule MRP** — *Production Planner*
-3. **Display Purchase Scheduling Agreement w/o Release doc** — *Purchaser*
-4. **Evaluate Stock / Requirement Situation** — *Production Planner*
-5. **Display Delivery Schedule** — *Purchaser*
-6. **Release Summerized JIT Call to Production** — *Production Planner - Lean Manufacturing*
-7. **Create package Unit** — *Shipping Specialist - Just-In-Time Supply*
-8. **Check Planning in Planning Table (Optional)** *(optional)* — *Production Supervisor - Repetitive Manufacturing*
-9. **Printing Scheduling Agreement (Optional)** *(optional)* — *Purchaser*
-10. **Create Inbound Delivery** — *Receiving Specialist*
-11. **Release Sequenced JIT Call to Production** — *Production Planner - Lean Manufacturing*
-12. **Check Range of Stock Coverage** — *Production Planner*
-13. **Confirm Quantities for Putaway** — *Receiving Specialist*
-14. **Post Goods Receipt For Inbound Delivery** — *Receiving Specialist*
-15. **Material Staging** — *Production Operator - Repetitive Manufacturing*
-16. **Evaluate Stock/Requirements Situation (Optional)** *(optional)* — *Production Planner*
-17. **Execute Evaluated Receipt Settlement** — *Accounts Payable Accountant*
-18. **Confirm Production of JIT Calls** — *Production Operator - Lean Manufacturing*
-19. **Confirm Repetitive Manufacturing Inclusive Backflush of Materials (non-JIT)** — *Production Operator - Repetitive Manufacturing*
-20. **Check Supplier Invoice List (Optional)** *(optional)* — *Accounts Payable Accountant*
-21. **Manage JIT Packing Groups** — *Material Planner - Just-In-Time Supply*
-22. **Post Processing of Error Records (non-JIT)** — *Production Operator - Repetitive Manufacturing*
-23. **Display Procurement Overview (Optional)** *(optional)* — *Purchaser*
-24. **Schedule Goods Movement from Production for Customer JIT Calls** — *Production Operator - Lean Manufacturing*
-25. **Post Outgoing Payment** — *Accounts Payable Accountant*
-26. **Reprocessing of Failed Stock Posting After Confirmation of Production (Optional)** *(optional)* — *Production Supervisor - Lean Manufacturing*
-27. **Evaluate Stock/Requierments Situation** — *Production Planner*
-28. **Stock Availability analysis** — *Material Planner - Just-In-Time Supply*
+*Full BPMN detail → [invoice-management.md](it-and-cross-application/invoice-management.md)*
 
 ## Manufacturing Operations
 
-5 scope items.
-
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `54U` | Produce and Sell Standard Products – Inventory Management | 1 | — | — | SAP_BR_PRODN_OPTR_DISC |
@@ -662,83 +156,10 @@ Document Selection** — *Tax Responsible*
 | `55F` | None | 28 | — | — | — |
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-### 54U — Produce and Sell Standard Products – Inventory Management
-
-**Process steps** (BPMN execution order):
-
-1. **Confirm Production Operations of Production Order** — *Production Operator - Discrete Manufacturing*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
-
-### 54V — Produce and Sell Standard Products – Warehouse Managed
-
-**Process steps** (BPMN execution order):
-
-1. **Conversion of Planned Order to Production Order** — *Production Planner*
-2. **Maintain Serial Numbers** — *Production Supervisor - Discrete Manufacturing*
-3. **Review Production Order** — *Production Supervisor - Discrete Manufacturing*
-4. **Material Staging for Production Order** — *Production Operator - Discrete Manufacturing*
-5. **Create Staging Warehouse Task** — *Warehouse Clerk (EWM)*
-6. **Confirm Staging Warehouse Task** — *Warehouse Operative (EWM)*
-7. **Post Goods Issue for Staging** — *Warehouse Clerk (EWM)*
-8. **Release Production Order** — *Production Supervisor - Discrete Manufacturing*
-9. **Confirm Production Operations of Production Order** — *Production Operator - Discrete Manufacturing*
-10. **Review Production Order** — *Production Supervisor - Discrete Manufacturing*
-11. **Create Inbound Delivery for Production Order** — *Warehouse Clerk*
-12. **Create Handling Unit (Optional)** *(optional)* — *Warehouse Clerk (EWM)*
-13. **Post Goods Receipt** — *Warehouse Clerk (EWM)*
-14. **Create Putaway Warehouse Tasks** — *Warehouse Clerk (EWM)*
-15. **Confirm Putaway Warehouse Tasks** — *Warehouse Operative (EWM)*
-16. **Record Inspection Results** — *Quality Technician*
-17. **Repack Handling Units (Optional)** *(optional)* — *Warehouse Operative (EWM)*
-18. **Create Adhoc Warehouse Tasks** — *Warehouse Clerk (EWM)*
-19. **Confirm Putaway Warehouse Tasks** — *Warehouse Operative (EWM)*
-20. **Evaluate Stock/Requirements Situation** — *Production Planner*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
-- `F6498` — Manage Outbound Delivery Orders
-
-### 55F — None
-
-**Process steps** (BPMN execution order):
-
-1. **Evaluate Stock / Requirement Situation** — *Material Planner - External Procurement*
-2. **Schedule MRP** — *Production Planner*
-3. **Display Purchase Scheduling Agreement w/o Release doc** — *Purchaser*
-4. **Evaluate Stock / Requirement Situation** — *Production Planner*
-5. **Display Delivery Schedule** — *Purchaser*
-6. **Release Summerized JIT Call to Production** — *Production Planner - Lean Manufacturing*
-7. **Create package Unit** — *Shipping Specialist - Just-In-Time Supply*
-8. **Check Planning in Planning Table (Optional)** *(optional)* — *Production Supervisor - Repetitive Manufacturing*
-9. **Printing Scheduling Agreement (Optional)** *(optional)* — *Purchaser*
-10. **Create Inbound Delivery** — *Receiving Specialist*
-11. **Release Sequenced JIT Call to Production** — *Production Planner - Lean Manufacturing*
-12. **Check Range of Stock Coverage** — *Production Planner*
-13. **Confirm Quantities for Putaway** — *Receiving Specialist*
-14. **Post Goods Receipt For Inbound Delivery** — *Receiving Specialist*
-15. **Material Staging** — *Production Operator - Repetitive Manufacturing*
-16. **Evaluate Stock/Requirements Situation (Optional)** *(optional)* — *Production Planner*
-17. **Execute Evaluated Receipt Settlement** — *Accounts Payable Accountant*
-18. **Confirm Production of JIT Calls** — *Production Operator - Lean Manufacturing*
-19. **Confirm Repetitive Manufacturing Inclusive Backflush of Materials (non-JIT)** — *Production Operator - Repetitive Manufacturing*
-20. **Check Supplier Invoice List (Optional)** *(optional)* — *Accounts Payable Accountant*
-21. **Manage JIT Packing Groups** — *Material Planner - Just-In-Time Supply*
-22. **Post Processing of Error Records (non-JIT)** — *Production Operator - Repetitive Manufacturing*
-23. **Display Procurement Overview (Optional)** *(optional)* — *Purchaser*
-24. **Schedule Goods Movement from Production for Customer JIT Calls** — *Production Operator - Lean Manufacturing*
-25. **Post Outgoing Payment** — *Accounts Payable Accountant*
-26. **Reprocessing of Failed Stock Posting After Confirmation of Production (Optional)** *(optional)* — *Production Supervisor - Lean Manufacturing*
-27. **Evaluate Stock/Requierments Situation** — *Production Planner*
-28. **Stock Availability analysis** — *Material Planner - Just-In-Time Supply*
+*Full BPMN detail → [manufacturing-operations.md](it-and-cross-application/manufacturing-operations.md)*
 
 ## Manufacturing Options
 
-5 scope items.
-
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `54U` | Produce and Sell Standard Products – Inventory Management | 1 | — | — | SAP_BR_PRODN_OPTR_DISC |
@@ -747,103 +168,20 @@ Document Selection** — *Tax Responsible*
 | `55F` | None | 28 | — | — | — |
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-### 54U — Produce and Sell Standard Products – Inventory Management
-
-**Process steps** (BPMN execution order):
-
-1. **Confirm Production Operations of Production Order** — *Production Operator - Discrete Manufacturing*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
-
-### 54V — Produce and Sell Standard Products – Warehouse Managed
-
-**Process steps** (BPMN execution order):
-
-1. **Conversion of Planned Order to Production Order** — *Production Planner*
-2. **Maintain Serial Numbers** — *Production Supervisor - Discrete Manufacturing*
-3. **Review Production Order** — *Production Supervisor - Discrete Manufacturing*
-4. **Material Staging for Production Order** — *Production Operator - Discrete Manufacturing*
-5. **Create Staging Warehouse Task** — *Warehouse Clerk (EWM)*
-6. **Confirm Staging Warehouse Task** — *Warehouse Operative (EWM)*
-7. **Post Goods Issue for Staging** — *Warehouse Clerk (EWM)*
-8. **Release Production Order** — *Production Supervisor - Discrete Manufacturing*
-9. **Confirm Production Operations of Production Order** — *Production Operator - Discrete Manufacturing*
-10. **Review Production Order** — *Production Supervisor - Discrete Manufacturing*
-11. **Create Inbound Delivery for Production Order** — *Warehouse Clerk*
-12. **Create Handling Unit (Optional)** *(optional)* — *Warehouse Clerk (EWM)*
-13. **Post Goods Receipt** — *Warehouse Clerk (EWM)*
-14. **Create Putaway Warehouse Tasks** — *Warehouse Clerk (EWM)*
-15. **Confirm Putaway Warehouse Tasks** — *Warehouse Operative (EWM)*
-16. **Record Inspection Results** — *Quality Technician*
-17. **Repack Handling Units (Optional)** *(optional)* — *Warehouse Operative (EWM)*
-18. **Create Adhoc Warehouse Tasks** — *Warehouse Clerk (EWM)*
-19. **Confirm Putaway Warehouse Tasks** — *Warehouse Operative (EWM)*
-20. **Evaluate Stock/Requirements Situation** — *Production Planner*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
-- `F6498` — Manage Outbound Delivery Orders
-
-### 55F — None
-
-**Process steps** (BPMN execution order):
-
-1. **Evaluate Stock / Requirement Situation** — *Material Planner - External Procurement*
-2. **Schedule MRP** — *Production Planner*
-3. **Display Purchase Scheduling Agreement w/o Release doc** — *Purchaser*
-4. **Evaluate Stock / Requirement Situation** — *Production Planner*
-5. **Display Delivery Schedule** — *Purchaser*
-6. **Release Summerized JIT Call to Production** — *Production Planner - Lean Manufacturing*
-7. **Create package Unit** — *Shipping Specialist - Just-In-Time Supply*
-8. **Check Planning in Planning Table (Optional)** *(optional)* — *Production Supervisor - Repetitive Manufacturing*
-9. **Printing Scheduling Agreement (Optional)** *(optional)* — *Purchaser*
-10. **Create Inbound Delivery** — *Receiving Specialist*
-11. **Release Sequenced JIT Call to Production** — *Production Planner - Lean Manufacturing*
-12. **Check Range of Stock Coverage** — *Production Planner*
-13. **Confirm Quantities for Putaway** — *Receiving Specialist*
-14. **Post Goods Receipt For Inbound Delivery** — *Receiving Specialist*
-15. **Material Staging** — *Production Operator - Repetitive Manufacturing*
-16. **Evaluate Stock/Requirements Situation (Optional)** *(optional)* — *Production Planner*
-17. **Execute Evaluated Receipt Settlement** — *Accounts Payable Accountant*
-18. **Confirm Production of JIT Calls** — *Production Operator - Lean Manufacturing*
-19. **Confirm Repetitive Manufacturing Inclusive Backflush of Materials (non-JIT)** — *Production Operator - Repetitive Manufacturing*
-20. **Check Supplier Invoice List (Optional)** *(optional)* — *Accounts Payable Accountant*
-21. **Manage JIT Packing Groups** — *Material Planner - Just-In-Time Supply*
-22. **Post Processing of Error Records (non-JIT)** — *Production Operator - Repetitive Manufacturing*
-23. **Display Procurement Overview (Optional)** *(optional)* — *Purchaser*
-24. **Schedule Goods Movement from Production for Customer JIT Calls** — *Production Operator - Lean Manufacturing*
-25. **Post Outgoing Payment** — *Accounts Payable Accountant*
-26. **Reprocessing of Failed Stock Posting After Confirmation of Production (Optional)** *(optional)* — *Production Supervisor - Lean Manufacturing*
-27. **Evaluate Stock/Requierments Situation** — *Production Planner*
-28. **Stock Availability analysis** — *Material Planner - Just-In-Time Supply*
+*Full BPMN detail → [manufacturing-options.md](it-and-cross-application/manufacturing-options.md)*
 
 ## Operational Procurement
 
-3 scope items.
-
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `54U` | Produce and Sell Standard Products – Inventory Management | 1 | — | — | SAP_BR_PRODN_OPTR_DISC |
 | `55E` | Lot Size of One with Advanced Variant Configuration | 0 | — | — | SAP_BR_PRODN_OPTR_DISC |
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-### 54U — Produce and Sell Standard Products – Inventory Management
-
-**Process steps** (BPMN execution order):
-
-1. **Confirm Production Operations of Production Order** — *Production Operator - Discrete Manufacturing*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
+*Full BPMN detail → [operational-procurement.md](it-and-cross-application/operational-procurement.md)*
 
 ## Order Promising
 
-4 scope items.
-
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `54U` | Produce and Sell Standard Products – Inventory Management | 1 | — | — | SAP_BR_PRODN_OPTR_DISC |
@@ -851,82 +189,9 @@ Document Selection** — *Tax Responsible*
 | `55E` | Lot Size of One with Advanced Variant Configuration | 0 | — | — | SAP_BR_PRODN_OPTR_DISC |
 | `55F` | None | 28 | — | — | — |
 
-### 54U — Produce and Sell Standard Products – Inventory Management
-
-**Process steps** (BPMN execution order):
-
-1. **Confirm Production Operations of Production Order** — *Production Operator - Discrete Manufacturing*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
-
-### 54V — Produce and Sell Standard Products – Warehouse Managed
-
-**Process steps** (BPMN execution order):
-
-1. **Conversion of Planned Order to Production Order** — *Production Planner*
-2. **Maintain Serial Numbers** — *Production Supervisor - Discrete Manufacturing*
-3. **Review Production Order** — *Production Supervisor - Discrete Manufacturing*
-4. **Material Staging for Production Order** — *Production Operator - Discrete Manufacturing*
-5. **Create Staging Warehouse Task** — *Warehouse Clerk (EWM)*
-6. **Confirm Staging Warehouse Task** — *Warehouse Operative (EWM)*
-7. **Post Goods Issue for Staging** — *Warehouse Clerk (EWM)*
-8. **Release Production Order** — *Production Supervisor - Discrete Manufacturing*
-9. **Confirm Production Operations of Production Order** — *Production Operator - Discrete Manufacturing*
-10. **Review Production Order** — *Production Supervisor - Discrete Manufacturing*
-11. **Create Inbound Delivery for Production Order** — *Warehouse Clerk*
-12. **Create Handling Unit (Optional)** *(optional)* — *Warehouse Clerk (EWM)*
-13. **Post Goods Receipt** — *Warehouse Clerk (EWM)*
-14. **Create Putaway Warehouse Tasks** — *Warehouse Clerk (EWM)*
-15. **Confirm Putaway Warehouse Tasks** — *Warehouse Operative (EWM)*
-16. **Record Inspection Results** — *Quality Technician*
-17. **Repack Handling Units (Optional)** *(optional)* — *Warehouse Operative (EWM)*
-18. **Create Adhoc Warehouse Tasks** — *Warehouse Clerk (EWM)*
-19. **Confirm Putaway Warehouse Tasks** — *Warehouse Operative (EWM)*
-20. **Evaluate Stock/Requirements Situation** — *Production Planner*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
-- `F6498` — Manage Outbound Delivery Orders
-
-### 55F — None
-
-**Process steps** (BPMN execution order):
-
-1. **Evaluate Stock / Requirement Situation** — *Material Planner - External Procurement*
-2. **Schedule MRP** — *Production Planner*
-3. **Display Purchase Scheduling Agreement w/o Release doc** — *Purchaser*
-4. **Evaluate Stock / Requirement Situation** — *Production Planner*
-5. **Display Delivery Schedule** — *Purchaser*
-6. **Release Summerized JIT Call to Production** — *Production Planner - Lean Manufacturing*
-7. **Create package Unit** — *Shipping Specialist - Just-In-Time Supply*
-8. **Check Planning in Planning Table (Optional)** *(optional)* — *Production Supervisor - Repetitive Manufacturing*
-9. **Printing Scheduling Agreement (Optional)** *(optional)* — *Purchaser*
-10. **Create Inbound Delivery** — *Receiving Specialist*
-11. **Release Sequenced JIT Call to Production** — *Production Planner - Lean Manufacturing*
-12. **Check Range of Stock Coverage** — *Production Planner*
-13. **Confirm Quantities for Putaway** — *Receiving Specialist*
-14. **Post Goods Receipt For Inbound Delivery** — *Receiving Specialist*
-15. **Material Staging** — *Production Operator - Repetitive Manufacturing*
-16. **Evaluate Stock/Requirements Situation (Optional)** *(optional)* — *Production Planner*
-17. **Execute Evaluated Receipt Settlement** — *Accounts Payable Accountant*
-18. **Confirm Production of JIT Calls** — *Production Operator - Lean Manufacturing*
-19. **Confirm Repetitive Manufacturing Inclusive Backflush of Materials (non-JIT)** — *Production Operator - Repetitive Manufacturing*
-20. **Check Supplier Invoice List (Optional)** *(optional)* — *Accounts Payable Accountant*
-21. **Manage JIT Packing Groups** — *Material Planner - Just-In-Time Supply*
-22. **Post Processing of Error Records (non-JIT)** — *Production Operator - Repetitive Manufacturing*
-23. **Display Procurement Overview (Optional)** *(optional)* — *Purchaser*
-24. **Schedule Goods Movement from Production for Customer JIT Calls** — *Production Operator - Lean Manufacturing*
-25. **Post Outgoing Payment** — *Accounts Payable Accountant*
-26. **Reprocessing of Failed Stock Posting After Confirmation of Production (Optional)** *(optional)* — *Production Supervisor - Lean Manufacturing*
-27. **Evaluate Stock/Requierments Situation** — *Production Planner*
-28. **Stock Availability analysis** — *Material Planner - Just-In-Time Supply*
+*Full BPMN detail → [order-promising.md](it-and-cross-application/order-promising.md)*
 
 ## Order and Contract Management
-
-4 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -935,82 +200,9 @@ Document Selection** — *Tax Responsible*
 | `55F` | None | 28 | — | — | — |
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-### 54U — Produce and Sell Standard Products – Inventory Management
-
-**Process steps** (BPMN execution order):
-
-1. **Confirm Production Operations of Production Order** — *Production Operator - Discrete Manufacturing*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
-
-### 54V — Produce and Sell Standard Products – Warehouse Managed
-
-**Process steps** (BPMN execution order):
-
-1. **Conversion of Planned Order to Production Order** — *Production Planner*
-2. **Maintain Serial Numbers** — *Production Supervisor - Discrete Manufacturing*
-3. **Review Production Order** — *Production Supervisor - Discrete Manufacturing*
-4. **Material Staging for Production Order** — *Production Operator - Discrete Manufacturing*
-5. **Create Staging Warehouse Task** — *Warehouse Clerk (EWM)*
-6. **Confirm Staging Warehouse Task** — *Warehouse Operative (EWM)*
-7. **Post Goods Issue for Staging** — *Warehouse Clerk (EWM)*
-8. **Release Production Order** — *Production Supervisor - Discrete Manufacturing*
-9. **Confirm Production Operations of Production Order** — *Production Operator - Discrete Manufacturing*
-10. **Review Production Order** — *Production Supervisor - Discrete Manufacturing*
-11. **Create Inbound Delivery for Production Order** — *Warehouse Clerk*
-12. **Create Handling Unit (Optional)** *(optional)* — *Warehouse Clerk (EWM)*
-13. **Post Goods Receipt** — *Warehouse Clerk (EWM)*
-14. **Create Putaway Warehouse Tasks** — *Warehouse Clerk (EWM)*
-15. **Confirm Putaway Warehouse Tasks** — *Warehouse Operative (EWM)*
-16. **Record Inspection Results** — *Quality Technician*
-17. **Repack Handling Units (Optional)** *(optional)* — *Warehouse Operative (EWM)*
-18. **Create Adhoc Warehouse Tasks** — *Warehouse Clerk (EWM)*
-19. **Confirm Putaway Warehouse Tasks** — *Warehouse Operative (EWM)*
-20. **Evaluate Stock/Requirements Situation** — *Production Planner*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
-- `F6498` — Manage Outbound Delivery Orders
-
-### 55F — None
-
-**Process steps** (BPMN execution order):
-
-1. **Evaluate Stock / Requirement Situation** — *Material Planner - External Procurement*
-2. **Schedule MRP** — *Production Planner*
-3. **Display Purchase Scheduling Agreement w/o Release doc** — *Purchaser*
-4. **Evaluate Stock / Requirement Situation** — *Production Planner*
-5. **Display Delivery Schedule** — *Purchaser*
-6. **Release Summerized JIT Call to Production** — *Production Planner - Lean Manufacturing*
-7. **Create package Unit** — *Shipping Specialist - Just-In-Time Supply*
-8. **Check Planning in Planning Table (Optional)** *(optional)* — *Production Supervisor - Repetitive Manufacturing*
-9. **Printing Scheduling Agreement (Optional)** *(optional)* — *Purchaser*
-10. **Create Inbound Delivery** — *Receiving Specialist*
-11. **Release Sequenced JIT Call to Production** — *Production Planner - Lean Manufacturing*
-12. **Check Range of Stock Coverage** — *Production Planner*
-13. **Confirm Quantities for Putaway** — *Receiving Specialist*
-14. **Post Goods Receipt For Inbound Delivery** — *Receiving Specialist*
-15. **Material Staging** — *Production Operator - Repetitive Manufacturing*
-16. **Evaluate Stock/Requirements Situation (Optional)** *(optional)* — *Production Planner*
-17. **Execute Evaluated Receipt Settlement** — *Accounts Payable Accountant*
-18. **Confirm Production of JIT Calls** — *Production Operator - Lean Manufacturing*
-19. **Confirm Repetitive Manufacturing Inclusive Backflush of Materials (non-JIT)** — *Production Operator - Repetitive Manufacturing*
-20. **Check Supplier Invoice List (Optional)** *(optional)* — *Accounts Payable Accountant*
-21. **Manage JIT Packing Groups** — *Material Planner - Just-In-Time Supply*
-22. **Post Processing of Error Records (non-JIT)** — *Production Operator - Repetitive Manufacturing*
-23. **Display Procurement Overview (Optional)** *(optional)* — *Purchaser*
-24. **Schedule Goods Movement from Production for Customer JIT Calls** — *Production Operator - Lean Manufacturing*
-25. **Post Outgoing Payment** — *Accounts Payable Accountant*
-26. **Reprocessing of Failed Stock Posting After Confirmation of Production (Optional)** *(optional)* — *Production Supervisor - Lean Manufacturing*
-27. **Evaluate Stock/Requierments Situation** — *Production Planner*
-28. **Stock Availability analysis** — *Material Planner - Just-In-Time Supply*
+*Full BPMN detail → [order-and-contract-management.md](it-and-cross-application/order-and-contract-management.md)*
 
 ## Process Management and Integration
-
-3 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -1018,73 +210,18 @@ Document Selection** — *Tax Responsible*
 | `31N` | Situation Handling | 6 | — | — | SAP_BR_BPC_EXPERT, SAP_BR_TREASURY_SPECIALIST_BOE, SAP_BR_TREASURY_SPECIALIST_FOE, SAP_BR_EMPLOYEE |
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-### 1NJ — Responsibility Management
-
-**Process steps** (BPMN execution order):
-
-1. **Log on to the Fiori LaunchPad** — *Business Process Specialist*
-2. **Log on to the Fiori LaunchPad** — *Business Process Specialist (SolMan)*
-3. **Maintain Teams and Responsibilities** — *Business Process Specialist*
-4. **Manage Team Hierarchies** — *Business Process Specialist (SolMan)*
-5. **Enter the Team Name and Team Type** — *Business Process Specialist*
-6. **Copy from the Existing Team** — *Business Process Specialist*
-7. **Select a team in the list, choose show hierarchy** — *Business Process Specialist (SolMan)*
-8. **Select a team in the list and go to the object page** — *Business Process Specialist (SolMan)*
-9. **Enter the new Member Details/ Copy from the Existing** — *Business Process Specialist*
-10. **Select a team, choose manage hierachies** — *Business Process Specialist (SolMan)*
-11. **Choose create subteam** — *Business Process Specialist (SolMan)*
-12. **Line of Business Scenarios(PLM/LCM etc..)** — *System*
-13. **Add a subteam by using yes/no toggle button** — *Business Process Specialist (SolMan)*
-14. **Enter the required fields and choose save** — *Business Process Specialist (SolMan)*
-
-**Key Fiori apps / TCodes:**
-
-- `F2412` — Manage Teams and Responsibilities
-- `F4636` — Manage Responsibility Contexts
-- `F4637` — Manage Responsibility Rules
-
-### 31N — Situation Handling
-
-**Process steps** (BPMN execution order):
-
-1. **Define teams and responsibilities** — *Business Process Specialist*
-2. **Define situation types** — *Configuration Expert - Business Process Configuration*
-3. **Check notifications** — *Employee*
-4. **Review open situations** — *Employee*
-5. **Monitor situation instances** — *Configuration Expert - Business Process Configuration*
-6. **Resolve situations** — *Employee*
-
-**Key Fiori apps / TCodes:**
-
-- `F3264` — Monitor Situations
-- `F6780` — Monitor Situations - Extended
-- `F4154` — My Situations
-- `F4537` — My Situations - Extended
-- `F5697` — Situation Handling Demo
-- `F2947` — Manage Situation Types
-- `F5437` — Manage Situation Types - Extended
+*Full BPMN detail → [process-management-and-integration.md](it-and-cross-application/process-management-and-integration.md)*
 
 ## Product Lifecycle Management
-
-2 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `2YC` | None | 4 | — | — | — |
 | `55E` | Lot Size of One with Advanced Variant Configuration | 0 | — | — | SAP_BR_PRODN_OPTR_DISC |
 
-### 2YC — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create New Document** — *Design Engineer*
-2. **Retrieve Auto-Classification** — *Design Engineer*
-3. **Validate Auto-Classification** — *Design Engineer*
-4. **Save Document** — *Design Engineer*
+*Full BPMN detail → [product-lifecycle-management.md](it-and-cross-application/product-lifecycle-management.md)*
 
 ## Production Planning
-
-5 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -1094,101 +231,18 @@ Document Selection** — *Tax Responsible*
 | `55F` | None | 28 | — | — | — |
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
-### 54U — Produce and Sell Standard Products – Inventory Management
-
-**Process steps** (BPMN execution order):
-
-1. **Confirm Production Operations of Production Order** — *Production Operator - Discrete Manufacturing*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
-
-### 54V — Produce and Sell Standard Products – Warehouse Managed
-
-**Process steps** (BPMN execution order):
-
-1. **Conversion of Planned Order to Production Order** — *Production Planner*
-2. **Maintain Serial Numbers** — *Production Supervisor - Discrete Manufacturing*
-3. **Review Production Order** — *Production Supervisor - Discrete Manufacturing*
-4. **Material Staging for Production Order** — *Production Operator - Discrete Manufacturing*
-5. **Create Staging Warehouse Task** — *Warehouse Clerk (EWM)*
-6. **Confirm Staging Warehouse Task** — *Warehouse Operative (EWM)*
-7. **Post Goods Issue for Staging** — *Warehouse Clerk (EWM)*
-8. **Release Production Order** — *Production Supervisor - Discrete Manufacturing*
-9. **Confirm Production Operations of Production Order** — *Production Operator - Discrete Manufacturing*
-10. **Review Production Order** — *Production Supervisor - Discrete Manufacturing*
-11. **Create Inbound Delivery for Production Order** — *Warehouse Clerk*
-12. **Create Handling Unit (Optional)** *(optional)* — *Warehouse Clerk (EWM)*
-13. **Post Goods Receipt** — *Warehouse Clerk (EWM)*
-14. **Create Putaway Warehouse Tasks** — *Warehouse Clerk (EWM)*
-15. **Confirm Putaway Warehouse Tasks** — *Warehouse Operative (EWM)*
-16. **Record Inspection Results** — *Quality Technician*
-17. **Repack Handling Units (Optional)** *(optional)* — *Warehouse Operative (EWM)*
-18. **Create Adhoc Warehouse Tasks** — *Warehouse Clerk (EWM)*
-19. **Confirm Putaway Warehouse Tasks** — *Warehouse Operative (EWM)*
-20. **Evaluate Stock/Requirements Situation** — *Production Planner*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
-- `F6498` — Manage Outbound Delivery Orders
-
-### 55F — None
-
-**Process steps** (BPMN execution order):
-
-1. **Evaluate Stock / Requirement Situation** — *Material Planner - External Procurement*
-2. **Schedule MRP** — *Production Planner*
-3. **Display Purchase Scheduling Agreement w/o Release doc** — *Purchaser*
-4. **Evaluate Stock / Requirement Situation** — *Production Planner*
-5. **Display Delivery Schedule** — *Purchaser*
-6. **Release Summerized JIT Call to Production** — *Production Planner - Lean Manufacturing*
-7. **Create package Unit** — *Shipping Specialist - Just-In-Time Supply*
-8. **Check Planning in Planning Table (Optional)** *(optional)* — *Production Supervisor - Repetitive Manufacturing*
-9. **Printing Scheduling Agreement (Optional)** *(optional)* — *Purchaser*
-10. **Create Inbound Delivery** — *Receiving Specialist*
-11. **Release Sequenced JIT Call to Production** — *Production Planner - Lean Manufacturing*
-12. **Check Range of Stock Coverage** — *Production Planner*
-13. **Confirm Quantities for Putaway** — *Receiving Specialist*
-14. **Post Goods Receipt For Inbound Delivery** — *Receiving Specialist*
-15. **Material Staging** — *Production Operator - Repetitive Manufacturing*
-16. **Evaluate Stock/Requirements Situation (Optional)** *(optional)* — *Production Planner*
-17. **Execute Evaluated Receipt Settlement** — *Accounts Payable Accountant*
-18. **Confirm Production of JIT Calls** — *Production Operator - Lean Manufacturing*
-19. **Confirm Repetitive Manufacturing Inclusive Backflush of Materials (non-JIT)** — *Production Operator - Repetitive Manufacturing*
-20. **Check Supplier Invoice List (Optional)** *(optional)* — *Accounts Payable Accountant*
-21. **Manage JIT Packing Groups** — *Material Planner - Just-In-Time Supply*
-22. **Post Processing of Error Records (non-JIT)** — *Production Operator - Repetitive Manufacturing*
-23. **Display Procurement Overview (Optional)** *(optional)* — *Purchaser*
-24. **Schedule Goods Movement from Production for Customer JIT Calls** — *Production Operator - Lean Manufacturing*
-25. **Post Outgoing Payment** — *Accounts Payable Accountant*
-26. **Reprocessing of Failed Stock Posting After Confirmation of Production (Optional)** *(optional)* — *Production Supervisor - Lean Manufacturing*
-27. **Evaluate Stock/Requierments Situation** — *Production Planner*
-28. **Stock Availability analysis** — *Material Planner - Just-In-Time Supply*
+*Full BPMN detail → [production-planning.md](it-and-cross-application/production-planning.md)*
 
 ## Quality Management
-
-2 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `54U` | Produce and Sell Standard Products – Inventory Management | 1 | — | — | SAP_BR_PRODN_OPTR_DISC |
 | `55E` | Lot Size of One with Advanced Variant Configuration | 0 | — | — | SAP_BR_PRODN_OPTR_DISC |
 
-### 54U — Produce and Sell Standard Products – Inventory Management
-
-**Process steps** (BPMN execution order):
-
-1. **Confirm Production Operations of Production Order** — *Production Operator - Discrete Manufacturing*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
+*Full BPMN detail → [quality-management.md](it-and-cross-application/quality-management.md)*
 
 ## Solution Business Management
-
-4 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
@@ -1197,148 +251,21 @@ Document Selection** — *Tax Responsible*
 | `6BV` | None | 0 | — | — | — |
 | `6HY` | None | 19 | `4GT` `4E9` `J59` `6GS` `3MO` `1YT` | — | — |
 
-### 4GT — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create 
-Solution order** — *Solution Order Specialist*
-2. **1EZ Credit Memo Request** — *Solution Order Specialist*
-3. **6HY - Solution Order Management with Advanced Variant Conffiguration** — *Solution Order Specialist* → calls `6HY`
-4. **Add Sales Item** — *Solution Order Specialist*
-5. **Add Service Item** — *Solution Order Specialist*
-6. **Add Service Contract Item** — *Solution Order Specialist*
-7. **Add Subscription item** — *Solution Order Specialist*
-8. **Add Project Item** — *Solution Order Specialist*
-9. **Release Item** — *Solution Order Specialist*
-10. **Release Item** — *Solution Order Specialist*
-11. **Release Item** — *Solution Order Specialist*
-12. **Release Item** — *Solution Order Specialist*
-13. **Optional: Link existing Project** — *Solution Order Specialist*
-14. **Release Item** — *Solution Order Specialist*
-15. **Execute 
-Solution Order Orchestration** — *Solution Order Specialist*
-16. **BD9 - Sell from Stock** — *Internal Sales Representative* → calls `BD9`
-17. **3MO - Service Contract Management** — *Customer Service Manager* → calls `3MO`
-18. **3D2 - Service Order Management and Monitoring** — *Customer Service Manager* → calls `3D2`
-19. **J11 - Customer Project Management - Project-Based Services** — *Project Manager - Commercial Services* → calls `J11`
-20. **57Z - Subscription Management with Sales Billing** — *Solution Order Specialist* → calls `57Z`
-21. **BD3 - Sales Processing using Third-Party with Shipping Notification** — *Internal Sales Representative* → calls `BD3`
-22. **BDK - Sales Processing using Third-Party without Shipping Notification** — *Internal Sales Representative* → calls `BDK`
-23. **2EQ - Sale of Services** — *Internal Sales Representative* → calls `2EQ`
-24. **4E9 - Project Billing** — *Billing Clerk* → calls `4E9`
-25. **2ET - Sales Order Processing for Non-Stock Material** — *Internal Sales Representative* → calls `2ET`
-26. **BDN - Sale of Non-Stock Item with Order-Specific Procurement** — *Internal Sales Representative* → calls `BDN`
-27. **Solution Billing** — *Billing Clerk*
-28. **J59 - Accounts Receivable** — *Accounts Receivable Accountant* → calls `J59`
-29. **Optional: Accellerated Returns for Sell-from-Stock Items (SI: BKP)** — *Billing Clerk*
-
-### 4Q5 — Solution Quotation
-
-**Process steps** (BPMN execution order):
-
-1. **Create Solution Quotation** — *Customer Service Manager*
-2. **Accept solution quotation** — *Customer Service Manager*
-3. **Process Service Order** — *Customer Service Manager*
-4. **Process service contract** — *Customer Service Manager*
-5. **Process sales order** — *Internal Sales Representative*
-6. **Create billing document** — *Billing Clerk*
-7. **Create billing document** — *Billing Clerk*
-8. **Create Billing Document** — *Billing Clerk*
-
-**Key Fiori apps / TCodes:**
-
-- `F3763` — Manage Service Contracts
-- `F0869A` / `VL10A` — Create Outbound Deliveries - From Sales Orders
-- `F0798` / `VF01` — Create Billing Documents
-
-### 6HY — None
-
-**Process steps** (BPMN execution order):
-
-1. **Create Solution order** — *Solution Order Specialist*
-2. **4GT - Solution Order Management** — *Solution Order Specialist* → calls `4GT`
-3. **Add configurable Sales Order Item** — *Solution Order Specialist*
-4. **Add configurable Service Order Item** — *Solution Order Specialist*
-5. **Add configurable Service Contract Item** — *Solution Order Specialist*
-6. **Optional: Configure** — *Solution Order Specialist*
-7. **Optional: Configure** — *Solution Order Specialist*
-8. **Optional: Configure** — *Solution Order Specialist*
-9. **4E9 - Project Billing** — *Billing Clerk* → calls `4E9`
-10. **Release Item** — *Solution Order Specialist*
-11. **Release Item** — *Solution Order Specialist*
-12. **Release Item** — *Solution Order Specialist*
-13. **J59 - Accounts Receivable** — *Accounts Receivable Accountant* → calls `J59`
-14. **Solution Billling** — *Billing Clerk*
-15. **Execute Solution Order Orchestration** — *Solution Order Specialist*
-16. **Optional: BKP Customer Returns** — *Billing Clerk*
-17. **6GS - Service Management with AVC** — *Customer Service Manager* → calls `6GS`
-18. **3MO - Service Contract Management / 6GU - Service Contract Management with AVC** — *Customer Service Manager* → calls `3MO`
-19. **1YT - Conf. Sell from Stock** — *Internal Sales Representative* → calls `1YT`
+*Full BPMN detail → [solution-business-management.md](it-and-cross-application/solution-business-management.md)*
 
 ## Sourcing and Contract Management
-
-1 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `1XV` | SAP S/4HANA for Enterprise Contract Management | 5 | — | — | SAP_BR_ADMINISTRATOR_LCM, SAP_BR_LEGAL_COUNSEL, SAP_BR_EMPLOYEE, SAP_BR_EMPLOYEE_LEGAL_CONTENT |
 
-### 1XV — SAP S/4HANA for Enterprise Contract Management
-
-**Process steps** (BPMN execution order):
-
-1. **Legal Content Overview** — *Legal Counsel*
-2. **Request Legal Content** — *Employee - Legal Content Management*
-3. **Manage Legal Transactions** — *Legal Counsel*
-4. **Manage Legal Documents** — *Legal Counsel*
-5. **Approve/ Review/ Process       Legal Transactions** — *Processor*
-
-**Key Fiori apps / TCodes:**
-
-- `F2346` — Manage Context for Legal Contract
-- `F2453` — Manage Legal Documents
-- `F4344` — Schedule Envelope Status Updates
-- `F2310` — Manage Legal Transactions
-- `F2403` — Request Legal Contract
-- `F2933` — Enterprise Contract Overview
-- `F2304` — Manage Tasks for Legal Contract
+*Full BPMN detail → [sourcing-and-contract-management.md](it-and-cross-application/sourcing-and-contract-management.md)*
 
 ## Warehousing
-
-1 scope items.
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
 |---|---|---|---|---|---|
 | `54V` | Produce and Sell Standard Products – Warehouse Managed | 20 | — | — | SAP_BR_PRODN_OPTR_DISC, SAP_BR_WAREHOUSE_CLERK_EWM |
 
-### 54V — Produce and Sell Standard Products – Warehouse Managed
-
-**Process steps** (BPMN execution order):
-
-1. **Conversion of Planned Order to Production Order** — *Production Planner*
-2. **Maintain Serial Numbers** — *Production Supervisor - Discrete Manufacturing*
-3. **Review Production Order** — *Production Supervisor - Discrete Manufacturing*
-4. **Material Staging for Production Order** — *Production Operator - Discrete Manufacturing*
-5. **Create Staging Warehouse Task** — *Warehouse Clerk (EWM)*
-6. **Confirm Staging Warehouse Task** — *Warehouse Operative (EWM)*
-7. **Post Goods Issue for Staging** — *Warehouse Clerk (EWM)*
-8. **Release Production Order** — *Production Supervisor - Discrete Manufacturing*
-9. **Confirm Production Operations of Production Order** — *Production Operator - Discrete Manufacturing*
-10. **Review Production Order** — *Production Supervisor - Discrete Manufacturing*
-11. **Create Inbound Delivery for Production Order** — *Warehouse Clerk*
-12. **Create Handling Unit (Optional)** *(optional)* — *Warehouse Clerk (EWM)*
-13. **Post Goods Receipt** — *Warehouse Clerk (EWM)*
-14. **Create Putaway Warehouse Tasks** — *Warehouse Clerk (EWM)*
-15. **Confirm Putaway Warehouse Tasks** — *Warehouse Operative (EWM)*
-16. **Record Inspection Results** — *Quality Technician*
-17. **Repack Handling Units (Optional)** *(optional)* — *Warehouse Operative (EWM)*
-18. **Create Adhoc Warehouse Tasks** — *Warehouse Clerk (EWM)*
-19. **Confirm Putaway Warehouse Tasks** — *Warehouse Operative (EWM)*
-20. **Evaluate Stock/Requirements Situation** — *Production Planner*
-
-**Key Fiori apps / TCodes:**
-
-- `F3069` / `CO11N` — Confirm Production Operation
-- `F6498` — Manage Outbound Delivery Orders
+*Full BPMN detail → [warehousing.md](it-and-cross-application/warehousing.md)*
 

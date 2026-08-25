@@ -1,32 +1,29 @@
 # Knowledge: standards
 
-EPAM delivery standards and the project's own conventions.
+EPAM delivery standards and project-agnostic conventions used as guardrails across skills.
 
-## Ported from sap-ai-framework
+## What lives here
 
-Copied verbatim from `sap-ai-framework/knowledge/standards/`. Correction to note: these are all
-stubs (contract/purpose stated, content marked TODO), not built content, despite initially looking
-like real, finished standards. Carrying them forward as-is rather than inventing content they
-never had:
+- `source-synthesis.md` — real, tested content. Tool-blind methodology for building structured,
+  source-traced documents from heterogeneous inputs. Ported from `sap-ai-cons`'s
+  `business-blueprint` skill methodology, generalized for any target document. Orchestrated by
+  `solution-design`'s compose/maintain input mode.
 
-- `abap-s4hana.md`, guardrail constraints for ABAP under S/4HANA (SQL, released APIs, forbidden
-  patterns).
-- `config-guidelines.md`, standards config must conform to.
-- `epam-delivery.md`, EPAM delivery guardrails, a candidate for "locked" (non-overridable) content
-  later.
-- `go-live-readiness-checklist.md`, checklist for the go/no-go decision.
+- `sap-architecture-references.md` — curated reference list of external SAP GitHub repos and
+  official resources for SAP AI architecture, development standards, and SDK integration.
 
-`clean-core.md` moved to its own bucket, `knowledge/clean-core/`, since factory-data.json models
-it as a separate component (adopt posture, SAP publishes it) rather than part of `standards`.
+## Planned (not yet written)
 
-## Ported from sap-ai-cons
+The following guardrail standards were carried as stubs from `sap-ai-framework` but never had
+real content written. Removed as stubs 2026-08-25 — to be written from scratch when a skill
+actually needs them, not speculatively:
 
-- `source-synthesis.md`, real, tested content (not a stub) — ported from `sap-ai-cons`'s
-  `business-blueprint` skill methodology, generalized from "fill the Business Blueprint template" to
-  "fill whichever target document the calling skill owns." Orchestrated by `solution-design`'s
-  compose/maintain input mode, see `skills/solution-design/SKILL.md`.
+- ABAP/S4HANA constraints (released APIs, forbidden patterns, SQL rules)
+- Configuration guidelines (what config must conform to)
+- EPAM delivery guardrails (candidate for "locked"/non-overridable content)
+- Go-live readiness checklist (go/no-go decision criteria)
 
 ## Status
 
-In progress overall. `source-synthesis.md` is real, tested content. The other files in this bucket
-(ported from sap-ai-framework) are still stubs, content marked TODO.
+`source-synthesis.md` and `sap-architecture-references.md` are real content. Guardrail stubs
+removed; write them when a skill's SKILL.md lists them as an input it actually reads.

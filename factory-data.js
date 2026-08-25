@@ -393,7 +393,8 @@ window.FACTORY_DATA = {
    "posture": "adopt",
    "status": "ready",
    "phase": "all",
-   "desc": "Full ABAP CRUD (classic + RAP) via mcp-abap-adt, npx-installed, per-developer. Alternatives: SAP's own VS Code ADT MCP (Cloud ABAP only), arc-1 (enterprise/BTP deploy)."
+   "desc": "Full ABAP CRUD (classic + RAP) via mcp-abap-adt, npx-installed, per-developer. Alternatives: SAP's own VS Code ADT MCP (Cloud ABAP only), arc-1 (enterprise/BTP deploy).",
+   "pattern": "mcp"
   },
   {
    "kind": "Connector",
@@ -401,7 +402,8 @@ window.FACTORY_DATA = {
    "posture": "adopt",
    "status": "ready",
    "phase": "all",
-   "desc": "Work items and the defect queue. The work-intent surface of record for now."
+   "desc": "Work items and the defect queue. The work-intent surface of record for now.",
+   "pattern": "mcp"
   },
   {
    "kind": "Connector",
@@ -409,7 +411,8 @@ window.FACTORY_DATA = {
    "posture": "adopt",
    "status": "progress",
    "phase": "all",
-   "desc": "Structured map of business entities and relationships. Grounds discovery and agent-readiness."
+   "desc": "Structured map of business entities and relationships. Grounds discovery and agent-readiness.",
+   "pattern": "mcp"
   },
   {
    "kind": "Connector",
@@ -417,7 +420,11 @@ window.FACTORY_DATA = {
    "posture": "adopt",
    "status": "progress",
    "phase": "all",
-   "desc": "SAP Cloud ALM delivery and operations surface, packaged with an external profile launcher and read-only-by-default tool posture."
+   "desc": "SAP Cloud ALM delivery and operations surface. MCP pattern: read-only-by-default tool posture with external profile launcher. Script pattern: OAuth2 env-file credentials for Python regeneration tools.",
+   "pattern": [
+    "mcp",
+    "script"
+   ]
   },
   {
    "kind": "Connector",
@@ -425,7 +432,8 @@ window.FACTORY_DATA = {
    "posture": "adopt",
    "status": "progress",
    "phase": "all",
-   "desc": "SAP LeanIX MCP for workspace-scoped enterprise architecture discovery, technology assessment and transformation evidence, packaged with OAuth via mcp-remote."
+   "desc": "SAP LeanIX MCP for workspace-scoped enterprise architecture discovery, technology assessment and transformation evidence, packaged with OAuth via mcp-remote.",
+   "pattern": "mcp"
   },
   {
    "kind": "Connector",
@@ -433,15 +441,17 @@ window.FACTORY_DATA = {
    "posture": "adopt",
    "status": "notstarted",
    "phase": "all",
-   "desc": "Simplification items and readiness findings."
+   "desc": "Simplification items and readiness findings.",
+   "pattern": "mcp"
   },
   {
    "kind": "Connector",
    "name": "signavio",
    "posture": "adopt",
-   "status": "notstarted",
+   "status": "progress",
    "phase": "all",
-   "desc": "Process scope, variants and agent mining."
+   "desc": "SAP Signavio Process Manager: BPMN model download, subprocess hierarchy, linkedBy enrichment. Script-pattern connector (basic-auth /p/login); confirmed against real tenant 2026-08-24.",
+   "pattern": "script"
   },
   {
    "kind": "Connector",
@@ -449,7 +459,8 @@ window.FACTORY_DATA = {
    "posture": "adopt",
    "status": "progress",
    "phase": "all",
-   "desc": "Microsoft 365 calendar. Finds real availability and drafts (never sends) invites for fit-to-standard workshop scheduling. Missing from the model even though the ported, proven fit-to-standard skill depends on it."
+   "desc": "Microsoft 365 calendar. Finds real availability and drafts (never sends) invites for fit-to-standard workshop scheduling. Missing from the model even though the ported, proven fit-to-standard skill depends on it.",
+   "pattern": "mcp"
   },
   {
    "kind": "Connector",
@@ -457,7 +468,8 @@ window.FACTORY_DATA = {
    "posture": "adopt",
    "status": "notstarted",
    "phase": "all",
-   "desc": "Source control for ABAP Cloud, CAP and UI5."
+   "desc": "Source control for ABAP Cloud, CAP and UI5.",
+   "pattern": "mcp"
   },
   {
    "kind": "Connector",
@@ -465,7 +477,8 @@ window.FACTORY_DATA = {
    "posture": "adopt",
    "status": "notstarted",
    "phase": "all",
-   "desc": "Where client-facing agents are built."
+   "desc": "Where client-facing agents are built.",
+   "pattern": "mcp"
   },
   {
    "kind": "Connector",
@@ -473,7 +486,8 @@ window.FACTORY_DATA = {
    "posture": "adopt",
    "status": "notstarted",
    "phase": "all",
-   "desc": "Where client-facing agents are governed. Proposed to Retired lifecycle. GA Q3 2026."
+   "desc": "Where client-facing agents are governed. Proposed to Retired lifecycle. GA Q3 2026.",
+   "pattern": "mcp"
   },
   {
    "kind": "Artifact",

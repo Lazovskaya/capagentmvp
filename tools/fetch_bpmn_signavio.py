@@ -14,17 +14,17 @@ apps/roles/components from a different source and is left untouched.
 
 Usage — single scope item:
     python3 tools/fetch_bpmn_signavio.py \\
-        --env-file ~/.config/sap-best-practices/sessions/default.env \\
+        --env-file ~/.config/signavio/sessions/default.env \\
         --scope-item BD9
 
 Usage — all scope items that already have signavio_model_id in their JSON:
     python3 tools/fetch_bpmn_signavio.py \\
-        --env-file ~/.config/sap-best-practices/sessions/default.env \\
+        --env-file ~/.config/signavio/sessions/default.env \\
         --all
 
 Usage — all scope items, navigate folder tree for any that lack a model_id:
     python3 tools/fetch_bpmn_signavio.py \\
-        --env-file ~/.config/sap-best-practices/sessions/default.env \\
+        --env-file ~/.config/signavio/sessions/default.env \\
         --all --navigate
 
 Dry-run (parse but don't write JSON):

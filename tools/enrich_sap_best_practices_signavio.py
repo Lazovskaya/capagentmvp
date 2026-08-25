@@ -235,7 +235,7 @@ def run(client, scope_items_dir, only_codes=None, limit=None):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--env-file", type=Path, required=True, help="Path to a .env file with SIGNAVIO_HOST, SIGNAVIO_TENANT_ID, SIGNAVIO_USER, SIGNAVIO_PASSWORD (keep this OUTSIDE the repo, e.g. ~/.config/sap-best-practices/sessions/<destination>.env)")
+    parser.add_argument("--env-file", type=Path, required=True, help="Path to a .env file with SIGNAVIO_HOST, SIGNAVIO_TENANT_ID, SIGNAVIO_USER, SIGNAVIO_PASSWORD (keep this OUTSIDE the repo, e.g. ~/.config/signavio/sessions/<destination>.env)")
     parser.add_argument("--scope-items-dir", type=Path, default=DEFAULT_SCOPE_ITEMS_DIR, help="Directory of existing per-scope-item JSON files to enrich in place")
     parser.add_argument("--scope-item", action="append", dest="scope_items", help="Restrict to one scope item code (repeatable); default is every scope item found in Signavio")
     parser.add_argument("--limit", type=int, help="Cap how many scope items to process (useful for a smoke test before a full ~602-item run)")

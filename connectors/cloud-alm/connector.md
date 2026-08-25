@@ -1,10 +1,20 @@
 # Connector: SAP Cloud ALM
 
+**Pattern:** `mcp` + `script` — two integration modes for the same service.
+
+- **MCP pattern** (below): Claude Code calls Cloud ALM at runtime via an MCP server during
+  skill execution. Used by delivery and operations activities.
+- **Script pattern** (see "Script integration" section): Python tools call the Cloud ALM
+  Process Content API directly via OAuth2 to regenerate the SAP Best Practices taxonomy cache.
+  Credentials: `~/.config/cloud-alm/sessions/<destination>.env` (see `.env.example`).
+
 SAP's delivery and operations surface for project, task, document, test,
 process, analytics and go-live evidence. Used by Deploy and Run activities, and
 by Explore activities that need work-item or process references.
 
-## Packaging
+## MCP integration
+
+### Packaging
 
 This connector follows the Jira packaging pattern:
 
@@ -145,3 +155,53 @@ write_controls:
 Cloud ALM exports and production logs remain client-confidential. Redact
 personal data and secrets before sending evidence to an LLM or proposing a
 reusable knowledge entry.
+
+## Script integration
+
+Direct OAuth2 calls from Python tools — no MCP layer. Used by
+`tools/ingest_sap_best_practices.py` (dead end — see README) to query the Process Content API
+for scope-item hierarchy.
+
+**Status:** Dead end for L1 hierarchy (investigated 2026-08-24). The Process Content API
+(`/api/calm-processauthoring/v1/businessProcesses`, `solutionProcesses`) returns real data but
+carries no L1 value-stream field. The `solutionValueFlowDiagram` SVG came back null. Not pursued
+further — L1 is populated from a hand-curated lookup table instead. Documented here as a
+confirmed negative result so future contributors don't re-investigate the same dead end.
+
+### Credential setup (script pattern)
+
+1. Copy `.env.example` to `~/.config/cloud-alm/sessions/<destination>.env`.
+2. Fill in the four variables from your Cloud ALM BTP service key.
+3. Pass to tools via `--env-file` (if/when a tool re-uses this pattern):
+
+```bash
+python3 tools/<future-tool>.py --env-file ~/.config/cloud-alm/sessions/default.env
+```
+
+### Credential format (script pattern)
+
+```bash
+# OAuth2 token endpoint from BTP service key (uaa.url + /oauth/token)
+CLOUD_ALM_TOKEN_URL=https://your-subaccount.authentication.eu10.hana.ondemand.com/oauth/token
+
+# Client ID / secret from the same service key
+CLOUD_ALM_CLIENT_ID=sb-your-client-id!t12345
+CLOUD_ALM_CLIENT_SECRET=your-client-secret
+
+# Cloud ALM API base URL (service key "url" field)
+CLOUD_ALM_API_URL=https://your-tenant.alm.cloud.sap
+```
+
+Full template in `.env.example` in this directory.
+
+### Governance contract (script pattern)
+
+```yaml
+pattern: script
+data_classification:
+  input: SAP reference data (not client data for taxonomy regeneration)
+  credentials: restricted
+default_mode: read-only
+allowed_operations: [get-token, list-business-processes, get-solution-processes]
+forbidden_operations: [create, update, delete, post-activity-logs]
+```

@@ -114,11 +114,11 @@ What's confirmed real, walking the tenant by hand before writing the script:
   "Planned enrichment" below).
 
 Run it (against a `.env` file kept **outside** the repo, e.g.
-`~/.config/sap-best-practices/sessions/<destination>.env` — copy `.env.example` there first):
+`~/.config/signavio/sessions/<destination>.env` — copy `connectors/signavio/.env.example` there first):
 
 ```bash
-python3 tools/enrich_sap_best_practices_signavio.py --env-file ~/.config/sap-best-practices/sessions/default.env --limit 20   # smoke test first
-python3 tools/enrich_sap_best_practices_signavio.py --env-file ~/.config/sap-best-practices/sessions/default.env               # full ~602-item run (~1200+ requests, several minutes)
+python3 tools/enrich_sap_best_practices_signavio.py --env-file ~/.config/signavio/sessions/default.env --limit 20   # smoke test first
+python3 tools/enrich_sap_best_practices_signavio.py --env-file ~/.config/signavio/sessions/default.env               # full ~602-item run (~1200+ requests, several minutes)
 ```
 
 ## Method 3 — BPMN 2.0 download and parse: gives real process flow

@@ -1,0 +1,77 @@
+{
+  "type": "object",
+  "description": "Functional Specification — Design and Configuration Documentation. Produced by solution-design for a confirmed WRICEF delta.",
+  "required": [
+    "wricef_id",
+    "decision_log_row_id",
+    "status"
+  ],
+  "properties": {
+    "wricef_id": {
+      "type": "string",
+      "description": "Unique WRICEF ID (e.g. RPT-001, WF-003)"
+    },
+    "decision_log_row_id": {
+      "type": "string",
+      "description": "FTS Row ID that produced this delta"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "In Review",
+        "Approved",
+        "Superseded"
+      ],
+      "description": "Document lifecycle status"
+    },
+    "business_objectives_and_expected_benefits": {
+      "type": "string",
+      "description": "Business Objectives and Expected Benefits"
+    },
+    "high_level_business_requirements_to_achieve_business_objective": {
+      "type": "string",
+      "description": "High Level Business Requirements (to achieve business objective)"
+    },
+    "organizational_change_impact": {
+      "type": "string",
+      "description": "Organizational Change Impact"
+    },
+    "policy_and_compliance": {
+      "type": "string",
+      "description": "Policy and Compliance"
+    },
+    "solution_process_scope": {
+      "type": "string",
+      "description": "Solution Process Scope"
+    },
+    "target_process_flow_1": {
+      "type": "string",
+      "description": "Target Process Flow #1"
+    },
+    "target_process_flow_2": {
+      "type": "string",
+      "description": "Target Process Flow #2"
+    },
+    "configuration_activity_value": {
+      "type": "string",
+      "description": "Configuration Activity Value"
+    },
+    "organizational_structure": {
+      "type": "string",
+      "description": "Organizational Structure"
+    },
+    "roles": {
+      "type": "string",
+      "description": "Roles"
+    },
+    "master_data": {
+      "type": "string",
+      "description": "Master Data"
+    },
+    "related_technical_solution_component": {
+      "type": "string",
+      "description": "Related Technical Solution Component"
+    }
+  }
+}

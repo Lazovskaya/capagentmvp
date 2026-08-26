@@ -264,6 +264,12 @@ SPECS = [
         "label": "Business Scenario Design Document",
         "scenario": True,
     },
+    {
+        "file": "other/S4H_1615 Design and Configuration Documentation Template.docx",
+        "slug": "design-config-doc",
+        "label": "Design and Configuration Documentation",
+        "scenario": True,
+    },
 ]
 
 
@@ -277,7 +283,11 @@ def main() -> None:
     artifacts_dir = repo_root / "artifacts"
 
     for spec in SPECS:
+        # support files in workspace/specs/ subdirs (e.g. other/)
         src = specs_dir / spec["file"]
+        if not src.exists():
+            # try workspace/ root for files in subdirs like "other/"
+            src = repo_root / "workspace" / spec["file"]
         if not src.exists():
             print(f"SKIP (not found): {spec['file']}", file=sys.stderr)
             continue

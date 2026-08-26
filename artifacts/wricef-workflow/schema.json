@@ -1,0 +1,85 @@
+{
+  "type": "object",
+  "description": "Functional Specification — WRICEF Workflow — Functional Specification. Produced by solution-design for a confirmed WRICEF delta.",
+  "required": [
+    "wricef_id",
+    "decision_log_row_id",
+    "status"
+  ],
+  "properties": {
+    "wricef_id": {
+      "type": "string",
+      "description": "Unique WRICEF ID (e.g. RPT-001, WF-003)"
+    },
+    "decision_log_row_id": {
+      "type": "string",
+      "description": "FTS Row ID that produced this delta"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "In Review",
+        "Approved",
+        "Superseded"
+      ],
+      "description": "Document lifecycle status"
+    },
+    "business_background": {
+      "type": "string",
+      "description": "Business Background"
+    },
+    "why_is_sap_standard_not_appropriate_or_sufficient": {
+      "type": "string",
+      "description": "Why is SAP standard not appropriate or sufficient?"
+    },
+    "alternative_approaches_considered": {
+      "type": "string",
+      "description": "Alternative Approaches Considered"
+    },
+    "out_of_scope": {
+      "type": "string",
+      "description": "Out of Scope"
+    },
+    "assumptions": {
+      "type": "string",
+      "description": "Assumptions"
+    },
+    "dependencies": {
+      "type": "string",
+      "description": "Dependencies"
+    },
+    "links": {
+      "type": "string",
+      "description": "Links"
+    },
+    "sap_standard_workflow": {
+      "type": "string",
+      "description": "SAP Standard Workflow"
+    },
+    "triggers_and_start_conditions": {
+      "type": "string",
+      "description": "Triggers and Start Conditions"
+    },
+    "process_overview": {
+      "type": "string",
+      "description": "Process Overview"
+    },
+    "data_model": {
+      "type": "string",
+      "description": "Data Model"
+    },
+    "step_by_step_process_description": {
+      "type": "string",
+      "description": "Step by Step Process Description"
+    },
+    "example_user_decision_or_dialog_step": {
+      "type": "string",
+      "description": "Example user decision or dialog step"
+    },
+    "example_background_step": {
+      "type": "string",
+      "description": "Example Background Step"
+    }
+  }
+}

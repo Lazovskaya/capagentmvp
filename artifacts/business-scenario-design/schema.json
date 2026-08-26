@@ -1,0 +1,85 @@
+{
+  "type": "object",
+  "description": "Functional Specification — Business Scenario Design Document. Produced by solution-design for a confirmed WRICEF delta.",
+  "required": [
+    "wricef_id",
+    "decision_log_row_id",
+    "status"
+  ],
+  "properties": {
+    "wricef_id": {
+      "type": "string",
+      "description": "Unique WRICEF ID (e.g. RPT-001, WF-003)"
+    },
+    "decision_log_row_id": {
+      "type": "string",
+      "description": "FTS Row ID that produced this delta"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "In Review",
+        "Approved",
+        "Superseded"
+      ],
+      "description": "Document lifecycle status"
+    },
+    "business_objectives_and_expected_benefits": {
+      "type": "string",
+      "description": "Business Objectives and Expected Benefits"
+    },
+    "major_business_pain_points_to_achieve_business_objective": {
+      "type": "string",
+      "description": "Major Business Pain Points (to achieve business objective)"
+    },
+    "high_level_business_requirements_to_achieve_business_objective": {
+      "type": "string",
+      "description": "High Level Business Requirements (to achieve business objective)"
+    },
+    "key_financial_performance_indicators_kpis": {
+      "type": "string",
+      "description": "Key Financial Performance Indicators (KPIs)"
+    },
+    "organizational_change_impact": {
+      "type": "string",
+      "description": "Organizational Change Impact"
+    },
+    "organizational_structure": {
+      "type": "string",
+      "description": "Organizational Structure"
+    },
+    "roles": {
+      "type": "string",
+      "description": "Roles"
+    },
+    "master_data": {
+      "type": "string",
+      "description": "Master Data"
+    },
+    "related_systems_being_replaced_or_interfaced_with": {
+      "type": "string",
+      "description": "Related Systems (being replaced or Interfaced with)"
+    },
+    "major_data_sources_for_conversion": {
+      "type": "string",
+      "description": "Major Data Sources for Conversion"
+    },
+    "policy_and_compliance": {
+      "type": "string",
+      "description": "Policy and Compliance"
+    },
+    "process_scope": {
+      "type": "string",
+      "description": "Process Scope"
+    },
+    "sales_quotation": {
+      "type": "string",
+      "description": "Sales Quotation"
+    },
+    "credit_memo_processing": {
+      "type": "string",
+      "description": "Credit Memo Processing"
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "type": "object",
+  "description": "Functional Specification — WRICEF Enhancement (Complex) — Functional Specification. Produced by solution-design for a confirmed WRICEF delta.",
+  "required": [
+    "wricef_id",
+    "decision_log_row_id",
+    "status"
+  ],
+  "properties": {
+    "wricef_id": {
+      "type": "string",
+      "description": "Unique WRICEF ID (e.g. RPT-001, WF-003)"
+    },
+    "decision_log_row_id": {
+      "type": "string",
+      "description": "FTS Row ID that produced this delta"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Draft",
+        "In Review",
+        "Approved",
+        "Superseded"
+      ],
+      "description": "Document lifecycle status"
+    },
+    "business_background": {
+      "type": "string",
+      "description": "Business Background"
+    },
+    "why_is_sap_standard_not_appropriate_or_sufficient": {
+      "type": "string",
+      "description": "Why is SAP standard not appropriate or sufficient?"
+    },
+    "alternative_approaches_considered": {
+      "type": "string",
+      "description": "Alternative Approaches Considered"
+    },
+    "out_of_scope": {
+      "type": "string",
+      "description": "Out of Scope"
+    },
+    "assumptions": {
+      "type": "string",
+      "description": "Assumptions"
+    },
+    "dependencies": {
+      "type": "string",
+      "description": "Dependencies"
+    },
+    "links": {
+      "type": "string",
+      "description": "Links"
+    },
+    "data_model": {
+      "type": "string",
+      "description": "Data Model"
+    },
+    "user_interface": {
+      "type": "string",
+      "description": "User Interface"
+    },
+    "enhancement_logic": {
+      "type": "string",
+      "description": "Enhancement Logic"
+    },
+    "application_logic": {
+      "type": "string",
+      "description": "Application Logic"
+    },
+    "flow_diagram": {
+      "type": "string",
+      "description": "Flow Diagram"
+    },
+    "validation_and_error_handling": {
+      "type": "string",
+      "description": "Validation and Error Handling"
+    },
+    "authorizations": {
+      "type": "string",
+      "description": "Authorizations"
+    },
+    "extension_of_associated_objects_for_interfaces_data_migration_and_reporting": {
+      "type": "string",
+      "description": "Extension of Associated Objects for Interfaces, Data Migration and Reporting"
+    },
+    "idoc": {
+      "type": "string",
+      "description": "IDOC"
+    },
+    "apis_e_g_bapi_rfc_or_web_service": {
+      "type": "string",
+      "description": "APIs: e.g. BAPI, RFC or Web Service"
+    },
+    "lsmw": {
+      "type": "string",
+      "description": "LSMW"
+    },
+    "analytics_data_model_hana_live_or_cds_views": {
+      "type": "string",
+      "description": "Analytics Data Model (HANA Live or CDS Views)"
+    }
+  }
+}

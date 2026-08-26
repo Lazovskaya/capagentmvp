@@ -4,6 +4,26 @@
   "required": ["generated_at", "topics", "coverage"],
   "properties": {
     "generated_at": { "type": "string", "format": "date-time" },
+    "delivery_mode": {
+      "type": "string",
+      "enum": ["onsite", "remote", "hybrid"],
+      "description": "Determines whether remote-facilitation checklist applies"
+    },
+    "schedule": {
+      "type": "array",
+      "description": "Workshop track schedule. Chart of Accounts first, Org Structure second, Finance last.",
+      "items": {
+        "type": "object",
+        "required": ["track", "duration_days"],
+        "properties": {
+          "track": { "type": "string" },
+          "scope_item_ids": { "type": "array", "items": { "type": "string" } },
+          "duration_days": { "type": "number" },
+          "parallel_with": { "type": "array", "items": { "type": "string" } },
+          "sequencing_constraint": { "type": "string" }
+        }
+      }
+    },
     "topics": {
       "type": "array",
       "items": {
@@ -13,8 +33,43 @@
           "module": { "type": "string" },
           "process_ids": { "type": "array", "minItems": 1, "items": { "type": "string" } },
           "topic": { "type": "string" },
+          "scope_item_ids": { "type": "array", "items": { "type": "string" } },
           "simplification_item_ids": { "type": "array", "items": { "type": "string" } },
           "required_decisions": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+        }
+      }
+    },
+    "scope_item_plan": {
+      "type": "array",
+      "description": "Per-workshop scope item and participant plan. Max 8 BPEs per session.",
+      "items": {
+        "type": "object",
+        "required": ["workshop", "scope_items"],
+        "properties": {
+          "workshop": { "type": "string" },
+          "scope_items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "in_scope"],
+              "properties": {
+                "id": { "type": "string" },
+                "in_scope": { "type": "boolean" }
+              }
+            }
+          },
+          "participants": {
+            "type": "array",
+            "maxItems": 8,
+            "items": {
+              "type": "object",
+              "required": ["role"],
+              "properties": {
+                "role": { "type": "string" },
+                "name": { "type": "string" }
+              }
+            }
+          }
         }
       }
     },
@@ -30,6 +85,10 @@
           "reason": { "type": "string" }
         }
       }
+    },
+    "remote_checklist_complete": {
+      "type": "boolean",
+      "description": "Set true only when delivery_mode is remote or hybrid and all remote checklist items are confirmed"
     }
   }
 }

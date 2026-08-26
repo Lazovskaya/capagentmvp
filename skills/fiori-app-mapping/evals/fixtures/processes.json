@@ -1,0 +1,19 @@
+{
+  "processes": [
+    {
+      "process_id": "PROC-FI-001",
+      "name": "Credit limit check on sales order",
+      "keywords": ["credit exposure", "credit check", "order block"]
+    },
+    {
+      "process_id": "PROC-FI-002",
+      "name": "Customer invoice posting and dunning",
+      "keywords": ["invoice", "AR", "dunning", "accounts receivable"]
+    },
+    {
+      "process_id": "PROC-FI-003",
+      "name": "Legacy custom reporting for regional finance",
+      "keywords": ["legacy", "custom report", "regional"]
+    }
+  ]
+}

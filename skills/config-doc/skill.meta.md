@@ -23,7 +23,6 @@ fattest role's daily work, and the activity that generates most of what
 triage later reads.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
 | artifact | config-record | produces | what changed in customizing, and why |

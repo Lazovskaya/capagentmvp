@@ -24,13 +24,12 @@ not a substitute for backlog-drafting, and does not create backlinked backlog
 items itself.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
 | skill | fit-to-standard | chains-to | hands off normalized requirements for the standard-vs-delta decision |
 | skill | solution-design | chains-to | hands off to Mode B when no fit-to-standard row covers the ask |
 | artifact | requirements-record | produces | normalized requirements.md: source, goal, AC only if present, open questions |
-| mcp-server | jira | requires | pulls ticket context for intake |
-| mcp-server | cloud-alm | requires | pulls delivery/operations context for intake |
+| connector | jira | requires | pulls ticket context for intake |
+| connector | cloud-alm | requires | pulls delivery/operations context for intake |
 | knowledge | process | consumes | grounds the ask in known process scope |
 | knowledge | standards | consumes | applies delivery conventions |

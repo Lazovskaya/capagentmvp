@@ -18,7 +18,7 @@ are clearly defined before Prepare's resourcing/planning begins.
 
 | Checklist item (typical) | Evidence artifact | Produced by |
 |---|---|---|
-| Scope and simplification impact assessed | `assessment-report` | `readiness-analysis` |
+| Scope and simplification impact assessed | `simplification-impact-report` | `readiness-analysis` |
 | Agent-readiness candidates named (if in scope) | `assessment-report` | `agent-readiness` |
 
 **Approver (typical):** delivery lead + client sponsor — Activate doesn't prescribe a fixed role here;

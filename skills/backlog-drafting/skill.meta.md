@@ -25,12 +25,11 @@ requirements-intake / fit-to-standard. Traceability is established here or
 not at all.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
 | skill | requirements-intake | related | routes an ungrounded ask back here before drafting |
 | skill | fit-to-standard | related | converts signed fit-to-standard deltas into work items |
-| mcp-server | jira | requires | pushes sized, owned work items |
-| mcp-server | cloud-alm | requires | delivery/operations traceability context |
+| connector | jira | requires | pushes sized, owned work items |
+| connector | cloud-alm | requires | delivery/operations traceability context |
 | knowledge | process | consumes | traces each work item back to its process decision |
 | q-gate | explore-realize | gates-at | exit criteria: backlog baselined |

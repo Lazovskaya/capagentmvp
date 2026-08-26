@@ -25,12 +25,11 @@ to a date. The judgment call this skill makes is separating items that
 genuinely block the conversion from items that merely appear in the report.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
 | agent | readiness-analyst | requires | isolated reviewer checks the simplification-impact-report for completeness and missing evidence |
 | agent | simplification-items-to-processes | requires | transforms the SAP Simplification Item Catalog export into the business-process-impact-list |
-| mcp-server | readiness-check | requires | source of Readiness Check / SI-Check findings |
+| connector | readiness-check | requires | source of Readiness Check / SI-Check findings |
 | artifact | simplification-impact-report | produces | the Discover-phase deliverable of this skill |
 | artifact | business-process-impact-list | produces | evidence-backed candidate business-process impacts |
 | knowledge | custom-code | consumes | scopes impact against the existing custom-code inventory |

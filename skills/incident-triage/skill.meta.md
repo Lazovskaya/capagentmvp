@@ -31,12 +31,11 @@ behavior, different activity context.
 > and confirm during the next skill review.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
 | skill | ceremony-routing | chains-to | hands off the classified/deduped/routed incident for ceremony-depth scoring |
-| mcp-server | jira | requires | work-item intake and dedupe context |
-| mcp-server | cloud-alm | requires | live-user incident intake context in hypercare |
+| connector | jira | requires | work-item intake and dedupe context |
+| connector | cloud-alm | requires | live-user incident intake context in hypercare |
 | artifact | triage-verdict | produces | initial classification feeding the eventual class/route/confirmer record |
 | knowledge | domain-packs | consumes | sub-process/layer classification uses domain expertise |
 | knowledge | process | consumes | classifies against known process scope |

@@ -30,11 +30,10 @@ triage pipeline, closing the loop toward run-exit in the hypercare context.
 > and confirm during the next skill review.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
 | skill | defect-triage | related | receives the confirmed bug/spec-flaw classification |
-| mcp-server | jira | requires | records fix documentation against the work item |
+| connector | jira | requires | records fix documentation against the work item |
 | artifact | run-exit-record | produces | closes the loop toward the hypercare run-exit disposition |
 | knowledge | domain-packs | consumes | derives regression scope from the domain adjacency map |
 | knowledge | testing | produces | writes the fix and its derived regression scope into defect history |

@@ -24,12 +24,11 @@ Shares its activity (and the same `uses` block in `factory-data.json`) with
 `go-live-readiness`.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
 | skill | go-live-readiness | related | shares the per-process-area readiness checklist that feeds go/no-go |
 | agent | cutover-risk-assessor | requires | bounded go-live risk verdict from this skill's rehearsal record |
-| mcp-server | cloud-alm | requires | delivery/operations surface for cutover tasks |
+| connector | cloud-alm | requires | delivery/operations surface for cutover tasks |
 | artifact | sign-off-record | produces | names who accepted the go/no-go call |
 | knowledge | operations | consumes | reads runbook and cutover history baselines |
 | q-gate | deploy-run | gates-at | exit criteria: cutover rehearsed |

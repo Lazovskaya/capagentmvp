@@ -24,12 +24,11 @@ its justification together — a delta with no reason becomes a modification
 nobody can defend at the next upgrade.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
 | skill | requirements-intake | related | consumes normalized requirements as input where one exists |
-| mcp-server | signavio | requires | process scope and variants for workshop scoping |
-| mcp-server | calendar | requires | finds real availability and drafts (never sends) workshop invites |
+| connector | signavio | requires | process scope and variants for workshop scoping |
+| connector | calendar | requires | finds real availability and drafts (never sends) workshop invites |
 | artifact | sign-off-record | produces | names who accepted standard-vs-delta per process step |
 | knowledge | process | produces | writes fit-to-standard outcomes |
 | knowledge | config | consumes | references config context during workshops |

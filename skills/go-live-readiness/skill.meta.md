@@ -22,12 +22,11 @@ cutover-plan's go/no-go criteria. Shares its activity (and the same `uses`
 block in `factory-data.json`) with `cutover-plan`.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
 | skill | cutover-plan | related | this skill's checklist feeds that skill's go/no-go criteria |
 | agent | cutover-risk-assessor | requires | consumes this skill's checklist as part of its go-live risk verdict |
-| mcp-server | cloud-alm | requires | delivery/operations surface for readiness tracking |
+| connector | cloud-alm | requires | delivery/operations surface for readiness tracking |
 | artifact | sign-off-record | produces | names who accepted the go/no-go call |
 | knowledge | operations | consumes | reads runbook and cutover history baselines |
 | q-gate | deploy-run | gates-at | exit criteria: go-live criteria met |

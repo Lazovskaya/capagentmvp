@@ -23,10 +23,9 @@ own test harness: if someone cannot reach first-ticket-ready without a human
 explaining things verbally, the knowledge base is not real yet.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
-| mcp-server | jira | requires | work-item context used during onboarding |
+| connector | jira | requires | work-item context used during onboarding |
 | artifact | onboarding-record | produces | ready-to-take-a-ticket evidence |
 | knowledge | process, config, custom-code, clean-core, extensibility, data, testing, operations, standards | consumes | reads all nine knowledge buckets as the onboarding path |
 | q-gate | prepare-explore | gates-at | exit criteria: team onboarded |

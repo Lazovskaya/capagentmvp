@@ -24,7 +24,6 @@ than the last, and the one most likely to be skipped under delivery
 pressure.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
 | agent | knowledge-harvester | requires | returns proposed knowledge deltas after each run |

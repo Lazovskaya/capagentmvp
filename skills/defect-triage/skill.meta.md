@@ -29,7 +29,6 @@ the verdict. Reused, as-is, by hypercare.
 > and confirm during the next skill review.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
 | skill | root-cause-playbook | related | receives the ranked root cause from the generic diagnostic engine |
@@ -38,5 +37,5 @@ the verdict. Reused, as-is, by hypercare.
 | skill | idoc-failure-analyzer | related | receives the layered classification from the IDoc engine |
 | skill | fix-doc-and-regression | chains-to | hands off the confirmed class for fix documentation and regression scoping |
 | agent | defect-classifier | requires | returns class, confidence, route and recommended fix |
-| mcp-server | jira | requires | records the confirmed classification against the work item |
+| connector | jira | requires | records the confirmed classification against the work item |
 | artifact | triage-verdict | produces | class, route, and the human who confirmed it |

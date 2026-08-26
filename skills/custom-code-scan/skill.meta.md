@@ -23,10 +23,9 @@ raw finding count. The real judgment is what to retire rather than remediate:
 unused code is the cheapest code to fix.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
-| mcp-server | abap-mcp | requires | runs ATC and pulls usage data (SCMON/UPL) |
+| connector | abap-mcp | requires | runs ATC and pulls usage data (SCMON/UPL) |
 | knowledge | custom-code | produces | writes the prioritised remediation inventory |
 | knowledge | clean-core | consumes | applies SAP clean-core rules to classify findings |
 | knowledge | standards | consumes | applies delivery conventions |

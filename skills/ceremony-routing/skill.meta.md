@@ -30,11 +30,10 @@ matrix handoff into root-cause-playbook (and its domain specializations).
 > and confirm during the next skill review.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
 | skill | incident-triage | related | receives the classified/deduped/routed incident as input |
 | skill | root-cause-playbook | chains-to | routes the incident into the diagnostic tree at the scored depth |
-| mcp-server | jira | requires | work-item context for depth scoring |
+| connector | jira | requires | work-item context for depth scoring |
 | knowledge | domain-packs | consumes | depth scoring draws on domain expertise |
 | knowledge | process | consumes | scores depth against known process scope |

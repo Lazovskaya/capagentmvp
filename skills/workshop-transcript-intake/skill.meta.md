@@ -34,7 +34,6 @@ backlog candidates from a workshop transcript, without creating work items.
 > reliable.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
 | artifact | workshop-candidate-register | produces | transcript-derived candidate requirements, decisions, open questions and work items with segment-level provenance; never an approved delivery backlog |

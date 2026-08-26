@@ -25,10 +25,9 @@ dangerous: someone corrects it and adds the client-specific why. Nothing
 downstream is trustworthy until this exists.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
-| mcp-server | abap-mcp | requires | scans the ABAP system landscape and custom code |
-| mcp-server | knowledge-graph | requires | grounds discovery in the business entity/relationship map |
+| connector | abap-mcp | requires | scans the ABAP system landscape and custom code |
+| connector | knowledge-graph | requires | grounds discovery in the business entity/relationship map |
 | knowledge | process, config, custom-code, clean-core, extensibility, data, testing, operations, standards | produces | builds all nine knowledge buckets from scratch (domain-packs is a distinct, separately-sourced bucket, not built here) |
 | q-gate | prepare-explore | gates-at | exit criteria: knowledge built and validated |

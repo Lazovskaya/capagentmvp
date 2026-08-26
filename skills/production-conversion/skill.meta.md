@@ -23,10 +23,9 @@ evidence rather than reassurance. The highest-risk hours of a brownfield
 programme, owned by Basis.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
-| mcp-server | cloud-alm | requires | delivery/operations surface during the conversion runbook |
+| connector | cloud-alm | requires | delivery/operations surface during the conversion runbook |
 | knowledge | operations | produces | logs conversion checkpoints into the runbook/operations history |
 | artifact | run-exit-record | produces | feeds the eventual run-exit disposition |
 | q-gate | deploy-run | gates-at | exit criteria: cutover executed with go/no-go and rollback triggers evidenced |

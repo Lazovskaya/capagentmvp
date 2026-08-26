@@ -25,11 +25,10 @@ work into SAP's Autonomous Enterprise, and a consulting deliverable, not a
 product.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
-| mcp-server | signavio | requires | process scope, variants and agent mining |
-| mcp-server | knowledge-graph | requires | grounds discovery in the business entity/relationship map |
+| connector | signavio | requires | process scope, variants and agent mining |
+| connector | knowledge-graph | requires | grounds discovery in the business entity/relationship map |
 | artifact | assessment-report | produces | agent-candidate scoring: process, volume, exception rate, reversibility, data reachability, verdict |
 | knowledge | process | consumes | scores candidates against known process scope |
 | q-gate | discover-prepare | gates-at | exit criteria: scope and readiness accepted |

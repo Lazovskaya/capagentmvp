@@ -25,7 +25,6 @@ explore-realize handoff. Assembles from scattered sources with full
 traceability when no single decision-log row covers the case.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
 | agent | extensibility-assessor | requires | returns the extensibility tier, its justification, and red flags |

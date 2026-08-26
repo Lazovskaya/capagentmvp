@@ -32,7 +32,6 @@ runs alongside it in the same pipeline step as an independent engine.
 > and confirm during the next skill review.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
 | skill | root-cause-playbook | related | runs the same pipeline step as an alternate domain-neutral engine |

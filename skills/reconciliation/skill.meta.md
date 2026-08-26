@@ -23,7 +23,6 @@ that either sits inside tolerance or blocks the phase. The cleanest evidence
 in the whole factory, because the answer is a number rather than an opinion.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
 | artifact | reconciliation-report | produces | before-and-after delta against the agreed tolerance |

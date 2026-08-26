@@ -33,7 +33,6 @@ of this one.
 > and confirm during the next skill review.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
 | skill | ceremony-routing | related | receives the incident at the ceremony-scored depth |

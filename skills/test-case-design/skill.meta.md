@@ -24,7 +24,6 @@ defect history, produces a coverage matrix, and requires review before
 optional test-management sync.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
 | artifact | test-coverage-matrix | produces | Row ID to test-case traceability: technique used, test case IDs, status, explicit gaps |

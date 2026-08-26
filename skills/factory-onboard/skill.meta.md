@@ -23,7 +23,6 @@ delivery skill. Not a contributor/platform guide — it is meta for the user,
 producing no client artifact and no Q-gate evidence by itself.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
 | knowledge | standards | consumes | reads delivery conventions while routing |

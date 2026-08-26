@@ -29,7 +29,6 @@ Domain-specific specialization of root-cause-playbook.
 > and confirm during the next skill review.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
 | skill | root-cause-playbook | related | domain-specific specialization of this generic engine |

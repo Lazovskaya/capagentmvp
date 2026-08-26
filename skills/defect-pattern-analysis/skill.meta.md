@@ -24,10 +24,9 @@ engine, run on a schedule rather than per-ticket — distinct from the
 per-ticket triage pipeline.
 
 ## Dependency graph
-(later)
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
-| mcp-server | jira | requires | pulls the resolved-defect backlog for the period |
+| connector | jira | requires | pulls the resolved-defect backlog for the period |
 | knowledge | domain-packs | consumes | clusters defects by cause using domain expertise |
 | knowledge | process | consumes | ties clusters back to process areas |
 | knowledge | testing | consumes | reads prior defect/spec-flaw classification history |

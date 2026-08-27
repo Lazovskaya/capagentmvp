@@ -10,7 +10,7 @@ sdlc-stage: ready
 distribution-class: client-shippable
 
 source: community                     # wraps the public mcp-atlassian package via uvx
-source-repo: [TBD]                    # package name (mcp-atlassian) known; exact repo URL not recorded in connector.md or server.json
+source-repo: "https://github.com/sooperset/mcp-atlassian"
 
 verified-live: "unspecified-date — connector.md documents live re-verification against real tickets (EPMCSAPAI-203, EPMCSAPAI-204) after the launcher rewrite, but records no ISO date; CLAUDE.md names this as one of the two genuinely live-tested connectors as of writing"
 ---

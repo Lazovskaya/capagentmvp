@@ -2,7 +2,7 @@
 connector: cloud-alm
 namespace: "@epam/sap"
 
-connector-type: [mcp, script]          # two integration modes for the same service — see Notes; "script" is not yet in the documented connector-type enum (mcp|cli) — flagged as a gap in that enum
+connector-type: [mcp, script]          # two integration modes for the same service — see Notes
 system-type: []                        # not ABAP-system-facing — this axis doesn't apply
 auth-type: [oauth2]
 sdlc-stage: in-progress

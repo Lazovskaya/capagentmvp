@@ -1,11 +1,14 @@
 # Manual-trigger pipeline for client artifact packaging (EPMCSAPAI-306).
 #
-# Status: partial. The `package` job below is real -- it calls
-# tools/package_client_artifacts.py (EPMCSAPAI-300), which is implemented and tested. The
-# `lint-dependencies` job is a documented placeholder: tools/lint_dependencies.py (EPMCSAPAI-299)
-# doesn't exist yet, because its core job (comparing SKILL.md references against declared
-# `needs:` sidecars) depends on EPMCSAPAI-291's sidecar-metadata schema, which isn't built either.
-# Wire the real lint job in once EPMCSAPAI-299 lands; don't guess at its interface here.
+# Status: partial. The `package` job calls tools/package_client_artifacts.py (EPMCSAPAI-300).
+# The `lint-dependencies` job now calls the real tools/lint_dependencies.py (EPMCSAPAI-299), but
+# only hard-fails on a missing skill.meta.md file -- its full check (comparing each skill's
+# Dependency graph table against real SKILL.md references) still runs and prints, but doesn't
+# fail the job (no --strict) yet. Two reasons: that table is still being built out under
+# EPMCSAPAI-291 (Igor Kochuev's own status update there lists "build correct dependency graphs"
+# as an open item), and one direction of the comparison has a known false-positive source (see
+# tools/lint_dependencies.py's own docstring). Hard-failing CI on WIP, partly-noisy data would be
+# premature -- revisit --strict once 291's tables settle.
 #
 # Variable naming: this ticket's own acceptance criteria name INCLUDED_AGENTS and INCLUDED_FLOWS.
 # This factory's actual vocabulary is skills/connectors/activities, not "agents" (a distinct,
@@ -43,11 +46,7 @@ lint-dependencies:
   stage: validate
   image: python:3.11-slim
   script:
-    - |
-      echo "Placeholder -- tools/lint_dependencies.py (EPMCSAPAI-299) does not exist yet."
-      echo "Its comparison of SKILL.md references against declared needs: sidecars depends on"
-      echo "EPMCSAPAI-291's metadata schema, which is not built. Wire the real check in once"
-      echo "both land; see EPMCSAPAI-306's Jira comments for the current blocking chain."
+    - python3 tools/lint_dependencies.py
   allow_failure: false
 
 package:

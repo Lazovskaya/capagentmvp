@@ -165,6 +165,13 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--fix", action="store_true",
                          help="append rows for referenced-but-undeclared knowledge/artifacts; never removes anything")
+    parser.add_argument("--strict", action="store_true", help=(
+        "also fail (exit 1) on table-vs-SKILL.md drift, not just a missing skill.meta.md file. "
+        "Off by default: the Dependency graph tables are still being built out (EPMCSAPAI-291), "
+        "and the declared-but-not-referenced direction has a known false-positive source (see "
+        "module docstring) -- hard-failing CI on that data today would be premature. Missing "
+        "skill.meta.md files always fail, --strict or not, since that check has no such caveat."
+    ))
     args = parser.parse_args(argv)
 
     names = common.all_own_skill_names()
@@ -184,8 +191,13 @@ def main(argv=None):
     report = format_report(results)
     if report:
         print(report)
+    else:
+        print(f"Checked {len(names)} skills, no drift found.")
+
+    any_missing_meta = any(r.get("no_meta") for r in results)
+    any_drift = any(has_drift(r) and not r.get("no_meta") for r in results)
+    if any_missing_meta or (args.strict and any_drift):
         return 1
-    print(f"Checked {len(names)} skills, no drift found.")
     return 0
 
 

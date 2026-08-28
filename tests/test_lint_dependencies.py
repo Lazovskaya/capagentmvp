@@ -170,6 +170,52 @@ class TestApplyFix:
         assert ld.apply_fix("sample", result) is False
 
 
+class TestMainExitCode:
+    def _setup_skill(self, tmp_path, monkeypatch, meta_text, skill_text, has_meta=True):
+        skill_dir = tmp_path / "sample"
+        skill_dir.mkdir()
+        if has_meta:
+            (skill_dir / "skill.meta.md").write_text(meta_text, encoding="utf-8")
+        (skill_dir / "SKILL.md").write_text(skill_text, encoding="utf-8")
+        monkeypatch.setattr(ld.common, "SKILLS_DIR", tmp_path)
+        monkeypatch.setattr(ld.common, "all_own_skill_names", lambda: ["sample"])
+
+    def test_drift_without_strict_does_not_fail(self, tmp_path, monkeypatch):
+        self._setup_skill(
+            tmp_path, monkeypatch,
+            "---\nskill: sample\n---\n\n## Dependency graph\n"
+            "| Type | Ref | Relation | Notes |\n|---|---|---|---|\n"
+            "| knowledge | process | consumes | x |\n",
+            "no path-style references here\n",
+        )
+        assert ld.main([]) == 0
+
+    def test_drift_with_strict_fails(self, tmp_path, monkeypatch):
+        self._setup_skill(
+            tmp_path, monkeypatch,
+            "---\nskill: sample\n---\n\n## Dependency graph\n"
+            "| Type | Ref | Relation | Notes |\n|---|---|---|---|\n"
+            "| knowledge | process | consumes | x |\n",
+            "no path-style references here\n",
+        )
+        assert ld.main(["--strict"]) == 1
+
+    def test_missing_meta_fails_even_without_strict(self, tmp_path, monkeypatch):
+        self._setup_skill(tmp_path, monkeypatch, "", "irrelevant\n", has_meta=False)
+        assert ld.main([]) == 1
+
+    def test_no_drift_no_missing_meta_passes(self, tmp_path, monkeypatch):
+        self._setup_skill(
+            tmp_path, monkeypatch,
+            "---\nskill: sample\n---\n\n## Dependency graph\n"
+            "| Type | Ref | Relation | Notes |\n|---|---|---|---|\n"
+            "| knowledge | process | consumes | x |\n",
+            "../../../knowledge/process/\n",
+        )
+        assert ld.main([]) == 0
+        assert ld.main(["--strict"]) == 0
+
+
 class TestMainSmoke:
     def test_runs_against_the_real_repo_without_crashing(self):
         exit_code = ld.main([])

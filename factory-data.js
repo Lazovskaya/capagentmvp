@@ -333,6 +333,14 @@ window.FACTORY_DATA = {
   },
   {
    "kind": "Agent",
+   "name": "objects-list",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Explore",
+   "desc": "Builds a structured migration object inventory (type, volume, key attributes) from a BTC/DTV scoping export or Excel/SQL/HANA/ECC source data. Feeds Objects Mapping and Migration Code Development agents."
+  },
+  {
+   "kind": "Agent",
    "name": "extensibility-assessor",
    "posture": "own",
    "status": "progress",

@@ -1,6 +1,6 @@
 ---
 skill: test-case-design
-title: Test case design   # TEMP: sourced from activities[].title, pending a real display-name field
+title: Test case design
 namespace: "@epam/sap"
 
 category: "SAP Activate / Realize"
@@ -13,7 +13,7 @@ distribution-class: client-shippable  # client-shippable | epam-internal-only | 
 source: internal                   # internal | secondsky | SAP | community
 source-repo: [TBD]
 
-q-gate: []                         # TEMP: Q-gate(s) this skill's output feeds evidence into — none recorded in factory-data.json for this activity
+q-gate: [realize-deploy]           # per gates/realize-deploy/gate.md's evidence mapping: test-coverage-matrix is this gate's test-coverage evidence
 ---
 
 ## Notes

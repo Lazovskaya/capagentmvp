@@ -112,7 +112,7 @@ def main(argv=None):
 
     installed_skills = []
     for name in skill_names:
-        src_hash = common.hash_tree(common.SKILLS_DIR / name)
+        src_hash = common.hash_tree(common.SKILLS_DIR / name, ignore_suffixes=(".meta.md",))
         prior = lock["skills"].get(name, {})
         unchanged = prior.get("contentHash") == src_hash
         dest = skills_root / name

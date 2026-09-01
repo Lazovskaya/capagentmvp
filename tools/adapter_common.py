@@ -148,9 +148,16 @@ def hash_file(path):
     return hash_bytes(path.read_bytes())
 
 
-def hash_tree(path):
+def hash_tree(path, ignore_suffixes=()):
+    """Hashes every file under path, skipping any whose name ends with one of ignore_suffixes.
+    Callers hashing a skill source dir must pass the same suffixes copy_skill()'s
+    META_SIDECAR_IGNORE excludes (currently ".meta.md") -- otherwise the source hash includes
+    files the installed copy never gets, and drift detection reports every unchanged skill as
+    "hand-edited" on every run after the first."""
     h = hashlib.sha256()
     for f in sorted(p for p in path.rglob("*") if p.is_file()):
+        if any(f.name.endswith(suf) for suf in ignore_suffixes):
+            continue
         rel = f.relative_to(path).as_posix()
         h.update(rel.encode("utf-8"))
         h.update(f.read_bytes())

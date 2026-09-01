@@ -71,6 +71,19 @@ each step. Tier 5 requires the fit-to-standard escalation addendum (or the
 design-record ID as the anchor in Mode B) before its extensibility record is
 complete.
 
+## Agent orchestration
+
+When a package covers more than one separable Delta, invoke `extensibility-assessor` (step 5) and,
+once design-records exist, `design-test-reviewer` as one Task call per Delta launched together
+rather than one at a time — each agent applies the same bounded procedure to a different Delta, so
+there is no cross-Delta dependency stopping them from running concurrently. Reconcile every
+returned verdict before moving on; a Delta whose agent call has not returned yet is not ready for
+its design-record to be marked `IN_REVIEW`. Cap concurrent calls at 3-5 per batch — more adds
+coordination overhead without proportional benefit.
+
+`source-conflict-analyst` runs earlier, during Mode B source synthesis for a single Delta before
+its design-record exists — nothing to batch against yet, so keep it sequential.
+
 ## Workflow
 
 1. Establish package ID, scope, release, systems, process areas, regions and exclusions.

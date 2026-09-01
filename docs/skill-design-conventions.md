@@ -120,3 +120,42 @@ status gates, owners, and refuse conditions. Explore's chain lives in
   (pattern 2) — e.g. design-record `REOPENED`, not a silent downgrade.
 - **When designing a new chain:** add or extend an `artifact-model.yaml` before inventing a third
   skill in the sequence.
+
+## 8. Batch a bounded agent across items instead of calling it one at a time
+
+When a skill calls the same bounded agent once per item in a set (one Delta, one defect, one
+custom-code object), launch that batch as concurrent Task calls instead of looping sequentially —
+each call applies the identical procedure to a different item, so there is no dependency ordering
+them.
+
+- **Why:** sequential calls cost wall-clock time for no benefit when the items don't depend on each
+  other; a reviewer waiting on ten one-at-a-time agent calls is waiting on nine unnecessary round trips.
+- **Applied in:** `solution-design`'s `extensibility-assessor` and `design-test-reviewer` calls,
+  one per Delta in a multi-Delta package (see that skill's "Agent orchestration" section).
+- **When designing a new skill:** if a workflow step says "for each X, ask agent Y," check whether
+  the X's are independent of each other. If so, state explicitly that the calls run together, not
+  one at a time — and cap the batch at 3-5 concurrent calls; more adds coordination overhead without
+  proportional benefit. Don't parallelize agents that read each other's output (e.g.
+  `design-test-reviewer` needs a design-record to exist first) — batch within a stage, not across
+  stages.
+
+## 9. Architecture views get a diagram, not prose alone
+
+A skill producing a system-, process-, or integration-level view should include a Mermaid C4
+diagram (`C4Context` for actors/systems, `C4Container` for the system's internal services/data)
+alongside its prose description, not instead of it. Keep diagrams git-diffable: plain text in the
+artifact, not an embedded image.
+
+- **Why:** prose-only architecture views force every reader to reconstruct the shape of the system
+  in their head; a diagram anyone can review at a glance also survives re-diffing across revisions,
+  which a rendered image does not.
+- **Constraints that keep a diagram legible instead of noise:** cap at 10 elements per diagram with
+  under 5 edge crossings; order element declarations by tier (actors → application → data →
+  externals) since declaration order drives Mermaid's layout; cap element descriptions at 40
+  characters, truncating rather than wrapping.
+- **Applied in:** none yet — this is a new convention, not a ported pattern. First candidate:
+  `solution-design`'s architecture package (capability/process and application/integration views),
+  which currently has no diagram at all.
+- **When designing a new skill (or extending `solution-design`):** if the artifact's scope includes
+  a capability/process or application/integration view, add a Mermaid C4 diagram for it before
+  calling the section done.

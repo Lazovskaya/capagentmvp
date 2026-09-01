@@ -160,10 +160,20 @@ see `references/run-ledger.md`. Do not dump scripts into a flat folder with no l
     `review.approved` or `review.changes_requested` (loop back to steps 3–10 on changes).
 12. **Optional test-management sync** — only after approval, and only if the user asks or
     confirms. Otherwise append `sync.skipped`.
-    - If a Cloud ALM connector is wired: use `tools/sync_calm_testcases.py` (script pattern,
-      CALM_TM API).  **Always dry-run first** (omit `--apply`) — present the preview and get
-      explicit confirmation before the live push.  Require `--project-id` (Cloud ALM project UUID
-      from the project URL) and `--env-file` (credentials outside the repo).
+    - **If Cloud ALM Test Management is configured for the project:** use
+      `tools/sync_calm_testcases.py` (CALM_TM API, script pattern). Always dry-run first.
+      Requires `--project-id`, `--scope-id` (from any existing test case in the project:
+      `GET /ManualTestCases?$filter=projectId eq <uuid>&$top=1` → `scopeId` field), and
+      `--config` or `--env-file`.
+    - **If CALM Test Management is not set up (no scope items, new project, or client uses Excel):**
+      use `tools/export_testcases_xlsx.py` — produces an `.xlsx` in SAP S4H_458 format
+      (Dashboard + scenario sheet) that the client can use directly for UAT sign-off.
+      ```
+      python3 tools/export_testcases_xlsx.py \
+          --run-folder <path> --scripts-subdir scripts \
+          --process-name "Order to Cash" --scope "SD"
+      ```
+      Record `sync.skipped` and note "Excel export produced: <filename>" in the ledger.
     - Requires `--project-id` (project UUID) and `--scope-id` (solution scope UUID — read from
       any existing test case in that project: `GET /api/calm-testmanagement/v1/ManualTestCases?$filter=projectId eq <uuid>&$top=1`).
     - Command for dry-run preview:

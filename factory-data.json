@@ -405,6 +405,14 @@
     },
     {
       "kind": "Agent",
+      "name": "sad-assembly",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Realize",
+      "desc": "Peer agent that composes whatever domain-strategy outputs (EPMCSAPAI-275, -281 through -289) are available into a review-ready technical SAD, flagging missing domains and surfacing cross-domain conflicts for architect review rather than resolving them."
+    },
+    {
+      "kind": "Agent",
       "name": "knowledge-harvester",
       "posture": "own",
       "status": "progress",
@@ -880,6 +888,14 @@
       "status": "progress",
       "phase": "Realize",
       "desc": "Purpose, inputs/outputs, and key-logic documentation for an already-generated code artifact, citing its spec/mapping reference verbatim. Produced by technical-documentation-generation."
+    },
+    {
+      "kind": "Artifact",
+      "name": "technical-sad",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Realize",
+      "desc": "Technical SAD assembled from whatever domain-strategy outputs are available (EPMCSAPAI-275, -281 through -289), with every domain always represented (available/missing/inconsistent) and cross-domain conflicts consolidated for architect review. Business part excluded. Produced by sad-assembly."
     },
     {
       "kind": "Artifact",

@@ -1,0 +1,53 @@
+{
+  "type": "object",
+  "description": "Technical SAD assembled by sad-assembly (EPMCSAPAI-290) from whatever domain-strategy outputs (EPMCSAPAI-275, -281 through -289) are available. Business part (scope/timeline/commercial) is explicitly excluded. Every domain is represented, even when missing.",
+  "required": ["generated_at", "version", "domains", "missing_domains"],
+  "properties": {
+    "generated_at": { "type": "string", "format": "date-time" },
+    "version": { "type": "string" },
+    "domains": {
+      "type": "array",
+      "minItems": 10,
+      "description": "one entry per domain-strategy agent, always all ten present regardless of availability",
+      "items": {
+        "type": "object",
+        "required": ["domain_ticket_ref", "domain_name", "status"],
+        "properties": {
+          "domain_ticket_ref": { "type": "string", "description": "e.g. EPMCSAPAI-275" },
+          "domain_name": { "type": "string" },
+          "status": { "type": "string", "enum": ["AVAILABLE", "MISSING", "INCONSISTENT"] },
+          "summary": { "type": "string" },
+          "open_issues": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "cross_domain_conflicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["domains_involved", "description", "status"],
+        "properties": {
+          "domains_involved": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 2
+          },
+          "description": { "type": "string" },
+          "status": { "type": "string", "enum": ["NEEDS_ARCHITECT_REVIEW"] }
+        }
+      }
+    },
+    "architecture_view_diagram": {
+      "type": "string",
+      "description": "Mermaid C4 diagram source, present only once at least two topology-relevant domains are AVAILABLE"
+    },
+    "missing_domains": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "domain_ticket_ref values currently MISSING"
+    }
+  }
+}

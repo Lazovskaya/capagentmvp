@@ -141,8 +141,8 @@ data_classification:
   output: client-confidential
   credentials: restricted
 default_mode: read-only
-allowed_operations: [list-projects, get-project, list-tasks, get-task, list-features, get-feature, list-documents, get-document, list-testcases, get-testcase, analytics-read]
-approval_required: [create, update, create-task-comment, create-external-reference]
+allowed_operations: [list-projects, get-project, list-tasks, get-task, list-features, get-feature, list-documents, get-document, list-testcases, get-testcase, analytics-read, create-testcase, update-testcase]
+approval_required: [create, update, create-task-comment, create-external-reference, create-testcase, update-testcase]
 forbidden_operations: [delete, post-logs, production-impacting-change]
 write_controls:
   preview_payload: true
@@ -155,6 +155,125 @@ write_controls:
 Cloud ALM exports and production logs remain client-confidential. Redact
 personal data and secrets before sending evidence to an LLM or proposing a
 reusable knowledge entry.
+
+## Test Management sync (CALM_TM)
+
+Direct OAuth2 script pattern for pushing test cases from a `test-case-design` run folder
+to Cloud ALM Test Management.  No MCP layer.
+
+**Tool:** `tools/sync_calm_testcases.py`
+
+**Base URL:** `https://<tenant>.<region>.alm.cloud.sap/api/calm-testmanagement/v1`
+
+| Endpoint | Method | Used for |
+|----------|--------|---------|
+| `/testCases` | POST | Create a test case with steps |
+| `/testCases/{id}` | GET | Re-read after write (reread contract) |
+| `/testCases/{id}` | PUT | Update existing test case |
+| `/testCases` | GET | List test cases in a project (pre-check for duplicates) |
+
+**Three-call push per test script** (verified live 2026-09-01 against `epam-pl-cloudalm`):
+
+**Call 1 — POST `/ManualTestCases`:**
+
+```json
+{
+  "title":        "<scenario name from test script header>",
+  "projectId":    "<calm-project-uuid>",
+  "scopeId":      "<solution-scope-uuid>",
+  "priorityCode": 30
+}
+```
+
+Returns: `{ "uuid": "...", "displayId": "8-1-NNN", ... }`
+
+**Call 2 — POST `/Activities`** (step-group container):
+
+```json
+{ "title": "Test Steps", "parent_ID": "<testcase-uuid>", "sequence": 1 }
+```
+
+**Call 3 — POST `/Actions`** (one per script table row):
+
+```json
+{
+  "title":          "Step N",
+  "parent_ID":      "<activity-uuid>",
+  "description":    "<Action (tcode/app) cell>",
+  "expectedResult": "<Expected result cell>",
+  "sequence":       N
+}
+```
+
+Field mapping from `knowledge/testing/test-script-template.md`:
+
+| Test script field | CALM_TM field |
+|-------------------|---------------|
+| Scenario name | `title` on ManualTestCase |
+| Traceability + Technique + Depth + Executor role + Prereq | currently not stored — CALM has no description field on ManualTestCase |
+| Script table rows — Action column | `description` on Action |
+| Script table rows — Expected result column | `expectedResult` on Action |
+
+**Finding scopeId:** `GET /api/calm-testmanagement/v1/ManualTestCases?$filter=projectId eq <uuid>&$top=1`
+— read the `scopeId` field from any existing test case in that project.
+
+**Required vs optional fields** (from `$metadata` + verified live):
+
+| Field | Required | Notes |
+|-------|----------|-------|
+| `title` | yes | Nullable=false |
+| `projectId` | yes | Nullable=false |
+| `scopeId` | yes | Nullable=false — must match a scope item in the project |
+| `priorityCode` | yes | Nullable=false — 30 = Low |
+| `externalId` | optional | MaxLength=60 — server accepts but may return null |
+
+**Output:** `<run-folder>/sync-receipt.json` — pushed IDs, CALM object IDs, timestamp, approver.
+
+**Usage** (dry-run first, then apply):
+
+```bash
+# Preview — no network calls to CALM
+python3 tools/sync_calm_testcases.py \
+    --run-folder workspace/test-case-design/2026-09-01-credit-mgmt \
+    --project-id  <calm-project-uuid> \
+    --env-file    ~/.config/cloud-alm/sessions/default.env
+
+# Live push (requires explicit --apply)
+python3 tools/sync_calm_testcases.py \
+    --run-folder workspace/test-case-design/2026-09-01-credit-mgmt \
+    --project-id  <calm-project-uuid> \
+    --env-file    ~/.config/cloud-alm/sessions/default.env \
+    --apply
+```
+
+Credentials: same env-file format as the Process Content API section below
+(`CLOUD_ALM_TOKEN_URL`, `CLOUD_ALM_CLIENT_ID`, `CLOUD_ALM_CLIENT_SECRET`, `CLOUD_ALM_API_URL`).
+
+The `projectId` is the Cloud ALM project UUID — visible in the project URL:
+`https://<tenant>.<region>.alm.cloud.sap/shell/projects/<projectId>/...`
+
+**Governance contract (CALM_TM sync):**
+
+```yaml
+pattern: script
+data_classification:
+  input: client-confidential (test case content derived from client decision log)
+  credentials: restricted
+default_mode: dry-run (no --apply flag = read-local-only, no network write)
+allowed_operations: [list-testcases, create-testcase, update-testcase, get-testcase]
+approval_required: [create-testcase, update-testcase]
+forbidden_operations: [delete-testcase, post-execution-results]
+write_controls:
+  dry_run_first: true
+  apply_flag_required: true
+  local_artifact_required: true   # run folder + sync-receipt.json
+  reread_after_write: false        # receipt records returned id; re-read is manual
+```
+
+**Status:** verified live 2026-09-01 against tenant `epam-pl-cloudalm` (ARCERA_DEMO project).
+9 test cases (TS-credit-mgmt-01..09) pushed, displayIds 8-1-117..8-1-126, all steps created.
+The `--config` flag reads directly from `sap-cloud-alm-odata-mcp/config.json` — no separate
+env-file needed when the odata-mcp repo is checked out locally.
 
 ## Script integration
 

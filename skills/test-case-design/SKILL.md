@@ -159,8 +159,30 @@ see `references/run-ledger.md`. Do not dump scripts into a flat folder with no l
     treating the run as complete or offering sync. Append `review.requested`, then
     `review.approved` or `review.changes_requested` (loop back to steps 3–10 on changes).
 12. **Optional test-management sync** — only after approval, and only if the user asks or
-    confirms. Otherwise append `sync.skipped`. On push, write `sync-receipt.json` and append
-    `sync.completed` or `sync.failed`.
+    confirms. Otherwise append `sync.skipped`.
+    - If a Cloud ALM connector is wired: use `tools/sync_calm_testcases.py` (script pattern,
+      CALM_TM API).  **Always dry-run first** (omit `--apply`) — present the preview and get
+      explicit confirmation before the live push.  Require `--project-id` (Cloud ALM project UUID
+      from the project URL) and `--env-file` (credentials outside the repo).
+    - Requires `--project-id` (project UUID) and `--scope-id` (solution scope UUID — read from
+      any existing test case in that project: `GET /api/calm-testmanagement/v1/ManualTestCases?$filter=projectId eq <uuid>&$top=1`).
+    - Command for dry-run preview:
+      ```
+      python3 tools/sync_calm_testcases.py \
+          --run-folder <path> --scripts-subdir scripts \
+          --project-id <uuid> --scope-id <uuid> \
+          --config ~/.config/cloud-alm/config.json   # or --env-file
+      ```
+    - Command for live push (user must confirm this explicitly):
+      ```
+      python3 tools/sync_calm_testcases.py \
+          --run-folder <path> --scripts-subdir scripts \
+          --project-id <uuid> --scope-id <uuid> \
+          --config ~/.config/cloud-alm/config.json --apply
+      ```
+    - On push, write `sync-receipt.json` (tool writes it automatically) and append
+      `sync.completed` or `sync.failed` to `events.jsonl`.  Record who approved the push in the
+      ledger.  Never invent a successful sync.
 13. **Close the run** — set `meta.json` status `complete`, append `run.completed`. Note anything
     worth generalizing (a technique that worked well, a defect-history pattern that needed a case)
     for `knowledge-harvest`.

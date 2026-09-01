@@ -12,7 +12,7 @@ distribution-class: client-shippable
 source: [TBD]                          # the sap-cloud-alm-mcp binary's publisher (SAP-official vs. community) is not stated in connector.md or server.json — do not assume
 source-repo: [TBD]
 
-verified-live: false
+verified-live: partial   # script-pattern CALM_TM push: verified 2026-09-01. MCP mode: not yet verified.
 ---
 
 ## Notes

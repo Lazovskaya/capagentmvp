@@ -86,6 +86,12 @@ def main(argv=None):
     parser.add_argument("--project", required=True, help="path to the client project to install into")
     parser.add_argument("--skills", default="", help="comma-separated skill names, or '*' for all own-posture skills")
     parser.add_argument("--connectors", default="", help="comma-separated connector names, or '*' for all with real wiring")
+    parser.add_argument("--agents", default="", help=(
+        "not supported by this adapter yet -- Cursor has no verified agent file convention "
+        "(background agents/modes, configured in-app, not as files -- see factory-data.json's "
+        "coverage table). Accepted here only so --activity fails clearly instead of silently "
+        "dropping an activity's agent component; passing a real value always errors."
+    ))
     parser.add_argument("--activity", action="append", default=[], metavar="TITLE", help=(
         "install everything a Delivery-pipeline activity uses (matched against factory-data.json's "
         "activities by title, e.g. 'Readiness & simplification analysis'); repeatable to install "
@@ -108,9 +114,16 @@ def main(argv=None):
         k, v = item.split("=", 1)
         destinations[k] = v
 
-    skill_names, connector_names, activities = common.resolve_selection(
-        args.skills, args.connectors, args.activity, ADOPT_HINT
+    skill_names, connector_names, agent_names, activities = common.resolve_selection(
+        args.skills, args.connectors, args.agents, args.activity, ADOPT_HINT
     )
+    if agent_names:
+        common.die(
+            f"agent(s) {', '.join(agent_names)} requested, but this adapter doesn't support "
+            "installing agents yet -- Cursor has no verified agent file convention (see "
+            "factory-data.json's coverage table). Drop --agents / omit an --activity that "
+            "uses one, or install the rest without it."
+        )
     for activity in activities:
         print(f"Activity: {activity['title']} ({activity['file']})")
 

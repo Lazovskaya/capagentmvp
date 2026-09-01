@@ -16,6 +16,7 @@ FACTORY_ROOT = Path(__file__).resolve().parent.parent
 FACTORY_JSON = FACTORY_ROOT / "factory.json"
 FACTORY_DATA_JSON = FACTORY_ROOT / "factory-data.json"
 SKILLS_DIR = FACTORY_ROOT / "skills"
+AGENTS_DIR = FACTORY_ROOT / "agents"
 CONNECTORS_DIR = FACTORY_ROOT / "connectors"
 KNOWLEDGE_DIR = FACTORY_ROOT / "knowledge"
 ARTIFACTS_DIR = FACTORY_ROOT / "artifacts"
@@ -81,6 +82,10 @@ def all_own_skill_names():
     return sorted(p.parent.name for p in SKILLS_DIR.glob("*/SKILL.md"))
 
 
+def all_own_agent_names():
+    return sorted(p.parent.name for p in AGENTS_DIR.glob("*/agent.md"))
+
+
 def all_wired_connector_names():
     out = []
     for d in sorted(p.parent.name for p in CONNECTORS_DIR.glob("*/server.json")):
@@ -102,10 +107,11 @@ def parse_names(csv):
 
 def resolve_names(tokens, available, kind, adopt_hint):
     """tokens is a list of names (possibly containing the sentinel '*' for "all"), already
-    merged from whatever CLI sources contributed them (--skills/--connectors, --activity, ...).
-    kind is 'skill' or 'connector'; adopt_hint is the CLI invocation to point at for names this
-    adapter doesn't handle (adopt-posture skills, unwired connectors). Dies on the first name
-    that isn't installable -- callers rely on this to fail loudly rather than partially install."""
+    merged from whatever CLI sources contributed them (--skills/--connectors/--agents,
+    --activity, ...). kind is 'skill', 'connector', or 'agent'; adopt_hint is the CLI invocation
+    to point at for names this adapter doesn't handle (adopt-posture skills, unwired connectors).
+    Dies on the first name that isn't installable -- callers rely on this to fail loudly rather
+    than partially install."""
     if any(t == "*" for t in tokens):
         return list(available)
     names, seen = [], set()
@@ -125,6 +131,8 @@ def resolve_names(tokens, available, kind, adopt_hint):
                     )
                 else:
                     hint = f"No skills/{n}/SKILL.md found."
+            elif kind == "agent":
+                hint = f"No agents/{n}/agent.md found."
             else:
                 server = CONNECTORS_DIR / n / "server.json"
                 if server.exists():
@@ -183,6 +191,37 @@ def copy_skill(name, dest_root):
     dest.parent.mkdir(parents=True, exist_ok=True)
     shutil.copytree(src, dest, ignore=META_SIDECAR_IGNORE)
     return dest
+
+
+# ---------- agents ----------
+
+def agent_output_bytes(name):
+    """Returns the exact bytes a Claude Code subagent file for this agent should contain.
+    agents/<name>/agent.md itself carries no YAML frontmatter (confirmed across every agent in
+    this factory) -- it's prose written for a human reading the factory source, not a file
+    Claude Code can register as an invocable subagent as-is, despite factory-data.json's
+    coverage table calling this "nat" (native, no rewrite needed). Claude Code requires at least
+    name/description frontmatter, so this synthesizes it: name from the agent's own directory
+    name, description from factory-data.json's existing desc for it (same temporary source used
+    elsewhere until a real desc: field exists on agent.meta.md, see EPMCSAPAI-291) with a generic
+    fallback if that's not yet recorded. The description is quoted and escaped because several
+    real desc values contain a bare colon (e.g. readiness-analyst's), which breaks an unquoted
+    YAML scalar -- the exact class of bug already hit once in this factory's own .gitlab-ci.yml."""
+    src = AGENTS_DIR / name / "agent.md"
+    body = src.read_text(encoding="utf-8")
+    desc = component_desc("Agent", name) or f"Bounded agent: {name}"
+    desc_escaped = desc.replace("\\", "\\\\").replace('"', '\\"')
+    frontmatter = f'---\nname: {name}\ndescription: "{desc_escaped}"\n---\n\n'
+    return (frontmatter + body).encode("utf-8")
+
+
+def copy_agent(name, dest_path):
+    """Writes the synthesized subagent file (see agent_output_bytes) to dest_path -- a single
+    flat file, not a directory; Claude Code's subagent convention is one .md file per agent,
+    unlike skills' own per-skill folder convention."""
+    dest_path.parent.mkdir(parents=True, exist_ok=True)
+    dest_path.write_bytes(agent_output_bytes(name))
+    return dest_path
 
 
 # ---------- connectors ----------
@@ -293,6 +332,7 @@ def seed_reference_dir(src, dest):
 def load_lock(project):
     lock = load_json(project / "factory-lock.json", {})
     lock.setdefault("skills", {})
+    lock.setdefault("agents", {})
     lock.setdefault("connectors", {})
     lock.setdefault("knowledge", {})
     lock.setdefault("artifacts", {})
@@ -353,33 +393,43 @@ def activity_uses(activity, kind):
     return out
 
 
-def resolve_selection(skills_csv, connectors_csv, activity_queries, adopt_hint):
-    """Merges --skills/--connectors with one or more --activity's skill/mcp components (if
-    given), then validates the combined set through resolve_names -- so any activity that
-    references a skill or connector this adapter can't install fails the whole run immediately,
-    same as naming that component directly would (no partial install of the others).
-    activity_queries is a list (possibly empty) since --activity is repeatable.
-    Returns (skill_names, connector_names, activities)."""
+def resolve_selection(skills_csv, connectors_csv, agents_csv, activity_queries, adopt_hint):
+    """Merges --skills/--connectors/--agents with one or more --activity's skill/mcp/agent
+    components (if given), then validates the combined set through resolve_names -- so any
+    activity that references a skill, connector, or agent this adapter can't install fails the
+    whole run immediately, same as naming that component directly would (no partial install of
+    the others). activity_queries is a list (possibly empty) since --activity is repeatable.
+    Returns (skill_names, connector_names, agent_names, activities).
+
+    Agent discovery/resolution is tool-agnostic (agents/<name>/agent.md exists regardless of
+    which tool is installing), so this always resolves agent_names the same way. Whether a given
+    tool actually supports installing them is that tool's own install.py's call -- Cursor and
+    GitHub Copilot don't have a verified agent convention yet (factory-data.json's own coverage
+    table records this as an open gap), so their install.py refuses a non-empty agent_names
+    rather than silently doing nothing or guessing at a convention."""
     skill_tokens = parse_names(skills_csv)
     connector_tokens = parse_names(connectors_csv)
+    agent_tokens = parse_names(agents_csv)
     activities = [find_activity(q) for q in (activity_queries or [])]
     for activity in activities:
         skill_tokens += activity_uses(activity, "skill")
         connector_tokens += activity_uses(activity, "mcp")
+        agent_tokens += activity_uses(activity, "agent")
 
-    if not skill_tokens and not connector_tokens:
+    if not skill_tokens and not connector_tokens and not agent_tokens:
         if activities:
             names = ", ".join(f"'{a['title']}'" for a in activities)
             die(
                 f"activit{'y' if len(activities) == 1 else 'ies'} {names} ha{'s' if len(activities) == 1 else 've'} "
-                "no skill or connector components -- this adapter only installs skills/connectors, "
-                "not agents/artifacts/knowledge/gates"
+                "no skill, connector, or agent components -- this adapter only installs "
+                "skills/connectors/agents, not artifacts/knowledge/gates"
             )
-        die("nothing requested -- pass --skills, --connectors, and/or --activity")
+        die("nothing requested -- pass --skills, --connectors, --agents, and/or --activity")
 
     skill_names = resolve_names(skill_tokens, all_own_skill_names(), "skill", adopt_hint) if skill_tokens else []
     connector_names = (
         resolve_names(connector_tokens, all_wired_connector_names(), "connector", adopt_hint)
         if connector_tokens else []
     )
-    return skill_names, connector_names, activities
+    agent_names = resolve_names(agent_tokens, all_own_agent_names(), "agent", adopt_hint) if agent_tokens else []
+    return skill_names, connector_names, agent_names, activities

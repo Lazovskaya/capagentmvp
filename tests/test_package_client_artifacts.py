@@ -12,11 +12,12 @@ import package_client_artifacts as pca  # noqa: E402
 
 class TestPackage:
     def test_packages_skill_connector_and_referenced_knowledge(self, tmp_path):
-        skills, connectors, knowledge, artifacts = pca.package(
-            ["fit-to-standard"], ["jira"], tmp_path
+        skills, connectors, agents, knowledge, artifacts = pca.package(
+            ["fit-to-standard"], ["jira"], [], tmp_path
         )
         assert skills == ["fit-to-standard"]
         assert connectors == ["jira"]
+        assert agents == []
         assert (tmp_path / "skills" / "fit-to-standard" / "SKILL.md").exists()
         assert (tmp_path / "connectors" / "jira" / "connector.md").exists()
         assert (tmp_path / "connectors" / "jira" / "server.json").exists()
@@ -24,6 +25,13 @@ class TestPackage:
             assert (tmp_path / "knowledge" / bucket).is_dir()
         for name in artifacts:
             assert (tmp_path / "artifacts" / name).is_dir()
+
+    def test_packages_agent_verbatim(self, tmp_path):
+        skills, connectors, agents, knowledge, artifacts = pca.package(
+            [], [], ["defect-classifier"], tmp_path
+        )
+        assert agents == ["defect-classifier"]
+        assert (tmp_path / "agents" / "defect-classifier" / "agent.md").exists()
 
     def test_output_excludes_meta_sidecars(self, tmp_path):
         # No real *.meta.md exists yet anywhere in the factory (EPMCSAPAI-291 not built), but

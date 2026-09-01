@@ -35,4 +35,7 @@ real project.
 **Status:** v1 implemented — own-posture skills, verified-wiring connectors,
 `copilot-instructions.md`, `factory-lock.json`. Still manual: adopt-posture skills (see the root
 `README.md`'s "Installing skills into a project" section), the actual credential `.env` files each
-connector's "Wiring" section describes, and anything involving agents or Q-gates.
+connector's "Wiring" section describes, and Q-gates. Agents: accepts `--agents`/an `--activity`
+that uses one so the error is explicit rather than a silently dropped component, but always
+refuses -- Copilot has no verified agent file convention yet (see `factory-data.json`'s
+`coverage` table).

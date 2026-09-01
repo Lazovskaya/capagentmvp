@@ -35,4 +35,7 @@ in Cursor for the first time to check that panel if a connector's tools don't sh
 **Status:** v1 implemented -- own-posture skills, verified-wiring connectors,
 `factory.mdc`, `factory-lock.json`. Still manual: adopt-posture skills (see the root `README.md`'s
 "Installing skills into a project" section), the actual credential `.env` files each connector's
-"Wiring" section describes, and anything involving agents or Q-gates.
+"Wiring" section describes, and Q-gates. Agents: accepts `--agents`/an `--activity` that uses one
+so the error is explicit rather than a silently dropped component, but always refuses --
+Cursor has no verified agent file convention yet (background agents/modes, configured in-app, not
+as files; see `factory-data.json`'s `coverage` table).

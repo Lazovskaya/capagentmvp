@@ -1,24 +1,30 @@
 # Claude Code adapter
 
-Installs this factory's own-posture skills and connectors into a client project: copies skills
-into `.claude/skills/<name>/`, generates a working `.mcp.json` from connector definitions, emits
-the entry file (`CLAUDE.md`), and records what was installed in `factory-lock.json`.
+Installs this factory's own-posture skills, agents, and connectors into a client project: copies
+skills into `.claude/skills/<name>/`, writes a synthesized subagent file per agent into
+`.claude/agents/<name>.md`, generates a working `.mcp.json` from connector definitions, emits the
+entry file (`CLAUDE.md`), and records what was installed in `factory-lock.json`.
 
 ```bash
 python3 tools/claude-code/adapter/install.py \
   --project /path/to/client-project \
   --skills fit-to-standard,defect-triage \
+  --agents defect-classifier \
   --connectors jira \
   [--activity "Defect triage" [--activity "Defect pattern analysis"] ...] \
   [--destination jira=myclient] \
   [--check] [--force]
 ```
 
-- `--skills` / `--connectors` take a comma-separated list or `*`. `*` for skills means all
-  own-posture skills (`skills/<name>/SKILL.md` in this repo); `*` for connectors means all
-  connectors with real wiring in their `server.json` (currently `abap-mcp` and `jira` — the rest
-  are still `"command": "TODO"` placeholders and are refused with a clear error if named
-  explicitly).
+- `--skills` / `--agents` / `--connectors` take a comma-separated list or `*`. `*` for skills
+  means all own-posture skills (`skills/<name>/SKILL.md` in this repo); `*` for agents means all
+  own-posture agents (`agents/<name>/agent.md`); `*` for connectors means all connectors with real
+  wiring in their `server.json` (currently `abap-mcp` and `jira` — the rest are still
+  `"command": "TODO"` placeholders and are refused with a clear error if named explicitly).
+- Agents write as a single flat `.md` file (Claude Code's own subagent convention), not a folder
+  like skills. `agents/<name>/agent.md` itself has no YAML frontmatter, so this adapter
+  synthesizes a minimal `name`/`description` header around its body — see
+  `tools/adapter_common.py`'s `agent_output_bytes()` for exactly what gets added.
 - `--activity "Defect triage"` installs everything that Delivery-pipeline activity uses (matched
   against `factory-data.json`'s `activities` by title — case-insensitive exact match first, then
   substring if unambiguous). **Repeatable** — pass it more than once to install several activities
@@ -57,8 +63,8 @@ Shares its skill-discovery/connector-normalization/content-hash/lock-file logic 
 `tools/adapter_common.py`, the same module `tools/github-copilot/adapter/install.py` uses — the
 per-tool `install.py` files only differ in output paths and entry-file shape.
 
-**Status:** v1 implemented — own-posture skills, verified-wiring connectors, `CLAUDE.md`,
-`factory-lock.json`. Still manual: adopt-posture skills (see the root `README.md`'s "Installing
-skills into a project" section for the `npx skills add` process those still need), the actual
-credential `.env` files each connector's "Wiring" section describes, and anything involving agents
-or Q-gates (no adapted equivalent yet, see `factory-data.json`'s `coverage` section).
+**Status:** v1 implemented — own-posture skills, own-posture agents, verified-wiring connectors,
+`CLAUDE.md`, `factory-lock.json`. Still manual: adopt-posture skills (see the root `README.md`'s
+"Installing skills into a project" section for the `npx skills add` process those still need), the
+actual credential `.env` files each connector's "Wiring" section describes, and Q-gates (no
+adapted equivalent yet, see `factory-data.json`'s `coverage` section).

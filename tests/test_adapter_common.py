@@ -132,6 +132,89 @@ class TestResolveNames:
         result = ac.resolve_names(["a", "c"], ["a", "b", "c"], "skill", "hint")
         assert result == ["a", "c"]
 
+    def test_unknown_agent_no_agent_md(self, tmp_path, monkeypatch):
+        agents_dir = tmp_path / "agents"
+        agents_dir.mkdir()
+        monkeypatch.setattr(ac, "AGENTS_DIR", agents_dir)
+        with pytest.raises(SystemExit, match="No agents/ghost/agent.md found"):
+            ac.resolve_names(["ghost"], [], "agent", "hint")
+
+
+# ---------------------------------------------------------------------------
+# agents
+# ---------------------------------------------------------------------------
+
+class TestAllOwnAgentNames:
+    def test_discovers_agents_with_agent_md(self, tmp_path, monkeypatch):
+        agents_dir = tmp_path / "agents"
+        (agents_dir / "b-agent").mkdir(parents=True)
+        (agents_dir / "b-agent" / "agent.md").write_text("# b-agent\n")
+        (agents_dir / "a-agent").mkdir(parents=True)
+        (agents_dir / "a-agent" / "agent.md").write_text("# a-agent\n")
+        (agents_dir / "no-agent-md").mkdir(parents=True)
+        monkeypatch.setattr(ac, "AGENTS_DIR", agents_dir)
+        assert ac.all_own_agent_names() == ["a-agent", "b-agent"]
+
+
+class TestAgentOutputBytes:
+    def test_synthesizes_frontmatter_with_name_and_desc(self, tmp_path, monkeypatch):
+        agents_dir = tmp_path / "agents"
+        (agents_dir / "sample").mkdir(parents=True)
+        (agents_dir / "sample" / "agent.md").write_text("# sample\n\nBody text.\n")
+        monkeypatch.setattr(ac, "AGENTS_DIR", agents_dir)
+        monkeypatch.setattr(ac, "component_desc", lambda kind, name: "A simple description.")
+
+        output = ac.agent_output_bytes("sample").decode("utf-8")
+        assert output.startswith("---\nname: sample\ndescription: \"A simple description.\"\n---\n\n")
+        assert output.endswith("# sample\n\nBody text.\n")
+
+    def test_escapes_colon_containing_desc(self, tmp_path, monkeypatch):
+        agents_dir = tmp_path / "agents"
+        (agents_dir / "sample").mkdir(parents=True)
+        (agents_dir / "sample" / "agent.md").write_text("# sample\n")
+        monkeypatch.setattr(ac, "AGENTS_DIR", agents_dir)
+        monkeypatch.setattr(ac, "component_desc", lambda kind, name: "Quality: checks completeness.")
+
+        output = ac.agent_output_bytes("sample").decode("utf-8")
+        # The colon-bearing desc must stay inside the quotes, not break out into a second key.
+        assert 'description: "Quality: checks completeness."' in output
+        assert output.count("---") == 2  # frontmatter fence still intact, not corrupted
+
+    def test_escapes_embedded_quotes(self, tmp_path, monkeypatch):
+        agents_dir = tmp_path / "agents"
+        (agents_dir / "sample").mkdir(parents=True)
+        (agents_dir / "sample" / "agent.md").write_text("# sample\n")
+        monkeypatch.setattr(ac, "AGENTS_DIR", agents_dir)
+        monkeypatch.setattr(ac, "component_desc", lambda kind, name: 'Says "hello" to the user.')
+
+        output = ac.agent_output_bytes("sample").decode("utf-8")
+        assert 'description: "Says \\"hello\\" to the user."' in output
+
+    def test_falls_back_when_no_desc_recorded(self, tmp_path, monkeypatch):
+        agents_dir = tmp_path / "agents"
+        (agents_dir / "sample").mkdir(parents=True)
+        (agents_dir / "sample" / "agent.md").write_text("# sample\n")
+        monkeypatch.setattr(ac, "AGENTS_DIR", agents_dir)
+        monkeypatch.setattr(ac, "component_desc", lambda kind, name: None)
+
+        output = ac.agent_output_bytes("sample").decode("utf-8")
+        assert 'description: "Bounded agent: sample"' in output
+
+
+class TestCopyAgent:
+    def test_writes_output_bytes_to_dest_path(self, tmp_path, monkeypatch):
+        agents_dir = tmp_path / "agents"
+        (agents_dir / "sample").mkdir(parents=True)
+        (agents_dir / "sample" / "agent.md").write_text("# sample\n\nBody.\n")
+        monkeypatch.setattr(ac, "AGENTS_DIR", agents_dir)
+        monkeypatch.setattr(ac, "component_desc", lambda kind, name: "d")
+
+        dest = tmp_path / "project" / ".claude" / "agents" / "sample.md"
+        result = ac.copy_agent("sample", dest)
+        assert result == dest
+        assert dest.exists()
+        assert dest.read_bytes() == ac.agent_output_bytes("sample")
+
 
 # ---------------------------------------------------------------------------
 # normalize_connector
@@ -294,7 +377,7 @@ class TestSeedReferenceDir:
 class TestLock:
     def test_load_lock_missing_file_returns_defaults(self, tmp_path):
         lock = ac.load_lock(tmp_path)
-        assert lock == {"skills": {}, "connectors": {}, "knowledge": {}, "artifacts": {}}
+        assert lock == {"skills": {}, "agents": {}, "connectors": {}, "knowledge": {}, "artifacts": {}}
 
     def test_load_lock_existing_file_preserved(self, tmp_path):
         (tmp_path / "factory-lock.json").write_text(

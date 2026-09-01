@@ -102,6 +102,11 @@ def main(argv=None):
     parser.add_argument("--project", required=True, help="path to the client project to install into")
     parser.add_argument("--skills", default="", help="comma-separated skill names, or '*' for all own-posture skills")
     parser.add_argument("--connectors", default="", help="comma-separated connector names, or '*' for all with real wiring")
+    parser.add_argument("--agents", default="", help=(
+        "comma-separated agent names, or '*' for all own-posture agents. Only claude-code "
+        "supports installing agents today; other targets die with a clear error if any are "
+        "requested (directly or via --activity) -- see each adapter's own README."
+    ))
     parser.add_argument("--activity", action="append", default=[], metavar="TITLE",
                          help="install everything a Delivery-pipeline activity uses; repeatable")
     parser.add_argument("--destination", action="append", default=[], metavar="CONNECTOR=NAME",
@@ -119,7 +124,10 @@ def main(argv=None):
         print(f"{verb} {len(resolved_systems)} pilot-context system(s): "
               + ", ".join(f"{sid}->{dest}" for sid, dest in resolved_systems))
 
-    passthrough = ["--project", args.project, "--skills", args.skills, "--connectors", args.connectors]
+    passthrough = [
+        "--project", args.project, "--skills", args.skills,
+        "--connectors", args.connectors, "--agents", args.agents,
+    ]
     for title in args.activity:
         passthrough += ["--activity", title]
     for dest in args.destination:

@@ -1,0 +1,56 @@
+{
+  "type": "object",
+  "description": "Technical documentation for an already-generated code artifact, produced by the technical-documentation-generation skill. Every claim cites the invoking agent's spec/mapping reference verbatim rather than re-deriving purpose from the code alone; anything not traceable is flagged, not silently documented as fact.",
+  "required": ["code_artifact_ref", "generated_by", "spec_refs", "generated_at", "purpose", "key_logic"],
+  "properties": {
+    "code_artifact_ref": { "type": "string" },
+    "generated_by": { "type": "string", "description": "invoking agent, e.g. migration-code-development" },
+    "spec_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "verbatim IDs of the spec/mapping rows this documentation is grounded in"
+    },
+    "wricef_functional_spec_ref": { "type": "string" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "purpose": { "type": "string" },
+    "io": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "direction"],
+        "properties": {
+          "name": { "type": "string" },
+          "direction": { "type": "string", "enum": ["IN", "OUT"] },
+          "field_ref": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "key_logic": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["area", "description", "verified"],
+        "properties": {
+          "area": { "type": "string", "enum": ["DATA_MAPPING", "ERROR_HANDLING", "SELECTION_SCREEN", "OTHER"] },
+          "description": { "type": "string" },
+          "traceable_to": { "type": "string" },
+          "verified": { "type": "string", "enum": ["YES", "UNVERIFIED"] }
+        }
+      }
+    },
+    "flagged_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["item", "reason"],
+        "properties": {
+          "item": { "type": "string" },
+          "reason": { "type": "string" },
+          "review_owner": { "type": "string" }
+        }
+      }
+    }
+  }
+}

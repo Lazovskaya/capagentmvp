@@ -338,6 +338,14 @@ window.FACTORY_DATA = {
   },
   {
    "kind": "Skill",
+   "name": "technical-documentation-generation",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Realize",
+   "desc": "Atomic, called skill that documents an already-generated code artifact (purpose, inputs/outputs, key logic) citing the invoking agent's spec/mapping reference verbatim. Invoked by code-development and migration-code-development."
+  },
+  {
+   "kind": "Skill",
    "name": "reconciliation",
    "posture": "own",
    "status": "progress",
@@ -1013,6 +1021,14 @@ window.FACTORY_DATA = {
    "status": "progress",
    "phase": "Realize",
    "desc": "Traceable, review-ready generated migration/transformation code deliverable, produced by the migration-code-development agent from a MATCHED object-field-mapping row."
+  },
+  {
+   "kind": "Artifact",
+   "name": "technical-documentation",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Realize",
+   "desc": "Purpose, inputs/outputs, and key-logic documentation for an already-generated code artifact, citing its spec/mapping reference verbatim. Produced by technical-documentation-generation."
   },
   {
    "kind": "Artifact",

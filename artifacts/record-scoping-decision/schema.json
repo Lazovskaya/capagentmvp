@@ -1,0 +1,58 @@
+{
+  "type": "object",
+  "description": "Record-level in/out-of-scope decision set per object type, produced by applying scoping rules to a migration-objects-list inventory. Complements the object-level migration-objects-list artifact rather than replacing it.",
+  "required": ["source_inventory", "generated_at", "version", "object_scopes"],
+  "properties": {
+    "source_inventory": {
+      "type": "object",
+      "required": ["artifact", "version"],
+      "properties": {
+        "artifact": { "type": "string", "const": "migration-objects-list" },
+        "version": { "type": "string" }
+      }
+    },
+    "scoping_rules_reference": { "type": "string" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "version": { "type": "integer", "minimum": 1 },
+    "object_scopes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["object_type", "pre_scoping_volume", "post_scoping_volume", "status"],
+        "properties": {
+          "object_type": { "type": "string" },
+          "object_name_or_prefix": { "type": "string" },
+          "pre_scoping_volume": { "type": "integer", "minimum": 0 },
+          "post_scoping_volume": { "type": "integer", "minimum": 0 },
+          "status": { "type": "string", "enum": ["SCOPED", "NO_RULE_APPLIED", "RULE_CONFLICT"] },
+          "rule_breakdown": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["rule_id", "excluded_count"],
+              "properties": {
+                "rule_id": { "type": "string" },
+                "excluded_count": { "type": "integer", "minimum": 0 }
+              }
+            }
+          },
+          "conflicts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["record_reference", "rule_a", "rule_b"],
+              "properties": {
+                "record_reference": { "type": "string" },
+                "rule_a": { "type": "string" },
+                "rule_a_verdict": { "type": "string", "enum": ["IN_SCOPE", "OUT_OF_SCOPE"] },
+                "rule_b": { "type": "string" },
+                "rule_b_verdict": { "type": "string", "enum": ["IN_SCOPE", "OUT_OF_SCOPE"] },
+                "review_owner": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

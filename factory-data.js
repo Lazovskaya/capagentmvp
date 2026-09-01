@@ -341,6 +341,14 @@ window.FACTORY_DATA = {
   },
   {
    "kind": "Agent",
+   "name": "data-scoping",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Explore",
+   "desc": "Complements Objects List by scoping records within each in-scope object type, applying rule-based date/company-code/org and retention cut-offs, with rule traceability and pre/post volume counts."
+  },
+  {
+   "kind": "Agent",
    "name": "objects-mapping",
    "posture": "own",
    "status": "progress",
@@ -378,6 +386,14 @@ window.FACTORY_DATA = {
    "status": "progress",
    "phase": "Realize",
    "desc": "Returns class, confidence, route and recommended fix. Serves both Realize triage and Run hypercare."
+  },
+  {
+   "kind": "Agent",
+   "name": "migration-code-development",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Realize",
+   "desc": "Generates traceable data migration/transformation code from a MATCHED objects-mapping row, batch-sized by object volume or scoped record count, and invokes technical documentation generation per artifact."
   },
   {
    "kind": "Agent",
@@ -832,6 +848,22 @@ window.FACTORY_DATA = {
    "status": "progress",
    "phase": "Explore",
    "desc": "Reviewable source-to-target object and field mapping with AI-suggested confidence/rationale, produced by the objects-mapping agent from the migration objects list."
+  },
+  {
+   "kind": "Artifact",
+   "name": "record-scoping-decision",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Explore",
+   "desc": "Record-level in/out-of-scope decision set per object type with rule traceability and pre/post volume counts, produced by the data-scoping agent."
+  },
+  {
+   "kind": "Artifact",
+   "name": "migration-code-package",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Realize",
+   "desc": "Traceable, review-ready generated migration/transformation code deliverable, produced by the migration-code-development agent from a MATCHED object-field-mapping row."
   },
   {
    "kind": "Artifact",

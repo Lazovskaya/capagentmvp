@@ -1,0 +1,39 @@
+{
+  "type": "object",
+  "description": "Reviewable, traceable migration/transformation code deliverable generated from a MATCHED object-field-mapping. A local draft artifact; never a live write to a target system.",
+  "required": ["source_mapping", "generated_at", "version", "artifacts"],
+  "properties": {
+    "source_mapping": {
+      "type": "object",
+      "required": ["artifact", "version"],
+      "properties": {
+        "artifact": { "type": "string", "const": "object-field-mapping" },
+        "version": { "type": "string" }
+      }
+    },
+    "source_inventory_version": { "type": "string" },
+    "record_scoping_version": { "type": "string" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "version": { "type": "integer", "minimum": 1 },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["object_type", "target_object", "mapping_refs", "batch_sizing_basis", "confirmation"],
+        "properties": {
+          "object_type": { "type": "string" },
+          "object_name_or_prefix": { "type": "string" },
+          "target_object": { "type": "string" },
+          "generated_artifact_ref": { "type": "string" },
+          "mapping_refs": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "batch_sizing_basis": { "type": "string", "enum": ["OBJECT_VOLUME", "SCOPED_IN_SCOPE_COUNT"] },
+          "confirmation": { "type": "string", "enum": ["CONFIRMED", "NEEDS_MAPPING_CONFIRMATION"] },
+          "documentation_status": { "type": "string", "enum": ["GENERATED", "SKIPPED_SKILL_UNAVAILABLE"] }
+        }
+      }
+    }
+  }
+}

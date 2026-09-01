@@ -341,6 +341,14 @@
     },
     {
       "kind": "Agent",
+      "name": "objects-mapping",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Maps source business objects and fields from the migration objects list to their S/4HANA target counterparts, with AI-suggested field mappings, confidence/rationale, and conflict flags for human review."
+    },
+    {
+      "kind": "Agent",
       "name": "extensibility-assessor",
       "posture": "own",
       "status": "progress",
@@ -816,6 +824,14 @@
       "status": "notstarted",
       "phase": "Explore",
       "desc": "Source-traceable mapping of in-scope business processes to SAP Fiori app candidates."
+    },
+    {
+      "kind": "Artifact",
+      "name": "object-field-mapping",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Reviewable source-to-target object and field mapping with AI-suggested confidence/rationale, produced by the objects-mapping agent from the migration objects list."
     },
     {
       "kind": "Artifact",

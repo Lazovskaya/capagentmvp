@@ -1008,6 +1008,22 @@
       "status": "notstarted",
       "phase": "Explore",
       "desc": "Accelerator run summary covering workshop preparation, decision log, app mapping and fit-gap output."
+    },
+    {
+      "kind": "Agent",
+      "name": "strategies-generation",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Generates the non-technical delivery strategies (Cutover, Training, Testing, Convention) from project scope and context, deliberately excluding the technical strategies now owned by the SAD track."
+    },
+    {
+      "kind": "Artifact",
+      "name": "delivery-strategy",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "One non-technical delivery-strategy document (Cutover, Training, Testing, or Convention) with cited decisions and cross-strategy dependencies."
     }
   ],
   "activities": [
@@ -2091,6 +2107,42 @@
           "q-gate",
           [
             "run-exit"
+          ]
+        ]
+      ]
+    },
+    {
+      "phase": "Explore",
+      "owner": "delivery",
+      "engagement": "GBA",
+      "status": "progress",
+      "file": "activities/explore/delivery-strategy-generation.md",
+      "title": "Delivery strategy generation (Cutover, Training, Testing, Convention)",
+      "desc": "Generate the non-technical delivery-strategy documents from project scope and context, noting cross-strategy dependencies, before Cutover's own dependency check runs.",
+      "uses": [
+        [
+          "agent",
+          [
+            "strategies-generation"
+          ]
+        ],
+        [
+          "artifact",
+          [
+            "delivery-strategy"
+          ]
+        ],
+        [
+          "knowledge",
+          [
+            "process",
+            "standards"
+          ]
+        ],
+        [
+          "q-gate",
+          [
+            "explore→realize"
           ]
         ]
       ]

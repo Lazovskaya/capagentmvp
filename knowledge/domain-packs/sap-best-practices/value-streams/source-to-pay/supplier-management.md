@@ -3,7 +3,7 @@
 
 # Source to Pay / Supplier Management
 
-Generated 2026-08-25. 5 scope items.
+Generated 2026-09-02. 5 scope items.
 
 ← [Back to Source to Pay index](../index.md) (or [`../source-to-pay.md`](../source-to-pay.md))
 

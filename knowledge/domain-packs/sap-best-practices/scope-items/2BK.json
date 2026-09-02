@@ -2,7 +2,9 @@
   "scope_item_id": "2BK",
   "title": "Contract Accounting \u2013 Daily and Monthly Closing",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Finance",
     "L3_scope_item": "2BK - Contract Accounting \u2013 Daily and Monthly Closing",
     "L4_steps": [

@@ -2,7 +2,9 @@
   "scope_item_id": "1KA",
   "title": "Information Lifecycle Management",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "IT and Cross-Application"
+    ],
     "L2_core_process": "Application Development and Integration",
     "L3_scope_item": "1KA - Information Lifecycle Management",
     "L4_steps": [

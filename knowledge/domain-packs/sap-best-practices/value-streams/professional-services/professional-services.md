@@ -3,7 +3,7 @@
 
 # Professional Services / Professional Services
 
-Generated 2026-08-25. 11 scope items.
+Generated 2026-09-02. 11 scope items.
 
 ← [Back to Professional Services index](../index.md) (or [`../professional-services.md`](../professional-services.md))
 

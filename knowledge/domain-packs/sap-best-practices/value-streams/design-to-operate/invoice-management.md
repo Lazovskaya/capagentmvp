@@ -3,7 +3,7 @@
 
 # Design to Operate / Invoice Management
 
-Generated 2026-08-25. 3 scope items.
+Generated 2026-09-02. 3 scope items.
 
 ← [Back to Design to Operate index](../index.md) (or [`../design-to-operate.md`](../design-to-operate.md))
 

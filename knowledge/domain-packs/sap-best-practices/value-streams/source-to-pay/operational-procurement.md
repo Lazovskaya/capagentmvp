@@ -3,7 +3,7 @@
 
 # Source to Pay / Operational Procurement
 
-Generated 2026-08-25. 40 scope items.
+Generated 2026-09-02. 40 scope items.
 
 ← [Back to Source to Pay index](../index.md) (or [`../source-to-pay.md`](../source-to-pay.md))
 

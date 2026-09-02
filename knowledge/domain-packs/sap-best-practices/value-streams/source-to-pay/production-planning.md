@@ -3,7 +3,7 @@
 
 # Source to Pay / Production Planning
 
-Generated 2026-08-25. 7 scope items.
+Generated 2026-09-02. 7 scope items.
 
 ← [Back to Source to Pay index](../index.md) (or [`../source-to-pay.md`](../source-to-pay.md))
 

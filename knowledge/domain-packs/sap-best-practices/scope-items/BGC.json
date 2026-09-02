@@ -2,7 +2,9 @@
   "scope_item_id": "BGC",
   "title": "SAP Fiori Analytical Apps for G/L Accounting in Finance",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Finance",
     "L3_scope_item": "BGC - SAP Fiori Analytical Apps for G/L Accounting in Finance",
     "L4_steps": [

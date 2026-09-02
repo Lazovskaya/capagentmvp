@@ -3,7 +3,7 @@
 
 # Design to Operate / Operational Procurement
 
-Generated 2026-08-25. 4 scope items.
+Generated 2026-09-02. 4 scope items.
 
 ← [Back to Design to Operate index](../index.md) (or [`../design-to-operate.md`](../design-to-operate.md))
 

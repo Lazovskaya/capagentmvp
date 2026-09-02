@@ -2,7 +2,9 @@
   "scope_item_id": "3FY",
   "title": "Prediction of Delivery Date for Purchase Order Items",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "IT and Cross-Application"
+    ],
     "L2_core_process": "Intelligent Technologies",
     "L3_scope_item": "3FY - Prediction of Delivery Date for Purchase Order Items",
     "L4_steps": [

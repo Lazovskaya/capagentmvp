@@ -2,7 +2,9 @@
   "scope_item_id": "43B",
   "title": "Service Monitoring and Analytics",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Service"
+    ],
     "L2_core_process": "Service",
     "L3_scope_item": "43B - Service Monitoring and Analytics",
     "L4_steps": [

@@ -2,7 +2,9 @@
   "scope_item_id": "7NH",
   "title": "Product Cost Breakdown in Plan/Actual Value Flow",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Finance",
     "L3_scope_item": "7NH - Product Cost Breakdown in Plan/Actual Value Flow",
     "L4_steps": [

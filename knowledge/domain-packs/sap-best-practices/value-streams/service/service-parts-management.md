@@ -3,7 +3,7 @@
 
 # Service / Service Parts Management
 
-Generated 2026-08-25. 1 scope items.
+Generated 2026-09-02. 1 scope items.
 
 ← [Back to Service index](../index.md) (or [`../service.md`](../service.md))
 

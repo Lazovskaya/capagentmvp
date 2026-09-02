@@ -3,7 +3,7 @@
 
 # Professional Services / Accounting and Financial Close
 
-Generated 2026-08-25. 3 scope items.
+Generated 2026-09-02. 3 scope items.
 
 ← [Back to Professional Services index](../index.md) (or [`../professional-services.md`](../professional-services.md))
 

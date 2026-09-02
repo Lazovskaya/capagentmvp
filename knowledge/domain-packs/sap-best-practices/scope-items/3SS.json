@@ -2,7 +2,9 @@
   "scope_item_id": "3SS",
   "title": "General Indirect Tax in the Canary Islands",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Budget and Finance",
     "L3_scope_item": "3SS - General Indirect Tax in the Canary Islands",
     "L4_steps": [

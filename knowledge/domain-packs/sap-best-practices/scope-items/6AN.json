@@ -2,7 +2,9 @@
   "scope_item_id": "6AN",
   "title": "Contract Price Renegotiation",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
     "L2_core_process": "Supply Chain",
     "L3_scope_item": "6AN - Contract Price Renegotiation",
     "L4_steps": [

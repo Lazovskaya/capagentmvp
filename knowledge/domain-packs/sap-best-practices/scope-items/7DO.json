@@ -2,7 +2,9 @@
   "scope_item_id": "7DO",
   "title": "Product Compliance Document Authoring",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
     "L2_core_process": "Supply Chain",
     "L3_scope_item": "7DO - Product Compliance Document Authoring",
     "L4_steps": [

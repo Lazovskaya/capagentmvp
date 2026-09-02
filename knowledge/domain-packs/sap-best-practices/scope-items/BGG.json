@@ -2,7 +2,9 @@
   "scope_item_id": "BGG",
   "title": "SAP Fiori Analytical Apps for Inventory and Warehouse Management",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
     "L2_core_process": "Supply Chain",
     "L3_scope_item": "BGG - SAP Fiori Analytical Apps for Inventory and Warehouse Management",
     "L4_steps": [

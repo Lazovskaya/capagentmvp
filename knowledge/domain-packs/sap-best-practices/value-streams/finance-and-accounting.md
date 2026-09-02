@@ -3,7 +3,7 @@
 
 # Finance and Accounting
 
-Generated 2026-08-25. 302 scope items across 26 process groups.
+Generated 2026-09-02. 378 scope items across 28 process groups.
 
 | L2 process group | Items | Detail |
 |---|---|---|
@@ -11,10 +11,12 @@ Generated 2026-08-25. 302 scope items across 26 process groups.
 | Accounting and Financial Close | 56 | [accounting-and-financial-close.md](finance-and-accounting/accounting-and-financial-close.md) |
 | Advanced Accounting and Financial Close | 28 | [advanced-accounting-and-financial-close.md](finance-and-accounting/advanced-accounting-and-financial-close.md) |
 | Advanced Financial Operations | 23 | [advanced-financial-operations.md](finance-and-accounting/advanced-financial-operations.md) |
+| Budget and Finance | 17 | [budget-and-finance.md](finance-and-accounting/budget-and-finance.md) |
 | Cost Management and Profitability Analysis | 18 | [cost-management-and-profitability-analysis.md](finance-and-accounting/cost-management-and-profitability-analysis.md) |
 | Enterprise Information Management | 5 | [enterprise-information-management.md](finance-and-accounting/enterprise-information-management.md) |
 | Enterprise Portfolio and Project Management | 3 | [enterprise-portfolio-and-project-management.md](finance-and-accounting/enterprise-portfolio-and-project-management.md) |
 | Enterprise Risk and Compliance | 20 | [enterprise-risk-and-compliance.md](finance-and-accounting/enterprise-risk-and-compliance.md) |
+| Finance | 59 | [finance.md](finance-and-accounting/finance.md) |
 | Financial Operations | 21 | [financial-operations.md](finance-and-accounting/financial-operations.md) |
 | Inventory | 5 | [inventory.md](finance-and-accounting/inventory.md) |
 | Invoice Management | 4 | [invoice-management.md](finance-and-accounting/invoice-management.md) |
@@ -170,6 +172,30 @@ Generated 2026-08-25. 302 scope items across 26 process groups.
 
 *Full BPMN detail → [advanced-financial-operations.md](finance-and-accounting/advanced-financial-operations.md)*
 
+## Budget and Finance
+
+| Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
+|---|---|---|---|---|---|
+| `1BS` | SAP Fiori Analytical Apps for Sales | 0 | — | — | SAP_BR_SALES_MANAGER, SAP_BR_INTERNAL_SALES_REP, SAP_BR_RETURNS_REFUND_CLERK, SAP_BR_SOLN_BUSINESS_SPCLST |
+| `1O0` | Planning Apps for Sales | 0 | — | — | SAP_BR_SALES_MANAGER |
+| `2RP` | Electronic Documents | 0 | — | — | SAP_BR_BILLING_CLERK, SAP_BR_GL_ACCOUNTANT_BR, SAP_BR_AP_ACCOUNTANT_PROCMT_BR, SAP_BR_BUPA_MASTER_SPECIALIST |
+| `2UW` | Delivery of Goods on Behalf of Another Company | 0 | — | — | SAP_BR_INVOICING_ADMIN_CINV, SAP_BR_INVOICING_SPEC_CINV, SAP_BR_SHIPPING_SPECIALIST, SAP_BR_SHIP_SPECIALIST_JIT |
+| `2YJ` | Predictive Analytics Model Training – Sales | 0 | — | — | SAP_BR_ANALYTICS_SPECIALIST, SAP_BR_INTERNAL_SALES_REP, SAP_BR_SALES_MANAGER |
+| `3SS` | General Indirect Tax in the Canary Islands | 0 | — | — | SAP_BR_SHIPPING_SPECIALIST, SAP_BR_SHIP_SPECIALIST_JIT, SAP_BR_BILLING_CLERK, SAP_BR_OPERATION_CLERK_ACM |
+| `43D` | Integration with External Tax Calculation Engines | 0 | — | — | SAP_BR_OPERATION_CLERK_ACM, SAP_BR_SETTLEMENT_CLERK_ACM, SAP_BR_INVENTORY_MANAGER, SAP_BR_WAREHOUSE_CLERK |
+| `6R3` | Earmarked Funds for Real Estate Contracts | 0 | — | — | SAP_BR_BPC_EXPERT, SAP_BR_GRANT_RESPONSIBLE, SAP_BR_BUDGET_SPECIALIST, SAP_BR_GRANT_SPECIALIST |
+| `71S` | Grants Management | 0 | — | — | SAP_BR_GRANT_RESPONSIBLE, SAP_BR_GRANT_SPECIALIST |
+| `78S` | Earmarked Funds | 0 | — | — | SAP_BR_BPC_EXPERT, SAP_BR_GRANT_RESPONSIBLE, SAP_BR_BUDGET_SPECIALIST, SAP_BR_GRANT_SPECIALIST |
+| `7ED` | Create Sales Orders from Unstructured Data – Premium | 0 | — | — | SAP_BR_INTERNAL_SALES_REP |
+| `7IW` | Transportation Execution – Basic TM | 0 | — | — | SAP_BR_SETTLEMENT_CLERK_ACM, SAP_BR_BILLING_CLERK, SAP_BR_OPERATION_CLERK_ACM |
+| `7JO` | Sales Integration for SAP S/4HANA Utilities | 0 | — | — | SAP_BR_SOLN_BUSINESS_SPCLST, SAP_BR_SETTLEMENT_CLERK_ACM, SAP_BR_OPERATION_CLERK_ACM, SAP_BR_INTERNAL_SALES_REP |
+| `7KW` | Customer Returns for Material with Variant Configuration | 0 | — | — | SAP_BR_OPERATION_CLERK_ACM, SAP_BR_TRANSPRT_MNGR_LMD, SAP_BR_BILLING_CLERK, SAP_BR_SETTLEMENT_CLERK_ACM |
+| `7TZ` | Credit and Debit Memo Processing with Variant Configuration | 0 | — | — | SAP_BR_SALES_MANAGER, SAP_BR_EXTERNAL_AUDITOR, SAP_BR_INTERNAL_SALES_REP_PRSV, SAP_BR_INTERNAL_SALES_REP |
+| `7YH` | Invoice Processing with SAP Ariba Invoicing | 0 | — | — | SAP_BR_OPERATION_CLERK_ACM, SAP_BR_SETTLEMENT_CLERK_ACM, SAP_BR_INVENTORY_MANAGER, SAP_BR_WAREHOUSE_CLERK |
+| `7YY` | Multistage Intercompany Sales | 0 | — | — | SAP_BR_INTERNAL_SALES_REP, SAP_BR_INVENTORY_ACCOUNTANT, SAP_BR_BILLING_CLERK, SAP_BR_AP_ACCOUNTANT_PROCUREMT |
+
+*Full BPMN detail → [budget-and-finance.md](finance-and-accounting/budget-and-finance.md)*
+
 ## Cost Management and Profitability Analysis
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
@@ -243,6 +269,72 @@ Generated 2026-08-25. 302 scope items across 26 process groups.
 | `BDT` | Intrastat Processing | 13 | — | — | SAP_BR_TRD_CLS_SPECIALIST, SAP_BR_INTRASTAT_SPECIALIST |
 
 *Full BPMN detail → [enterprise-risk-and-compliance.md](finance-and-accounting/enterprise-risk-and-compliance.md)*
+
+## Finance
+
+| Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
+|---|---|---|---|---|---|
+| `1J5` | Invoice, Taxes and Complementary Postings | 0 | — | — | SAP_BR_INVOICING_ADMIN_CINV, SAP_BR_INVOICING_SPEC_CINV, SAP_BR_AP_ACCOUNTANT, SAP_BR_AR_ACCOUNTANT |
+| `1MN` | SAP Fiori Analytical Apps for Treasury and Risk Management | 0 | — | — | SAP_BR_TREASURY_RISK_MANAGER, SAP_BR_TREASURY_SPECIALIST_FOE |
+| `1WQ` | Bill of Exchange | 0 | — | — | SAP_BR_AP_ACCOUNTANT, SAP_BR_AR_ACCOUNTANT, SAP_BR_AR_ACCOUNTANT_VN, SAP_BR_AR_ACCOUNTANT_JP |
+| `2BK` | Contract Accounting – Daily and Monthly Closing | 2 | — | — | SAP_BR_APR_MANAGER_FICA, SAP_BR_APR_ACCOUNTANT_FICA, SAP_BR_EXT_AUDITOR_APR_FICA, SAP_BR_RECONC_SPEC_APR_FICA |
+| `2JB` | SAP Fiori Analytical Apps for Financial Accounting | 0 | — | — | SAP_BR_AP_MANAGER, SAP_BR_AR_MANAGER |
+| `2KF` | SAP Fiori Analytical Apps for Convergent Invoicing Specialist | 0 | — | — | SAP_BR_INVOICING_SPEC_CINV |
+| `2KH` | SAP Fiori Analytical Apps for Contract Accounting Manager | 0 | — | — | SAP_BR_APR_ACCOUNTANT_FICA, SAP_BR_APR_MANAGER_FICA, SAP_BR_COLL_SPECIALIST_FICA, SAP_BR_RECONC_SPEC_APR_FICA |
+| `2QY` | SAP Fiori Analytical Apps for Asset Accounting in Finance | 0 | — | — | SAP_BR_AA_ACCOUNTANT |
+| `2ZS` | Machine Learning for Monitoring of Goods and Invoice Receipts | 0 | — | — | SAP_BR_GL_ACCOUNTANT |
+| `3F4` | Sales-Based Rent | 0 | — | — | SAP_BR_RE_ADMINISTRATOR, SAP_BR_RECM_ADMINISTRATOR, SAP_BR_RECM_SPECIALIST, SAP_BR_RECM_AR_ACCOUNTANT |
+| `3L5` | Liquidity Planning | 0 | — | — | SAP_BR_CASH_MANAGER, SAP_BR_CASH_SPECIALIST |
+| `4Q2` | External Tax Calculation | 0 | — | — | SAP_BR_GL_ACCOUNTANT_US |
+| `4R7` | Group Reporting – Environmental, Social, and Governance Data | 0 | — | — | SAP_BR_GRP_ACCOUNTANT, SAP_BR_EXTERNAL_AUDITOR_GRP, SAP_BR_GL_ACCOUNTANT_GRP, SAP_BR_ADMINISTRATOR_GRP |
+| `5HG` | Asset Accounting – Additional Depreciation Area | 0 | — | — | SAP_BR_AA_ACCOUNTANT, SAP_BR_GL_ACCOUNTANT_BR, SAP_BR_RECM_VALSPECIALIST, SAP_BR_EXTERNAL_AUDITOR |
+| `5NU` | Accounting Enhancements for Banking | 0 | — | — | SAP_BR_APPL_SUP_ENG_DEV_SUP, SAP_BR_EXTERNAL_AUDITOR, SAP_BR_SYSTEM_AUDITOR, SAP_BR_ADMINISTRATOR |
+| `5O6` | Compliance Formats – Support Preparation for Germany | 0 | — | — | SAP_BR_GL_ACCOUNTANT_DE |
+| `5VW` | Revenue Accounting | 0 | — | — | SAP_BR_REV_ACCOUNTANT, SAP_BR_EXTERNAL_AUDITOR |
+| `5VX` | Enable for Use and Contract Management | 0 | — | — | SAP_BR_RE_COST_ACCOUNTANT, SAP_BR_RECM_SPECIALIST, SAP_BR_RECM_AR_ACCOUNTANT, SAP_BR_RECM_VALSPECIALIST |
+| `5VY` | External Occupancy and Contract Management | 0 | — | — | SAP_BR_RE_COST_ACCOUNTANT, SAP_BR_RECM_SPECIALIST, SAP_BR_RECM_AR_ACCOUNTANT, SAP_BR_RECM_VALSPECIALIST |
+| `5VZ` | Internal Occupancy and Cost Allocation | 0 | — | — | SAP_BR_RE_ADMINISTRATOR, SAP_BR_RE_SPECIALIST_LOCAT, SAP_BR_RE_COST_ACCOUNTANT |
+| `5W0` | Intercompany Occupancy and Contract Management | 0 | — | — | SAP_BR_RE_COST_ACCOUNTANT, SAP_BR_RECM_SPECIALIST, SAP_BR_RECM_AR_ACCOUNTANT, SAP_BR_RECM_VALSPECIALIST |
+| `5YU` | Enable for Use and Contract Management – Group Ledger IFRS | 0 | — | — | SAP_BR_RE_COST_ACCOUNTANT, SAP_BR_RECM_SPECIALIST, SAP_BR_RECM_AR_ACCOUNTANT, SAP_BR_RECM_VALSPECIALIST |
+| `5YV` | External Occupancy and Contract Management – Group Ledger IFRS | 0 | — | — | SAP_BR_RE_COST_ACCOUNTANT, SAP_BR_RECM_SPECIALIST, SAP_BR_RECM_AR_ACCOUNTANT, SAP_BR_RECM_VALSPECIALIST |
+| `5YW` | Intercompany Occupancy and Contract Management – Group Ledger IFRS | 0 | — | — | SAP_BR_RE_COST_ACCOUNTANT, SAP_BR_RECM_SPECIALIST, SAP_BR_RECM_AR_ACCOUNTANT, SAP_BR_RECM_VALSPECIALIST |
+| `6DR` | Asset Accounting (UPA) | 0 | — | — | SAP_BR_MANAGER, SAP_BR_AA_ACCOUNTANT, SAP_BR_GL_ACCOUNTANT_JP, SAP_BR_OPERATION_CLERK_ACM |
+| `6DS` | Asset Accounting – Group Ledger IFRS (UPA) | 0 | — | — | SAP_BR_AA_ACCOUNTANT, SAP_BR_GL_ACCOUNTANT_JP |
+| `6DT` | Asset Under Construction (UPA) | 0 | — | — | SAP_BR_AA_ACCOUNTANT, SAP_BR_GL_ACCOUNTANT |
+| `6DU` | Asset Under Construction – Group Ledger IFRS (UPA) | 0 | — | — | SAP_BR_AA_ACCOUNTANT, SAP_BR_GL_ACCOUNTANT |
+| `6EB` | Lease-In Accounting (UPA) | 0 | — | — | SAP_BR_RE_COST_ACCOUNTANT, SAP_BR_RECM_SPECIALIST, SAP_BR_RECM_AR_ACCOUNTANT, SAP_BR_RECM_VALSPECIALIST |
+| `6EC` | Lease-In Accounting – Group Ledger IFRS (UPA) | 0 | — | — | SAP_BR_RE_COST_ACCOUNTANT, SAP_BR_RECM_SPECIALIST, SAP_BR_RECM_AR_ACCOUNTANT, SAP_BR_RECM_VALSPECIALIST |
+| `6ED` | Lease-Out for Sublease Accounting (UPA) | 0 | — | — | SAP_BR_RE_COST_ACCOUNTANT, SAP_BR_RECM_SPECIALIST, SAP_BR_RECM_AR_ACCOUNTANT, SAP_BR_RECM_VALSPECIALIST |
+| `6EE` | Lease-Out for Sublease Accounting – Group Ledger IFRS (UPA) | 0 | — | — | SAP_BR_RE_COST_ACCOUNTANT, SAP_BR_RECM_SPECIALIST, SAP_BR_RECM_AR_ACCOUNTANT, SAP_BR_RECM_VALSPECIALIST |
+| `6EF` | Enable for Use and Contract Management (UPA) | 0 | — | — | SAP_BR_RE_COST_ACCOUNTANT, SAP_BR_RECM_SPECIALIST, SAP_BR_RECM_AR_ACCOUNTANT, SAP_BR_RECM_VALSPECIALIST |
+| `6EG` | Enable for Use and Contract Management – Group Ledger IFRS (UPA) | 0 | — | — | SAP_BR_RE_COST_ACCOUNTANT, SAP_BR_RECM_SPECIALIST, SAP_BR_RECM_AR_ACCOUNTANT, SAP_BR_RECM_VALSPECIALIST |
+| `6N8` | Real Estate Cost Settlement | 0 | — | — | SAP_BR_GL_ACCOUNTANT, SAP_BR_RE_SPECIALIST_SETTLE |
+| `6ND` | Securities Option Management | 4 | — | — | SAP_BR_TREASURY_SPECIALIST_BOE, SAP_BR_TREASURY_ACCOUNTANT, SAP_BR_TREASURY_RISK_MANAGER, SAP_BR_TREASURY_SPECIALIST_FOE |
+| `6SZ` | Error Correction and Suspense Accounting for Banking | 0 | — | — | SAP_BR_GL_ACCOUNTANT_BANKS |
+| `6V0` | Condition Contract with Customer Hierarchy – Consumer Products | 0 | — | — | SAP_BR_CREDIT_CONTROLLER |
+| `6VP` | Tax Register | 0 | — | — | SAP_BR_TAX_ACCOUNTANT, SAP_BR_BPC_EXPERT |
+| `6VQ` | Profit Center Valuation | 0 | — | — | SAP_BR_INVENTORY_ACCOUNTANT |
+| `6WC` | Convergent Invoicing – Intercompany Settlement | 0 | — | — | SAP_BR_INVOICING_ADMIN_CINV, SAP_BR_INVOICING_SPEC_CINV, SAP_BR_SOLN_BUSINESS_SPCLST, SAP_BR_INTRNAL_SALESREP_SOM |
+| `6WD` | Convergent Invoicing – Cost Handling for Subscriptions and Usage | 0 | — | — | SAP_BR_INVOICING_ADMIN_CINV, SAP_BR_INVOICING_SPEC_CINV |
+| `6YU` | Government Budget Management | 0 | — | — | SAP_BR_BPC_EXPERT, SAP_BR_BUDGET_SPECIALIST, SAP_BR_GRANT_SPECIALIST, SAP_BR_BUDGET_RESPONSIBLE |
+| `78J` | Accounting Enhancements for Insurance | 0 | — | — | SAP_BR_GL_ACCOUNTANT, SAP_BR_PROJ_FIN_CONTROLLER, SAP_BR_DIVISION_ACCOUNTANT, SAP_BR_PROJECT_MANAGER_PROF |
+| `7AU` | Fund Accounting | 0 | — | — | SAP_BR_GL_ACCOUNTANT_PSM, SAP_BR_GL_ACCOUNTANT_PSM_CA, SAP_BR_GL_ACCOUNTANT_PSM_US |
+| `7DP` | Tax Operations | 0 | — | — | SAP_BR_TAX_ACCOUNTANT |
+| `7DX` | Receivables Financing with Taulia | 0 | — | — | SAP_BR_AR_ACCOUNTANT, SAP_BR_EXTERNAL_AUDITOR, SAP_BR_AR_MANAGER, SAP_BR_CASH_SPECIALIST |
+| `7EZ` | Intercompany Lease Accounting | 0 | — | — | SAP_BR_RE_ADMINISTRATOR, SAP_BR_RECM_ADMINISTRATOR, SAP_BR_RECM_SPECIALIST, SAP_BR_RECM_VALSPECIALIST |
+| `7G4` | Intercompany Lease Accounting – Group Ledger IFRS | 0 | — | — | SAP_BR_RE_ADMINISTRATOR, SAP_BR_RECM_ADMINISTRATOR, SAP_BR_RECM_SPECIALIST, SAP_BR_RECM_VALSPECIALIST |
+| `7G5` | Intercompany Lease Accounting – Group Ledger US GAAP | 0 | — | — | SAP_BR_RE_ADMINISTRATOR, SAP_BR_RECM_ADMINISTRATOR, SAP_BR_RECM_SPECIALIST, SAP_BR_RECM_VALSPECIALIST |
+| `7MA` | Collections and Dispute Automation | 0 | — | — | SAP_BR_ADMINISTRATOR, SAP_BR_EXTERNAL_AUDITOR, SAP_BR_APPL_SUP_ENG_DEV_SUP, SAP_BR_SYSTEM_AUDITOR |
+| `7MG` | Payables Financing with Taulia | 0 | — | — | SAP_BR_EXTERNAL_AUDITOR, SAP_BR_AP_ACCOUNTANT, SAP_BR_AR_ACCOUNTANT, SAP_BR_GL_ACCOUNTANT |
+| `7MJ` | Basic Payment Management | 0 | — | — | SAP_BR_PAYMENT_SPECIALIST |
+| `7NH` | Product Cost Breakdown in Plan/Actual Value Flow | 0 | — | — | SAP_BR_PRODN_ACCOUNTANT, SAP_BR_SALES_ACCOUNTANT, SAP_BR_INVENTORY_ACCOUNTANT, SAP_BR_AR_ACCOUNTANT |
+| `7O6` | Accounting Principles and Fund Accounting for GASB | 0 | — | — | SAP_BR_GL_ACCOUNTANT_PSM_CA, SAP_BR_GL_ACCOUNTANT_PSM_US |
+| `7OD` | Accounting Interface for Contract and Lease Management | 0 | — | — | SAP_BR_GL_ACCOUNTANT |
+| `7YZ` | Multistage Intercompany Stock Transfer | 0 | — | — | SAP_BR_INTERNAL_SALES_REP, SAP_BR_INVENTORY_ACCOUNTANT, SAP_BR_BILLING_CLERK, SAP_BR_AP_ACCOUNTANT_PROCUREMT |
+| `830` | Produce to Sell – Process Industry – Consumer Products | 0 | — | — | SAP_BR_CREDIT_CONTROLLER |
+| `BGC` | SAP Fiori Analytical Apps for G/L Accounting in Finance | 0 | — | — | SAP_BR_GL_ACCOUNTANT, SAP_BR_EXTERNAL_AUDITOR, SAP_BR_TREASURY_SPECIALIST_FOE, SAP_BR_DIVISION_ACCOUNTANT |
+
+*Full BPMN detail → [finance.md](finance-and-accounting/finance.md)*
 
 ## Financial Operations
 

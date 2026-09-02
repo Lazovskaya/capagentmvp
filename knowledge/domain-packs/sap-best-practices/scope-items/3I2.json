@@ -2,7 +2,9 @@
   "scope_item_id": "3I2",
   "title": "Store Connectivity \u2013 Outbound",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "IT and Cross-Application"
+    ],
     "L2_core_process": "Application Development and Integration",
     "L3_scope_item": "3I2 - Store Connectivity \u2013 Outbound",
     "L4_steps": [

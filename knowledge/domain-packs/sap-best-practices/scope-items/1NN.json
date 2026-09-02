@@ -2,7 +2,9 @@
   "scope_item_id": "1NN",
   "title": "Business Event Handling",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "IT and Cross-Application"
+    ],
     "L2_core_process": "Application Development and Integration",
     "L3_scope_item": "1NN - Business Event Handling",
     "L4_steps": [

@@ -2,7 +2,9 @@
   "scope_item_id": "5VZ",
   "title": "Internal Occupancy and Cost Allocation",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Finance",
     "L3_scope_item": "5VZ - Internal Occupancy and Cost Allocation",
     "L4_steps": [

@@ -2,7 +2,9 @@
   "scope_item_id": "6SZ",
   "title": "Error Correction and Suspense Accounting for Banking",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Finance",
     "L3_scope_item": "6SZ - Error Correction and Suspense Accounting for Banking",
     "L4_steps": [

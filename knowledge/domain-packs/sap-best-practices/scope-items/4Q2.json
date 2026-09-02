@@ -2,7 +2,9 @@
   "scope_item_id": "4Q2",
   "title": "External Tax Calculation",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Finance",
     "L3_scope_item": "4Q2 - External Tax Calculation",
     "L4_steps": [

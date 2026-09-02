@@ -2,7 +2,9 @@
   "scope_item_id": "5YV",
   "title": "External Occupancy and Contract Management \u2013 Group Ledger IFRS",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Finance",
     "L3_scope_item": "5YV - External Occupancy and Contract Management \u2013 Group Ledger IFRS",
     "L4_steps": [

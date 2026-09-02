@@ -2,7 +2,9 @@
   "scope_item_id": "7GE",
   "title": "Service \u2013 Workforce Procurement",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
     "L2_core_process": "Supply Chain",
     "L3_scope_item": "7GE - Service \u2013 Workforce Procurement",
     "L4_steps": [

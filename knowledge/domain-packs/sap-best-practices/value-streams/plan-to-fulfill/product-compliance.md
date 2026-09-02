@@ -3,7 +3,7 @@
 
 # Plan to Fulfill / Product Compliance
 
-Generated 2026-08-25. 10 scope items.
+Generated 2026-09-02. 10 scope items.
 
 ← [Back to Plan to Fulfill index](../index.md) (or [`../plan-to-fulfill.md`](../plan-to-fulfill.md))
 

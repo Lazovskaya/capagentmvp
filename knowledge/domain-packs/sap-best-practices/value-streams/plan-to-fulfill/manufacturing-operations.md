@@ -3,7 +3,7 @@
 
 # Plan to Fulfill / Manufacturing Operations
 
-Generated 2026-08-25. 36 scope items.
+Generated 2026-09-02. 36 scope items.
 
 ← [Back to Plan to Fulfill index](../index.md) (or [`../plan-to-fulfill.md`](../plan-to-fulfill.md))
 

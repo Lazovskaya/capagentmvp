@@ -2,7 +2,9 @@
   "scope_item_id": "2UV",
   "title": "Combined Invoice \u2013 Goods and Service Items",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
     "L2_core_process": "Supply Chain",
     "L3_scope_item": "2UV - Combined Invoice \u2013 Goods and Service Items",
     "L4_steps": [

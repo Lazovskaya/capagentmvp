@@ -3,7 +3,7 @@
 
 # Retail / Retail
 
-Generated 2026-08-25. 24 scope items.
+Generated 2026-09-02. 24 scope items.
 
 ← [Back to Retail index](../index.md) (or [`../retail.md`](../retail.md))
 

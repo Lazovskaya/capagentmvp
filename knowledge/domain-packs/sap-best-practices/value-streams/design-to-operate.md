@@ -3,7 +3,7 @@
 
 # Design to Operate
 
-Generated 2026-08-25. 107 scope items across 22 process groups.
+Generated 2026-09-02. 108 scope items across 23 process groups.
 
 | L2 process group | Items | Detail |
 |---|---|---|
@@ -28,6 +28,7 @@ Generated 2026-08-25. 107 scope items across 22 process groups.
 | Production Engineering | 5 | [production-engineering.md](design-to-operate/production-engineering.md) |
 | Production Planning | 7 | [production-planning.md](design-to-operate/production-planning.md) |
 | Quality Management | 3 | [quality-management.md](design-to-operate/quality-management.md) |
+| R&D and Product Management | 1 | [r-d-and-product-management.md](design-to-operate/r-d-and-product-management.md) |
 | Supplier Management | 1 | [supplier-management.md](design-to-operate/supplier-management.md) |
 
 ## Accounting and Financial Close
@@ -282,6 +283,14 @@ Generated 2026-08-25. 107 scope items across 22 process groups.
 | `5W4` | None | 25 | — | — | — |
 
 *Full BPMN detail → [quality-management.md](design-to-operate/quality-management.md)*
+
+## R&D and Product Management
+
+| Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
+|---|---|---|---|---|---|
+| `83I` | Advanced Solution Bundle Setup | 0 | — | — | SAP_BR_BOM_ENG_CUST_ORDER |
+
+*Full BPMN detail → [r-d-and-product-management.md](design-to-operate/r-d-and-product-management.md)*
 
 ## Supplier Management
 

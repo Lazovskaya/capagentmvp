@@ -3,7 +3,7 @@
 
 # IT and Cross-Application / Inventory
 
-Generated 2026-08-25. 7 scope items.
+Generated 2026-09-02. 7 scope items.
 
 ← [Back to IT and Cross-Application index](../index.md) (or [`../it-and-cross-application.md`](../it-and-cross-application.md))
 

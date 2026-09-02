@@ -3,7 +3,7 @@
 
 # Oil and Gas / Oil and Gas
 
-Generated 2026-08-25. 5 scope items.
+Generated 2026-09-02. 5 scope items.
 
 ← [Back to Oil and Gas index](../index.md) (or [`../oil-and-gas.md`](../oil-and-gas.md))
 

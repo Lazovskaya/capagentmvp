@@ -2,7 +2,9 @@
   "scope_item_id": "7GA",
   "title": "Recurring Services",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
     "L2_core_process": "Operations",
     "L3_scope_item": "7GA - Recurring Services",
     "L4_steps": [

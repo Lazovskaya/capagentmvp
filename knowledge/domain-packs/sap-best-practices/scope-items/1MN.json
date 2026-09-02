@@ -2,7 +2,9 @@
   "scope_item_id": "1MN",
   "title": "SAP Fiori Analytical Apps for Treasury and Risk Management",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Finance",
     "L3_scope_item": "1MN - SAP Fiori Analytical Apps for Treasury and Risk Management",
     "L4_steps": [

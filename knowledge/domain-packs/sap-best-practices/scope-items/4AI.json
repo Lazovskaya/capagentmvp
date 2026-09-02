@@ -2,7 +2,9 @@
   "scope_item_id": "4AI",
   "title": "SAP Ariba Buying",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
     "L2_core_process": "Sourcing and Procurement",
     "L3_scope_item": "4AI - SAP Ariba Buying",
     "L4_steps": [

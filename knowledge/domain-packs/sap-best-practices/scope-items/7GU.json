@@ -2,7 +2,9 @@
   "scope_item_id": "7GU",
   "title": "Stability Studies with Quality Management",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
     "L2_core_process": "Operations",
     "L3_scope_item": "7GU - Stability Studies with Quality Management",
     "L4_steps": [

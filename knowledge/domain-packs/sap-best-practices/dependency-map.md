@@ -3,7 +3,7 @@
 
 # SAP Best Practices — cross-scope-item dependency map
 
-Generated 2026-08-25. Shows subprocess dependencies extracted from BPMN models.
+Generated 2026-09-02. Shows subprocess dependencies extracted from BPMN models.
 
 A dependency means the scope item's BPMN diagram calls the other as a subprocess.
 

@@ -2,7 +2,9 @@
   "scope_item_id": "7TZ",
   "title": "Credit and Debit Memo Processing with Variant Configuration",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Budget and Finance",
     "L3_scope_item": "7TZ - Credit and Debit Memo Processing with Variant Configuration",
     "L4_steps": [

@@ -2,7 +2,9 @@
   "scope_item_id": "1O0",
   "title": "Planning Apps for Sales",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Budget and Finance",
     "L3_scope_item": "1O0 - Planning Apps for Sales",
     "L4_steps": [

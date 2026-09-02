@@ -3,7 +3,7 @@
 
 # Service / Service Operations and Processes
 
-Generated 2026-08-25. 12 scope items.
+Generated 2026-09-02. 12 scope items.
 
 ← [Back to Service index](../index.md) (or [`../service.md`](../service.md))
 

@@ -3,7 +3,7 @@
 
 # Retail
 
-Generated 2026-08-25. 33 scope items across 7 process groups.
+Generated 2026-09-02. 33 scope items across 7 process groups.
 
 | L2 process group | Items | Detail |
 |---|---|---|

@@ -2,7 +2,9 @@
   "scope_item_id": "5W0",
   "title": "Intercompany Occupancy and Contract Management",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Finance",
     "L3_scope_item": "5W0 - Intercompany Occupancy and Contract Management",
     "L4_steps": [

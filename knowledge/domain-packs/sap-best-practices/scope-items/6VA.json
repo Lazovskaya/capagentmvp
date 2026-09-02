@@ -2,7 +2,9 @@
   "scope_item_id": "6VA",
   "title": "Field Logistics Analytics",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Oil and Gas"
+    ],
     "L2_core_process": "Industry - Oil",
     "L3_scope_item": "6VA - Field Logistics Analytics",
     "L4_steps": [

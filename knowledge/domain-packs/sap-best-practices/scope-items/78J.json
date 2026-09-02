@@ -2,7 +2,9 @@
   "scope_item_id": "78J",
   "title": "Accounting Enhancements for Insurance",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Finance",
     "L3_scope_item": "78J - Accounting Enhancements for Insurance",
     "L4_steps": [

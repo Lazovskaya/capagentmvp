@@ -2,7 +2,9 @@
   "scope_item_id": "7YZ",
   "title": "Multistage Intercompany Stock Transfer",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Finance",
     "L3_scope_item": "7YZ - Multistage Intercompany Stock Transfer",
     "L4_steps": [

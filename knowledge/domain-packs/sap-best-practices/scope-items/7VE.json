@@ -2,7 +2,9 @@
   "scope_item_id": "7VE",
   "title": "Advanced TM-EWM \u2013 Inbound Advanced Shipping and Receiving",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
     "L2_core_process": "Supply Chain",
     "L3_scope_item": "7VE - Advanced TM-EWM \u2013 Inbound Advanced Shipping and Receiving",
     "L4_steps": [

@@ -2,7 +2,9 @@
   "scope_item_id": "2JB",
   "title": "SAP Fiori Analytical Apps for Financial Accounting",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Finance",
     "L3_scope_item": "2JB - SAP Fiori Analytical Apps for Financial Accounting",
     "L4_steps": [

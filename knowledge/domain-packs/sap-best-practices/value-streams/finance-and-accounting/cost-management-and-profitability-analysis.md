@@ -3,7 +3,7 @@
 
 # Finance and Accounting / Cost Management and Profitability Analysis
 
-Generated 2026-08-25. 18 scope items.
+Generated 2026-09-02. 18 scope items.
 
 ← [Back to Finance and Accounting index](../index.md) (or [`../finance-and-accounting.md`](../finance-and-accounting.md))
 

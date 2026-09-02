@@ -2,7 +2,9 @@
   "scope_item_id": "6ED",
   "title": "Lease-Out for Sublease Accounting (UPA)",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Finance",
     "L3_scope_item": "6ED - Lease-Out for Sublease Accounting (UPA)",
     "L4_steps": [

@@ -2,7 +2,9 @@
   "scope_item_id": "3ND",
   "title": "Product Structure Management",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
     "L2_core_process": "Manufacturing",
     "L3_scope_item": "3ND - Product Structure Management",
     "L4_steps": [

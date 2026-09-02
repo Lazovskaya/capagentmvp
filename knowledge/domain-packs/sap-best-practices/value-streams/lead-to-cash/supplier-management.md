@@ -3,7 +3,7 @@
 
 # Lead to Cash / Supplier Management
 
-Generated 2026-08-25. 1 scope items.
+Generated 2026-09-02. 1 scope items.
 
 ← [Back to Lead to Cash index](../index.md) (or [`../lead-to-cash.md`](../lead-to-cash.md))
 

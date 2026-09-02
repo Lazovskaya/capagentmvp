@@ -2,7 +2,9 @@
   "scope_item_id": "6GS",
   "title": "Service Management with Advanced Variant Configuration",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Service"
+    ],
     "L2_core_process": "Service",
     "L3_scope_item": "6GS - Service Management with Advanced Variant Configuration",
     "L4_steps": [

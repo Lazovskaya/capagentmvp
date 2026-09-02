@@ -2,7 +2,9 @@
   "scope_item_id": "6WD",
   "title": "Convergent Invoicing \u2013 Cost Handling for Subscriptions and Usage",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Finance",
     "L3_scope_item": "6WD - Convergent Invoicing \u2013 Cost Handling for Subscriptions and Usage",
     "L4_steps": [

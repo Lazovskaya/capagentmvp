@@ -2,7 +2,9 @@
   "scope_item_id": "5O6",
   "title": "Compliance Formats \u2013 Support Preparation for Germany",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Finance",
     "L3_scope_item": "5O6 - Compliance Formats \u2013 Support Preparation for Germany",
     "L4_steps": [

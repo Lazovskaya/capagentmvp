@@ -3,7 +3,7 @@
 
 # Recruit to Retire
 
-Generated 2026-08-25. 10 scope items across 2 process groups.
+Generated 2026-09-02. 10 scope items across 2 process groups.
 
 | L2 process group | Items | Detail |
 |---|---|---|

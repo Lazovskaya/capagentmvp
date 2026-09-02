@@ -3,63 +3,34 @@
 
 # SAP Best Practices — taxonomy overview
 
-Generated 2026-08-25 from 732 scope items.
+Generated 2026-09-02 from 732 scope items.
 
 ## L1 value streams
 
 | L1 value stream | Scope items | L2 process groups |
 |---|---|---|
-| [(Unclassified)](value-streams/unclassified.md) | 141 | 16 |
-| [Design to Operate](value-streams/design-to-operate.md) | 107 | 22 |
-| [Finance and Accounting](value-streams/finance-and-accounting.md) | 302 | 26 |
-| [IT and Cross-Application](value-streams/it-and-cross-application.md) | 93 | 21 |
-| [Lead to Cash](value-streams/lead-to-cash.md) | 163 | 30 |
-| [Oil and Gas](value-streams/oil-and-gas.md) | 5 | 1 |
-| [Plan to Fulfill](value-streams/plan-to-fulfill.md) | 288 | 30 |
+| [(Unclassified)](value-streams/unclassified.md) | 1 | 1 |
+| [Design to Operate](value-streams/design-to-operate.md) | 108 | 23 |
+| [Finance and Accounting](value-streams/finance-and-accounting.md) | 378 | 28 |
+| [IT and Cross-Application](value-streams/it-and-cross-application.md) | 101 | 24 |
+| [Lead to Cash](value-streams/lead-to-cash.md) | 167 | 32 |
+| [Mining](value-streams/mining.md) | 1 | 1 |
+| [Oil and Gas](value-streams/oil-and-gas.md) | 6 | 2 |
+| [Plan to Fulfill](value-streams/plan-to-fulfill.md) | 332 | 33 |
 | [Professional Services](value-streams/professional-services.md) | 14 | 2 |
 | [Recruit to Retire](value-streams/recruit-to-retire.md) | 10 | 2 |
 | [Retail](value-streams/retail.md) | 33 | 7 |
-| [Service](value-streams/service.md) | 19 | 3 |
-| [Source to Pay](value-streams/source-to-pay.md) | 183 | 27 |
+| [Service](value-streams/service.md) | 21 | 4 |
+| [Source to Pay](value-streams/source-to-pay.md) | 186 | 28 |
 
 ## L1 → L2 → scope items
 
-### (Unclassified) (141 scope items)
+### (Unclassified) (1 scope items)
 
 **(Unknown)** (1): `3I1`
 
-**Application Development and Integration** (3): `1KA`, `1NN`, `3I2`
 
-**Budget and Finance** (17): `1BS`, `1O0`, `2RP`, `2UW`, `2YJ`, `3SS`, `43D`, `6R3`, `71S`, `78S`, `7ED`, `7IW`, `7JO`, `7KW`, `7TZ`, `7YH`, `7YY`
-
-**Database and Data Management** (2): `2Q2`, `7MI`
-
-**Finance** (59): `1J5`, `1MN`, `1WQ`, `2BK`, `2JB`, `2KF`, `2KH`, `2QY`, `2ZS`, `3F4`, `3L5`, `4Q2`, `4R7`, `5HG`, `5NU`, `5O6`, `5VW`, `5VX`, `5VY`, `5VZ`, `5W0`, `5YU`, `5YV`, `5YW`, `6DR`, `6DS`, `6DT`, `6DU`, `6EB`, `6EC`, `6ED`, `6EE`, `6EF`, `6EG`, `6N8`, `6ND`, `6SZ`, `6V0`, `6VP`, `6VQ`, `6WC`, `6WD`, `6YU`, `78J`, `7AU`, `7DP`, `7DX`, `7EZ`, `7G4`, `7G5`, `7MA`, `7MG`, `7MJ`, `7NH`, `7O6`, `7OD`, `7YZ`, `830`, `BGC`
-
-**Industry - Oil** (1): `6VA`
-
-**Intelligent Technologies** (3): `1QR`, `20N`, `3FY`
-
-**Manufacturing** (4): `3ND`, `7JF`, `7VA`, `7VB`
-
-**Marketing** (1): `5SW`
-
-**Mine Operations** (1): `6BA`
-
-**Operations** (10): `3W1`, `7DN`, `7DW`, `7GA`, `7GT`, `7GU`, `7TO`, `7UV`, `7V9`, `7Z2`
-
-**R&D and Product Management** (1): `83I`
-
-**Sales and Marketing** (3): `7GB`, `7Z6`, `7ZJ`
-
-**Service** (2): `43B`, `6GS`
-
-**Sourcing and Procurement** (3): `4AI`, `7YM`, `81Y`
-
-**Supply Chain** (30): `1JI`, `2UV`, `3HR`, `3I3`, `3I5`, `5IM`, `6AN`, `6DI`, `6NH`, `6NM`, `6V2`, `6W1`, `6W2`, `6W3`, `6W4`, `71O`, `71P`, `7DO`, `7GD`, `7GE`, `7GP`, `7GQ`, `7IX`, `7MD`, `7VD`, `7VE`, `7VF`, `7VG`, `83B`, `BGG`
-
-
-### Design to Operate (107 scope items)
+### Design to Operate (108 scope items)
 
 **Accounting and Financial Close** (2): `61W`, `6GD`
 
@@ -103,10 +74,12 @@ Generated 2026-08-25 from 732 scope items.
 
 **Quality Management** (3): `55E`, `5HK`, `5W4`
 
+**R&D and Product Management** (1): `83I`
+
 **Supplier Management** (1): `5W4`
 
 
-### Finance and Accounting (302 scope items)
+### Finance and Accounting (378 scope items)
 
 **2F5 - 00 - Treasury Trading via Trading Platforms** (1): `2F5`
 
@@ -116,6 +89,8 @@ Generated 2026-08-25 from 732 scope items.
 
 **Advanced Financial Operations** (23): `1QM`, `1RY`, `2AR`, `2BE`, `2BI`, `2DP`, `2SJ`, `2T3`, `2UJ`, `33X`, `3DX`, `3L3`, `42L`, `43Y`, `55U`, `5IS`, `5Z0`, `5Z1`, `5Z2`, `5Z8`, `BD6`, `BFC`, `J58`
 
+**Budget and Finance** (17): `1BS`, `1O0`, `2RP`, `2UW`, `2YJ`, `3SS`, `43D`, `6R3`, `71S`, `78S`, `7ED`, `7IW`, `7JO`, `7KW`, `7TZ`, `7YH`, `7YY`
+
 **Cost Management and Profitability Analysis** (18): `1HB`, `1NT`, `2I3`, `2QL`, `33Q`, `34B`, `3F0`, `4I9`, `4Q0`, `4RC`, `5OI`, `5W2`, `61W`, `6GD`, `BEG`, `BEV`, `J54`, `J55`
 
 **Enterprise Information Management** (5): `54U`, `54V`, `55E`, `55F`, `6GD`
@@ -123,6 +98,8 @@ Generated 2026-08-25 from 732 scope items.
 **Enterprise Portfolio and Project Management** (3): `1NT`, `4I9`, `6GD`
 
 **Enterprise Risk and Compliance** (20): `1W8`, `1WA`, `1WC`, `1WE`, `24F`, `24H`, `24J`, `2OH`, `2U1`, `2U2`, `2U3`, `3AB`, `3JX`, `3KX`, `3KY`, `5PA`, `5Z3`, `5Z4`, `6NL`, `BDT`
+
+**Finance** (59): `1J5`, `1MN`, `1WQ`, `2BK`, `2JB`, `2KF`, `2KH`, `2QY`, `2ZS`, `3F4`, `3L5`, `4Q2`, `4R7`, `5HG`, `5NU`, `5O6`, `5VW`, `5VX`, `5VY`, `5VZ`, `5W0`, `5YU`, `5YV`, `5YW`, `6DR`, `6DS`, `6DT`, `6DU`, `6EB`, `6EC`, `6ED`, `6EE`, `6EF`, `6EG`, `6N8`, `6ND`, `6SZ`, `6V0`, `6VP`, `6VQ`, `6WC`, `6WD`, `6YU`, `78J`, `7AU`, `7DP`, `7DX`, `7EZ`, `7G4`, `7G5`, `7MA`, `7MG`, `7MJ`, `7NH`, `7O6`, `7OD`, `7YZ`, `830`, `BGC`
 
 **Financial Operations** (21): `19M`, `1JT`, `1M1`, `1MV`, `1S0`, `1S2`, `2LH`, `2LZ`, `2M0`, `2MB`, `2PD`, `4AV`, `4X8`, `54U`, `54V`, `55E`, `55F`, `55I`, `6GD`, `J59`, `J60`
 
@@ -161,21 +138,27 @@ Generated 2026-08-25 from 732 scope items.
 **Warehousing** (1): `54V`
 
 
-### IT and Cross-Application (93 scope items)
+### IT and Cross-Application (101 scope items)
 
 **Accounting and Financial Close** (1): `6GD`
 
 **Administration and Usability** (1): `1LQ`
 
+**Application Development and Integration** (3): `1KA`, `1NN`, `3I2`
+
 **Core HR and Time Recording** (4): `1FD`, `1NL`, `3UP`, `JB1`
 
 **Cost Management and Profitability Analysis** (1): `6GD`
+
+**Database and Data Management** (2): `2Q2`, `7MI`
 
 **Enterprise Information Management** (31): `1FD`, `1N1`, `1N3`, `1N5`, `1N7`, `1NJ`, `1NL`, `1NX`, `1RK`, `1RM`, `1UG`, `1XV`, `2OQ`, `2YC`, `35D`, `3UP`, `4AP`, `4AQ`, `4LO`, `4O0`, `53L`, `53M`, `53V`, `54U`, `54V`, `55E`, `55F`, `62R`, `6GD`, `6N4`, `JB1`
 
 **Enterprise Portfolio and Project Management** (1): `6GD`
 
 **Financial Operations** (5): `54U`, `54V`, `55E`, `55F`, `6GD`
+
+**Intelligent Technologies** (3): `1QR`, `20N`, `3FY`
 
 **Inventory** (7): `4LO`, `4O0`, `54U`, `55E`, `55F`, `62R`, `6GD`
 
@@ -206,7 +189,7 @@ Generated 2026-08-25 from 732 scope items.
 **Warehousing** (1): `54V`
 
 
-### Lead to Cash (163 scope items)
+### Lead to Cash (167 scope items)
 
 **Accounting and Financial Close** (1): `6GD`
 
@@ -236,6 +219,8 @@ Generated 2026-08-25 from 732 scope items.
 
 **Manufacturing Options** (7): `54U`, `54V`, `55E`, `55F`, `5W4`, `6AA`, `6GD`
 
+**Marketing** (1): `5SW`
+
 **Operational Procurement** (7): `1P9`, `1ZQ`, `3ZB`, `54U`, `55E`, `5W4`, `6GD`
 
 **Order Promising** (7): `2LN`, `54U`, `54V`, `55E`, `55F`, `5W4`, `6LJ`
@@ -260,6 +245,8 @@ Generated 2026-08-25 from 732 scope items.
 
 **Sales Performance Management** (1): `2TT`
 
+**Sales and Marketing** (3): `7GB`, `7Z6`, `7ZJ`
+
 **Sourcing and Contract Management** (1): `6AA`
 
 **Subscription Billing and Revenue Management** (9): `2BE`, `2BG`, `2T3`, `33V`, `3DX`, `3L8`, `42L`, `47I`, `5IK`
@@ -269,12 +256,19 @@ Generated 2026-08-25 from 732 scope items.
 **Warehousing** (1): `54V`
 
 
-### Oil and Gas (5 scope items)
+### Mining (1 scope items)
+
+**Mine Operations** (1): `6BA`
+
+
+### Oil and Gas (6 scope items)
+
+**Industry - Oil** (1): `6VA`
 
 **Oil and Gas** (5): `40G`, `4AH`, `4ON`, `5NM`, `5OM`
 
 
-### Plan to Fulfill (288 scope items)
+### Plan to Fulfill (332 scope items)
 
 **Accounting and Financial Close** (1): `6GD`
 
@@ -300,6 +294,8 @@ Generated 2026-08-25 from 732 scope items.
 
 **Logistics Cross Topics** (3): `4MM`, `BLF`, `BLL`
 
+**Manufacturing** (4): `3ND`, `7JF`, `7VA`, `7VB`
+
 **Manufacturing Insights** (1): `6AA`
 
 **Manufacturing Operations** (36): `1BM`, `1Y5`, `1YT`, `21D`, `21T`, `2JN`, `2RU`, `2UG`, `2WL`, `3L7`, `3OK`, `3UK`, `3UL`, `3W3`, `3W4`, `42N`, `4DN`, `4OC`, `4R8`, `54U`, `54V`, `55E`, `55F`, `5HK`, `5OI`, `6A9`, `6GD`, `BJ5`, `BJ8`, `BJE`, `BJH`, `BJK`, `BJN`, `BJQ`, `BLF`, `BLL`
@@ -307,6 +303,8 @@ Generated 2026-08-25 from 732 scope items.
 **Manufacturing Options** (17): `1E3`, `2EM`, `4B3`, `4B4`, `53X`, `54U`, `54V`, `55E`, `55F`, `5I2`, `5W4`, `6AA`, `6GD`, `BJH`, `BJK`, `BLL`, `BMY`
 
 **Operational Procurement** (19): `1P9`, `1ZQ`, `2LG`, `2LH`, `2TW`, `2TX`, `54U`, `55E`, `5HP`, `5I2`, `5W4`, `65D`, `6GD`, `BLF`, `BLL`, `BMY`, `BNX`, `J45`, `J82`
+
+**Operations** (10): `3W1`, `7DN`, `7DW`, `7GA`, `7GT`, `7GU`, `7TO`, `7UV`, `7V9`, `7Z2`
 
 **Order Promising** (5): `54U`, `54V`, `55E`, `55F`, `5W4`
 
@@ -333,6 +331,8 @@ Generated 2026-08-25 from 732 scope items.
 **Sourcing and Contract Management** (2): `5OJ`, `6AA`
 
 **Supplier Management** (1): `5W4`
+
+**Supply Chain** (30): `1JI`, `2UV`, `3HR`, `3I3`, `3I5`, `5IM`, `6AN`, `6DI`, `6NH`, `6NM`, `6V2`, `6W1`, `6W2`, `6W3`, `6W4`, `71O`, `71P`, `7DO`, `7GD`, `7GE`, `7GP`, `7GQ`, `7IX`, `7MD`, `7VD`, `7VE`, `7VF`, `7VG`, `83B`, `BGG`
 
 **Warehousing** (41): `1FS`, `1FU`, `1FW`, `1FY`, `1G0`, `1G2`, `1V5`, `1V7`, `1V9`, `1VB`, `2VJ`, `2VK`, `2VL`, `2VM`, `2VN`, `2VO`, `2YL`, `3BR`, `3BS`, `3BT`, `3BU`, `3BW`, `3BX`, `3DV`, `3M0`, `3VT`, `3W0`, `41U`, `4A2`, `4RO`, `4RP`, `4RQ`, `4RR`, `4RS`, `54V`, `5HN`, `5HO`, `5OK`, `69L`, `69M`, `6NI`
 
@@ -368,7 +368,9 @@ Generated 2026-08-25 from 732 scope items.
 **Warehousing** (2): `69L`, `69M`
 
 
-### Service (19 scope items)
+### Service (21 scope items)
+
+**Service** (2): `43B`, `6GS`
 
 **Service Master Data and Agreement Management** (6): `3MO`, `426`, `5HR`, `63Y`, `6AU`, `6F1`
 
@@ -377,7 +379,7 @@ Generated 2026-08-25 from 732 scope items.
 **Service Parts Management** (1): `6AU`
 
 
-### Source to Pay (183 scope items)
+### Source to Pay (186 scope items)
 
 **Accounting and Financial Close** (1): `6GD`
 
@@ -431,6 +433,8 @@ Generated 2026-08-25 from 732 scope items.
 
 **Sourcing and Contract Management** (13): `1XF`, `1XV`, `3ZF`, `4AZ`, `4BL`, `4QN`, `4RD`, `4RI`, `5OJ`, `5W3`, `6AA`, `6AJ`, `BMD`
 
+**Sourcing and Procurement** (3): `4AI`, `7YM`, `81Y`
+
 **Supplier Management** (5): `19C`, `19E`, `5W4`, `6A6`, `SL4`
 
 
@@ -447,7 +451,7 @@ Generated 2026-08-25 from 732 scope items.
 | `1A8` | Internal Project Management – Project-Based Services | Professional Services | Professional Services | 16 | 6 |
 | `1B6` | Sales Rebate Processing | Lead to Cash | Order and Contract Management | 19 | 2 |
 | `1BM` | Make-to-Order Production – Semifinished Goods Planning and Assembly | Plan to Fulfill | Manufacturing Operations, Production Planning | 12 | 0 |
-| `1BS` | SAP Fiori Analytical Apps for Sales | — | Budget and Finance | 0 | 0 |
+| `1BS` | SAP Fiori Analytical Apps for Sales | Finance and Accounting | Budget and Finance | 0 | 0 |
 | `1E1` | Quality Management in Discrete Manufacturing | Plan to Fulfill | Quality Management | 12 | 0 |
 | `1E3` | Material Replenishment with Kanban – External Procurement | Plan to Fulfill | Manufacturing Options | 4 | 0 |
 | `1EG` | Bank Integration with File Interface | Finance and Accounting | Treasury Management | 2 | 0 |
@@ -474,18 +478,18 @@ Generated 2026-08-25 from 732 scope items.
 | `1IQ` | Sales Inquiry | Lead to Cash | Order and Contract Management | 6 | 2 |
 | `1IU` | Customer Consignment | Lead to Cash | Order and Contract Management | 11 | 1 |
 | `1J2` | Compliance Formats – Support Preparation | Finance and Accounting | Accounting and Financial Close, Advanced Accounting and Financial Close | 0 | 0 |
-| `1J5` | Invoice, Taxes and Complementary Postings | — | Finance | 0 | 0 |
-| `1JI` | Real-Time Reporting and Monitoring for Procurement | — | Supply Chain | 0 | 0 |
+| `1J5` | Invoice, Taxes and Complementary Postings | Finance and Accounting | Finance | 0 | 0 |
+| `1JI` | Real-Time Reporting and Monitoring for Procurement | Plan to Fulfill | Supply Chain | 0 | 0 |
 | `1JT` | Lockbox | Finance and Accounting | Financial Operations | 3 | 0 |
 | `1JW` | Advanced Available-to-Promise Processing | Lead to Cash | Advanced Order Promising | 8 | 0 |
 | `1K2` | Event-Based Revenue Recognition – Sell from Stock | Finance and Accounting | Accounting and Financial Close | 8 | 1 |
-| `1KA` | Information Lifecycle Management | — | Application Development and Integration | 0 | 0 |
+| `1KA` | Information Lifecycle Management | IT and Cross-Application | Application Development and Integration | 0 | 0 |
 | `1LE` | None | Source to Pay | Invoice Management | 6 | 0 |
 | `1LQ` | Output Management | IT and Cross-Application | Administration and Usability | 11 | 0 |
 | `1M1` | Travel Expense Processing with SAP Concur | Finance and Accounting | Financial Operations | 15 | 0 |
 | `1MC` | Omnichannel Convergent Billing | Lead to Cash | Order and Contract Management | 7 | 5 |
 | `1MI` | Delivery Processing without Order Reference | Lead to Cash | Order and Contract Management | 9 | 2 |
-| `1MN` | SAP Fiori Analytical Apps for Treasury and Risk Management | — | Finance | 0 | 0 |
+| `1MN` | SAP Fiori Analytical Apps for Treasury and Risk Management | Finance and Accounting | Finance | 0 | 0 |
 | `1MP` | Quality Management in Sales | Plan to Fulfill | Inventory, Quality Management | 12 | 0 |
 | `1MR` | Quality Management in Stock Handling | Plan to Fulfill | Inventory, Quality Management | 3 | 0 |
 | `1MV` | Cash Application Integration | Finance and Accounting | Financial Operations | 1 | 0 |
@@ -496,11 +500,11 @@ Generated 2026-08-25 from 732 scope items.
 | `1N7` | None | IT and Cross-Application | Enterprise Information Management | 4 | 0 |
 | `1NJ` | Responsibility Management | IT and Cross-Application | Enterprise Information Management, Process Management and Integration | 14 | 0 |
 | `1NL` | None | IT and Cross-Application, Recruit to Retire | Core HR and Time Recording, Enterprise Information Management | 2 | 0 |
-| `1NN` | Business Event Handling | — | Application Development and Integration | 0 | 0 |
+| `1NN` | Business Event Handling | IT and Cross-Application | Application Development and Integration | 0 | 0 |
 | `1NR` | Engineering Bill of Material – Versions Management | Design to Operate | Product Engineering | 9 | 0 |
 | `1NT` | Project Control – Finance | Design to Operate, Finance and Accounting | Cost Management and Profitability Analysis, Enterprise Portfolio and Project Management | 16 | 4 |
 | `1NX` | None | IT and Cross-Application | Enterprise Information Management | 3 | 0 |
-| `1O0` | Planning Apps for Sales | — | Budget and Finance | 0 | 0 |
+| `1O0` | Planning Apps for Sales | Finance and Accounting | Budget and Finance | 0 | 0 |
 | `1P0` | Event-Based Revenue Recognition – Project-Based Services – IFRS | Finance and Accounting, Professional Services | Accounting and Financial Close, Professional Services | 12 | 1 |
 | `1P7` | None | Plan to Fulfill | Inventory | 6 | 0 |
 | `1P9` | None | Lead to Cash, Plan to Fulfill, Source to Pay | Delivery and Transportation, Invoice Management, Operational Procurement, Order and Contract Management | 11 | 0 |
@@ -509,7 +513,7 @@ Generated 2026-08-25 from 732 scope items.
 | `1QC` | None | Design to Operate | Product Lifecycle Management | 4 | 0 |
 | `1QG` | Recipe Handover to Production – Bill of Material | Design to Operate | Product Lifecycle Management | 6 | 0 |
 | `1QM` | Advanced Credit Management | Finance and Accounting | Advanced Financial Operations | 5 | 0 |
-| `1QR` | Predictive Analytics for Purchase Contract Quantity Consumption | — | Intelligent Technologies | 0 | 0 |
+| `1QR` | Predictive Analytics for Purchase Contract Quantity Consumption | IT and Cross-Application | Intelligent Technologies | 0 | 0 |
 | `1R3` | None | Design to Operate | Product Engineering | 10 | 0 |
 | `1R5` | None | Design to Operate | Product Engineering | 4 | 0 |
 | `1RK` | None | IT and Cross-Application | Enterprise Information Management | 1 | 0 |
@@ -532,7 +536,7 @@ Generated 2026-08-25 from 732 scope items.
 | `1WC` | Embargo Control | Finance and Accounting | Enterprise Risk and Compliance | 11 | 0 |
 | `1WE` | Restricted Party Screening with SAP Watch List Screening | Finance and Accounting | Enterprise Risk and Compliance | 5 | 0 |
 | `1WO` | None | Lead to Cash | Order and Contract Management | 2 | 2 |
-| `1WQ` | Bill of Exchange | — | Finance | 0 | 0 |
+| `1WQ` | Bill of Exchange | Finance and Accounting | Finance | 0 | 0 |
 | `1WV` | Debt and Investment Management | Finance and Accounting | Treasury Management | 4 | 0 |
 | `1X1` | Foreign Currency Risk Management | Finance and Accounting | Treasury Management | 6 | 0 |
 | `1X3` | Interest Rate Derivatives Management | Finance and Accounting | Treasury Management | 6 | 0 |
@@ -555,7 +559,7 @@ Generated 2026-08-25 from 732 scope items.
 | `1ZI` | None | Design to Operate | Product Lifecycle Management | 5 | 0 |
 | `1ZQ` | None | Lead to Cash, Plan to Fulfill, Source to Pay | Inventory, Operational Procurement, Order and Contract Management | 7 | 0 |
 | `1ZT` | Managing Material Price Changes and Inventory Values | Finance and Accounting | Accounting and Financial Close | 1 | 0 |
-| `20N` | Predictive Analytics Model Training – Supply Chain | — | Intelligent Technologies | 0 | 0 |
+| `20N` | Predictive Analytics Model Training – Supply Chain | IT and Cross-Application | Intelligent Technologies | 0 | 0 |
 | `21D` | Make-to-Stock Production with Variant Configuration | Design to Operate, Plan to Fulfill | Manufacturing Operations, Product Engineering, Product Lifecycle Management, Production Planning | 5 | 0 |
 | `21P` | Lease-In Accounting – Group Ledger IFRS | Finance and Accounting | Advanced Accounting and Financial Close, Real Estate Management | 2 | 0 |
 | `21Q` | Lease-Out Accounting | Finance and Accounting | Advanced Accounting and Financial Close, Real Estate Management | 2 | 0 |
@@ -575,7 +579,7 @@ Generated 2026-08-25 from 732 scope items.
 | `2BE` | Convergent Invoicing – Invoice Correction Processing | Finance and Accounting, Lead to Cash | Advanced Financial Operations, Subscription Billing and Revenue Management | 0 | 0 |
 | `2BG` | Convergent Invoicing – Invoice Creation for Usage and Service | Lead to Cash | Subscription Billing and Revenue Management | 6 | 6 |
 | `2BI` | Contract Accounting – Customer Initiated Payments | Finance and Accounting | Advanced Financial Operations | 6 | 0 |
-| `2BK` | Contract Accounting – Daily and Monthly Closing | — | Finance | 2 | 0 |
+| `2BK` | Contract Accounting – Daily and Monthly Closing | Finance and Accounting | Finance | 2 | 0 |
 | `2DP` | Contract Accounting – Company Initiated Payments | Finance and Accounting | Advanced Financial Operations | 11 | 0 |
 | `2EJ` | Integration of Procurement with External Suppliers | Source to Pay | Operational Procurement | 6 | 0 |
 | `2EL` | Integration of Sales with External Buyers | Lead to Cash | Order and Contract Management | 5 | 1 |
@@ -593,10 +597,10 @@ Generated 2026-08-25 from 732 scope items.
 | `2G6` | Embedded Software Management | Design to Operate | Product Lifecycle Management | 5 | 0 |
 | `2HU` | Intercompany Foreign Exchange – Group Ledger IFRS | Finance and Accounting | Treasury Management | 4 | 2 |
 | `2I3` | Predictive Commitments Management | Finance and Accounting | Cost Management and Profitability Analysis | 4 | 2 |
-| `2JB` | SAP Fiori Analytical Apps for Financial Accounting | — | Finance | 0 | 0 |
+| `2JB` | SAP Fiori Analytical Apps for Financial Accounting | Finance and Accounting | Finance | 0 | 0 |
 | `2JN` | None | Plan to Fulfill | Manufacturing Operations | 7 | 0 |
-| `2KF` | SAP Fiori Analytical Apps for Convergent Invoicing Specialist | — | Finance | 0 | 0 |
-| `2KH` | SAP Fiori Analytical Apps for Contract Accounting Manager | — | Finance | 0 | 0 |
+| `2KF` | SAP Fiori Analytical Apps for Convergent Invoicing Specialist | Finance and Accounting | Finance | 0 | 0 |
+| `2KH` | SAP Fiori Analytical Apps for Contract Accounting Manager | Finance and Accounting | Finance | 0 | 0 |
 | `2LG` | Supplier Consignment | Plan to Fulfill, Source to Pay | Inventory, Invoice Management, Operational Procurement | 5 | 0 |
 | `2LH` | None | Finance and Accounting, Plan to Fulfill, Source to Pay | Financial Operations, Inventory, Invoice Management, Operational Procurement | 6 | 0 |
 | `2LN` | Basic Available-to-Promise Processing | Lead to Cash | Order Promising | 3 | 0 |
@@ -616,15 +620,15 @@ Generated 2026-08-25 from 732 scope items.
 | `2OO` | External Tax Audit | Finance and Accounting | Accounting and Financial Close | 6 | 0 |
 | `2OQ` | Integration to SAP Enterprise Contract Assembly | IT and Cross-Application | Enterprise Information Management | 1 | 0 |
 | `2PD` | Provisioning of Overdue Receivables | Finance and Accounting | Financial Operations | 8 | 0 |
-| `2Q2` | Data Migration to SAP S/4HANA from Staging | — | Database and Data Management | 0 | 0 |
+| `2Q2` | Data Migration to SAP S/4HANA from Staging | IT and Cross-Application | Database and Data Management | 0 | 0 |
 | `2QI` | Demand-Driven Replenishment Planning and Execution | Plan to Fulfill | Production Planning | 6 | 0 |
 | `2QL` | Universal Allocation | Finance and Accounting | Cost Management and Profitability Analysis | 10 | 0 |
 | `2QN` | Nonconformance Management | Plan to Fulfill | Quality Management | 3 | 0 |
 | `2QP` | None | Plan to Fulfill | Quality Management | 11 | 0 |
-| `2QY` | SAP Fiori Analytical Apps for Asset Accounting in Finance | — | Finance | 0 | 0 |
+| `2QY` | SAP Fiori Analytical Apps for Asset Accounting in Finance | Finance and Accounting | Finance | 0 | 0 |
 | `2R3` | None | Source to Pay | Operational Procurement | 7 | 0 |
 | `2R7` | Purchasing Rebate Processing | Source to Pay | Operational Procurement | 12 | 0 |
-| `2RP` | Electronic Documents | — | Budget and Finance | 0 | 0 |
+| `2RP` | Electronic Documents | Finance and Accounting | Budget and Finance | 0 | 0 |
 | `2RU` | None | Plan to Fulfill | Inventory, Manufacturing Operations | 5 | 0 |
 | `2RW` | Hedge Accounting for FX Option – Group Ledger IFRS | Finance and Accounting | Treasury Management | 3 | 0 |
 | `2SA` | Lease-Out for Sublease Accounting – Group Ledger IFRS | Finance and Accounting | Advanced Accounting and Financial Close, Real Estate Management | 3 | 0 |
@@ -646,8 +650,8 @@ Generated 2026-08-25 from 732 scope items.
 | `2UJ` | Contract Accounting – Open Item Management | Finance and Accounting | Advanced Financial Operations | 7 | 0 |
 | `2UN` | Money Market Mutual Fund Management | Finance and Accounting | Treasury Management | 17 | 12 |
 | `2UO` | None | Finance and Accounting | Treasury Management | 3 | 0 |
-| `2UV` | Combined Invoice – Goods and Service Items | — | Supply Chain | 0 | 0 |
-| `2UW` | Delivery of Goods on Behalf of Another Company | — | Budget and Finance | 0 | 0 |
+| `2UV` | Combined Invoice – Goods and Service Items | Plan to Fulfill | Supply Chain | 0 | 0 |
+| `2UW` | Delivery of Goods on Behalf of Another Company | Finance and Accounting | Budget and Finance | 0 | 0 |
 | `2V0` | SAP Fiori Analytical Apps for Quality Management | Plan to Fulfill | Quality Management | 1 | 0 |
 | `2V7` | Monitoring of Goods and Invoice Receipts | Finance and Accounting | Accounting and Financial Close | 2 | 0 |
 | `2V8` | None | Finance and Accounting | Advanced Accounting and Financial Close | 7 | 0 |
@@ -665,10 +669,10 @@ Generated 2026-08-25 from 732 scope items.
 | `2XU` | Procurement of Materials with Variant Configuration | Design to Operate, Source to Pay | Operational Procurement, Product Engineering, Product Lifecycle Management | 6 | 0 |
 | `2Y7` | None | Design to Operate | Enterprise Portfolio and Project Management | 1 | 0 |
 | `2YC` | None | Design to Operate, IT and Cross-Application | Enterprise Information Management, Product Lifecycle Management | 4 | 0 |
-| `2YJ` | Predictive Analytics Model Training – Sales | — | Budget and Finance | 0 | 0 |
+| `2YJ` | Predictive Analytics Model Training – Sales | Finance and Accounting | Budget and Finance | 0 | 0 |
 | `2YL` | None | Plan to Fulfill | Warehousing | 1 | 0 |
 | `2YM` | None | Finance and Accounting | Treasury Management | 0 | 0 |
-| `2ZS` | Machine Learning for Monitoring of Goods and Invoice Receipts | — | Finance | 0 | 0 |
+| `2ZS` | Machine Learning for Monitoring of Goods and Invoice Receipts | Finance and Accounting | Finance | 0 | 0 |
 | `31G` | Chemical Compliance Approval for Purchased Material and Supplier | Plan to Fulfill | Product Compliance | 3 | 0 |
 | `31H` | Assess Marketability of a Product | Plan to Fulfill | Product Compliance | 4 | 0 |
 | `31J` | Chemical Compliance in the Value Chain | Lead to Cash, Plan to Fulfill | Order and Contract Management, Product Compliance | 7 | 0 |
@@ -713,22 +717,22 @@ Generated 2026-08-25 from 732 scope items.
 | `3EN` | Guided Buying for Central Procurement with SAP Ariba Buying | Source to Pay | Central Procurement, Operational Procurement | 6 | 0 |
 | `3EP` | None | Plan to Fulfill | Delivery and Transportation | 2 | 0 |
 | `3F0` | Event-Based Production Cost Posting | Finance and Accounting | Cost Management and Profitability Analysis | 5 | 0 |
-| `3F4` | Sales-Based Rent | — | Finance | 0 | 0 |
+| `3F4` | Sales-Based Rent | Finance and Accounting | Finance | 0 | 0 |
 | `3F7` | Joint Venture Accounting | Finance and Accounting | Advanced Accounting and Financial Close | 0 | 0 |
 | `3FC` | Assess Dangerous Goods for a Product | Plan to Fulfill | Product Compliance | 4 | 0 |
 | `3FP` | None | Design to Operate | Environment, Health, and Safety | 6 | 0 |
-| `3FY` | Prediction of Delivery Date for Purchase Order Items | — | Intelligent Technologies | 0 | 0 |
+| `3FY` | Prediction of Delivery Date for Purchase Order Items | IT and Cross-Application | Intelligent Technologies | 0 | 0 |
 | `3G8` | Dangerous Goods in the Value Chain | Lead to Cash, Plan to Fulfill | Order and Contract Management, Product Compliance | 9 | 0 |
 | `3HQ` | None | Retail | Retail | 5 | 0 |
-| `3HR` | In-Store Inventory Management | — | Supply Chain | 0 | 0 |
+| `3HR` | In-Store Inventory Management | Plan to Fulfill | Supply Chain | 0 | 0 |
 | `3HS` | None | Lead to Cash, Retail | Order and Contract Management, Retail | 13 | 0 |
 | `3HU` | In-Store Customer Order Management | Retail | Retail | 24 | 0 |
 | `3HV` | None | Retail | Retail | 0 | 0 |
 | `3I1` | None | — | — | 0 | 0 |
-| `3I2` | Store Connectivity – Outbound | — | Application Development and Integration | 0 | 0 |
-| `3I3` | Sites for Retail | — | Supply Chain | 0 | 0 |
+| `3I2` | Store Connectivity – Outbound | IT and Cross-Application | Application Development and Integration | 0 | 0 |
+| `3I3` | Sites for Retail | Plan to Fulfill | Supply Chain | 0 | 0 |
 | `3I4` | Sales Pricing for Retail | Retail | Retail | 24 | 0 |
-| `3I5` | Assortments | — | Supply Chain | 0 | 0 |
+| `3I5` | Assortments | Plan to Fulfill | Supply Chain | 0 | 0 |
 | `3I7` | Replenishment Planning for Stores | Retail | Retail | 0 | 0 |
 | `3I8` | Replenishment Planning for Distribution Centers | Retail | Retail | 9 | 0 |
 | `3JP` | None | Finance and Accounting | Advanced Accounting and Financial Close | 0 | 0 |
@@ -737,7 +741,7 @@ Generated 2026-08-25 from 732 scope items.
 | `3KX` | None | Finance and Accounting | Enterprise Risk and Compliance | 0 | 0 |
 | `3KY` | None | Finance and Accounting | Enterprise Risk and Compliance | 0 | 0 |
 | `3L3` | Contract Accounting – Contract-Based Revenue Recognition | Finance and Accounting | Advanced Financial Operations | 5 | 0 |
-| `3L5` | Liquidity Planning | — | Finance | 0 | 0 |
+| `3L5` | Liquidity Planning | Finance and Accounting | Finance | 0 | 0 |
 | `3L7` | Make-to-Stock with Co- and By-Products – Process Manufacturing | Plan to Fulfill | Manufacturing Operations | 12 | 0 |
 | `3L8` | None | Lead to Cash | Subscription Billing and Revenue Management | 3 | 0 |
 | `3LO` | Change Manufacturing Bill of Material for Production | Design to Operate | Production Engineering | 8 | 0 |
@@ -750,14 +754,14 @@ Generated 2026-08-25 from 732 scope items.
 | `3M5` | None | Finance and Accounting | Accounting and Financial Close | 15 | 5 |
 | `3MO` | None | Service | Service Master Data and Agreement Management | 20 | 3 |
 | `3NA` | None | Finance and Accounting | Treasury Management | 5 | 0 |
-| `3ND` | Product Structure Management | — | Manufacturing | 0 | 0 |
+| `3ND` | Product Structure Management | Plan to Fulfill | Manufacturing | 0 | 0 |
 | `3NF` | None | Finance and Accounting | Accounting and Financial Close | 3 | 0 |
 | `3NI` | Procurement for Service Management | Service | Service Operations and Processes | 22 | 4 |
 | `3NR` | Sales Scheduling Agreements | Lead to Cash | Order and Contract Management | 8 | 1 |
 | `3OK` | Make-to-Order Production – Process Manufacturing | Plan to Fulfill | Manufacturing Operations | 17 | 0 |
 | `3QD` | None | Lead to Cash | Order and Contract Management | 0 | 0 |
 | `3QM` | None | Finance and Accounting | Treasury Management | 4 | 0 |
-| `3SS` | General Indirect Tax in the Canary Islands | — | Budget and Finance | 0 | 0 |
+| `3SS` | General Indirect Tax in the Canary Islands | Finance and Accounting | Budget and Finance | 0 | 0 |
 | `3TD` | Internal Commissions Settlement for Sales | Lead to Cash | Order and Contract Management | 0 | 0 |
 | `3TE` | Customer Returns for Non-Stock and Service Materials | Lead to Cash | Order and Contract Management | 13 | 2 |
 | `3UK` | Inbound Storage Tank Management – Process Manufacturing | Plan to Fulfill | Manufacturing Operations | 21 | 0 |
@@ -768,7 +772,7 @@ Generated 2026-08-25 from 732 scope items.
 | `3VS` | Contract-Based Revenue Recognition – US GAAP | Finance and Accounting | Accounting and Financial Close | 10 | 0 |
 | `3VT` | None | Plan to Fulfill | Warehousing | 8 | 0 |
 | `3W0` | None | Plan to Fulfill | Warehousing | 7 | 0 |
-| `3W1` | Project Data Replication to Central Finance | — | Operations | 0 | 0 |
+| `3W1` | Project Data Replication to Central Finance | Plan to Fulfill | Operations | 0 | 0 |
 | `3W3` | None | Plan to Fulfill | Manufacturing Operations | 2 | 0 |
 | `3W4` | None | Plan to Fulfill | Manufacturing Operations | 6 | 0 |
 | `3WY` | Bond Management | Finance and Accounting | Treasury Management | 39 | 0 |
@@ -792,8 +796,8 @@ Generated 2026-08-25 from 732 scope items.
 | `42K` | Automation of Source-to-Pay with SAP Business Network | Source to Pay | Operational Procurement | 18 | 0 |
 | `42L` | Convergent Invoicing – Revenue Sharing and Partner Settlement | Finance and Accounting, Lead to Cash | Advanced Financial Operations, Subscription Billing and Revenue Management | 5 | 2 |
 | `42N` | Tank Trailer Filling with Residuals | Plan to Fulfill | Manufacturing Operations | 8 | 0 |
-| `43B` | Service Monitoring and Analytics | — | Service | 0 | 0 |
-| `43D` | Integration with External Tax Calculation Engines | — | Budget and Finance | 0 | 0 |
+| `43B` | Service Monitoring and Analytics | Service | Service | 0 | 0 |
+| `43D` | Integration with External Tax Calculation Engines | Finance and Accounting | Budget and Finance | 0 | 0 |
 | `43R` | Maintenance Resource Scheduling | Design to Operate | Maintenance Management | 9 | 0 |
 | `43Y` | Contract Accounting – Integration with Sales Documents | Finance and Accounting | Advanced Financial Operations | 3 | 0 |
 | `47I` | Contract Accounting – Cash Application | Lead to Cash | Subscription Billing and Revenue Management | 0 | 0 |
@@ -804,7 +808,7 @@ Generated 2026-08-25 from 732 scope items.
 | `4A1` | Automation of Order-to-Invoice with SAP Business Network | Lead to Cash | Order and Contract Management | 0 | 0 |
 | `4A2` | Replenishment in Warehousing | Plan to Fulfill | Warehousing | 5 | 0 |
 | `4AH` | Field Logistics Planning and Execution – Supplier Items | Oil and Gas | Oil and Gas | 31 | 0 |
-| `4AI` | SAP Ariba Buying | — | Sourcing and Procurement | 0 | 0 |
+| `4AI` | SAP Ariba Buying | Source to Pay | Sourcing and Procurement | 0 | 0 |
 | `4AN` | Intercompany Billing for Cross-Company Cost Accounting Postings | Professional Services | Professional Services | 6 | 0 |
 | `4AP` | None | IT and Cross-Application | Enterprise Information Management | 4 | 0 |
 | `4AQ` | Data Quality Management for Product | IT and Cross-Application | Enterprise Information Management | 4 | 0 |
@@ -846,12 +850,12 @@ Generated 2026-08-25 from 732 scope items.
 | `4OZ` | None | Plan to Fulfill | Advanced Transportation, Delivery and Transportation | 2 | 0 |
 | `4PG` | Organizational Flexibility in Financial Accounting | Finance and Accounting | Accounting and Financial Close | 2 | 0 |
 | `4Q0` | Predictive Accounting for Travel and Expense Management | Finance and Accounting | Accounting and Financial Close, Cost Management and Profitability Analysis | 4 | 0 |
-| `4Q2` | External Tax Calculation | — | Finance | 0 | 0 |
+| `4Q2` | External Tax Calculation | Finance and Accounting | Finance | 0 | 0 |
 | `4Q5` | Solution Quotation | IT and Cross-Application | Solution Business Management | 8 | 0 |
 | `4QN` | Central Procurement with SAP Ariba Sourcing | Source to Pay | Central Procurement, Sourcing and Contract Management | 0 | 0 |
 | `4R2` | Service Procurement with SAP Business Network and SAP Fieldglass | Source to Pay | Invoice Management, Operational Procurement, Procurement Analytics | 13 | 0 |
 | `4R6` | Sales Processing using Third-Party with Variant Configuration | Lead to Cash | Order and Contract Management | 0 | 0 |
-| `4R7` | Group Reporting – Environmental, Social, and Governance Data | — | Finance | 0 | 0 |
+| `4R7` | Group Reporting – Environmental, Social, and Governance Data | Finance and Accounting | Finance | 0 | 0 |
 | `4R8` | Engineer-to-Order Production with Variant Configuration | Design to Operate, Lead to Cash, Plan to Fulfill | Manufacturing Operations, Order and Contract Management, Product Lifecycle Management, Production Planning | 10 | 0 |
 | `4RC` | None | Finance and Accounting | Accounting and Financial Close, Cost Management and Profitability Analysis | 0 | 0 |
 | `4RD` | Direct Material Sourcing | Source to Pay | Central Procurement, Sourcing and Contract Management | 4 | 0 |
@@ -905,7 +909,7 @@ Generated 2026-08-25 from 732 scope items.
 | `5FX` | None | Retail | Retail | 0 | 0 |
 | `5FY` | In-Store Purchase Order Management | Retail | Retail | 5 | 0 |
 | `5FZ` | None | Retail | Retail | 5 | 0 |
-| `5HG` | Asset Accounting – Additional Depreciation Area | — | Finance | 0 | 0 |
+| `5HG` | Asset Accounting – Additional Depreciation Area | Finance and Accounting | Finance | 0 | 0 |
 | `5HK` | Quality Management in Discrete Manufacturing – Consumer Products | Design to Operate, Plan to Fulfill, Source to Pay | Central Procurement, Manufacturing Operations, Production Engineering, Production Planning, Quality Management | 2 | 0 |
 | `5HL` | Sell from Stock – Consumer Products | Lead to Cash | Order and Contract Management | 12 | 0 |
 | `5HN` | None | Plan to Fulfill | Warehousing | 8 | 0 |
@@ -914,14 +918,14 @@ Generated 2026-08-25 from 732 scope items.
 | `5HR` | Warranty Claim Management – Supplier Recovery Processing | Service | Service Master Data and Agreement Management | 0 | 0 |
 | `5I2` | Supply Chain Automation with SAP Business Network | Plan to Fulfill, Source to Pay | Invoice Management, Manufacturing Options, Operational Procurement | 16 | 0 |
 | `5IK` | None | Lead to Cash | Subscription Billing and Revenue Management | 12 | 0 |
-| `5IM` | Product Footprint Management | — | Supply Chain | 0 | 0 |
+| `5IM` | Product Footprint Management | Plan to Fulfill | Supply Chain | 0 | 0 |
 | `5IS` | None | Finance and Accounting | Advanced Financial Operations | 6 | 0 |
 | `5IT` | None | Finance and Accounting | Accounting and Financial Close | 0 | 0 |
 | `5JT` | Automation of Central Procurement Quote with SAP Business Network | Source to Pay | Central Procurement, Operational Procurement | 0 | 0 |
 | `5MQ` | Sell from Stock with Valuated Stock in Transit | Lead to Cash | Order and Contract Management | 17 | 3 |
 | `5NM` | None | Oil and Gas | Oil and Gas | 0 | 0 |
-| `5NU` | Accounting Enhancements for Banking | — | Finance | 0 | 0 |
-| `5O6` | Compliance Formats – Support Preparation for Germany | — | Finance | 0 | 0 |
+| `5NU` | Accounting Enhancements for Banking | Finance and Accounting | Finance | 0 | 0 |
+| `5O6` | Compliance Formats – Support Preparation for Germany | Finance and Accounting | Finance | 0 | 0 |
 | `5OD` | Stock Management | Finance and Accounting | Treasury Management | 15 | 0 |
 | `5OE` | None | Finance and Accounting | Treasury Management | 2 | 0 |
 | `5OF` | None | Finance and Accounting | Treasury Management | 2 | 0 |
@@ -933,13 +937,13 @@ Generated 2026-08-25 from 732 scope items.
 | `5PA` | None | Finance and Accounting | Enterprise Risk and Compliance | 13 | 0 |
 | `5PU` | None | Finance and Accounting | Advanced Accounting and Financial Close | 4 | 0 |
 | `5QC` | None | Design to Operate | Product Lifecycle Management | 9 | 0 |
-| `5SW` | Subscription Management for Software | — | Marketing | 0 | 0 |
+| `5SW` | Subscription Management for Software | Lead to Cash | Marketing | 0 | 0 |
 | `5VV` | None | Plan to Fulfill | Delivery and Transportation | 2 | 0 |
-| `5VW` | Revenue Accounting | — | Finance | 0 | 0 |
-| `5VX` | Enable for Use and Contract Management | — | Finance | 0 | 0 |
-| `5VY` | External Occupancy and Contract Management | — | Finance | 0 | 0 |
-| `5VZ` | Internal Occupancy and Cost Allocation | — | Finance | 0 | 0 |
-| `5W0` | Intercompany Occupancy and Contract Management | — | Finance | 0 | 0 |
+| `5VW` | Revenue Accounting | Finance and Accounting | Finance | 0 | 0 |
+| `5VX` | Enable for Use and Contract Management | Finance and Accounting | Finance | 0 | 0 |
+| `5VY` | External Occupancy and Contract Management | Finance and Accounting | Finance | 0 | 0 |
+| `5VZ` | Internal Occupancy and Cost Allocation | Finance and Accounting | Finance | 0 | 0 |
+| `5W0` | Intercompany Occupancy and Contract Management | Finance and Accounting | Finance | 0 | 0 |
 | `5W2` | Group Valuation | Finance and Accounting | Accounting and Financial Close, Cost Management and Profitability Analysis | 0 | 0 |
 | `5W3` | Procurement of Production Components – Consumer Products | Source to Pay | Central Procurement, Invoice Management, Operational Procurement, Procurement Analytics, Sourcing and Contract Management | 7 | 0 |
 | `5W4` | None | Design to Operate, Lead to Cash, Plan to Fulfill, Source to Pay | Central Procurement, Invoice Management, Manufacturing Options, Operational Procurement, Order Promising, Production Engineering, Production Planning, Quality Management, Supplier Management | 25 | 0 |
@@ -951,9 +955,9 @@ Generated 2026-08-25 from 732 scope items.
 | `5XD` | None | Plan to Fulfill | Delivery and Transportation | 20 | 0 |
 | `5XU` | Document and Reporting Compliance | Finance and Accounting | Advanced Accounting and Financial Close | 12 | 3 |
 | `5YA` | None | Lead to Cash | Order and Contract Management | 9 | 0 |
-| `5YU` | Enable for Use and Contract Management – Group Ledger IFRS | — | Finance | 0 | 0 |
-| `5YV` | External Occupancy and Contract Management – Group Ledger IFRS | — | Finance | 0 | 0 |
-| `5YW` | Intercompany Occupancy and Contract Management – Group Ledger IFRS | — | Finance | 0 | 0 |
+| `5YU` | Enable for Use and Contract Management – Group Ledger IFRS | Finance and Accounting | Finance | 0 | 0 |
+| `5YV` | External Occupancy and Contract Management – Group Ledger IFRS | Finance and Accounting | Finance | 0 | 0 |
+| `5YW` | Intercompany Occupancy and Contract Management – Group Ledger IFRS | Finance and Accounting | Finance | 0 | 0 |
 | `5Z0` | None | Finance and Accounting | Advanced Financial Operations | 0 | 0 |
 | `5Z1` | None | Finance and Accounting | Advanced Financial Operations | 0 | 0 |
 | `5Z2` | None | Finance and Accounting | Advanced Financial Operations | 0 | 0 |
@@ -986,33 +990,33 @@ Generated 2026-08-25 from 732 scope items.
 | `6AJ` | None | Source to Pay | Sourcing and Contract Management | 1 | 0 |
 | `6AK` | Event-Based Revenue Recognition – Service with Adv. Execution | Finance and Accounting | Accounting and Financial Close | 16 | 6 |
 | `6AL` | Event-Based Revenue Recognition – Service with Adv. Execution – IFRS | Finance and Accounting | Accounting and Financial Close | 15 | 6 |
-| `6AN` | Contract Price Renegotiation | — | Supply Chain | 0 | 0 |
+| `6AN` | Contract Price Renegotiation | Plan to Fulfill | Supply Chain | 0 | 0 |
 | `6AU` | None | Service | Service Master Data and Agreement Management, Service Operations and Processes, Service Parts Management | 0 | 0 |
 | `6B2` | None | Plan to Fulfill | Delivery and Transportation | 23 | 0 |
 | `6B4` | None | Plan to Fulfill | Delivery and Transportation | 30 | 0 |
 | `6B5` | Asset-Backed Securities Management | Finance and Accounting | Treasury Management | 3 | 0 |
 | `6B6` | None | Finance and Accounting | Treasury Management | 2 | 0 |
 | `6B7` | None | Finance and Accounting | Treasury Management | 3 | 0 |
-| `6BA` | Field Logistics Planning and Execution – Containers and Voyages | — | Mine Operations | 0 | 0 |
+| `6BA` | Field Logistics Planning and Execution – Containers and Voyages | Mining | Mine Operations | 0 | 0 |
 | `6BG` | None | Plan to Fulfill | Delivery and Transportation | 38 | 0 |
 | `6BH` | None | Plan to Fulfill | Delivery and Transportation | 38 | 0 |
 | `6BP` | In-House Banking | Finance and Accounting | Treasury Management | 3 | 0 |
 | `6BV` | None | IT and Cross-Application | Solution Business Management | 0 | 0 |
-| `6DI` | Seasons for Retail | — | Supply Chain | 0 | 0 |
-| `6DR` | Asset Accounting (UPA) | — | Finance | 0 | 0 |
-| `6DS` | Asset Accounting – Group Ledger IFRS (UPA) | — | Finance | 0 | 0 |
-| `6DT` | Asset Under Construction (UPA) | — | Finance | 0 | 0 |
-| `6DU` | Asset Under Construction – Group Ledger IFRS (UPA) | — | Finance | 0 | 0 |
-| `6EB` | Lease-In Accounting (UPA) | — | Finance | 0 | 0 |
-| `6EC` | Lease-In Accounting – Group Ledger IFRS (UPA) | — | Finance | 0 | 0 |
-| `6ED` | Lease-Out for Sublease Accounting (UPA) | — | Finance | 0 | 0 |
-| `6EE` | Lease-Out for Sublease Accounting – Group Ledger IFRS (UPA) | — | Finance | 0 | 0 |
-| `6EF` | Enable for Use and Contract Management (UPA) | — | Finance | 0 | 0 |
-| `6EG` | Enable for Use and Contract Management – Group Ledger IFRS (UPA) | — | Finance | 0 | 0 |
+| `6DI` | Seasons for Retail | Plan to Fulfill | Supply Chain | 0 | 0 |
+| `6DR` | Asset Accounting (UPA) | Finance and Accounting | Finance | 0 | 0 |
+| `6DS` | Asset Accounting – Group Ledger IFRS (UPA) | Finance and Accounting | Finance | 0 | 0 |
+| `6DT` | Asset Under Construction (UPA) | Finance and Accounting | Finance | 0 | 0 |
+| `6DU` | Asset Under Construction – Group Ledger IFRS (UPA) | Finance and Accounting | Finance | 0 | 0 |
+| `6EB` | Lease-In Accounting (UPA) | Finance and Accounting | Finance | 0 | 0 |
+| `6EC` | Lease-In Accounting – Group Ledger IFRS (UPA) | Finance and Accounting | Finance | 0 | 0 |
+| `6ED` | Lease-Out for Sublease Accounting (UPA) | Finance and Accounting | Finance | 0 | 0 |
+| `6EE` | Lease-Out for Sublease Accounting – Group Ledger IFRS (UPA) | Finance and Accounting | Finance | 0 | 0 |
+| `6EF` | Enable for Use and Contract Management (UPA) | Finance and Accounting | Finance | 0 | 0 |
+| `6EG` | Enable for Use and Contract Management – Group Ledger IFRS (UPA) | Finance and Accounting | Finance | 0 | 0 |
 | `6F1` | Recurring Services with Advanced Execution | Service | Service Master Data and Agreement Management, Service Operations and Processes | 2 | 1 |
 | `6GC` | None | Lead to Cash | Order and Contract Management | 10 | 0 |
 | `6GD` | Engineer Products and Systems – Project with Production | Design to Operate, Finance and Accounting, IT and Cross-Application, Lead to Cash, Plan to Fulfill, Source to Pay | Accounting and Financial Close, Cost Management and Profitability Analysis, Enterprise Information Management, Enterprise Portfolio and Project Management, Financial Operations, Inventory, Invoice Management, Manufacturing Operations, Manufacturing Options, Operational Procurement, Order and Contract Management, Process Management and Integration, Production Planning | 0 | 0 |
-| `6GS` | Service Management with Advanced Variant Configuration | — | Service | 0 | 0 |
+| `6GS` | Service Management with Advanced Variant Configuration | Service | Service | 0 | 0 |
 | `6HY` | None | IT and Cross-Application | Solution Business Management | 19 | 6 |
 | `6JN` | Collaborative Project Management | Design to Operate | Enterprise Portfolio and Project Management | 3 | 0 |
 | `6JO` | Resource Management for Projects | Professional Services | Professional Services | 1 | 0 |
@@ -1020,86 +1024,86 @@ Generated 2026-08-25 from 732 scope items.
 | `6LJ` | None | Lead to Cash | Order Promising | 1 | 0 |
 | `6MT` | Label Management | Plan to Fulfill | Product Compliance, Safety Data Sheet and Label Management | 0 | 0 |
 | `6N4` | None | IT and Cross-Application | Enterprise Information Management | 1 | 0 |
-| `6N8` | Real Estate Cost Settlement | — | Finance | 0 | 0 |
-| `6ND` | Securities Option Management | — | Finance | 4 | 0 |
+| `6N8` | Real Estate Cost Settlement | Finance and Accounting | Finance | 0 | 0 |
+| `6ND` | Securities Option Management | Finance and Accounting | Finance | 4 | 0 |
 | `6NE` | None | Finance and Accounting | Treasury Management | 3 | 0 |
 | `6NF` | None | Finance and Accounting | Treasury Management | 3 | 0 |
-| `6NH` | Wave Management in Warehousing | — | Supply Chain | 0 | 0 |
+| `6NH` | Wave Management in Warehousing | Plan to Fulfill | Supply Chain | 0 | 0 |
 | `6NI` | None | Plan to Fulfill | Warehousing | 4 | 0 |
 | `6NL` | None | Finance and Accounting | Enterprise Risk and Compliance | 0 | 0 |
-| `6NM` | Value-Added Services for Retail | — | Supply Chain | 0 | 0 |
+| `6NM` | Value-Added Services for Retail | Plan to Fulfill | Supply Chain | 0 | 0 |
 | `6OT` | Bill of Material Management Professional | Design to Operate | Product Lifecycle Management | 0 | 0 |
-| `6R3` | Earmarked Funds for Real Estate Contracts | — | Budget and Finance | 0 | 0 |
-| `6SZ` | Error Correction and Suspense Accounting for Banking | — | Finance | 0 | 0 |
-| `6V0` | Condition Contract with Customer Hierarchy – Consumer Products | — | Finance | 0 | 0 |
-| `6V2` | Integration to Icertis for Contract Assembly | — | Supply Chain | 0 | 0 |
-| `6VA` | Field Logistics Analytics | — | Industry - Oil | 0 | 0 |
-| `6VP` | Tax Register | — | Finance | 0 | 0 |
-| `6VQ` | Profit Center Valuation | — | Finance | 0 | 0 |
-| `6W1` | External Transportation Planning | — | Supply Chain | 0 | 0 |
-| `6W2` | Manual Transportation Planning | — | Supply Chain | 0 | 0 |
-| `6W3` | Transportation Execution | — | Supply Chain | 0 | 0 |
-| `6W4` | Freight Settlement | — | Supply Chain | 0 | 0 |
-| `6WC` | Convergent Invoicing – Intercompany Settlement | — | Finance | 0 | 0 |
-| `6WD` | Convergent Invoicing – Cost Handling for Subscriptions and Usage | — | Finance | 0 | 0 |
-| `6YU` | Government Budget Management | — | Finance | 0 | 0 |
-| `71O` | Merchandise Distribution and Collective Purchase Order | — | Supply Chain | 0 | 0 |
-| `71P` | Supplier Consignment for Retail | — | Supply Chain | 0 | 0 |
-| `71S` | Grants Management | — | Budget and Finance | 0 | 0 |
-| `78J` | Accounting Enhancements for Insurance | — | Finance | 0 | 0 |
-| `78S` | Earmarked Funds | — | Budget and Finance | 0 | 0 |
-| `7AU` | Fund Accounting | — | Finance | 0 | 0 |
-| `7DN` | Planning and Production in Other Plant – Consumer Products | — | Operations | 0 | 0 |
-| `7DO` | Product Compliance Document Authoring | — | Supply Chain | 0 | 0 |
-| `7DP` | Tax Operations | — | Finance | 0 | 0 |
-| `7DW` | Lot Size of One based on Make to Order | — | Operations | 0 | 0 |
-| `7DX` | Receivables Financing with Taulia | — | Finance | 0 | 0 |
-| `7ED` | Create Sales Orders from Unstructured Data – Premium | — | Budget and Finance | 0 | 0 |
-| `7EZ` | Intercompany Lease Accounting | — | Finance | 0 | 0 |
-| `7G4` | Intercompany Lease Accounting – Group Ledger IFRS | — | Finance | 0 | 0 |
-| `7G5` | Intercompany Lease Accounting – Group Ledger US GAAP | — | Finance | 0 | 0 |
-| `7GA` | Recurring Services | — | Operations | 0 | 0 |
-| `7GB` | In-House Service | — | Sales and Marketing | 0 | 0 |
-| `7GD` | Service Parts Logistics and Procurement | — | Supply Chain | 0 | 0 |
-| `7GE` | Service – Workforce Procurement | — | Supply Chain | 0 | 0 |
-| `7GP` | Basic TM/EWM – Inbound Advanced Shipping and Receiving | — | Supply Chain | 0 | 0 |
-| `7GQ` | Basic TM/EWM – Outbound Advanced Shipping and Receiving | — | Supply Chain | 0 | 0 |
-| `7GT` | Quality Inspection of Incoming Material with Multiple Specs | — | Operations | 0 | 0 |
-| `7GU` | Stability Studies with Quality Management | — | Operations | 0 | 0 |
-| `7IW` | Transportation Execution – Basic TM | — | Budget and Finance | 0 | 0 |
-| `7IX` | Freight Settlement – Basic TM | — | Supply Chain | 0 | 0 |
-| `7JF` | Demand Planning | — | Manufacturing | 0 | 0 |
-| `7JO` | Sales Integration for SAP S/4HANA Utilities | — | Budget and Finance | 0 | 0 |
-| `7KW` | Customer Returns for Material with Variant Configuration | — | Budget and Finance | 0 | 0 |
-| `7MA` | Collections and Dispute Automation | — | Finance | 0 | 0 |
-| `7MD` | B2B Order Fulfillment with SAP Commerce Cloud | — | Supply Chain | 0 | 0 |
-| `7MG` | Payables Financing with Taulia | — | Finance | 0 | 0 |
-| `7MI` | Mass Load and Mass Maintenance for Business Partners | — | Database and Data Management | 0 | 0 |
-| `7MJ` | Basic Payment Management | — | Finance | 0 | 0 |
-| `7NH` | Product Cost Breakdown in Plan/Actual Value Flow | — | Finance | 0 | 0 |
-| `7O6` | Accounting Principles and Fund Accounting for GASB | — | Finance | 0 | 0 |
-| `7OD` | Accounting Interface for Contract and Lease Management | — | Finance | 0 | 0 |
-| `7TO` | Production Order Combination | — | Operations | 0 | 0 |
-| `7TZ` | Credit and Debit Memo Processing with Variant Configuration | — | Budget and Finance | 0 | 0 |
-| `7UV` | Make-to-Stock Production – Discrete Manufacturing | — | Operations | 0 | 0 |
-| `7V9` | Make-to-Order Production – Discrete Manufacturing | — | Operations | 0 | 0 |
-| `7VA` | Stocking and Destocking Positions | — | Manufacturing | 0 | 0 |
-| `7VB` | Calculation of Economic Order Quantity and Safety Stock | — | Manufacturing | 0 | 0 |
-| `7VD` | Material Replenishment with Kanban – Stock Transfer within EWM | — | Supply Chain | 0 | 0 |
-| `7VE` | Advanced TM-EWM – Inbound Advanced Shipping and Receiving | — | Supply Chain | 0 | 0 |
-| `7VF` | Advanced TM-EWM – Outbound Advanced Shipping and Receiving | — | Supply Chain | 0 | 0 |
-| `7VG` | Unitized Make-to-Order Production – Extended Production Operation | — | Supply Chain | 0 | 0 |
-| `7YH` | Invoice Processing with SAP Ariba Invoicing | — | Budget and Finance | 0 | 0 |
-| `7YM` | SAP Ariba Buying Base Edition | — | Sourcing and Procurement | 0 | 0 |
-| `7YY` | Multistage Intercompany Sales | — | Budget and Finance | 0 | 0 |
-| `7YZ` | Multistage Intercompany Stock Transfer | — | Finance | 0 | 0 |
-| `7Z2` | Maintenance Order Processing with SAP Field Service Management | — | Operations | 0 | 0 |
-| `7Z6` | Omnichannel Sales Promotions for Sales Orders in Retail | — | Sales and Marketing | 0 | 0 |
-| `7ZJ` | Advanced Down Payment in Retail | — | Sales and Marketing | 0 | 0 |
-| `81Y` | SAP Ariba Buying Procurement Expansion Package | — | Sourcing and Procurement | 0 | 0 |
-| `830` | Produce to Sell – Process Industry – Consumer Products | — | Finance | 0 | 0 |
-| `83B` | Manufacturing for Retail | — | Supply Chain | 0 | 0 |
-| `83I` | Advanced Solution Bundle Setup | — | R&D and Product Management | 0 | 0 |
+| `6R3` | Earmarked Funds for Real Estate Contracts | Finance and Accounting | Budget and Finance | 0 | 0 |
+| `6SZ` | Error Correction and Suspense Accounting for Banking | Finance and Accounting | Finance | 0 | 0 |
+| `6V0` | Condition Contract with Customer Hierarchy – Consumer Products | Finance and Accounting | Finance | 0 | 0 |
+| `6V2` | Integration to Icertis for Contract Assembly | Plan to Fulfill | Supply Chain | 0 | 0 |
+| `6VA` | Field Logistics Analytics | Oil and Gas | Industry - Oil | 0 | 0 |
+| `6VP` | Tax Register | Finance and Accounting | Finance | 0 | 0 |
+| `6VQ` | Profit Center Valuation | Finance and Accounting | Finance | 0 | 0 |
+| `6W1` | External Transportation Planning | Plan to Fulfill | Supply Chain | 0 | 0 |
+| `6W2` | Manual Transportation Planning | Plan to Fulfill | Supply Chain | 0 | 0 |
+| `6W3` | Transportation Execution | Plan to Fulfill | Supply Chain | 0 | 0 |
+| `6W4` | Freight Settlement | Plan to Fulfill | Supply Chain | 0 | 0 |
+| `6WC` | Convergent Invoicing – Intercompany Settlement | Finance and Accounting | Finance | 0 | 0 |
+| `6WD` | Convergent Invoicing – Cost Handling for Subscriptions and Usage | Finance and Accounting | Finance | 0 | 0 |
+| `6YU` | Government Budget Management | Finance and Accounting | Finance | 0 | 0 |
+| `71O` | Merchandise Distribution and Collective Purchase Order | Plan to Fulfill | Supply Chain | 0 | 0 |
+| `71P` | Supplier Consignment for Retail | Plan to Fulfill | Supply Chain | 0 | 0 |
+| `71S` | Grants Management | Finance and Accounting | Budget and Finance | 0 | 0 |
+| `78J` | Accounting Enhancements for Insurance | Finance and Accounting | Finance | 0 | 0 |
+| `78S` | Earmarked Funds | Finance and Accounting | Budget and Finance | 0 | 0 |
+| `7AU` | Fund Accounting | Finance and Accounting | Finance | 0 | 0 |
+| `7DN` | Planning and Production in Other Plant – Consumer Products | Plan to Fulfill | Operations | 0 | 0 |
+| `7DO` | Product Compliance Document Authoring | Plan to Fulfill | Supply Chain | 0 | 0 |
+| `7DP` | Tax Operations | Finance and Accounting | Finance | 0 | 0 |
+| `7DW` | Lot Size of One based on Make to Order | Plan to Fulfill | Operations | 0 | 0 |
+| `7DX` | Receivables Financing with Taulia | Finance and Accounting | Finance | 0 | 0 |
+| `7ED` | Create Sales Orders from Unstructured Data – Premium | Finance and Accounting | Budget and Finance | 0 | 0 |
+| `7EZ` | Intercompany Lease Accounting | Finance and Accounting | Finance | 0 | 0 |
+| `7G4` | Intercompany Lease Accounting – Group Ledger IFRS | Finance and Accounting | Finance | 0 | 0 |
+| `7G5` | Intercompany Lease Accounting – Group Ledger US GAAP | Finance and Accounting | Finance | 0 | 0 |
+| `7GA` | Recurring Services | Plan to Fulfill | Operations | 0 | 0 |
+| `7GB` | In-House Service | Lead to Cash | Sales and Marketing | 0 | 0 |
+| `7GD` | Service Parts Logistics and Procurement | Plan to Fulfill | Supply Chain | 0 | 0 |
+| `7GE` | Service – Workforce Procurement | Plan to Fulfill | Supply Chain | 0 | 0 |
+| `7GP` | Basic TM/EWM – Inbound Advanced Shipping and Receiving | Plan to Fulfill | Supply Chain | 0 | 0 |
+| `7GQ` | Basic TM/EWM – Outbound Advanced Shipping and Receiving | Plan to Fulfill | Supply Chain | 0 | 0 |
+| `7GT` | Quality Inspection of Incoming Material with Multiple Specs | Plan to Fulfill | Operations | 0 | 0 |
+| `7GU` | Stability Studies with Quality Management | Plan to Fulfill | Operations | 0 | 0 |
+| `7IW` | Transportation Execution – Basic TM | Finance and Accounting | Budget and Finance | 0 | 0 |
+| `7IX` | Freight Settlement – Basic TM | Plan to Fulfill | Supply Chain | 0 | 0 |
+| `7JF` | Demand Planning | Plan to Fulfill | Manufacturing | 0 | 0 |
+| `7JO` | Sales Integration for SAP S/4HANA Utilities | Finance and Accounting | Budget and Finance | 0 | 0 |
+| `7KW` | Customer Returns for Material with Variant Configuration | Finance and Accounting | Budget and Finance | 0 | 0 |
+| `7MA` | Collections and Dispute Automation | Finance and Accounting | Finance | 0 | 0 |
+| `7MD` | B2B Order Fulfillment with SAP Commerce Cloud | Plan to Fulfill | Supply Chain | 0 | 0 |
+| `7MG` | Payables Financing with Taulia | Finance and Accounting | Finance | 0 | 0 |
+| `7MI` | Mass Load and Mass Maintenance for Business Partners | IT and Cross-Application | Database and Data Management | 0 | 0 |
+| `7MJ` | Basic Payment Management | Finance and Accounting | Finance | 0 | 0 |
+| `7NH` | Product Cost Breakdown in Plan/Actual Value Flow | Finance and Accounting | Finance | 0 | 0 |
+| `7O6` | Accounting Principles and Fund Accounting for GASB | Finance and Accounting | Finance | 0 | 0 |
+| `7OD` | Accounting Interface for Contract and Lease Management | Finance and Accounting | Finance | 0 | 0 |
+| `7TO` | Production Order Combination | Plan to Fulfill | Operations | 0 | 0 |
+| `7TZ` | Credit and Debit Memo Processing with Variant Configuration | Finance and Accounting | Budget and Finance | 0 | 0 |
+| `7UV` | Make-to-Stock Production – Discrete Manufacturing | Plan to Fulfill | Operations | 0 | 0 |
+| `7V9` | Make-to-Order Production – Discrete Manufacturing | Plan to Fulfill | Operations | 0 | 0 |
+| `7VA` | Stocking and Destocking Positions | Plan to Fulfill | Manufacturing | 0 | 0 |
+| `7VB` | Calculation of Economic Order Quantity and Safety Stock | Plan to Fulfill | Manufacturing | 0 | 0 |
+| `7VD` | Material Replenishment with Kanban – Stock Transfer within EWM | Plan to Fulfill | Supply Chain | 0 | 0 |
+| `7VE` | Advanced TM-EWM – Inbound Advanced Shipping and Receiving | Plan to Fulfill | Supply Chain | 0 | 0 |
+| `7VF` | Advanced TM-EWM – Outbound Advanced Shipping and Receiving | Plan to Fulfill | Supply Chain | 0 | 0 |
+| `7VG` | Unitized Make-to-Order Production – Extended Production Operation | Plan to Fulfill | Supply Chain | 0 | 0 |
+| `7YH` | Invoice Processing with SAP Ariba Invoicing | Finance and Accounting | Budget and Finance | 0 | 0 |
+| `7YM` | SAP Ariba Buying Base Edition | Source to Pay | Sourcing and Procurement | 0 | 0 |
+| `7YY` | Multistage Intercompany Sales | Finance and Accounting | Budget and Finance | 0 | 0 |
+| `7YZ` | Multistage Intercompany Stock Transfer | Finance and Accounting | Finance | 0 | 0 |
+| `7Z2` | Maintenance Order Processing with SAP Field Service Management | Plan to Fulfill | Operations | 0 | 0 |
+| `7Z6` | Omnichannel Sales Promotions for Sales Orders in Retail | Lead to Cash | Sales and Marketing | 0 | 0 |
+| `7ZJ` | Advanced Down Payment in Retail | Lead to Cash | Sales and Marketing | 0 | 0 |
+| `81Y` | SAP Ariba Buying Procurement Expansion Package | Source to Pay | Sourcing and Procurement | 0 | 0 |
+| `830` | Produce to Sell – Process Industry – Consumer Products | Finance and Accounting | Finance | 0 | 0 |
+| `83B` | Manufacturing for Retail | Plan to Fulfill | Supply Chain | 0 | 0 |
+| `83I` | Advanced Solution Bundle Setup | Design to Operate | R&D and Product Management | 0 | 0 |
 | `BD3` | Sales Processing using Third-Party with Shipping Notification | Lead to Cash | Order and Contract Management | 14 | 3 |
 | `BD6` | Basic Credit Management | Finance and Accounting | Advanced Financial Operations | 1 | 0 |
 | `BD9` | Sell from Stock | Lead to Cash | Order and Contract Management | 15 | 5 |
@@ -1121,8 +1125,8 @@ Generated 2026-08-25 from 732 scope items.
 | `BFB` | Basic Cash Operations | Finance and Accounting | Treasury Management | 3 | 2 |
 | `BFC` | Collections and Dispute Management | Finance and Accounting | Advanced Financial Operations | 6 | 0 |
 | `BFH` | None | Finance and Accounting | Accounting and Financial Close | 4 | 0 |
-| `BGC` | SAP Fiori Analytical Apps for G/L Accounting in Finance | — | Finance | 0 | 0 |
-| `BGG` | SAP Fiori Analytical Apps for Inventory and Warehouse Management | — | Supply Chain | 0 | 0 |
+| `BGC` | SAP Fiori Analytical Apps for G/L Accounting in Finance | Finance and Accounting | Finance | 0 | 0 |
+| `BGG` | SAP Fiori Analytical Apps for Inventory and Warehouse Management | Plan to Fulfill | Supply Chain | 0 | 0 |
 | `BH1` | Corrective Maintenance | Design to Operate | Maintenance Management | 19 | 0 |
 | `BH2` | Emergency Maintenance | Design to Operate | Maintenance Management | 4 | 0 |
 | `BJ2` | Preventive Maintenance | Design to Operate | Maintenance Management | 20 | 0 |

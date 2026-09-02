@@ -2,7 +2,9 @@
   "scope_item_id": "7Z6",
   "title": "Omnichannel Sales Promotions for Sales Orders in Retail",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Lead to Cash"
+    ],
     "L2_core_process": "Sales and Marketing",
     "L3_scope_item": "7Z6 - Omnichannel Sales Promotions for Sales Orders in Retail",
     "L4_steps": [

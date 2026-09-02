@@ -3,7 +3,7 @@
 
 # Source to Pay / Procurement Analytics
 
-Generated 2026-08-25. 3 scope items.
+Generated 2026-09-02. 3 scope items.
 
 ← [Back to Source to Pay index](../index.md) (or [`../source-to-pay.md`](../source-to-pay.md))
 

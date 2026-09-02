@@ -3,7 +3,7 @@
 
 # Lead to Cash / Enterprise Information Management
 
-Generated 2026-08-25. 5 scope items.
+Generated 2026-09-02. 5 scope items.
 
 ← [Back to Lead to Cash index](../index.md) (or [`../lead-to-cash.md`](../lead-to-cash.md))
 

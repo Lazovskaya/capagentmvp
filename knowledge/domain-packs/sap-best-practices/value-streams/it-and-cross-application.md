@@ -3,17 +3,20 @@
 
 # IT and Cross-Application
 
-Generated 2026-08-25. 93 scope items across 21 process groups.
+Generated 2026-09-02. 101 scope items across 24 process groups.
 
 | L2 process group | Items | Detail |
 |---|---|---|
 | Accounting and Financial Close | 1 | [accounting-and-financial-close.md](it-and-cross-application/accounting-and-financial-close.md) |
 | Administration and Usability | 1 | [administration-and-usability.md](it-and-cross-application/administration-and-usability.md) |
+| Application Development and Integration | 3 | [application-development-and-integration.md](it-and-cross-application/application-development-and-integration.md) |
 | Core HR and Time Recording | 4 | [core-hr-and-time-recording.md](it-and-cross-application/core-hr-and-time-recording.md) |
 | Cost Management and Profitability Analysis | 1 | [cost-management-and-profitability-analysis.md](it-and-cross-application/cost-management-and-profitability-analysis.md) |
+| Database and Data Management | 2 | [database-and-data-management.md](it-and-cross-application/database-and-data-management.md) |
 | Enterprise Information Management | 31 | [enterprise-information-management.md](it-and-cross-application/enterprise-information-management.md) |
 | Enterprise Portfolio and Project Management | 1 | [enterprise-portfolio-and-project-management.md](it-and-cross-application/enterprise-portfolio-and-project-management.md) |
 | Financial Operations | 5 | [financial-operations.md](it-and-cross-application/financial-operations.md) |
+| Intelligent Technologies | 3 | [intelligent-technologies.md](it-and-cross-application/intelligent-technologies.md) |
 | Inventory | 7 | [inventory.md](it-and-cross-application/inventory.md) |
 | Invoice Management | 3 | [invoice-management.md](it-and-cross-application/invoice-management.md) |
 | Manufacturing Operations | 5 | [manufacturing-operations.md](it-and-cross-application/manufacturing-operations.md) |
@@ -45,6 +48,16 @@ Generated 2026-08-25. 93 scope items across 21 process groups.
 
 *Full BPMN detail → [administration-and-usability.md](it-and-cross-application/administration-and-usability.md)*
 
+## Application Development and Integration
+
+| Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
+|---|---|---|---|---|---|
+| `1KA` | Information Lifecycle Management | 0 | — | — | SAP_BR_DATA_PRIVACY_SPECIALIST |
+| `1NN` | Business Event Handling | 0 | — | — | SAP_BR_ADMINISTRATOR |
+| `3I2` | Store Connectivity – Outbound | 0 | — | — | SAP_BR_APPL_SUP_ENG_DEV_SUP, SAP_BR_CONF_EXPERT_BUS_NET_INT, SAP_BR_ADMINISTRATOR |
+
+*Full BPMN detail → [application-development-and-integration.md](it-and-cross-application/application-development-and-integration.md)*
+
 ## Core HR and Time Recording
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
@@ -63,6 +76,15 @@ Generated 2026-08-25. 93 scope items across 21 process groups.
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
 *Full BPMN detail → [cost-management-and-profitability-analysis.md](it-and-cross-application/cost-management-and-profitability-analysis.md)*
+
+## Database and Data Management
+
+| Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
+|---|---|---|---|---|---|
+| `2Q2` | Data Migration to SAP S/4HANA from Staging | 0 | — | — | SAP_BR_CONFIG_EXPERT_DATA_MIG |
+| `7MI` | Mass Load and Mass Maintenance for Business Partners | 0 | — | — | SAP_BR_PRODMASTER_SPECIALIST |
+
+*Full BPMN detail → [database-and-data-management.md](it-and-cross-application/database-and-data-management.md)*
 
 ## Enterprise Information Management
 
@@ -121,6 +143,16 @@ Generated 2026-08-25. 93 scope items across 21 process groups.
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
 *Full BPMN detail → [financial-operations.md](it-and-cross-application/financial-operations.md)*
+
+## Intelligent Technologies
+
+| Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
+|---|---|---|---|---|---|
+| `1QR` | Predictive Analytics for Purchase Contract Quantity Consumption | 0 | — | — | SAP_BR_ANALYTICS_SPECIALIST, SAP_BR_BUYER, SAP_BR_PURCHASER |
+| `20N` | Predictive Analytics Model Training – Supply Chain | 0 | — | — | SAP_BR_ANALYTICS_SPECIALIST, SAP_BR_WAREHOUSE_CLERK_RFM, SAP_BR_INVENTORY_MGR_RFM, SAP_BR_INVENTORY_MANAGER |
+| `3FY` | Prediction of Delivery Date for Purchase Order Items | 0 | — | — | SAP_BR_ANALYTICS_SPECIALIST, SAP_BR_WAREHOUSE_CLERK, SAP_BR_PURCHASER, SAP_BR_INVENTORY_MANAGER |
+
+*Full BPMN detail → [intelligent-technologies.md](it-and-cross-application/intelligent-technologies.md)*
 
 ## Inventory
 

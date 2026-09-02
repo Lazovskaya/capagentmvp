@@ -2,7 +2,9 @@
   "scope_item_id": "6DI",
   "title": "Seasons for Retail",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
     "L2_core_process": "Supply Chain",
     "L3_scope_item": "6DI - Seasons for Retail",
     "L4_steps": [

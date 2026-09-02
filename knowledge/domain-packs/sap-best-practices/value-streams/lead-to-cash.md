@@ -3,7 +3,7 @@
 
 # Lead to Cash
 
-Generated 2026-08-25. 163 scope items across 30 process groups.
+Generated 2026-09-02. 167 scope items across 32 process groups.
 
 | L2 process group | Items | Detail |
 |---|---|---|
@@ -21,6 +21,7 @@ Generated 2026-08-25. 163 scope items across 30 process groups.
 | Manufacturing Insights | 1 | [manufacturing-insights.md](lead-to-cash/manufacturing-insights.md) |
 | Manufacturing Operations | 6 | [manufacturing-operations.md](lead-to-cash/manufacturing-operations.md) |
 | Manufacturing Options | 7 | [manufacturing-options.md](lead-to-cash/manufacturing-options.md) |
+| Marketing | 1 | [marketing.md](lead-to-cash/marketing.md) |
 | Operational Procurement | 7 | [operational-procurement.md](lead-to-cash/operational-procurement.md) |
 | Order Promising | 7 | [order-promising.md](lead-to-cash/order-promising.md) |
 | Order and Contract Management | 71 | [order-and-contract-management.md](lead-to-cash/order-and-contract-management.md) |
@@ -33,6 +34,7 @@ Generated 2026-08-25. 163 scope items across 30 process groups.
 | Retail | 1 | [retail.md](lead-to-cash/retail.md) |
 | Sales Force Support | 1 | [sales-force-support.md](lead-to-cash/sales-force-support.md) |
 | Sales Performance Management | 1 | [sales-performance-management.md](lead-to-cash/sales-performance-management.md) |
+| Sales and Marketing | 3 | [sales-and-marketing.md](lead-to-cash/sales-and-marketing.md) |
 | Sourcing and Contract Management | 1 | [sourcing-and-contract-management.md](lead-to-cash/sourcing-and-contract-management.md) |
 | Subscription Billing and Revenue Management | 9 | [subscription-billing-and-revenue-management.md](lead-to-cash/subscription-billing-and-revenue-management.md) |
 | Supplier Management | 1 | [supplier-management.md](lead-to-cash/supplier-management.md) |
@@ -180,6 +182,14 @@ Generated 2026-08-25. 163 scope items across 30 process groups.
 | `6GD` | Engineer Products and Systems – Project with Production | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_MANAGER_HRINFO, SAP_BR_PROJECT_MANAGER_PROF, SAP_BR_LEGAL_COUNSEL |
 
 *Full BPMN detail → [manufacturing-options.md](lead-to-cash/manufacturing-options.md)*
+
+## Marketing
+
+| Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
+|---|---|---|---|---|---|
+| `5SW` | Subscription Management for Software | 0 | — | — | SAP_BR_EXT_AUDITOR_APR_FICA, SAP_BR_APR_MANAGER_FICA, SAP_BR_APR_ACCOUNTANT_FICA, SAP_BR_RECONC_SPEC_APR_FICA |
+
+*Full BPMN detail → [marketing.md](lead-to-cash/marketing.md)*
 
 ## Operational Procurement
 
@@ -370,6 +380,16 @@ Generated 2026-08-25. 163 scope items across 30 process groups.
 | `2TT` | Sales Commissions – External Sales Representative | 6 | `BD9` | — | SAP_BR_MANAGER, SAP_BR_AR_ACCOUNTANT, SAP_BR_AP_ACCOUNTANT, SAP_BR_SETL_CLERK_ROYALTIES |
 
 *Full BPMN detail → [sales-performance-management.md](lead-to-cash/sales-performance-management.md)*
+
+## Sales and Marketing
+
+| Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
+|---|---|---|---|---|---|
+| `7GB` | In-House Service | 0 | — | — | SAP_BR_RETURNS_REFUND_CLERK, SAP_BR_SERVICE_MANAGER |
+| `7Z6` | Omnichannel Sales Promotions for Sales Orders in Retail | 0 | — | — | SAP_BR_RFM_STORE_ASSOCIATE |
+| `7ZJ` | Advanced Down Payment in Retail | 0 | — | — | SAP_BR_RFM_STORE_ASSOCIATE |
+
+*Full BPMN detail → [sales-and-marketing.md](lead-to-cash/sales-and-marketing.md)*
 
 ## Sourcing and Contract Management
 

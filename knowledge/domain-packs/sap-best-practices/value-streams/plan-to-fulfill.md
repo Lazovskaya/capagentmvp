@@ -3,7 +3,7 @@
 
 # Plan to Fulfill
 
-Generated 2026-08-25. 288 scope items across 30 process groups.
+Generated 2026-09-02. 332 scope items across 33 process groups.
 
 | L2 process group | Items | Detail |
 |---|---|---|
@@ -19,10 +19,12 @@ Generated 2026-08-25. 288 scope items across 30 process groups.
 | Inventory | 33 | [inventory.md](plan-to-fulfill/inventory.md) |
 | Invoice Management | 15 | [invoice-management.md](plan-to-fulfill/invoice-management.md) |
 | Logistics Cross Topics | 3 | [logistics-cross-topics.md](plan-to-fulfill/logistics-cross-topics.md) |
+| Manufacturing | 4 | [manufacturing.md](plan-to-fulfill/manufacturing.md) |
 | Manufacturing Insights | 1 | [manufacturing-insights.md](plan-to-fulfill/manufacturing-insights.md) |
 | Manufacturing Operations | 36 | [manufacturing-operations.md](plan-to-fulfill/manufacturing-operations.md) |
 | Manufacturing Options | 17 | [manufacturing-options.md](plan-to-fulfill/manufacturing-options.md) |
 | Operational Procurement | 19 | [operational-procurement.md](plan-to-fulfill/operational-procurement.md) |
+| Operations | 10 | [operations.md](plan-to-fulfill/operations.md) |
 | Order Promising | 5 | [order-promising.md](plan-to-fulfill/order-promising.md) |
 | Order and Contract Management | 11 | [order-and-contract-management.md](plan-to-fulfill/order-and-contract-management.md) |
 | Process Management and Integration | 1 | [process-management-and-integration.md](plan-to-fulfill/process-management-and-integration.md) |
@@ -36,6 +38,7 @@ Generated 2026-08-25. 288 scope items across 30 process groups.
 | Safety Data Sheet and Label Management | 1 | [safety-data-sheet-and-label-management.md](plan-to-fulfill/safety-data-sheet-and-label-management.md) |
 | Sourcing and Contract Management | 2 | [sourcing-and-contract-management.md](plan-to-fulfill/sourcing-and-contract-management.md) |
 | Supplier Management | 1 | [supplier-management.md](plan-to-fulfill/supplier-management.md) |
+| Supply Chain | 30 | [supply-chain.md](plan-to-fulfill/supply-chain.md) |
 | Warehousing | 41 | [warehousing.md](plan-to-fulfill/warehousing.md) |
 
 ## Accounting and Financial Close
@@ -213,6 +216,17 @@ Generated 2026-08-25. 288 scope items across 30 process groups.
 
 *Full BPMN detail → [logistics-cross-topics.md](plan-to-fulfill/logistics-cross-topics.md)*
 
+## Manufacturing
+
+| Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
+|---|---|---|---|---|---|
+| `3ND` | Product Structure Management | 0 | — | — | SAP_BR_MD_SPECIALIST_RAW_SUBST, SAP_BR_PRODN_SUPERVISOR_DISC, SAP_BR_PRODN_OPTR_RPTV, SAP_BR_PRODN_PLNR |
+| `7JF` | Demand Planning | 0 | — | — | SAP_BR_MD_SPECIALIST_RAW_SUBST, SAP_BR_PRODN_SUPERVISOR_DISC, SAP_BR_PRODN_OPTR_RPTV, SAP_BR_PRODN_PLNR |
+| `7VA` | Stocking and Destocking Positions | 0 | — | — | SAP_BR_MD_SPECIALIST_RAW_SUBST, SAP_BR_PRODN_SUPERVISOR_DISC, SAP_BR_PRODN_OPTR_RPTV, SAP_BR_PRODN_PLNR |
+| `7VB` | Calculation of Economic Order Quantity and Safety Stock | 0 | — | — | SAP_BR_MD_SPECIALIST_RAW_SUBST, SAP_BR_PRODN_SUPERVISOR_DISC, SAP_BR_PRODN_OPTR_RPTV, SAP_BR_PRODN_PLNR |
+
+*Full BPMN detail → [manufacturing.md](plan-to-fulfill/manufacturing.md)*
+
 ## Manufacturing Insights
 
 | Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
@@ -313,6 +327,23 @@ Generated 2026-08-25. 288 scope items across 30 process groups.
 | `J82` | Automated Purchase-to-Pay with SAP Ariba Commerce Automation | 6 | `J45` `J13` | — | SAP_BR_MATL_PLNR_EXT_PROC, SAP_BR_MAINT_SUPERVISOR, SAP_BR_EMPLOYEE_PROCUREMENT, SAP_BR_GL_ACCOUNTANT |
 
 *Full BPMN detail → [operational-procurement.md](plan-to-fulfill/operational-procurement.md)*
+
+## Operations
+
+| Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
+|---|---|---|---|---|---|
+| `3W1` | Project Data Replication to Central Finance | 0 | — | — | SAP_BR_PROJ_FIN_CONTROLLER, SAP_BR_PROJECTMANAGER, SAP_BR_PROJECT_STEER_MEMBER, SAP_BR_OVERHEAD_ACCOUNTANT |
+| `7DN` | Planning and Production in Other Plant – Consumer Products | 0 | — | — | SAP_BR_PRODN_OPTR_DISC |
+| `7DW` | Lot Size of One based on Make to Order | 0 | — | — | SAP_BR_PRODN_OPTR_DISC |
+| `7GA` | Recurring Services | 0 | — | — | SAP_BR_SERVICE_MANAGER |
+| `7GT` | Quality Inspection of Incoming Material with Multiple Specs | 0 | — | — | SAP_BR_INVENTORY_MANAGER, SAP_BR_QUALITY_ENGINEER_EPO, SAP_BR_PRODN_OPTR_DISC, SAP_BR_RECEIVING_SPECIALIST |
+| `7GU` | Stability Studies with Quality Management | 0 | — | — | SAP_BR_MAINTENANCE_PLANNER, SAP_BR_QUALITY_ENGINEER, SAP_BR_QUALITY_TECHNICIAN |
+| `7TO` | Production Order Combination | 0 | — | — | SAP_BR_PRODN_OPTR_DISC |
+| `7UV` | Make-to-Stock Production – Discrete Manufacturing | 0 | — | — | SAP_BR_MATL_PLNR_EXT_PROC, SAP_BR_PRODN_PLNR, SAP_BR_RPLNMT_SPCLST_DC_RFM, SAP_BR_RPLNMT_SPCLST_ST_RFM |
+| `7V9` | Make-to-Order Production – Discrete Manufacturing | 0 | — | — | SAP_BR_MATL_PLNR_EXT_PROC, SAP_BR_PRODN_PLNR, SAP_BR_RPLNMT_SPCLST_DC_RFM, SAP_BR_SOLN_BUSINESS_SPCLST |
+| `7Z2` | Maintenance Order Processing with SAP Field Service Management | 0 | — | — | SAP_BR_MAINTENANCE_PLANNER, SAP_BR_MAINTENANCE_TECHNICIAN, SAP_BR_EMPLOYEE_MAINTENANCE, SAP_BR_MAINT_SUPERVISOR |
+
+*Full BPMN detail → [operations.md](plan-to-fulfill/operations.md)*
 
 ## Order Promising
 
@@ -487,6 +518,43 @@ Generated 2026-08-25. 288 scope items across 30 process groups.
 | `5W4` | None | 25 | — | — | — |
 
 *Full BPMN detail → [supplier-management.md](plan-to-fulfill/supplier-management.md)*
+
+## Supply Chain
+
+| Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
+|---|---|---|---|---|---|
+| `1JI` | Real-Time Reporting and Monitoring for Procurement | 0 | — | — | SAP_BR_PURCHASER, SAP_BR_BUYER, SAP_BR_CENTRAL_PURCHASER, SAP_BR_PURCHASER_RFM |
+| `2UV` | Combined Invoice – Goods and Service Items | 0 | — | — | SAP_BR_SHIPPING_SPECIALIST, SAP_BR_SHIP_SPECIALIST_JIT, SAP_BR_OPERATION_CLERK_ACM, SAP_BR_TRANSPRT_MNGR_LMD |
+| `3HR` | In-Store Inventory Management | 0 | — | — | SAP_BR_ADMINISTRATOR_RFM |
+| `3I3` | Sites for Retail | 0 | — | — | SAP_BR_RPLNMT_SPCLST_ST_RFM, SAP_BR_MD_SPCLST_SITE_RFM |
+| `3I5` | Assortments | 0 | — | — | SAP_BR_ASSTMT_SPCLST_RFM |
+| `5IM` | Product Footprint Management | 0 | — | — | SAP_BR_PURCHASER, SAP_BR_ADMIN_SUS_PFM |
+| `6AN` | Contract Price Renegotiation | 0 | — | — | SAP_BR_SOURCING_MANAGER, SAP_BR_CENTRAL_PURCHASER |
+| `6DI` | Seasons for Retail | 0 | — | — | SAP_BR_MD_SPCLST_ITEM_RFM |
+| `6NH` | Wave Management in Warehousing | 0 | — | — | SAP_BR_WAREHOUSE_CLERK_EWM |
+| `6NM` | Value-Added Services for Retail | 0 | — | — | SAP_BR_ORDER_FLFMT_MGR_RFM |
+| `6V2` | Integration to Icertis for Contract Assembly | 0 | — | — | SAP_BR_EMPLOYEE, SAP_BR_LEGAL_COUNSEL, SAP_BR_ADMINISTRATOR_LCM, SAP_BR_EMPLOYEE_LEGAL_CONTENT |
+| `6W1` | External Transportation Planning | 0 | — | — | SAP_BR_DISPATCHER |
+| `6W2` | Manual Transportation Planning | 0 | — | — | SAP_BR_DISPATCHER |
+| `6W3` | Transportation Execution | 0 | — | — | SAP_BR_SHIPPING_SPECIALIST, SAP_BR_SHIP_SPECIALIST_JIT, SAP_BR_SETTLEMENT_CLERK_ACM, SAP_BR_BILLING_CLERK |
+| `6W4` | Freight Settlement | 0 | — | — | SAP_BR_DISPATCHER, SAP_BR_FRGHT_SETTLEMENT_CLERK, SAP_BR_TRANSPORTATION_MANAGER |
+| `71O` | Merchandise Distribution and Collective Purchase Order | 0 | — | — | SAP_BR_ALLOCATOR_RETAIL |
+| `71P` | Supplier Consignment for Retail | 0 | — | — | SAP_BR_ADMINISTRATOR_RFM, SAP_BR_RFM_STORE_ASSOCIATE |
+| `7DO` | Product Compliance Document Authoring | 0 | — | — | SAP_BR_DG_SPLST_PCL, SAP_BR_ENVIRONMENTAL_MANAGER, SAP_BR_MD_SPECIALIST_PCL, SAP_BR_PRODSTWRD_SPLST_PCL |
+| `7GD` | Service Parts Logistics and Procurement | 0 | — | — | SAP_BR_SHIPPING_SPECIALIST, SAP_BR_SHIP_SPECIALIST_JIT |
+| `7GE` | Service – Workforce Procurement | 0 | — | — | SAP_BR_AP_ACCOUNTANT_PROCUREMT, SAP_BR_CUSTOMER_SALES_MGR, SAP_BR_PROJECTMGR_COMMPRJ, SAP_BR_AR_ACCOUNTANT |
+| `7GP` | Basic TM/EWM – Inbound Advanced Shipping and Receiving | 0 | — | — | SAP_BR_WAREHOUSE_CLERK_EWM, SAP_BR_WAREHOUSE_OPERATIVE_EWM |
+| `7GQ` | Basic TM/EWM – Outbound Advanced Shipping and Receiving | 0 | — | — | SAP_BR_SHIPPING_SPECIALIST, SAP_BR_SHIP_SPECIALIST_JIT, SAP_BR_SOLN_BUSINESS_SPCLST, SAP_BR_SETTLEMENT_CLERK_ACM |
+| `7IX` | Freight Settlement – Basic TM | 0 | — | — | SAP_BR_FRGHT_SETTLEMENT_CLERK, SAP_BR_TRANSPORTATION_MANAGER |
+| `7MD` | B2B Order Fulfillment with SAP Commerce Cloud | 0 | — | — | SAP_BR_SHIPPING_SPECIALIST, SAP_BR_SHIP_SPECIALIST_JIT |
+| `7VD` | Material Replenishment with Kanban – Stock Transfer within EWM | 0 | — | — | SAP_BR_PRODN_OPTR_LEAN_MFG, SAP_BR_PRODN_PLNR_LEAN_MFG, SAP_BR_PRODN_SUPVR_LEAN_MFG |
+| `7VE` | Advanced TM-EWM – Inbound Advanced Shipping and Receiving | 0 | — | — | SAP_BR_WAREHOUSE_CLERK_EWM, SAP_BR_WAREHOUSE_OPERATIVE_EWM |
+| `7VF` | Advanced TM-EWM – Outbound Advanced Shipping and Receiving | 0 | — | — | SAP_BR_SHIPPING_SPECIALIST, SAP_BR_SHIP_SPECIALIST_JIT, SAP_BR_SOLN_BUSINESS_SPCLST, SAP_BR_SETTLEMENT_CLERK_ACM |
+| `7VG` | Unitized Make-to-Order Production – Extended Production Operation | 0 | — | — | SAP_BR_SHIPPING_SPECIALIST, SAP_BR_SHIP_SPECIALIST_JIT, SAP_BR_PRODN_PLNR, SAP_BR_MATL_PLNR_EXT_PROC |
+| `83B` | Manufacturing for Retail | 0 | — | — | SAP_BR_PRODN_PLNR, SAP_BR_MATL_PLNR_EXT_PROC, SAP_BR_PRODN_OPTR_DISC |
+| `BGG` | SAP Fiori Analytical Apps for Inventory and Warehouse Management | 0 | — | — | SAP_BR_WAREHOUSE_CLERK, SAP_BR_WAREHOUSE_CLERK_RFM, SAP_BR_INVENTORY_MANAGER, SAP_BR_INVENTORY_MGR_RFM |
+
+*Full BPMN detail → [supply-chain.md](plan-to-fulfill/supply-chain.md)*
 
 ## Warehousing
 

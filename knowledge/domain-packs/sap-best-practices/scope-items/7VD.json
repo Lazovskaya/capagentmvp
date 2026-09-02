@@ -2,7 +2,9 @@
   "scope_item_id": "7VD",
   "title": "Material Replenishment with Kanban \u2013 Stock Transfer within EWM",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
     "L2_core_process": "Supply Chain",
     "L3_scope_item": "7VD - Material Replenishment with Kanban \u2013 Stock Transfer within EWM",
     "L4_steps": [

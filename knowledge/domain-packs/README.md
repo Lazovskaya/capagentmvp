@@ -20,7 +20,8 @@ the same SAP domain, unlike `process`/`config`/etc. which are always this-client
 
 - `sap-best-practices/` — SAP Best Practices process taxonomy (L1-L4 hierarchy, 732 scope items,
   BPMN flow steps, Fiori apps, cross-item dependency graph). Structural/taxonomy layer generated
-  from Signavio + FAL 2.0 data. Expert content layer (troubleshooting trees, failure modes,
+  from Signavio + FAL 2.0 data; L1 value stream populated for 731/732 items as of 2026-09-02
+  (see its own README's Status table). Expert content layer (troubleshooting trees, failure modes,
   configuration gotchas per scope item) not yet written.
 
 ## Planned domain packs (not yet built)
@@ -40,4 +41,5 @@ for all three as a starting point for scope-item scoping.
 ## Status
 
 `order-to-cash/` is real, ported content. `sap-best-practices/` has the structural taxonomy layer
-(2026-08-25); expert content layer not yet written. Other domain packs not started.
+(2026-08-25), with L1 value stream populated for 731/732 items (2026-09-02); expert content layer
+not yet written. Other domain packs not started.

@@ -3,7 +3,7 @@
 
 # Finance and Accounting / Professional Services
 
-Generated 2026-08-25. 3 scope items.
+Generated 2026-09-02. 3 scope items.
 
 ← [Back to Finance and Accounting index](../index.md) (or [`../finance-and-accounting.md`](../finance-and-accounting.md))
 

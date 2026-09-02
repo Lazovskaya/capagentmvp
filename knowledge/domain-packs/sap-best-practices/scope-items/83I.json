@@ -2,7 +2,9 @@
   "scope_item_id": "83I",
   "title": "Advanced Solution Bundle Setup",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Design to Operate"
+    ],
     "L2_core_process": "R&D and Product Management",
     "L3_scope_item": "83I - Advanced Solution Bundle Setup",
     "L4_steps": [

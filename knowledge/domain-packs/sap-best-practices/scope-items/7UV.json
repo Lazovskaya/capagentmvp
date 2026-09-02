@@ -2,7 +2,9 @@
   "scope_item_id": "7UV",
   "title": "Make-to-Stock Production \u2013 Discrete Manufacturing",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
     "L2_core_process": "Operations",
     "L3_scope_item": "7UV - Make-to-Stock Production \u2013 Discrete Manufacturing",
     "L4_steps": [

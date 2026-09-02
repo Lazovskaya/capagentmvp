@@ -2,7 +2,9 @@
   "scope_item_id": "2KF",
   "title": "SAP Fiori Analytical Apps for Convergent Invoicing Specialist",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Finance",
     "L3_scope_item": "2KF - SAP Fiori Analytical Apps for Convergent Invoicing Specialist",
     "L4_steps": [

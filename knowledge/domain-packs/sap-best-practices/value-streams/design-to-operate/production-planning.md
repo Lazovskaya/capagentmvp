@@ -3,7 +3,7 @@
 
 # Design to Operate / Production Planning
 
-Generated 2026-08-25. 7 scope items.
+Generated 2026-09-02. 7 scope items.
 
 ← [Back to Design to Operate index](../index.md) (or [`../design-to-operate.md`](../design-to-operate.md))
 

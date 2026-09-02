@@ -2,7 +2,9 @@
   "scope_item_id": "7GQ",
   "title": "Basic TM/EWM \u2013 Outbound Advanced Shipping and Receiving",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
     "L2_core_process": "Supply Chain",
     "L3_scope_item": "7GQ - Basic TM/EWM \u2013 Outbound Advanced Shipping and Receiving",
     "L4_steps": [

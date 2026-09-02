@@ -3,7 +3,7 @@
 
 # Source to Pay
 
-Generated 2026-08-25. 183 scope items across 27 process groups.
+Generated 2026-09-02. 186 scope items across 28 process groups.
 
 | L2 process group | Items | Detail |
 |---|---|---|
@@ -33,6 +33,7 @@ Generated 2026-08-25. 183 scope items across 27 process groups.
 | Quality Management | 6 | [quality-management.md](source-to-pay/quality-management.md) |
 | Retail | 4 | [retail.md](source-to-pay/retail.md) |
 | Sourcing and Contract Management | 13 | [sourcing-and-contract-management.md](source-to-pay/sourcing-and-contract-management.md) |
+| Sourcing and Procurement | 3 | [sourcing-and-procurement.md](source-to-pay/sourcing-and-procurement.md) |
 | Supplier Management | 5 | [supplier-management.md](source-to-pay/supplier-management.md) |
 
 ## Accounting and Financial Close
@@ -394,6 +395,16 @@ Generated 2026-08-25. 183 scope items across 27 process groups.
 | `BMD` | Purchase Contract | 17 | — | — | SAP_BR_MANAGER, SAP_BR_OPERATION_CLERK_ACM, SAP_BR_SETTLEMENT_CLERK_ACM, SAP_BR_INVENTORY_MANAGER |
 
 *Full BPMN detail → [sourcing-and-contract-management.md](source-to-pay/sourcing-and-contract-management.md)*
+
+## Sourcing and Procurement
+
+| Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
+|---|---|---|---|---|---|
+| `4AI` | SAP Ariba Buying | 0 | — | — | SAP_BR_LEGAL_COUNSEL, SAP_BR_EMPLOYEE_LEGAL_CONTENT, SAP_BR_ADMINISTRATOR_LCM |
+| `7YM` | SAP Ariba Buying Base Edition | 0 | — | — | SAP_BR_LEGAL_COUNSEL, SAP_BR_EMPLOYEE_LEGAL_CONTENT, SAP_BR_ADMINISTRATOR_LCM |
+| `81Y` | SAP Ariba Buying Procurement Expansion Package | 0 | — | — | SAP_BR_LEGAL_COUNSEL, SAP_BR_EMPLOYEE_LEGAL_CONTENT, SAP_BR_ADMINISTRATOR_LCM |
+
+*Full BPMN detail → [sourcing-and-procurement.md](source-to-pay/sourcing-and-procurement.md)*
 
 ## Supplier Management
 

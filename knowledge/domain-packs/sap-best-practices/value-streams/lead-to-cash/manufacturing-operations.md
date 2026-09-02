@@ -3,7 +3,7 @@
 
 # Lead to Cash / Manufacturing Operations
 
-Generated 2026-08-25. 6 scope items.
+Generated 2026-09-02. 6 scope items.
 
 ← [Back to Lead to Cash index](../index.md) (or [`../lead-to-cash.md`](../lead-to-cash.md))
 

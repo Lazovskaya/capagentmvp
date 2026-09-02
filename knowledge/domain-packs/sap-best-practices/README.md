@@ -20,8 +20,9 @@ Delivery Pipeline track, `Knowledge: process` bucket).
   in `order-to-cash/`'s style) is the intended next layer once enrichment below is further along.
   Not written yet — this pack currently has the raw scope-item JSON only. L2 is partially
   populated (Fiori Line-Of-Business heuristic, and now real Signavio `linkedBy` data once
-  `enrich_sap_best_practices_signavio.py` is run at scale); L1 is still `null` everywhere (see
-  "Known gap" and the Method 1/2 sections below).
+  `enrich_sap_best_practices_signavio.py` is run at scale); L1 is populated for 731/732 items as
+  of 2026-09-02 (see "Known gap" and the Method 1/2 sections below for how, and the Status table
+  for the one remaining item).
 
 ## How to (re)generate the cache
 
@@ -50,10 +51,12 @@ real scope-item title (not a placeholder) and a best-effort `L2_core_process`. T
 named `Transaction Codes` (plural); there's no `UI Technology` column in this export type, so
 `app_type` is `null` in every step.
 
-## Known gap
+## Known gap (resolved 2026-09-02, one item left)
 
 The local export has no explicit L1 value stream (Order-to-Cash, Procure-to-Pay, ...) column, so
-`L1_value_stream` stays `null` until Method 1 or 2 below is wired up. `L2_core_process` is filled
+`L1_value_stream` originally stayed `null` until Method 1 or 2 below was wired up (see Status table
+for the fix that closed 140 of the 141 remaining nulls: a `str`-vs-`list` bug in
+`populate_l1_value_streams.py`, not new source data). `L2_core_process` is filled
 as a majority vote across an app row's Line Of Business path when a scope item's apps disagree
 (most do, since one scope item spans apps from several functional areas) — treat it as a
 best-effort hint, not an authoritative grouping; each file's `note` field names the runner-up LOBs
@@ -179,7 +182,7 @@ dependencies.
 
 - `taxonomy-overview.md` — L1/L2/L3 hierarchy tables + full alphabetical index of all 732 scope items
 - `dependency-map.md` — cross-scope-item subprocess dependency graph (103 items with deps)
-- `value-streams/<slug>.md` — one file per L1 value stream (12 files); per-L2 group tables with
+- `value-streams/<slug>.md` — one file per L1 value stream (13 files); per-L2 group tables with
   BPMN step sequences, Fiori apps, mandatory/optional dependencies, and key roles
 
 Run after any cache regeneration step:
@@ -207,8 +210,8 @@ Cache generation and markdown generation verified end to end (2026-08-24 / 2026-
 | FAL 2.0 export (`ingest_sap_best_practices.py`) | 498 scope items, real titles/TCodes/roles |
 | Signavio `linkedBy` enrichment (`enrich_sap_best_practices_signavio.py`) | 594/594 items, L2 + `signavio_model_id` written |
 | BPMN download + parse (`fetch_bpmn_signavio.py`) | 592/594 items, `bpmn_flow` with ordered steps/gateways/deps |
-| L1 population (`populate_l1_value_streams.py`) | ~613/732 items updated; remaining nulls are ingest artifacts (single-char L2 values from LOB path splitting in `ingest_sap_best_practices.py`) |
-| Markdown generation (`generate_sap_bp_markdown.py`) | taxonomy-overview.md + dependency-map.md + 12 value-stream files |
+| L1 population (`populate_l1_value_streams.py`) | 731/732 items populated (as of 2026-09-02). The tool originally under-reported this as "already set" for 140 items whose `L2_core_process` was a plain string rather than a list: `resolve_l1()` iterated the string's characters (never matching the lookup table) and silently kept the existing `null`, rather than the "ingest artifact" cause first suspected. Fixed by normalizing to a list before matching, plus 10 missing L2->L1 table entries discovered in the process. The one remaining null (`3I1`) has no L2 at all in the source (empty Signavio model) — not fixable from existing data. |
+| Markdown generation (`generate_sap_bp_markdown.py`) | taxonomy-overview.md + dependency-map.md + 13 value-stream files |
 
 **732 scope-item files** in the cache (union of all sources). Structural markdown layer generated
 2026-08-25. Expert content layer (troubleshooting, failure modes, gotchas) not yet written.

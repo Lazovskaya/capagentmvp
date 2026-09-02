@@ -3,7 +3,7 @@
 
 # Plan to Fulfill / Invoice Management
 
-Generated 2026-08-25. 15 scope items.
+Generated 2026-09-02. 15 scope items.
 
 ← [Back to Plan to Fulfill index](../index.md) (or [`../plan-to-fulfill.md`](../plan-to-fulfill.md))
 

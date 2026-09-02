@@ -3,7 +3,7 @@
 
 # Recruit to Retire / Core HR and Time Recording
 
-Generated 2026-08-25. 6 scope items.
+Generated 2026-09-02. 6 scope items.
 
 ← [Back to Recruit to Retire index](../index.md) (or [`../recruit-to-retire.md`](../recruit-to-retire.md))
 

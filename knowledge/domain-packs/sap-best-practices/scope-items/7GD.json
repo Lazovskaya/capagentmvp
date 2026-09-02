@@ -2,7 +2,9 @@
   "scope_item_id": "7GD",
   "title": "Service Parts Logistics and Procurement",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
     "L2_core_process": "Supply Chain",
     "L3_scope_item": "7GD - Service Parts Logistics and Procurement",
     "L4_steps": [

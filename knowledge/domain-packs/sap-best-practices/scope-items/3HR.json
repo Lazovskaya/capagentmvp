@@ -2,7 +2,9 @@
   "scope_item_id": "3HR",
   "title": "In-Store Inventory Management",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
     "L2_core_process": "Supply Chain",
     "L3_scope_item": "3HR - In-Store Inventory Management",
     "L4_steps": [

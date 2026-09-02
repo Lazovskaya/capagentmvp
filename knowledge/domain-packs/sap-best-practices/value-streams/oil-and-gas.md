@@ -3,11 +3,20 @@
 
 # Oil and Gas
 
-Generated 2026-08-25. 5 scope items across 1 process groups.
+Generated 2026-09-02. 6 scope items across 2 process groups.
 
 | L2 process group | Items | Detail |
 |---|---|---|
+| Industry - Oil | 1 | [industry-oil.md](oil-and-gas/industry-oil.md) |
 | Oil and Gas | 5 | [oil-and-gas.md](oil-and-gas/oil-and-gas.md) |
+
+## Industry - Oil
+
+| Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
+|---|---|---|---|---|---|
+| `6VA` | Field Logistics Analytics | 0 | — | — | SAP_BR_SC_ANALYST_IOG, SAP_BR_WAREHOUSE_CLERK_IOG, SAP_BR_RCVG_SPECIALIST_IOG |
+
+*Full BPMN detail → [industry-oil.md](oil-and-gas/industry-oil.md)*
 
 ## Oil and Gas
 

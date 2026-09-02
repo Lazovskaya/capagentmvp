@@ -2,7 +2,9 @@
   "scope_item_id": "7DW",
   "title": "Lot Size of One based on Make to Order",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
     "L2_core_process": "Operations",
     "L3_scope_item": "7DW - Lot Size of One based on Make to Order",
     "L4_steps": [

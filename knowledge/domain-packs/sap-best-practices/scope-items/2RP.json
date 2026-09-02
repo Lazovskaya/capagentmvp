@@ -2,7 +2,9 @@
   "scope_item_id": "2RP",
   "title": "Electronic Documents",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Budget and Finance",
     "L3_scope_item": "2RP - Electronic Documents",
     "L4_steps": [

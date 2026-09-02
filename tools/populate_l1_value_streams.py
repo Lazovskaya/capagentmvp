@@ -135,6 +135,24 @@ L2_TO_L1 = {
     # Service additions
     "Service Master Data and Agreement Management": "Service",
     "Service Parts Management":                  "Service",
+
+    # Discovered 2026-09-02 while fixing the string-vs-list L2 bug below --
+    # these L2 values were previously unreachable (see resolve_l1's docstring note).
+    "Supply Chain":                              "Plan to Fulfill",
+    "Operations":                                "Plan to Fulfill",
+    "Manufacturing Insights and Options":        "Plan to Fulfill",
+    "Application Development and Integration":   "IT and Cross-Application",
+    "Intelligent Technologies":                  "IT and Cross-Application",
+    "Database and Data Management":              "IT and Cross-Application",
+    "Marketing":                                 "Lead to Cash",
+    "R&D and Product Management":                "Design to Operate",
+    "Industry - Oil":                            "Oil and Gas",
+    "Mine Operations":                           "Mining",
+
+    # Outlier: this scope item's own L2 field holds a scope-item code + title (2F5's
+    # own text) instead of a real L2 category name -- a one-off data-quality issue in
+    # the source, not a category to generalize a fallback rule from.
+    "2F5 - 00 - Treasury Trading via Trading Platforms": "Finance and Accounting",
 }
 
 # Entries that look like outlier scope-item codes used as L2 names (e.g. "2F5 - 00 - Treasury Trading...")
@@ -163,7 +181,15 @@ L2_PREFIX_FALLBACKS = [
 
 
 def resolve_l1(l2_values):
-    """Return a deduplicated sorted list of L1 value streams for a list of L2 values."""
+    """Return a deduplicated sorted list of L1 value streams for a list of L2 values.
+
+    L2_core_process is a list in most scope-item JSONs, but a plain string in ~140 of
+    them (schema drift in the Signavio enrichment step) -- iterating a bare string
+    yields individual characters, none of which ever match the lookup table, so every
+    one of those items silently kept a null L1 forever. Normalize to a list first.
+    """
+    if isinstance(l2_values, str):
+        l2_values = [l2_values]
     l1_set = set()
     for l2 in (l2_values or []):
         if l2 in L2_TO_L1:
@@ -210,7 +236,7 @@ def main():
         new_l1 = resolve_l1(l2)
 
         # Track any L2 values that fell through to prefix fallback or remained unmatched
-        for v in l2:
+        for v in ([l2] if isinstance(l2, str) else l2):
             if v not in L2_TO_L1:
                 unmapped_l2s.add(v)
 

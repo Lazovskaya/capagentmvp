@@ -2,7 +2,9 @@
   "scope_item_id": "7YM",
   "title": "SAP Ariba Buying Base Edition",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Source to Pay"
+    ],
     "L2_core_process": "Sourcing and Procurement",
     "L3_scope_item": "7YM - SAP Ariba Buying Base Edition",
     "L4_steps": [

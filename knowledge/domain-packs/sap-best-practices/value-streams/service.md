@@ -3,13 +3,23 @@
 
 # Service
 
-Generated 2026-08-25. 19 scope items across 3 process groups.
+Generated 2026-09-02. 21 scope items across 4 process groups.
 
 | L2 process group | Items | Detail |
 |---|---|---|
+| Service | 2 | [service.md](service/service.md) |
 | Service Master Data and Agreement Management | 6 | [service-master-data-and-agreement-management.md](service/service-master-data-and-agreement-management.md) |
 | Service Operations and Processes | 12 | [service-operations-and-processes.md](service/service-operations-and-processes.md) |
 | Service Parts Management | 1 | [service-parts-management.md](service/service-parts-management.md) |
+
+## Service
+
+| Code | Title | Steps | Mandatory deps | Optional deps | Key roles |
+|---|---|---|---|---|---|
+| `43B` | Service Monitoring and Analytics | 0 | — | — | SAP_BR_SERVICE_MANAGER |
+| `6GS` | Service Management with Advanced Variant Configuration | 0 | — | — | SAP_BR_SERVICE_PLANNER, SAP_BR_SOLN_ORDER_SPCLST, SAP_BR_CREDIT_CONTROLLER, SAP_BR_CUSTOMER_SRVC_MGR |
+
+*Full BPMN detail → [service.md](service/service.md)*
 
 ## Service Master Data and Agreement Management
 

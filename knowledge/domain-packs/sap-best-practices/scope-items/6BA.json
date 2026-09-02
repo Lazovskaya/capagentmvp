@@ -2,7 +2,9 @@
   "scope_item_id": "6BA",
   "title": "Field Logistics Planning and Execution \u2013 Containers and Voyages",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Mining"
+    ],
     "L2_core_process": "Mine Operations",
     "L3_scope_item": "6BA - Field Logistics Planning and Execution \u2013 Containers and Voyages",
     "L4_steps": [

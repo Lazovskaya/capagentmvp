@@ -2,7 +2,9 @@
   "scope_item_id": "830",
   "title": "Produce to Sell \u2013 Process Industry \u2013 Consumer Products",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Finance",
     "L3_scope_item": "830 - Produce to Sell \u2013 Process Industry \u2013 Consumer Products",
     "L4_steps": [

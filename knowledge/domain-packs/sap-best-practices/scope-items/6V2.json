@@ -2,7 +2,9 @@
   "scope_item_id": "6V2",
   "title": "Integration to Icertis for Contract Assembly",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
     "L2_core_process": "Supply Chain",
     "L3_scope_item": "6V2 - Integration to Icertis for Contract Assembly",
     "L4_steps": [

@@ -2,7 +2,9 @@
   "scope_item_id": "7TO",
   "title": "Production Order Combination",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Plan to Fulfill"
+    ],
     "L2_core_process": "Operations",
     "L3_scope_item": "7TO - Production Order Combination",
     "L4_steps": [

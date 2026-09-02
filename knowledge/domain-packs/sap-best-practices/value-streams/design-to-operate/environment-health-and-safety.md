@@ -3,7 +3,7 @@
 
 # Design to Operate / Environment, Health, and Safety
 
-Generated 2026-08-25. 6 scope items.
+Generated 2026-09-02. 6 scope items.
 
 ← [Back to Design to Operate index](../index.md) (or [`../design-to-operate.md`](../design-to-operate.md))
 

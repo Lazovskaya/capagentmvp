@@ -2,7 +2,9 @@
   "scope_item_id": "7MI",
   "title": "Mass Load and Mass Maintenance for Business Partners",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "IT and Cross-Application"
+    ],
     "L2_core_process": "Database and Data Management",
     "L3_scope_item": "7MI - Mass Load and Mass Maintenance for Business Partners",
     "L4_steps": [

@@ -3,7 +3,7 @@
 
 # Finance and Accounting / Advanced Accounting and Financial Close
 
-Generated 2026-08-25. 28 scope items.
+Generated 2026-09-02. 28 scope items.
 
 ← [Back to Finance and Accounting index](../index.md) (or [`../finance-and-accounting.md`](../finance-and-accounting.md))
 

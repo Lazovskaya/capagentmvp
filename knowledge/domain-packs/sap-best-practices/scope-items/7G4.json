@@ -2,7 +2,9 @@
   "scope_item_id": "7G4",
   "title": "Intercompany Lease Accounting \u2013 Group Ledger IFRS",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Finance",
     "L3_scope_item": "7G4 - Intercompany Lease Accounting \u2013 Group Ledger IFRS",
     "L4_steps": [

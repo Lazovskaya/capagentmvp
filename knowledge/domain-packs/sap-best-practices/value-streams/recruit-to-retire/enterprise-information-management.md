@@ -3,7 +3,7 @@
 
 # Recruit to Retire / Enterprise Information Management
 
-Generated 2026-08-25. 4 scope items.
+Generated 2026-09-02. 4 scope items.
 
 ← [Back to Recruit to Retire index](../index.md) (or [`../recruit-to-retire.md`](../recruit-to-retire.md))
 

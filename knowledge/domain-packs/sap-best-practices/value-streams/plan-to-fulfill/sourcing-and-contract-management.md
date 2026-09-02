@@ -3,7 +3,7 @@
 
 # Plan to Fulfill / Sourcing and Contract Management
 
-Generated 2026-08-25. 2 scope items.
+Generated 2026-09-02. 2 scope items.
 
 ← [Back to Plan to Fulfill index](../index.md) (or [`../plan-to-fulfill.md`](../plan-to-fulfill.md))
 

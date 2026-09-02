@@ -2,7 +2,9 @@
   "scope_item_id": "7ED",
   "title": "Create Sales Orders from Unstructured Data \u2013 Premium",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "Finance and Accounting"
+    ],
     "L2_core_process": "Budget and Finance",
     "L3_scope_item": "7ED - Create Sales Orders from Unstructured Data \u2013 Premium",
     "L4_steps": [

@@ -2,7 +2,9 @@
   "scope_item_id": "2Q2",
   "title": "Data Migration to SAP S/4HANA from Staging",
   "hierarchy": {
-    "L1_value_stream": null,
+    "L1_value_stream": [
+      "IT and Cross-Application"
+    ],
     "L2_core_process": "Database and Data Management",
     "L3_scope_item": "2Q2 - Data Migration to SAP S/4HANA from Staging",
     "L4_steps": [

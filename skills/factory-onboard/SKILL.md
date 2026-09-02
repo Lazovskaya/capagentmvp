@@ -94,7 +94,11 @@ factory content.
 5. **Capture context.** For project work, write:
    `workspace/factory-onboard/<YYYY-MM-DD>-<slug>/context.json`.
 6. **Route.** Use the phase, engagement and goal to select exactly one next skill.
-   State its name, why it is next, required inputs and any connector gaps.
+   State its name, why it is next, required inputs and any connector gaps. For
+   `start project work`, also name the matching SAP Activate roadmap from
+   `../../../knowledge/methodology/activate-s4hc-pe/_index.md`'s "When to use
+   which" table (keyed by product and scenario, not by the `G`/`B`/`A`/`R`
+   engagement code above) — a project has no task-level plan until this is named.
 7. **Hand off.** Stop after naming the next skill unless the user explicitly asks
    to continue in the same turn. Then load that skill's contract and follow it.
 

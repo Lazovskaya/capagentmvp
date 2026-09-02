@@ -12,7 +12,7 @@ client deliverable; produces no gate evidence by itself.
 ## Uses
 
 - **skill:** factory-onboard
-- **knowledge:** standards, domain-packs
+- **knowledge:** standards, domain-packs, methodology
 
 ## Handoff output
 

@@ -992,7 +992,8 @@
           "knowledge",
           [
             "standards",
-            "domain-packs"
+            "domain-packs",
+            "methodology"
           ]
         ]
       ]
@@ -1409,7 +1410,8 @@
         [
           "skill",
           [
-            "abap-dev"
+            "abap-dev",
+            "technical-documentation-generation"
           ]
         ],
         [
@@ -1422,7 +1424,15 @@
         [
           "artifact",
           [
-            "transport-record"
+            "transport-record",
+            "wricef-conversion",
+            "wricef-enhancement-complex",
+            "wricef-enhancement-simple",
+            "wricef-interface",
+            "wricef-print-form",
+            "wricef-report",
+            "wricef-workflow",
+            "technical-documentation"
           ]
         ],
         [

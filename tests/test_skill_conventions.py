@@ -16,7 +16,7 @@ SKILLS_DIR = ROOT / "skills"
 
 VALID_KNOWLEDGE_BUCKETS = {
     "clean-core", "config", "custom-code", "data", "domain-packs",
-    "extensibility", "operations", "process", "standards", "testing",
+    "extensibility", "methodology", "operations", "process", "standards", "testing",
 }
 
 # Connectors that expose write operations (not read-only)

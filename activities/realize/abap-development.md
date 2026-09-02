@@ -8,8 +8,8 @@ Build classic ABAP, RAP or CDS objects against the clean-core tier the design as
 
 ## Uses
 
-- **skill:** abap-dev
+- **skill:** abap-dev, technical-documentation-generation
 - **mcp:** abap-mcp, gcts-abapgit
-- **artifact:** transport-record
+- **artifact:** transport-record, wricef-conversion, wricef-enhancement-complex, wricef-enhancement-simple, wricef-interface, wricef-print-form, wricef-report, wricef-workflow, technical-documentation
 - **knowledge:** custom-code, clean-core, standards
 - **q-gate:** realize→deploy

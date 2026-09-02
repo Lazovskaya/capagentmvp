@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "description": "End-to-end test scenarios, one per e2e-process-scope flow, with provisional step ordering and explicit gap-verification steps.",
+  "required": ["source_e2e_scope", "generated_at", "scenarios"],
+  "properties": {
+    "source_e2e_scope": {
+      "type": "object",
+      "required": ["artifact", "generated_at"],
+      "properties": {
+        "artifact": { "type": "string", "const": "e2e-process-scope" },
+        "generated_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "scenarios": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["l1_value_stream", "steps", "step_order", "status"],
+        "properties": {
+          "l1_value_stream": { "type": "string" },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["description", "step_type"],
+              "properties": {
+                "description": { "type": "string" },
+                "step_type": { "type": "string", "enum": ["process-step", "gap-verification"] },
+                "linked_row_id": { "type": "string" }
+              }
+            }
+          },
+          "step_order": { "type": "string", "enum": ["PROVISIONAL", "CONFIRMED"] },
+          "evidence_thin": { "type": "boolean" },
+          "status": { "type": "string", "enum": ["DRAFT", "IN_REVIEW", "APPROVED", "REOPENED"] }
+        }
+      }
+    }
+  }
+}

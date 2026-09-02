@@ -15,6 +15,7 @@ defect. Nothing tested Standard rows proactively before this.
 
 ## Uses
 
-- **skill:** test-case-design
-- **artifact:** test-coverage-matrix
+- **skill:** test-case-design, e2e-test-scenario-generation
+- **agent:** test-generation
+- **artifact:** test-coverage-matrix, e2e-test-scenarios, test-generation-report
 - **knowledge:** process, domain-packs, testing

@@ -277,6 +277,14 @@
     },
     {
       "kind": "Skill",
+      "name": "e2e-test-scenario-generation",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Realize",
+      "desc": "Generate one E2E test scenario per e2e-process-scope flow, with provisional step ordering and explicit gap-verification steps for every linked GAP disposition."
+    },
+    {
+      "kind": "Skill",
       "name": "defect-pattern-analysis",
       "posture": "own",
       "status": "progress",
@@ -442,6 +450,22 @@
       "status": "progress",
       "phase": "Realize",
       "desc": "Peer agent that composes whatever domain-strategy outputs (EPMCSAPAI-275, -281 through -289) are available into a review-ready technical SAD, flagging missing domains and surfacing cross-domain conflicts for architect review rather than resolving them."
+    },
+    {
+      "kind": "Agent",
+      "name": "test-generation",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Realize",
+      "desc": "Orchestrates test-case-design and e2e-test-scenario-generation, then reports coverage against supplied specs/tickets. Test execution/automation stays out of scope."
+    },
+    {
+      "kind": "Agent",
+      "name": "functional-specifications-development",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Realize",
+      "desc": "Writes a functional specification per confirmed Gap/WRICEF item from the solution blueprint and fit-gap dispositions, routing each to the correct wricef-*/business-scenario-design template by Gap Type."
     },
     {
       "kind": "Agent",
@@ -664,6 +688,22 @@
       "status": "progress",
       "phase": "all",
       "desc": "Row ID to test-case traceability: technique used, test case IDs, status, explicit gaps."
+    },
+    {
+      "kind": "Artifact",
+      "name": "e2e-test-scenarios",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Realize",
+      "desc": "E2E test scenarios, one per e2e-process-scope flow, with provisional step ordering and explicit gap-verification steps, produced by e2e-test-scenario-generation."
+    },
+    {
+      "kind": "Artifact",
+      "name": "test-generation-report",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Realize",
+      "desc": "Pointers to a test-generation run's test-coverage-matrix and e2e-test-scenarios artifacts, plus coverage against supplied specs/tickets, produced by the test-generation agent."
     },
     {
       "kind": "Artifact",
@@ -1578,6 +1618,12 @@
           ]
         ],
         [
+          "agent",
+          [
+            "functional-specifications-development"
+          ]
+        ],
+        [
           "mcp",
           [
             "abap-mcp",
@@ -1757,13 +1803,22 @@
         [
           "skill",
           [
-            "test-case-design"
+            "test-case-design",
+            "e2e-test-scenario-generation"
+          ]
+        ],
+        [
+          "agent",
+          [
+            "test-generation"
           ]
         ],
         [
           "artifact",
           [
-            "test-coverage-matrix"
+            "test-coverage-matrix",
+            "e2e-test-scenarios",
+            "test-generation-report"
           ]
         ],
         [

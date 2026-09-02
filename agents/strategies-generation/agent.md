@@ -15,6 +15,15 @@ by the SAD Assembly agent (`EPMCSAPAI-290`).
 - `object-field-mapping` artifact — migration-object context relevant to Cutover/Testing.
 - Any other project-scope or landscape context supplied directly.
 
+**Reference knowledge (always available, not project-specific):**
+- `knowledge/methodology/cutover/cutover-strategy-framework.md` — the Cutover strategy's own
+  decision framework (timing/sequencing, org & responsibilities, schedule discipline,
+  communications, contingency, hypercare handoff, top assumptions).
+- `knowledge/methodology/cutover/remote-cutover-playbook.md` — additional readiness/execution
+  guidance when the engagement's delivery model is remote or hybrid.
+- `knowledge/methodology/cutover/cutover-checklist-template.md` — the reusable checklist stage
+  sequence a Cutover strategy's schedule should follow.
+
 ## Procedure
 
 1. **Take the in-scope delivery-strategy areas** — Cutover, Training, Testing, Convention.
@@ -23,7 +32,13 @@ by the SAD Assembly agent (`EPMCSAPAI-290`).
 2. **For each area, decide from actual project scope and context**, not from a generic
    template filled with placeholder prose. Every decision row states its own rationale citing
    the scope/context input it came from (a `fit-gap-analysis` row, an `object-field-mapping`
-   entry, or explicitly "no grounding input — team judgment call").
+   entry, or explicitly "no grounding input — team judgment call"). For the Cutover area
+   specifically, use `knowledge/methodology/cutover/cutover-strategy-framework.md`'s decision
+   framework as the question set to work through (timing/sequencing, org & responsibilities,
+   acceptance criteria, schedule discipline, contingency, hypercare handoff) rather than
+   inventing a different structure; layer in `remote-cutover-playbook.md` when delivery is
+   remote/hybrid, and reference `cutover-checklist-template.md`'s stage sequence for the
+   schedule shape.
 3. **Note cross-strategy dependencies explicitly** — the two the ticket itself calls out are
    Cutover <-> Testing (a cutover rehearsal needs test coverage to have run; test data cleanup
    affects cutover data steps), but do not force a link where none actually exists.
@@ -51,6 +66,9 @@ by the SAD Assembly agent (`EPMCSAPAI-290`).
 
 ## Related
 
+- `knowledge/methodology/cutover/` — Cutover-area decision framework, remote-cutover
+  playbook, checklist stage shape; curated from real SAP Activate accelerator content
+  2026-09-02.
 - `EPMCSAPAI-243`/`-247` fit-gap-analysis — optional upstream context.
 - `EPMCSAPAI-*` object-field-mapping (migration object scoping & mapping) — optional upstream
   context.

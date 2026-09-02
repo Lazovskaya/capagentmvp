@@ -2136,7 +2136,8 @@ window.FACTORY_DATA = {
      "knowledge",
      [
       "process",
-      "standards"
+      "standards",
+      "methodology"
      ]
     ],
     [

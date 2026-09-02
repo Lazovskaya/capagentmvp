@@ -4,6 +4,7 @@ namespace: "@epam/sap"
 
 category: "SAP Activate / Explore"
 sdlc-stage: in-progress
+use-case: ["Delivery strategy generation (Cutover, Training, Testing, Convention)"]
 
 distribution-class: client-shippable
 

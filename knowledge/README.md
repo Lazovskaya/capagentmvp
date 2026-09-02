@@ -1,6 +1,6 @@
 # Knowledge
 
-Ten buckets split into two fundamentally different kinds.
+Eleven buckets split into two fundamentally different kinds.
 
 ## Two kinds of buckets
 
@@ -16,6 +16,7 @@ Ten buckets split into two fundamentally different kinds.
 | Bucket | What's inside |
 |---|---|
 | `domain-packs/` | Swappable domain expertise: `order-to-cash/` (19 curated files — taxonomy, signal catalog, troubleshooting trees), `sap-best-practices/` (732 scope-item JSON + generated taxonomy/BPMN markdown) |
+| `methodology/` | SAP Activate roadmap task lists per product/scenario (`activate-s4hc-pe/`, generated from Roadmap Viewer XML exports); `cutover/` — curated Cutover strategy decision framework, remote-cutover playbook, and checklist task shape |
 | `operations/` | Run-loop contract + 6 operational templates (cutover runbook, hypercare playbook, rollback/escalation, SLO baseline, known-issues, production conversion) |
 | `testing/` | Defect-history register template + test-script template |
 | `standards/` | `source-synthesis.md` (document-construction methodology), `sap-architecture-references.md` (curated SAP GitHub/resource index) |

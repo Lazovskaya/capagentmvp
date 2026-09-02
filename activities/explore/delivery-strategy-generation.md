@@ -16,5 +16,5 @@ activity once its own strategy is approved.
 
 - **agent:** strategies-generation
 - **artifact:** delivery-strategy
-- **knowledge:** process, standards
+- **knowledge:** process, standards, methodology
 - **q-gate:** explore→realize

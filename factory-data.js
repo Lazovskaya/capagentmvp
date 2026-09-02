@@ -381,6 +381,22 @@ window.FACTORY_DATA = {
   },
   {
    "kind": "Agent",
+   "name": "e2e-process-scope",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Explore",
+   "desc": "Groups business-process-hierarchy's L1 value streams into E2E flows with explicit included-node boundaries, joining fit-gap-analysis dispositions by name where a confident match exists."
+  },
+  {
+   "kind": "Agent",
+   "name": "blueprint-generation",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Explore",
+   "desc": "Assembles a solution blueprint from e2e-process-scope's flows and fit-gap-analysis dispositions, one section per E2E flow, every design decision cited to its source row rather than decided by this agent."
+  },
+  {
+   "kind": "Agent",
    "name": "extensibility-assessor",
    "posture": "own",
    "status": "progress",
@@ -888,6 +904,22 @@ window.FACTORY_DATA = {
    "status": "progress",
    "phase": "Explore",
    "desc": "L1/L2/L3 SAP Best Practices tree of matched client business processes, with an explicit unplaced-processes list, produced by the business-process-hierarchy agent."
+  },
+  {
+   "kind": "Artifact",
+   "name": "e2e-process-scope",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Explore",
+   "desc": "E2E business process flows (one per SAP L1 value stream), included L2/L3 nodes, and linked Fit/Gap dispositions, produced by the e2e-process-scope agent."
+  },
+  {
+   "kind": "Artifact",
+   "name": "solution-blueprint",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Explore",
+   "desc": "Solution blueprint with one section per E2E flow, design decisions cited to their source fit-gap row, and an explicit not-yet-covered list, produced by the blueprint-generation agent."
   },
   {
    "kind": "Artifact",

@@ -1,0 +1,79 @@
+{
+  "type": "object",
+  "description": "Solution blueprint assembled from E2E process scope, Fit/Gap dispositions and the SAP-aligned process hierarchy. Every design decision cites the upstream row/node it is traced from; nothing is decided here that upstream agents didn't already ground.",
+  "required": ["source_e2e_scope", "source_fit_gap", "generated_at", "status", "sections", "not_yet_covered"],
+  "properties": {
+    "source_e2e_scope": {
+      "type": "object",
+      "required": ["artifact", "generated_at"],
+      "properties": {
+        "artifact": { "type": "string", "const": "e2e-process-scope" },
+        "generated_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "source_fit_gap": {
+      "type": "object",
+      "required": ["artifact", "generated_at"],
+      "properties": {
+        "artifact": { "type": "string", "const": "fit-gap-analysis" },
+        "generated_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "source_hierarchy": {
+      "type": "object",
+      "properties": {
+        "artifact": { "type": "string", "const": "business-process-hierarchy" },
+        "generated_at": { "type": "string", "format": "date-time" },
+        "resync_checked": { "type": "boolean" }
+      }
+    },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "status": { "type": "string", "enum": ["DRAFT", "IN_REVIEW", "APPROVED", "REOPENED"] },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["l1_value_stream", "included_nodes", "design_decisions", "resync_status"],
+        "properties": {
+          "l1_value_stream": { "type": "string" },
+          "included_nodes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["l2_core_process", "l3_scope_item", "scope_item_id"],
+              "properties": {
+                "l2_core_process": { "type": "string" },
+                "l3_scope_item": { "type": "string" },
+                "scope_item_id": { "type": "string" }
+              }
+            }
+          },
+          "design_decisions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["row_id", "disposition", "statement"],
+              "properties": {
+                "row_id": { "type": "string" },
+                "disposition": { "type": "string", "enum": ["standard", "solution-design-required", "open-question", "not-applicable"] },
+                "statement": { "type": "string" }
+              }
+            }
+          },
+          "resync_status": { "type": "string", "enum": ["OK", "NEEDS_RESYNC", "NOT_PERFORMED"] }
+        }
+      }
+    },
+    "not_yet_covered": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["ref", "reason"],
+        "properties": {
+          "ref": { "type": "string" },
+          "reason": { "type": "string" }
+        }
+      }
+    }
+  }
+}

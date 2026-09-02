@@ -1,0 +1,83 @@
+{
+  "type": "object",
+  "description": "End-to-end (E2E) business process flows, one per SAP L1 value stream present in the source business-process-hierarchy, with any linked Fit/Gap dispositions.",
+  "required": ["source_hierarchy", "generated_at", "flows", "unscoped_processes", "unlinked_fit_gap_items"],
+  "properties": {
+    "source_hierarchy": {
+      "type": "object",
+      "required": ["artifact", "generated_at"],
+      "properties": {
+        "artifact": { "type": "string", "const": "business-process-hierarchy" },
+        "generated_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "source_fit_gap": {
+      "type": "object",
+      "properties": {
+        "artifact": { "type": "string", "const": "fit-gap-analysis" },
+        "generated_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "flows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["l1_value_stream", "included_nodes", "status"],
+        "properties": {
+          "l1_value_stream": { "type": "string" },
+          "included_nodes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["l2_core_process", "l3_scope_item", "scope_item_id"],
+              "properties": {
+                "l2_core_process": { "type": "string" },
+                "l3_scope_item": { "type": "string" },
+                "scope_item_id": { "type": "string" }
+              }
+            }
+          },
+          "linked_fit_gap_rows": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["row_id", "classification", "disposition", "match_basis"],
+              "properties": {
+                "row_id": { "type": "string" },
+                "classification": { "type": "string", "enum": ["FIT", "GAP", "WORKAROUND", "TBC"] },
+                "disposition": { "type": "string" },
+                "match_basis": { "type": "string" }
+              }
+            }
+          },
+          "status": { "type": "string", "enum": ["DRAFT", "IN_REVIEW", "APPROVED", "REOPENED"] }
+        }
+      }
+    },
+    "unscoped_processes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["process_id", "process_name", "reason"],
+        "properties": {
+          "process_id": { "type": "string" },
+          "process_name": { "type": "string" },
+          "reason": { "type": "string" }
+        }
+      }
+    },
+    "unlinked_fit_gap_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["row_id", "process_step", "reason"],
+        "properties": {
+          "row_id": { "type": "string" },
+          "process_step": { "type": "string" },
+          "reason": { "type": "string" }
+        }
+      }
+    }
+  }
+}

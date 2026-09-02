@@ -1,0 +1,71 @@
+{
+  "type": "object",
+  "description": "Multi-level hierarchy of matched client business processes, aligned to SAP's own SAP Best Practices L1/L2/L3 taxonomy (not client/tenant enterprise architecture). Rolls up process-best-practice-mapping's MATCHED rows; never re-derives a match itself.",
+  "required": ["source_mapping", "generated_at", "value_streams", "unplaced_processes"],
+  "properties": {
+    "source_mapping": {
+      "type": "object",
+      "required": ["artifact", "generated_at"],
+      "properties": {
+        "artifact": { "type": "string", "const": "process-best-practice-mapping" },
+        "generated_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "value_streams": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["l1_value_stream", "core_processes"],
+        "properties": {
+          "l1_value_stream": { "type": ["string"], "description": "'UNCLASSIFIED' when the source scope item's own L1 is still null upstream" },
+          "core_processes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["l2_core_process", "scope_items"],
+              "properties": {
+                "l2_core_process": { "type": "string" },
+                "scope_items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": ["l3_scope_item", "scope_item_id", "processes"],
+                    "properties": {
+                      "l3_scope_item": { "type": "string" },
+                      "scope_item_id": { "type": "string" },
+                      "processes": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": ["process_id", "process_name"],
+                          "properties": {
+                            "process_id": { "type": "string" },
+                            "process_name": { "type": "string" }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "unplaced_processes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["process_id", "process_name", "status", "reason"],
+        "properties": {
+          "process_id": { "type": "string" },
+          "process_name": { "type": "string" },
+          "status": { "type": "string", "enum": ["UNMAPPED", "REVIEW_REQUIRED"] },
+          "reason": { "type": "string" }
+        }
+      }
+    }
+  }
+}

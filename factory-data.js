@@ -1089,6 +1089,41 @@ window.FACTORY_DATA = {
    ]
   },
   {
+   "phase": "Discover",
+   "owner": "architect",
+   "engagement": "G",
+   "status": "progress",
+   "file": "activities/discover/greenfield-process-mapping.md",
+   "title": "Greenfield process-to-best-practice mapping",
+   "desc": "Map the client's business process list to SAP's own SAP Best Practices scope items before anything else in the process-definition chain can start -- every downstream hierarchy, E2E scope and blueprint decision in Explore traces back to a match made here.",
+   "uses": [
+    [
+     "agent",
+     [
+      "process-best-practice-mapping"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "process-best-practice-mapping"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "domain-packs"
+     ]
+    ],
+    [
+     "q-gate",
+     [
+      "discover→prepare"
+     ]
+    ]
+   ]
+  },
+  {
    "phase": "Prepare",
    "owner": "architect",
    "engagement": "GBAR",
@@ -1409,6 +1444,85 @@ window.FACTORY_DATA = {
    ]
   },
   {
+   "phase": "Explore",
+   "owner": "architect",
+   "engagement": "G",
+   "status": "progress",
+   "file": "activities/explore/greenfield-blueprint.md",
+   "title": "Business process hierarchy & blueprint",
+   "desc": "Roll the greenfield process mapping up into SAP's L1/L2/L3 tree, group it into end-to-end flows, then assemble the solution blueprint -- three human-reviewed steps in sequence, each tracing every statement back to the mapping or Fit/Gap row that grounds it.",
+   "uses": [
+    [
+     "agent",
+     [
+      "business-process-hierarchy",
+      "e2e-process-scope",
+      "blueprint-generation"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "business-process-hierarchy",
+      "e2e-process-scope",
+      "solution-blueprint"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "domain-packs",
+      "standards"
+     ]
+    ],
+    [
+     "q-gate",
+     [
+      "explore→realize"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Explore",
+   "owner": "data",
+   "engagement": "GB",
+   "status": "progress",
+   "file": "activities/explore/migration-object-scoping.md",
+   "title": "Migration object scoping & mapping",
+   "desc": "Build the object inventory, cut it down to in-scope records against retention/scoping rules, then map each object and field to its S/4HANA target -- three human-reviewed decisions in sequence, so Realize's migration code development starts from a settled mapping.",
+   "uses": [
+    [
+     "agent",
+     [
+      "objects-list",
+      "data-scoping",
+      "objects-mapping"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "record-scoping-decision",
+      "object-field-mapping"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "data",
+      "standards"
+     ]
+    ],
+    [
+     "q-gate",
+     [
+      "explore→realize"
+     ]
+    ]
+   ]
+  },
+  {
    "phase": "Realize",
    "owner": "functional",
    "engagement": "GB",
@@ -1426,6 +1540,7 @@ window.FACTORY_DATA = {
     [
      "artifact",
      [
+      "design-config-doc",
       "config-record",
       "transport-record"
      ]
@@ -1480,6 +1595,7 @@ window.FACTORY_DATA = {
       "wricef-print-form",
       "wricef-report",
       "wricef-workflow",
+      "business-scenario-design",
       "technical-documentation"
      ]
     ],
@@ -1515,8 +1631,15 @@ window.FACTORY_DATA = {
      ]
     ],
     [
+     "agent",
+     [
+      "migration-code-development"
+     ]
+    ],
+    [
      "artifact",
      [
+      "migration-code-package",
       "reconciliation-report"
      ]
     ],
@@ -1524,6 +1647,41 @@ window.FACTORY_DATA = {
      "knowledge",
      [
       "data",
+      "standards"
+     ]
+    ],
+    [
+     "q-gate",
+     [
+      "realize→deploy"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Realize",
+   "owner": "architect",
+   "engagement": "GBA",
+   "status": "notstarted",
+   "file": "activities/realize/sad-assembly.md",
+   "title": "Technical SAD assembly",
+   "desc": "Compose whatever of the nine domain-strategy outputs are available into a review-ready technical Solution Architecture Document, flagging every missing or inconsistent domain explicitly rather than composing a false-complete SAD.",
+   "uses": [
+    [
+     "agent",
+     [
+      "sad-assembly"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "technical-sad"
+     ]
+    ],
+    [
+     "knowledge",
+     [
       "standards"
      ]
     ],

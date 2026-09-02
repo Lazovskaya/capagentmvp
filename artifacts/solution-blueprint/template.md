@@ -4,7 +4,7 @@
 - **Source fit-gap analysis:** `fit-gap-analysis` (generated at: )
 - **Source hierarchy:** `business-process-hierarchy` (generated at: ), resync checked: Yes / No
 - **Generated at (UTC):**
-- **Status:** Draft / In review / Approved / Reopened
+- **Status:** DRAFT / IN_REVIEW / APPROVED / REOPENED
 
 Every design decision below cites the fit-gap `row_id` it is traced from. An
 `open-question`/`solution-design-required` disposition is a named open question here, not a

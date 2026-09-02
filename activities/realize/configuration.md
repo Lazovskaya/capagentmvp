@@ -9,6 +9,6 @@ Make the customizing change, record what changed and why, and attach the transpo
 ## Uses
 
 - **skill:** config-doc
-- **artifact:** config-record, transport-record
+- **artifact:** design-config-doc, config-record, transport-record
 - **knowledge:** config, process, standards
 - **q-gate:** realize→deploy

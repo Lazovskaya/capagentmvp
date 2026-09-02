@@ -31,7 +31,7 @@ genuinely block the conversion from items that merely appear in the report.
 | agent | simplification-items-to-processes | requires | transforms the SAP Simplification Item Catalog export into the business-process-impact-list |
 | connector | readiness-check | requires | source of Readiness Check / SI-Check findings |
 | artifact | simplification-impact-report | produces | the Discover-phase deliverable of this skill |
-| artifact | business-process-impact-list | produces | evidence-backed candidate business-process impacts |
+| artifact | business-process-impact-list | consumes | evidence-backed candidate business-process impacts, produced by `simplification-items-to-processes` (EPMCSAPAI-240) |
 | knowledge | custom-code | consumes | scopes impact against the existing custom-code inventory |
 | knowledge | standards | consumes | applies delivery conventions |
 | q-gate | discover-prepare | gates-at | exit criteria: scope and readiness accepted |

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <entry>
+    <content type="application/xml">
+      <_-IWBEP_-S_MGW_NAME_VALUE_PAIR>
+        <NAME>TransitionDBDownloadedTimeUTC</NAME>
+        <VALUE>20260824153000.0000000</VALUE>
+      </_-IWBEP_-S_MGW_NAME_VALUE_PAIR>
+    </content>
+  </entry>
+  <entry>
+    <content type="application/xml">
+      <_-IWBEP_-S_MGW_NAME_VALUE_PAIR>
+        <NAME>ApplicationVersion</NAME>
+        <VALUE>2026.08</VALUE>
+      </_-IWBEP_-S_MGW_NAME_VALUE_PAIR>
+    </content>
+  </entry>
+</feed>

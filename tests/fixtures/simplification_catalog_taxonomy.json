@@ -1,0 +1,22 @@
+{
+  "by_item_id": {
+    "SI01: TEST_ITEM_ONE": [
+      {
+        "business_process": "General ledger accounting",
+        "candidate_transaction_codes": ["FB50", "FAGLL03"],
+        "mapping_basis": "Approved client process taxonomy row PROC-FI-GL-001",
+        "confidence": "high"
+      }
+    ]
+  },
+  "by_application_area": {
+    "Sales and Distribution": [
+      {
+        "business_process": "Sales order management",
+        "candidate_transaction_codes": [],
+        "mapping_basis": "SAP Best Practices scope item mapping (application-area fallback)",
+        "confidence": "medium"
+      }
+    ]
+  }
+}

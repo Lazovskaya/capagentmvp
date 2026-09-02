@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <entry>
+    <content type="application/xml">
+      <V_SIC_TART_REL>
+        <GUID>00000000-0000-0000-0000-000000000001</GUID>
+        <CATEGORY>C</CATEGORY>
+        <CATEGORY_TEXT_EN>Relevant</CATEGORY_TEXT_EN>
+        <TARGET_REL_VALID_FROM_PRD_VER>105</TARGET_REL_VALID_FROM_PRD_VER>
+        <TARGET_REL_VALID_TO_PRD_VER></TARGET_REL_VALID_TO_PRD_VER>
+      </V_SIC_TART_REL>
+    </content>
+  </entry>
+</feed>

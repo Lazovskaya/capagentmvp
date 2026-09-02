@@ -365,6 +365,14 @@ window.FACTORY_DATA = {
   },
   {
    "kind": "Agent",
+   "name": "process-best-practice-mapping",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Discover",
+   "desc": "Greenfield agent mapping a supplied business process list to SAP Best Practices scope items from the sap-best-practices domain pack, with 1:many candidates, confidence/match_basis, and explicit gaps for human review."
+  },
+  {
+   "kind": "Agent",
    "name": "extensibility-assessor",
    "posture": "own",
    "status": "progress",
@@ -856,6 +864,14 @@ window.FACTORY_DATA = {
    "status": "notstarted",
    "phase": "Explore",
    "desc": "Source-traceable mapping of in-scope business processes to SAP Fiori app candidates."
+  },
+  {
+   "kind": "Artifact",
+   "name": "process-best-practice-mapping",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Discover",
+   "desc": "Reviewable 1:many mapping of business processes to SAP Best Practices scope items, with confidence/match_basis and explicit gaps, produced by the process-best-practice-mapping agent."
   },
   {
    "kind": "Artifact",

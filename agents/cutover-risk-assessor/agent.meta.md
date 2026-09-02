@@ -4,6 +4,7 @@ namespace: "@epam/sap"
 
 category: "SAP Activate / Deploy"
 sdlc-stage: in-progress
+use-case: ["Cutover planning & go-live readiness"]
 
 distribution-class: client-shippable
 

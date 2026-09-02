@@ -4,6 +4,7 @@ namespace: "@epam/sap"
 
 category: "SAP Activate / Realize"
 sdlc-stage: in-progress
+use-case: ["Technical SAD assembly"]
 
 distribution-class: client-shippable
 

@@ -4,6 +4,7 @@ namespace: "@epam/sap"
 
 category: "SAP Activate / Run"
 sdlc-stage: in-progress
+use-case: ["Knowledge harvest"]
 
 distribution-class: client-shippable
 

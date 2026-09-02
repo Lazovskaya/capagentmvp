@@ -7,6 +7,7 @@ category: "SAP Activate / Realize"
 sdlc-stage: in-progress
 target-role: [test]
 engagement: [G, B, A]
+use-case: ["Test case design"]
 
 distribution-class: client-shippable
 

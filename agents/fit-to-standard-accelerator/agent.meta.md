@@ -4,6 +4,7 @@ namespace: "@epam/sap"
 
 category: "SAP Activate / Explore"
 sdlc-stage: not-ready
+use-case: ["Fit-to-standard workshops"]
 
 distribution-class: client-shippable
 

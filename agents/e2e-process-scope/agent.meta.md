@@ -4,6 +4,7 @@ namespace: "@epam/sap"
 
 category: "SAP Activate / Explore"
 sdlc-stage: in-progress
+use-case: ["Business process hierarchy & blueprint"]
 
 distribution-class: client-shippable
 

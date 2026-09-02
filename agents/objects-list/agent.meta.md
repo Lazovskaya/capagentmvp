@@ -4,6 +4,7 @@ namespace: "@epam/sap"
 
 category: "SAP Activate / Explore"
 sdlc-stage: in-progress
+use-case: ["Migration object scoping & mapping"]
 
 distribution-class: client-shippable
 

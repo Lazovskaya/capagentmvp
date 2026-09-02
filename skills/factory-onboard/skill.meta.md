@@ -7,6 +7,7 @@ category: "SAP Activate / Discover"
 sdlc-stage: in-progress            # not-ready | in-progress | in-test | ready
 target-role: [delivery]
 engagement: [G, B, A, R]           # G=Greenfield | B=Brownfield conversion | A=Build and Extend | R=AMS & Run
+use-case: ["Factory onboarding (user entry)"]
 
 distribution-class: client-shippable  # client-shippable | epam-internal-only | public-external
 

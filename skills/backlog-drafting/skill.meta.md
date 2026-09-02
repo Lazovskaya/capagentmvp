@@ -7,6 +7,7 @@ category: "SAP Activate / Explore"
 sdlc-stage: in-progress            # not-ready | in-progress | in-test | ready
 target-role: [delivery]
 engagement: [G, B, A]              # G=Greenfield | B=Brownfield conversion | A=Build and Extend | R=AMS & Run
+use-case: ["Backlog drafting"]
 
 distribution-class: client-shippable  # client-shippable | epam-internal-only | public-external
 

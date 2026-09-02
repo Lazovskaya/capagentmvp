@@ -7,6 +7,7 @@ category: "SAP Activate / Realize"
 sdlc-stage: in-progress            # not-ready | in-progress | in-test | ready
 target-role: [test, functional]    # test: realize/defect-triage.md · functional: run/hypercare-triage.md
 engagement: [G, B, A, R]           # G=Greenfield | B=Brownfield conversion | A=Build and Extend | R=AMS & Run
+use-case: ["Defect triage", "Hypercare & incident triage"]
 
 distribution-class: client-shippable  # client-shippable | epam-internal-only | public-external
 

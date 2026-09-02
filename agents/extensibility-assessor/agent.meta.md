@@ -4,6 +4,7 @@ namespace: "@epam/sap"
 
 category: "SAP Activate / Explore"
 sdlc-stage: in-progress
+use-case: ["Solution design, architecture package & extensibility routing"]
 
 distribution-class: client-shippable
 

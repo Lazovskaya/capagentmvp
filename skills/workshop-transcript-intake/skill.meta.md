@@ -7,6 +7,7 @@ category: "SAP Activate / Explore"
 sdlc-stage: in-progress            # not-ready | in-progress | in-test | ready
 target-role: [functional]          # UNVERIFIED — inferred by analogy with fit-to-standard/requirements-intake (workshop-facing, Explore phase); no activities[].owner exists to confirm
 engagement: []                     # UNVERIFIED — no activities[] entry exists to source this from; leave empty until confirmed
+use-case: ["Fit-to-standard workshops"]
 
 distribution-class: client-shippable  # client-shippable | epam-internal-only | public-external
 

@@ -4,6 +4,7 @@ namespace: "@epam/sap"
 
 category: "SAP Activate / Discover"
 sdlc-stage: in-progress
+use-case: ["Readiness & simplification analysis"]
 
 distribution-class: client-shippable
 

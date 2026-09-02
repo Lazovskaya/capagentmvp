@@ -4,6 +4,7 @@ namespace: "@epam/sap"
 
 category: "SAP Activate / Discover"
 sdlc-stage: in-progress
+use-case: ["Greenfield process-to-best-practice mapping"]
 
 distribution-class: client-shippable
 

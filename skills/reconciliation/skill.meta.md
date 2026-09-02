@@ -7,6 +7,7 @@ category: "SAP Activate / Realize"
 sdlc-stage: in-progress            # not-ready | in-progress | in-test | ready
 target-role: [data]
 engagement: [G, B]                 # G=Greenfield | B=Brownfield conversion | A=Build and Extend | R=AMS & Run
+use-case: ["Data migration & reconciliation"]
 
 distribution-class: client-shippable  # client-shippable | epam-internal-only | public-external
 

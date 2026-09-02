@@ -7,6 +7,7 @@ category: "SAP Activate / Run"
 sdlc-stage: in-progress            # not-ready | in-progress | in-test | ready
 target-role: [test]
 engagement: [R]                    # G=Greenfield | B=Brownfield conversion | A=Build and Extend | R=AMS & Run
+use-case: ["Defect pattern analysis"]
 
 distribution-class: client-shippable  # client-shippable | epam-internal-only | public-external
 

@@ -7,6 +7,7 @@ category: "SAP Activate / Realize"
 sdlc-stage: in-progress
 target-role: [technical]
 engagement: [G, B]
+use-case: ["ABAP / RAP development"]
 
 distribution-class: client-shippable
 

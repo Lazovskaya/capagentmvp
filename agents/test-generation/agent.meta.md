@@ -4,6 +4,7 @@ namespace: "@epam/sap"
 
 category: "SAP Activate / Realize"
 sdlc-stage: in-progress
+use-case: ["Test case design"]
 
 distribution-class: client-shippable
 

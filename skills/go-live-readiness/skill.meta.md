@@ -7,6 +7,7 @@ category: "SAP Activate / Deploy"
 sdlc-stage: in-progress            # not-ready | in-progress | in-test | ready
 target-role: [delivery]
 engagement: [G, B]                 # G=Greenfield | B=Brownfield conversion | A=Build and Extend | R=AMS & Run
+use-case: ["Cutover planning & go-live readiness"]
 
 distribution-class: client-shippable  # client-shippable | epam-internal-only | public-external
 

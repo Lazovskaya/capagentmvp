@@ -106,9 +106,9 @@ def test_skill_ref_exists(activity_title, name):
 @pytest.mark.parametrize("activity_title,name", _all_uses("agent"),
                          ids=lambda x: x if isinstance(x, str) else "")
 def test_agent_ref_exists(activity_title, name):
-    assert (ROOT / "agents" / f"{name}.md").exists(), (
+    assert (ROOT / "agents" / name / "agent.md").exists(), (
         f"activity '{activity_title}' references agent '{name}' "
-        f"but agents/{name}.md not found"
+        f"but agents/{name}/agent.md not found"
     )
 
 
@@ -142,8 +142,9 @@ def test_knowledge_ref_exists(activity_title, name):
 @pytest.mark.parametrize("activity_title,name", _all_uses("q-gate"),
                          ids=lambda x: x if isinstance(x, str) else "")
 def test_gate_ref_exists(activity_title, name):
-    # gates are referenced with → arrow but stored with - dash on disk
-    gate_file = (ROOT / "gates" / (name.replace("→", "-") + ".md"))
+    # gates are referenced with → arrow but stored with - dash on disk, as a
+    # gates/<slug>/gate.md directory (not a bare gates/<slug>.md file)
+    gate_file = (ROOT / "gates" / name.replace("→", "-") / "gate.md")
     assert gate_file.exists(), (
         f"activity '{activity_title}' references gate '{name}' "
         f"but {gate_file.relative_to(ROOT)} not found"
@@ -170,12 +171,12 @@ def test_no_orphaned_skills(name):
 
 
 @pytest.mark.parametrize("name", _orphaned(
-    {p.stem for p in (ROOT / "agents").glob("*.md")},
+    {p.parent.name for p in (ROOT / "agents").glob("*/agent.md")},
     _referenced_names("agent"),
 ))
 def test_no_orphaned_agents(name):
     pytest.fail(
-        f"agents/{name}.md exists but '{name}' is not referenced in any activity's uses. "
+        f"agents/{name}/agent.md exists but '{name}' is not referenced in any activity's uses. "
         f"Either add it to an activity or remove it from the repo."
     )
 
@@ -214,12 +215,12 @@ def test_no_orphaned_knowledge(name):
 
 
 @pytest.mark.parametrize("name", _orphaned(
-    {p.stem for p in (ROOT / "gates").glob("*.md")},
+    {p.parent.name for p in (ROOT / "gates").glob("*/gate.md")},
     {n.replace("→", "-") for n in _referenced_names("q-gate")},
 ))
 def test_no_orphaned_gates(name):
     pytest.fail(
-        f"gates/{name}.md exists but is not referenced in any activity's uses. "
+        f"gates/{name}/gate.md exists but is not referenced in any activity's uses. "
         f"Either add it to an activity or remove it from the repo."
     )
 
@@ -230,11 +231,11 @@ def test_no_orphaned_gates(name):
 
 KIND_TO_DISK = {
     "Skill":     lambda n: (ROOT / "skills" / n / "SKILL.md").exists() or n in _adopt_skill_names(),
-    "Agent":     lambda n: (ROOT / "agents" / f"{n}.md").exists(),
+    "Agent":     lambda n: (ROOT / "agents" / n / "agent.md").exists(),
     "Connector": lambda n: (ROOT / "connectors" / n / "server.json").exists(),
     "Artifact":  lambda n: (ROOT / "artifacts" / n / "template.md").exists(),
     "Knowledge": lambda n: (ROOT / "knowledge" / n).is_dir(),
-    "Q-gate":    lambda n: (ROOT / "gates" / (n.replace("→", "-") + ".md")).exists(),
+    "Q-gate":    lambda n: (ROOT / "gates" / n.replace("→", "-") / "gate.md").exists(),
 }
 
 

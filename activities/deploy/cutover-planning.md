@@ -9,10 +9,10 @@ Sequence every cutover task against the clock, rehearse it end to end, and track
 ## Uses
 
 - **skill:** cutover-plan, go-live-readiness
-- **agent:** cutover-risk-assessor
-- **mcp:** cloud-alm
-- **artifact:** sign-off-record, run-exit-record
-- **knowledge:** operations
+- **agent:** cutover-dependency-check, cutover-risk-assessor
+- **mcp:** cloud-alm, abap-mcp
+- **artifact:** sign-off-record, run-exit-record, cutover-dependency-check
+- **knowledge:** operations, methodology
 - **q-gate:** deploy→run
 
 ## Handoff requirement

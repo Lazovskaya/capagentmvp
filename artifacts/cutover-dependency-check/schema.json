@@ -1,0 +1,51 @@
+{
+  "type": "object",
+  "description": "Dependency-validated cutover checklist: flagged ordering/prerequisite issues against a cutover task list, with proposed fixes and an owner-notification list.",
+  "required": ["source_checklist", "generated_at", "flagged_items", "notifications", "status"],
+  "properties": {
+    "source_checklist": {
+      "type": "object",
+      "description": "The cutover-plan task list this check ran against.",
+      "required": ["source", "generated_at"],
+      "properties": {
+        "source": { "type": "string", "description": "e.g. 'cutover-plan skill output', 'delivery-strategy: Cutover'" },
+        "generated_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "object_dependency_data_available": {
+      "type": "boolean",
+      "description": "Whether a live transport/object dependency query (abap-mcp) was actually available for this run."
+    },
+    "flagged_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["task_ref", "issue_type", "evidence", "rationale"],
+        "properties": {
+          "task_ref": { "type": "string", "description": "Cutover checklist task No./ID" },
+          "issue_type": {
+            "type": "string",
+            "enum": ["MISSING_PREREQUISITE", "OUT_OF_ORDER", "CIRCULAR", "STRATEGY_CONFLICT", "OBJECT_DEPENDENCY_NOT_VERIFIED"]
+          },
+          "evidence": { "type": "string" },
+          "proposed_position": { "type": "string", "description": "Proposed ordering fix, if the issue type has one (blank for OBJECT_DEPENDENCY_NOT_VERIFIED)" },
+          "rationale": { "type": "string" }
+        }
+      }
+    },
+    "notifications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["owner", "task_refs", "channel"],
+        "properties": {
+          "owner": { "type": "string" },
+          "task_refs": { "type": "array", "items": { "type": "string" } },
+          "channel": { "type": "string", "description": "How this factory can actually reach the owner today (e.g. 'jira comment', 'manual — no notification connector wired')" }
+        }
+      }
+    },
+    "status": { "type": "string", "enum": ["DRAFT", "IN_REVIEW", "APPROVED", "REOPENED"] }
+  }
+}

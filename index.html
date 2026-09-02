@@ -1173,6 +1173,22 @@ window.FACTORY_DATA = {
    "status": "progress",
    "phase": "Explore",
    "desc": "One non-technical delivery-strategy document (Cutover, Training, Testing, or Convention) with cited decisions and cross-strategy dependencies."
+  },
+  {
+   "kind": "Agent",
+   "name": "cutover-dependency-check",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Deploy",
+   "desc": "Evaluates cutover-plan's checklist for missing/circular/out-of-order dependencies and strategy conflicts, proposes ordering fixes, and lists owners to notify."
+  },
+  {
+   "kind": "Artifact",
+   "name": "cutover-dependency-check",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Deploy",
+   "desc": "Dependency-validated cutover checklist: flagged items with evidence/rationale and an owner-notification list."
   }
  ],
  "activities": [
@@ -2015,26 +2031,30 @@ window.FACTORY_DATA = {
     [
      "agent",
      [
+      "cutover-dependency-check",
       "cutover-risk-assessor"
      ]
     ],
     [
      "mcp",
      [
-      "cloud-alm"
+      "cloud-alm",
+      "abap-mcp"
      ]
     ],
     [
      "artifact",
      [
       "sign-off-record",
-      "run-exit-record"
+      "run-exit-record",
+      "cutover-dependency-check"
      ]
     ],
     [
      "knowledge",
      [
-      "operations"
+      "operations",
+      "methodology"
      ]
     ],
     [

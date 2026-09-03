@@ -2,7 +2,7 @@
 connector: gcts-abapgit
 namespace: "@epam/sap"
 
-connector-type: mcp
+connector-type: documented-only
 system-type: [onprem, cloud]           # inferred from "Source control for ABAP Cloud, CAP and UI5" description — not yet confirmed by a real server.json
 auth-type: [TBD]
 sdlc-stage: not-ready

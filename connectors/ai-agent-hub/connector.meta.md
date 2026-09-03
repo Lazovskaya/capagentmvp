@@ -2,7 +2,7 @@
 connector: ai-agent-hub
 namespace: "@epam/sap"
 
-connector-type: mcp
+connector-type: documented-only
 system-type: []
 auth-type: [TBD]
 sdlc-stage: not-ready

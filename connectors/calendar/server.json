@@ -1,5 +1,4 @@
 {
-  "command": "TODO",
-  "args": [],
-  "note": "placeholder for the Microsoft 365 calendar connector used by fit-to-standard's scheduling step"
+  "pattern": "documented-only",
+  "note": "Microsoft 365 calendar integration is documented in the skill contract but has no repository-owned MCP wiring. Configure an approved tenant connector externally."
 }

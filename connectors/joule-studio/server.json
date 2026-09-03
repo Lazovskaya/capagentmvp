@@ -1,5 +1,6 @@
 {
-  "command": "TODO",
-  "args": [],
-  "note": "placeholder for joule-studio"
+  "pattern": "cli",
+  "command": "joule",
+  "args": ["--help"],
+  "note": "Joule Studio CLI is the supported automation surface for build, lint, compile and deployment workflows; install @sap/joule-studio-cli and authenticate interactively. This is CLI wiring, not MCP."
 }

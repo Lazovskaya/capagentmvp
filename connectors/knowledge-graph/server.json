@@ -1,5 +1,4 @@
 {
-  "command": "TODO",
-  "args": [],
-  "note": "placeholder for knowledge-graph"
+  "pattern": "documented-only",
+  "note": "Knowledge graph is a target integration contract; no repository-owned MCP server is currently available. Supply a customer-approved graph endpoint or use LeanIX MCP for enterprise-architecture facts."
 }

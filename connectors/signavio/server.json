@@ -1,5 +1,8 @@
 {
-  "command": "TODO",
-  "args": [],
-  "note": "placeholder for signavio"
+  "pattern": "script",
+  "note": "Working Signavio Process Manager API connector. Use the repository Python tools; no public MCP server is provided.",
+  "commands": {
+    "download_bpmn": "python3 tools/fetch_bpmn_signavio.py",
+    "enrich": "python3 tools/enrich_sap_best_practices_signavio.py"
+  }
 }

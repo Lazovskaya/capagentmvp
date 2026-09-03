@@ -59,7 +59,7 @@ unresolvable defect dispute, not a shortcut.
 
 1b. **Refuse unless design-record `status` is `APPROVED`.** `DRAFT` / `IN_REVIEW` / `REOPENED`
    (until re-approved) stay local — do not create or push Jira items. See
-   `../../../artifacts/explore-chain/handoff.md` (design-to-backlog). Append `status.gate_blocked` and
+   `../../../artifacts/explore-chain/handoff.md` (design-to-backlog artifact). Append `status.gate_blocked` and
    stop.
 
 2. **AC quality check** — run `references/ac-quality-check.md` against the design-record's

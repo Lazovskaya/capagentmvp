@@ -2,7 +2,7 @@
 connector: knowledge-graph
 namespace: "@epam/sap"
 
-connector-type: mcp
+connector-type: documented-only
 system-type: []
 auth-type: [TBD]                      # stub — connector.md carries no wiring detail yet
 sdlc-stage: in-progress

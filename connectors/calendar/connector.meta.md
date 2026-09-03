@@ -2,7 +2,7 @@
 connector: calendar
 namespace: "@epam/sap"
 
-connector-type: mcp
+connector-type: documented-only
 system-type: []
 auth-type: [oauth]                     # Microsoft 365 in the ported version — connector.md does not spell out the exact auth flow
 sdlc-stage: in-progress

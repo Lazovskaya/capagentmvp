@@ -148,6 +148,7 @@ def load_desc_lookup():
 def generate_components():
     desc_lookup = load_desc_lookup()
     components = []
+    generated_keys = set()
     for kind, (root, meta_name, field_name) in KIND_DIRS.items():
         if not root.exists():
             continue
@@ -177,6 +178,15 @@ def generate_components():
             if kind == "Connector":
                 entry["pattern"] = parse_pattern(fields.get("connector-type", ""))
             components.append(entry)
+            generated_keys.add((kind, name))
+    # Keep legacy/adopted entries that intentionally have no local sidecar. Removing these
+    # silently makes activities refer to components that disappear from the canonical model.
+    current = json.loads(FACTORY_DATA_PATH.read_text(encoding="utf-8"))
+    for entry in current.get("components", []):
+        key = (entry.get("kind"), entry.get("name"))
+        if key not in generated_keys:
+            components.append(entry)
+    components.sort(key=lambda item: (item.get("kind", ""), item.get("name", "")))
     return components
 
 

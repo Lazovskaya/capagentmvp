@@ -1,9 +1,9 @@
 # Connector: signavio
 
-**Pattern:** `script` — direct HTTP, called by Python tools. No MCP server exists for
-Signavio's basic-auth API; runtime access from a skill would require an MCP wrapper not yet built.
+**Pattern:** `script` — direct HTTP, called by Python tools. No public MCP server exists for
+Signavio's basic-auth API; runtime access from a skill uses the repository's API scripts.
 
-**Status:** Progress. Script integration confirmed against a real Signavio Process Manager tenant
+**Status:** Working (script/API). Integration confirmed against a real Signavio Process Manager tenant
 (2026-08-24). Three tools use this connector: `enrich_sap_best_practices_signavio.py`,
 `fetch_bpmn_signavio.py`, `test_signavio_bpmn_download.py`.
 

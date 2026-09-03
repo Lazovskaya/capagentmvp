@@ -1,5 +1,4 @@
 {
-  "command": "TODO",
-  "args": [],
-  "note": "placeholder for ai-agent-hub"
+  "pattern": "documented-only",
+  "note": "SAP AI Agent Hub is a governance and registry surface; no public MCP server or stable general-purpose CLI wiring is exposed. LeanIX MCP can provide architecture evidence, but it is not an AI Agent Hub replacement."
 }

@@ -237,6 +237,11 @@ def normalize_connector(name, destinations, tool=None):
     if not server.exists():
         die(f"connectors/{name}/server.json not found")
     raw = load_json(server)
+    if raw.get("pattern") in {"script", "cli", "documented-only"}:
+        die(
+            f"connector '{name}' is {raw['pattern']}, not an MCP connector; "
+            f"run the documented command in connectors/{name}/connector.md"
+        )
     dest_name = destinations.get(name, "default")
 
     if "mcpConfig" in raw:

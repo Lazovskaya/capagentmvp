@@ -1,5 +1,4 @@
 {
-  "command": "TODO",
-  "args": [],
-  "note": "placeholder for gcts-abapgit"
+  "pattern": "documented-only",
+  "note": "gCTS/abapGit source-control integration remains environment-specific; no portable repository-owned MCP wiring is provided."
 }

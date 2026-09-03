@@ -1,5 +1,4 @@
 {
-  "command": "TODO",
-  "args": [],
-  "note": "placeholder for readiness-check"
+  "pattern": "documented-only",
+  "note": "SAP Readiness Check has no public MCP connector or supported general-purpose API. Use SAP Readiness Check in the customer landscape and ingest exported findings as evidence."
 }

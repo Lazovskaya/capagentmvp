@@ -2,7 +2,7 @@
 connector: readiness-check
 namespace: "@epam/sap"
 
-connector-type: mcp
+connector-type: documented-only
 system-type: []
 auth-type: [TBD]                       # stub — connector.md carries no wiring detail yet
 sdlc-stage: not-ready

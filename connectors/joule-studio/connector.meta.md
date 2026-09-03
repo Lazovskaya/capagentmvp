@@ -2,7 +2,7 @@
 connector: joule-studio
 namespace: "@epam/sap"
 
-connector-type: mcp
+connector-type: cli
 system-type: []
 auth-type: [TBD]
 sdlc-stage: not-ready

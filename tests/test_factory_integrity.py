@@ -236,6 +236,10 @@ KIND_TO_DISK = {
     "Artifact":  lambda n: (ROOT / "artifacts" / n / "template.md").exists(),
     "Knowledge": lambda n: (ROOT / "knowledge" / n).is_dir(),
     "Q-gate":    lambda n: (ROOT / "gates" / n.replace("→", "-") / "gate.md").exists(),
+    "Assistant": lambda n: (
+        (ROOT / "assistants" / n / "assistant.meta.md").exists()
+        and (ROOT / "assistants" / n / "assistant.md").exists()
+    ),
 }
 
 
@@ -250,4 +254,26 @@ def test_component_file_exists(component):
     assert checker(name), (
         f"component {kind}/{name} is listed in factory-data.json "
         f"but its file does not exist on disk"
+    )
+
+
+@pytest.mark.parametrize(
+    "name",
+    sorted(
+        path.name
+        for path in (ROOT / "assistants").iterdir()
+        if path.is_dir()
+        and (
+            (path / "assistant.md").exists()
+            or (path / "assistant.meta.md").exists()
+        )
+    ),
+)
+def test_assistant_component_exists(name):
+    matches = [
+        c for c in _components()
+        if c.get("kind") == "Assistant" and c.get("name") == name
+    ]
+    assert len(matches) == 1, (
+        f"assistants/{name}/ has metadata but no Assistant component in factory-data.json"
     )

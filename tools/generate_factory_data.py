@@ -21,7 +21,7 @@ Field derivation:
   - kind / name: which meta file, and its own skill:/agent:/connector:/artifact:/gate: field.
   - posture: "own" if source: internal, else "adopt".
   - status: sdlc-stage mapped through not-ready->notstarted, in-progress->progress,
-    in-test->progress (collapsed, no separate JSON status exists for it), ready->ready.
+    in-test->in-test, ready->ready.
   - phase (skill/agent): parsed from category: "SAP Activate / <Phase>".
   - phase (connector/gate): always "all" -- confirmed against every current instance, no
     exceptions found; these two kinds have no category field to derive it from anyway.
@@ -60,16 +60,17 @@ FACTORY_DATA_PATH = FACTORY_ROOT / "factory-data.json"
 STATUS_MAP = {
     "not-ready": "notstarted",
     "in-progress": "progress",
-    "in-test": "progress",
+    "in-test": "in-test",
     "ready": "ready",
 }
 
 KIND_DIRS = {
-    "Skill": (FACTORY_ROOT / "skills", "skill.meta.md", "skill"),
-    "Agent": (FACTORY_ROOT / "agents", "agent.meta.md", "agent"),
-    "Connector": (FACTORY_ROOT / "connectors", "connector.meta.md", "connector"),
-    "Artifact": (FACTORY_ROOT / "artifacts", "artifact.meta.md", "artifact"),
-    "Q-gate": (FACTORY_ROOT / "gates", "gate.meta.md", "gate"),
+    "Skill": ("skills", "skill.meta.md", "skill"),
+    "Agent": ("agents", "agent.meta.md", "agent"),
+    "Connector": ("connectors", "connector.meta.md", "connector"),
+    "Artifact": ("artifacts", "artifact.meta.md", "artifact"),
+    "Q-gate": ("gates", "gate.meta.md", "gate"),
+    "Assistant": ("assistants", "assistant.meta.md", "assistant"),
 }
 
 CATEGORY_RE = re.compile(r'"SAP Activate / ([A-Za-z]+)"')
@@ -100,7 +101,7 @@ def parse_phase_from_category(fields):
 
 
 def component_phase(kind, name, fields, meta_path):
-    if kind in ("Connector", "Q-gate"):
+    if kind in ("Connector", "Q-gate", "Assistant"):
         return "all"
     if kind in ("Skill", "Agent"):
         phase = parse_phase_from_category(fields)
@@ -145,16 +146,44 @@ def load_desc_lookup():
     return {(c["kind"], c["name"]): c.get("desc") for c in data["components"]}
 
 
+def assistant_description(assistant_path):
+    """Return the first prose paragraph from an assistant.md sidecar."""
+    content_path = assistant_path / "assistant.md"
+    if not content_path.exists():
+        return None
+    lines = content_path.read_text(encoding="utf-8").splitlines()
+    in_frontmatter = False
+    paragraph = []
+    for line in lines:
+        stripped = line.strip()
+        if stripped == "---":
+            in_frontmatter = not in_frontmatter
+            continue
+        if in_frontmatter or stripped.startswith("#"):
+            if paragraph:
+                break
+            continue
+        if not stripped:
+            if paragraph:
+                break
+            continue
+        paragraph.append(stripped)
+    return " ".join(paragraph) or None
+
+
 def generate_components():
     desc_lookup = load_desc_lookup()
     components = []
     generated_keys = set()
-    for kind, (root, meta_name, field_name) in KIND_DIRS.items():
+    for kind, (root_name, meta_name, field_name) in KIND_DIRS.items():
+        root = FACTORY_ROOT / root_name
         if not root.exists():
             continue
         for child in sorted(root.iterdir()):
             meta_path = child / meta_name
             if not meta_path.exists():
+                continue
+            if kind == "Assistant" and not (child / "assistant.md").exists():
                 continue
             fields = read_frontmatter(meta_path)
             name = fields.get(field_name, child.name)
@@ -167,13 +196,14 @@ def generate_components():
             posture = "adopt" if kind == "Connector" else ("own" if source == "internal" else "adopt")
             status = STATUS_MAP.get(fields.get("sdlc-stage", ""), "notstarted")
             phase = component_phase(kind, name, fields, meta_path)
+            desc = assistant_description(child) if kind == "Assistant" else desc_lookup.get((kind, name))
             entry = {
                 "kind": kind,
                 "name": name,
                 "posture": posture,
                 "status": status,
                 "phase": phase,
-                "desc": desc_lookup.get((kind, name)),
+                "desc": desc,
             }
             if kind == "Connector":
                 entry["pattern"] = parse_pattern(fields.get("connector-type", ""))

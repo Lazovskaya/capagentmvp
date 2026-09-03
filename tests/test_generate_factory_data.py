@@ -53,6 +53,9 @@ class TestComponentPhase:
     def test_qgate_always_all(self):
         assert g.component_phase("Q-gate", "explore-realize", {}, None) == "all"
 
+    def test_assistant_always_all(self):
+        assert g.component_phase("Assistant", "solution-architect", {}, None) == "all"
+
     def test_skill_from_category(self):
         fields = {"category": '"SAP Activate / Explore"'}
         assert g.component_phase("Skill", "fit-to-standard", fields, None) == "Explore"
@@ -126,6 +129,56 @@ class TestParsePattern:
         assert g.parse_pattern("[mcp, script]") == ["mcp", "script"]
 
 
+class TestAssistantDiscovery:
+    def test_discovers_assistant_from_metadata(self, tmp_path, monkeypatch):
+        assistant = tmp_path / "assistants" / "sample"
+        assistant.mkdir(parents=True)
+        (assistant / "assistant.meta.md").write_text(
+            "---\nassistant: sample\nsdlc-stage: in-test\nsource: internal\n---\n",
+            encoding="utf-8",
+        )
+        (assistant / "assistant.md").write_text(
+            "# Sample\n\nRoutes role requests to the right factory capability.\n",
+            encoding="utf-8",
+        )
+        (tmp_path / "factory-data.json").write_text(
+            json.dumps({"components": []}), encoding="utf-8"
+        )
+        monkeypatch.setattr(g, "FACTORY_ROOT", tmp_path)
+        monkeypatch.setattr(g, "FACTORY_DATA_PATH", tmp_path / "factory-data.json")
+
+        generated = g.generate_components()
+
+        assert generated == [{
+            "kind": "Assistant",
+            "name": "sample",
+            "posture": "own",
+            "status": "in-test",
+            "phase": "all",
+            "desc": "Routes role requests to the right factory capability.",
+        }]
+
+    def test_description_uses_introductory_paragraph(self, tmp_path):
+        assistant = tmp_path / "assistant"
+        assistant.mkdir()
+        (assistant / "assistant.md").write_text(
+            "# Example\n\nA concise role entry point that routes requests.\n\n## Boundary\n",
+            encoding="utf-8",
+        )
+        assert g.assistant_description(assistant) == (
+            "A concise role entry point that routes requests."
+        )
+
+    def test_description_missing_content_returns_none(self, tmp_path):
+        assistant = tmp_path / "assistant"
+        assistant.mkdir()
+        (assistant / "assistant.md").write_text("# Example\n", encoding="utf-8")
+        assert g.assistant_description(assistant) is None
+
+    def test_in_test_stage_is_distinct(self):
+        assert g.STATUS_MAP["in-test"] == "in-test"
+
+
 class TestDiffComponents:
     def test_no_diff_when_identical(self):
         current = [{"kind": "Skill", "name": "x", "posture": "own", "status": "ready", "phase": "Explore"}]
@@ -150,7 +203,19 @@ class TestDiffComponents:
 class TestMainSmoke:
     def test_check_runs_against_real_repo_without_crashing(self):
         exit_code = g.main(["--check"])
-        assert exit_code in (0, 1)
+        assert exit_code == 0
+
+    def test_real_repo_contains_each_assistant_once(self):
+        generated = [
+            component for component in g.generate_components()
+            if component["kind"] == "Assistant"
+        ]
+        assistant_dirs = sorted(
+            path.name for path in (g.FACTORY_ROOT / "assistants").iterdir()
+            if (path / "assistant.meta.md").exists()
+        )
+        assert [component["name"] for component in generated] == assistant_dirs
+        assert len({component["name"] for component in generated}) == len(generated)
 
     def test_default_run_never_writes_the_real_file(self):
         before = g.FACTORY_DATA_PATH.read_text(encoding="utf-8")

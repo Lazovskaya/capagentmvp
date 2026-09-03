@@ -37,6 +37,7 @@
 .saf button.pf[data-v="adopt"][aria-pressed="true"]{background:var(--adopt);border-color:var(--adopt);color:var(--bg)}
 .saf button.sf[data-v="notstarted"]{border-color:transparent;background:var(--surface2)}
 .saf button.sf[data-v="progress"]{border-style:dotted;border-color:var(--ink3)}
+.saf button.sf[data-v="in-test"]{border-style:dashed;border-color:var(--ink3)}
 .saf button.sf[data-v="ready"]{border-style:solid;border-color:var(--ink2)}
 .saf button.sf[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 .saf .hint{font-size:12.5px;color:var(--ink3);margin:-6px 0 16px}
@@ -85,6 +86,7 @@
 .saf .t.own{background:var(--ownbg);color:var(--own)}
 .saf .t.adopt{background:var(--adoptbg);color:var(--adopt)}
 .saf .t[data-s="progress"]{border-style:dotted}
+.saf .t[data-s="in-test"]{border-style:dashed}
 .saf .t[data-s="ready"]{border-style:solid}
 .saf .t.own[data-s="progress"]{border-color:var(--ownln)}
 .saf .t.own[data-s="ready"]{border-color:var(--own)}
@@ -98,6 +100,7 @@
 .saf .act{position:relative;border:1px solid transparent;background:var(--surface2);margin-bottom:7px}
 .saf .act:last-child{margin-bottom:0}
 .saf .act[data-s="progress"]{border-style:dotted;border-color:var(--ink2)}
+.saf .act[data-s="in-test"]{border-style:dashed;border-color:var(--ink2)}
 .saf .act[data-s="ready"]{border-style:solid;border-color:var(--ink)}
 .saf .act.sel{border:1px solid var(--ink);border-style:solid;box-shadow:inset 3px 0 0 var(--ink);background:var(--surface3)}
 .saf .acthit{display:block;width:100%;text-align:left;font-family:inherit;background:transparent;border:0;padding:9px 10px;cursor:pointer;border-radius:0;color:inherit}
@@ -138,6 +141,7 @@
 .saf .ovstat{display:inline-block;font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:2px 6px;border:1px solid var(--ink3);color:var(--ink2);margin:12px 0 0 6px}
 .saf .ovstat[data-s="notstarted"]{border-color:transparent;background:var(--surface2)}
 .saf .ovstat[data-s="progress"]{border-style:dotted}
+.saf .ovstat[data-s="in-test"]{border-style:dashed}
 .saf .ovstat[data-s="ready"]{border-style:solid}
 .saf .ovd{font-size:14px;color:var(--ink2);margin-top:12px}
 .saf .ovwhy{font-size:12.5px;color:var(--ink3);margin-top:10px}
@@ -197,6 +201,7 @@ window.FACTORY_DATA = {
  "statuses": {
   "notstarted": "Not started",
   "progress": "In progress",
+  "in-test": "In test",
   "ready": "Ready"
  },
  "postures": {
@@ -217,6 +222,11 @@ window.FACTORY_DATA = {
    "label": "Agents",
    "desc": "Bounded workers returning a typed, auditable verdict. Used only where the output is a decision rather than a document.",
    "layout": "phase"
+  },
+  {
+   "label": "Assistants",
+   "desc": "Role-scoped entry points that route requests to the appropriate agent or skill.",
+   "layout": "band"
   },
   {
    "label": "Connectors",
@@ -775,6 +785,38 @@ window.FACTORY_DATA = {
    "status": "notstarted",
    "phase": "all",
    "desc": null
+  },
+  {
+   "kind": "Assistant",
+   "name": "abap-developer",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Role-scoped entry point for the **ABAP Developer**: technical development across Prepare (custom-code baseline), Realize (ABAP/RAP/CDS build) and Run (defect fixes, Joule agent build). It holds the role boundary, offers the developer's use cases, and routes each request to an eligible agent or, where none exists yet, to the owning skill. The routed skill is what reaches the ABAP system through a connector — this assistant never calls `abap-mcp`, `arc-1` or any tool directly."
+  },
+  {
+   "kind": "Assistant",
+   "name": "delivery-manager",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Role-scoped entry point for the **Delivery Manager**: cross-phase delivery coordination — consultant onboarding, ceremony-depth routing, end-to-end engagement evaluation, and governance of the knowledge harvested at the end of each run. It holds the role boundary, offers the role's use cases, and routes each request to an eligible agent or, where none exists yet, to the owning skill. It never calls tools or connectors itself."
+  },
+  {
+   "kind": "Assistant",
+   "name": "functional-consultant",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Role-scoped entry point for the **Functional Consultant**: Explore-phase blueprinting (requirements, fit-to-standard, workshops, Fiori mapping) and Realize-phase configuration. It also **temporarily** hosts the AMS defect-diagnosis cluster until a dedicated `ams-support-analyst` assistant is split out (second wave). It holds the role boundary, offers the role's use cases, and routes each request to an eligible agent or, where none exists yet, to the owning skill. It never calls tools or connectors itself."
+  },
+  {
+   "kind": "Assistant",
+   "name": "solution-architect",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Role-scoped entry point for the **Solution Architect**: architecture-side delivery work across Discover, Prepare and Explore, plus cross-phase architecture governance in Run. It holds the role boundary, offers the architect's use cases, and routes each request to an eligible agent (or, where no agent exists yet, directly to the owning skill). It never calls tools or connectors itself — the routed agent or skill does."
   },
   {
    "kind": "Connector",
@@ -2915,7 +2957,7 @@ function __render(){
   var E=function(x){return String(x==null?'':x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')};
   var q=function(s){return [].slice.call(document.querySelectorAll(s))};
   var byKind=function(k){return D.components.filter(function(c){return c.kind===k})};
-  var KIND={Skills:'Skill',Agents:'Agent',Connectors:'Connector',Artifacts:'Artifact','Q-gates':'Q-gate',Knowledge:'Knowledge'};
+  var KIND={Skills:'Skill',Agents:'Agent',Connectors:'Connector',Artifacts:'Artifact','Q-gates':'Q-gate',Assistants:'Assistant',Knowledge:'Knowledge'};
 
   function tile(c){
     return '<button class="t '+c.posture+'" data-k="'+E(c.kind)+'" data-p="'+c.posture+
@@ -3027,7 +3069,7 @@ function __render(){
 function __runtime(){
   var ROLE={functional:'Functional',developer:'Developer',architect:'Architect',
             delivery:'Delivery Manager',basis:'Basis',data:'Data Lead',test:'Tester'};
-  var SLABEL={notstarted:'Not started',progress:'In progress',ready:'Ready'};
+  var SLABEL={notstarted:'Not started',progress:'In progress','in-test':'In test',ready:'Ready'};
   var ENG={G:'Greenfield',B:'Brownfield conversion',A:'Build and Extend',R:'AMS & Run'};
   var WHY={own:'Own, authored by us. Lives in the factory repo, versioned by us.',
            adopt:'Adopt, pulled in, not authored. Vendored via npx skills add --copy, provenance in factory-lock.json.'};
@@ -3139,6 +3181,9 @@ function __runtime(){
     } else if(kind==='Q-gate'){
       r.push(['factory','gates/'+name.replace('→','-')+'.md','exit criteria + evidence']);
       r.push(['project','.claude/settings.json','gate hooks, Cursor has none, gates run in CI']);
+    } else if(kind==='Assistant'){
+      r.push(['factory','assistants/'+name+'/assistant.md','role-scoped entry point']);
+      r.push(['factory','assistants/'+name+'/assistant.meta.md','routing metadata']);
     } else if(kind==='Knowledge'){
       r.push(['factory','knowledge/'+name+'/','central default']);
       r.push(['project','knowledge/'+name+'/','override or extend, per file']);

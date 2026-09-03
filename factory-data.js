@@ -48,6 +48,7 @@ window.FACTORY_DATA = {
  "statuses": {
   "notstarted": "Not started",
   "progress": "In progress",
+  "in-test": "In test",
   "ready": "Ready"
  },
  "postures": {
@@ -68,6 +69,11 @@ window.FACTORY_DATA = {
    "label": "Agents",
    "desc": "Bounded workers returning a typed, auditable verdict. Used only where the output is a decision rather than a document.",
    "layout": "phase"
+  },
+  {
+   "label": "Assistants",
+   "desc": "Role-scoped entry points that route requests to the appropriate agent or skill.",
+   "layout": "band"
   },
   {
    "label": "Connectors",
@@ -626,6 +632,38 @@ window.FACTORY_DATA = {
    "status": "notstarted",
    "phase": "all",
    "desc": null
+  },
+  {
+   "kind": "Assistant",
+   "name": "abap-developer",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Role-scoped entry point for the **ABAP Developer**: technical development across Prepare (custom-code baseline), Realize (ABAP/RAP/CDS build) and Run (defect fixes, Joule agent build). It holds the role boundary, offers the developer's use cases, and routes each request to an eligible agent or, where none exists yet, to the owning skill. The routed skill is what reaches the ABAP system through a connector — this assistant never calls `abap-mcp`, `arc-1` or any tool directly."
+  },
+  {
+   "kind": "Assistant",
+   "name": "delivery-manager",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Role-scoped entry point for the **Delivery Manager**: cross-phase delivery coordination — consultant onboarding, ceremony-depth routing, end-to-end engagement evaluation, and governance of the knowledge harvested at the end of each run. It holds the role boundary, offers the role's use cases, and routes each request to an eligible agent or, where none exists yet, to the owning skill. It never calls tools or connectors itself."
+  },
+  {
+   "kind": "Assistant",
+   "name": "functional-consultant",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Role-scoped entry point for the **Functional Consultant**: Explore-phase blueprinting (requirements, fit-to-standard, workshops, Fiori mapping) and Realize-phase configuration. It also **temporarily** hosts the AMS defect-diagnosis cluster until a dedicated `ams-support-analyst` assistant is split out (second wave). It holds the role boundary, offers the role's use cases, and routes each request to an eligible agent or, where none exists yet, to the owning skill. It never calls tools or connectors itself."
+  },
+  {
+   "kind": "Assistant",
+   "name": "solution-architect",
+   "posture": "own",
+   "status": "notstarted",
+   "phase": "all",
+   "desc": "Role-scoped entry point for the **Solution Architect**: architecture-side delivery work across Discover, Prepare and Explore, plus cross-phase architecture governance in Run. It holds the role boundary, offers the architect's use cases, and routes each request to an eligible agent (or, where no agent exists yet, directly to the owning skill). It never calls tools or connectors itself — the routed agent or skill does."
   },
   {
    "kind": "Connector",

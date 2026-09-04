@@ -1,6 +1,6 @@
 {
   "type": "object",
-  "description": "Readiness Check / SI-Check findings scoped per module. Produced by readiness-analysis, checked by the discover→prepare Q-gate. Distinct from assessment-report (agent-readiness's agent-candidate scoring).",
+  "description": "Readiness Check / SI-Check findings scoped per module, plus (when the full Readiness Check report was analyzed, not just an SI-Check export) the full multi-chapter findings brief. Produced by readiness-analysis, checked by the discover→prepare Q-gate. Distinct from assessment-report (agent-readiness's agent-candidate scoring).",
   "required": [
     "assessment_date",
     "assessor",
@@ -13,6 +13,37 @@
     "source_exports": {
       "type": "string",
       "description": "Which exports were triaged and their date, e.g. 'Readiness Check export 2026-08-01, SI-Check export 2026-08-01, scope: FI/CO/SD'."
+    },
+    "executive_risk_summary": {
+      "type": "array",
+      "description": "Genuine blockers or business decisions needed before the conversion can be properly scoped (e.g. CVI not complete, custom code analysis never run, an incompatible add-on). Optional — populated only when the full Readiness Check report (not just an SI-Check export) was analyzed.",
+      "items": { "type": "string" }
+    },
+    "data_collection_gaps": {
+      "type": "array",
+      "description": "Chapters/subsections that came back empty due to missing analysis — reported as 'impact unknown', never silently dropped or conflated with a genuinely clean result.",
+      "items": {
+        "type": "object",
+        "required": ["chapter", "reason"],
+        "properties": {
+          "chapter": { "type": "string" },
+          "reason": { "type": "string" }
+        }
+      }
+    },
+    "chapter_findings": {
+      "type": "array",
+      "description": "Per-chapter findings across the full Readiness Check report (Simplification Items, Custom Code, HANA Sizing, Integration, Financial Data Quality, Fiori/Business Process Discovery, Planned Downtime, Customer Vendor Integration). Optional — populated only when the full report was analyzed, not just an SI-Check export.",
+      "items": {
+        "type": "object",
+        "required": ["chapter", "severity", "summary"],
+        "properties": {
+          "chapter": { "type": "string" },
+          "severity": { "type": "string", "enum": ["blocker", "needs_decision", "routine", "clean"] },
+          "summary": { "type": "string", "description": "The concrete number(s) behind the call, not just a qualitative label." },
+          "sad_section": { "type": "string", "description": "Which SAD template section this finding feeds, once sad-drafting exists." }
+        }
+      }
     },
     "findings": {
       "type": "array",

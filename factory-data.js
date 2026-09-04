@@ -1139,9 +1139,9 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "readiness-analysis",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "Discover",
-   "desc": "Readiness Check, SI-Check and SAP Notes turned into a scoped, per-module impact view."
+   "desc": "Analyzes a Readiness Check/SI-Check export into a scoped findings brief (per-module Simplification Items, and the full 8-chapter brief when the full report is available), separating genuine blockers from routine noise."
   },
   {
    "kind": "Skill",

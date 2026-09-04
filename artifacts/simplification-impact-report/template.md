@@ -11,7 +11,36 @@ answering unrelated questions.
 - **Source exports covered:** <name what was actually triaged, e.g. "Readiness Check export
   2026-08-01, SI-Check export 2026-08-01, scope: FI/CO/SD">
 
-## Per-module findings
+## Executive risk summary (`executive_risk_summary`)
+
+Only when the full Readiness Check report (not just an SI-Check export) was analyzed. The handful
+of items that are genuine blockers or need a business decision *before* the conversion project can
+be properly scoped (CVI not complete, custom code analysis never run, an incompatible add-on, a
+Mandatory/Before-project Simplification Item).
+
+- <item>
+
+## Data collection gaps (`data_collection_gaps`)
+
+Every chapter/subsection that came back empty due to missing analysis — listed explicitly as
+"impact unknown," never silently dropped or conflated with a genuinely clean result. Custom Code,
+Data Volume Management, and Add-On Compatibility routinely come back empty because the check was
+never run, not because there's nothing to find.
+
+| Chapter | Reason data is missing |
+|---|---|
+
+## Per-chapter findings (`chapter_findings`)
+
+Only when the full Readiness Check report was analyzed. Covers all eight chapters —
+Simplification Items, Custom Code, HANA Sizing, Integration, Financial Data Quality,
+Fiori/Business Process Discovery, Planned Downtime, Customer Vendor Integration.
+
+| Chapter | Severity | Summary (cite the concrete number) | SAD section it feeds |
+|---|---|---|---|
+| | blocker / needs_decision / routine / clean | | |
+
+## Per-module findings (Simplification Items detail)
 
 | Module | Simplification item | SAP Note(s) | Custom code hit | Genuinely blocks? | Effort implication | Notes |
 |---|---|---|---|---|---|---|

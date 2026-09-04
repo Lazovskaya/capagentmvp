@@ -1399,6 +1399,46 @@ window.FACTORY_DATA = {
    "status": "progress",
    "phase": "Explore",
    "desc": "Drafts/reviews EPAM's real SAP SAD .docx template per engagement type, with Instance Strategy, Sizing Strategy, RICEFW/Clean Core, Data Migration Architecture, and Dual Maintenance/Retrofit decision matrices."
+  },
+  {
+   "kind": "Skill",
+   "name": "integration-strategy",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Explore",
+   "desc": "Orchestrator for the four-phase ISA-M Integration Strategy pipeline: detects engagement state, enforces the five human review gates, routes to the right phase skill."
+  },
+  {
+   "kind": "Skill",
+   "name": "integration-strategy-context",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Explore",
+   "desc": "Phase 1: generates the Integration Strategy's Preamble, Context, and Platform Objectives sections from discovery workshop minutes."
+  },
+  {
+   "kind": "Skill",
+   "name": "integration-strategy-hip",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Explore",
+   "desc": "Phase 2 (ISA-M core): generates Hybrid Integration Platform, Integration Guidelines, and S/4HANA Integration Technology sections."
+  },
+  {
+   "kind": "Skill",
+   "name": "integration-strategy-decisions",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Explore",
+   "desc": "Phase 3: generates Integration Platform Mechanisms and the Design Decisions Log (KDDs), with an ADR Sync block for adr-log."
+  },
+  {
+   "kind": "Skill",
+   "name": "integration-strategy-governance",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Explore",
+   "desc": "Phase 4: generates Governance/Processes, Integration Catalogues, the Strategy Roadmap, and the synthesized Strategy Pillars."
   }
  ],
  "activities": [
@@ -2616,6 +2656,33 @@ window.FACTORY_DATA = {
      "q-gate",
      [
       "explore→realize"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Explore",
+   "owner": "architect",
+   "engagement": "B",
+   "status": "progress",
+   "file": "activities/explore/integration-strategy.md",
+   "title": "Integration strategy",
+   "desc": "Build the ISA-M-based Integration Strategy document across four human-gated phases, consuming Readiness Check/Business Process Scope outputs and feeding confirmed KDDs into the ADR log.",
+   "uses": [
+    [
+     "skill",
+     [
+      "integration-strategy",
+      "integration-strategy-context",
+      "integration-strategy-hip",
+      "integration-strategy-decisions",
+      "integration-strategy-governance"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "standards"
      ]
     ]
    ]

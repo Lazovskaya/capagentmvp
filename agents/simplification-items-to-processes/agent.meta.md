@@ -3,7 +3,7 @@ agent: simplification-items-to-processes
 namespace: "@epam/sap"
 
 category: "SAP Activate / Discover"
-sdlc-stage: in-progress
+sdlc-stage: in-test
 use-case: ["Readiness & simplification analysis"]
 
 distribution-class: client-shippable

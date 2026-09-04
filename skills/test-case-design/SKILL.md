@@ -234,7 +234,7 @@ Owner role per factory-data.json: **test**.
 
 ## Status
 
-Progress. New skill, written this session — grounded in standard, publicly documented test-design
+In test. New skill, written this session — grounded in standard, publicly documented test-design
 technique names, not ported from any predecessor repo (none had this content) and not adapted from
 the Salesforce sibling framework's `sf-testing` (surveyed, found to be execution/fix-loop only, no
 transferable design methodology).

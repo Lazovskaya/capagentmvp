@@ -5,7 +5,7 @@ namespace: "@epam/sap"
 role_scope: functional-consultant
 engagement: [G, B, A, R]     # R is only the temporarily-hosted AMS cluster; core role is G/B/A
 
-sdlc-stage: not-ready        # not-ready | in-progress | in-test | ready
+sdlc-stage: in-test          # not-ready | in-progress | in-test | ready
 distribution-class: client-shippable  # client-shippable | epam-internal-only | public-external
 
 source: internal             # internal | secondsky | SAP | community

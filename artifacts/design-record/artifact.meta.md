@@ -3,7 +3,7 @@ artifact: design-record
 namespace: "@epam/sap"
 
 category: "SAP Activate / Explore"
-sdlc-stage: in-progress
+sdlc-stage: in-test
 
 distribution-class: client-shippable
 

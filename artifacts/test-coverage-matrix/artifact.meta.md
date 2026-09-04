@@ -3,7 +3,7 @@ artifact: test-coverage-matrix
 namespace: "@epam/sap"
 
 category: "SAP Activate / Realize"
-sdlc-stage: in-progress
+sdlc-stage: in-test
 
 distribution-class: client-shippable
 

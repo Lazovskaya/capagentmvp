@@ -149,7 +149,7 @@
       "kind": "Agent",
       "name": "delivery-pilot",
       "posture": "own",
-      "status": "progress",
+      "status": "in-test",
       "phase": "all",
       "desc": "Independent evaluator for an end-to-end reference engagement: artifact completeness, traceability, gate evidence, connector safety, lead time and knowledge reuse."
     },
@@ -253,7 +253,7 @@
       "kind": "Agent",
       "name": "simplification-items-to-processes",
       "posture": "own",
-      "status": "progress",
+      "status": "in-test",
       "phase": "Discover",
       "desc": "Transforms an SAP Simplification Item Catalog export into a de-duplicated, evidence-backed list of candidate business-process impacts."
     },
@@ -293,7 +293,7 @@
       "kind": "Artifact",
       "name": "architecture-package",
       "posture": "own",
-      "status": "progress",
+      "status": "in-test",
       "phase": "Explore",
       "desc": "Client-facing architecture index: scope, architecture views, source records, traceability, NFRs, risks and named approvals."
     },
@@ -365,7 +365,7 @@
       "kind": "Artifact",
       "name": "design-record",
       "posture": "own",
-      "status": "progress",
+      "status": "in-test",
       "phase": "Explore",
       "desc": "Target design, critiqued then approved."
     },
@@ -493,7 +493,7 @@
       "kind": "Artifact",
       "name": "sign-off-record",
       "posture": "own",
-      "status": "progress",
+      "status": "in-test",
       "phase": "all",
       "desc": "Named person, date, scope, artifact reference."
     },
@@ -533,7 +533,7 @@
       "kind": "Artifact",
       "name": "test-coverage-matrix",
       "posture": "own",
-      "status": "progress",
+      "status": "in-test",
       "phase": "Realize",
       "desc": "Row ID to test-case traceability: technique used, test case IDs, status, explicit gaps."
     },
@@ -557,7 +557,7 @@
       "kind": "Artifact",
       "name": "triage-verdict",
       "posture": "own",
-      "status": "progress",
+      "status": "in-test",
       "phase": "Realize",
       "desc": "Class, route, and the human who confirmed it."
     },
@@ -637,23 +637,23 @@
       "kind": "Assistant",
       "name": "abap-developer",
       "posture": "own",
-      "status": "notstarted",
+      "status": "in-test",
       "phase": "all",
-      "desc": "Role-scoped entry point for the **ABAP Developer**: technical development across Prepare (custom-code baseline), Realize (ABAP/RAP/CDS build) and Run (defect fixes, Joule agent build). It holds the role boundary, offers the developer's use cases, and routes each request to an eligible agent or, where none exists yet, to the owning skill. The routed skill is what reaches the ABAP system through a connector \u2014 this assistant never calls `abap-mcp`, `arc-1` or any tool directly."
+      "desc": "Role-scoped entry point for the **ABAP Developer**: technical development across Prepare (custom-code baseline), Realize (ABAP/RAP/CDS build) and Run (defect fixes, Joule agent build). It holds the role boundary, offers the developer's use cases, and routes each request to an eligible agent or, where none exists yet, to the owning skill. The routed skill is what reaches the ABAP system through a connector — this assistant never calls `abap-mcp`, `arc-1` or any tool directly."
     },
     {
       "kind": "Assistant",
       "name": "delivery-manager",
       "posture": "own",
-      "status": "notstarted",
+      "status": "in-test",
       "phase": "all",
-      "desc": "Role-scoped entry point for the **Delivery Manager**: cross-phase delivery coordination \u2014 consultant onboarding, ceremony-depth routing, end-to-end engagement evaluation, and governance of the knowledge harvested at the end of each run. It holds the role boundary, offers the role's use cases, and routes each request to an eligible agent or, where none exists yet, to the owning skill. It never calls tools or connectors itself."
+      "desc": "Role-scoped entry point for the **Delivery Manager**: cross-phase delivery coordination — consultant onboarding, ceremony-depth routing, end-to-end engagement evaluation, and governance of the knowledge harvested at the end of each run. It holds the role boundary, offers the role's use cases, and routes each request to an eligible agent or, where none exists yet, to the owning skill. It never calls tools or connectors itself."
     },
     {
       "kind": "Assistant",
       "name": "functional-consultant",
       "posture": "own",
-      "status": "notstarted",
+      "status": "in-test",
       "phase": "all",
       "desc": "Role-scoped entry point for the **Functional Consultant**: Explore-phase blueprinting (requirements, fit-to-standard, workshops, Fiori mapping) and Realize-phase configuration. It also **temporarily** hosts the AMS defect-diagnosis cluster until a dedicated `ams-support-analyst` assistant is split out (second wave). It holds the role boundary, offers the role's use cases, and routes each request to an eligible agent or, where none exists yet, to the owning skill. It never calls tools or connectors itself."
     },
@@ -661,9 +661,9 @@
       "kind": "Assistant",
       "name": "solution-architect",
       "posture": "own",
-      "status": "notstarted",
+      "status": "in-test",
       "phase": "all",
-      "desc": "Role-scoped entry point for the **Solution Architect**: architecture-side delivery work across Discover, Prepare and Explore, plus cross-phase architecture governance in Run. It holds the role boundary, offers the architect's use cases, and routes each request to an eligible agent (or, where no agent exists yet, directly to the owning skill). It never calls tools or connectors itself \u2014 the routed agent or skill does."
+      "desc": "Role-scoped entry point for the **Solution Architect**: architecture-side delivery work across Discover, Prepare and Explore, plus cross-phase architecture governance in Run. It holds the role boundary, offers the architect's use cases, and routes each request to an eligible agent (or, where no agent exists yet, directly to the owning skill). It never calls tools or connectors itself — the routed agent or skill does."
     },
     {
       "kind": "Connector",
@@ -696,7 +696,7 @@
       "kind": "Connector",
       "name": "cloud-alm",
       "posture": "adopt",
-      "status": "progress",
+      "status": "in-test",
       "phase": "all",
       "desc": "SAP Cloud ALM delivery and operations surface. MCP pattern: read-only-by-default tool posture with external profile launcher. Script pattern: OAuth2 env-file credentials for Python regeneration tools.",
       "pattern": [
@@ -744,7 +744,7 @@
       "kind": "Connector",
       "name": "leanix",
       "posture": "adopt",
-      "status": "progress",
+      "status": "in-test",
       "phase": "all",
       "desc": "SAP LeanIX MCP for workspace-scoped enterprise architecture discovery, technology assessment and transformation evidence, packaged with OAuth via mcp-remote.",
       "pattern": "mcp"
@@ -762,7 +762,7 @@
       "kind": "Connector",
       "name": "signavio",
       "posture": "adopt",
-      "status": "progress",
+      "status": "in-test",
       "phase": "all",
       "desc": "SAP Signavio Process Manager: BPMN model download, subprocess hierarchy, linkedBy enrichment. Script-pattern connector (basic-auth /p/login); confirmed against real tenant 2026-08-24.",
       "pattern": "script"
@@ -857,7 +857,7 @@
     },
     {
       "kind": "Q-gate",
-      "name": "deploy\u2192run",
+      "name": "deploy→run",
       "posture": "adopt",
       "status": "progress",
       "phase": "all",
@@ -873,7 +873,7 @@
     },
     {
       "kind": "Q-gate",
-      "name": "discover\u2192prepare",
+      "name": "discover→prepare",
       "posture": "adopt",
       "status": "progress",
       "phase": "all",
@@ -889,7 +889,7 @@
     },
     {
       "kind": "Q-gate",
-      "name": "explore\u2192realize",
+      "name": "explore→realize",
       "posture": "adopt",
       "status": "progress",
       "phase": "all",
@@ -905,7 +905,7 @@
     },
     {
       "kind": "Q-gate",
-      "name": "prepare\u2192explore",
+      "name": "prepare→explore",
       "posture": "adopt",
       "status": "progress",
       "phase": "all",
@@ -921,7 +921,7 @@
     },
     {
       "kind": "Q-gate",
-      "name": "realize\u2192deploy",
+      "name": "realize→deploy",
       "posture": "adopt",
       "status": "progress",
       "phase": "all",
@@ -947,7 +947,7 @@
       "kind": "Skill",
       "name": "agent-build",
       "posture": "own",
-      "status": "progress",
+      "status": "in-test",
       "phase": "Run",
       "desc": "Joule Studio agent with card, policy and eval pack. Joule CLI skill is on skills.cloud.sap."
     },
@@ -981,7 +981,7 @@
       "posture": "own",
       "status": "progress",
       "phase": "Realize",
-      "desc": "Score Light/Standard/Deep ceremony depth after triage or requirements intake. Does not replace domain diagnostics \u2014 only sets how deep to run the matrix handoff."
+      "desc": "Score Light/Standard/Deep ceremony depth after triage or requirements intake. Does not replace domain diagnostics — only sets how deep to run the matrix handoff."
     },
     {
       "kind": "Skill",
@@ -1091,7 +1091,7 @@
       "kind": "Skill",
       "name": "incident-triage",
       "posture": "own",
-      "status": "progress",
+      "status": "in-test",
       "phase": "Realize",
       "desc": "Intake: classify by sub-process, layer, severity; dedupe; route; then ceremony-routing for depth. Domain-neutral engine, reused by hypercare."
     },
@@ -1157,7 +1157,7 @@
       "posture": "own",
       "status": "progress",
       "phase": "Explore",
-      "desc": "Normalize free-form, ticket, notes pack, or greenfield ask into one requirements.md; never invent AC; hand off to fit-to-standard or solution-design Mode B \u2014 not a substitute for backlog-drafting."
+      "desc": "Normalize free-form, ticket, notes pack, or greenfield ask into one requirements.md; never invent AC; hand off to fit-to-standard or solution-design Mode B — not a substitute for backlog-drafting."
     },
     {
       "kind": "Skill",
@@ -1187,7 +1187,7 @@
       "kind": "Skill",
       "name": "test-case-design",
       "posture": "own",
-      "status": "progress",
+      "status": "in-test",
       "phase": "Realize",
       "desc": "Derive executable test scripts from every decision-log Row ID (Standard and Delta), with input-quality gate, per-run ledger, review-before-sync, and Row ID coverage matrix."
     },
@@ -1206,6 +1206,22 @@
       "status": "progress",
       "phase": "Explore",
       "desc": "Extract traceable candidate requirements, decisions, open questions and candidate work items from a workshop transcript. Use after a workshop when TXT, VTT or SRT is available, before requirements-intake, fit-to-standard or solution-design. Never creates Jira work items."
+    },
+    {
+      "kind": "Skill",
+      "name": "adr-log",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Discover",
+      "desc": "Maintains one cumulative Architecture Decision Record log across the engagement, raised into by any phase, updated by new evidence (transcripts, presentations)."
+    },
+    {
+      "kind": "Artifact",
+      "name": "adr-log",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Discover",
+      "desc": "Cumulative ADR log (.xlsx): one row per decision plus a History sheet of every status change."
     }
   ],
   "activities": [
@@ -1254,7 +1270,7 @@
         [
           "q-gate",
           [
-            "discover\u2192prepare"
+            "discover→prepare"
           ]
         ]
       ]
@@ -1266,7 +1282,7 @@
       "status": "progress",
       "file": "activities/discover/factory-onboard.md",
       "title": "Factory onboarding (user entry)",
-      "desc": "Consultant who installed the factory and wants to use it on a project: orient, day-0 setup, capture phase/engagement/domain, route to the first delivery skill. Meta for the user \u2014 no client artifact, no Q-gate evidence by itself.",
+      "desc": "Consultant who installed the factory and wants to use it on a project: orient, day-0 setup, capture phase/engagement/domain, route to the first delivery skill. Meta for the user — no client artifact, no Q-gate evidence by itself.",
       "uses": [
         [
           "skill",
@@ -1327,7 +1343,7 @@
         [
           "q-gate",
           [
-            "discover\u2192prepare"
+            "discover→prepare"
           ]
         ]
       ]
@@ -1362,7 +1378,7 @@
         [
           "q-gate",
           [
-            "discover\u2192prepare"
+            "discover→prepare"
           ]
         ]
       ]
@@ -1407,7 +1423,7 @@
         [
           "q-gate",
           [
-            "prepare\u2192explore"
+            "prepare→explore"
           ]
         ]
       ]
@@ -1444,7 +1460,7 @@
         [
           "q-gate",
           [
-            "prepare\u2192explore"
+            "prepare→explore"
           ]
         ]
       ]
@@ -1494,7 +1510,7 @@
         [
           "q-gate",
           [
-            "prepare\u2192explore"
+            "prepare→explore"
           ]
         ]
       ]
@@ -1584,7 +1600,7 @@
         [
           "q-gate",
           [
-            "explore\u2192realize"
+            "explore→realize"
           ]
         ],
         [
@@ -1602,7 +1618,7 @@
       "status": "notstarted",
       "file": "activities/explore/solution-design.md",
       "title": "Solution design, architecture package & extensibility routing",
-      "desc": "Turn the complete in-scope fit-to-standard outcome into a coherent solution architecture. Establish architecture views and cross-artifact traceability, then produce one design record and one extensibility record per delta. The scope-level architecture package is the client-facing output and explore\u2192realize handoff.",
+      "desc": "Turn the complete in-scope fit-to-standard outcome into a coherent solution architecture. Establish architecture views and cross-artifact traceability, then produce one design record and one extensibility record per delta. The scope-level architecture package is the client-facing output and explore→realize handoff.",
       "uses": [
         [
           "skill",
@@ -1640,7 +1656,7 @@
         [
           "q-gate",
           [
-            "explore\u2192realize"
+            "explore→realize"
           ]
         ],
         [
@@ -1682,7 +1698,7 @@
         [
           "q-gate",
           [
-            "explore\u2192realize"
+            "explore→realize"
           ]
         ]
       ]
@@ -1722,7 +1738,7 @@
         [
           "q-gate",
           [
-            "explore\u2192realize"
+            "explore→realize"
           ]
         ]
       ]
@@ -1761,7 +1777,7 @@
         [
           "q-gate",
           [
-            "explore\u2192realize"
+            "explore→realize"
           ]
         ]
       ]
@@ -1800,7 +1816,7 @@
         [
           "q-gate",
           [
-            "realize\u2192deploy"
+            "realize→deploy"
           ]
         ]
       ]
@@ -1860,7 +1876,7 @@
         [
           "q-gate",
           [
-            "realize\u2192deploy"
+            "realize→deploy"
           ]
         ]
       ]
@@ -1903,7 +1919,7 @@
         [
           "q-gate",
           [
-            "realize\u2192deploy"
+            "realize→deploy"
           ]
         ]
       ]
@@ -1938,7 +1954,7 @@
         [
           "q-gate",
           [
-            "realize\u2192deploy"
+            "realize→deploy"
           ]
         ]
       ]
@@ -2083,7 +2099,7 @@
         [
           "q-gate",
           [
-            "deploy\u2192run"
+            "deploy→run"
           ]
         ]
       ]
@@ -2118,7 +2134,7 @@
         [
           "q-gate",
           [
-            "deploy\u2192run"
+            "deploy→run"
           ]
         ],
         [
@@ -2190,7 +2206,7 @@
       "status": "notstarted",
       "file": "activities/run/defect-pattern-analysis.md",
       "title": "Defect pattern analysis",
-      "desc": "Periodically (sprint / month / hypercare wrap-up), look backwards across a period of resolved defects and ask why they keep happening: cluster by cause, rank by business weight, propose a permanent fix on the eliminate/prevent/detect/absorb ladder. Distinct from the per-ticket triage flow above \u2014 this is the Prevent stage, run on a schedule, not reactively.",
+      "desc": "Periodically (sprint / month / hypercare wrap-up), look backwards across a period of resolved defects and ask why they keep happening: cluster by cause, rank by business weight, propose a permanent fix on the eliminate/prevent/detect/absorb ladder. Distinct from the per-ticket triage flow above — this is the Prevent stage, run on a schedule, not reactively.",
       "uses": [
         [
           "skill",
@@ -2335,7 +2351,36 @@
         [
           "q-gate",
           [
-            "explore\u2192realize"
+            "explore→realize"
+          ]
+        ]
+      ]
+    },
+    {
+      "phase": "Discover",
+      "owner": "architect",
+      "engagement": "GBAR",
+      "status": "progress",
+      "file": "activities/discover/architecture-decision-tracking.md",
+      "title": "Architecture decision tracking",
+      "desc": "Maintain one cumulative ADR log across the engagement, raised into by any phase's skill/agent, updated by new evidence.",
+      "uses": [
+        [
+          "skill",
+          [
+            "adr-log"
+          ]
+        ],
+        [
+          "artifact",
+          [
+            "adr-log"
+          ]
+        ],
+        [
+          "knowledge",
+          [
+            "standards"
           ]
         ]
       ]
@@ -2663,7 +2708,7 @@
       ],
       [
         "platform/",
-        "Platform MVP track (P1-P8): delivery RACI, pilot infra/client context \u2014 see platform/delivery-process/, platform/pilot-context/"
+        "Platform MVP track (P1-P8): delivery RACI, pilot infra/client context — see platform/delivery-process/, platform/pilot-context/"
       ]
     ],
     "project": [
@@ -2681,7 +2726,7 @@
       ],
       [
         "pilot-context.schema.json",
-        "P4: infra/client context schema, feeds Unpack (P5) & T3 \u2014 see platform/pilot-context/"
+        "P4: infra/client context schema, feeds Unpack (P5) & T3 — see platform/pilot-context/"
       ],
       [
         "CLAUDE.md",

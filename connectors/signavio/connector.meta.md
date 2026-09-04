@@ -5,7 +5,7 @@ namespace: "@epam/sap"
 connector-type: script                 # no MCP wrapper exists for Signavio's basic-auth API
 system-type: []
 auth-type: [basic]                     # plain username/password against /p/login — no OAuth2, no service keys, no API tokens
-sdlc-stage: in-progress
+sdlc-stage: in-test
 
 distribution-class: client-shippable
 

@@ -126,5 +126,7 @@ engagement). Owner role per factory-data.json: **test**.
 
 ## Status
 
-Progress. Real, Jira-tested logic ported from sap-ai-cons; not yet re-verified as part of this
-factory's own pipeline wiring (this activity, this repo's artifact/agent names).
+In test. The factory's own pipeline has a recorded triage run in
+`workspace/bugfix/triage-2026-08-07.md`, with the resulting verdict in
+`workspace/bugfix/92104-triage-verdict.md`. The verdict remains non-actionable
+until a named human confirms it, so this is not `ready`.

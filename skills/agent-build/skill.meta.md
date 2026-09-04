@@ -4,7 +4,7 @@ title: Agent build & registration
 namespace: "@epam/sap"
 
 category: "SAP Activate / Run"
-sdlc-stage: in-progress
+sdlc-stage: in-test
 target-role: [developer]
 engagement: [A, R]
 use-case: ["Agent build & registration"]

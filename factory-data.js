@@ -149,7 +149,7 @@ window.FACTORY_DATA = {
    "kind": "Agent",
    "name": "delivery-pilot",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "all",
    "desc": "Independent evaluator for an end-to-end reference engagement: artifact completeness, traceability, gate evidence, connector safety, lead time and knowledge reuse."
   },
@@ -253,7 +253,7 @@ window.FACTORY_DATA = {
    "kind": "Agent",
    "name": "simplification-items-to-processes",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "Discover",
    "desc": "Transforms an SAP Simplification Item Catalog export into a de-duplicated, evidence-backed list of candidate business-process impacts."
   },
@@ -293,7 +293,7 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "architecture-package",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "Explore",
    "desc": "Client-facing architecture index: scope, architecture views, source records, traceability, NFRs, risks and named approvals."
   },
@@ -365,7 +365,7 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "design-record",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "Explore",
    "desc": "Target design, critiqued then approved."
   },
@@ -493,7 +493,7 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "sign-off-record",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "all",
    "desc": "Named person, date, scope, artifact reference."
   },
@@ -533,7 +533,7 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "test-coverage-matrix",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "Realize",
    "desc": "Row ID to test-case traceability: technique used, test case IDs, status, explicit gaps."
   },
@@ -557,7 +557,7 @@ window.FACTORY_DATA = {
    "kind": "Artifact",
    "name": "triage-verdict",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "Realize",
    "desc": "Class, route, and the human who confirmed it."
   },
@@ -637,7 +637,7 @@ window.FACTORY_DATA = {
    "kind": "Assistant",
    "name": "abap-developer",
    "posture": "own",
-   "status": "notstarted",
+   "status": "in-test",
    "phase": "all",
    "desc": "Role-scoped entry point for the **ABAP Developer**: technical development across Prepare (custom-code baseline), Realize (ABAP/RAP/CDS build) and Run (defect fixes, Joule agent build). It holds the role boundary, offers the developer's use cases, and routes each request to an eligible agent or, where none exists yet, to the owning skill. The routed skill is what reaches the ABAP system through a connector — this assistant never calls `abap-mcp`, `arc-1` or any tool directly."
   },
@@ -645,7 +645,7 @@ window.FACTORY_DATA = {
    "kind": "Assistant",
    "name": "delivery-manager",
    "posture": "own",
-   "status": "notstarted",
+   "status": "in-test",
    "phase": "all",
    "desc": "Role-scoped entry point for the **Delivery Manager**: cross-phase delivery coordination — consultant onboarding, ceremony-depth routing, end-to-end engagement evaluation, and governance of the knowledge harvested at the end of each run. It holds the role boundary, offers the role's use cases, and routes each request to an eligible agent or, where none exists yet, to the owning skill. It never calls tools or connectors itself."
   },
@@ -653,7 +653,7 @@ window.FACTORY_DATA = {
    "kind": "Assistant",
    "name": "functional-consultant",
    "posture": "own",
-   "status": "notstarted",
+   "status": "in-test",
    "phase": "all",
    "desc": "Role-scoped entry point for the **Functional Consultant**: Explore-phase blueprinting (requirements, fit-to-standard, workshops, Fiori mapping) and Realize-phase configuration. It also **temporarily** hosts the AMS defect-diagnosis cluster until a dedicated `ams-support-analyst` assistant is split out (second wave). It holds the role boundary, offers the role's use cases, and routes each request to an eligible agent or, where none exists yet, to the owning skill. It never calls tools or connectors itself."
   },
@@ -661,7 +661,7 @@ window.FACTORY_DATA = {
    "kind": "Assistant",
    "name": "solution-architect",
    "posture": "own",
-   "status": "notstarted",
+   "status": "in-test",
    "phase": "all",
    "desc": "Role-scoped entry point for the **Solution Architect**: architecture-side delivery work across Discover, Prepare and Explore, plus cross-phase architecture governance in Run. It holds the role boundary, offers the architect's use cases, and routes each request to an eligible agent (or, where no agent exists yet, directly to the owning skill). It never calls tools or connectors itself — the routed agent or skill does."
   },
@@ -696,7 +696,7 @@ window.FACTORY_DATA = {
    "kind": "Connector",
    "name": "cloud-alm",
    "posture": "adopt",
-   "status": "progress",
+   "status": "in-test",
    "phase": "all",
    "desc": "SAP Cloud ALM delivery and operations surface. MCP pattern: read-only-by-default tool posture with external profile launcher. Script pattern: OAuth2 env-file credentials for Python regeneration tools.",
    "pattern": [
@@ -744,7 +744,7 @@ window.FACTORY_DATA = {
    "kind": "Connector",
    "name": "leanix",
    "posture": "adopt",
-   "status": "progress",
+   "status": "in-test",
    "phase": "all",
    "desc": "SAP LeanIX MCP for workspace-scoped enterprise architecture discovery, technology assessment and transformation evidence, packaged with OAuth via mcp-remote.",
    "pattern": "mcp"
@@ -762,7 +762,7 @@ window.FACTORY_DATA = {
    "kind": "Connector",
    "name": "signavio",
    "posture": "adopt",
-   "status": "progress",
+   "status": "in-test",
    "phase": "all",
    "desc": "SAP Signavio Process Manager: BPMN model download, subprocess hierarchy, linkedBy enrichment. Script-pattern connector (basic-auth /p/login); confirmed against real tenant 2026-08-24.",
    "pattern": "script"
@@ -947,7 +947,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "agent-build",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "Run",
    "desc": "Joule Studio agent with card, policy and eval pack. Joule CLI skill is on skills.cloud.sap."
   },
@@ -1091,7 +1091,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "incident-triage",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "Realize",
    "desc": "Intake: classify by sub-process, layer, severity; dedupe; route; then ceremony-routing for depth. Domain-neutral engine, reused by hypercare."
   },
@@ -1187,7 +1187,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "test-case-design",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "Realize",
    "desc": "Derive executable test scripts from every decision-log Row ID (Standard and Delta), with input-quality gate, per-run ledger, review-before-sync, and Row ID coverage matrix."
   },
@@ -1206,6 +1206,22 @@ window.FACTORY_DATA = {
    "status": "progress",
    "phase": "Explore",
    "desc": "Extract traceable candidate requirements, decisions, open questions and candidate work items from a workshop transcript. Use after a workshop when TXT, VTT or SRT is available, before requirements-intake, fit-to-standard or solution-design. Never creates Jira work items."
+  },
+  {
+   "kind": "Skill",
+   "name": "adr-log",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Discover",
+   "desc": "Maintains one cumulative Architecture Decision Record log across the engagement, raised into by any phase, updated by new evidence (transcripts, presentations)."
+  },
+  {
+   "kind": "Artifact",
+   "name": "adr-log",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Discover",
+   "desc": "Cumulative ADR log (.xlsx): one row per decision plus a History sheet of every status change."
   }
  ],
  "activities": [
@@ -2336,6 +2352,35 @@ window.FACTORY_DATA = {
      "q-gate",
      [
       "explore→realize"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Discover",
+   "owner": "architect",
+   "engagement": "GBAR",
+   "status": "progress",
+   "file": "activities/discover/architecture-decision-tracking.md",
+   "title": "Architecture decision tracking",
+   "desc": "Maintain one cumulative ADR log across the engagement, raised into by any phase's skill/agent, updated by new evidence.",
+   "uses": [
+    [
+     "skill",
+     [
+      "adr-log"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "adr-log"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "standards"
      ]
     ]
    ]

@@ -3,7 +3,7 @@ artifact: sign-off-record
 namespace: "@epam/sap"
 
 category: "SAP Activate / Explore"    # primary phase (the fit-to-standard variant); also produced in Deploy by go-live-readiness/cutover-plan — see Notes
-sdlc-stage: in-progress
+sdlc-stage: in-test
 
 distribution-class: client-shippable
 

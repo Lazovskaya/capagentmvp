@@ -120,7 +120,7 @@ Fields:
 |---|---|---|
 | `kind` | `Skill`, `Agent`, `Connector`, `Artifact`, `Q-gate`, `Knowledge` | Must match the component type |
 | `posture` | `own`, `adopt` | `own` = authored in this repo; `adopt` = pulled from elsewhere |
-| `status` | `notstarted`, `progress`, `ready` | `ready` = end-to-end dry-run tested |
+| `status` | `notstarted`, `progress`, `in-test`, `ready` | `in-test` = exercised in a dry-run, pilot, or evaluation but still has open validation gaps; `ready` = end-to-end dry-run tested with no known blocking gaps |
 | `phase` | Activate phase name or `all` | The primary phase where this component is used |
 | `desc` | string | Short description shown in the component map |
 

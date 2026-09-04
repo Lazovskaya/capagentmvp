@@ -5,7 +5,7 @@ namespace: "@epam/sap"
 connector-type: [mcp, script]          # two integration modes for the same service — see Notes
 system-type: []                        # not ABAP-system-facing — this axis doesn't apply
 auth-type: [oauth2]
-sdlc-stage: in-progress
+sdlc-stage: in-test
 
 distribution-class: client-shippable
 

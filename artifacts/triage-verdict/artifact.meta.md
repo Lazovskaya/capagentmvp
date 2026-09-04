@@ -3,7 +3,7 @@ artifact: triage-verdict
 namespace: "@epam/sap"
 
 category: "SAP Activate / Realize"    # primary phase; also produced during Run hypercare — see Notes
-sdlc-stage: in-progress
+sdlc-stage: in-test
 
 distribution-class: client-shippable
 

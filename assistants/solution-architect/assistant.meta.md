@@ -5,7 +5,7 @@ namespace: "@epam/sap"
 role_scope: solution-architect
 engagement: [G, B, A]        # G=Greenfield | B=Brownfield | A=Build and Extend | R=AMS & Run
 
-sdlc-stage: not-ready        # not-ready | in-progress | in-test | ready
+sdlc-stage: in-test          # not-ready | in-progress | in-test | ready
 distribution-class: client-shippable  # client-shippable | epam-internal-only | public-external
 
 source: internal             # internal | secondsky | SAP | community

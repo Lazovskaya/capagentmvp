@@ -3,7 +3,7 @@ agent: delivery-pilot
 namespace: "@epam/sap"
 
 category: "all"                       # cross-engagement evaluator, not phase-bound — an accepted exception to the single-phase convention
-sdlc-stage: in-progress
+sdlc-stage: in-test
 use-case: ["Knowledge harvest"]
 
 distribution-class: client-shippable

@@ -29,3 +29,4 @@ should be pushed from into `adr-log`.
 | skill | integration-strategy-hip | consumes | Phase 2's confirmed Target technology stack |
 | skill | adr-log | feeds-into | every Confirmed KDD, via the `## ADR Sync` block |
 | skill | integration-strategy-governance | feeds | Phase 4 reads this phase's output for consistency |
+| knowledge | standards | consumes | KDD write-up conventions ahead of the adr-log sync |

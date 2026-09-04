@@ -27,13 +27,26 @@ a failure of this agent.
   exist yet).
 - The domain's own open-issues list, if it tracks one.
 
+**Interim domain sources, while `EPMCSAPAI-275`/`-281` through `-289` remain unbuilt:** two ported
+skills already cover part of this same ground with real, engagement-tested content —
+`skills/sad-drafting` (Solution Landscape `-275`, Data `-285`, Extensibility/RICEFW `-284`, and part
+of Infrastructure `-288`) and `skills/integration-strategy-hip` (Integration `-283`). Treat their
+output as `AVAILABLE` for the corresponding domain row when the dedicated domain agent doesn't exist
+yet, labeled `source: interim (sad-drafting)` / `source: interim (integration-strategy-hip)` rather
+than `source: EPMCSAPAI-<n> agent` — so a reviewer can see at a glance that the content came from
+the interim path, not the eventual dedicated agent. Once a dedicated domain agent is actually built,
+prefer its output over the interim skill's for that domain.
+
 **Required, always:** the agreed SAD template (`../../artifacts/technical-sad/template.md`) — section
 ordering and structure come from this template, not invented per run.
 
 ## Procedure
 
-1. **Request each of the nine domain outputs.** Treat a domain with no available output as `MISSING`,
-   not as an error — do not block composition waiting for domains that haven't produced anything.
+1. **Request each of the nine domain outputs.** For a domain with no dedicated agent yet, check for
+   an interim source first (`sad-drafting` for Landscape/Data/Extensibility/part of Infrastructure;
+   `integration-strategy-hip` for Integration) before marking it `MISSING` — see "Interim domain
+   sources" in `## Inputs` above. Only a domain with neither a dedicated agent nor an interim source
+   is `MISSING`.
 2. **Assemble available domains into the SAD template's section order.** Preserve the template's
    fixed ordering (`../../artifacts/technical-sad/template.md`) — do not reorder sections based on
    which domains happened to have output this run, since a reviewer relies on the same section
@@ -89,6 +102,9 @@ agent's assembly logic does not need to change — it already keys sections by t
 - `EPMCSAPAI-251` Strategies generation (Cutover, Training, Testing, Convention) — sibling,
   non-technical delivery-strategy track; explicitly out of scope for this agent (relates-to link
   only, no data dependency).
+- `skills/sad-drafting` — interim source for `-275`/`-285`/`-284`/part of `-288` until those domain
+  agents exist.
+- `skills/integration-strategy-hip` — interim source for `-283` until that domain agent exists.
 
 ## Status
 
@@ -101,3 +117,8 @@ flagging this as a likely Jira link-direction artifact rather than a real constr
 this agent's spec now. The exact `Sn` numbering (S1–S10) referenced in the ticket's Backlog ID is
 not resolved to specific domains in this repo — this agent keys sections by ticket ID
 (`EPMCSAPAI-275`/`-281`..`-289`) instead of by an unconfirmed `Sn` mapping.
+
+Resolved: the previously-open question of `sad-drafting`/`integration-strategy`'s overlap with this
+agent's domains is now handled as interim sourcing (see `## Inputs`/`## Procedure` step 1) rather
+than left undecided — those two ported skills fill four of the nine domain rows with real content
+today; the other five domains remain `MISSING` until their dedicated agents are built.

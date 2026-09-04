@@ -30,3 +30,5 @@ specific Brownfield-conversion output. See this skill's own `SKILL.md` for the f
 | artifact | business-process-scope | consumes | conversion-scoping's Changed/Unchanged/complexity output |
 | skill | adr-log | consumes | open Proposed decisions surfaced per session |
 | skill | workshop-preparation | relates-to | compared, found complementary — different input shape and pipeline position |
+| connector | calendar | consumes | optional — real attendee availability for session scheduling; degrades to a schedule needing manual booking if absent |
+| connector | jira | consumes | optional — links each session to its tracked workshop-prep ticket; degrades gracefully if absent |

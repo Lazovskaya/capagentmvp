@@ -19,10 +19,10 @@ q-gate: []
 
 ## Notes
 Ported from `sap-ai-architecture-generator`'s `sap-integration-strategy` skill. Parallel
-workstream to the (not yet ported) Brownfield conversion pipeline, not a sequential stage — routes
-between the four phase skills and enforces the pipeline's five human review gates. Relationship to
-`agents/sad-assembly`/`EPMCSAPAI-283` (Integration architecture strategy domain) flagged as an
-open question in this skill's own `SKILL.md`.
+workstream to the brownfield conversion pipeline (`brownfield-conversion-pipeline`), not a
+sequential stage — routes between the four phase skills and enforces the pipeline's five human
+review gates. Relationship to `agents/sad-assembly`/`EPMCSAPAI-283` (Integration architecture
+strategy domain) resolved as interim domain sourcing — see this skill's own `SKILL.md`.
 
 ## Dependency graph
 | Type | Ref | Relation | Notes |
@@ -33,3 +33,5 @@ open question in this skill's own `SKILL.md`.
 | skill | integration-strategy-governance | routes-to | Phase 4 |
 | skill | readiness-analysis | consumes | optional Phase 2 input |
 | skill | adr-log | feeds-into | confirmed KDDs from Phase 3 |
+| agent | sad-assembly | feeds-into | integration-strategy-hip is the interim source for the -283 domain row, until that domain agent exists |
+| knowledge | standards | consumes | applies delivery conventions across all four phase outputs |

@@ -28,3 +28,4 @@ the (not yet ported) `sad-drafting` skill's Sizing Strategy decision matrix.
 | artifact | simplification-impact-report | consumes | HANA sizing baseline, when sourced from a Readiness Check Chapter 6 |
 | artifact | sizing-recommendation | produces | growth/archiving-adjusted, per-instance sizing target |
 | skill | adr-log | feeds-into | a disputed/commercially-significant sizing decision raises an entry there |
+| knowledge | standards | consumes | applies delivery conventions to the sizing recommendation write-up |

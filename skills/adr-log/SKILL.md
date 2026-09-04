@@ -35,6 +35,8 @@ Ask for anything missing before running.
   union-not-overwrite merge behavior stay correct.
 - **Optional:** an attached call transcript, workshop notes, or presentation to process as new
   evidence against the existing log (see methodology §5).
+- **Optional:** the `jira` connector, to cross-reference a decision entry to its originating ticket.
+  Read-only; if unavailable, record the entry without the ticket link and continue.
 
 ## Knowledge this skill orchestrates
 

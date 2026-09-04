@@ -27,3 +27,4 @@ engagement, triggers assembly of `05.Integration_Strategy.pptx` — not itself b
 |---|---|---|---|
 | skill | integration-strategy | invoked-by | orchestrator routes here for Phase 4, and for Gate 4 assembly |
 | skill | integration-strategy-decisions | consumes | all prior phase outputs, for roadmap/catalogue/pillar consistency |
+| connector | cloud-alm | consumes | optional — publishes the governance roadmap/catalogue as tracked work items; degrades to a standalone document if absent |

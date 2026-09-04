@@ -40,6 +40,12 @@ agent's assembly keying.
 Excludes the business part of the SAD by design (scope/timeline/commercial) — technical composition
 only, per the ticket's own "Notes/Source" field.
 
+Overlap with [[sad-drafting]] and `integration-strategy-hip` (from `sap-ai-architecture-generator`)
+resolved as interim sourcing: while `EPMCSAPAI-275`/`-281`..`-289` remain unbuilt, this agent treats
+those two skills' output as `AVAILABLE` for their corresponding domain rows (labeled `source:
+interim`), and switches to a dedicated domain agent's output once one exists. See `agent.md`'s
+`## Inputs`/`## Procedure` step 1.
+
 ## Dependency graph
 | Type | Ref | Relation | Notes |
 |---|---|---|---|
@@ -55,3 +61,5 @@ only, per the ticket's own "Notes/Source" field.
 | agent | EPMCSAPAI-289 Project Toolchain & Standards architecture strategy | consumes | domain input, not yet built |
 | artifact | technical-sad | produces | versioned, section-per-domain, cross-domain conflicts consolidated |
 | activity | EPMCSAPAI-251 Strategies generation | relates-to | sibling non-technical track, no data dependency |
+| skill | sad-drafting | consumes | interim source for -275/-285/-284/part of -288 until those domain agents exist |
+| skill | integration-strategy-hip | consumes | interim source for -283 until that domain agent exists |

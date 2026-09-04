@@ -28,6 +28,8 @@ After Phase 3 ships and Gate 3 confirms/rejects each KDD.
 2. **All prior phase outputs** (`01`–`03`) — read so the roadmap, catalogues, and pillars stay
    consistent with everything already decided. The Strategy Pillars section must accurately
    summarize what the document actually contains, not a generic pillar list.
+3. **Optional: the `cloud-alm` connector**, to publish the resulting roadmap/catalogue as tracked
+   work items instead of a standalone document. Degrades to a standalone document if unavailable.
 
 **Priority rule:** workshop minutes override documentation. Size the governance model to what the
 client actually has, not to an ideal.

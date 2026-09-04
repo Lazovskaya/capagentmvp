@@ -29,3 +29,4 @@ in every tool environment.
 |---|---|---|---|
 | skill | sad-drafting | feeds-into | diagrams support Section 2.2 System Architecture / landscape content |
 | agent | sad-assembly | feeds-into | technical-sad composition can reference generated diagrams |
+| knowledge | standards | consumes | applies the SAP/EPAM diagram style guide bundled in this skill's own references |

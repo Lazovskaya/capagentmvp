@@ -57,6 +57,9 @@ Fit-to-Standard/delta-confirmation workshops need scheduling and agendas.
   "Technical Blocker" column if present) rather than asking them to rebuild it from scratch.
 - **Optional:** an `adr-log` workbook for this engagement, to surface open Proposed decisions per
   session.
+- **Optional:** the `calendar` connector, for real attendee availability when drafting session
+  slots — degrades to a schedule needing manual booking if unavailable. The `jira` connector can
+  optionally link each session to its tracked workshop-prep ticket.
 
 ## Steps
 

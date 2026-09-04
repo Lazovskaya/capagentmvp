@@ -33,6 +33,9 @@ Ask for anything missing before running.
   playbook now (`playbooks/rollout.md`, `playbooks/conversion.md`, or `playbooks/generic.md`) — it
   lists which SAD sections carry the most weight for that type, what to ask, and its pitfalls.
   Don't skip this; the playbook is what keeps the output from being a generic template dump.
+- **Optional:** the `leanix` connector, to confirm the current application/technology landscape for
+  the Solution Landscape and System Architecture sections. Read-only; if unavailable, work from the
+  client-supplied inventory instead and mark the gap rather than inventing one.
 - **If a Readiness Check report exists**, process it with `readiness-analysis` before interviewing
   the user — expected for most Brownfield/Bluefield engagements. Its findings brief pre-answers
   sizing (Section 2.1, feeds `references/sizing_strategy_decision_matrix.md`), custom code
@@ -136,7 +139,7 @@ to enumerate unfilled placeholders, but the deliverable is feedback, not a new d
   produce a real decision, raise it into `adr-log` immediately — Section 13 (Architecture Decision
   Log) should be drafted **from** the current `adr-log` state, not derived from scratch.
 
-## Relationship to `sad-assembly` / `technical-sad` (open question, not yet resolved)
+## Relationship to `sad-assembly` / `technical-sad` (resolved: interim domain source)
 
 This factory already has `agents/sad-assembly/` — a Realize-phase agent that composes a
 `technical-sad` artifact from nine not-yet-built domain-strategy agents (`EPMCSAPAI-275`, `-281`
@@ -145,10 +148,12 @@ Data, Output Mgmt/UX, Operations, Infrastructure, Toolchain). This ported skill 
 substantial, overlapping slice of that same ground directly (Instance Strategy → Landscape,
 Sizing → part of Infrastructure, RICEFW/Clean Core → Extensibility, Data Migration Architecture →
 Data, System Architecture Components → part of Landscape/Infrastructure) in one real, tested skill
-with a real EPAM template, rather than nine separate not-yet-built agents. **This factory has not
-yet decided** whether `sad-drafting` supersedes the need for some/all of those nine agents,
-complements them as a faster interim path, or should itself be decomposed into domain-agent inputs
-later — flag this to the architect rather than silently picking a side.
+with a real EPAM template, rather than nine separate not-yet-built agents. **Resolved:**
+`sad-assembly` now treats this skill's output as an interim `AVAILABLE` source for the domain rows
+it covers (`-275`, `-285`, `-284`, part of `-288`), labeled `source: interim (sad-drafting)`, until
+each domain's own dedicated agent is actually built — at which point `sad-assembly` prefers the
+dedicated agent's output over this skill's for that domain. See `agents/sad-assembly/agent.md`'s
+`## Inputs`/`## Procedure` step 1.
 
 ## Judgment calls worth stating out loud
 
@@ -167,5 +172,5 @@ Main driver: architect. Owner role per factory-data.json: **architect**.
 
 Progress. Ported from `sap-ai-architecture-generator`'s `sap-sad` (real, engagement-tested
 playbooks, decision matrices, and docx-fill script); not yet dry-run tested against this factory's
-own artifact/agent wiring, and its relationship to `sad-assembly`/`technical-sad` is an open
-architecture question (see above), not yet decided.
+own artifact/agent wiring. Its relationship to `sad-assembly`/`technical-sad` is resolved as interim
+domain sourcing (see above).

@@ -33,3 +33,4 @@ full-conversion requests rather than duplicating the stage logic.
 | skill | workshop-scheduling | routes-to | Stage 4 |
 | skill | sad-drafting | routes-to | consumes Stages 1-3 |
 | skill | adr-log | routes-to | cross-cutting, not a numbered stage |
+| knowledge | standards | consumes | orientation/routing language stays consistent with delivery conventions |

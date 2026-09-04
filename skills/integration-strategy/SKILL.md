@@ -101,15 +101,17 @@ an EPAM-branded `.pptx` from the four Markdown files, writing `05.Integration_St
   engagement chose PowerPoint output — see Gate 4.
 - A stated position on the pipeline and exact next-phase requirements at every turn.
 
-## Relationship to the SAD / Technical Architecture track (open question)
+## Relationship to the SAD / Technical Architecture track (resolved: interim domain source)
 
 This pipeline's real output (integration patterns, target middleware per interface class, PI/PO
 migration approach) is exactly the scope of `EPMCSAPAI-283` (Integration architecture strategy,
 domain S4 of the not-yet-built SAD/Technical Architecture track that `agents/sad-assembly`
 composes). `EPMCSAPAI-283` is currently `Blocked` on real client landscape/contract data, not on
-missing code — this skillset is real, usable content for that domain once such data exists, but
-porting it does not by itself unblock the ticket or replace `agents/sad-assembly`'s composition
-role. Flag this relationship to the architect rather than deciding it here.
+missing code. **Resolved:** `agents/sad-assembly` now treats `integration-strategy-hip`'s Phase 2
+output as an interim `AVAILABLE` source for the `-283` domain row, labeled `source: interim
+(integration-strategy-hip)`, until `EPMCSAPAI-283` is actually built as a dedicated agent — at which
+point `sad-assembly` prefers the dedicated agent's output. Porting this skillset does not unblock
+the underlying Jira ticket (still needs real client data), it only supplies the interim content path.
 
 ## When inputs are thin
 
@@ -127,5 +129,5 @@ Main driver: architect. Owner role per factory-data.json: **architect**.
 
 Progress. Ported from `sap-ai-architecture-generator`'s `sap-integration-strategy` (real,
 engagement-tested orchestration logic); not yet dry-run tested against this factory's own skill
-names/wiring, and its relationship to `agents/sad-assembly`/`EPMCSAPAI-283` is an open question
-(see above).
+names/wiring. Its relationship to `agents/sad-assembly`/`EPMCSAPAI-283` is resolved as interim
+domain sourcing (see above).

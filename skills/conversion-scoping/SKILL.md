@@ -30,7 +30,8 @@ Ask for anything missing before running.
 - **Required:** confirmation of the organization's own conversion-type shorthand (e.g. "DOC,"
   "DMOVE2S4") if used — ask for exact definitions, don't guess.
 - **Optional:** the client's Application Map/interface inventory, to cross-reference supporting
-  applications per scoped process before the workshop rather than after.
+  applications per scoped process before the workshop rather than after — the `leanix` connector can
+  supply this directly when available; otherwise ask for the client's own export.
 
 ## Knowledge this skill orchestrates
 

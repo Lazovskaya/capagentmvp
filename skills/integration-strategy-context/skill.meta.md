@@ -26,3 +26,4 @@ Ported from `sap-ai-architecture-generator`'s `sap-int-strategy-context` skill. 
 |---|---|---|---|
 | skill | integration-strategy | invoked-by | orchestrator routes here for Phase 1 |
 | skill | integration-strategy-hip | feeds | Phase 2 reads this phase's output for continuity |
+| connector | leanix | consumes | optional — current-state application/interface landscape for context-gathering; degrades to client-supplied inventory if absent |

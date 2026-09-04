@@ -25,6 +25,8 @@ workshop minutes and program overview exist in `00.Context.md`.
    truth).
 2. **Attached client documents** — transformation decks, IT strategy docs, prior architecture
    material (Tier 2/3, supporting).
+3. **Optional: the `leanix` connector**, to confirm the current-state application/interface
+   landscape. Read-only; if unavailable, work from attached documents and note the gap.
 
 **Priority rule:** workshop minutes and human-stated context always beat any document — documents
 describe the past, workshops capture current intent. Read `## Program Overview` for `Output

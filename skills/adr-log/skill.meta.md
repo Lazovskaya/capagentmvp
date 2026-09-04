@@ -29,3 +29,4 @@ surfaces a gating decision, from the moment it's first identified.
 | knowledge | standards | consumes | delivery write-up conventions |
 | skill | readiness-analysis | feeds-from | CVI/licensing/downtime-tier findings raise entries here |
 | skill | fit-gap-analysis | feeds-from | `not-Clean-Core` extensibility-tier decisions raise entries here |
+| connector | jira | consumes | optional — cross-reference a decision entry to its originating ticket; degrades gracefully if absent |

@@ -30,3 +30,5 @@ Changed/Unchanged/Out-of-scope business-process list. Not yet reconciled with
 | artifact | business-process-scope | produces | Changed/Unchanged/Out-of-scope workbook |
 | skill | adr-log | feeds-into | any "Business Decision" or gating row |
 | skill | sad-drafting | feeds-into | scoped process list grounds IV.I / Section 6 |
+| connector | leanix | consumes | optional — application-to-process map cross-check; degrades to client-supplied inventory if absent |
+| knowledge | standards | consumes | applies delivery conventions to the scoping workbook write-up |

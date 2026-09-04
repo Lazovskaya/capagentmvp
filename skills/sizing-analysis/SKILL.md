@@ -55,8 +55,14 @@ Ask for anything missing before running.
    ```
    Input shape is documented in the script's docstring — one entry per target instance, plus
    growth/archiving/new-functionality assumptions. The script only does the arithmetic (growth
-   compounding, archiving offset, per-instance and combined totals); it warns loudly if growth is
-   left at 0, since that's a real claim, not a safe default.
+   compounding, archiving offset, per-instance and combined totals); it warns whenever
+   `growth_pct_per_year` is 0 — regardless of the horizon — unless `zero_growth_acknowledged` is
+   already set. **On that warning, state the 0%-growth claim explicitly in the recommendation
+   text first, then re-run with `"zero_growth_acknowledged": true`** so the artifact itself carries
+   the acknowledgement, not just this run's console output. The script also floors a recommended
+   memory/disk figure at 0 rather than letting an archiving offset push it negative — if you see the
+   "floored at 0" warning, treat it as a signal the archiving/baseline inputs need a second look, not
+   as a usable number.
 4. **Write the recommendation**: which methodology produced the baseline, what adjustments were
    applied, any RISE FUE-tier vs. technical-data-volume mismatch, a per-instance table plus
    narrative — not just the raw output JSON.

@@ -16,7 +16,12 @@ NOT need a hardcoded cell-id -> icon-name map specific to any one diagram.
 Usage:
     python3 verify_render_with_icons.py path/to/diagram.drawio path/to/output.png [page_w] [page_h]
 
-Requires: Pillow, cairosvg (both available in this environment by default).
+Requires: Pillow (required), cairosvg (optional — icon rendering only). If cairosvg
+isn't installed, this script still runs and produces a PNG with icon boxes left blank
+(a placeholder outline instead of the decoded icon image) rather than crashing outright
+— it prints a warning once so the gap is visible, and the caller should fall back to
+scripts/render_drawio_svg.py's XML-only check for icon-level verification instead of
+trusting this output as a full visual check.
 """
 import sys
 import os
@@ -28,7 +33,15 @@ from html import unescape
 from xml.etree import ElementTree as ET
 
 from PIL import Image, ImageDraw, ImageFont
-import cairosvg
+
+try:
+    import cairosvg
+except ImportError:
+    cairosvg = None
+    print("WARNING: cairosvg not installed — icons will render as blank placeholder boxes, "
+          "not the actual decoded SVG images. This is not a full visual check; treat it the "
+          "same as scripts/render_drawio_svg.py's XML-only fallback and say so explicitly.",
+          file=sys.stderr)
 
 
 def parse_style(s):

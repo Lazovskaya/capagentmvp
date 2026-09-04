@@ -67,8 +67,30 @@ def blocker_rows(rows):
 
 
 def complexity_score(rows):
+    """Discussion-time complexity only -- excludes technical-blocker rows, since they need
+    no workshop discussion. Used for the schedule's own "Complexity Score" column and for
+    duration estimation. NOT the sequencing key on its own -- see prep_score()."""
     score = 0
     for r in discussion_rows(rows):
+        score += COMPLEXITY_WEIGHT.get(r.get("complexity", ""), 0)
+    return score
+
+
+def prep_score(rows):
+    """Sequencing key: discussion complexity PLUS blocker prep weight.
+
+    A technical-blocker row needs no workshop discussion time (see complexity_score()),
+    but an area that is entirely, or mostly, blocker-flagged high-complexity processes
+    still needs the most pre-workshop remediation lead time -- exactly the case
+    workshop_methodology.md warns should NOT be scheduled first. Without this, an
+    all-blocker area scores 0 on complexity_score() and lands in Session 1, the opposite
+    of the intended sequencing. Blocker rows count at full COMPLEXITY_WEIGHT here so an
+    area heavy with high-complexity blockers sorts later, alongside genuinely complex
+    discussion-heavy areas, even though none of that weight shows up in the discussion
+    score or duration estimate.
+    """
+    score = complexity_score(rows)
+    for r in blocker_rows(rows):
         score += COMPLEXITY_WEIGHT.get(r.get("complexity", ""), 0)
     return score
 
@@ -106,12 +128,13 @@ def build_schedule(areas, out_path):
         n_assess = sum(1 for r in disc if r.get("status") == "To Assess")
         n_blockers = len(blocker_rows(rows))
         score = complexity_score(rows)
+        seq_score = prep_score(rows)
         mins = duration_minutes(rows)
-        summary.append((area, n_changed, n_assess, n_blockers, score, mins))
+        summary.append((area, n_changed, n_assess, n_blockers, score, mins, seq_score))
 
-    summary.sort(key=lambda t: t[4])
+    summary.sort(key=lambda t: t[6])
 
-    for i, (area, n_changed, n_assess, n_blockers, score, mins) in enumerate(summary, start=1):
+    for i, (area, n_changed, n_assess, n_blockers, score, mins, seq_score) in enumerate(summary, start=1):
         attendees = "Business Process Owner, SME(s), Solution/Configuration Architect (facilitator), Note-taker"
         ws.append([i, area, n_changed, n_assess, n_blockers, score, mins, attendees])
 
@@ -126,14 +149,18 @@ def build_schedule(areas, out_path):
 def build_agendas(areas, open_adrs, ordered_summary, out_path):
     lines = ["# Workshop Agendas\n"]
     lines.append(
-        "Sessions ordered by aggregate complexity (lowest first) to confirm "
-        "easier areas before tackling higher-complexity or To-Assess-heavy "
-        "areas. Objective for every session: **confirm and resolve the "
+        "Sessions ordered by aggregate prep need (lowest first) — discussion complexity "
+        "PLUS technical-blocker prep weight — to confirm easier areas before tackling "
+        "higher-complexity, To-Assess-heavy, or blocker-heavy areas that need the most "
+        "pre-workshop remediation lead time. An area that is mostly or entirely "
+        "technical-blocker rows is NOT scheduled first just because it needs little "
+        "discussion time — see the FYI table's blocker count/complexity for why it may "
+        "still be scheduled later. Objective for every session: **confirm and resolve the "
         "delta already identified by scoping — not a from-scratch process "
         "design exercise.**\n"
     )
 
-    for i, (area, n_changed, n_assess, n_blockers, score, mins) in enumerate(ordered_summary, start=1):
+    for i, (area, n_changed, n_assess, n_blockers, score, mins, seq_score) in enumerate(ordered_summary, start=1):
         rows = discussion_rows(areas[area])
         blockers = blocker_rows(areas[area])
         lines.append(f"\n## Session {i}: {area}\n")

@@ -1318,6 +1318,14 @@
       "status": "progress",
       "phase": "Explore",
       "desc": "Complexity-ordered session schedule plus per-session agendas (process walkthrough, open ADR questions, FYI technical blockers)."
+    },
+    {
+      "kind": "Skill",
+      "name": "architecture-diagrams",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Creates/merges/adapts SAP architecture diagrams in native .drawio format, grounded in SAP's official Reference Architecture catalog with real color palette/icon style/layout conventions."
     }
   ],
   "activities": [
@@ -2615,6 +2623,29 @@
           [
             "business-process-scope",
             "workshop-schedule"
+          ]
+        ],
+        [
+          "knowledge",
+          [
+            "standards"
+          ]
+        ]
+      ]
+    },
+    {
+      "phase": "Explore",
+      "owner": "architect",
+      "engagement": "GBA",
+      "status": "progress",
+      "file": "activities/explore/architecture-diagramming.md",
+      "title": "Architecture diagramming",
+      "desc": "Create, merge, or adapt SAP-native .drawio architecture diagrams from SAP's official Reference Architecture catalog.",
+      "uses": [
+        [
+          "skill",
+          [
+            "architecture-diagrams"
           ]
         ],
         [

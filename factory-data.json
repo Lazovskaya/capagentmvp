@@ -1238,6 +1238,14 @@
       "status": "progress",
       "phase": "Discover",
       "desc": "Growth/archiving-adjusted, per-instance sizing recommendation with methodology and any RISE tier mismatch."
+    },
+    {
+      "kind": "Skill",
+      "name": "sad-drafting",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "desc": "Drafts/reviews EPAM's real SAP SAD .docx template per engagement type, with Instance Strategy, Sizing Strategy, RICEFW/Clean Core, Data Migration Architecture, and Dual Maintenance/Retrofit decision matrices."
     }
   ],
   "activities": [
@@ -2426,6 +2434,35 @@
           "knowledge",
           [
             "standards"
+          ]
+        ]
+      ]
+    },
+    {
+      "phase": "Explore",
+      "owner": "architect",
+      "engagement": "GBA",
+      "status": "progress",
+      "file": "activities/explore/sad-drafting.md",
+      "title": "SAD drafting",
+      "desc": "Draft or review EPAM's SAD .docx per engagement type, grounded in Readiness Check/Business Process Scope, with real decision matrices feeding the ADR log.",
+      "uses": [
+        [
+          "skill",
+          [
+            "sad-drafting"
+          ]
+        ],
+        [
+          "knowledge",
+          [
+            "standards"
+          ]
+        ],
+        [
+          "q-gate",
+          [
+            "explore→realize"
           ]
         ]
       ]

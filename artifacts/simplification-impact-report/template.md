@@ -40,11 +40,14 @@ Fiori/Business Process Discovery, Planned Downtime, Customer Vendor Integration.
 |---|---|---|---|
 | | blocker / needs_decision / routine / clean | | |
 
-## Per-module findings (Simplification Items detail)
+## Per-module findings (Simplification Items detail, `findings`)
 
-| Module | Simplification item | SAP Note(s) | Custom code hit | Genuinely blocks? | Effort implication | Notes |
-|---|---|---|---|---|---|---|
-| | | | | Blocks / Appears only | | <why it does or doesn't actually block — the judgment this report exists for> |
+Every row gets a stable `id` (e.g. `SI-014`) at the time it's first written — a re-run, an
+`adr-log` entry, or `sad-drafting` cites this id rather than re-describing the item in prose.
+
+| ID | Module | Simplification item | SAP Note(s) | Custom code hit | Genuinely blocks? | Effort implication | Notes |
+|---|---|---|---|---|---|---|---|
+| | | | | | Blocks / Appears only / Assessment required | | <why it does or doesn't actually block, or — for Assessment required — exactly what evidence is missing to decide either way> |
 
 ## Items that merely appear in the report
 
@@ -56,7 +59,9 @@ nobody re-raises them later as "didn't we miss this?" without a documented answe
 
 ## Validity checklist before this report is considered complete
 
-- [ ] Every finding is marked Blocks or Appears-only — none left unclassified to "keep the report moving"
+- [ ] Every finding has a stable `id`, and every finding is marked Blocks, Appears-only, or
+      Assessment-required — none left unclassified to "keep the report moving," and none forced
+      into Blocks/Appears-only when the evidence is genuinely inconclusive
 - [ ] Every "Blocks" row names the custom code or config it actually hits, not just the SAP Note number
 - [ ] Every "Appears only" row states the specific reason it doesn't apply, not "not relevant"
 - [ ] This report states which exports it covers and their date — a stale export is a silent risk

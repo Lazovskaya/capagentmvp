@@ -15,6 +15,7 @@ diagrams look native to SAP's reference architectures rather than generic draw.i
 | Security / identity (magenta) | `#FFF0FA` | `#CC00DC` | IAM, auth, identity services |
 | Success / positive flow (green) | — | `#188918` | Occasionally used for status or validated flows |
 | Edge / connector lines | n/a | `#475E75` or `#5B738B` | Default arrow color, not pure black |
+| Non-SAP / 3rd-party system | `#FFFFFF` | `#475E75`, dashed (`dashed=1;dashPattern=8 4;`) | A legacy or 3rd-party system (a WMS, a bank, a non-SAP EDI gateway) — dashed stroke visually flags "not SAP," rather than reusing the solid neutral-gray style used for SAP's own generic/runtime components. Keep the same slate stroke color family so it still reads as part of the same diagram, not a different visual language. |
 
 Stick to this palette. Avoid default draw.io colors (default blue `#dae8fc`, default
 orange `#ffe6cc`, etc.) — they immediately look "non-SAP."

@@ -40,14 +40,29 @@ they've handed you or described, and confirm:
 - Only mentioned "Brownfield conversion project," nothing attached → Stage 1.
   Ask for the Readiness Check report (or confirm one hasn't been run yet).
 - Readiness Check report attached/already analyzed → Stage 1 output exists;
-  move to Stage 2 (sizing) and Stage 3 (scoping) — these can run in
-  parallel, both consume the Stage 1 findings brief.
+  Stage 2 (sizing) is fully ready to run from it alone. **Stage 3 (scoping)
+  is NOT equally ready from the findings brief alone** — `conversion-scoping`
+  also hard-requires a business process reference catalog (e.g. SAP
+  RBA/RSA export), which this scenario hasn't mentioned yet. Don't say
+  "both are ready, want me to do both?" without checking for the catalog
+  first — if it's missing, say sizing can start now and name the RBA/RSA
+  catalog as the one thing still needed before scoping can run in parallel
+  with it, rather than presenting both as equally unblocked.
 - Business process catalog / RBA-RSA file attached alongside a Readiness
   Check → Stage 3 in progress. If an Application Map/interface inventory
   is also available, ask for it now rather than after workshops — Stage 3
   cross-references it before the workshop specifically so facilitators
   have current-state application context going in.
 - A scoped BP list with Changed/Unchanged marks already exists → Stage 4.
+- **User directly names a Stage 4 activity (e.g. "help me plan Fit-to-Standard
+  workshops") with no evidence any earlier stage ran** → don't route straight
+  to `workshop-scheduling` on the activity name alone. Check first whether a
+  Stage 3 scoped BP list actually exists (ask, if it's not obvious from
+  context) — `workshop-scheduling` hard-requires that scope data. If it
+  doesn't exist yet, say so explicitly and offer Stage 3 (`conversion-scoping`)
+  first, rather than relying on `workshop-scheduling` itself to discover the
+  gap once invoked — this router's own job (see step 5 below) is to catch a
+  missing companion-skill input before routing, not after.
 - Workshop recordings or transcripts attached → Stage 5.
 - A call transcript, workshop notes, or a presentation attached **as new
   evidence about an existing decision** (rather than raw Stage 5 material

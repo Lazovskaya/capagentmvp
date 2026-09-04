@@ -77,10 +77,29 @@ architecture notes and the platform objective(s) it supports:
 
 ### `## ADR Sync` block
 
-End with an `## ADR Sync` section listing each **Confirmed** KDD as a short entry — title, context,
-decision, status — ready to paste into `adr-log`. This keeps the project-wide decision log complete
-instead of leaving integration decisions siloed here. Don't include Draft/Open KDDs as ADRs; note
-them as "proposed, pending validation" if listed at all.
+End with an `## ADR Sync` section listing each **Confirmed** KDD as a ready-to-call `adr-log`
+update, with fields mapped explicitly (don't leave the mapping to be inferred at call time):
+
+| This skill's field | `adr-log` field | Notes |
+|---|---|---|
+| KDD title | `title` | |
+| KDD framing + workshop context | `context` | |
+| The alternatives table | `options_considered` | one entry per option |
+| EPAM recommendation + what was actually chosen | `decision` | |
+| Why, from the pros/cons | `rationale` | |
+| — | `raised_by` | always `"integration-strategy-decisions"` |
+| — | `owner` | the architect who owns this KDD, name explicitly |
+| — | `sad_section` | the integration chapter this feeds, if `sad-drafting` is in use |
+| this document's own reference | `evidence` | e.g. `"integration-strategy Phase 3, 03.Mechanisms_Decisions.md"` |
+
+**KDD status → `adr-log` status:** `Confirmed` → `Decided`; `Draft` and `Open` KDDs are **not**
+pushed as `adr-log` entries at all (per the rule below) — if one must be tracked anyway, it goes in
+as `Proposed`, never `Decided`. There is no `adr-log` status matching "Draft"/"Open" directly; don't
+invent one — collapse to `Proposed` for anything not actually Confirmed.
+
+Don't include Draft/Open KDDs as ADRs; note them as "proposed, pending validation" if listed at all.
+This keeps the project-wide decision log complete instead of leaving integration decisions siloed
+here.
 
 ## Quality rules
 

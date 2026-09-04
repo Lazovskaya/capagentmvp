@@ -44,6 +44,22 @@ artifact, maintained continuously, so:
 - **Rejected** — considered and explicitly declined, not just left open. Different from Superseded
   (nothing replaced it; it was actively ruled out) and different from simply never having been
   proposed.
+- **Reopened** — a previously **Decided** entry whose basis broke (new, unrelated evidence
+  contradicts the reasoning it was decided on), but no replacement decision exists yet. Use this
+  instead of quietly resetting the entry back to `Proposed` — that would erase that it was
+  previously decided and why it's now being revisited, exactly the "no reopen path" trap a status
+  enum can fall into. Explain what broke the original basis in `rationale`, and re-decide it later
+  the normal way (`status` → `Decided` again once a new basis exists). Different from `Superseded`,
+  where a replacement decision already exists — `Reopened` is for the gap in between.
+
+## 2a. The `caveats` field — separate from `status`
+
+`status` is a coarse field; it can't carry a specific unresolved or qualified claim buried inside
+an otherwise-good entry — especially a decision that's real but incomplete (e.g. "redesign
+decided, but not yet cost-estimated") or one built on inconclusive source data (e.g. an ST03N-gap
+finding from `readiness-analysis`). Put that claim in `caveats`, not buried in free-text
+`rationale` where a reader skimming the status column would miss it entirely. Leave it empty when
+there's genuinely nothing to flag — most entries won't need one.
 
 ## 3. What makes something worth an ADR entry
 

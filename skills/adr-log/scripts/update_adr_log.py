@@ -23,13 +23,14 @@ updates.json shape:
     {
       "id": "ADR-004",                       // omit for a new entry — one is assigned
       "title": "Instance Strategy: Harmonized regional model",
-      "status": "Decided",                    // Proposed | Decided | Deprecated | Superseded | Rejected
+      "status": "Decided",                    // Proposed | Decided | Reopened | Deprecated | Superseded | Rejected
       "raised_by": "sap-sad",                 // which skill/person raised it
       "date": "2026-08-20",                   // date of this update
       "context": "...",
       "options_considered": ["Consolidated", "Harmonized", "Independent"],
       "decision": "...",
       "rationale": "...",
+      "caveats": "",                          // a specific unresolved/qualified claim, kept separate from status (e.g. "decided, but not yet cost-estimated")
       "owner": "...",
       "sad_section": "2.1, 13",
       "evidence": ["Readiness Check Ch.6", "Call transcript 2026-08-20"],
@@ -42,11 +43,11 @@ updates.json shape:
 Merge rules:
 - No "id" -> a new entry, assigned the next ADR-NNN number.
 - Existing "id" -> merged into the current row: scalar fields (title,
-  status, decision, rationale, owner, sad_section) are overwritten with
-  the new value if provided; "options_considered", "evidence",
-  "supersedes" and "superseded_by" are UNIONED (existing + new,
-  de-duplicated), never overwritten, since a later update usually adds
-  context rather than invalidating what was already true.
+  status, decision, rationale, caveats, owner, sad_section) are
+  overwritten with the new value if provided; "options_considered",
+  "evidence", "supersedes" and "superseded_by" are UNIONED (existing +
+  new, de-duplicated), never overwritten, since a later update usually
+  adds context rather than invalidating what was already true.
 - Every status change is appended to a running History sheet
   (id, from_status, to_status, date, raised_by) so the log stays
   auditable — who decided what, and when it changed.
@@ -58,6 +59,18 @@ Merge rules:
   "Superseded": use it when a decision stops being relevant on its own
   (dropped scope, moot precondition) with nothing replacing it; use
   "Superseded" only when a later decision explicitly takes its place.
+- "Reopened" is for a Decided entry whose BASIS broke (new evidence
+  contradicts the reasoning it was decided on) but no replacement
+  decision exists yet — distinct from "Superseded" (a replacement
+  decision DOES exist) and from resetting to "Proposed" (which would
+  silently erase that this was previously Decided and why it's being
+  revisited). Set status to "Reopened", explain why in "rationale" or
+  "caveats", and re-decide it later the normal way (status -> "Decided"
+  again once a new basis exists).
+- "caveats" flags a specific unresolved or qualified claim inside an
+  otherwise Decided/Proposed entry (e.g. "decided, but not yet
+  cost-estimated") — kept separate from "status" so a reader skimming
+  the status column doesn't take a qualified call at full face value.
 """
 import sys
 import json
@@ -71,6 +84,7 @@ from openpyxl.utils import get_column_letter
 STATUS_FILL = {
     "Proposed": PatternFill(start_color="F6EAD2", end_color="F6EAD2", fill_type="solid"),
     "Decided": PatternFill(start_color="DFEEE1", end_color="DFEEE1", fill_type="solid"),
+    "Reopened": PatternFill(start_color="FCE4D6", end_color="FCE4D6", fill_type="solid"),
     "Deprecated": PatternFill(start_color="EAE3F2", end_color="EAE3F2", fill_type="solid"),
     "Superseded": PatternFill(start_color="ECECEF", end_color="ECECEF", fill_type="solid"),
     "Rejected": PatternFill(start_color="F8DADA", end_color="F8DADA", fill_type="solid"),
@@ -80,7 +94,7 @@ HEADER_FONT = Font(color="FFFFFF", bold=True)
 
 LOG_COLUMNS = [
     "id", "title", "status", "raised_by", "date_raised", "date_last_updated",
-    "context", "options_considered", "decision", "rationale", "owner",
+    "context", "options_considered", "decision", "rationale", "caveats", "owner",
     "sad_section", "evidence", "supersedes", "superseded_by",
 ]
 
@@ -146,7 +160,7 @@ def merge(entries, history, updates):
         if eid in entries:
             existing = entries[eid]
             old_status = existing.get("status")
-            for field in ["title", "status", "raised_by", "context", "decision", "rationale", "owner", "sad_section"]:
+            for field in ["title", "status", "raised_by", "context", "decision", "rationale", "caveats", "owner", "sad_section"]:
                 if upd.get(field):
                     existing[field] = upd[field]
             existing["options_considered"] = sorted(set(
@@ -177,6 +191,7 @@ def merge(entries, history, updates):
                 "options_considered": _split(upd.get("options_considered")),
                 "decision": upd.get("decision", ""),
                 "rationale": upd.get("rationale", ""),
+                "caveats": upd.get("caveats", ""),
                 "owner": upd.get("owner", ""),
                 "sad_section": upd.get("sad_section", ""),
                 "evidence": _split(upd.get("evidence")),
@@ -207,7 +222,7 @@ def write_workbook(entries, history, out_path):
             if col == "status" and val in STATUS_FILL:
                 cell.fill = STATUS_FILL[val]
 
-    widths = [9, 32, 12, 16, 12, 14, 40, 30, 34, 34, 16, 12, 34, 16, 16]
+    widths = [9, 32, 12, 16, 12, 14, 40, 30, 34, 34, 30, 16, 12, 34, 16, 16]
     for i, w in enumerate(widths, start=1):
         ws.column_dimensions[get_column_letter(i)].width = w
     ws.freeze_panes = "A2"

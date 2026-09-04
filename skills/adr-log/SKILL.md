@@ -15,7 +15,8 @@ section, potentially months later with the original context faded.
 `../../docs/skill-design-conventions.md` — check it before modifying this skill's templates.*
 
 **Read `references/adr_log_methodology.md` before raising or updating any entry.** It covers the
-entry lifecycle (`Proposed` → `Decided` / `Deprecated` / `Superseded` / `Rejected`), what actually
+entry lifecycle (`Proposed` → `Decided` / `Reopened` / `Deprecated` / `Superseded` / `Rejected`, and
+the separate `caveats` field), what actually
 deserves an entry, and exactly how to process an attached transcript or presentation against the
 existing log.
 
@@ -64,6 +65,12 @@ Ask for anything missing before running.
    the old entry's id — in the same JSON update if both entries are known at once, or as a
    follow-up update to the old entry once the new one's id is assigned. Use `Deprecated` instead of
    `Superseded` when a decision simply stops applying (dropped scope) with nothing replacing it.
+   **If new, unrelated evidence instead invalidates a `Decided` entry's basis with no replacement
+   decision yet made, set `status` to `Reopened`** (not back to `Proposed` — that would erase that
+   it was previously decided and why it's being revisited) and explain what broke in `rationale`.
+   **If an entry is real but carries a specific unresolved or qualified claim** (a decision not yet
+   cost-estimated, a call resting on inconclusive source data), put that in the `caveats` field —
+   don't bury it in `rationale` where a reader skimming `status` would miss it.
 5. **Hand the updated log back as its own artifact**, every time it changes — don't wait for a full
    SAD draft to surface it. State what changed (new entries, status transitions) in plain language
    alongside the file.

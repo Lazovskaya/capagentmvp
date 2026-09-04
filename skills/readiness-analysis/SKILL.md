@@ -41,6 +41,11 @@ Ask for anything missing before running.
   say explicitly that findings depending on those numbers are then sourced from less-reliable
   docx-text extraction. If only a PDF is available, ask for a Word re-export — this report's many
   wide tables extract far more reliably from `.docx`.
+- **If the consultant hands over a standalone Simplification Item list `.xlsx` separately from the
+  Readiness Check export folder** (e.g. a client-supplied raw SI list rather than the bundled
+  `RelevantSimplificationItems.xlsx`), drop it into the same export folder before running
+  `scripts/extract_readiness_check.py` — the script's input resolution only looks inside one
+  folder, so a second stray file elsewhere won't be picked up automatically.
 - **Optional:** in-scope modules to focus the report; a prior custom-code baseline (from
   `custom-code-scan`, if one has already been run) to join findings against actual usage rather than
   the export's generic "this Note might apply" flag; a separate "SAP ERP Usage and Data Profiling"
@@ -104,36 +109,62 @@ Ask for anything missing before running.
    `needs_decision` / `routine` / `clean`), the concrete numbers backing that call, and any
    `structurally_empty` or gap-flagged subsections, without needing another chapter's result first.
    Skip the batching for a small/mostly-clean report — the coordination overhead only pays off with
-   real per-chapter volume.
-5. **Classify every Simplification Item finding `Blocks` or `Appears only` — never leave one
-   unclassified to keep the report moving.** A finding "appearing" in the export because the module
-   is in scope is not the same as it actually blocking the conversion for this client's specific
-   configuration and usage.
+   real per-chapter volume. **Decision test for the boundary cases** (this is the actual test, not
+   just the label table above): ask first "does this, left unresolved, block the conversion from
+   proceeding or require the client to make a call before Prepare can be scoped?" — if yes, it's
+   `blocker` or `needs_decision` depending on whether a client decision (not just engineering
+   effort) is what's actually missing; a `blocker` has no engineering path forward without that
+   input, a `needs_decision` has an engineering path but the client hasn't picked among options yet.
+   If the answer is no — the finding is real but doesn't gate anything — ask "is there a nonzero
+   number of custom/config hits behind it?"; nonzero is `routine`, zero (or the chapter came back
+   structurally empty/not-run, which is a `data_collection_gaps` entry, not `clean`) is `clean`.
+   A large finding count on a plausibly-unused interface is still `routine`, not `needs_decision`,
+   unless something about it independently requires a client choice.
+5. **Classify every Simplification Item finding `Blocks`, `Appears only`, or `Assessment
+   required` — never leave one unclassified to keep the report moving, and never force `Blocks` or
+   `Appears only` onto a genuinely inconclusive item** (e.g. an ST03N-gap item with no reliable
+   usage evidence either way, per `references/simplification_items_guide.md` §3 — treat those as
+   `Assessment required`, not a guess dressed up as one of the other two). A finding "appearing" in
+   the export because the module is in scope is not the same as it actually blocking the conversion
+   for this client's specific configuration and usage. **Assign every finding a stable `id`**
+   (e.g. `SI-014`) when first writing it — `adr-log`, a later re-run, or `sad-drafting` cites this
+   id rather than re-describing the item in prose.
 6. **State a reason for every classification**, not just the label. "Blocks" without naming which
    custom code or config it hits is a claim nobody downstream can verify; "Appears only" without
-   naming why it doesn't apply reads as an oversight later, not a deliberate call.
+   naming why it doesn't apply reads as an oversight later, not a deliberate call; "Assessment
+   required" without naming exactly what evidence is missing just relocates the ambiguity instead
+   of making it actionable.
 7. **Write the report** — see `../../artifacts/simplification-impact-report/template.md`. When the
    full Readiness Check report was analyzed, also fill the executive risk summary, data-collection
    gaps, and per-chapter findings sections (with SAD routing per the interpretation guide's mapping
    table); when only an SI-Check export was available, the per-module Simplification Items detail
    table alone is the whole report — say explicitly which case this run is.
+8. **Raise every CVI/licensing/downtime-tier gating finding into `adr-log`** — don't leave this
+   implicit in the reference guides. For each such finding, call `adr-log` with (at minimum)
+   `title` (name the finding), `context` (the concrete numbers behind it), `raised_by:
+   "readiness-analysis"`, `status: "Proposed"` (this skill identifies that a decision is needed, not
+   what the client will choose), and `evidence` naming this report and its `id`. Do this as part of
+   finishing this skill's run, not as an aside the reader has to infer from a reference guide.
 
 ## Output
 
 - **`simplification-impact-report` artifact** (`../../artifacts/simplification-impact-report/`):
-  per-module Simplification Items findings (Blocks/Appears-only, reason, effort implication); when
-  the full report was analyzed, also an executive risk summary, data-collection gaps, and
-  per-chapter findings with severity and SAD-section routing.
+  per-module Simplification Items findings (Blocks/Appears-only/Assessment-required, each with a
+  stable `id`, reason, and effort implication); when the full report was analyzed, also an
+  executive risk summary, data-collection gaps, and per-chapter findings with severity and
+  SAD-section routing.
 - Feeds the `discover→prepare` Q-gate — this report is what sizes the conversion before Prepare is
   scoped or a date is committed.
 - If a `readiness-analyst` agent is wired, it gives an independent `complete`/`gaps`/`blocking`
   verdict on the report before the gate.
-- HANA sizing findings feed the (not yet ported) `sizing-analysis`/Instance Strategy decision;
-  custom-code findings size the Dual Maintenance/Retrofit conversation and Clean Core targets in
-  the (not yet ported) `sad-drafting` skill; Financial Data Quality and CVI findings feed Data
-  Migration Architecture; Planned Downtime results are a direct input to cutover planning. Once
-  those skills exist, name which of their sections each finding lands in rather than leaving the
-  connection implicit — until then, note it as a forward reference in the brief.
+- Every CVI/licensing/downtime-tier gating finding is also raised into `adr-log` (step 8) — don't
+  treat this as optional or leave it to the reader to infer.
+- HANA sizing findings feed `sizing-analysis`'s Instance Strategy decision; custom-code findings
+  size the Dual Maintenance/Retrofit conversation and Clean Core targets in `sad-drafting`;
+  Financial Data Quality and CVI findings feed Data Migration Architecture (SAD Section 7.1);
+  Planned Downtime results are a direct input to cutover planning. Name which section each finding
+  lands in (per the interpretation guide's mapping table) rather than leaving the connection
+  implicit.
 
 ## Judgment calls worth stating out loud
 

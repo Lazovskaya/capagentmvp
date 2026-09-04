@@ -41,7 +41,7 @@
           "chapter": { "type": "string" },
           "severity": { "type": "string", "enum": ["blocker", "needs_decision", "routine", "clean"] },
           "summary": { "type": "string", "description": "The concrete number(s) behind the call, not just a qualitative label." },
-          "sad_section": { "type": "string", "description": "Which SAD template section this finding feeds, once sad-drafting exists." }
+          "sad_section": { "type": "string", "description": "Which sad-drafting section this finding feeds (see references/readiness_check_interpretation_guide.md's mapping table)." }
         }
       }
     },
@@ -49,20 +49,25 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["module", "simplification_item", "blocks", "effort_implication", "reason"],
+        "required": ["id", "module", "simplification_item", "blocks", "effort_implication", "reason"],
         "properties": {
+          "id": {
+            "type": "string",
+            "description": "Stable, copyable key for this row (e.g. 'SI-014'), assigned when the finding is first written. Downstream re-references (a re-run, an adr-log entry, sad-drafting) cite this id rather than re-describing the item in free text -- per docs/skill-design-conventions.md #1."
+          },
           "module": { "type": "string" },
           "simplification_item": { "type": "string" },
           "sap_notes": { "type": "array", "items": { "type": "string" } },
           "custom_code_hit": { "type": "string" },
           "blocks": {
             "type": "string",
-            "enum": ["blocks", "appears_only"]
+            "enum": ["blocks", "appears_only", "assessment_required"],
+            "description": "'assessment_required' is for a genuinely inconclusive item (e.g. an ST03N-gap item with no reliable usage evidence either way, per references/simplification_items_guide.md) -- never force one of 'blocks'/'appears_only' onto a call that's actually inconclusive."
           },
           "effort_implication": { "type": "string" },
           "reason": {
             "type": "string",
-            "description": "Why this genuinely blocks, or why it doesn't apply — the judgment this report exists to make explicit."
+            "description": "Why this genuinely blocks, why it doesn't apply, or (for assessment_required) what specific evidence is missing to decide either way — the judgment this report exists to make explicit."
           }
         }
       }

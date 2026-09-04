@@ -241,9 +241,15 @@ replication choices made elsewhere in the document (Section 10)?
   whether any historical transactional data is being carried over, since
   "true" greenfield sometimes still needs some financial history for
   audit/comparison reasons.
-- *Brownfield*: less of a design section — the data effectively moves as-is;
-  focus questions on any DB/technology-level changes (e.g. any non-HANA DB
-  today needs migration to HANA regardless of DMO path).
+- *Brownfield*: usually less of a design section — the data effectively moves
+  as-is; focus questions on any DB/technology-level changes (e.g. any non-HANA
+  DB today needs migration to HANA regardless of DMO path). **Exception: if
+  `readiness-analysis` flagged a CVI-completion or data-quality blocker, this
+  stops being a light-touch section** — ask directly what specifically is
+  incomplete/inconsistent in Customer-Vendor Integration and what the client's
+  plan is to close it before cutover (see `references/data_migration_architecture.md`
+  §8); don't apply the generic "moves as-is" framing to a client that has a
+  live blocker here.
 
 ## 8. Output Management & User Experience
 

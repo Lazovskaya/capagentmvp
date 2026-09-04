@@ -89,6 +89,7 @@ the reader can see what's decided vs. open:
 |-------|---------|
 | **Legacy** | The tool doing it today, to be replaced or wound down |
 | **Target** | The confirmed future tool (only if genuinely confirmed in the minutes) |
+| **Coexisting** | Legacy and Target both run in production during a planned transition/retirement window — not a placeholder state, an explicit statement that both are live and for how long. Use this whenever the client's own intent is phased retirement (common in Brownfield conversions), rather than folding the transition period into "In Discussion," which implies the choice itself is still open. |
 | **In Discussion** | A candidate not yet decided — do not present as Target |
 
 Typical SAP-centric technology landscape to map against (adapt to the client's actual stack):

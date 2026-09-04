@@ -44,7 +44,7 @@ Ask for anything missing before running.
   planned downtime estimate (Section 9). If no Readiness Check exists yet for a Brownfield/Bluefield
   engagement, say so explicitly and flag that Sections 2, 6, and 7 stay provisional — don't silently
   draft them from assumptions.
-- **If a Business Process Scope exists** (or can be built via `conversion-scoping`, once ported),
+- **If a Business Process Scope exists** (or can be built via `conversion-scoping`),
   use its output directly for IV.I (Business Goals/Capabilities), Section 6 (Extensibility/Clean
   Core scope), and Section 5 (Integration, when an Application Map was cross-referenced). Any row
   flagged as a "Business Decision" or otherwise gating must be raised into `adr-log` immediately,
@@ -87,7 +87,7 @@ Ask for anything missing before running.
    assumes that skill is available; if it isn't installed, say so and ask the user to add it rather
    than silently hand-reading the report yourself (the extraction script and interpretation guide
    handle the heading-repetition issue and data-collection-gap phrasing that hand-reading misses).
-3. **Process a Business Process Scope**, if one exists, via `conversion-scoping` (once ported) —
+3. **Process a Business Process Scope**, if one exists, via `conversion-scoping` —
    same principle: say so explicitly if that skill isn't installed rather than drafting Section
    6/IV.I from generic Simplification Item counts alone.
 4. **Interview the user** using the playbook's question list plus whatever the template's own

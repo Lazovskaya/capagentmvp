@@ -91,6 +91,16 @@ timing ("in the quarter before Wave 1 go-live") and tag `[⚠ INFERRED — align
 timeline]`. Include stakeholder engagement and change management (local team buy-in); note the
 S/4HANA program is the natural forcing function for the integration change.
 
+**Actually design around any stated freeze period — don't just collect it as an input and drop
+it.** If `## S/4HANA Program Timeline` names a freeze window: (a) don't schedule Pilot & Feedback or
+Architecture Framework Vitality activity to land inside it — pull that work earlier or push it past
+the freeze explicitly, naming the freeze as the reason in the roadmap text; (b) note in Section 09
+that Interface Assessment/Blueprint Assessment cadence pauses (or drops to emergency-only) for the
+freeze's duration, resuming after; (c) if the freeze is long enough to force a phase boundary
+mid-freeze anyway, say so explicitly rather than silently letting the six-phase plan run through it
+unremarked. A roadmap that names a freeze window in its inputs but never adjusts around it fails
+the "sized to what the client actually has" bar this phase is otherwise held to.
+
 ### Section 01: Strategy Pillars (write LAST)
 
 A synthesis of the whole document — eight pillars, each distilled to 2–3 crisp bullets accurately

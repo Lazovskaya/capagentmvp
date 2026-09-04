@@ -9,6 +9,7 @@ Used by `factory-onboard` when the consultant is starting **project work**. Pref
 |-------------|---------|
 | Readiness / SI-Check / Notes impact | `readiness-analysis` |
 | Which processes for agents | `agent-readiness` |
+| Full Brownfield conversion end-to-end, or unsure which stage | `brownfield-conversion-pipeline` |
 
 ## Prepare
 

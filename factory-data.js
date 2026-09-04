@@ -1326,6 +1326,14 @@ window.FACTORY_DATA = {
    "status": "progress",
    "phase": "Explore",
    "desc": "Creates/merges/adapts SAP architecture diagrams in native .drawio format, grounded in SAP's official Reference Architecture catalog with real color palette/icon style/layout conventions."
+  },
+  {
+   "kind": "Skill",
+   "name": "brownfield-conversion-pipeline",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Discover",
+   "desc": "Thin router for the five-stage Brownfield conversion SDLC: identifies which stage applies and routes to the right stage skill, without duplicating any stage's own logic."
   }
  ],
  "activities": [
@@ -2646,6 +2654,29 @@ window.FACTORY_DATA = {
      "skill",
      [
       "architecture-diagrams"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "standards"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Discover",
+   "owner": "delivery",
+   "engagement": "B",
+   "status": "progress",
+   "file": "activities/discover/brownfield-conversion-pipeline.md",
+   "title": "Brownfield conversion pipeline",
+   "desc": "Route a Brownfield conversion engagement to the right pipeline stage (Readiness, Sizing, Scoping, Workshop prep, Workshop-to-backlog) without duplicating stage logic.",
+   "uses": [
+    [
+     "skill",
+     [
+      "brownfield-conversion-pipeline"
      ]
     ],
     [

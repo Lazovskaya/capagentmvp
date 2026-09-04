@@ -1222,6 +1222,22 @@ window.FACTORY_DATA = {
    "status": "progress",
    "phase": "Discover",
    "desc": "Cumulative ADR log (.xlsx): one row per decision plus a History sheet of every status change."
+  },
+  {
+   "kind": "Skill",
+   "name": "sizing-analysis",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Discover",
+   "desc": "Turns a raw SAP sizing baseline into a growth/archiving-adjusted, per-instance provisioning recommendation, with RISE FUE-tier mismatches flagged."
+  },
+  {
+   "kind": "Artifact",
+   "name": "sizing-recommendation",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Discover",
+   "desc": "Growth/archiving-adjusted, per-instance sizing recommendation with methodology and any RISE tier mismatch."
   }
  ],
  "activities": [
@@ -2375,6 +2391,35 @@ window.FACTORY_DATA = {
      "artifact",
      [
       "adr-log"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "standards"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Discover",
+   "owner": "architect",
+   "engagement": "GB",
+   "status": "progress",
+   "file": "activities/discover/sizing-analysis.md",
+   "title": "Sizing analysis",
+   "desc": "Turn a raw sizing baseline into an actual provisioning recommendation with growth/archiving adjustments and any RISE tier mismatch flagged.",
+   "uses": [
+    [
+     "skill",
+     [
+      "sizing-analysis"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "sizing-recommendation"
      ]
     ],
     [

@@ -1302,6 +1302,22 @@ window.FACTORY_DATA = {
    "status": "progress",
    "phase": "Discover",
    "desc": "Changed/Unchanged/Out-of-scope business-process list per Business Area, with complexity and supporting applications."
+  },
+  {
+   "kind": "Skill",
+   "name": "workshop-scheduling",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Explore",
+   "desc": "Builds a complexity-ordered Fit-to-Standard workshop schedule and per-session agendas from conversion-scoping's business process scope, surfacing open ADR questions per Business Area."
+  },
+  {
+   "kind": "Artifact",
+   "name": "workshop-schedule",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Explore",
+   "desc": "Complexity-ordered session schedule plus per-session agendas (process walkthrough, open ADR questions, FYI technical blockers)."
   }
  ],
  "activities": [
@@ -2569,6 +2585,36 @@ window.FACTORY_DATA = {
      "artifact",
      [
       "business-process-scope"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "standards"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Explore",
+   "owner": "architect",
+   "engagement": "B",
+   "status": "progress",
+   "file": "activities/explore/workshop-scheduling.md",
+   "title": "Workshop scheduling & agendas",
+   "desc": "Turn a completed business process scope into a ready-to-send, complexity-ordered Fit-to-Standard workshop schedule and per-session agendas.",
+   "uses": [
+    [
+     "skill",
+     [
+      "workshop-scheduling"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "business-process-scope",
+      "workshop-schedule"
      ]
     ],
     [

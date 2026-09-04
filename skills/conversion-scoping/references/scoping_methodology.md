@@ -9,7 +9,7 @@ Section 2.2 Business Process Scope).
 ## 1. What each input actually is
 
 - **Readiness Check Simplification Items** (from `readiness-analysis`,
-  Ch.3.1.1/3.1.2): each relevant item has a `Business Area` (and its sibling `LoB/Technology`) field
+  Ch.3.1.1/3.1.2): each relevant item has a `business_area` field
   (e.g. "Sales - Order and Contract Management," "Finance - Financial
   Operations") — freeform text describing which functional area the
   simplification touches, an Effort Ranking (Low/Medium/Potentially
@@ -35,12 +35,12 @@ Section 2.2 Business Process Scope).
 
 ## 2. The matching approach
 
-There's no clean ID-to-ID join between a Simplification Item's `LoB –
-Business Area` text and the RBA's `Business Activity`/`Business Capability`
+There's no clean ID-to-ID join between a Simplification Item's `business_area`
+text and the RBA's `Business Activity`/`Business Capability`
 names — they come from different taxonomies. Do the matching by **semantic
 judgment**, not string equality:
 
-1. For each relevant Simplification Item, read its `Business Area` (and its sibling `LoB/Technology`)
+1. For each relevant Simplification Item, read its `business_area`
    and its business-impact note context (what it actually changes).
 2. Search the RBA extract for Business Activities / Business Capabilities
    whose names or E2E/Process Module/Process Segment path plausibly overlap

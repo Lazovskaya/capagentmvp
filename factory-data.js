@@ -1211,7 +1211,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "adr-log",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "Discover",
    "desc": "Maintains one cumulative Architecture Decision Record log across the engagement, raised into by any phase, updated by new evidence (transcripts, presentations)."
   },
@@ -1227,7 +1227,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "sizing-analysis",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "Discover",
    "desc": "Turns a raw SAP sizing baseline into a growth/archiving-adjusted, per-instance provisioning recommendation, with RISE FUE-tier mismatches flagged."
   },
@@ -1243,7 +1243,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "sad-drafting",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "Explore",
    "desc": "Drafts/reviews EPAM's real SAP SAD .docx template per engagement type, with Instance Strategy, Sizing Strategy, RICEFW/Clean Core, Data Migration Architecture, and Dual Maintenance/Retrofit decision matrices."
   },
@@ -1251,7 +1251,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "integration-strategy",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "Explore",
    "desc": "Orchestrator for the four-phase ISA-M Integration Strategy pipeline: detects engagement state, enforces the five human review gates, routes to the right phase skill."
   },
@@ -1259,7 +1259,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "integration-strategy-context",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "Explore",
    "desc": "Phase 1: generates the Integration Strategy's Preamble, Context, and Platform Objectives sections from discovery workshop minutes."
   },
@@ -1267,7 +1267,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "integration-strategy-hip",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "Explore",
    "desc": "Phase 2 (ISA-M core): generates Hybrid Integration Platform, Integration Guidelines, and S/4HANA Integration Technology sections."
   },
@@ -1275,7 +1275,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "integration-strategy-decisions",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "Explore",
    "desc": "Phase 3: generates Integration Platform Mechanisms and the Design Decisions Log (KDDs), with an ADR Sync block for adr-log."
   },
@@ -1283,7 +1283,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "integration-strategy-governance",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "Explore",
    "desc": "Phase 4: generates Governance/Processes, Integration Catalogues, the Strategy Roadmap, and the synthesized Strategy Pillars."
   },
@@ -1291,7 +1291,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "conversion-scoping",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "Discover",
    "desc": "Turns Readiness Check Simplification Item findings into a scoped Changed/Unchanged/Out-of-scope business-process list, grounded in SAP's RBA/RSA catalog."
   },
@@ -1307,7 +1307,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "workshop-scheduling",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "Explore",
    "desc": "Builds a complexity-ordered Fit-to-Standard workshop schedule and per-session agendas from conversion-scoping's business process scope, surfacing open ADR questions per Business Area."
   },
@@ -1323,7 +1323,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "architecture-diagrams",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "Explore",
    "desc": "Creates/merges/adapts SAP architecture diagrams in native .drawio format, grounded in SAP's official Reference Architecture catalog with real color palette/icon style/layout conventions."
   },
@@ -1331,7 +1331,7 @@ window.FACTORY_DATA = {
    "kind": "Skill",
    "name": "brownfield-conversion-pipeline",
    "posture": "own",
-   "status": "progress",
+   "status": "in-test",
    "phase": "Discover",
    "desc": "Thin router for the five-stage Brownfield conversion SDLC: identifies which stage applies and routes to the right stage skill, without duplicating any stage's own logic."
   }

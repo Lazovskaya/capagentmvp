@@ -93,8 +93,9 @@ Main driver: delivery. Owner role per factory-data.json: **delivery**.
 
 ## Status
 
-Progress. Ported from `sap-ai-architecture-generator`'s `sap-brownfield-sdlc` (real,
+In test. Ported from `sap-ai-architecture-generator`'s `sap-brownfield-sdlc` (real,
 engagement-tested routing logic); stage names updated to this factory's own skill names.
 `factory-onboard`'s own routing table (`skills/factory-onboard/references/phase-routing.md`) now
-points here for full Brownfield-conversion requests. Not yet dry-run tested against this factory's
-own wiring.
+points here for full Brownfield-conversion requests. Dry-run tested against this factory's own
+wiring — tightened the Stage 2/3 readiness note and added a routing branch for a direct Stage 4
+request with no Stage 3 evidence.

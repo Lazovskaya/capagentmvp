@@ -53,7 +53,7 @@ Ask for anything missing before running.
    `--industry` filtered to the client's actual industry — the unfiltered catalog covers every
    SAP-supported industry and is far larger than needed.
 3. **Do the matching** per `references/scoping_methodology.md` §2 — semantic judgment, not a
-   mechanical join; there's no shared ID between a Simplification Item's `LoB – Business Area` text
+   mechanical join; there's no shared ID between a Simplification Item's `business_area` text
    and the RBA's naming. Be conservative — a false "Changed" costs a real workshop slot.
 4. **Explicitly enumerate the Unchanged processes too — don't skip this.** The Readiness Check
    never names them (only counts them); build this list by pulling every RBA Business Activity
@@ -76,7 +76,9 @@ Ask for anything missing before running.
    workbook ships.** A Mandatory/Before-project activity that's actually a business decision (e.g.
    "decide whether Business Partner ID matches Customer/Vendor ID," a Dual Stack landscape-redesign
    flag) is a real architectural decision, not routine scope data — raise it as a "Proposed" entry
-   as soon as it's identified here.
+   as soon as it's identified here. Call `adr-log` with (at minimum) `title` (name the decision),
+   `context` (the process/Business Area it gates and why), `raised_by: "conversion-scoping"`,
+   `status: "Proposed"`, and `evidence` naming the business-process-scope row it came from.
 7. **If the client has an Application Map, cross-reference it now — before the workshop:**
    ```
    python3 scripts/extract_application_map.py <application_map.xlsx> /tmp/appmap.json
@@ -126,6 +128,8 @@ Main driver: architect. Owner role per factory-data.json: **architect**.
 
 ## Status
 
-Progress. Ported from `sap-ai-architecture-generator`'s `sap-conversion-scoping` (real,
-engagement-tested methodology and three extraction/build scripts); not yet dry-run tested against
-this factory's own wiring.
+In test. Ported from `sap-ai-architecture-generator`'s `sap-conversion-scoping` (real,
+engagement-tested methodology and three extraction/build scripts); dry-run tested against this
+factory's own wiring — fixed a stale `LoB – Business Area` field-name reference and reconciled
+`business-process-scope`'s schema/template to the `build_scope_workbook.py` script's real input
+contract (`areas` as a dict keyed by area name, `notes` as a string list).

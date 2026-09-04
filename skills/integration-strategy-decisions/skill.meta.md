@@ -4,7 +4,7 @@ title: Integration strategy — mechanisms & decisions
 namespace: "@epam/sap"
 
 category: "SAP Activate / Explore"
-sdlc-stage: in-progress
+sdlc-stage: in-test
 target-role: [architect]
 engagement: [B]
 use-case: ["Integration strategy"]

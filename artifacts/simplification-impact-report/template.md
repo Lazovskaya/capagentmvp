@@ -45,9 +45,9 @@ Fiori/Business Process Discovery, Planned Downtime, Customer Vendor Integration.
 Every row gets a stable `id` (e.g. `SI-014`) at the time it's first written — a re-run, an
 `adr-log` entry, or `sad-drafting` cites this id rather than re-describing the item in prose.
 
-| ID | Module | Simplification item | SAP Note(s) | Custom code hit | Genuinely blocks? | Effort implication | Notes |
-|---|---|---|---|---|---|---|---|
-| | | | | | Blocks / Appears only / Assessment required | | <why it does or doesn't actually block, or — for Assessment required — exactly what evidence is missing to decide either way> |
+| ID | Module | Business Area | Simplification item | SAP Note(s) | Custom code hit | Genuinely blocks? | Effort implication | Notes |
+|---|---|---|---|---|---|---|---|---|
+| | | <raw 'Business Area'/'LoB-Technology' export label, when the export carried one — feeds conversion-scoping's RBA matching> | | | | Blocks / Appears only / Assessment required | | <why it does or doesn't actually block, or — for Assessment required — exactly what evidence is missing to decide either way> |
 
 ## Items that merely appear in the report
 

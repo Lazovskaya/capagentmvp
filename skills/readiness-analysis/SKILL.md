@@ -138,7 +138,11 @@ Ask for anything missing before running.
    full Readiness Check report was analyzed, also fill the executive risk summary, data-collection
    gaps, and per-chapter findings sections (with SAD routing per the interpretation guide's mapping
    table); when only an SI-Check export was available, the per-module Simplification Items detail
-   table alone is the whole report — say explicitly which case this run is.
+   table alone is the whole report — say explicitly which case this run is. **Carry each finding's
+   `business_area`** (the export's own 'Business Area'/'LoB-Technology' raw column, from
+   `supporting_data`, not re-derived from `module`) into the finding row whenever the export had
+   one — `conversion-scoping` matches on this field, not on `module`, to place the item in the RBA
+   catalog.
 8. **Raise every CVI/licensing/downtime-tier gating finding into `adr-log`** — don't leave this
    implicit in the reference guides. For each such finding, call `adr-log` with (at minimum)
    `title` (name the finding), `context` (the concrete numbers behind it), `raised_by:
@@ -188,6 +192,9 @@ Main driver: architect. Owner role per factory-data.json: **architect**.
 ## Status
 
 In test. Real extraction/interpretation logic ported from `sap-ai-architecture-generator`'s
-`sap-readiness-check` (calibrated against real client `.docx`/`.zip` exports); not yet re-verified
-end to end against this factory's own artifact/gate wiring with a real export run through
-`scripts/extract_readiness_check.py`.
+`sap-readiness-check` (calibrated against real client `.docx`/`.zip` exports); dry-run tested
+against this factory's own artifact/gate wiring — added a stable `id` per finding, a third
+`assessment_required` severity value (a two-way `blocks` enum had no legitimate slot for
+"inconclusive"), a written decision test for the severity boundary, and an explicit step
+operationalizing the `adr-log` handoff with a field mapping. Not yet re-verified end to end with a
+real export run through `scripts/extract_readiness_check.py`.

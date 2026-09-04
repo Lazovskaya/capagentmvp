@@ -128,5 +128,7 @@ Main driver: architect. Owner role per factory-data.json: **architect**.
 
 ## Status
 
-Progress. Ported from `sap-ai-architecture-generator`'s `sap-int-strategy-decisions`; not yet
-dry-run tested against this factory's own wiring.
+In test. Ported from `sap-ai-architecture-generator`'s `sap-int-strategy-decisions`; dry-run tested
+(as part of the `integration-strategy` skillset round) against this factory's own wiring — the
+`## ADR Sync` block's KDD→adr-log field mapping and status mapping were previously implicit and are
+now written out explicitly (see above).

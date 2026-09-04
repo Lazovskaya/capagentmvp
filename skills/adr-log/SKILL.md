@@ -114,6 +114,7 @@ Main driver: architect. Owner role per factory-data.json: **architect**.
 
 ## Status
 
-Progress. Ported from `sap-ai-architecture-generator`'s `sap-adr-log` (real, engagement-tested
-script and methodology); not yet dry-run tested as part of this factory's own pipeline wiring
-(this repo's artifact/skill names).
+In test. Ported from `sap-ai-architecture-generator`'s `sap-adr-log` (real, engagement-tested
+script and methodology); dry-run tested against this factory's own pipeline wiring (this repo's
+artifact/skill names) — findings (missing `Reopened` status, no `caveats` field distinct from
+`status`) fixed, see `docs/skill-design-conventions.md` and the schema/script/methodology.

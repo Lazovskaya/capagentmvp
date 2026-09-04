@@ -56,6 +56,10 @@
             "description": "Stable, copyable key for this row (e.g. 'SI-014'), assigned when the finding is first written. Downstream re-references (a re-run, an adr-log entry, sad-drafting) cite this id rather than re-describing the item in free text -- per docs/skill-design-conventions.md #1."
           },
           "module": { "type": "string" },
+          "business_area": {
+            "type": "string",
+            "description": "The SI-Check/Readiness Check export's own 'Business Area' (and sibling 'LoB/Technology') label for this item, copied from the raw export column (see supporting_data in extract_readiness_check.py's output) rather than re-derived from `module` -- `module` is the coarser SAP functional-module code (e.g. 'FI'), this is the finer freeform label (e.g. 'Finance - Financial Operations') conversion-scoping matches against the RBA catalog. Omit only when the export genuinely didn't carry this column."
+          },
           "simplification_item": { "type": "string" },
           "sap_notes": { "type": "array", "items": { "type": "string" } },
           "custom_code_hit": { "type": "string" },

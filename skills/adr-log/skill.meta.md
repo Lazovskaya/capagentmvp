@@ -4,7 +4,7 @@ title: Architecture decision record log
 namespace: "@epam/sap"
 
 category: "SAP Activate / Discover"
-sdlc-stage: in-progress            # not-ready | in-progress | in-test | ready
+sdlc-stage: in-test            # not-ready | in-progress | in-test | ready
 target-role: [architect]
 engagement: [G, B, A, R]           # G=Greenfield | B=Brownfield conversion | A=Build and Extend | R=AMS & Run
 use-case: ["Architecture decision tracking"]

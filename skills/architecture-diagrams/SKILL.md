@@ -244,8 +244,9 @@ Main driver: architect. Owner role per factory-data.json: **architect**.
 
 ## Status
 
-Progress. Ported from `sap-ai-architecture-generator`'s `sap-architecture-diagrams` (real,
+In test. Ported from `sap-ai-architecture-generator`'s `sap-architecture-diagrams` (real,
 engagement-tested content); tool-specific language (web-fetch mechanism, file-delivery mechanism)
-generalized for this factory's tool-agnostic model. Not yet dry-run tested against this factory's
-own wiring, and `verify_render_with_icons.py`'s `cairosvg` dependency is unverified in this
-environment.
+generalized for this factory's tool-agnostic model. Dry-run tested against this factory's own
+wiring — `verify_render_with_icons.py` now degrades gracefully (a clear warning, blank placeholder
+icons) instead of crashing when `cairosvg` isn't installed; added the non-SAP/3rd-party dashed-
+stroke style convention.

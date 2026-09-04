@@ -127,7 +127,8 @@ Main driver: architect. Owner role per factory-data.json: **architect**.
 
 ## Status
 
-Progress. Ported from `sap-ai-architecture-generator`'s `sap-integration-strategy` (real,
-engagement-tested orchestration logic); not yet dry-run tested against this factory's own skill
-names/wiring. Its relationship to `agents/sad-assembly`/`EPMCSAPAI-283` is resolved as interim
-domain sourcing (see above).
+In test. Ported from `sap-ai-architecture-generator`'s `sap-integration-strategy` (real,
+engagement-tested orchestration logic); dry-run tested (together with the four phase skills it
+routes to) against this factory's own skill names/wiring — findings fixed across the skillset. Its
+relationship to `agents/sad-assembly`/`EPMCSAPAI-283` is resolved as interim domain sourcing (see
+above).

@@ -4,7 +4,7 @@ title: Brownfield conversion pipeline router
 namespace: "@epam/sap"
 
 category: "SAP Activate / Discover"
-sdlc-stage: in-progress            # not-ready | in-progress | in-test | ready
+sdlc-stage: in-test            # not-ready | in-progress | in-test | ready
 target-role: [delivery]
 engagement: [B]                    # G=Greenfield | B=Brownfield conversion | A=Build and Extend | R=AMS & Run
 use-case: ["Brownfield conversion pipeline"]

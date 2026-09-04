@@ -137,7 +137,12 @@ to enumerate unfilled placeholders, but the deliverable is feedback, not a new d
   what's left TBD pending missing information.
 - Whenever this skill's own decision matrices (Instance Strategy, Dual Maintenance/Retrofit)
   produce a real decision, raise it into `adr-log` immediately — Section 13 (Architecture Decision
-  Log) should be drafted **from** the current `adr-log` state, not derived from scratch.
+  Log) should be drafted **from** the current `adr-log` state, not derived from scratch. Call it
+  with (at minimum) `title` (name the decision), `context` (the decision matrix and inputs behind
+  it), `raised_by: "sad-drafting"`, `status: "Proposed"`, `sad_section` (which SAD section it
+  gates), and `evidence` naming the SAD draft it came from. This same field mapping applies to
+  every other "raise into `adr-log`" instruction in this skill (Business Decision rows from
+  Business Process Scope, gating Section 5/6/7.1 findings).
 
 ## Relationship to `sad-assembly` / `technical-sad` (resolved: interim domain source)
 
@@ -170,7 +175,8 @@ Main driver: architect. Owner role per factory-data.json: **architect**.
 
 ## Status
 
-Progress. Ported from `sap-ai-architecture-generator`'s `sap-sad` (real, engagement-tested
-playbooks, decision matrices, and docx-fill script); not yet dry-run tested against this factory's
-own artifact/agent wiring. Its relationship to `sad-assembly`/`technical-sad` is resolved as interim
-domain sourcing (see above).
+In test. Ported from `sap-ai-architecture-generator`'s `sap-sad` (real, engagement-tested
+playbooks, decision matrices, and docx-fill script); dry-run tested against this factory's own
+artifact/agent wiring — findings (Section 7.1 not weighted for a live CVI blocker, stale
+"once ported" references) fixed. Its relationship to `sad-assembly`/`technical-sad` is resolved as
+interim domain sourcing (see above).

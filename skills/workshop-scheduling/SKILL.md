@@ -101,7 +101,10 @@ Fit-to-Standard/delta-confirmation workshops need scheduling and agendas.
   process walkthrough, once the workshop happens, becomes the input that stage reconciles against
   the transcript.
 - **Output feeds `adr-log`**: any new/updated decision surfaced in a session should be raised into
-  the log afterward.
+  the log afterward. Call it with (at minimum) `title` (name the decision), `context` (what the
+  session surfaced and which Business Area it's in), `raised_by: "workshop-scheduling"`, `status:
+  "Proposed"` (or `"Decided"` if the session actually resolved it), and `evidence` naming the
+  session/agenda it came from.
 
 ## Output
 
@@ -124,7 +127,8 @@ Main driver: architect. Owner role per factory-data.json: **architect**.
 
 ## Status
 
-Progress. Ported from `sap-ai-architecture-generator`'s `sap-workshop-prep` (real, engagement-
+In test. Ported from `sap-ai-architecture-generator`'s `sap-workshop-prep` (real, engagement-
 tested methodology and build script); compared against this factory's own `workshop-preparation`
-and found complementary, not duplicate (see above); not yet dry-run tested against this factory's
-own wiring.
+and found complementary, not duplicate (see above); dry-run tested against this factory's own
+wiring — found and fixed a `build_workshop_agendas.py` bug where session ordering ignored
+technical-blocker-heavy sessions entirely instead of weighting them into the sequencing score.

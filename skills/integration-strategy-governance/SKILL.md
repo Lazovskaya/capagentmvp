@@ -140,5 +140,7 @@ Main driver: architect. Owner role per factory-data.json: **architect**.
 
 ## Status
 
-Progress. Ported from `sap-ai-architecture-generator`'s `sap-int-strategy-governance`; not yet
-dry-run tested against this factory's own wiring.
+In test. Ported from `sap-ai-architecture-generator`'s `sap-int-strategy-governance`; dry-run tested
+(as part of the `integration-strategy` skillset round) against this factory's own wiring — the
+Strategy Roadmap now explicitly designs around change-freeze windows rather than just collecting
+them as an input (see above).

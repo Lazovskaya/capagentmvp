@@ -70,7 +70,10 @@ Ask for anything missing before running.
    significant** (a RISE FUE-tier mismatch that changes which contract tier applies, a growth
    assumption the client pushed back on), raise it into the `adr-log` skill — a sizing number
    driving a commercial decision deserves the same tracking as any other gating architectural
-   decision, not just a line in this skill's own output.
+   decision, not just a line in this skill's own output. Call it with (at minimum) `title` (name
+   the sizing decision), `context` (the methodology, baseline, and growth assumptions behind the
+   number), `raised_by: "sizing-analysis"`, `status: "Proposed"`, and `evidence` naming this
+   recommendation and the instance it applies to.
 
 ## Output
 
@@ -98,6 +101,8 @@ Main driver: architect. Owner role per factory-data.json: **architect**.
 
 ## Status
 
-Progress. Ported from `sap-ai-architecture-generator`'s `sap-sizing` (real, engagement-tested
-methodology and calculation script); not yet dry-run tested against this factory's own artifact
-wiring.
+In test. Ported from `sap-ai-architecture-generator`'s `sap-sizing` (real, engagement-tested
+methodology and calculation script); dry-run tested against this factory's own artifact wiring —
+found and fixed two `sizing_calc.py` bugs (a zero-growth warning that misfired whenever
+`years_of_growth_to_provision` was 0 even with real growth, and negative recommended values when
+archiving exceeded the grown baseline).

@@ -14,6 +14,13 @@ Explore phase, before `fit-to-standard` workshops, when a process scope list exi
 yet been validated for coverage and grouped into workshop topics. Run once per scope; re-run if
 the scope changes significantly before workshops begin.
 
+**Not the same as `workshop-scheduling`** (compared directly when that skill was ported): this
+skill validates a generic module-based scope for coverage and stops at a grouped plan; it does not
+build a schedule or agendas. `workshop-scheduling` consumes `conversion-scoping`'s specific
+Changed/Unchanged/complexity output and produces the actual sendable schedule/agenda deliverables
+for a Brownfield conversion. Use this skill first when the scope has no Changed/Unchanged
+classification yet; use `workshop-scheduling` once `conversion-scoping` has already produced one.
+
 ## Inputs
 
 - Required: process scope JSON with `process_id`, `name` and `module` per process.

@@ -32,9 +32,17 @@ fallback `index.html` loads when it can't `fetch()` its own JSON due to CORS) fr
 `factory-data.json`. Run this after every edit to `factory-data.json`, before viewing `index.html`
 locally. Never hand-edit either generated file — they get overwritten.
 
-No lint/test commands exist yet — `validators/` (CI checks: every reference in `factory-data.json`
-resolves to a real file, no orphaned skill/agent/connector/artifact/gate files, generated adapters
-not drifted) is scaffolded but **not yet implemented**.
+```bash
+python3 -m pytest -q
+```
+
+Runs `tests/` — a real, sizeable suite (1500+ parametrized cases) checking `factory-data.json`
+referential integrity, SAP Activate gate-sequence rules, artifact schema/template consistency,
+own-posture skill convention compliance, and the `tools/` scripts themselves. See `tests/README.md`
+for what each file covers. `validators/validate_factory.py` is a separate, already-implemented
+standalone CLI script doing a broader one-shot repo health check (referential integrity, connector
+JSON, generated-file drift) — run it too before a push if unsure which catches what; it isn't
+merged into the pytest suite.
 
 ## Architecture
 
@@ -116,7 +124,8 @@ Each skill that follows these conventions links back to this file from its own `
 - `knowledge/testing/` now has real content (`defect-history-template.md`,
   `test-script-template.md`) — the empty-shape/candidate-list pattern the other four buckets above
   are still in.
-- `validators/` and the per-tool `tools/<tool>/adapter/` folders are scaffolded only.
+- `validators/validate_factory.py` is implemented (see Commands above); the per-tool
+  `tools/<tool>/adapter/` folders are still scaffolded only.
 - A connector's prose claiming "real, live-tested wiring" is not proof the wiring still works —
   both `abap-mcp` and `jira` said this while actually being broken (a missing launcher script for
   `jira`; an `.mcp.json` env-var pattern for `abap-mcp` that the server silently ignores). Treat

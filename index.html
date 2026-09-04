@@ -1439,6 +1439,22 @@ window.FACTORY_DATA = {
    "status": "progress",
    "phase": "Explore",
    "desc": "Phase 4: generates Governance/Processes, Integration Catalogues, the Strategy Roadmap, and the synthesized Strategy Pillars."
+  },
+  {
+   "kind": "Skill",
+   "name": "conversion-scoping",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Discover",
+   "desc": "Turns Readiness Check Simplification Item findings into a scoped Changed/Unchanged/Out-of-scope business-process list, grounded in SAP's RBA/RSA catalog."
+  },
+  {
+   "kind": "Artifact",
+   "name": "business-process-scope",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Discover",
+   "desc": "Changed/Unchanged/Out-of-scope business-process list per Business Area, with complexity and supporting applications."
   }
  ],
  "activities": [
@@ -2677,6 +2693,35 @@ window.FACTORY_DATA = {
       "integration-strategy-hip",
       "integration-strategy-decisions",
       "integration-strategy-governance"
+     ]
+    ],
+    [
+     "knowledge",
+     [
+      "standards"
+     ]
+    ]
+   ]
+  },
+  {
+   "phase": "Discover",
+   "owner": "architect",
+   "engagement": "B",
+   "status": "progress",
+   "file": "activities/discover/conversion-scoping.md",
+   "title": "Conversion scoping",
+   "desc": "Scope business processes as Changed/Unchanged/Out-of-scope from Readiness Check findings and SAP's RBA/RSA catalog, feeding the ADR log for any gating row.",
+   "uses": [
+    [
+     "skill",
+     [
+      "conversion-scoping"
+     ]
+    ],
+    [
+     "artifact",
+     [
+      "business-process-scope"
      ]
     ],
     [

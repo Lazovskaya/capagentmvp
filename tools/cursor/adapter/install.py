@@ -1,23 +1,31 @@
 #!/usr/bin/env python3
-"""Install this factory's own-posture skills and connectors into a client project for Cursor.
+"""Install this factory's own-posture skills, agents, and connectors into a client project for
+Cursor.
 
 Usage:
     python3 tools/cursor/adapter/install.py \\
         --project /path/to/client-project \\
         --skills fit-to-standard,defect-triage \\
+        --agents defect-classifier \\
         --connectors jira \\
         [--destination jira=myclient] \\
         [--check] [--force]
 
-`--skills` and `--connectors` accept a comma-separated list or the literal '*' (all own-posture
-skills / all connectors with real, non-placeholder wiring). Writes into <project>/.cursor/skills/,
-<project>/.cursor/mcp.json, <project>/.cursor/rules/factory.mdc, and <project>/factory-lock.json.
-Never touches this repo's own skills/ or connectors/ trees, same guarantee as the Claude Code
-adapter (tools/claude-code/adapter/install.py) this was ported from.
+`--skills`/`--agents`/`--connectors` accept a comma-separated list or the literal '*' (all
+own-posture skills / all agents / all connectors with real, non-placeholder wiring). Writes into
+<project>/.cursor/skills/, <project>/.cursor/agents/, <project>/.cursor/mcp.json,
+<project>/.cursor/rules/factory.mdc, and <project>/factory-lock.json. Never touches this repo's
+own skills/, agents/, or connectors/ trees, same guarantee as the Claude Code adapter
+(tools/claude-code/adapter/install.py) this was ported from.
 
 Cursor reads SKILL.md natively (confirmed against dyoshikawa/rulesync's Cursor generator), so
 skills copy verbatim -- no content rewrite into .mdc rules, unlike this folder's README used to
 claim before that was corrected.
+
+Agents write into `.cursor/agents/<name>.md` (Cursor 2.4+ subagents, cursor.com/docs/subagents,
+confirmed 2026-09-08 -- not beta-labeled). That page states Cursor also reads `.claude/agents/`
+directly, so the same synthesized name/description file `agent_output_bytes()` already produces
+for Claude Code works here unchanged; only the destination path differs.
 """
 import argparse
 import sys
@@ -38,7 +46,7 @@ def write_mcp_json(project, all_entries):
     common.write_json(path, existing)
 
 
-def write_factory_rule(project, installed_skills, installed_connectors, seeded_knowledge, seeded_artifacts, version):
+def write_factory_rule(project, installed_skills, installed_agents, installed_connectors, seeded_knowledge, seeded_artifacts, version):
     lines = [
         "---",
         "description: SAP AI Factory -- installed skills and connectors for this project",
@@ -58,6 +66,11 @@ def write_factory_rule(project, installed_skills, installed_connectors, seeded_k
     for name in installed_skills:
         desc = common.component_desc("Skill", name)
         lines.append(f"- **{name}** -- {desc}" if desc else f"- **{name}**")
+    if installed_agents:
+        lines += ["", "## Agents", ""]
+        for name in installed_agents:
+            desc = common.component_desc("Agent", name)
+            lines.append(f"- **{name}** -- {desc}" if desc else f"- **{name}**")
     lines += ["", "## Connectors", ""]
     for name in installed_connectors:
         desc = common.component_desc("Connector", name)
@@ -86,12 +99,7 @@ def main(argv=None):
     parser.add_argument("--project", required=True, help="path to the client project to install into")
     parser.add_argument("--skills", default="", help="comma-separated skill names, or '*' for all own-posture skills")
     parser.add_argument("--connectors", default="", help="comma-separated connector names, or '*' for all with real wiring")
-    parser.add_argument("--agents", default="", help=(
-        "not supported by this adapter yet -- Cursor has no verified agent file convention "
-        "(background agents/modes, configured in-app, not as files -- see factory-data.json's "
-        "coverage table). Accepted here only so --activity fails clearly instead of silently "
-        "dropping an activity's agent component; passing a real value always errors."
-    ))
+    parser.add_argument("--agents", default="", help="comma-separated agent names, or '*' for all own-posture agents")
     parser.add_argument("--activity", action="append", default=[], metavar="TITLE", help=(
         "install everything a Delivery-pipeline activity uses (matched against factory-data.json's "
         "activities by title, e.g. 'Readiness & simplification analysis'); repeatable to install "
@@ -117,13 +125,6 @@ def main(argv=None):
     skill_names, connector_names, agent_names, activities = common.resolve_selection(
         args.skills, args.connectors, args.agents, args.activity, ADOPT_HINT
     )
-    if agent_names:
-        common.die(
-            f"agent(s) {', '.join(agent_names)} requested, but this adapter doesn't support "
-            "installing agents yet -- Cursor has no verified agent file convention (see "
-            "factory-data.json's coverage table). Drop --agents / omit an --activity that "
-            "uses one, or install the rest without it."
-        )
     for activity in activities:
         print(f"Activity: {activity['title']} ({activity['file']})")
 
@@ -158,6 +159,34 @@ def main(argv=None):
             "installedTo": f".cursor/skills/{name}",
         }
         installed_skills.append(name)
+
+    agents_root = project / ".cursor" / "agents"
+    installed_agents = []
+    for name in agent_names:
+        src_hash = common.hash_bytes(common.agent_output_bytes(name))
+        prior = lock["agents"].get(name, {})
+        unchanged = prior.get("contentHash") == src_hash
+        dest = agents_root / f"{name}.md"
+        dest_matches = dest.exists() and common.hash_file(dest) == src_hash
+        if unchanged and dest_matches and not args.force:
+            installed_agents.append(name)
+            continue
+        if not unchanged:
+            reason = "factory source changed"
+        elif not dest.exists():
+            reason = "not yet installed"
+        else:
+            reason = "local copy was hand-edited, overwriting with factory source"
+        drift.append(f"agent '{name}': {reason}")
+        if args.check:
+            continue
+        common.copy_agent(name, dest)
+        lock["agents"][name] = {
+            "source": f"agents/{name}",
+            "contentHash": src_hash,
+            "installedTo": f".cursor/agents/{name}.md",
+        }
+        installed_agents.append(name)
 
     seeded_knowledge, seeded_artifacts = [], []
     for bucket in common.referenced_names(skill_names, "knowledge"):
@@ -210,7 +239,7 @@ def main(argv=None):
 
     if mcp_entries:
         write_mcp_json(project, mcp_entries)
-    write_factory_rule(project, installed_skills, installed_connectors, seeded_knowledge, seeded_artifacts, version)
+    write_factory_rule(project, installed_skills, installed_agents, installed_connectors, seeded_knowledge, seeded_artifacts, version)
     common.write_lock(project, lock, version, TOOL)
 
     if drift:
@@ -218,6 +247,8 @@ def main(argv=None):
     else:
         print("Up to date -- nothing to reinstall (use --force to override).")
     print(f"Skills: {', '.join(installed_skills) or '(none)'}")
+    if installed_agents:
+        print(f"Agents: {', '.join(installed_agents)}")
     print(f"Connectors: {', '.join(installed_connectors) or '(none)'}")
     if seeded_knowledge:
         print(f"Knowledge (seeded once, yours to edit): {', '.join(seeded_knowledge)}")

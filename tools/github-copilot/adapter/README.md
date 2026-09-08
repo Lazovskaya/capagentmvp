@@ -32,10 +32,17 @@ session the way `jira`/`abap-mcp` were for Claude Code. Verify the `.vscode/mcp.
 shape and the `chat.useAgentSkills` setting name against current docs before relying on this in a
 real project.
 
-**Status:** v1 implemented — own-posture skills, verified-wiring connectors,
+**Status:** v1 implemented — own-posture skills, own-posture agents, verified-wiring connectors,
 `copilot-instructions.md`, `factory-lock.json`. Still manual: adopt-posture skills (see the root
-`README.md`'s "Installing skills into a project" section), the actual credential `.env` files each
-connector's "Wiring" section describes, and Q-gates. Agents: accepts `--agents`/an `--activity`
-that uses one so the error is explicit rather than a silently dropped component, but always
-refuses -- Copilot has no verified agent file convention yet (see `factory-data.json`'s
-`coverage` table).
+`README.md`'s "Installing skills into a project" section), and the actual credential `.env` files
+each connector's "Wiring" section describes. Q-gates have no adapted equivalent yet (see
+`factory-data.json`'s `coverage` table).
+
+Agents write into `.github/agents/<name>.md` per
+[docs.github.com/.../custom-agents-configuration](https://docs.github.com/en/copilot/reference/custom-agents-configuration)
+and
+[.../about-custom-agents](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-custom-agents)
+(confirmed 2026-09-08) -- Visual Studio Code is explicitly named among the surfaces that can
+invoke a custom agent this way, though the feature sits under GitHub's "cloud agent" concept and
+its docs give no explicit GA/stable statement for VS Code specifically (only JetBrains/Eclipse/
+Xcode are named "public preview"). Same inferred-from-docs caveat as the rest of this adapter.

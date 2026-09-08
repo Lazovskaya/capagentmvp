@@ -32,10 +32,14 @@ enabled once from **Settings → MCP** (the "Customize" panel lists servers with
 Installing the files with this adapter is not enough on its own -- tell whoever opens the project
 in Cursor for the first time to check that panel if a connector's tools don't show up.
 
-**Status:** v1 implemented -- own-posture skills, verified-wiring connectors,
+**Status:** v1 implemented -- own-posture skills, own-posture agents, verified-wiring connectors,
 `factory.mdc`, `factory-lock.json`. Still manual: adopt-posture skills (see the root `README.md`'s
-"Installing skills into a project" section), the actual credential `.env` files each connector's
-"Wiring" section describes, and Q-gates. Agents: accepts `--agents`/an `--activity` that uses one
-so the error is explicit rather than a silently dropped component, but always refuses --
-Cursor has no verified agent file convention yet (background agents/modes, configured in-app, not
-as files; see `factory-data.json`'s `coverage` table).
+"Installing skills into a project" section), and the actual credential `.env` files each
+connector's "Wiring" section describes. Q-gates have no adapted equivalent yet (see
+`factory-data.json`'s `coverage` table).
+
+Agents write into `.cursor/agents/<name>.md` -- Cursor 2.4+ subagents
+([cursor.com/docs/subagents](https://cursor.com/docs/subagents), confirmed 2026-09-08, not
+beta-labeled). That page states Cursor also reads `.claude/agents/` directly, so the file this
+adapter writes is byte-identical to the one `tools/claude-code/adapter/install.py` writes; only
+the destination path differs.

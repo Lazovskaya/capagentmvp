@@ -68,9 +68,10 @@ derives from it, points back into it, or exists to keep it honest:
   (e.g. `epam-sap-skills`, `skills.cloud.sap`). The own/adopt split is a deliberate posture
   distinction tracked per-component in `factory-data.json` (`postures`/`postureWhy` keys).
 - **`agents/<name>/agent.md`** (+ `agent.meta.md` sidecar) — bounded agents that return a typed,
-  auditable verdict. Claude Code's own adapter writes them as a single synthesized `.md` file per
-  agent (its own subagent convention); Cursor/Copilot have no verified agent convention yet and
-  refuse installing them, see each adapter's README.
+  auditable verdict. All three tool adapters write them as a single synthesized `.md` file per
+  agent (`.claude/agents/<n>.md`, `.cursor/agents/<n>.md`, `.github/agents/<n>.md` -- each tool's
+  own subagent convention, confirmed against current docs 2026-09-08); Copilot's carries the same
+  inferred-from-docs caveat as its skill/MCP support, see that adapter's README.
 - **`connectors/<name>/connector.md` + `connectors/<name>/server.json`** — MCP/CLI connector
   definitions and their config fragments. `abap-mcp` and `jira` are the two connectors actually
   live-tested against a real system (not just documented) as of this writing; both follow the same

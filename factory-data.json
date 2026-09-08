@@ -2778,12 +2778,12 @@
             ".claude/agents/"
           ],
           [
-            "adp",
-            "background agents / modes"
+            "nat",
+            ".cursor/agents/<n>.md"
           ],
           [
-            "adp",
-            "limited"
+            "nat",
+            ".github/agents/<n>.md"
           ],
           [
             "q",
@@ -2957,11 +2957,10 @@
       "label": "Cursor",
       "entry": ".cursor/rules/factory.mdc",
       "skills": ".cursor/skills/<n>/",
-      "agents": null,
+      "agents": ".cursor/agents/<n>.md",
       "gates": null,
       "mcp": ".cursor/mcp.json",
       "gaps": [
-        "agents, configured as background agents in-app, not as files",
         "gates, no lifecycle hooks; run in CI instead"
       ]
     },
@@ -2969,11 +2968,10 @@
       "label": "Copilot",
       "entry": ".github/copilot-instructions.md",
       "skills": ".agents/skills/<n>/",
-      "agents": null,
+      "agents": ".github/agents/<n>.md",
       "gates": null,
       "mcp": ".vscode/mcp.json",
       "gaps": [
-        "agents, limited convention; to verify",
         "gates, via CLI hooks or GitHub workflows, not in-editor"
       ]
     },

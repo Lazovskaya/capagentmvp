@@ -1,7 +1,0 @@
-{
-  "processes": [
-    {"process_id": "PROC-SD-001", "name": "Credit release approval", "module": "SD"},
-    {"process_id": "PROC-FI-001", "name": "Error correction accounting", "module": "FI"},
-    {"process_id": "PROC-UNKNOWN-001", "name": "Unclassified process", "module": ""}
-  ]
-}

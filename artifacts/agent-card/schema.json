@@ -1,6 +1,0 @@
-{
-  "type": "object",
-  "required": [],
-  "properties": {},
-  "description": "Purpose, owner, data scope, guardrails and eval pack. What AI Agent Hub registers."
-}

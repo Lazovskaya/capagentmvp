@@ -1,14 +1,17 @@
 # Manual-trigger pipeline for client artifact packaging (EPMCSAPAI-306).
 #
-# Status: partial. The `package` job calls tools/package_client_artifacts.py (EPMCSAPAI-300).
-# The `lint-dependencies` job now calls the real tools/lint_dependencies.py (EPMCSAPAI-299), but
+# Status: partial. The `package` job calls scripts/package_client_artifacts.py (EPMCSAPAI-300).
+# The `lint-dependencies` job now calls the real scripts/lint_dependencies.py (EPMCSAPAI-299), but
 # only hard-fails on a missing skill.meta.md file -- its full check (comparing each skill's
 # Dependency graph table against real SKILL.md references) still runs and prints, but doesn't
 # fail the job (no --strict) yet. Two reasons: that table is still being built out under
 # EPMCSAPAI-291 (Igor Kochuev's own status update there lists "build correct dependency graphs"
 # as an open item), and one direction of the comparison has a known false-positive source (see
-# tools/lint_dependencies.py's own docstring). Hard-failing CI on WIP, partly-noisy data would be
+# scripts/lint_dependencies.py's own docstring). Hard-failing CI on WIP, partly-noisy data would be
 # premature -- revisit --strict once 291's tables settle.
+#
+# All CI scripts live under scripts/, not tools/ (tools/ is an empty, stale placeholder for the
+# per-tool adapter scaffolding described in CLAUDE.md, unrelated to these pipeline scripts).
 #
 # Variable naming: this ticket's own acceptance criteria name INCLUDED_AGENTS and INCLUDED_FLOWS.
 # This factory's actual vocabulary is skills/connectors/activities, not "agents" (a distinct,
@@ -16,6 +19,16 @@
 # INCLUDED_AGENTS -> --skills and INCLUDED_FLOWS -> --activity as the closest existing concepts;
 # flagged this mismatch back to the ticket rather than silently reinterpreting it -- confirm or
 # correct the mapping if it's wrong.
+#
+# `check-mr-approvals`: GitLab Free has no native "required approvers" MR rule (Premium/Ultimate
+# only), so this job substitutes for it -- see scripts/check_mr_approvals.py for the approver
+# lookup and self-approval handling. For this job's failure to actually block a merge, `main`'s
+# protected-branch settings must also require "Pipelines must succeed"; that plus two project
+# CI/CD variables (Settings -> CI/CD -> Variables, not declared below since they're project
+# config, not per-run pipeline input) are one-time project setup this file can't do on its own:
+#   - MR_APPROVAL_CHECK_TOKEN: masked, protected, a token with read_api scope.
+#   - MR_REQUIRED_APPROVERS: comma-separated list of required-approver GitLab usernames
+#     (matching is case-insensitive), e.g. "alice,bob,carol".
 
 stages:
   - validate
@@ -24,6 +37,7 @@ stages:
 workflow:
   rules:
     - if: $CI_PIPELINE_SOURCE == "web"
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
 
 # Top-level, not per-job: the description/value object form only renders as a prompt in
 # GitLab's "Run Pipeline" web UI when declared here. All jobs below inherit these as plain
@@ -45,8 +59,19 @@ variables:
 lint-dependencies:
   stage: validate
   image: python:3.11-slim
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
   script:
-    - python3 tools/lint_dependencies.py
+    - python3 scripts/lint_dependencies.py
+  allow_failure: false
+
+check-mr-approvals:
+  stage: validate
+  image: python:3.11-slim
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
+  script:
+    - python3 scripts/check_mr_approvals.py
   allow_failure: false
 
 package:
@@ -55,6 +80,7 @@ package:
   rules:
     - if: '$CLIENT_NAME == ""'
       when: never
+    - if: $CI_PIPELINE_SOURCE == "web"
   script:
     - |
       if [ -z "$CLIENT_NAME" ]; then
@@ -65,8 +91,8 @@ package:
       if [ -n "$INCLUDED_AGENTS" ]; then ARGS="$ARGS --skills $INCLUDED_AGENTS"; else ARGS="$ARGS --skills ''"; fi
       if [ -n "$INCLUDED_FLOWS" ]; then ARGS="$ARGS --activity \"$INCLUDED_FLOWS\""; fi
       if [ "$DRY_RUN" = "true" ]; then ARGS="$ARGS --dry-run"; fi
-      echo "Running: python3 tools/package_client_artifacts.py $ARGS --out-dir dist"
-      eval "python3 tools/package_client_artifacts.py $ARGS --out-dir dist"
+      echo "Running: python3 scripts/package_client_artifacts.py $ARGS --out-dir dist"
+      eval "python3 scripts/package_client_artifacts.py $ARGS --out-dir dist"
   artifacts:
     paths:
       - dist/*.zip

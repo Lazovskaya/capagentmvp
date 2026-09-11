@@ -1,6 +1,0 @@
-{
-  "impacts": [
-    {"process_id": "PROC-SD-001", "item_id": "SI-CREDIT-001"},
-    {"process_id": "PROC-FI-001", "item_id": "SI-FI-001"}
-  ]
-}

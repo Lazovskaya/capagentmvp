@@ -10,6 +10,7 @@ so after this it's the attachment that needs re-uploading there, not a pasted HT
 import argparse
 import json
 import re
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -53,15 +54,26 @@ def print_seats():
     print("No team.html in this repo, seat listing does not apply here.")
 
 
+def regenerate():
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import generate_factory_data
+    if generate_factory_data.main(["--write"]) != 0:
+        raise SystemExit("generate_factory_data.py --write failed")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--seats", action="store_true", help="list seat keys (not applicable, see note)")
+    parser.add_argument("--regenerate", action="store_true",
+                        help="first rewrite components[]/assistants[] from the *.meta.md sidecars")
     args = parser.parse_args()
 
     if args.seats:
         print_seats()
         return
 
+    if args.regenerate:
+        regenerate()
     data = load_data()
     update_index(data)
     write_js(data)

@@ -1,0 +1,43 @@
+{
+  "instance_strategy": {
+    "production_instances": 1,
+    "mandant_concept": "single",
+    "landscape": "3-system",
+    "confirmed_by": "test@example.com",
+    "adr_id": "ADR-001"
+  },
+  "ricefw_disposition": {
+    "reports": "adapt",
+    "interfaces": "adapt",
+    "enhancements": "adapt",
+    "forms": "keep-as-is",
+    "workflow": "keep-as-is",
+    "notes": "Review during Realize phase.",
+    "confirmed_by": "test@example.com",
+    "adr_id": "ADR-002"
+  },
+  "sizing_strategy": {
+    "infrastructure_approach": "rise",
+    "sizing_method": "quick-sizer",
+    "growth_factor_pct_pa": 5,
+    "growth_horizon_years": 3,
+    "confirmed_by": "test@example.com",
+    "adr_id": "ADR-003"
+  },
+  "data_migration_architecture": {
+    "conversion_approach": "full-shell",
+    "archiving_strategy": "pre-conversion",
+    "history_years": 5,
+    "cutover_strategy": "big-bang",
+    "estimated_downtime_hours": 48,
+    "confirmed_by": "test@example.com",
+    "adr_id": "ADR-004"
+  },
+  "dual_maintenance_retrofit": {
+    "freeze_approach": "hard-freeze",
+    "retrofit_tooling": "manual",
+    "checkpoint_frequency": "monthly",
+    "confirmed_by": "test@example.com",
+    "adr_id": "ADR-005"
+  }
+}

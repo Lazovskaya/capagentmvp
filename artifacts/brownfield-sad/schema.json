@@ -1,0 +1,142 @@
+{
+  "type": "object",
+  "description": "Brownfield S/4HANA SAD — the drafted Solution Architecture Document staged at workspace/<engagement_id>/brownfield-sad/staged/06-brownfield-sad.md, plus the machine-readable decision record at workspace/<engagement_id>/brownfield-sad/sad-decisions.json.",
+  "required": ["engagement_id", "generated_at", "evidence_versions", "decisions", "open_topics"],
+  "properties": {
+    "engagement_id": {
+      "type": "string",
+      "description": "Stable engagement identifier."
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO 8601 date when this SAD draft was generated."
+    },
+    "generator_version": {
+      "type": "string",
+      "description": "Version of the fill-brownfield-sad-template tool that produced this output."
+    },
+    "review_status": {
+      "type": "string",
+      "enum": ["unreviewed", "in_review", "approved", "approved_with_caveats", "rejected", "reopened"],
+      "description": "Human review state of this SAD draft."
+    },
+    "reviewer": { "type": ["string", "null"] },
+    "review_date": { "type": ["string", "null"], "format": "date" },
+    "evidence_versions": {
+      "type": "object",
+      "description": "Source artifact versions/hashes this SAD was generated from.",
+      "properties": {
+        "simplification_impact_report": { "type": "string" },
+        "sizing_recommendation": { "type": "string" },
+        "business_process_scope": { "type": "string" },
+        "adr_log_entry_count": { "type": "integer" }
+      }
+    },
+    "decisions": {
+      "type": "object",
+      "description": "Confirmed decisions from the five decision matrices.",
+      "properties": {
+        "instance_strategy": {
+          "type": "object",
+          "required": ["production_instances", "mandant_concept", "landscape", "confirmed_by"],
+          "properties": {
+            "production_instances": { "type": "integer", "minimum": 1 },
+            "mandant_concept": { "type": "string", "enum": ["single", "multiple"] },
+            "landscape": { "type": "string", "enum": ["2-system", "3-system", "4-system"] },
+            "consolidation_approach": { "type": ["string", "null"] },
+            "confirmed_by": { "type": "string" },
+            "adr_id": { "type": "string" }
+          }
+        },
+        "ricefw_disposition": {
+          "type": "object",
+          "required": ["confirmed_by"],
+          "properties": {
+            "reports": { "type": "string", "enum": ["keep-as-is", "adapt", "retire", "replace-with-standard", "mixed"] },
+            "interfaces": { "type": "string", "enum": ["keep-as-is", "adapt", "retire", "replace-with-standard", "mixed"] },
+            "enhancements": { "type": "string", "enum": ["keep-as-is", "adapt", "retire", "replace-with-standard", "mixed"] },
+            "forms": { "type": "string", "enum": ["keep-as-is", "adapt", "retire", "replace-with-standard", "mixed"] },
+            "workflow": { "type": "string", "enum": ["keep-as-is", "adapt", "retire", "replace-with-standard", "mixed"] },
+            "notes": { "type": "string" },
+            "confirmed_by": { "type": "string" },
+            "adr_id": { "type": "string" }
+          }
+        },
+        "sizing_strategy": {
+          "type": "object",
+          "required": ["infrastructure_approach", "sizing_method", "confirmed_by"],
+          "properties": {
+            "infrastructure_approach": { "type": "string", "enum": ["rise", "hyperscaler-iaas", "on-premise", "hybrid"] },
+            "sizing_method": { "type": "string", "enum": ["quick-sizer", "measured-values", "tshirt-sizing", "vendor-reference"] },
+            "growth_factor_pct_pa": { "type": ["number", "null"] },
+            "growth_horizon_years": { "type": ["integer", "null"] },
+            "confirmed_by": { "type": "string" },
+            "adr_id": { "type": "string" }
+          }
+        },
+        "data_migration_architecture": {
+          "type": "object",
+          "required": ["conversion_approach", "archiving_strategy", "cutover_strategy", "confirmed_by"],
+          "properties": {
+            "conversion_approach": { "type": "string", "enum": ["full-shell", "selective-data-transition", "greenfield-load"] },
+            "archiving_strategy": { "type": "string", "enum": ["pre-conversion", "post-conversion", "none"] },
+            "history_years": { "type": ["integer", "null"], "description": "Years of history to retain in S/4HANA; null means full history." },
+            "cutover_strategy": { "type": "string", "enum": ["big-bang", "phased", "zero-downtime"] },
+            "estimated_downtime_hours": { "type": ["number", "null"] },
+            "confirmed_by": { "type": "string" },
+            "adr_id": { "type": "string" }
+          }
+        },
+        "dual_maintenance_retrofit": {
+          "type": "object",
+          "required": ["freeze_approach", "retrofit_tooling", "checkpoint_frequency", "confirmed_by"],
+          "properties": {
+            "freeze_approach": { "type": "string", "enum": ["hard-freeze", "soft-freeze", "no-freeze"] },
+            "retrofit_tooling": { "type": "string", "enum": ["manual", "spdd-spau", "cia-abap-eclipse", "transport-based", "combined"] },
+            "checkpoint_frequency": { "type": "string", "enum": ["continuous", "monthly", "pre-golive-only"] },
+            "confirmed_by": { "type": "string" },
+            "adr_id": { "type": "string" }
+          }
+        }
+      }
+    },
+    "open_topics": {
+      "type": "array",
+      "description": "Unresolved items carried forward into the SAD as open points.",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "source_stage", "owner"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^OT-[0-9]+$" },
+          "title": { "type": "string" },
+          "source_stage": {
+            "type": "string",
+            "enum": ["readiness", "sizing", "scoping", "sad-drafting"]
+          },
+          "owner": { "type": "string" },
+          "due_date": { "type": ["string", "null"], "format": "date" },
+          "resolution": { "type": ["string", "null"] },
+          "status": { "type": "string", "enum": ["open", "resolved", "deferred"] }
+        }
+      }
+    },
+    "staged_path": {
+      "type": "string",
+      "description": "Path to the generated SAD markdown: workspace/<engagement_id>/brownfield-sad/staged/06-brownfield-sad.md"
+    },
+    "confluence_publication": {
+      "type": "object",
+      "properties": {
+        "page_id": { "type": ["string", "null"] },
+        "url": { "type": ["string", "null"] },
+        "version": { "type": ["integer", "null"] },
+        "published_at": { "type": ["string", "null"], "format": "date-time" },
+        "status": {
+          "type": "string",
+          "enum": ["not_published", "published", "failed", "verification_failed"]
+        }
+      }
+    }
+  }
+}

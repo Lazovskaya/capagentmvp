@@ -28,22 +28,28 @@
     "delivery": "Delivery Manager",
     "basis": "Basis",
     "data": "Data Lead",
-    "test": "Tester"
+    "test": "Tester",
+    "solution-architect": "Solution Architect"
   },
   "roleOrder": [
     "functional",
     "developer",
     "architect",
+    "solution-architect",
     "delivery",
     "basis",
     "data",
     "test"
   ],
   "engagements": {
-    "G": "Greenfield",
-    "B": "Brownfield conversion",
-    "A": "Build and Extend",
-    "R": "AMS & Run"
+    "greenfield": "Greenfield",
+    "brownfield": "Brownfield",
+    "bluefield": "Bluefield",
+    "ams": "AMS",
+    "product-development": "Product development",
+    "discovery": "Discovery",
+    "consulting": "Consulting",
+    "enterprise-architecture": "Enterprise architecture"
   },
   "statuses": {
     "notstarted": "Not started",
@@ -68,6 +74,11 @@
     {
       "label": "Agents",
       "desc": "Bounded workers returning a typed, auditable verdict. Used only where the output is a decision rather than a document.",
+      "layout": "phase"
+    },
+    {
+      "label": "Tools",
+      "desc": "Callable operations a Skill or Agent invokes to act on a system or retrieve data. Each is a tool.md contract plus a script; it reaches an external system only through a Connector.",
       "layout": "phase"
     },
     {
@@ -99,219 +110,27 @@
   "components": [
     {
       "kind": "Agent",
-      "name": "blueprint-generation",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "Assembles a solution blueprint from e2e-process-scope's flows and fit-gap-analysis dispositions, one section per E2E flow, every design decision cited to its source row rather than decided by this agent."
-    },
-    {
-      "kind": "Agent",
-      "name": "business-process-hierarchy",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "Rolls up process-best-practice-mapping's matched rows into a multi-level hierarchy aligned to SAP's own SAP Best Practices L1/L2/L3 taxonomy, with unplaced processes carried forward explicitly for human review."
-    },
-    {
-      "kind": "Agent",
-      "name": "cutover-dependency-check",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Deploy",
-      "desc": "Evaluates cutover-plan's checklist for missing/circular/out-of-order dependencies and strategy conflicts, proposes ordering fixes, and lists owners to notify."
-    },
-    {
-      "kind": "Agent",
-      "name": "cutover-risk-assessor",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Deploy",
-      "desc": "Bounded go-live risk verdict (go/conditional/no-go) from cutover-plan's rehearsal record and go-live-readiness's checklist."
-    },
-    {
-      "kind": "Agent",
-      "name": "data-scoping",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "Complements Objects List by scoping records within each in-scope object type, applying rule-based date/company-code/org and retention cut-offs, with rule traceability and pre/post volume counts."
-    },
-    {
-      "kind": "Agent",
-      "name": "defect-classifier",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Returns class, confidence, route and recommended fix. Serves both Realize triage and Run hypercare."
-    },
-    {
-      "kind": "Agent",
-      "name": "delivery-pilot",
-      "posture": "own",
-      "status": "in-test",
-      "phase": "all",
-      "desc": "Independent evaluator for an end-to-end reference engagement: artifact completeness, traceability, gate evidence, connector safety, lead time and knowledge reuse."
-    },
-    {
-      "kind": "Agent",
-      "name": "design-test-reviewer",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "Independent review of a design-record against the approved Explore baseline before Realize's transport-heavy work starts."
-    },
-    {
-      "kind": "Agent",
-      "name": "e2e-process-scope",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "Groups business-process-hierarchy's L1 value streams into E2E flows with explicit included-node boundaries, joining fit-gap-analysis dispositions by name where a confident match exists."
-    },
-    {
-      "kind": "Agent",
-      "name": "extensibility-assessor",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "Returns the extensibility tier, its justification, and any red flags. The clean-core decision, recorded."
-    },
-    {
-      "kind": "Agent",
-      "name": "fit-to-standard-accelerator",
-      "posture": "own",
-      "status": "notstarted",
-      "phase": "Explore",
-      "desc": "Bounded Explore-phase orchestrator: composes workshop-preparation, fit-to-standard, fiori-app-mapping, fit-gap-analysis and transcript-intake into a reviewable run summary."
-    },
-    {
-      "kind": "Agent",
-      "name": "functional-specifications-development",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Writes a functional specification per confirmed Gap/WRICEF item from the solution blueprint and fit-gap dispositions, routing each to the correct wricef-*/business-scenario-design template by Gap Type."
-    },
-    {
-      "kind": "Agent",
-      "name": "knowledge-harvester",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Run",
-      "desc": "Returns proposed knowledge deltas after each run."
-    },
-    {
-      "kind": "Agent",
-      "name": "migration-code-development",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Generates traceable data migration/transformation code from a MATCHED objects-mapping row, batch-sized by object volume or scoped record count, and invokes technical documentation generation per artifact."
-    },
-    {
-      "kind": "Agent",
-      "name": "objects-list",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "Builds a structured migration object inventory (type, volume, key attributes) from a BTC/DTV scoping export or Excel/SQL/HANA/ECC source data. Feeds Objects Mapping and Migration Code Development agents."
-    },
-    {
-      "kind": "Agent",
-      "name": "objects-mapping",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "Maps source business objects and fields from the migration objects list to their S/4HANA target counterparts, with AI-suggested field mappings, confidence/rationale, and conflict flags for human review."
-    },
-    {
-      "kind": "Agent",
-      "name": "process-best-practice-mapping",
+      "name": "brownfield-sad-authoring-agent",
       "posture": "own",
       "status": "progress",
       "phase": "Discover",
-      "desc": "Greenfield agent mapping a supplied business process list to SAP Best Practices scope items from the sap-best-practices domain pack, with 1:many candidates, confidence/match_basis, and explicit gaps for human review."
+      "phases": [
+        "Discover",
+        "Explore"
+      ],
+      "desc": "Determines SAD readiness, gathers prerequisite evidence, orchestrates the Brownfield SAD authoring flow (readiness -> sizing -> conversion scoping -> workshop scheduling -> state reconciliation -> ADR log -> SAD drafting -> Confluence publication), and returns SAD review status. Invoked by the `solution-architect` Assistant for the `brownfield-sad-authoring` use case; never invoked directly."
     },
     {
-      "kind": "Agent",
-      "name": "readiness-analyst",
+      "kind": "Artifact",
+      "name": "brownfield-sad-authoring-state",
       "posture": "own",
       "status": "progress",
       "phase": "Discover",
-      "desc": "Isolated reviewer for Discover-phase quality: checks the simplification-impact-report for completeness and missing evidence."
-    },
-    {
-      "kind": "Agent",
-      "name": "sad-assembly",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Peer agent that composes whatever domain-strategy outputs (EPMCSAPAI-275, -281 through -289) are available into a review-ready technical SAD, flagging missing domains and surfacing cross-domain conflicts for architect review rather than resolving them."
-    },
-    {
-      "kind": "Agent",
-      "name": "simplification-items-to-processes",
-      "posture": "own",
-      "status": "in-test",
-      "phase": "Discover",
-      "desc": "Transforms an SAP Simplification Item Catalog export into a de-duplicated, evidence-backed list of candidate business-process impacts."
-    },
-    {
-      "kind": "Agent",
-      "name": "source-conflict-analyst",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "Provenance and contradiction analysis across a scattered source pack, supporting solution-design's compose/maintain mode without stuffing raw sources into its context."
-    },
-    {
-      "kind": "Agent",
-      "name": "strategies-generation",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "Generates the non-technical delivery strategies (Cutover, Training, Testing, Convention) from project scope and context, deliberately excluding the technical strategies now owned by the SAD track."
-    },
-    {
-      "kind": "Agent",
-      "name": "test-generation",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Orchestrates test-case-design and e2e-test-scenario-generation, then reports coverage against supplied specs/tickets. Test execution/automation stays out of scope."
-    },
-    {
-      "kind": "Artifact",
-      "name": "agent-card",
-      "posture": "own",
-      "status": "notstarted",
-      "phase": "Run",
-      "desc": "Purpose, owner, data scope, guardrails and eval pack. What AI Agent Hub registers."
-    },
-    {
-      "kind": "Artifact",
-      "name": "architecture-package",
-      "posture": "own",
-      "status": "in-test",
-      "phase": "Explore",
-      "desc": "Client-facing architecture index: scope, architecture views, source records, traceability, NFRs, risks and named approvals."
-    },
-    {
-      "kind": "Artifact",
-      "name": "assessment-report",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Discover",
-      "desc": "Agent-candidate scoring: process, volume, exception rate, reversibility, data reachability, verdict. The Discover-phase deliverable for agent-readiness."
-    },
-    {
-      "kind": "Artifact",
-      "name": "business-process-hierarchy",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "L1/L2/L3 SAP Best Practices tree of matched client business processes, with an explicit unplaced-processes list, produced by the business-process-hierarchy agent."
+      "phases": [
+        "Discover",
+        "Explore"
+      ],
+      "desc": "Engagement state.json for the Brownfield SAD Authoring Agent (workspace/<engagement_id>/brownfield-sad/state.json)."
     },
     {
       "kind": "Artifact",
@@ -319,183 +138,21 @@
       "posture": "own",
       "status": "progress",
       "phase": "Discover",
-      "desc": "Catalog-derived, evidence-backed candidate business-process impacts from SAP Simplification Items; client applicability remains explicitly unverified until readiness analysis."
+      "phases": [
+        "Discover"
+      ],
+      "desc": "Simplification Item to candidate-process mapping, authored by readiness-analysis directly from its findings (no dedicated Tool) as conversion-scoping's primary input."
     },
     {
       "kind": "Artifact",
-      "name": "business-scenario-design",
-      "posture": "adopt",
-      "status": "notstarted",
-      "phase": "all",
-      "desc": null
-    },
-    {
-      "kind": "Artifact",
-      "name": "config-record",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "What changed in customizing, and why."
-    },
-    {
-      "kind": "Artifact",
-      "name": "cutover-dependency-check",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Deploy",
-      "desc": "Dependency-validated cutover checklist: flagged items with evidence/rationale and an owner-notification list."
-    },
-    {
-      "kind": "Artifact",
-      "name": "delivery-strategy",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "One non-technical delivery-strategy document (Cutover, Training, Testing, or Convention) with cited decisions and cross-strategy dependencies."
-    },
-    {
-      "kind": "Artifact",
-      "name": "design-config-doc",
-      "posture": "adopt",
-      "status": "notstarted",
-      "phase": "all",
-      "desc": null
-    },
-    {
-      "kind": "Artifact",
-      "name": "design-record",
-      "posture": "own",
-      "status": "in-test",
-      "phase": "Explore",
-      "desc": "Target design, critiqued then approved."
-    },
-    {
-      "kind": "Artifact",
-      "name": "e2e-process-scope",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "E2E business process flows (one per SAP L1 value stream), included L2/L3 nodes, and linked Fit/Gap dispositions, produced by the e2e-process-scope agent."
-    },
-    {
-      "kind": "Artifact",
-      "name": "e2e-test-scenarios",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "E2E test scenarios, one per e2e-process-scope flow, with provisional step ordering and explicit gap-verification steps, produced by e2e-test-scenario-generation."
-    },
-    {
-      "kind": "Artifact",
-      "name": "explore-chain",
-      "posture": "own",
-      "status": "progress",
-      "phase": "all",
-      "desc": null
-    },
-    {
-      "kind": "Artifact",
-      "name": "extensibility-record",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "Chosen extensibility tier plus the justification for it."
-    },
-    {
-      "kind": "Artifact",
-      "name": "fit-gap-analysis",
-      "posture": "own",
-      "status": "progress",
-      "phase": "all",
-      "desc": null
-    },
-    {
-      "kind": "Artifact",
-      "name": "fit-to-standard-run-summary",
-      "posture": "own",
-      "status": "notstarted",
-      "phase": "Explore",
-      "desc": "Accelerator run summary covering workshop preparation, decision log, app mapping and fit-gap output."
-    },
-    {
-      "kind": "Artifact",
-      "name": "migration-code-package",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Traceable, review-ready generated migration/transformation code deliverable, produced by the migration-code-development agent from a MATCHED object-field-mapping row."
-    },
-    {
-      "kind": "Artifact",
-      "name": "object-field-mapping",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "Reviewable source-to-target object and field mapping with AI-suggested confidence/rationale, produced by the objects-mapping agent from the migration objects list."
-    },
-    {
-      "kind": "Artifact",
-      "name": "onboarding-record",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Prepare",
-      "desc": "Ready to take a ticket, evidenced."
-    },
-    {
-      "kind": "Artifact",
-      "name": "process-app-mapping",
-      "posture": "own",
-      "status": "notstarted",
-      "phase": "all",
-      "desc": "Source-traceable mapping of in-scope business processes to SAP Fiori app candidates."
-    },
-    {
-      "kind": "Artifact",
-      "name": "process-best-practice-mapping",
+      "name": "business-process-scope",
       "posture": "own",
       "status": "progress",
       "phase": "Discover",
-      "desc": "Reviewable 1:many mapping of business processes to SAP Best Practices scope items, with confidence/match_basis and explicit gaps, produced by the process-best-practice-mapping agent."
-    },
-    {
-      "kind": "Artifact",
-      "name": "reconciliation-report",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Before-and-after delta against tolerance."
-    },
-    {
-      "kind": "Artifact",
-      "name": "record-scoping-decision",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "Record-level in/out-of-scope decision set per object type with rule traceability and pre/post volume counts, produced by the data-scoping agent."
-    },
-    {
-      "kind": "Artifact",
-      "name": "requirements-record",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "Normalized requirements from intake: source, goal, AC only if present, open questions. No FTS/design backlinks yet."
-    },
-    {
-      "kind": "Artifact",
-      "name": "run-exit-record",
-      "posture": "own",
-      "status": "progress",
-      "phase": "all",
-      "desc": "Named approver, four-way disposition per open item (resolved / carried over - scheduled / carried over - red flag / escalated - traceability gap), and knowledge-harvest cycle confirmation. Both the evidence and the mechanism for the one gate Activate doesn't define."
-    },
-    {
-      "kind": "Artifact",
-      "name": "sign-off-record",
-      "posture": "own",
-      "status": "in-test",
-      "phase": "all",
-      "desc": "Named person, date, scope, artifact reference."
+      "phases": [
+        "Discover"
+      ],
+      "desc": "Business-process scope for an SAP conversion, per Business Area: Changed/Unchanged/To-Assess/Out-of-scope, complexity, and (when an Application Map was cross-referenced) supporting applications."
     },
     {
       "kind": "Artifact",
@@ -503,222 +160,132 @@
       "posture": "own",
       "status": "progress",
       "phase": "Discover",
-      "desc": "Readiness Check / SI-Check findings scoped per module: what blocks the conversion versus what merely appears in the report. The Discover-phase deliverable for readiness-analysis."
+      "phases": [
+        "Discover"
+      ],
+      "desc": "Readiness Check findings brief produced by the readiness-analysis Skill (EPMCSAPAI-324), from a report parsed by tools/parse-readiness-check-export."
     },
     {
       "kind": "Artifact",
-      "name": "solution-blueprint",
+      "name": "sizing-recommendation",
       "posture": "own",
       "status": "progress",
-      "phase": "Explore",
-      "desc": "Solution blueprint with one section per E2E flow, design decisions cited to their source fit-gap row, and an explicit not-yet-covered list, produced by the blueprint-generation agent."
-    },
-    {
-      "kind": "Artifact",
-      "name": "technical-documentation",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Purpose, inputs/outputs, and key-logic documentation for an already-generated code artifact, citing its spec/mapping reference verbatim. Produced by technical-documentation-generation."
-    },
-    {
-      "kind": "Artifact",
-      "name": "technical-sad",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Technical SAD assembled from whatever domain-strategy outputs are available (EPMCSAPAI-275, -281 through -289), with every domain always represented (available/missing/inconsistent) and cross-domain conflicts consolidated for architect review. Business part excluded. Produced by sad-assembly."
-    },
-    {
-      "kind": "Artifact",
-      "name": "test-coverage-matrix",
-      "posture": "own",
-      "status": "in-test",
-      "phase": "Realize",
-      "desc": "Row ID to test-case traceability: technique used, test case IDs, status, explicit gaps."
-    },
-    {
-      "kind": "Artifact",
-      "name": "test-generation-report",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Pointers to a test-generation run's test-coverage-matrix and e2e-test-scenarios artifacts, plus coverage against supplied specs/tickets, produced by the test-generation agent."
-    },
-    {
-      "kind": "Artifact",
-      "name": "transport-record",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Transport ID recorded by construction, not by hand."
-    },
-    {
-      "kind": "Artifact",
-      "name": "triage-verdict",
-      "posture": "own",
-      "status": "in-test",
-      "phase": "Realize",
-      "desc": "Class, route, and the human who confirmed it."
-    },
-    {
-      "kind": "Artifact",
-      "name": "workshop-candidate-register",
-      "posture": "own",
-      "status": "notstarted",
-      "phase": "Explore",
-      "desc": "Traceable candidate requirements, decisions and open questions extracted from a workshop transcript."
-    },
-    {
-      "kind": "Artifact",
-      "name": "workshop-preparation-plan",
-      "posture": "own",
-      "status": "notstarted",
-      "phase": "all",
-      "desc": "Scope-validated list of workshop topics with process coverage and simplification impacts."
-    },
-    {
-      "kind": "Artifact",
-      "name": "wricef-conversion",
-      "posture": "adopt",
-      "status": "notstarted",
-      "phase": "all",
-      "desc": null
-    },
-    {
-      "kind": "Artifact",
-      "name": "wricef-enhancement-complex",
-      "posture": "adopt",
-      "status": "notstarted",
-      "phase": "all",
-      "desc": null
-    },
-    {
-      "kind": "Artifact",
-      "name": "wricef-enhancement-simple",
-      "posture": "adopt",
-      "status": "notstarted",
-      "phase": "all",
-      "desc": null
-    },
-    {
-      "kind": "Artifact",
-      "name": "wricef-interface",
-      "posture": "adopt",
-      "status": "notstarted",
-      "phase": "all",
-      "desc": null
-    },
-    {
-      "kind": "Artifact",
-      "name": "wricef-print-form",
-      "posture": "adopt",
-      "status": "notstarted",
-      "phase": "all",
-      "desc": null
-    },
-    {
-      "kind": "Artifact",
-      "name": "wricef-report",
-      "posture": "adopt",
-      "status": "notstarted",
-      "phase": "all",
-      "desc": null
-    },
-    {
-      "kind": "Artifact",
-      "name": "wricef-workflow",
-      "posture": "adopt",
-      "status": "notstarted",
-      "phase": "all",
-      "desc": null
-    },
-    {
-      "kind": "Assistant",
-      "name": "abap-developer",
-      "posture": "own",
-      "status": "in-test",
-      "phase": "all",
-      "desc": "Role-scoped entry point for the **ABAP Developer**: technical development across Prepare (custom-code baseline), Realize (ABAP/RAP/CDS build) and Run (defect fixes, Joule agent build). It holds the role boundary, offers the developer's use cases, and routes each request to an eligible agent or, where none exists yet, to the owning skill. The routed skill is what reaches the ABAP system through a connector — this assistant never calls `abap-mcp`, `arc-1` or any tool directly."
-    },
-    {
-      "kind": "Assistant",
-      "name": "delivery-manager",
-      "posture": "own",
-      "status": "in-test",
-      "phase": "all",
-      "desc": "Role-scoped entry point for the **Delivery Manager**: cross-phase delivery coordination — consultant onboarding, ceremony-depth routing, end-to-end engagement evaluation, and governance of the knowledge harvested at the end of each run. It holds the role boundary, offers the role's use cases, and routes each request to an eligible agent or, where none exists yet, to the owning skill. It never calls tools or connectors itself."
-    },
-    {
-      "kind": "Assistant",
-      "name": "functional-consultant",
-      "posture": "own",
-      "status": "in-test",
-      "phase": "all",
-      "desc": "Role-scoped entry point for the **Functional Consultant**: Explore-phase blueprinting (requirements, fit-to-standard, workshops, Fiori mapping) and Realize-phase configuration. It also **temporarily** hosts the AMS defect-diagnosis cluster until a dedicated `ams-support-analyst` assistant is split out (second wave). It holds the role boundary, offers the role's use cases, and routes each request to an eligible agent or, where none exists yet, to the owning skill. It never calls tools or connectors itself."
+      "phase": "Discover",
+      "phases": [
+        "Discover"
+      ],
+      "desc": "Sizing recommendation produced by the sizing-analysis Skill from tools/calculate-s4hana-sizing's arithmetic."
     },
     {
       "kind": "Assistant",
       "name": "solution-architect",
       "posture": "own",
-      "status": "in-test",
-      "phase": "all",
-      "desc": "Role-scoped entry point for the **Solution Architect**: architecture-side delivery work across Discover, Prepare and Explore, plus cross-phase architecture governance in Run. It holds the role boundary, offers the architect's use cases, and routes each request to an eligible agent (or, where no agent exists yet, directly to the owning skill). It never calls tools or connectors itself — the routed agent or skill does."
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover",
+        "Explore"
+      ],
+      "desc": "Role-scoped entry point for the **Solution Architect**: architecture-side delivery work across Discover, Prepare and Explore, plus cross-phase architecture governance in Run. It holds the role boundary, offers the architect's use cases, and routes each request to an eligible agent (or, where no agent exists yet, directly to the owning skill). It never calls tools or connectors itself \u2014 the routed agent or skill does."
     },
     {
       "kind": "Connector",
       "name": "abap-mcp",
       "posture": "adopt",
-      "status": "ready",
-      "phase": "all",
-      "desc": "Full ABAP CRUD (classic + RAP) via mcp-abap-adt, npx-installed, per-developer. Alternatives: SAP's own VS Code ADT MCP (Cloud ABAP only), arc-1 (enterprise/BTP deploy).",
+      "status": "progress",
+      "phase": "Explore",
+      "phases": [
+        "Explore",
+        "Realize",
+        "Deploy",
+        "Run"
+      ],
+      "desc": "Full ABAP repository read/write (classic ABAP, RAP, CDS/views, transports) via `mcp-abap-adt` (`@mcp-abap-adt/core` on npm, repo `fr0ster/mcp-abap-adt`), run per-developer via `npx`. Chosen as this factory's default ABAP connector: broadest scope (classic on-prem + BTP ABAP Cloud + legacy) and least setup friction for a single consultant working in Claude Code, Cursor, or Copilot \u2014 no extra IDE or infrastructure required. See \"Alternatives\" below for when a different connector fits better.",
       "pattern": "mcp"
     },
     {
       "kind": "Connector",
       "name": "ai-agent-hub",
       "posture": "adopt",
-      "status": "notstarted",
-      "phase": "all",
-      "desc": "Where client-facing agents are governed. Proposed to Retired lifecycle. GA Q3 2026.",
-      "pattern": "documented-only"
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover"
+      ],
+      "desc": "Where client-facing agents are governed. Proposed to Retired lifecycle.",
+      "pattern": "api"
     },
     {
       "kind": "Connector",
       "name": "calendar",
       "posture": "adopt",
       "status": "progress",
-      "phase": "all",
-      "desc": "Microsoft 365 calendar. Finds real availability and drafts (never sends) invites for fit-to-standard workshop scheduling. Missing from the model even though the ported, proven fit-to-standard skill depends on it.",
-      "pattern": "documented-only"
+      "phase": "Prepare",
+      "phases": [
+        "Prepare",
+        "Explore"
+      ],
+      "desc": "Finds real attendee availability and drafts (never sends) meeting invites. Microsoft 365 in the ported version \u2014 this connector was missing from the data model even though `skills/fit-to-standard` (the one component ported as \"proven to work end to end\") actually depends on it for its scheduling step; this entry closes that gap.",
+      "pattern": "api"
     },
     {
       "kind": "Connector",
       "name": "cloud-alm",
       "posture": "adopt",
-      "status": "in-test",
-      "phase": "all",
-      "desc": "SAP Cloud ALM delivery and operations surface. MCP pattern: read-only-by-default tool posture with external profile launcher. Script pattern: OAuth2 env-file credentials for Python regeneration tools.",
-      "pattern": [
-        "mcp",
-        "script"
-      ]
+      "status": "progress",
+      "phase": "Prepare",
+      "phases": [
+        "Prepare",
+        "Explore",
+        "Realize",
+        "Deploy",
+        "Run"
+      ],
+      "desc": "**Pattern:** `mcp` + `script` \u2014 two integration modes for the same service.",
+      "pattern": "mcp"
+    },
+    {
+      "kind": "Connector",
+      "name": "confluence",
+      "posture": "adopt",
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover",
+        "Prepare",
+        "Explore",
+        "Realize",
+        "Deploy",
+        "Run"
+      ],
+      "desc": "Canonical document store for Brownfield SAD engagement outputs. Publishes approved readiness, sizing, scoping, and SAD documents as Confluence pages; also read-checks linked pages during state reconciliation.",
+      "pattern": "script"
     },
     {
       "kind": "Connector",
       "name": "gcts-abapgit",
       "posture": "adopt",
-      "status": "notstarted",
-      "phase": "all",
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover"
+      ],
       "desc": "Source control for ABAP Cloud, CAP and UI5.",
-      "pattern": "documented-only"
+      "pattern": "api"
     },
     {
       "kind": "Connector",
       "name": "jira",
       "posture": "adopt",
-      "status": "ready",
-      "phase": "all",
+      "status": "progress",
+      "phase": "Prepare",
+      "phases": [
+        "Prepare",
+        "Explore",
+        "Realize",
+        "Deploy",
+        "Run"
+      ],
       "desc": "Work items and the defect queue. The work-intent surface of record for now.",
       "pattern": "mcp"
     },
@@ -726,8 +293,11 @@
       "kind": "Connector",
       "name": "joule-studio",
       "posture": "adopt",
-      "status": "notstarted",
-      "phase": "all",
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover"
+      ],
       "desc": "Where client-facing agents are built.",
       "pattern": "cli"
     },
@@ -736,147 +306,197 @@
       "name": "knowledge-graph",
       "posture": "adopt",
       "status": "progress",
-      "phase": "all",
+      "phase": "Discover",
+      "phases": [
+        "Discover",
+        "Prepare"
+      ],
       "desc": "Structured map of business entities and relationships. Grounds discovery and agent-readiness.",
-      "pattern": "documented-only"
+      "pattern": "api"
     },
     {
       "kind": "Connector",
       "name": "leanix",
       "posture": "adopt",
-      "status": "in-test",
-      "phase": "all",
-      "desc": "SAP LeanIX MCP for workspace-scoped enterprise architecture discovery, technology assessment and transformation evidence, packaged with OAuth via mcp-remote.",
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover",
+        "Prepare",
+        "Explore"
+      ],
+      "desc": "SAP LeanIX MCP provides workspace-scoped access to enterprise architecture facts, technology stacks, application components, transformations, surveys and architecture decisions.",
       "pattern": "mcp"
     },
     {
       "kind": "Connector",
       "name": "readiness-check",
       "posture": "adopt",
-      "status": "notstarted",
-      "phase": "all",
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover"
+      ],
       "desc": "Simplification items and readiness findings.",
-      "pattern": "documented-only"
+      "pattern": "script"
     },
     {
       "kind": "Connector",
       "name": "signavio",
       "posture": "adopt",
-      "status": "in-test",
-      "phase": "all",
-      "desc": "SAP Signavio Process Manager: BPMN model download, subprocess hierarchy, linkedBy enrichment. Script-pattern connector (basic-auth /p/login); confirmed against real tenant 2026-08-24.",
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover",
+        "Prepare",
+        "Explore"
+      ],
+      "desc": "**Pattern:** `script` \u2014 direct HTTP, called by Python tools. No public MCP server exists for Signavio's basic-auth API; runtime access from a skill uses the repository's API scripts.",
       "pattern": "script"
+    },
+    {
+      "kind": "Knowledge",
+      "name": "activate-roadmaps",
+      "posture": "adopt",
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover",
+        "Prepare",
+        "Explore",
+        "Realize",
+        "Deploy",
+        "Run"
+      ],
+      "desc": "SAP Activate roadmap task lists per product/scenario, generated from SAP Roadmap Viewer XML exports (source XMLs gitignored under `workspace/roadmaps/`)."
     },
     {
       "kind": "Knowledge",
       "name": "clean-core",
       "posture": "adopt",
       "status": "progress",
-      "phase": "all",
-      "desc": "SAP's clean-core rules: in-app versus side-by-side, released APIs, upgrade safety. SAP publishes it; we apply it as an always-on guardrail."
+      "phase": "Explore",
+      "phases": [
+        "Explore",
+        "Realize",
+        "Run"
+      ],
+      "desc": "SAP's clean-core rules applied as an always-on guardrail across extensibility decisions, custom-code remediation, and solution design."
     },
     {
       "kind": "Knowledge",
-      "name": "config",
-      "posture": "own",
-      "status": "notstarted",
-      "phase": "all",
-      "desc": "Config decisions and their rationale."
-    },
-    {
-      "kind": "Knowledge",
-      "name": "custom-code",
-      "posture": "own",
-      "status": "notstarted",
-      "phase": "all",
-      "desc": "Inventory, usage data and remediation history."
-    },
-    {
-      "kind": "Knowledge",
-      "name": "data",
-      "posture": "own",
-      "status": "notstarted",
-      "phase": "all",
-      "desc": "Migration objects, cleansing rules and reconciliation baselines."
-    },
-    {
-      "kind": "Knowledge",
-      "name": "domain-packs",
+      "name": "cutover-methodology",
       "posture": "own",
       "status": "progress",
-      "phase": "all",
-      "desc": "Swappable domain expertise a generic engine skill plugs in (order-to-cash is the first pack), distinct from the other buckets' project-specific content."
+      "phase": "Realize",
+      "phases": [
+        "Realize",
+        "Deploy"
+      ],
+      "desc": "Curated cutover strategy decision framework, remote-cutover playbook, and checklist task shape."
     },
     {
       "kind": "Knowledge",
-      "name": "extensibility",
+      "name": "north-star-methodology",
       "posture": "own",
-      "status": "notstarted",
-      "phase": "all",
-      "desc": "Tier decisions and the modification register."
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover",
+        "Prepare",
+        "Explore"
+      ],
+      "desc": "EPAM's SAP North Star delivery methodology: architecture-vision, strategy, business-architecture, and application/data-architecture modules (one-pagers, positioning/scoping guides, delivery guides, report templates), organized by ADM-like phase under `03-delivery-of-service-modules/`."
     },
     {
       "kind": "Knowledge",
       "name": "operations",
       "posture": "own",
       "status": "notstarted",
-      "phase": "all",
-      "desc": "Runbooks, cutover history and performance baselines."
+      "phase": "Deploy",
+      "phases": [
+        "Deploy",
+        "Run"
+      ],
+      "desc": "Run-loop contract plus reusable templates for cutover, hypercare, rollback/escalation, SLO baselining, known issues, and production conversion."
     },
     {
       "kind": "Knowledge",
-      "name": "process",
+      "name": "order-to-cash-domain-pack",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "phases": [
+        "Explore",
+        "Realize",
+        "Run"
+      ],
+      "desc": "Swappable Order-to-Cash domain expertise: taxonomy, signal catalog, and 10 troubleshooting decision trees."
+    },
+    {
+      "kind": "Knowledge",
+      "name": "readiness-check-interpretation",
       "posture": "own",
       "status": "notstarted",
-      "phase": "all",
-      "desc": "Scope, variants and fit-to-standard outcomes."
+      "phase": "Discover",
+      "phases": [
+        "Discover",
+        "Explore"
+      ],
+      "desc": "Chapter-by-chapter interpretation guidance for a SAP Readiness Check for SAP S/4HANA report, calibrated against real client exports, plus the SAD section-routing table."
+    },
+    {
+      "kind": "Knowledge",
+      "name": "sap-best-practices-taxonomy",
+      "posture": "adopt",
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover",
+        "Prepare",
+        "Explore"
+      ],
+      "desc": "Generated taxonomy and BPMN-derived cache of 732 SAP Best Practices scope items, plus 13 value-stream index files."
     },
     {
       "kind": "Knowledge",
       "name": "standards",
       "posture": "own",
       "status": "notstarted",
-      "phase": "all",
-      "desc": "EPAM delivery standards and the project's own conventions."
+      "phase": "Discover",
+      "phases": [
+        "Discover",
+        "Prepare",
+        "Explore",
+        "Realize",
+        "Deploy",
+        "Run"
+      ],
+      "desc": "Method-agnostic delivery standards: how to build and keep current a structured, source-traced document from scattered, heterogeneous inputs (`source-synthesis.md`, ported from a `business-blueprint` skill, with two worked examples in `skills/solution-design/references/`); a shared gap-disposition taxonomy (`gap-disposition-taxonomy.md`); and a curated SAP GitHub/documentation reference index (`sap-architecture-references.md`)."
     },
     {
       "kind": "Knowledge",
       "name": "testing",
       "posture": "own",
       "status": "progress",
-      "phase": "all",
-      "desc": "Defect history and what has already been classified as a spec flaw."
-    },
-    {
-      "kind": "Q-gate",
-      "name": "deploy-run",
-      "posture": "adopt",
-      "status": "progress",
-      "phase": "all",
-      "desc": null
-    },
-    {
-      "kind": "Q-gate",
-      "name": "deploy→run",
-      "posture": "adopt",
-      "status": "progress",
-      "phase": "all",
-      "desc": "Exit criteria: cutover rehearsed, go-live criteria met."
+      "phase": "Realize",
+      "phases": [
+        "Realize",
+        "Deploy",
+        "Run"
+      ],
+      "desc": "Defect-history register template and test-script template."
     },
     {
       "kind": "Q-gate",
       "name": "discover-prepare",
       "posture": "adopt",
       "status": "progress",
-      "phase": "all",
-      "desc": null
-    },
-    {
-      "kind": "Q-gate",
-      "name": "discover→prepare",
-      "posture": "adopt",
-      "status": "progress",
-      "phase": "all",
+      "phase": "Discover",
+      "phases": [
+        "Discover",
+        "Prepare"
+      ],
       "desc": "Exit criteria: scope and readiness accepted."
     },
     {
@@ -884,15 +504,11 @@
       "name": "explore-realize",
       "posture": "adopt",
       "status": "progress",
-      "phase": "all",
-      "desc": null
-    },
-    {
-      "kind": "Q-gate",
-      "name": "explore→realize",
-      "posture": "adopt",
-      "status": "progress",
-      "phase": "all",
+      "phase": "Explore",
+      "phases": [
+        "Explore",
+        "Realize"
+      ],
       "desc": "Exit criteria: fit-to-standard signed, design approved, extensibility tier recorded, backlog baselined."
     },
     {
@@ -900,1789 +516,325 @@
       "name": "prepare-explore",
       "posture": "adopt",
       "status": "progress",
-      "phase": "all",
-      "desc": null
-    },
-    {
-      "kind": "Q-gate",
-      "name": "prepare→explore",
-      "posture": "adopt",
-      "status": "progress",
-      "phase": "all",
+      "phase": "Prepare",
+      "phases": [
+        "Prepare",
+        "Explore"
+      ],
       "desc": "Exit criteria: knowledge built and validated, custom-code baseline taken, team onboarded."
     },
     {
-      "kind": "Q-gate",
-      "name": "realize-deploy",
-      "posture": "adopt",
-      "status": "progress",
-      "phase": "all",
-      "desc": null
-    },
-    {
-      "kind": "Q-gate",
-      "name": "realize→deploy",
-      "posture": "adopt",
-      "status": "progress",
-      "phase": "all",
-      "desc": "Exit criteria: config documented, custom code ATC-clean, data reconciled."
-    },
-    {
-      "kind": "Q-gate",
-      "name": "run-exit",
-      "posture": "own",
-      "status": "progress",
-      "phase": "all",
-      "desc": "Exit criteria: hypercare closed, knowledge harvested. This one is ours, Activate does not define it."
-    },
-    {
-      "kind": "Skill",
-      "name": "abap-dev",
-      "posture": "adopt",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Classic ABAP, RAP and CDS. Adopted from epam-sap-skills' classic-abap and modern-abap, not skills.cloud.sap."
-    },
-    {
-      "kind": "Skill",
-      "name": "agent-build",
-      "posture": "own",
-      "status": "in-test",
-      "phase": "Run",
-      "desc": "Joule Studio agent with card, policy and eval pack. Joule CLI skill is on skills.cloud.sap."
-    },
-    {
-      "kind": "Skill",
-      "name": "agent-readiness",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Discover",
-      "desc": "Which client processes should be handed to agents, and why. The Autonomous Enterprise entry point."
-    },
-    {
-      "kind": "Skill",
-      "name": "backlog-drafting",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "Deltas become sized, owned, traceable work items. AC quality check + review before Jira push; refuses ungrounded asks (route via requirements-intake / FTS)."
-    },
-    {
-      "kind": "Skill",
-      "name": "billing-ar-error-analyzer",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Diagnose: SD billing / FI-AR posting defects via VKOA account determination. Domain-specific specialization of root-cause-playbook."
-    },
-    {
-      "kind": "Skill",
-      "name": "ceremony-routing",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Score Light/Standard/Deep ceremony depth after triage or requirements intake. Does not replace domain diagnostics — only sets how deep to run the matrix handoff."
-    },
-    {
-      "kind": "Skill",
-      "name": "config-doc",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Config decision, documentation and customizing transport, together."
-    },
-    {
-      "kind": "Skill",
-      "name": "custom-code-scan",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Prepare",
-      "desc": "ATC (S4HANA_READINESS) baseline joined to real usage data (SCMON/UPL) to separate retire from remediate, ranked by business criticality not raw finding count."
-    },
-    {
-      "kind": "Skill",
-      "name": "cutover-plan",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Deploy",
-      "desc": "Sequenced plan, rehearsed end to end against the clock, with go-live criteria attached."
-    },
-    {
-      "kind": "Skill",
-      "name": "defect-pattern-analysis",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Run",
-      "desc": "Prevent: cluster a defect backlog by cause (not symptom), rank by business weight, propose permanent fixes on the eliminate/prevent/detect/absorb ladder. Domain-neutral engine, periodic not per-ticket."
-    },
-    {
-      "kind": "Skill",
-      "name": "defect-triage",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Classify: bug or functional spec flaw. A commercial call, so a human confirms the verdict. Reused by hypercare."
-    },
-    {
-      "kind": "Skill",
-      "name": "e2e-test-scenario-generation",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Generate one E2E test scenario per e2e-process-scope flow, with provisional step ordering and explicit gap-verification steps for every linked GAP disposition."
-    },
-    {
-      "kind": "Skill",
-      "name": "factory-onboard",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Discover",
-      "desc": "User helper after install: day-0 orientation for consultants using the factory on a project, then phase/engagement/domain routing to the first delivery skill. Not a contributor/platform guide."
-    },
-    {
-      "kind": "Skill",
-      "name": "fiori-app-mapping",
-      "posture": "own",
-      "status": "notstarted",
-      "phase": "Explore",
-      "desc": "Map a supplied business-process list to a supplied SAP Fiori Apps Reference Library XLSX export. Produces reviewable, source-traceable mappings and flags unmapped processes. Never stores the export as factory knowledge."
-    },
-    {
-      "kind": "Skill",
-      "name": "fit-gap-analysis",
-      "posture": "own",
-      "status": "notstarted",
-      "phase": "Explore",
-      "desc": "Generate a reviewable Fit/Gap analysis from a Fit-to-Standard decision log and optional process-to-app mapping. Use after a workshop decision log exists; routes confirmed gaps to solution-design without selecting an extensibility tier."
-    },
-    {
-      "kind": "Skill",
-      "name": "fit-to-standard",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "Standard versus delta decided and signed, per process."
-    },
-    {
-      "kind": "Skill",
-      "name": "fix-doc-and-regression",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Fix/verify: document the fix and derive regression test scope from a domain adjacency map. Domain-neutral engine."
-    },
-    {
-      "kind": "Skill",
-      "name": "go-live-readiness",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Deploy",
-      "desc": "Per-process-area readiness checklist and status, feeding the cutover sign-off's go/no-go criteria."
-    },
-    {
-      "kind": "Skill",
-      "name": "idoc-failure-analyzer",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Diagnose: failing IDocs by direction/message type/status code into technical, mapping and application layers, with a safe reprocess path. Domain-neutral engine."
-    },
-    {
-      "kind": "Skill",
-      "name": "incident-triage",
-      "posture": "own",
-      "status": "in-test",
-      "phase": "Realize",
-      "desc": "Intake: classify by sub-process, layer, severity; dedupe; route; then ceremony-routing for depth. Domain-neutral engine, reused by hypercare."
-    },
-    {
-      "kind": "Skill",
-      "name": "knowledge-discovery",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Prepare",
-      "desc": "Extract the client's real shape, custom code, config, process scope, into reviewable guides."
-    },
-    {
-      "kind": "Skill",
-      "name": "knowledge-harvest",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Run",
-      "desc": "Propose knowledge deltas after each run. Reviewed, never auto-merged."
-    },
-    {
-      "kind": "Skill",
-      "name": "onboarding-guide",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Prepare",
-      "desc": "Role-aware path through the knowledge base for a new joiner."
-    },
-    {
-      "kind": "Skill",
-      "name": "pricing-diagnostic",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Diagnose: SD pricing defects via the condition technique. Domain-specific specialization of root-cause-playbook."
-    },
-    {
-      "kind": "Skill",
-      "name": "production-conversion",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Deploy",
-      "desc": "The technical SUM/DMO go-live runbook, executed with a pre-agreed go/no-go decision-maker and rollback triggers, logs captured at every checkpoint as evidence."
-    },
-    {
-      "kind": "Skill",
-      "name": "readiness-analysis",
-      "posture": "own",
-      "status": "in-test",
-      "phase": "Discover",
-      "desc": "Analyzes a Readiness Check/SI-Check export into a scoped findings brief (per-module Simplification Items, and the full 8-chapter brief when the full report is available), separating genuine blockers from routine noise."
-    },
-    {
-      "kind": "Skill",
-      "name": "reconciliation",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Migration load verified: before-and-after delta against the agreed tolerance."
-    },
-    {
-      "kind": "Skill",
-      "name": "requirements-intake",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "Normalize free-form, ticket, notes pack, or greenfield ask into one requirements.md; never invent AC; hand off to fit-to-standard or solution-design Mode B — not a substitute for backlog-drafting."
-    },
-    {
-      "kind": "Skill",
-      "name": "root-cause-playbook",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Diagnose: walk a domain taxonomy's diagnostic tree top-down to a ranked root cause with evidence and fix. Domain-neutral engine."
-    },
-    {
-      "kind": "Skill",
-      "name": "solution-design",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "Target design plus the extensibility tier decision, recorded before build starts. Assembles from scattered sources with full traceability when no single decision-log row covers it."
-    },
-    {
-      "kind": "Skill",
-      "name": "technical-documentation-generation",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Realize",
-      "desc": "Atomic, called skill that documents an already-generated code artifact (purpose, inputs/outputs, key logic) citing the invoking agent's spec/mapping reference verbatim. Invoked by code-development and migration-code-development."
-    },
-    {
-      "kind": "Skill",
-      "name": "test-case-design",
-      "posture": "own",
-      "status": "in-test",
-      "phase": "Realize",
-      "desc": "Derive executable test scripts from every decision-log Row ID (Standard and Delta), with input-quality gate, per-run ledger, review-before-sync, and Row ID coverage matrix."
-    },
-    {
-      "kind": "Skill",
-      "name": "workshop-preparation",
-      "posture": "own",
-      "status": "notstarted",
-      "phase": "Explore",
-      "desc": "Validate supplied business-process scope and simplification impacts, group covered processes into workshop topics, and hand a coverage-checked plan to fit-to-standard. Does not schedule workshops, create decision logs or claim sign-off."
-    },
-    {
-      "kind": "Skill",
-      "name": "workshop-transcript-intake",
-      "posture": "own",
-      "status": "progress",
-      "phase": "Explore",
-      "desc": "Extract traceable candidate requirements, decisions, open questions and candidate work items from a workshop transcript. Use after a workshop when TXT, VTT or SRT is available, before requirements-intake, fit-to-standard or solution-design. Never creates Jira work items."
-    },
-    {
       "kind": "Skill",
       "name": "adr-log",
       "posture": "own",
-      "status": "in-test",
+      "status": "progress",
       "phase": "Discover",
-      "desc": "Maintains one cumulative Architecture Decision Record log across the engagement, raised into by any phase, updated by new evidence (transcripts, presentations)."
+      "phases": [
+        "Discover",
+        "Explore"
+      ],
+      "desc": "Append a new architectural decision record (or split an existing bundled one) to the engagement's ADR log and, when connected, publish it to Confluence as one child page per entry under the engagement's Architecture Decision Log index. Invoked cross-cutting by the Brownfield SAD Authoring Agent for every material manual or detected change -- not called directly by the user."
     },
     {
-      "kind": "Artifact",
-      "name": "adr-log",
+      "kind": "Skill",
+      "name": "brownfield-sad-state-reconciliation",
       "posture": "own",
       "status": "progress",
       "phase": "Discover",
-      "desc": "Cumulative ADR log (.xlsx): one row per decision plus a History sheet of every status change."
+      "phases": [
+        "Discover",
+        "Explore"
+      ],
+      "desc": "Reconstruct a Brownfield SAD authoring engagement's state from workspace artifacts and, once linked, live Confluence pages -- never from conversation history. Detects local and imported manual changes since the last checkpoint, classifies them, and either resumes cleanly or surfaces a conflict for the Agent to resolve. Use before selecting or resuming any Brownfield SAD authoring stage."
     },
     {
       "kind": "Skill",
-      "name": "sizing-analysis",
-      "posture": "own",
-      "status": "in-test",
-      "phase": "Discover",
-      "desc": "Turns a raw SAP sizing baseline into a growth/archiving-adjusted, per-instance provisioning recommendation, with RISE FUE-tier mismatches flagged."
-    },
-    {
-      "kind": "Artifact",
-      "name": "sizing-recommendation",
+      "name": "confluence-document-publishing",
       "posture": "own",
       "status": "progress",
-      "phase": "Discover",
-      "desc": "Growth/archiving-adjusted, per-instance sizing recommendation with methodology and any RISE tier mismatch."
-    },
-    {
-      "kind": "Skill",
-      "name": "sad-drafting",
-      "posture": "own",
-      "status": "in-test",
       "phase": "Explore",
-      "desc": "Drafts/reviews EPAM's real SAP SAD .docx template per engagement type, with Instance Strategy, Sizing Strategy, RICEFW/Clean Core, Data Migration Architecture, and Dual Maintenance/Retrofit decision matrices."
-    },
-    {
-      "kind": "Skill",
-      "name": "integration-strategy",
-      "posture": "own",
-      "status": "in-test",
-      "phase": "Explore",
-      "desc": "Orchestrator for the four-phase ISA-M Integration Strategy pipeline: detects engagement state, enforces the five human review gates, routes to the right phase skill."
-    },
-    {
-      "kind": "Skill",
-      "name": "integration-strategy-context",
-      "posture": "own",
-      "status": "in-test",
-      "phase": "Explore",
-      "desc": "Phase 1: generates the Integration Strategy's Preamble, Context, and Platform Objectives sections from discovery workshop minutes."
-    },
-    {
-      "kind": "Skill",
-      "name": "integration-strategy-hip",
-      "posture": "own",
-      "status": "in-test",
-      "phase": "Explore",
-      "desc": "Phase 2 (ISA-M core): generates Hybrid Integration Platform, Integration Guidelines, and S/4HANA Integration Technology sections."
-    },
-    {
-      "kind": "Skill",
-      "name": "integration-strategy-decisions",
-      "posture": "own",
-      "status": "in-test",
-      "phase": "Explore",
-      "desc": "Phase 3: generates Integration Platform Mechanisms and the Design Decisions Log (KDDs), with an ADR Sync block for adr-log."
-    },
-    {
-      "kind": "Skill",
-      "name": "integration-strategy-governance",
-      "posture": "own",
-      "status": "in-test",
-      "phase": "Explore",
-      "desc": "Phase 4: generates Governance/Processes, Integration Catalogues, the Strategy Roadmap, and the synthesized Strategy Pillars."
+      "phases": [
+        "Explore"
+      ],
+      "desc": "Publish an approved Brownfield SAD engagement document to Confluence with a mandatory preview-and-approval gate, then re-read the page to confirm publication."
     },
     {
       "kind": "Skill",
       "name": "conversion-scoping",
       "posture": "own",
-      "status": "in-test",
+      "status": "progress",
       "phase": "Discover",
-      "desc": "Turns Readiness Check Simplification Item findings into a scoped Changed/Unchanged/Out-of-scope business-process list, grounded in SAP's RBA/RSA catalog."
+      "phases": [
+        "Discover"
+      ],
+      "desc": "Turns SAP Readiness Check Simplification Item findings into a scoped business-process list marked Changed/Unchanged/Out of scope, using SAP's official Reference Business Architecture (RBA/RSA) catalog as the process taxonomy. Use whenever the user wants to scope business processes for an SAP conversion project, asks which processes will change vs. stay the same, or provides both a Readiness Check analysis and an RBA/RSA catalog file."
     },
     {
-      "kind": "Artifact",
-      "name": "business-process-scope",
+      "kind": "Skill",
+      "name": "readiness-analysis",
       "posture": "own",
       "status": "progress",
       "phase": "Discover",
-      "desc": "Changed/Unchanged/Out-of-scope business-process list per Business Area, with complexity and supporting applications."
+      "phases": [
+        "Discover"
+      ],
+      "desc": "Intake and orchestrate a SAP Readiness Check for SAP S/4HANA export -- run the mechanical extraction once, cache it at a stable engagement path, print a chapter/gap summary, and route the user to the relevant topic-scoped skill(s) (readiness-business-architecture, readiness-technical-architecture, readiness-extensibility, readiness-integration, readiness-security, readiness-data-master-data). Use in Discover as soon as Readiness Check output exists, before committing to a conversion date, when you want a first full pass across every topic or aren't yet sure which topic to update."
+    },
+    {
+      "kind": "Skill",
+      "name": "readiness-business-architecture",
+      "posture": "adopt",
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover"
+      ],
+      "desc": "Analyze the Business Architecture topic of a SAP Readiness Check for SAP S/4HANA report -- Simplification Items (Chapter 3) and Compatibility Scope Analysis (Chapter 4) -- into a scoped findings brief and the Simplification-Item-to-business-process mapping, without loading the rest of the report's chapters. Use in Discover as soon as Readiness Check output exists, or standalone to re-check just this topic after new client input arrives."
+    },
+    {
+      "kind": "Skill",
+      "name": "readiness-data-master-data",
+      "posture": "adopt",
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover"
+      ],
+      "desc": "Analyze the Data & Master Data Management topic of a SAP Readiness Check for SAP S/4HANA report -- HANA Sizing/Data Volume Management (Chapter 6), Financial Data Quality (Chapter 8), and Customer Vendor Integration (Chapter 9.6) -- into a scoped findings brief, without loading the rest of the report's chapters. CVI is very often the single highest-severity finding in the whole report (a hard SAP prerequisite gate); this skill is what surfaces it. Use in Discover as soon as Readiness Check output exists, or standalone to re-check just this topic."
+    },
+    {
+      "kind": "Skill",
+      "name": "readiness-extensibility",
+      "posture": "adopt",
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover"
+      ],
+      "desc": "Analyze the Extensibility topic of a SAP Readiness Check for SAP S/4HANA report -- Required Custom Code Adjustments (Chapter 5) -- into a scoped findings brief, plus forward-looking Clean-Core and Extensibility framework content the report itself doesn't cover. Use in Discover as soon as Readiness Check output exists, or standalone to re-check custom code readiness after ATC results land."
+    },
+    {
+      "kind": "Skill",
+      "name": "readiness-integration",
+      "posture": "adopt",
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover"
+      ],
+      "desc": "Analyze the Integration topic of a SAP Readiness Check for SAP S/4HANA report -- Required Adjustments for Integration (Chapter 7: IDoc, Web Service, RFC/BAPI, BW Extractors, OData, SLT, Flat File) -- into a scoped findings brief, without loading the rest of the report's chapters. Use in Discover as soon as Readiness Check output exists, or standalone to re-check just this topic."
+    },
+    {
+      "kind": "Skill",
+      "name": "readiness-security",
+      "posture": "adopt",
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover"
+      ],
+      "desc": "Assess the Security topic for a Brownfield S/4HANA conversion from whatever auth-adjacent Simplification Items scatter across a SAP Readiness Check report -- the report has no dedicated security chapter, so this skill's main job is stating that gap explicitly and scoping a real security assessment, not fabricating coverage that doesn't exist. Use in Discover alongside the other readiness topics, or standalone once a security/authorization assessment approach is agreed with the client."
+    },
+    {
+      "kind": "Skill",
+      "name": "readiness-technical-architecture",
+      "posture": "adopt",
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover"
+      ],
+      "desc": "Analyze the Technical Architecture topic of a SAP Readiness Check for SAP S/4HANA report -- Add-On/Business Function compatibility (Chapter 2) and the Planned Downtime Calculator (Chapter 9.5) -- into a scoped conversion-strategy findings brief, without loading the rest of the report's chapters. Use in Discover as soon as Readiness Check output exists, or standalone to re-check just this topic (e.g. when a downtime-tolerance conversation with the business needs revisiting)."
+    },
+    {
+      "kind": "Skill",
+      "name": "sad-drafting",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "phases": [
+        "Explore"
+      ],
+      "desc": "Draft the Brownfield SAD document from prior-stage evidence and consultant-confirmed decision matrices (instance strategy, RICEFW, sizing strategy, data migration architecture, dual maintenance / retrofit). Invoked by the Brownfield SAD Authoring Agent after readiness, sizing, and scoping stages are complete."
+    },
+    {
+      "kind": "Skill",
+      "name": "sizing-analysis",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover"
+      ],
+      "desc": "Turns SAP sizing inputs -- a Readiness Check's sizing chapter, a HANA Sizing Report, a Quick Sizer export, or a RISE FUE/user count -- into an actual sizing recommendation with a growth buffer, archiving offset, and per-instance breakdown, instead of just restating a raw baseline number. Use whenever the user asks about SAP system sizing, HANA memory/CPU/disk sizing, RISE T-shirt sizing, Full User Equivalents, or needs sizing figures for a Solution Architecture Document."
+    },
+    {
+      "kind": "Skill",
+      "name": "sme-sync-back",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover",
+        "Prepare",
+        "Explore",
+        "Realize",
+        "Deploy",
+        "Run"
+      ],
+      "desc": "Walk an SME through contributing changes made in a generated install (e.g. sap-ai-factory-test) back into the sap-ai-factory factory repo as a normal merge request. Invoked when the user says something like \"contribute my changes back\", \"sync my edits to the factory\", or \"what did I change that's worth keeping\" while working inside an installed project. Not useful outside a generated install -- it has nothing to sync back from a fresh clone of sap-ai-factory itself."
     },
     {
       "kind": "Skill",
       "name": "workshop-scheduling",
       "posture": "own",
-      "status": "in-test",
+      "status": "progress",
       "phase": "Explore",
-      "desc": "Builds a complexity-ordered Fit-to-Standard workshop schedule and per-session agendas from conversion-scoping's business process scope, surfacing open ADR questions per Business Area."
+      "phases": [
+        "Explore"
+      ],
+      "desc": "Turn a conversion-scoping output (Changed/Unchanged/To-Assess business processes) into a ready-to-send workshop schedule and per-session agendas for the SAP Activate Explore-phase Fit-to-Standard workshops on a Brownfield S/4HANA conversion. Orders sessions by complexity, surfaces open adr-log questions per Business Area, and builds a process walkthrough table per session. Use whenever the user has a completed business process scope (from conversion-scoping) and needs to plan, schedule, or prepare agendas for Fit-to-Standard/delta-confirmation workshops."
     },
     {
-      "kind": "Artifact",
-      "name": "workshop-schedule",
+      "kind": "Tool",
+      "name": "calculate-s4hana-sizing",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover"
+      ],
+      "desc": "Mechanical sizing calculator: turns a raw sizing baseline into a padded target recommendation by applying a growth buffer, subtracting an archiving offset, and adding new-functionality headroom, split across one or more target instances. Does not decide methodology or interpret findings -- that's `sizing-analysis`'s job.",
+      "operation": "calculate-s4hana-sizing",
+      "permission_scope": "read-only"
+    },
+    {
+      "kind": "Tool",
+      "name": "fill-brownfield-sad-template",
       "posture": "own",
       "status": "progress",
       "phase": "Explore",
-      "desc": "Complexity-ordered session schedule plus per-session agendas (process walkthrough, open ADR questions, FYI technical blockers)."
+      "phases": [
+        "Explore"
+      ],
+      "desc": "Fills the Brownfield SAD template (`artifacts/brownfield-sad/template.md`) from confirmed evidence artifacts and decision matrix outputs. Produces a structured markdown SAD document with inline source citations and an Open Topics section for every unresolved gap.",
+      "operation": "fill-brownfield-sad-template",
+      "permission_scope": "read-write"
     },
     {
-      "kind": "Skill",
-      "name": "architecture-diagrams",
+      "kind": "Tool",
+      "name": "generate-business-process-scope",
       "posture": "own",
-      "status": "in-test",
-      "phase": "Explore",
-      "desc": "Creates/merges/adapts SAP architecture diagrams in native .drawio format, grounded in SAP's official Reference Architecture catalog with real color palette/icon style/layout conventions."
-    },
-    {
-      "kind": "Skill",
-      "name": "brownfield-conversion-pipeline",
-      "posture": "own",
-      "status": "in-test",
+      "status": "progress",
       "phase": "Discover",
-      "desc": "Thin router for the five-stage Brownfield conversion SDLC: identifies which stage applies and routes to the right stage skill, without duplicating any stage's own logic."
+      "phases": [
+        "Discover"
+      ],
+      "desc": "Three mechanical scripts behind `conversion-scoping`'s output: de-duplicating SAP's denormalized RBA/RSA catalog, extracting a client's Application Map generically, and rendering the final scope decision as a real `.xlsx` workbook. None of the three decide Changed/Unchanged/complexity or matching -- that's `conversion-scoping`'s job.",
+      "operation": "generate-business-process-scope",
+      "permission_scope": "read-write"
+    },
+    {
+      "kind": "Tool",
+      "name": "parse-readiness-check-export",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover"
+      ],
+      "desc": "Mechanical extractor for SAP Readiness Check for SAP S/4HANA exports. Walks the `.docx`'s fixed, numbered chapter structure and captures paragraph text and tables as structured data; when pointed at a folder, also ingests every supporting `.xlsx` export. Does not interpret anything -- severity/blocker judgment is the `readiness-analysis` Skill's job, guided by its `references/`.",
+      "operation": "parse-readiness-check-export",
+      "permission_scope": "read-only"
+    },
+    {
+      "kind": "Tool",
+      "name": "read-confluence-page",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover",
+        "Explore"
+      ],
+      "desc": "Reads a Confluence page's metadata and content hash for the state-reconciliation use case. Returns the page's current version number, last-modified timestamp, and a SHA-256 hash of its storage-format body -- the three values `brownfield-sad-state-reconciliation` needs to decide whether the live page has drifted from the local checkpoint.",
+      "operation": "read-confluence-page",
+      "permission_scope": "read-only"
+    },
+    {
+      "kind": "Tool",
+      "name": "reconcile-brownfield-sad-state",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Discover",
+      "phases": [
+        "Discover",
+        "Explore"
+      ],
+      "desc": "Deterministic, local-only checkpoint comparison for the Brownfield SAD Authoring Agent's resume/reconciliation flow. Detects manual changes against the engagement's last checkpoint (`diff`) and persists a new checkpoint once the Agent has classified those changes and resolved any conflicts (`commit`). Never touches Confluence -- the `brownfield-sad-state-reconciliation` Skill calls `read-confluence-page` directly for any linked Confluence page, per the plan's Resume And Manual Change Reconciliation section.",
+      "operation": "reconcile-brownfield-sad-state",
+      "permission_scope": "read-write"
+    },
+    {
+      "kind": "Tool",
+      "name": "search-confluence-pages",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "phases": [
+        "Explore"
+      ],
+      "desc": "Searches for Confluence pages by exact title within a space using CQL. Returns a list of matching pages (id, title, space key, version, url) so the caller can decide whether to create a new page or update an existing one.",
+      "operation": "search-confluence-pages",
+      "permission_scope": "read-only"
+    },
+    {
+      "kind": "Tool",
+      "name": "upload-confluence-attachment",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "phases": [
+        "Explore"
+      ],
+      "desc": "Uploads a file as an attachment to a Confluence page. Dry-run by default \u2014 prints the upload plan without writing. Pass `--apply` to perform the actual upload. Re-reads the page's attachment list after uploading to verify the file is present.",
+      "operation": "upload-confluence-attachment",
+      "permission_scope": "read-write"
+    },
+    {
+      "kind": "Tool",
+      "name": "upsert-confluence-page",
+      "posture": "own",
+      "status": "progress",
+      "phase": "Explore",
+      "phases": [
+        "Explore"
+      ],
+      "desc": "Creates or updates a single Confluence page via the REST API. Dry-run by default \u2014 prints the full payload without writing. Pass `--apply` to perform the actual write. Re-reads the page after writing to verify title, version, and content length.",
+      "operation": "upsert-confluence-page",
+      "permission_scope": "read-write"
     }
   ],
-  "activities": [
+  "assistants": [
     {
       "phase": "Discover",
-      "owner": "architect",
-      "engagement": "B",
-      "status": "notstarted",
-      "file": "activities/discover/readiness-analysis.md",
-      "title": "Readiness & simplification analysis",
-      "desc": "Pull the Readiness Check, SI-Check and the relevant SAP Notes into one scoped view: which simplification items actually apply, which custom code they hit, and what that implies for effort. Output is a simplification-impact report that sizes the conversion before anyone commits to a date. The judgment is separating items that genuinely block from items that merely appear in the report.",
-      "uses": [
-        [
-          "skill",
-          [
-            "readiness-analysis"
-          ]
-        ],
-        [
-          "agent",
-          [
-            "readiness-analyst",
-            "simplification-items-to-processes"
-          ]
-        ],
-        [
-          "mcp",
-          [
-            "readiness-check"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "simplification-impact-report",
-            "business-process-impact-list"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "custom-code",
-            "standards"
-          ]
-        ],
-        [
-          "q-gate",
-          [
-            "discover→prepare"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Discover",
-      "owner": "delivery",
-      "engagement": "GBAR",
+      "phases": [
+        "Discover",
+        "Explore"
+      ],
+      "owner": "solution-architect",
+      "engagement": [
+        "brownfield"
+      ],
       "status": "progress",
-      "file": "activities/discover/factory-onboard.md",
-      "title": "Factory onboarding (user entry)",
-      "desc": "Consultant who installed the factory and wants to use it on a project: orient, day-0 setup, capture phase/engagement/domain, route to the first delivery skill. Meta for the user — no client artifact, no Q-gate evidence by itself.",
-      "uses": [
-        [
-          "skill",
-          [
-            "factory-onboard"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "standards",
-            "domain-packs",
-            "methodology"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Discover",
-      "owner": "architect",
-      "engagement": "GBAR",
-      "status": "notstarted",
-      "file": "activities/discover/agent-readiness.md",
-      "title": "Agent-readiness assessment",
-      "desc": "Score the client's processes for whether they should be handed to agents: volume, exception rate, how reversible the decisions are, and whether the data an agent would need is actually reachable. Output names both the candidate processes and the ones to leave alone. This is the bridge from delivery work into SAP's Autonomous Enterprise, and it is a consulting deliverable, not a product.",
-      "uses": [
-        [
-          "skill",
-          [
-            "agent-readiness"
-          ]
-        ],
-        [
-          "mcp",
-          [
-            "signavio",
-            "knowledge-graph"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "assessment-report"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "process"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "explore-chain"
-          ]
-        ],
-        [
-          "q-gate",
-          [
-            "discover→prepare"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Discover",
-      "owner": "architect",
-      "engagement": "G",
-      "status": "progress",
-      "file": "activities/discover/greenfield-process-mapping.md",
-      "title": "Greenfield process-to-best-practice mapping",
-      "desc": "Map the client's business process list to SAP's own SAP Best Practices scope items before anything else in the process-definition chain can start -- every downstream hierarchy, E2E scope and blueprint decision in Explore traces back to a match made here.",
+      "file": "assistants/solution-architect/assistant.md",
+      "title": "brownfield-sad-authoring",
+      "desc": "Role-scoped entry point for the **Solution Architect**: architecture-side delivery work across Discover, Prepare and Explore, plus cross-phase architecture governance in Run. It holds the role boundary, offers the architect's use cases, and routes each request to an eligible agent (or, where no agent exists yet, directly to the owning skill). It never calls tools or connectors itself \u2014 the routed agent or skill does.",
       "uses": [
         [
           "agent",
           [
-            "process-best-practice-mapping"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "process-best-practice-mapping"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "domain-packs"
-          ]
-        ],
-        [
-          "q-gate",
-          [
-            "discover→prepare"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Prepare",
-      "owner": "architect",
-      "engagement": "GBAR",
-      "status": "notstarted",
-      "file": "activities/prepare/knowledge-foundation.md",
-      "title": "Knowledge foundation",
-      "desc": "Scan the client's real system and process landscape, custom code inventory, configuration baseline, integration surface, process scope, and turn it into the nine knowledge buckets every other activity reads. Includes a human validation gate, because inferred SAP context is wrong often enough to be dangerous: someone corrects it and adds the client-specific why. Nothing downstream is trustworthy until this exists.",
-      "uses": [
-        [
-          "skill",
-          [
-            "knowledge-discovery"
-          ]
-        ],
-        [
-          "mcp",
-          [
-            "abap-mcp",
-            "knowledge-graph"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "clean-core",
-            "config",
-            "custom-code",
-            "data",
-            "domain-packs",
-            "extensibility",
-            "operations",
-            "process",
-            "standards",
-            "testing"
-          ]
-        ],
-        [
-          "q-gate",
-          [
-            "prepare→explore"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Prepare",
-      "owner": "developer",
-      "engagement": "B",
-      "status": "progress",
-      "file": "activities/prepare/custom-code-evaluation.md",
-      "title": "Custom code evaluation",
-      "desc": "Run ATC against the target release, join the findings to usage data, and produce a prioritised remediation inventory rather than a forty-thousand-finding dump. Output lands in the custom-code bucket. The real judgment is what to retire rather than remediate, unused code is the cheapest code to fix.",
-      "uses": [
-        [
-          "skill",
-          [
-            "custom-code-scan"
-          ]
-        ],
-        [
-          "mcp",
-          [
-            "abap-mcp"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "custom-code",
-            "clean-core",
-            "standards"
-          ]
-        ],
-        [
-          "q-gate",
-          [
-            "prepare→explore"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Prepare",
-      "owner": "delivery",
-      "engagement": "GBAR",
-      "status": "progress",
-      "file": "activities/prepare/team-onboarding.md",
-      "title": "Team onboarding",
-      "desc": "Walk a new joiner through project-specific context on a path shaped by their role, ending at a recorded ready-to-take-a-ticket checkpoint. It reads the whole knowledge base and produces an onboarding record. It is also that knowledge base's own test harness: if someone cannot reach first-ticket-ready without a human explaining things verbally, the knowledge base is not real yet.",
-      "uses": [
-        [
-          "skill",
-          [
-            "onboarding-guide"
-          ]
-        ],
-        [
-          "mcp",
-          [
-            "jira"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "onboarding-record"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "clean-core",
-            "config",
-            "custom-code",
-            "data",
-            "domain-packs",
-            "extensibility",
-            "operations",
-            "process",
-            "standards",
-            "testing"
-          ]
-        ],
-        [
-          "q-gate",
-          [
-            "prepare→explore"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Explore",
-      "owner": "functional",
-      "engagement": "GBAR",
-      "status": "progress",
-      "file": "activities/explore/requirements-intake.md",
-      "title": "Requirements intake",
-      "desc": "Normalize a free-form ask, ticket, notes pack, or greenfield idea into one requirements.md with explicit Source and Open questions. Prevents invented acceptance criteria before fit-to-standard or solution-design Mode B. Does not create backlinked backlog items.",
-      "uses": [
-        [
-          "skill",
-          [
-            "requirements-intake"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "requirements-record"
-          ]
-        ],
-        [
-          "mcp",
-          [
-            "jira",
-            "cloud-alm"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "process",
-            "standards"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Explore",
-      "owner": "functional",
-      "engagement": "GB",
-      "status": "notstarted",
-      "file": "activities/explore/fit-to-standard.md",
-      "title": "Fit-to-standard workshops",
-      "desc": "Run each in-scope process against SAP standard, decide standard-versus-delta per step, and get it signed. Produces the process bucket and a sign-off record naming who accepted what. The discipline is recording the delta and its justification together, a delta with no reason becomes a modification nobody can defend at the next upgrade.",
-      "uses": [
-        [
-          "skill",
-          [
-            "fit-to-standard",
-            "workshop-preparation",
-            "workshop-transcript-intake",
-            "fiori-app-mapping",
-            "fit-gap-analysis"
-          ]
-        ],
-        [
-          "mcp",
-          [
-            "signavio",
-            "calendar"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "sign-off-record",
-            "workshop-preparation-plan",
-            "workshop-candidate-register",
-            "process-app-mapping",
-            "fit-gap-analysis",
-            "fit-to-standard-run-summary"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "process",
-            "config",
-            "standards"
-          ]
-        ],
-        [
-          "q-gate",
-          [
-            "explore→realize"
-          ]
-        ],
-        [
-          "agent",
-          [
-            "fit-to-standard-accelerator"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Explore",
-      "owner": "architect",
-      "engagement": "GBA",
-      "status": "notstarted",
-      "file": "activities/explore/solution-design.md",
-      "title": "Solution design, architecture package & extensibility routing",
-      "desc": "Turn the complete in-scope fit-to-standard outcome into a coherent solution architecture. Establish architecture views and cross-artifact traceability, then produce one design record and one extensibility record per delta. The scope-level architecture package is the client-facing output and explore→realize handoff.",
-      "uses": [
-        [
-          "skill",
-          [
-            "solution-design"
-          ]
-        ],
-        [
-          "agent",
-          [
-            "extensibility-assessor",
-            "design-test-reviewer",
-            "source-conflict-analyst"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "architecture-package",
-            "design-record",
-            "extensibility-record"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "process",
-            "config",
-            "data",
-            "extensibility",
-            "clean-core",
-            "standards"
-          ]
-        ],
-        [
-          "q-gate",
-          [
-            "explore→realize"
-          ]
-        ],
-        [
-          "mcp",
-          [
-            "leanix"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Explore",
-      "owner": "delivery",
-      "engagement": "GBA",
-      "status": "progress",
-      "file": "activities/explore/backlog-drafting.md",
-      "title": "Backlog drafting",
-      "desc": "Convert deltas and design decisions into sized, owned, traceable work items in the work-intent system, each carrying a link back to the process decision that caused it. Includes AC quality check, clarifying questions when thin, and review before push. Traceability is established here or not at all.",
-      "uses": [
-        [
-          "skill",
-          [
-            "backlog-drafting"
-          ]
-        ],
-        [
-          "mcp",
-          [
-            "jira",
-            "cloud-alm"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "process"
-          ]
-        ],
-        [
-          "q-gate",
-          [
-            "explore→realize"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Explore",
-      "owner": "architect",
-      "engagement": "G",
-      "status": "progress",
-      "file": "activities/explore/greenfield-blueprint.md",
-      "title": "Business process hierarchy & blueprint",
-      "desc": "Roll the greenfield process mapping up into SAP's L1/L2/L3 tree, group it into end-to-end flows, then assemble the solution blueprint -- three human-reviewed steps in sequence, each tracing every statement back to the mapping or Fit/Gap row that grounds it.",
-      "uses": [
-        [
-          "agent",
-          [
-            "business-process-hierarchy",
-            "e2e-process-scope",
-            "blueprint-generation"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "business-process-hierarchy",
-            "e2e-process-scope",
-            "solution-blueprint"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "domain-packs",
-            "standards"
-          ]
-        ],
-        [
-          "q-gate",
-          [
-            "explore→realize"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Explore",
-      "owner": "data",
-      "engagement": "GB",
-      "status": "progress",
-      "file": "activities/explore/migration-object-scoping.md",
-      "title": "Migration object scoping & mapping",
-      "desc": "Build the object inventory, cut it down to in-scope records against retention/scoping rules, then map each object and field to its S/4HANA target -- three human-reviewed decisions in sequence, so Realize's migration code development starts from a settled mapping.",
-      "uses": [
-        [
-          "agent",
-          [
-            "objects-list",
-            "data-scoping",
-            "objects-mapping"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "record-scoping-decision",
-            "object-field-mapping"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "data",
-            "standards"
-          ]
-        ],
-        [
-          "q-gate",
-          [
-            "explore→realize"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Realize",
-      "owner": "functional",
-      "engagement": "GB",
-      "status": "notstarted",
-      "file": "activities/realize/configuration.md",
-      "title": "Configuration & documentation",
-      "desc": "Make the customizing change, record what changed and why, and attach the transport, as one unit rather than three tasks that drift apart. Produces a config record and a transport record. This is the fattest role's daily work, and the activity that generates most of what triage later reads.",
-      "uses": [
-        [
-          "skill",
-          [
-            "config-doc"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "design-config-doc",
-            "config-record",
-            "transport-record"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "config",
-            "process",
-            "standards"
-          ]
-        ],
-        [
-          "q-gate",
-          [
-            "realize→deploy"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Realize",
-      "owner": "developer",
-      "engagement": "GBA",
-      "status": "progress",
-      "file": "activities/realize/abap-development.md",
-      "title": "ABAP / RAP development",
-      "desc": "Build classic ABAP, RAP or CDS objects against the clean-core tier the design assigned. Gates on ATC findings and unit tests, then hands off a released transport. Mostly adopted skills from skills.cloud.sap, our contribution here is the gate and the transport record, not the ABAP knowledge itself.",
-      "uses": [
-        [
-          "skill",
-          [
-            "abap-dev",
-            "technical-documentation-generation"
-          ]
-        ],
-        [
-          "agent",
-          [
-            "functional-specifications-development"
-          ]
-        ],
-        [
-          "mcp",
-          [
-            "abap-mcp",
-            "gcts-abapgit"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "transport-record",
-            "wricef-conversion",
-            "wricef-enhancement-complex",
-            "wricef-enhancement-simple",
-            "wricef-interface",
-            "wricef-print-form",
-            "wricef-report",
-            "wricef-workflow",
-            "business-scenario-design",
-            "technical-documentation"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "custom-code",
-            "clean-core",
-            "standards"
-          ]
-        ],
-        [
-          "q-gate",
-          [
-            "realize→deploy"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Realize",
-      "owner": "data",
-      "engagement": "GB",
-      "status": "notstarted",
-      "file": "activities/realize/data-reconciliation.md",
-      "title": "Data migration & reconciliation",
-      "desc": "Load the migration objects, then prove the load: before-and-after counts and balances against an agreed tolerance. Produces a reconciliation report that either sits inside tolerance or blocks the phase. The cleanest evidence in the whole factory, because the answer is a number rather than an opinion.",
-      "uses": [
-        [
-          "skill",
-          [
-            "reconciliation"
-          ]
-        ],
-        [
-          "agent",
-          [
-            "migration-code-development"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "migration-code-package",
-            "reconciliation-report"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "data",
-            "standards"
-          ]
-        ],
-        [
-          "q-gate",
-          [
-            "realize→deploy"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Realize",
-      "owner": "architect",
-      "engagement": "GBA",
-      "status": "notstarted",
-      "file": "activities/realize/sad-assembly.md",
-      "title": "Technical SAD assembly",
-      "desc": "Compose whatever of the nine domain-strategy outputs are available into a review-ready technical Solution Architecture Document, flagging every missing or inconsistent domain explicitly rather than composing a false-complete SAD.",
-      "uses": [
-        [
-          "agent",
-          [
-            "sad-assembly"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "technical-sad"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "standards"
-          ]
-        ],
-        [
-          "q-gate",
-          [
-            "realize→deploy"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Realize",
-      "owner": "test",
-      "engagement": "GBAR",
-      "status": "progress",
-      "file": "activities/realize/defect-triage.md",
-      "title": "Defect triage",
-      "desc": "Full defect pipeline: intake/classify, ceremony depth (Light/Standard/Deep), diagnose, bug vs spec-flaw (human confirms), fix-doc and regression. Traceability chain must be complete upstream.",
-      "uses": [
-        [
-          "skill",
-          [
-            "incident-triage",
-            "ceremony-routing",
-            "root-cause-playbook",
-            "pricing-diagnostic",
-            "billing-ar-error-analyzer",
-            "idoc-failure-analyzer",
-            "defect-triage",
-            "fix-doc-and-regression"
-          ]
-        ],
-        [
-          "agent",
-          [
-            "defect-classifier"
-          ]
-        ],
-        [
-          "mcp",
-          [
-            "jira"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "triage-verdict"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "domain-packs",
-            "process",
-            "config",
-            "custom-code",
-            "testing"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Realize",
-      "owner": "test",
-      "engagement": "GBA",
-      "status": "progress",
-      "file": "activities/realize/test-case-design.md",
-      "title": "Test case design",
-      "desc": "Derive executable test scripts from every decision-log Row ID in a process area, Standard and Delta alike, with an input-quality gate and per-run ledger, pick the design technique per row's shape, seed regression from defect history, produce a coverage matrix, and require review before optional test-management sync.",
-      "uses": [
-        [
-          "skill",
-          [
-            "test-case-design",
-            "e2e-test-scenario-generation"
-          ]
-        ],
-        [
-          "agent",
-          [
-            "test-generation"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "test-coverage-matrix",
-            "e2e-test-scenarios",
-            "test-generation-report"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "process",
-            "domain-packs",
-            "testing"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Deploy",
-      "owner": "delivery",
-      "engagement": "GB",
-      "status": "notstarted",
-      "file": "activities/deploy/cutover-planning.md",
-      "title": "Cutover planning & go-live readiness",
-      "desc": "Sequence every cutover task against the clock, rehearse it end to end, and track the per-process-area readiness checklist that decides whether production opens. Produces a sign-off record naming who accepted the go/no-go call. The rehearsal is the point, a plan that has never been run is an estimate.",
-      "uses": [
-        [
-          "skill",
-          [
-            "cutover-plan",
-            "go-live-readiness"
-          ]
-        ],
-        [
-          "agent",
-          [
-            "cutover-dependency-check",
-            "cutover-risk-assessor"
-          ]
-        ],
-        [
-          "mcp",
-          [
-            "cloud-alm",
-            "abap-mcp"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "sign-off-record",
-            "run-exit-record",
-            "cutover-dependency-check"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "operations",
-            "methodology"
-          ]
-        ],
-        [
-          "q-gate",
-          [
-            "deploy→run"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Deploy",
-      "owner": "basis",
-      "engagement": "GB",
-      "status": "progress",
-      "file": "activities/deploy/production-conversion.md",
-      "title": "Production conversion",
-      "desc": "Execute the conversion runbook in production, with logs captured as evidence rather than reassurance. The highest-risk hours of a brownfield programme, owned by Basis. Output goes to the operations bucket so the next conversion starts from what actually happened rather than what was planned.",
-      "uses": [
-        [
-          "skill",
-          [
-            "production-conversion"
-          ]
-        ],
-        [
-          "mcp",
-          [
-            "cloud-alm"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "operations"
-          ]
-        ],
-        [
-          "q-gate",
-          [
-            "deploy→run"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "run-exit-record"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Run",
-      "owner": "functional",
-      "engagement": "R",
-      "status": "notstarted",
-      "file": "activities/run/hypercare-triage.md",
-      "title": "Hypercare & incident triage",
-      "desc": "Same pipeline as Realize defect-triage with live-user intake. Ceremony depth after route, before diagnose; does not replace O2C diagnostics.",
-      "uses": [
-        [
-          "skill",
-          [
-            "incident-triage",
-            "ceremony-routing",
-            "root-cause-playbook",
-            "pricing-diagnostic",
-            "billing-ar-error-analyzer",
-            "idoc-failure-analyzer",
-            "defect-triage",
-            "fix-doc-and-regression"
-          ]
-        ],
-        [
-          "agent",
-          [
-            "defect-classifier"
-          ]
-        ],
-        [
-          "mcp",
-          [
-            "cloud-alm",
-            "jira"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "run-exit-record",
-            "triage-verdict"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "domain-packs",
-            "process",
-            "config",
-            "testing",
-            "operations"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Run",
-      "owner": "test",
-      "engagement": "R",
-      "status": "notstarted",
-      "file": "activities/run/defect-pattern-analysis.md",
-      "title": "Defect pattern analysis",
-      "desc": "Periodically (sprint / month / hypercare wrap-up), look backwards across a period of resolved defects and ask why they keep happening: cluster by cause, rank by business weight, propose a permanent fix on the eliminate/prevent/detect/absorb ladder. Distinct from the per-ticket triage flow above — this is the Prevent stage, run on a schedule, not reactively.",
-      "uses": [
-        [
-          "skill",
-          [
-            "defect-pattern-analysis"
-          ]
-        ],
-        [
-          "mcp",
-          [
-            "jira"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "domain-packs",
-            "process",
-            "testing",
-            "operations"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Run",
-      "owner": "developer",
-      "engagement": "AR",
-      "status": "notstarted",
-      "file": "activities/run/agent-build.md",
-      "title": "Agent build & registration",
-      "desc": "Build a client-facing agent in Joule Studio and ship it with the things that make it governable: an agent card naming purpose, owner and data scope, its guardrails, and an eval pack. Registers into AI Agent Hub against the Proposed-to-Retired lifecycle. The security question with no pre-agent equivalent is which business user the agent acts as, and which authorization objects that grants it.",
-      "uses": [
-        [
-          "skill",
-          [
-            "agent-build"
-          ]
-        ],
-        [
-          "mcp",
-          [
-            "joule-studio",
-            "ai-agent-hub"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "agent-card"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "extensibility",
-            "standards"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Run",
-      "owner": "architect",
-      "engagement": "GBAR",
-      "status": "notstarted",
-      "file": "activities/run/knowledge-harvest.md",
-      "title": "Knowledge harvest",
-      "desc": "After a run, propose targeted knowledge deltas: what changed, what was learned, which guidance turned out to be wrong. Reviewed, never auto-merged. This is the step that makes the next engagement start faster than the last, and the one most likely to be skipped under delivery pressure.",
-      "uses": [
-        [
-          "skill",
-          [
-            "knowledge-harvest"
-          ]
-        ],
-        [
-          "agent",
-          [
-            "knowledge-harvester",
-            "delivery-pilot"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "run-exit-record"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "clean-core",
-            "config",
-            "custom-code",
-            "data",
-            "domain-packs",
-            "extensibility",
-            "operations",
-            "process",
-            "standards",
-            "testing"
-          ]
-        ],
-        [
-          "q-gate",
-          [
-            "run-exit"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Explore",
-      "owner": "delivery",
-      "engagement": "GBA",
-      "status": "progress",
-      "file": "activities/explore/delivery-strategy-generation.md",
-      "title": "Delivery strategy generation (Cutover, Training, Testing, Convention)",
-      "desc": "Generate the non-technical delivery-strategy documents from project scope and context, noting cross-strategy dependencies, before Cutover's own dependency check runs.",
-      "uses": [
-        [
-          "agent",
-          [
-            "strategies-generation"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "delivery-strategy"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "process",
-            "standards",
-            "methodology"
-          ]
-        ],
-        [
-          "q-gate",
-          [
-            "explore→realize"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Discover",
-      "owner": "architect",
-      "engagement": "GBAR",
-      "status": "progress",
-      "file": "activities/discover/architecture-decision-tracking.md",
-      "title": "Architecture decision tracking",
-      "desc": "Maintain one cumulative ADR log across the engagement, raised into by any phase's skill/agent, updated by new evidence.",
-      "uses": [
-        [
-          "skill",
-          [
-            "adr-log"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "adr-log"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "standards"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Discover",
-      "owner": "architect",
-      "engagement": "GB",
-      "status": "progress",
-      "file": "activities/discover/sizing-analysis.md",
-      "title": "Sizing analysis",
-      "desc": "Turn a raw sizing baseline into an actual provisioning recommendation with growth/archiving adjustments and any RISE tier mismatch flagged.",
-      "uses": [
-        [
-          "skill",
-          [
-            "sizing-analysis"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "sizing-recommendation"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "standards"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Explore",
-      "owner": "architect",
-      "engagement": "GBA",
-      "status": "progress",
-      "file": "activities/explore/sad-drafting.md",
-      "title": "SAD drafting",
-      "desc": "Draft or review EPAM's SAD .docx per engagement type, grounded in Readiness Check/Business Process Scope, with real decision matrices feeding the ADR log.",
-      "uses": [
-        [
-          "skill",
-          [
-            "sad-drafting"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "standards"
-          ]
-        ],
-        [
-          "q-gate",
-          [
-            "explore→realize"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Explore",
-      "owner": "architect",
-      "engagement": "B",
-      "status": "progress",
-      "file": "activities/explore/integration-strategy.md",
-      "title": "Integration strategy",
-      "desc": "Build the ISA-M-based Integration Strategy document across four human-gated phases, consuming Readiness Check/Business Process Scope outputs and feeding confirmed KDDs into the ADR log.",
-      "uses": [
-        [
-          "skill",
-          [
-            "integration-strategy",
-            "integration-strategy-context",
-            "integration-strategy-hip",
-            "integration-strategy-decisions",
-            "integration-strategy-governance"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "standards"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Discover",
-      "owner": "architect",
-      "engagement": "B",
-      "status": "progress",
-      "file": "activities/discover/conversion-scoping.md",
-      "title": "Conversion scoping",
-      "desc": "Scope business processes as Changed/Unchanged/Out-of-scope from Readiness Check findings and SAP's RBA/RSA catalog, feeding the ADR log for any gating row.",
-      "uses": [
-        [
-          "skill",
-          [
-            "conversion-scoping"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "business-process-scope"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "standards"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Explore",
-      "owner": "architect",
-      "engagement": "B",
-      "status": "progress",
-      "file": "activities/explore/workshop-scheduling.md",
-      "title": "Workshop scheduling & agendas",
-      "desc": "Turn a completed business process scope into a ready-to-send, complexity-ordered Fit-to-Standard workshop schedule and per-session agendas.",
-      "uses": [
-        [
-          "skill",
-          [
-            "workshop-scheduling"
-          ]
-        ],
-        [
-          "artifact",
-          [
-            "business-process-scope",
-            "workshop-schedule"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "standards"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Explore",
-      "owner": "architect",
-      "engagement": "GBA",
-      "status": "progress",
-      "file": "activities/explore/architecture-diagramming.md",
-      "title": "Architecture diagramming",
-      "desc": "Create, merge, or adapt SAP-native .drawio architecture diagrams from SAP's official Reference Architecture catalog.",
-      "uses": [
-        [
-          "skill",
-          [
-            "architecture-diagrams"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "standards"
-          ]
-        ]
-      ]
-    },
-    {
-      "phase": "Discover",
-      "owner": "delivery",
-      "engagement": "B",
-      "status": "progress",
-      "file": "activities/discover/brownfield-conversion-pipeline.md",
-      "title": "Brownfield conversion pipeline",
-      "desc": "Route a Brownfield conversion engagement to the right pipeline stage (Readiness, Sizing, Scoping, Workshop prep, Workshop-to-backlog) without duplicating stage logic.",
-      "uses": [
-        [
-          "skill",
-          [
-            "brownfield-conversion-pipeline"
-          ]
-        ],
-        [
-          "knowledge",
-          [
-            "standards"
+            "brownfield-sad-authoring-agent"
           ]
         ]
       ]
@@ -2733,46 +885,6 @@
         "row": "Agents",
         "needs": "isolated context",
         "cells": [
-          {
-            "kind": "Agent",
-            "name": "fit-to-standard-accelerator",
-            "posture": "own",
-            "status": "progress",
-            "phase": "Explore",
-            "desc": "Orchestrate workshop preparation, Fit-to-Standard decisions, app mapping, fit-gap analysis and transcript candidates into a reviewable run summary."
-          },
-          {
-            "kind": "Skill",
-            "name": "workshop-preparation",
-            "posture": "own",
-            "status": "progress",
-            "phase": "Explore",
-            "desc": "Validate process-scope coverage and group workshop topics before handing the prepared scope to fit-to-standard."
-          },
-          {
-            "kind": "Skill",
-            "name": "fit-gap-analysis",
-            "posture": "own",
-            "status": "progress",
-            "phase": "Explore",
-            "desc": "Generate a reviewable Fit/Gap analysis from Fit-to-Standard decisions and optional process-to-app evidence without selecting an extensibility tier."
-          },
-          {
-            "kind": "Skill",
-            "name": "fiori-app-mapping",
-            "posture": "own",
-            "status": "progress",
-            "phase": "Explore",
-            "desc": "Map a supplied business-process list to a supplied Fiori Apps Reference Library export and flag unmapped processes for review."
-          },
-          {
-            "kind": "Skill",
-            "name": "workshop-transcript-intake",
-            "posture": "own",
-            "status": "progress",
-            "phase": "Explore",
-            "desc": "Extract traceable candidate requirements, decisions, open questions and backlog candidates from a workshop transcript without creating work items."
-          },
           [
             "nat",
             ".claude/agents/"
@@ -2795,46 +907,6 @@
         "row": "Q-gates",
         "needs": "lifecycle hooks",
         "cells": [
-          {
-            "kind": "Artifact",
-            "name": "fit-to-standard-run-summary",
-            "posture": "own",
-            "status": "progress",
-            "phase": "Explore",
-            "desc": "Orchestration summary referencing Fit-to-Standard sub-skill outputs, explicit gaps and handoff steps."
-          },
-          {
-            "kind": "Artifact",
-            "name": "workshop-preparation-plan",
-            "posture": "own",
-            "status": "progress",
-            "phase": "Explore",
-            "desc": "Coverage-checked process scope grouped into workshop topics before it is handed to fit-to-standard."
-          },
-          {
-            "kind": "Artifact",
-            "name": "fit-gap-analysis",
-            "posture": "own",
-            "status": "progress",
-            "phase": "Explore",
-            "desc": "Reviewable Fit/Gap analysis from FTS Row IDs, with dispositions and unresolved workarounds visible for human review."
-          },
-          {
-            "kind": "Artifact",
-            "name": "process-app-mapping",
-            "posture": "own",
-            "status": "progress",
-            "phase": "Explore",
-            "desc": "Reviewable process-to-Fiori-app mappings from a supplied Apps Library export, with source hash and explicit unmapped processes."
-          },
-          {
-            "kind": "Artifact",
-            "name": "workshop-candidate-register",
-            "posture": "own",
-            "status": "progress",
-            "phase": "Explore",
-            "desc": "Transcript-derived candidate requirements, decisions, open questions and work items with segment-level provenance; never an approved delivery backlog."
-          },
           [
             "nat",
             "settings.json"
@@ -3008,7 +1080,7 @@
       ],
       [
         "platform/",
-        "Platform MVP track (P1-P8): delivery RACI, pilot infra/client context — see platform/delivery-process/, platform/pilot-context/"
+        "Platform MVP track: delivery RACI \u2014 see platform/delivery-process/"
       ]
     ],
     "project": [
@@ -3023,10 +1095,6 @@
       [
         ".env.example",
         null
-      ],
-      [
-        "pilot-context.schema.json",
-        "P4: infra/client context schema, feeds Unpack (P5) & T3 — see platform/pilot-context/"
       ],
       [
         "CLAUDE.md",

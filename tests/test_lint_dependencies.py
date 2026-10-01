@@ -1,222 +1,140 @@
-"""Tests for tools/lint_dependencies.py."""
+"""Tests for scripts/lint_dependencies.py."""
 import sys
 from pathlib import Path
 
-import pytest
+# conftest.py adds scripts/ to sys.path
+import lint_dependencies as ld
 
-TOOLS_DIR = Path(__file__).resolve().parent.parent / "tools"
-sys.path.insert(0, str(TOOLS_DIR))
-import lint_dependencies as ld  # noqa: E402
-
-
-SAMPLE_META = """---
-skill: sample
-namespace: "@epam/sap"
----
-
-## Notes
-Irrelevant prose.
-
-## Dependency graph
-| Type | Ref | Relation | Notes |
-|---|---|---|---|
-| knowledge | process, config | consumes | uses process and config context |
-| artifact | sign-off-record | produces | names who accepted what |
-| connector | jira | requires | work-item context |
-"""
+FACTORY_ROOT = Path(__file__).resolve().parent.parent
 
 
-class TestParseDependencyGraph:
-    def test_parses_all_rows(self, tmp_path):
-        meta = tmp_path / "skill.meta.md"
-        meta.write_text(SAMPLE_META, encoding="utf-8")
-        rows = ld.parse_dependency_graph(meta)
-        assert rows == [
-            ("knowledge", "process, config", "consumes", "uses process and config context"),
-            ("artifact", "sign-off-record", "produces", "names who accepted what"),
-            ("connector", "jira", "requires", "work-item context"),
-        ]
+# ---------- check_vocabulary ----------
 
-    def test_missing_file_returns_empty(self, tmp_path):
-        assert ld.parse_dependency_graph(tmp_path / "nope.md") == []
-
-    def test_missing_section_returns_empty(self, tmp_path):
-        meta = tmp_path / "skill.meta.md"
-        meta.write_text("---\nskill: sample\n---\n\n## Notes\nNo dependency graph here.\n", encoding="utf-8")
-        assert ld.parse_dependency_graph(meta) == []
-
-    def test_placeholder_only_table_returns_empty(self, tmp_path):
-        meta = tmp_path / "skill.meta.md"
-        meta.write_text(
-            "---\nskill: sample\n---\n\n## Dependency graph\n(later)\n",
-            encoding="utf-8",
-        )
-        assert ld.parse_dependency_graph(meta) == []
+def test_valid_vocabulary_no_issues():
+    """Known v0.3 types and relations produce no vocabulary issues."""
+    rows = [
+        ("skill", "`adr-log`", "requires", "cross-cutting skill"),
+        ("artifact", "`brownfield-sad`", "produces", "output"),
+        ("knowledge_source", "`standards`", "consumes", "guidance"),
+        ("tool", "`fill-brownfield-sad-template`", "requires", ""),
+        ("connector", "`confluence`", "requires", ""),
+        ("agent", "`brownfield-sad-authoring-agent`", "routes-to", ""),
+        ("assistant", "`solution-architect`", "routes-to", ""),
+        ("q-gate", "`explore-realize`", "gates-at", ""),
+    ]
+    assert ld.check_vocabulary(rows) == []
 
 
-class TestDeclaredRefs:
-    def test_splits_comma_separated_refs(self):
-        rows = [("knowledge", "process, config", "consumes", "")]
-        assert ld.declared_refs(rows, "knowledge") == ["process", "config"]
-
-    def test_filters_by_type(self):
-        rows = [
-            ("knowledge", "process", "consumes", ""),
-            ("artifact", "sign-off-record", "produces", ""),
-        ]
-        assert ld.declared_refs(rows, "artifact") == ["sign-off-record"]
-
-    def test_dedupes_preserving_order(self):
-        rows = [
-            ("knowledge", "process", "consumes", ""),
-            ("knowledge", "process, config", "produces", ""),
-        ]
-        assert ld.declared_refs(rows, "knowledge") == ["process", "config"]
+def test_optional_relation_valid():
+    """'optional' is a valid v0.3 relation."""
+    rows = [("skill", "`confluence-document-publishing`", "optional", "")]
+    assert ld.check_vocabulary(rows) == []
 
 
-class TestCheckSkill:
-    def test_no_meta_file_flagged(self, monkeypatch, tmp_path):
-        monkeypatch.setattr(ld.common, "SKILLS_DIR", tmp_path)
-        (tmp_path / "ghost").mkdir()
-        result = ld.check_skill("ghost")
-        assert result == {"skill": "ghost", "no_meta": True}
-
-    def test_matching_declarations_have_no_drift(self, monkeypatch, tmp_path):
-        skill_dir = tmp_path / "sample"
-        skill_dir.mkdir()
-        (skill_dir / "skill.meta.md").write_text(
-            "---\nskill: sample\n---\n\n## Dependency graph\n"
-            "| Type | Ref | Relation | Notes |\n|---|---|---|---|\n"
-            "| knowledge | process | consumes | x |\n"
-            "| artifact | sign-off-record | produces | x |\n",
-            encoding="utf-8",
-        )
-        (skill_dir / "SKILL.md").write_text(
-            "See ../../../knowledge/process/ and ../../../artifacts/sign-off-record/.\n",
-            encoding="utf-8",
-        )
-        monkeypatch.setattr(ld.common, "SKILLS_DIR", tmp_path)
-        result = ld.check_skill("sample")
-        assert not ld.has_drift(result)
-
-    def test_undeclared_reference_is_flagged(self, monkeypatch, tmp_path):
-        skill_dir = tmp_path / "sample"
-        skill_dir.mkdir()
-        (skill_dir / "skill.meta.md").write_text(
-            "---\nskill: sample\n---\n\n## Dependency graph\n"
-            "| Type | Ref | Relation | Notes |\n|---|---|---|---|\n"
-            "| knowledge | process | consumes | x |\n",
-            encoding="utf-8",
-        )
-        (skill_dir / "SKILL.md").write_text(
-            "See ../../../knowledge/process/ and ../../../knowledge/config/.\n",
-            encoding="utf-8",
-        )
-        monkeypatch.setattr(ld.common, "SKILLS_DIR", tmp_path)
-        result = ld.check_skill("sample")
-        assert result["knowledge_referenced_not_declared"] == ["config"]
-        assert ld.has_drift(result)
-
-    def test_declared_but_not_referenced_is_flagged(self, monkeypatch, tmp_path):
-        skill_dir = tmp_path / "sample"
-        skill_dir.mkdir()
-        (skill_dir / "skill.meta.md").write_text(
-            "---\nskill: sample\n---\n\n## Dependency graph\n"
-            "| Type | Ref | Relation | Notes |\n|---|---|---|---|\n"
-            "| knowledge | process | consumes | x |\n",
-            encoding="utf-8",
-        )
-        (skill_dir / "SKILL.md").write_text("No path-style references here.\n", encoding="utf-8")
-        monkeypatch.setattr(ld.common, "SKILLS_DIR", tmp_path)
-        result = ld.check_skill("sample")
-        assert result["knowledge_declared_not_referenced"] == ["process"]
-        assert ld.has_drift(result)
+def test_unknown_type_flagged():
+    """A row with an unknown type is flagged."""
+    rows = [("gadget", "`foo`", "requires", "")]
+    issues = ld.check_vocabulary(rows)
+    assert len(issues) == 1
+    assert "unknown type" in issues[0]
+    assert "gadget" in issues[0]
 
 
-class TestApplyFix:
-    def test_appends_only_undeclared_rows(self, monkeypatch, tmp_path):
-        skill_dir = tmp_path / "sample"
-        skill_dir.mkdir()
-        meta_path = skill_dir / "skill.meta.md"
-        meta_path.write_text(
-            "---\nskill: sample\n---\n\n## Dependency graph\n"
-            "| Type | Ref | Relation | Notes |\n|---|---|---|---|\n"
-            "| knowledge | process | consumes | x |\n",
-            encoding="utf-8",
-        )
-        (skill_dir / "SKILL.md").write_text(
-            "See ../../../knowledge/process/ and ../../../knowledge/config/.\n",
-            encoding="utf-8",
-        )
-        monkeypatch.setattr(ld.common, "SKILLS_DIR", tmp_path)
-        result = ld.check_skill("sample")
-        assert ld.apply_fix("sample", result) is True
-        text = meta_path.read_text(encoding="utf-8")
-        assert "| knowledge | config |" in text
-        assert text.count("| knowledge | process |") == 1  # untouched, not duplicated
-
-    def test_returns_false_when_nothing_to_fix(self, monkeypatch, tmp_path):
-        skill_dir = tmp_path / "sample"
-        skill_dir.mkdir()
-        (skill_dir / "skill.meta.md").write_text(
-            "---\nskill: sample\n---\n\n## Dependency graph\n"
-            "| Type | Ref | Relation | Notes |\n|---|---|---|---|\n"
-            "| knowledge | process | consumes | x |\n",
-            encoding="utf-8",
-        )
-        (skill_dir / "SKILL.md").write_text("../../../knowledge/process/\n", encoding="utf-8")
-        monkeypatch.setattr(ld.common, "SKILLS_DIR", tmp_path)
-        result = ld.check_skill("sample")
-        assert ld.apply_fix("sample", result) is False
+def test_unknown_relation_flagged():
+    """A row with an unknown relation is flagged."""
+    rows = [("skill", "`foo`", "invokes", "")]
+    issues = ld.check_vocabulary(rows)
+    assert len(issues) == 1
+    assert "unknown relation" in issues[0]
+    assert "invokes" in issues[0]
 
 
-class TestMainExitCode:
-    def _setup_skill(self, tmp_path, monkeypatch, meta_text, skill_text, has_meta=True):
-        skill_dir = tmp_path / "sample"
-        skill_dir.mkdir()
-        if has_meta:
-            (skill_dir / "skill.meta.md").write_text(meta_text, encoding="utf-8")
-        (skill_dir / "SKILL.md").write_text(skill_text, encoding="utf-8")
-        monkeypatch.setattr(ld.common, "SKILLS_DIR", tmp_path)
-        monkeypatch.setattr(ld.common, "all_own_skill_names", lambda: ["sample"])
-
-    def test_drift_without_strict_does_not_fail(self, tmp_path, monkeypatch):
-        self._setup_skill(
-            tmp_path, monkeypatch,
-            "---\nskill: sample\n---\n\n## Dependency graph\n"
-            "| Type | Ref | Relation | Notes |\n|---|---|---|---|\n"
-            "| knowledge | process | consumes | x |\n",
-            "no path-style references here\n",
-        )
-        assert ld.main([]) == 0
-
-    def test_drift_with_strict_fails(self, tmp_path, monkeypatch):
-        self._setup_skill(
-            tmp_path, monkeypatch,
-            "---\nskill: sample\n---\n\n## Dependency graph\n"
-            "| Type | Ref | Relation | Notes |\n|---|---|---|---|\n"
-            "| knowledge | process | consumes | x |\n",
-            "no path-style references here\n",
-        )
-        assert ld.main(["--strict"]) == 1
-
-    def test_missing_meta_fails_even_without_strict(self, tmp_path, monkeypatch):
-        self._setup_skill(tmp_path, monkeypatch, "", "irrelevant\n", has_meta=False)
-        assert ld.main([]) == 1
-
-    def test_no_drift_no_missing_meta_passes(self, tmp_path, monkeypatch):
-        self._setup_skill(
-            tmp_path, monkeypatch,
-            "---\nskill: sample\n---\n\n## Dependency graph\n"
-            "| Type | Ref | Relation | Notes |\n|---|---|---|---|\n"
-            "| knowledge | process | consumes | x |\n",
-            "../../../knowledge/process/\n",
-        )
-        assert ld.main([]) == 0
-        assert ld.main(["--strict"]) == 0
+def test_both_unknown_type_and_relation_flagged():
+    """A row with both an unknown type and relation produces two issues."""
+    rows = [("widget", "`bar`", "zaps", "")]
+    issues = ld.check_vocabulary(rows)
+    assert len(issues) == 2
 
 
-class TestMainSmoke:
-    def test_runs_against_the_real_repo_without_crashing(self):
-        exit_code = ld.main([])
-        assert exit_code in (0, 1)
+def test_type_check_is_case_insensitive():
+    """Type matching normalises to lowercase."""
+    rows = [("Skill", "`foo`", "requires", "")]
+    assert ld.check_vocabulary(rows) == []
+
+
+# ---------- check_forward_declared ----------
+
+def test_registered_source_not_flagged():
+    """A knowledge_source ID that is registered is not flagged."""
+    known = {"clean-core": "knowledge/clean-core/"}
+    rows = [("knowledge_source", "`clean-core`", "consumes", "")]
+    assert ld.check_forward_declared(rows, known) == []
+
+
+def test_allowlisted_source_not_flagged():
+    """A knowledge_source in FORWARD_DECLARED_KNOWLEDGE_SOURCES is not flagged."""
+    rows = [("knowledge_source", "`solution-architect-role-context`", "consumes", "")]
+    assert ld.check_forward_declared(rows, known_sources={}) == []
+
+
+def test_unknown_unallowlisted_source_flagged():
+    """A knowledge_source that is neither registered nor allowlisted is flagged."""
+    rows = [("knowledge_source", "`mystery-source`", "consumes", "")]
+    issues = ld.check_forward_declared(rows, known_sources={})
+    assert len(issues) == 1
+    assert "mystery-source" in issues[0]
+
+
+# ---------- check_meta ----------
+
+def test_check_meta_missing_file(tmp_path):
+    """A missing meta.md is reported as no_meta=True."""
+    result = ld.check_meta("agent", "ghost-agent", tmp_path / "ghost.meta.md", {})
+    assert result["no_meta"] is True
+    assert result["kind"] == "agent"
+    assert result["name"] == "ghost-agent"
+
+
+def test_check_meta_valid_file(tmp_path):
+    """A valid meta.md with known vocabulary produces no issues."""
+    meta = tmp_path / "agent.meta.md"
+    meta.write_text(
+        "---\nagent: test-agent\n---\n\n## Dependency graph\n\n"
+        "| Type | Ref | Relation | Notes |\n|---|---|---|---|\n"
+        "| skill | `readiness-analysis` | requires | |\n",
+        encoding="utf-8",
+    )
+    result = ld.check_meta("agent", "test-agent", meta, {})
+    assert result["no_meta"] is False
+    assert result["vocab_issues"] == []
+    assert result["forward_decl_issues"] == []
+
+
+def test_check_meta_bad_vocab(tmp_path):
+    """A meta.md with an unknown type is reported in vocab_issues."""
+    meta = tmp_path / "agent.meta.md"
+    meta.write_text(
+        "---\nagent: test-agent\n---\n\n## Dependency graph\n\n"
+        "| Type | Ref | Relation | Notes |\n|---|---|---|---|\n"
+        "| widget | `foo` | requires | |\n",
+        encoding="utf-8",
+    )
+    result = ld.check_meta("agent", "test-agent", meta, {})
+    assert result["no_meta"] is False
+    assert any("widget" in i for i in result["vocab_issues"])
+
+
+# ---------- integration: linter runs cleanly against the real repo ----------
+
+def test_linter_clean_against_repo():
+    """Running the linter against the actual factory repo exits 0 (no missing meta files)."""
+    exit_code = ld.main([])
+    assert exit_code == 0
+
+
+def test_linter_strict_runs_without_crash():
+    """Running the linter with --strict against the actual factory repo returns 0 or 1
+    (never a Python exception). Exit 1 is expected when skills have declared-but-not-found
+    artifacts (a known caveat of the regex approach — see module docstring)."""
+    exit_code = ld.main(["--strict"])
+    assert exit_code in (0, 1)

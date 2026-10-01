@@ -1,18 +1,23 @@
 ---
 connector: signavio
 namespace: "@epam/sap"
-
-connector-type: script                 # no MCP wrapper exists for Signavio's basic-auth API
-system-type: []
-auth-type: [basic]                     # plain username/password against /p/login — no OAuth2, no service keys, no API tokens
-sdlc-stage: in-test
-
-distribution-class: client-shippable
-
-source: internal
-source-repo: [TBD]
-
-verified-live: "2026-08-24"
+version: 0.1.0
+owner: katsiaryna_ustsinava@epam.com
+project_types: [greenfield, brownfield, bluefield, ams, product-development, discovery, consulting, enterprise-architecture]
+sdlc_phases: [discover, prepare, explore]
+integration_boundary:
+  system: sap-signavio
+  environments: []
+  access_path: rest-api                # no MCP wrapper exists for Signavio's basic-auth API
+authentication_model: [basic]          # plain username/password against /p/login — no OAuth2, no service keys, no API tokens
+data_classification: confidential
+connector_type: script
+permission_scope: read-only
+readiness: in-progress
+provenance:
+  source: internal
+  source_repo:
+verified_live: "2026-08-24"
 ---
 
 ## Notes

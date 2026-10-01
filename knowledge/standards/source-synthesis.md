@@ -1,9 +1,8 @@
 # Source synthesis — method (agnostic)
 
 How to build (and keep current) a structured, source-traced document from scattered, heterogeneous
-inputs — emails, decks, specs, meeting transcripts. Tool-blind. Ported from `sap-ai-cons`'s
-`business-blueprint` skill (`knowledge/methodology/blueprint-synthesis.md`), generalized here from
-"fill the Business Blueprint template" to "fill whichever target document the calling skill owns" —
+inputs — emails, decks, specs, meeting transcripts. Tool-blind. Generalized from the `business-blueprint` skill methodology ("fill the Business
+Blueprint template") to "fill whichever target document the calling skill owns" —
 in this factory, that's `solution-design`'s `design-record`, when a delta's target design isn't
 cleanly available from a single fit-to-standard decision-log row alone. Real, tested content, not a
 stub — see `../../skills/solution-design/references/` for the two worked examples it came with.

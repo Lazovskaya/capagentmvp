@@ -19,7 +19,7 @@ not as a numbered artifact.
 ## Traceability — the whole point of writing this down at all
 
 Every test script traces back to the reason the scenario needs testing at all. Cite the source
-verbatim (stable-ID convention, `../../docs/skill-design-conventions.md` §1) — never re-describe it:
+verbatim (stable-ID convention) — never re-describe it:
 
 - **Standard/Delta scope:** the `fit-to-standard` decision-log Row ID (`FTS-<date>-<process>-row-
   NN`).

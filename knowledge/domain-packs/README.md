@@ -1,10 +1,9 @@
 # Knowledge: domain-packs
 
-New bucket (this factory didn't have one before) — added to close a real structural gap: the
-`defect-triage` skill already assumed an upstream technical-classification/diagnosis step existed
-(see its own SKILL.md), but nothing in this factory's model actually supplied one. `sap-ai-cons` had
-already solved this with a **generic engine + swappable domain pack** pattern for its bugfix track;
-this bucket is where the swappable domain-pack half of that pattern lives.
+New bucket — added to close a real structural gap: the `defect-triage` skill already assumed an
+upstream technical-classification/diagnosis step existed (see its own SKILL.md), but nothing in
+this factory's model actually supplied one. This bucket provides the **generic engine + swappable
+domain pack** pattern for the bugfix track; the swappable domain-pack half lives here.
 
 Distinct from the other eight knowledge buckets: those hold a *project's own* discovered content
 (this client's process, this client's config...). This bucket holds *pre-built, reusable, swappable*
@@ -13,10 +12,10 @@ the same SAP domain, unlike `process`/`config`/etc. which are always this-client
 
 ## What lives here
 
-- `order-to-cash/` — the first domain pack, ported from `sap-ai-cons` (real, curated content, not a
-  stub): incident taxonomy, signal catalog, routing matrix, subprocess adjacency map, pricing
-  condition-technique reference, billing/AR account-determination reference, IDoc ORDERS/INVOIC
-  message catalog, and 10 troubleshooting diagnostic trees.
+- `order-to-cash/` — the first domain pack (real, curated content, not a stub): incident taxonomy,
+  signal catalog, routing matrix, subprocess adjacency map, pricing condition-technique reference,
+  billing/AR account-determination reference, IDoc ORDERS/INVOIC message catalog, and 10
+  troubleshooting diagnostic trees.
 
 - `sap-best-practices/` — SAP Best Practices process taxonomy (L1-L4 hierarchy, 732 scope items,
   BPMN flow steps, Fiori apps, cross-item dependency graph). Structural/taxonomy layer generated

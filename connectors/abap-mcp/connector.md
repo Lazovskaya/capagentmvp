@@ -50,7 +50,7 @@ exact `.mcp.json` shape and the `.env` file's expected keys.
 - `read_object` (repository read: class/interface/program/table/CDS/view/BDEF source and
   metadata, where-used, package tree, AST/semantic analysis)
 - `write_object` (create/update ABAP OO, RAP, DDIC, and CDS artifacts) — **skills must dry-run /
-  preview unless the user passes `--apply`** (see `docs/skill-design-conventions.md` §6). SAP
+  preview unless the user passes `--apply`**. SAP
   authorizations still apply underneath; `--apply` is the factory's HITL gate, not a substitute
   for developer keys.
 - `run_diagnostics` (profiler traces, dumps, gateway error log, inactive-objects list)

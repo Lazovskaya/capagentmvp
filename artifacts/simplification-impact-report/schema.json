@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "description": "Readiness Check findings brief produced by the readiness-analysis Skill (EPMCSAPAI-324), from a report parsed by tools/parse-readiness-check-export. Chapter/file provenance, findings, severity, blocker status, data gaps, caveats, confidence, and review status, per the plan's Artifact Contracts table.",
+  "required": ["title", "chapters", "executive_risk_summary", "data_collection_gaps"],
+  "properties": {
+    "title": { "type": "string", "description": "e.g. \"Client Name -- Readiness Check Findings Brief\"." },
+    "source_export": { "type": "string", "description": "Filename/path of the Readiness Check export this brief was derived from." },
+    "executive_risk_summary": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Genuine blockers or business decisions needed before the conversion can be properly scoped."
+    },
+    "data_collection_gaps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Chapters/subsections that came back empty due to missing analysis -- reported as \"impact unknown\", never silently dropped."
+    },
+    "chapters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["number", "heading", "severity"],
+        "properties": {
+          "number": { "type": "string", "description": "Report's own heading number, e.g. \"3.1.1\"." },
+          "heading": { "type": "string" },
+          "severity": { "type": "string", "enum": ["Blocker", "Needs decision", "Routine", "Clean"] },
+          "finding": { "type": "string" },
+          "supporting_number": { "type": "string", "description": "The concrete figure backing the severity call, e.g. \"85 company codes\", \"39.5-hour downtime estimate\"." },
+          "caveat": { "type": "string" },
+          "confidence": { "type": "string", "enum": ["high", "medium", "low"] },
+          "sad_section": { "type": "string", "description": "Which SAP SAD template section this finding routes to, per the interpretation guide's mapping table." },
+          "review_status": { "type": "string", "enum": ["unreviewed", "in_review", "approved", "approved_with_caveats", "rejected"] }
+        }
+      }
+    }
+  }
+}

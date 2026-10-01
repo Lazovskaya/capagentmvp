@@ -32,7 +32,7 @@ once confirmed.
 
 | Column | Meaning |
 |--------|---------|
-| `ticket_id` | Stable ID from the source tracker. Never re-described in prose elsewhere — cite this verbatim (convention: stable, copyable IDs — see `../../docs/skill-design-conventions.md` §1). |
+| `ticket_id` | Stable ID from the source tracker. Never re-described in prose elsewhere — cite this verbatim (use stable, copyable IDs). |
 | `created_date` | When the ticket/incident was raised. |
 | `resolved_date` | Blank if still open. |
 | `sub_process` | Domain pack code (e.g. O2C: `pricing`, `credit`, `interface`, …) — from `incident-triage`. |

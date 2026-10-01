@@ -6,16 +6,38 @@ around the Activate-phase-and-component-kind model in `factory-data.json`.
 
 ## Single source of truth
 
-`factory-data.json` is canonical. `index.html` (the component map) keeps an inline copy of that
-same data for standalone viewing; after editing `factory-data.json`, run:
+`factory-data.json` is canonical, but it holds two different kinds of content:
+
+- **Hand-authored taxonomy** -- `phases`, `roles`/`roleOrder`, `engagements`, `statuses`,
+  `postures`/`postureWhy`, `rows`, `coverage`, `tools`, `scaffold`, `groups`. Nothing else in the
+  repo derives these; they exist only here, and there is no folder to regenerate them from.
+- **`components[]` and `assistants[]`** -- these describe what's actually on disk. Regenerate them
+  from the real `skills/`, `agents/`, `tools/`, `connectors/`, `artifacts/`, `gates/`,
+  `knowledge/`, and `assistants/` folders (their `*.meta.md` sidecars) with:
+
+  ```bash
+  python3 scripts/generate_factory_data.py --write
+  ```
+
+  Use `--check` instead of `--write` to preview the diff without writing. A component folder with
+  no matching sidecar is dropped from `factory-data.json`, not carried forward as a stale
+  placeholder for something that no longer exists.
+
+Either way, once `factory-data.json` says what you want, regenerate `index.html`'s inline copy and
+`factory-data.js` (the `file://` fallback the page loads when it can't `fetch()` its own JSON due
+to CORS):
 
 ```bash
 python3 build.py
 ```
 
-This regenerates `index.html`'s inline block and `factory-data.js` (the `file://` fallback the
-page loads when it can't `fetch()` its own JSON due to CORS). Never hand-edit either generated
-file, they get overwritten.
+`build.py` only ever reads `factory-data.json` -- it never looks at the component folders itself,
+so editing a `skill.meta.md` and running only `build.py` has no effect until the generator step
+above has updated `factory-data.json` first. `python3 build.py --regenerate` runs both steps in one
+call. Neither script can create `index.html` or `factory-data.json` from nothing: both are
+in-place updates to files that must already exist, and both fail with `FileNotFoundError` if the
+target file is missing or renamed. Never hand-edit `index.html`'s inline block or `factory-data.js`
+directly, they get overwritten on the next run.
 
 ## Where people actually view this page
 
@@ -33,70 +55,95 @@ fetches `factory-data.json` at runtime from the page's own attachment (the macro
 3. Commit the source changes here too, so the two stay in sync and the history is not only on
    Confluence.
 
+## Data source modes
+
+`index.html` tries three data sources in order, shown top-right as a small label:
+
+1. **KB** -- Confluence page attachment (only tried when a page ID is detectable).
+2. **File** -- `factory-data.json` fetched relative to the page (local server, or a file:// same-folder `factory-data.js` load).
+3. **Fallback (embedded)** -- the `window.FACTORY_DATA` baked into `index.html` at the last `build.py` run.
+
+To run it locally with a real `File` mode (double-clicking the file falls back to `Fallback (embedded)`, since `fetch()` is CORS-blocked under `file://`):
+
+```powershell
+scripts\serve-local.ps1
+```
+
+Starts a local HTTP server and opens `index.html` in the browser.
+
+## CI pipelines
+
+What each GitLab CI job does, when it runs, and which project variables it needs (including the
+opt-in auto-regeneration of `factory-data.json` on `main`): [docs/ci-pipelines.md](docs/ci-pipelines.md).
+
 ## Layout
 
-- `factory-data.json`, the data model: phases, roles, engagements, statuses, postures, component
-  rows, components, activities, tool coverage, and the scaffold.
+- `factory-data.json`, the data model: hand-authored taxonomy (phases, roles, engagements,
+  statuses, postures, component rows, tool coverage, scaffold) plus `components[]`/`assistants[]`,
+  generated from the folders below -- see "Single source of truth" above.
+- `scripts/generate_factory_data.py`, rewrites `factory-data.json`'s `components[]`/`assistants[]`
+  from the `*.meta.md` sidecars on disk.
 - `index.html`, the interactive component map, generated content lives inline, everything else is
   hand-written.
 - `build.py`, regenerates the generated parts of `index.html` plus `factory-data.js` from
   `factory-data.json`.
-- `skills/<name>/SKILL.md`, own-posture skills, authored here.
+- `skills/<name>/SKILL.md` plus `skill.meta.md`, own-posture skills, authored here.
 - `skills/index.yaml`, adopt-posture skills, not authored here, pulled in from elsewhere.
-- `agents/<name>.md`, bounded agents returning a typed, auditable verdict.
+- `agents/<name>/agent.md` plus `agent.meta.md`, bounded agents returning a typed, auditable
+  verdict.
+- `tools/<name>/tool.md` plus `tool.meta.md`, callable operations a Skill or Agent invokes; each
+  reaches an external system only through a Connector.
 - `connectors/<name>/connector.md` plus `connectors/<name>/server.json`, MCP and CLI connector
   definitions plus their config fragments.
 - `artifacts/<name>/template.md` plus `artifacts/<name>/schema.json`, durable handoff templates
   and their required fields.
-- `gates/<name>.md`, phase-exit criteria (Activate's own gates, not a vocabulary we invented).
-- `knowledge/<name>/`, the nine knowledge buckets, each ships a central default a project can
-  override per file.
-- `activities/<phase>/<name>.md`, one file per activity in `factory-data.json`, short pointers
-  back to the real skill/agent/connector/artifact files, not new content.
-- `tools/adapter_common.py`, shared skill-discovery/connector-normalization/content-hash/lock-file
+- `gates/<name>/gate.md` plus `gate.meta.md`, phase-exit criteria (Activate's own gates, not a
+  vocabulary we invented).
+- `knowledge/<name>/`, the knowledge buckets, each ships a central default a project can override
+  per file.
+- `assistants/<name>/assistant.md` plus `assistant.meta.md`, role-scoped entry points that route a
+  request to the right agent or skill; one `assistants[]` entry per `use_case_id` they declare.
+- `scripts/adapter_common.py`, shared skill-discovery/connector-normalization/content-hash/lock-file
   logic used by all three working adapters below.
-- `tools/claude-code/adapter/`, `tools/github-copilot/adapter/`, and `tools/cursor/adapter/`, each
-  an `install.py` (see "Installing skills into a project" below). `validators/` and `docs/` beyond
-  `skill-design-conventions.md` are still scaffold only, not yet implemented, see each folder's own
-  README.
+- `scripts/claude-code/adapter/`, `scripts/github-copilot/adapter/`, and `scripts/cursor/adapter/`,
+  each an `install.py` (see "Installing skills into a project" below). `validators/` and `docs/`
+  beyond `skill-design-conventions.md` are still scaffold only, not yet implemented, see each
+  folder's own README.
 
 This mirrors the path convention the component map's own client-side code uses (see `index.html`'s
 `paths()` function), so the map and the repo can never drift apart by more than a rebuild.
 
 ## Installing skills into a project
 
-**For a pilot with a filled-in infrastructure context** (P4, `platform/pilot-context/`), use
-`tools/unpack.py` — the single entry point across all three tools that also resolves that context
-into working connector credentials first:
+Use `scripts/unpack.py` — the single entry point across all three tools:
 
 ```bash
-python3 tools/unpack.py --target claude-code --project /path/to/client-project \
-  --skills '*' --connectors abap-mcp \
-  --context platform/pilot-context/pilot-<id>.context.json
+python3 scripts/unpack.py --target claude-code --project /path/to/client-project \
+  --skills '*' --connectors abap-mcp
 ```
 
-`--target` accepts `claude-code`, `github-copilot` (alias `copilot`), or `cursor`; omit it to run
-once per tool listed in the context file's `toolEnvironments`. See `tools/unpack.py`'s own
-docstring for the full reference, including its post-unpack credential check.
+`--target` accepts `claude-code`, `github-copilot` (alias `copilot`), or `cursor`; repeatable
+to install for multiple tools in one call. See `scripts/unpack.py`'s own docstring for the full
+reference.
 
-**Without a context file** (or for adopt-posture/ad-hoc setups), call a specific tool's adapter
-directly — see each folder's README for the full flag reference:
+**For adopt-posture/ad-hoc setups**, call a specific tool's adapter directly — see each
+folder's README for the full flag reference:
 
 ```bash
-python3 tools/claude-code/adapter/install.py \
+python3 scripts/claude-code/adapter/install.py \
   --project /path/to/client-project --skills '*' --connectors jira
 # or:
-python3 tools/github-copilot/adapter/install.py \
+python3 scripts/github-copilot/adapter/install.py \
   --project /path/to/client-project --skills '*' --connectors jira
 # or:
-python3 tools/cursor/adapter/install.py \
+python3 scripts/cursor/adapter/install.py \
   --project /path/to/client-project --skills '*' --connectors jira
 ```
 
 All three install only own-posture skills (`skills/<name>/SKILL.md` in this repo) plus connectors
 that have real, non-placeholder wiring, generate a working mcp config and entry file in the tool's
 own shape, and record what was installed in `factory-lock.json` so re-runs only touch what
-actually changed. `tools/unpack.py` is a thin dispatcher over these same three scripts, not a
+actually changed. `scripts/unpack.py` is a thin dispatcher over these same three scripts, not a
 separate implementation.
 
 **Adopt-posture skills** (listed in `skills/index.yaml`, not authored in this repo — neither

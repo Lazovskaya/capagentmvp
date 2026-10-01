@@ -5,9 +5,6 @@ apps/TCodes), following the same domain-pack pattern as [`order-to-cash/`](../or
 reusable expertise a generic engine plugs in, not a client's own discovered content (that stays in
 `knowledge/process/`, per-client and authority-tracked).
 
-Originated from the Recommendation 2 automation strategy for EPMCSAPAI-197 (unblocking the Core
-Delivery Pipeline track, `Knowledge: process` bucket).
-
 ## What lives here
 
 - `scope-items/` — enriched scope-item JSON, one file per scope item (e.g. `BD9.json`). Committed
@@ -26,7 +23,7 @@ Delivery Pipeline track, `Knowledge: process` bucket).
 
 ## How to (re)generate the cache
 
-Method 4's original plan (documented in EPMCSAPAI-197) was a live, anonymous call to the classic
+Method 4's original plan was a live, anonymous call to the classic
 Fiori Apps Library's `SingleApps.xsodata` OData feed. That service is gone — SAP retired the
 classic library in favor of **FAL 2.0** at `fal.cloud.sap`, which requires Sign In. There is no
 unauthenticated live API left, so this script parses a local export instead, the same pattern

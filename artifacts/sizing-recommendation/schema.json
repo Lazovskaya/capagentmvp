@@ -1,0 +1,47 @@
+{
+  "type": "object",
+  "description": "Sizing recommendation produced by the sizing-analysis Skill from tools/calculate-s4hana-sizing's arithmetic. Baseline, assumptions, per-instance calculation, RISE mismatch, caveats, reviewer, and approval state, per the plan's Artifact Contracts table. per_instance/combined_total_* mirror tools/calculate-s4hana-sizing/scripts/sizing_calc.py's actual output shape exactly.",
+  "required": ["methodology", "per_instance", "combined_total_memory_gib", "combined_total_disk_gib", "assumptions"],
+  "properties": {
+    "methodology": {
+      "type": "string",
+      "enum": ["quick-sizer", "hana-sizing-report", "sap-expert-sizing", "rise-fue-tshirt"],
+      "description": "Which methodology produced the baseline -- technical (data-volume-driven) vs. RISE Standard T-shirt (FUE/license-driven)."
+    },
+    "rise_tier_mismatch": {
+      "type": "boolean",
+      "description": "true when a RISE FUE-tier estimate materially disagrees with a technical data-volume measurement for the same system."
+    },
+    "per_instance": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "baseline_memory_gib", "recommended_memory_gib"],
+        "properties": {
+          "name": { "type": "string" },
+          "baseline_memory_gib": { "type": "number" },
+          "baseline_disk_gib": { "type": "number" },
+          "growth_factor_applied": { "type": "number" },
+          "archiving_reduction_gib": { "type": "number" },
+          "new_functionality_gib": { "type": "number" },
+          "recommended_memory_gib": { "type": "number" },
+          "recommended_disk_gib": { "type": "number" }
+        }
+      }
+    },
+    "combined_total_memory_gib": { "type": "number" },
+    "combined_total_disk_gib": { "type": "number" },
+    "assumptions": {
+      "type": "object",
+      "properties": {
+        "growth_pct_per_year": { "type": "number" },
+        "years_of_growth_to_provision": { "type": "number" },
+        "archiving_reduction_gib": { "type": "number" },
+        "new_functionality_gib": { "type": "number" }
+      }
+    },
+    "caveats": { "type": "array", "items": { "type": "string" } },
+    "reviewer": { "type": "string" },
+    "approval_state": { "type": "string", "enum": ["unreviewed", "approved", "approved_with_caveats", "rejected"] }
+  }
+}

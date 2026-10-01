@@ -1,0 +1,71 @@
+{
+  "type": "object",
+  "description": "Engagement state.json for the Brownfield SAD Authoring Agent (workspace/<engagement_id>/brownfield-sad/state.json). Only engagement_id and last_valid_checkpoint are populated by the EPMCSAPAI-323 reconcile-brownfield-sad-state Tool today -- the remaining fields are forward-declared per the plan's full Engagement Workspace Contract and get populated once EPMCSAPAI-322 (Confluence) and EPMCSAPAI-327 (Agent behavior) land. The checkpoint files this state.json points at (checkpoints/CHK-<engagement_id>-<n>.json) are a separate, immutable per-artifact hash/review log written by the same Tool -- see documents[].checkpoint_ref below and template.md for that file's shape.",
+  "required": ["engagement_id", "last_valid_checkpoint"],
+  "properties": {
+    "engagement_id": {
+      "type": "string",
+      "description": "Stable engagement identifier; also the workspace/<engagement_id>/ directory name."
+    },
+    "last_valid_checkpoint": {
+      "type": ["string", "null"],
+      "description": "Stable ID of the most recent successful checkpoint, e.g. CHK-<engagement_id>-3. null before the first commit."
+    },
+    "confluence_root_page_id": {
+      "type": "string",
+      "description": "Not yet populated (needs EPMCSAPAI-322). The approved Confluence root page under which the Canonical Confluence Document Layout's six pages live."
+    },
+    "current_evidence_stage": {
+      "type": "string",
+      "enum": ["readiness", "sizing", "scoping", "workshop-preparation", "sad-drafting"],
+      "description": "Not yet populated (needs EPMCSAPAI-327). Which Brownfield Delivery Flow stage the engagement is currently at."
+    },
+    "next_eligible_skill_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Not yet populated (needs EPMCSAPAI-327). Stable Skill IDs the Agent may invoke next."
+    },
+    "adr_sync_status": {
+      "type": "string",
+      "enum": ["pending", "synchronized", "blocked"],
+      "description": "Not yet populated (needs EPMCSAPAI-325/327). Engagement-level ADR Synchronization Protocol status."
+    },
+    "documents": {
+      "type": "array",
+      "description": "Not yet populated (needs EPMCSAPAI-322/327). One entry per tracked artifact instance -- the per-document reference record the plan's Engagement Workspace Contract requires.",
+      "items": {
+        "type": "object",
+        "required": ["artifact_id", "source_origin"],
+        "properties": {
+          "artifact_id": { "type": "string" },
+          "checkpoint_ref": { "type": "string", "description": "Stable checkpoint ID this document's last known hash/review state was recorded under." },
+          "staging_path": { "type": "string" },
+          "source_revision": { "type": "string" },
+          "source_hash": { "type": "string" },
+          "confluence_page_id": { "type": "string" },
+          "confluence_page_version": { "type": "integer" },
+          "confluence_page_hash": { "type": "string" },
+          "attachment_id": { "type": "string" },
+          "attachment_version": { "type": "integer" },
+          "attachment_hash": { "type": "string" },
+          "source_origin": {
+            "type": "string",
+            "enum": ["agent-generated", "human-local", "confluence-published", "confluence-live", "human-imported-external"]
+          },
+          "retrieved_date": { "type": "string", "format": "date" },
+          "review_status": { "type": "string", "enum": ["unreviewed", "in_review", "approved", "approved_with_caveats", "rejected", "reopened"] },
+          "reviewer": { "type": "string" },
+          "review_date": { "type": "string", "format": "date" },
+          "change_set_id": { "type": "string" },
+          "adr_event_id": { "type": "string" },
+          "adr_sync_status": { "type": "string", "enum": ["pending", "synchronized", "blocked"] }
+        }
+      }
+    },
+    "conflict_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "artifact_ids currently blocked on an unresolved conflict, per the last diff run."
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "engagement_id": "acme-brownfield-2026",
+  "generated_at": "2026-09-16",
+  "evidence_versions": {
+    "simplification_impact_report": "sha256:abc123",
+    "sizing_recommendation": "sha256:def456",
+    "business_process_scope": "sha256:789abc",
+    "adr_log_entry_count": 5
+  },
+  "decisions": {
+    "instance_strategy": {
+      "production_instances": 1,
+      "mandant_concept": "single",
+      "landscape": "3-system",
+      "confirmed_by": "architect@example.com"
+    },
+    "ricefw_disposition": {
+      "confirmed_by": "architect@example.com"
+    },
+    "sizing_strategy": {
+      "infrastructure_approach": "rise",
+      "sizing_method": "quick-sizer",
+      "confirmed_by": "architect@example.com"
+    },
+    "data_migration_architecture": {
+      "conversion_approach": "full-shell",
+      "archiving_strategy": "pre-conversion",
+      "cutover_strategy": "big-bang",
+      "confirmed_by": "architect@example.com"
+    },
+    "dual_maintenance_retrofit": {
+      "freeze_approach": "hard-freeze",
+      "retrofit_tooling": "manual",
+      "checkpoint_frequency": "monthly",
+      "confirmed_by": "architect@example.com"
+    }
+  },
+  "open_topics": [
+    {
+      "id": "OT-1",
+      "title": "Integration landscape not yet assessed",
+      "source_stage": "readiness",
+      "owner": "TBC",
+      "status": "open"
+    }
+  ]
+}

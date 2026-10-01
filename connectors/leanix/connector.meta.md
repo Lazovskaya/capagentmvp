@@ -1,18 +1,23 @@
 ---
 connector: leanix
 namespace: "@epam/sap"
-
-connector-type: mcp
-system-type: []                        # not ABAP-system-facing — this axis doesn't apply
-auth-type: [oauth]
-sdlc-stage: in-test
-
-distribution-class: client-shippable
-
-source: SAP                            # the MCP endpoint itself (mcp.leanix.net) is SAP LeanIX's own official service
-source-repo: "https://mcp.leanix.net/services/mcp-server/v1/mcp/instance/demo-de/workspace/EPAMSystemsPolandSpzooTDD"   # verified workspace endpoint, not a code repo — this field carries a citation URL where no code repo exists
-
-verified-live: "2026-08-15"
+version: 0.1.0
+owner: katsiaryna_ustsinava@epam.com
+project_types: [greenfield, brownfield, bluefield, ams, product-development, discovery, consulting, enterprise-architecture]
+sdlc_phases: [discover, prepare, explore]
+integration_boundary:
+  system: sap-leanix
+  environments: []                     # not ABAP-system-facing — this axis doesn't apply
+  access_path: mcp-remote-oauth
+authentication_model: [oauth]
+data_classification: confidential
+connector_type: mcp
+permission_scope: read-write
+readiness: in-progress
+provenance:
+  source: SAP                          # the MCP endpoint itself (mcp.leanix.net) is SAP LeanIX's own official service
+  source_repo: "https://mcp.leanix.net/services/mcp-server/v1/mcp/instance/demo-de/workspace/EPAMSystemsPolandSpzooTDD"   # verified workspace endpoint, not a code repo — this field carries a citation URL where no code repo exists
+verified_live: "2026-08-15"
 ---
 
 ## Notes

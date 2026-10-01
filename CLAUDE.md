@@ -32,17 +32,12 @@ fallback `index.html` loads when it can't `fetch()` its own JSON due to CORS) fr
 `factory-data.json`. Run this after every edit to `factory-data.json`, before viewing `index.html`
 locally. Never hand-edit either generated file — they get overwritten.
 
-```bash
-python3 -m pytest -q
-```
-
-Runs `tests/` — a real, sizeable suite (1500+ parametrized cases) checking `factory-data.json`
-referential integrity, SAP Activate gate-sequence rules, artifact schema/template consistency,
-own-posture skill convention compliance, and the `tools/` scripts themselves. See `tests/README.md`
-for what each file covers. `validators/validate_factory.py` is a separate, already-implemented
-standalone CLI script doing a broader one-shot repo health check (referential integrity, connector
-JSON, generated-file drift) — run it too before a push if unsure which catches what; it isn't
-merged into the pytest suite.
+`tests/` was removed on this branch (`feature/architecture-assistant`, EPMCSAPAI-320): the old
+suite asserted against the legacy repo shape the clean-state commit deliberately wiped, and
+against `tools/`, which is now `scripts/`. A new suite covering the v0.3 metadata contract gets
+built back up as part of EPMCSAPAI-331, once there's real v0.3 content to test against.
+`validators/validate_factory.py` still exists as a standalone repo-health CLI but is unverified
+against this branch's current (mostly empty) state until then.
 
 ## Architecture
 
@@ -86,9 +81,14 @@ derives from it, points back into it, or exists to keep it honest:
 - **`gates/<name>.md`** — phase-exit criteria, named after Activate's own gates (not an invented
   vocabulary): `discover-prepare`, `prepare-explore`, `explore-realize`, `realize-deploy`,
   `deploy-run`, `run-exit`.
-- **`knowledge/<name>/`** — nine knowledge buckets (`clean-core`, `config`, `custom-code`, `data`,
-  `domain-packs`, `extensibility`, `operations`, `process`, `standards`, `testing`), each ships a
-  central default a project can override per file. `domain-packs` specifically holds swappable
+- **`knowledge/<name>/`** — eleven knowledge buckets (`clean-core`, `config`, `custom-code`,
+  `data`, `domain-packs`, `extensibility`, `methodology`, `operations`, `process`, `standards`,
+  `testing`), each ships a central default a project can override per file. Every bucket that
+  commits real reusable content (not just an engagement schema) is a governed Knowledge Source
+  with its own `knowledge.meta.md` sidecar (EPMCSAPAI-291/332, `knowledge-template-MVP.md` v0.3)
+  -- see `knowledge/README.md`'s "Governed Knowledge Sources" table for the full ID list, which
+  is finer-grained than the bucket list above for `methodology/` and `domain-packs/`.
+  `domain-packs` specifically holds swappable
   domain expertise (e.g. order-to-cash) shared across engagements, distinct from a project's own
   discovered content.
 - **`activities/<phase>/<name>.md`** — one file per activity listed in `factory-data.json`; these are

@@ -75,7 +75,7 @@ Sandbox profile:
 ```
 
 Never commit a real profile. Do not put `client_secret` or `api_key` in
-`server.json`, `.mcp.json`, `factory-data.json`, adapter output or logs.
+`server.json`, `.mcp.json`, or any file that could be committed or logged.
 
 ## Tool posture
 

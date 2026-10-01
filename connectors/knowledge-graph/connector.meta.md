@@ -1,18 +1,23 @@
 ---
 connector: knowledge-graph
 namespace: "@epam/sap"
-
-connector-type: documented-only
-system-type: []
-auth-type: [TBD]                      # stub — connector.md carries no wiring detail yet
-sdlc-stage: in-progress
-
-distribution-class: client-shippable
-
-source: internal
-source-repo: [TBD]
-
-verified-live: false
+version: 0.1.0
+owner: katsiaryna_ustsinava@epam.com
+project_types: [greenfield, brownfield, bluefield, ams, product-development, discovery, consulting, enterprise-architecture]
+sdlc_phases: [discover, prepare]
+integration_boundary:
+  system: knowledge-graph
+  environments: []
+  access_path:                        # stub — connector.md carries no wiring detail yet
+authentication_model: []
+data_classification: confidential
+connector_type: api
+permission_scope:
+readiness: in-progress
+provenance:
+  source: internal
+  source_repo:
+verified_live: false
 ---
 
 ## Notes

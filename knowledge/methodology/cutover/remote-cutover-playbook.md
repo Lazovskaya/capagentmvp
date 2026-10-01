@@ -1,7 +1,6 @@
 # Remote cutover — readiness & execution playbook
 
-Curated from `S4H_747 How to Approach Remote Cutover.pptx` (SAP Activate Methodology
-Accelerator, 2024-07-11). See [_index.md](_index.md) for source/consumer context. Applies
+See [_index.md](_index.md) for consumer context. Applies
 when part or all of cutover delivery happens off-site.
 
 ## When this applies

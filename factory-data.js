@@ -152,7 +152,7 @@ window.FACTORY_DATA = {
    "phases": [
     "Discover"
    ],
-   "desc": "Business-process scope for an SAP conversion, per Business Area: Changed/Unchanged/To-Assess/Out-of-scope, complexity, and (when an Application Map was cross-referenced) supporting applications."
+   "desc": null
   },
   {
    "kind": "Artifact",
@@ -693,7 +693,7 @@ window.FACTORY_DATA = {
    "phases": [
     "Explore"
    ],
-   "desc": "Turn a conversion-scoping output (Changed/Unchanged/To-Assess business processes) into a ready-to-send workshop schedule and per-session agendas for the SAP Activate Explore-phase Fit-to-Standard workshops on a Brownfield S/4HANA conversion. Orders sessions by complexity, surfaces open adr-log questions per Business Area, and builds a process walkthrough table per session. Use whenever the user has a completed business process scope (from conversion-scoping) and needs to plan, schedule, or prepare agendas for Fit-to-Standard/delta-confirmation workshops."
+   "desc": null
   },
   {
    "kind": "Tool",
@@ -1080,7 +1080,7 @@ window.FACTORY_DATA = {
    ],
    [
     "platform/",
-    "Platform MVP track (P1-P8): delivery RACI, pilot infra/client context — see platform/delivery-process/, platform/pilot-context/"
+    "Platform MVP track: delivery RACI — see platform/delivery-process/"
    ]
   ],
   "project": [
@@ -1095,10 +1095,6 @@ window.FACTORY_DATA = {
    [
     ".env.example",
     null
-   ],
-   [
-    "pilot-context.schema.json",
-    "P4: infra/client context schema, feeds Unpack (P5) & T3 — see platform/pilot-context/"
    ],
    [
     "CLAUDE.md",

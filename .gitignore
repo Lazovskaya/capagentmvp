@@ -20,8 +20,10 @@ tmp.html
 # .gitignore itself never actually had the entry until a real skill run needed it (2026-08-07).
 workspace/
 
-# Personal Claude Code config (MCP servers, local settings) -- never shared, never committed.
-.claude/
+# Personal Claude Code config: local-only files and machine-specific settings are ignored;
+# shared project config (skills, agents for contributors) lives in .claude/ and IS committed.
+.claude/.local/
+.claude/settings.local.json
 
 # Filled-in pilot infrastructure/client context (P4, EPMCSAPAI-294) — real hosts/client numbers
 # and credentialRef env-var wiring for an actual engagement never get committed, only

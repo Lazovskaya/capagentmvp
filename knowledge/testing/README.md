@@ -14,15 +14,9 @@ Defect history and what has already been classified as a spec flaw.
   predecessor-repo file existed to port), grounded in standard SAP test-management practice.
   Populated by `../../skills/test-case-design/SKILL.md`.
 
-## Candidates from sap-ai-framework — could not be ported
-
-`knowledge/templates/test-script.md` was listed here as a candidate, but the `sap-ai-framework`
-repo it would have come from does not exist in this environment — there was nothing to actually
-port. `test-script-template.md` above is written fresh instead, not a port.
-
 ## The O2C domain pack question — still deferred, on purpose
 
-`sap-ai-cons`'s order-to-cash domain pack (incident taxonomy, signal catalog, routing matrix, 10
+The order-to-cash domain pack (incident taxonomy, signal catalog, routing matrix, 10
 troubleshooting trees) already lives in `../domain-packs/order-to-cash/` — that's swappable domain
 expertise shared across engagements, a distinct bucket by design (see
 `knowledge/domain-packs/README.md`). Whether any of it should *also* be mirrored or summarized here

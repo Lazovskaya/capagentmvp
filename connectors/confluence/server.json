@@ -1,0 +1,4 @@
+{
+  "pattern": "credentials-only",
+  "note": "This connector's tools (read-confluence-page, search-confluence-pages, upsert-confluence-page, upload-confluence-attachment) call the Confluence REST API directly via Python stdlib -- no MCP server needed. The only setup required is a credentials file at ~/.config/mcp-atlassian/sessions/<destination>.env. See connector.md -- Wiring."
+}

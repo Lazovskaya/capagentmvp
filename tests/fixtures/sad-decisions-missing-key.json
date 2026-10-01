@@ -1,0 +1,16 @@
+{
+  "instance_strategy": {
+    "production_instances": 1,
+    "mandant_concept": "single",
+    "landscape": "3-system",
+    "confirmed_by": "test@example.com"
+  },
+  "ricefw_disposition": {
+    "confirmed_by": "test@example.com"
+  },
+  "sizing_strategy": {
+    "infrastructure_approach": "rise",
+    "sizing_method": "quick-sizer",
+    "confirmed_by": "test@example.com"
+  }
+}

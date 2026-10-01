@@ -1,0 +1,46 @@
+{
+  "type": "object",
+  "description": "Append-only ADR log for a Brownfield SAD engagement. Local source of truth at workspace/<engagement_id>/brownfield-sad/adr-log.json. Published to Confluence as '05 Architecture Decision Log' via confluence-document-publishing.",
+  "required": ["engagement_id", "entries"],
+  "properties": {
+    "engagement_id": { "type": "string" },
+    "last_published_page_id": { "type": ["string", "null"] },
+    "last_published_version": { "type": ["integer", "null"] },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "date", "stage", "decision_type", "title", "description", "rationale", "status", "raised_by"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^ADR-[^-]+-[0-9]+$",
+            "description": "Stable identifier ADR-<engagement_id>-<seq>. Never reused."
+          },
+          "date": { "type": "string", "format": "date" },
+          "stage": {
+            "type": "string",
+            "enum": ["readiness", "sizing", "scoping", "workshop-preparation", "sad-drafting", "cross-cutting"]
+          },
+          "decision_type": {
+            "type": "string",
+            "enum": ["conversion-approach", "scope-boundary", "sizing-assumption", "integration-decision", "risk-acceptance", "deferral", "business-decision"]
+          },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "rationale": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["active", "superseded", "deferred"]
+          },
+          "superseded_by": { "type": ["string", "null"] },
+          "deferred_until": { "type": ["string", "null"] },
+          "raised_by": { "type": "string" },
+          "reviewed_by": { "type": ["string", "null"] },
+          "review_date": { "type": ["string", "null"], "format": "date" },
+          "change_set_ref": { "type": ["string", "null"] }
+        }
+      }
+    }
+  }
+}

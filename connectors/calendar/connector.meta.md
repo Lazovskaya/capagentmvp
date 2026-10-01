@@ -1,18 +1,23 @@
 ---
 connector: calendar
 namespace: "@epam/sap"
-
-connector-type: documented-only
-system-type: []
-auth-type: [oauth]                     # Microsoft 365 in the ported version — connector.md does not spell out the exact auth flow
-sdlc-stage: in-progress
-
-distribution-class: client-shippable
-
-source: internal
-source-repo: [TBD]
-
-verified-live: "unspecified-date — connector.md states this was live-tested as part of the ported fit-to-standard skill, but not yet independently re-verified inside this repo, and records no ISO date"
+version: 0.1.0
+owner: katsiaryna_ustsinava@epam.com
+project_types: [greenfield, brownfield, bluefield, ams, product-development, discovery, consulting, enterprise-architecture]
+sdlc_phases: [prepare, explore]
+integration_boundary:
+  system: microsoft-365
+  environments: []
+  access_path:                         # Microsoft 365 in the ported version — connector.md does not spell out the exact auth flow
+authentication_model: [oauth]
+data_classification: confidential
+connector_type: api
+permission_scope: read-write
+readiness: in-progress
+provenance:
+  source: internal
+  source_repo:
+verified_live: "unspecified-date — connector.md states this was live-tested as part of the ported fit-to-standard skill, but not yet independently re-verified inside this repo, and records no ISO date"
 ---
 
 ## Notes

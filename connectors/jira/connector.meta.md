@@ -1,18 +1,23 @@
 ---
 connector: jira
 namespace: "@epam/sap"
-
-connector-type: mcp
-system-type: []                       # not SAP-system-facing — this axis doesn't apply
-auth-type: [token]                    # JIRA_API_TOKEN via mcp-atlassian
-sdlc-stage: ready
-
-distribution-class: client-shippable
-
-source: community                     # wraps the public mcp-atlassian package via uvx
-source-repo: "https://github.com/sooperset/mcp-atlassian"
-
-verified-live: "unspecified-date — connector.md documents live re-verification against real tickets (EPMCSAPAI-203, EPMCSAPAI-204) after the launcher rewrite, but records no ISO date; CLAUDE.md names this as one of the two genuinely live-tested connectors as of writing"
+version: 0.1.0
+owner: katsiaryna_ustsinava@epam.com
+project_types: [greenfield, brownfield, bluefield, ams, product-development, discovery, consulting, enterprise-architecture]
+sdlc_phases: [prepare, explore, realize, deploy, run]
+integration_boundary:
+  system: jira
+  environments: []                    # not SAP-system-facing — this axis doesn't apply
+  access_path: rest-api
+authentication_model: [token]         # JIRA_API_TOKEN via mcp-atlassian
+data_classification: confidential
+connector_type: mcp
+permission_scope: read-write
+readiness: in-progress
+provenance:
+  source: community                   # wraps the public mcp-atlassian package via uvx
+  source_repo: "https://github.com/sooperset/mcp-atlassian"
+verified_live: "unspecified-date — connector.md documents live re-verification against real tickets (EPMCSAPAI-203, EPMCSAPAI-204) after the launcher rewrite, but records no ISO date; CLAUDE.md names this as one of the two genuinely live-tested connectors as of writing"
 ---
 
 ## Notes

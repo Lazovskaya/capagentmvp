@@ -1,6 +1,6 @@
 # Order-to-Cash — domain knowledge (agnostic)
 
-Ported from `sap-ai-cons`'s `knowledge/domain/order-to-cash/` — real, curated content, not a stub.
+Real, curated content, not a stub.
 Tool-blind SAP O2C expertise — the **O2C domain pack** that this factory's bugfix pipeline
 (`incident-triage`, `root-cause-playbook`, `defect-pattern-analysis`, `idoc-failure-analyzer`,
 `fix-doc-and-regression`, `pricing-diagnostic`, `billing-ar-error-analyzer`) orchestrates — the

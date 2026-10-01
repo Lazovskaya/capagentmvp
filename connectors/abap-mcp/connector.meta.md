@@ -1,18 +1,23 @@
 ---
 connector: abap-mcp
 namespace: "@epam/sap"
-
-connector-type: mcp
-system-type: [onprem, cloud, legacy]
-auth-type: [basic, jwt, xsuaa]
-sdlc-stage: ready
-
-distribution-class: client-shippable
-
-source: community
-source-repo: "https://github.com/fr0ster/mcp-abap-adt"
-
-verified-live: "unspecified-date — connector.md confirms a live test against a real sandbox system, but records no ISO date; CLAUDE.md names this as one of the two genuinely live-tested connectors as of writing"
+version: 0.1.0
+owner: katsiaryna_ustsinava@epam.com
+project_types: [greenfield, brownfield, bluefield, ams, product-development, discovery, consulting, enterprise-architecture]
+sdlc_phases: [explore, realize, deploy, run]
+integration_boundary:
+  system: sap-abap
+  environments: [onprem, cloud, legacy]
+  access_path: adt
+authentication_model: [basic, jwt, xsuaa]
+data_classification: confidential
+connector_type: mcp
+permission_scope: read-write
+readiness: in-progress
+provenance:
+  source: community
+  source_repo: "https://github.com/fr0ster/mcp-abap-adt"
+verified_live: "unspecified-date — connector.md confirms a live test against a real sandbox system, but records no ISO date; CLAUDE.md names this as one of the two genuinely live-tested connectors as of writing"
 ---
 
 ## Notes

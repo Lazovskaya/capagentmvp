@@ -10,23 +10,36 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
+import adapter_common as common  # noqa: E402
+
 DATA_PATH = ROOT / "factory-data.json"
 INDEX_PATH = ROOT / "index.html"
 JS_PATH = ROOT / "factory-data.js"
-VALID_PHASES = {"Discover", "Prepare", "Explore", "Realize", "Deploy", "Run"}
 KINDS = {
     "Skill": ("skills", "SKILL.md"),
     "Agent": ("agents", "agent.md"),
+    "Tool": ("tools", "tool.md"),
+    "Assistant": ("assistants", "assistant.md"),
     "Connector": ("connectors", "server.json"),
     "Artifact": ("artifacts", "template.md"),
     "Knowledge": ("knowledge", None),
     "Q-gate": ("gates", "gate.md"),
 }
+# Rows laid out in phase columns: a component whose phase isn't one of data["phases"] has no
+# column and is silently left off the map.
+PHASE_LAYOUT_KINDS = {"Skill", "Agent", "Tool"}
 FACTORY_BLOCK_RE = re.compile(r"window\.FACTORY_DATA = \{.*?\n\};", re.DOTALL)
 
 
 def load_data() -> dict:
     return json.loads(DATA_PATH.read_text(encoding="utf-8"))
+
+
+def knowledge_locations() -> dict[str, Path]:
+    """Governed Knowledge Source id -> its directory (nested sources don't live at
+    knowledge/<id>/)."""
+    return {sid: ROOT / loc for sid, loc in common.load_knowledge_sources().items()}
 
 
 def adopt_skills() -> set[str]:
@@ -41,11 +54,16 @@ def adopt_skills() -> set[str]:
     return names
 
 
+USE_KINDS = {"skill": "Skill", "agent": "Agent", "tool": "Tool", "mcp": "Connector",
+             "connector": "Connector", "artifact": "Artifact", "knowledge": "Knowledge",
+             "q-gate": "Q-gate"}
+
+
 def uses(data: dict, kind: str) -> set[str]:
     return {
         name
-        for activity in data.get("activities", [])
-        for use_kind, names in activity.get("uses", [])
+        for entry in data.get("assistants", [])
+        for use_kind, names in entry.get("uses", [])
         if use_kind == kind
         for name in names
     }
@@ -53,42 +71,59 @@ def uses(data: dict, kind: str) -> set[str]:
 
 def component_path(kind: str, name: str) -> Path | None:
     directory, leaf = KINDS[kind]
-    if kind == "Q-gate":
-        name = name.replace("→", "-")
+    if kind == "Knowledge":
+        return knowledge_locations().get(name, ROOT / directory / name)
     path = ROOT / directory / name
     if kind == "Artifact" and name == "explore-chain":
         return path
     return path if leaf is None else path / leaf
 
 
-def validate_references(data: dict) -> list[str]:
+def validate_assistants(data: dict) -> list[str]:
     errors: list[str] = []
-    for activity in data.get("activities", []):
-        missing = {"title", "file", "phase", "owner", "uses"} - activity.keys()
-        errors.extend(f"activity {activity.get('title', '?')}: missing {field}" for field in missing)
-        if activity.get("phase") not in VALID_PHASES:
-            errors.append(f"activity {activity.get('title', '?')}: invalid phase")
-        if not (ROOT / activity.get("file", "")).exists():
-            errors.append(f"activity {activity.get('title', '?')}: missing file {activity.get('file')}")
-    kind_map = {"skill": "Skill", "agent": "Agent", "mcp": "Connector",
-                "artifact": "Artifact", "knowledge": "Knowledge", "q-gate": "Q-gate"}
-    for use_kind, kind in kind_map.items():
+    phases, roles = set(data.get("phases", [])), data.get("roles", {})
+    engagements, statuses = data.get("engagements", {}), data.get("statuses", {})
+    if "activities" in data:
+        errors.append("legacy activities[] key present; run scripts/generate_factory_data.py --write")
+    for entry in data.get("assistants", []):
+        label = f"assistant use case {entry.get('title', '?')}"
+        missing = {"title", "file", "phase", "phases", "owner", "engagement", "status", "uses"} - entry.keys()
+        errors.extend(f"{label}: missing {field}" for field in sorted(missing))
+        if entry.get("phase") not in phases:
+            errors.append(f"{label}: invalid phase {entry.get('phase')!r}")
+        if not (ROOT / entry.get("file", "")).exists():
+            errors.append(f"{label}: missing file {entry.get('file')}")
+        if entry.get("owner") not in roles:
+            errors.append(f"{label}: owner {entry.get('owner')!r} not in roles")
+        errors.extend(f"{label}: engagement {value!r} not in engagements"
+                      for value in entry.get("engagement", []) if value not in engagements)
+        if entry.get("status") not in statuses:
+            errors.append(f"{label}: status {entry.get('status')!r} not in statuses")
+    return errors
+
+
+def validate_references(data: dict) -> list[str]:
+    errors = validate_assistants(data)
+    for use_kind, kind in USE_KINDS.items():
         for name in uses(data, use_kind):
             path = component_path(kind, name)
             if kind == "Skill" and (path and path.exists() or name in adopt_skills()):
                 continue
             if not path or not path.exists():
                 errors.append(f"{use_kind} reference does not resolve: {name}")
+    phases, statuses = set(data.get("phases", [])), data.get("statuses", {})
     for component in data.get("components", []):
         kind, name = component.get("kind"), component.get("name")
         path = component_path(kind, name) if kind in KINDS else None
-        if kind in KINDS and not path:
+        if kind not in KINDS or not path:
             errors.append(f"component has invalid kind/name: {kind}/{name}")
-        elif kind in KINDS and not (
-            (path and path.exists())
-            or (kind == "Skill" and name in adopt_skills())
-        ):
+        elif not (path.exists() or (kind == "Skill" and name in adopt_skills())):
             errors.append(f"component file does not exist: {kind}/{name}")
+        if component.get("status") not in statuses:
+            errors.append(f"component {kind}/{name}: status {component.get('status')!r} not in statuses")
+        if kind in PHASE_LAYOUT_KINDS and component.get("phase") not in phases:
+            errors.append(f"component {kind}/{name}: phase {component.get('phase')!r} has no "
+                          f"column, so it is not shown on the map")
     return errors
 
 
@@ -98,13 +133,19 @@ def validate_orphans(data: dict) -> list[str]:
         root = ROOT / directory
         if not root.exists():
             continue
-        if leaf is None:
+        if kind == "Knowledge":
+            # Governed sources by id, plus top-level buckets with no governed source beneath
+            # them; container dirs (methodology/, domain-packs/) hold nested sources instead.
+            sources = knowledge_locations()
+            disk = set(sources) | {
+                p.name for p in root.iterdir()
+                if p.is_dir() and not any(p.glob("**/knowledge.meta.md"))
+            }
+        elif leaf is None:
             disk = {p.name for p in root.iterdir() if p.is_dir()}
         else:
             disk = {p.parent.name for p in root.glob(f"*/{leaf}")}
-        referenced = uses(data, {"Skill": "skill", "Agent": "agent", "Connector": "mcp",
-                                "Artifact": "artifact", "Knowledge": "knowledge",
-                                "Q-gate": "q-gate"}[kind])
+        referenced = set().union(*(uses(data, u) for u, k in USE_KINDS.items() if k == kind))
         referenced |= {
             component.get("name")
             for component in data.get("components", [])
@@ -112,8 +153,6 @@ def validate_orphans(data: dict) -> list[str]:
         }
         if kind == "Skill":
             referenced |= adopt_skills()
-        if kind == "Q-gate":
-            referenced = {name.replace("→", "-") for name in referenced}
         errors.extend(f"orphan {kind}: {name}" for name in sorted(disk - referenced))
     return errors
 
@@ -156,6 +195,8 @@ def validate_connectors() -> list[str]:
 
 
 def main(argv: list[str] | None = None) -> int:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--no-generated", action="store_true", help="skip generated-file checks")
     args = parser.parse_args(argv)

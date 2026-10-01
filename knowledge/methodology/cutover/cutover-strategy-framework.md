@@ -1,7 +1,6 @@
 # Cutover strategy — decision framework
 
-Curated from `FP_45 Cutover Strategy.pptx` (SAP, internal accelerator, 2026-08-20). See
-[_index.md](_index.md) for source/consumer context.
+See [_index.md](_index.md) for consumer context.
 
 ## 1. Core strategy questions
 

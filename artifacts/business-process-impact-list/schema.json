@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "description": "Simplification Item to candidate-process mapping, authored by readiness-analysis directly from its findings (no dedicated Tool) as conversion-scoping's primary input. Client applicability explicitly remains unverified until conversion-scoping confirms it against the RBA/RSA catalog, per the plan's Artifact Contracts table.",
+  "required": ["items"],
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["simplification_item_id", "candidate_process", "applicability_verified"],
+        "properties": {
+          "simplification_item_id": { "type": "string", "description": "e.g. \"S4TWL - ASSET ACCOUNTING\"." },
+          "candidate_process": { "type": "string", "description": "Free-text candidate business process/area, before conversion-scoping resolves it against the RBA/RSA catalog." },
+          "lob_business_area": { "type": "string", "description": "The Simplification Item's own \"LoB -- Business Area\" text, verbatim from the Readiness Check export." },
+          "applicability_verified": {
+            "type": "boolean",
+            "description": "Always false when written by readiness-analysis. conversion-scoping flips this to true only after matching against the RBA/RSA catalog and the client's own process scope."
+          },
+          "note": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,157 +1,292 @@
 #!/usr/bin/env python3
-"""Cross-checks each own-posture skill's skill.meta.md "Dependency graph" table against the
-real textual references in its SKILL.md body (EPMCSAPAI-299).
+"""Lints own-posture component meta.md files for three kinds of issues:
+
+  1. Drift (skills only): knowledge_source/artifact rows declared in skill.meta.md but not
+     referenced in SKILL.md body text, or referenced in body text but not declared.
+  2. Vocabulary: any row in any meta.md whose Type or Relation is not in the v0.3 allowed set.
+  3. Path intersection: a component in the dependency chain from an assistant whose
+     project_types or sdlc_phases have no overlap with the assistant's own declared sets.
 
 Usage:
-    python3 tools/lint_dependencies.py [--fix]
+    python3 scripts/lint_dependencies.py [--fix] [--strict]
 
-Scoped to `knowledge` and `artifact` rows only: those are the two categories SKILL.md has a
-structural, regex-able reference convention for (../../../knowledge/<bucket>,
-../../../artifacts/<name> -- see tools/adapter_common.py's referenced_names()). `connector`,
-`skill`, `agent`, and `q-gate` rows are read (so a missing skill.meta.md file is still caught)
-but not cross-checked -- there's no equivalent structural convention for those types in SKILL.md
-yet, and guessing one here would just be a second, undocumented convention. See EPMCSAPAI-291's
-"AI-artifacts-maintain-strategy.md" for the Dependency graph's own design; this deliberately
-targets that table rather than inventing a separate `needs:` block (see EPMCSAPAI-299's Jira
-comment for that reasoning).
+Covers: skills/, agents/, assistants/, tools/. Connectors and artifacts don't have walkable
+Dependency graph tables themselves (they appear as leaves in others' graphs), so they're not
+scanned as primary targets here.
 
-Reports two kinds of drift per skill:
-  - declared: a knowledge/artifact row names something SKILL.md's own body never references
-    via the ../../../<category>/<name> path convention (could be a real gap in SKILL.md, or the
-    convention just isn't how that reference happens to be written -- see caveat below).
-  - undeclared: SKILL.md references a knowledge bucket or artifact the Dependency graph table
-    never mentions.
+Missing *.meta.md files always exit 1 regardless of --strict, since that check has no caveats.
+Vocabulary and intersection issues exit 1 only with --strict, same as skill drift.
+--fix only applies to skills (body-text cross-check has no equivalent for other kinds).
 
-Caveat: the regex convention only catches path-style references (`../../../knowledge/process/`).
-A skill that mentions a bucket in bare prose (`knowledge/process/`, no `../../../` prefix) will
-show as "declared but not referenced" here even though the reference is real -- this is a known
-limitation of the existing regex scan, not a new one introduced by this script. Treat a flagged
-skill's declared-but-not-found list as something to double-check by eye, not as an unconditional
-bug.
-
-`--fix` only ever adds rows for genuinely undeclared references (never removes or auto-explains
-a declared-but-not-found row) -- for the reason above, removing or judging a declared row without
-a human isn't safe to automate.
+FORWARD_DECLARED_KNOWLEDGE_SOURCES: knowledge_source IDs a consumer is allowed to declare
+with no registered knowledge.meta.md yet. Remove an entry only once its knowledge.meta.md
+actually exists or the consuming row is repointed at a real source.
 """
 import argparse
-import re
 import sys
 from pathlib import Path
 
 FACTORY_ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(FACTORY_ROOT / "tools"))
+sys.path.insert(0, str(FACTORY_ROOT / "scripts"))
 import adapter_common as common  # noqa: E402
 
-TABLE_ROW_RE = re.compile(r"^\|(.+)\|\s*$")
+parse_dependency_graph = common.parse_dependency_graph
+load_knowledge_sources = common.load_knowledge_sources
+
+FORWARD_DECLARED_KNOWLEDGE_SOURCES = {
+    # assistants/solution-architect/assistant.meta.md -- "managed role boundary and routing
+    # context". No content describing role boundary/routing exists under knowledge/ yet.
+    "solution-architect-role-context",
+    # agents/brownfield-sad-authoring-agent/agent.meta.md -- Brownfield SAD authoring
+    # methodology. No knowledge_source describing this exists under knowledge/ yet.
+    # Reverted from `standards` (2026-09-11): that bucket's content is unrelated.
+    "brownfield-sad-authoring-methodology",
+    # skill.meta.md files -- similarly forward-declared methodology sources
+    "conversion-scoping-methodology",
+    "sizing-methodology",
+}
+
+# v0.3 dependency-graph vocabulary
+VALID_TYPES = {
+    "assistant", "agent", "skill", "tool", "connector",
+    "artifact", "knowledge_source", "q-gate",
+}
+VALID_RELATIONS = {
+    "requires", "optional", "routes-to", "chains-to",
+    "produces", "consumes", "gates-at", "related",
+}
 
 
-def parse_dependency_graph(meta_path):
-    """Returns a list of (type, ref, relation, notes) tuples parsed from meta_path's
-    "## Dependency graph" markdown table. Empty list if the file or section doesn't exist."""
-    if not meta_path.exists():
+# ---------- vocabulary check (all kinds) ----------
+
+def check_vocabulary(rows):
+    """Returns a list of issue strings for any row with an unknown type or relation."""
+    issues = []
+    for row_type, ref, relation, _notes in rows:
+        t = row_type.strip().lower()
+        r = relation.strip().lower()
+        if t not in VALID_TYPES:
+            issues.append(f"unknown type '{t}' (ref: {ref.strip()})")
+        if r not in VALID_RELATIONS:
+            issues.append(f"unknown relation '{r}' (ref: {ref.strip()}, type: {t})")
+    return issues
+
+
+def check_forward_declared(rows, known_sources):
+    """Returns issue strings for knowledge_source rows referencing IDs that are neither
+    registered in known_sources nor in FORWARD_DECLARED_KNOWLEDGE_SOURCES."""
+    issues = []
+    for row_type, ref, _relation, _notes in rows:
+        if row_type.strip().lower() != "knowledge_source":
+            continue
+        for source_id in (r.strip("`").strip() for r in ref.split(",")):
+            if (source_id
+                    and source_id not in known_sources
+                    and source_id not in FORWARD_DECLARED_KNOWLEDGE_SOURCES):
+                issues.append(
+                    f"knowledge_source '{source_id}' is neither registered "
+                    "nor in FORWARD_DECLARED_KNOWLEDGE_SOURCES"
+                )
+    return issues
+
+
+def check_meta(kind, name, meta_path, known_sources):
+    """Checks a non-skill meta.md for: existence, vocabulary validity, and unregistered
+    knowledge_source rows. Returns a result dict."""
+    result = {
+        "kind": kind, "name": name,
+        "no_meta": not meta_path.exists(),
+        "vocab_issues": [],
+        "forward_decl_issues": [],
+    }
+    if result["no_meta"]:
+        return result
+    rows = parse_dependency_graph(meta_path)
+    result["vocab_issues"] = check_vocabulary(rows)
+    result["forward_decl_issues"] = check_forward_declared(rows, known_sources)
+    return result
+
+
+# ---------- path intersection check (assistants) ----------
+
+def check_path_intersection(assistant_name):
+    """Returns issue strings for components in the dependency chain from this assistant
+    whose project_types or sdlc_phases don't overlap with the assistant's own declared sets."""
+    meta = common.ASSISTANTS_DIR / assistant_name / "assistant.meta.md"
+    fields = common.read_frontmatter_fields(meta)
+    asst_types = set(fields.get("project_types", []))
+    asst_phases = set(fields.get("sdlc_phases", []))
+    if not asst_types or not asst_phases:
         return []
-    text = meta_path.read_text(encoding="utf-8")
-    marker = "## Dependency graph"
-    if marker not in text:
-        return []
-    section = text.split(marker, 1)[1]
-    rows = []
-    data_rows_started = False
-    for line in section.splitlines():
-        line = line.strip()
-        if not line:
-            if data_rows_started:
-                break
+
+    expanded = common.expand_dependencies(assistant_names=[assistant_name])
+    issues = []
+
+    checks = [
+        ("agent", expanded["agents"],
+         lambda n: common.AGENTS_DIR / n / "agent.meta.md"),
+        ("skill", expanded["skills"],
+         lambda n: common.SKILLS_DIR / n / "skill.meta.md"),
+        ("tool", expanded["tools"],
+         lambda n: common.TOOLS_DIR / n / "tool.meta.md"),
+    ]
+    for kind, names, meta_fn in checks:
+        for n in names:
+            f = common.read_frontmatter_fields(meta_fn(n))
+            comp_types = set(f.get("project_types", []))
+            comp_phases = set(f.get("sdlc_phases", []))
+            if comp_types and not (comp_types & asst_types):
+                issues.append(
+                    f"{kind} '{n}': project_types {sorted(comp_types)} has no overlap "
+                    f"with assistant '{assistant_name}' {sorted(asst_types)}"
+                )
+            if comp_phases and not (comp_phases & asst_phases):
+                issues.append(
+                    f"{kind} '{n}': sdlc_phases {sorted(comp_phases)} has no overlap "
+                    f"with assistant '{assistant_name}' {sorted(asst_phases)}"
+                )
+    return issues
+
+
+# ---------- skill-specific drift check (knowledge/artifact cross-check vs SKILL.md body) ----------
+
+def knowledge_bucket(source_location):
+    parts = source_location.strip("/").split("/")
+    if parts and parts[0] == "knowledge":
+        parts = parts[1:]
+    return parts[0] if parts else source_location
+
+
+def declared_knowledge_buckets(rows, known_sources):
+    out = []
+    seen = set()
+    for source_id in declared_refs(rows, "knowledge_source"):
+        if source_id not in known_sources and source_id in FORWARD_DECLARED_KNOWLEDGE_SOURCES:
             continue
-        m = TABLE_ROW_RE.match(line)
-        if not m:
-            if data_rows_started:
-                break
-            continue
-        cells = [c.strip() for c in m.group(1).split("|")]
-        if len(cells) < 4:
-            continue
-        if set(cells[0]) <= {"-", " "}:  # the |---|---|---|---| separator row
-            data_rows_started = True
-            continue
-        if cells[0].lower() == "type":  # header row
-            continue
-        data_rows_started = True
-        rows.append(tuple(cells[:4]))
-    return rows
+        bucket = knowledge_bucket(known_sources.get(source_id, source_id))
+        if bucket not in seen:
+            seen.add(bucket)
+            out.append(bucket)
+    return out
 
 
 def declared_refs(rows, kind):
-    """kind is 'knowledge' or 'artifact' (singular, matching the table's Type column)."""
     out = []
     seen = set()
     for row_type, ref, _relation, _notes in rows:
         if row_type.strip().lower() != kind:
             continue
-        for name in (n.strip() for n in ref.split(",")):
+        for name in (n.strip("`").strip() for n in ref.split(",")):
             if name and name not in seen:
                 seen.add(name)
                 out.append(name)
     return out
 
 
-def check_skill(name):
-    """Returns a dict describing this skill's drift, or None if it has no skill.meta.md at all
-    (a separate, already-tracked gap -- see EPMCSAPAI-291's own status updates)."""
+def check_skill(name, known_sources):
+    """Returns a dict describing this skill's drift, or None if it has no skill.meta.md."""
     meta_path = common.SKILLS_DIR / name / "skill.meta.md"
     if not meta_path.exists():
         return {"skill": name, "no_meta": True}
 
     rows = parse_dependency_graph(meta_path)
-    result = {"skill": name, "no_meta": False}
-    for kind, category in (("knowledge", "knowledge"), ("artifact", "artifacts")):
-        declared = set(declared_refs(rows, kind))
+    result = {
+        "skill": name, "no_meta": False,
+        "vocab_issues": check_vocabulary(rows),
+        "forward_decl_issues": check_forward_declared(rows, known_sources),
+    }
+    for kind, category in (("knowledge_source", "knowledge"), ("artifact", "artifacts")):
+        if kind == "knowledge_source":
+            declared = set(declared_knowledge_buckets(rows, known_sources))
+        else:
+            declared = set(declared_refs(rows, kind))
         actual = set(common.referenced_names([name], category))
         result[f"{kind}_declared_not_referenced"] = sorted(declared - actual)
         result[f"{kind}_referenced_not_declared"] = sorted(actual - declared)
     return result
 
 
-def has_drift(result):
+def has_skill_drift(result):
     if result.get("no_meta"):
         return True
     return any(
-        result[f"{kind}_{direction}"]
-        for kind in ("knowledge", "artifact")
+        result.get(f"{kind}_{direction}")
+        for kind in ("knowledge_source", "artifact")
         for direction in ("declared_not_referenced", "referenced_not_declared")
     )
 
 
-def format_report(results):
+def has_meta_issues(result):
+    return result.get("no_meta") or result.get("vocab_issues") or result.get("forward_decl_issues")
+
+
+# ---------- reporting ----------
+
+def format_skill_report(results):
     lines = []
     for r in results:
-        if not has_drift(r):
+        if not has_skill_drift(r) and not r.get("vocab_issues") and not r.get("forward_decl_issues"):
             continue
         lines.append(f"skill '{r['skill']}':")
         if r.get("no_meta"):
             lines.append("  no skill.meta.md file")
             continue
-        for kind in ("knowledge", "artifact"):
+        for issue in r.get("vocab_issues", []):
+            lines.append(f"  vocab: {issue}")
+        for issue in r.get("forward_decl_issues", []):
+            lines.append(f"  {issue}")
+        for kind in ("knowledge_source", "artifact"):
             for names, label in (
-                (r[f"{kind}_declared_not_referenced"], f"{kind} declared but not found in SKILL.md"),
-                (r[f"{kind}_referenced_not_declared"], f"{kind} referenced in SKILL.md but not declared"),
+                (r.get(f"{kind}_declared_not_referenced", []),
+                 f"{kind} declared but not found in SKILL.md"),
+                (r.get(f"{kind}_referenced_not_declared", []),
+                 f"{kind} referenced in SKILL.md but not declared"),
             ):
                 if names:
                     lines.append(f"  {label}: {', '.join(names)}")
     return "\n".join(lines)
 
 
-def apply_fix(name, result):
-    """Appends a new Dependency graph row for each referenced-but-undeclared knowledge/artifact.
-    Never touches declared-but-not-found rows -- see module docstring."""
+def format_meta_report(results):
+    lines = []
+    for r in results:
+        if not has_meta_issues(r):
+            continue
+        kind, name = r["kind"], r["name"]
+        lines.append(f"{kind} '{name}':")
+        if r.get("no_meta"):
+            lines.append(f"  no {kind}.meta.md file")
+            continue
+        for issue in r.get("vocab_issues", []):
+            lines.append(f"  vocab: {issue}")
+        for issue in r.get("forward_decl_issues", []):
+            lines.append(f"  {issue}")
+    return "\n".join(lines)
+
+
+# ---------- fix (skills only) ----------
+
+def apply_fix(name, result, known_sources):
     meta_path = common.SKILLS_DIR / name / "skill.meta.md"
     text = meta_path.read_text(encoding="utf-8")
+    bucket_to_sources = {}
+    for source_id, source_location in known_sources.items():
+        bucket_to_sources.setdefault(knowledge_bucket(source_location), []).append(source_id)
     new_lines = []
-    for kind, key in (("knowledge", "knowledge_referenced_not_declared"),
+    for kind, key in (("knowledge_source", "knowledge_source_referenced_not_declared"),
                       ("artifact", "artifact_referenced_not_declared")):
-        for ref in result[key]:
+        for ref in result.get(key, []):
             relation = "consumes"
-            new_lines.append(f"| {kind} | {ref} | {relation} | TODO: describe this relation |")
+            if kind == "knowledge_source":
+                candidates = bucket_to_sources.get(ref, [])
+                if len(candidates) == 1:
+                    ref, note = candidates[0], "TODO: describe this relation"
+                else:
+                    note = (f"TODO: bucket `{ref}` -- resolve to the real "
+                            "knowledge_source ID(s) and describe this relation")
+            else:
+                note = "TODO: describe this relation"
+            new_lines.append(f"| {kind} | {ref} | {relation} | {note} |")
     if not new_lines:
         return False
     if not text.endswith("\n"):
@@ -161,42 +296,89 @@ def apply_fix(name, result):
     return True
 
 
+# ---------- main ----------
+
 def main(argv=None):
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     parser.add_argument("--fix", action="store_true",
-                         help="append rows for referenced-but-undeclared knowledge/artifacts; never removes anything")
+                        help="append rows for referenced-but-undeclared knowledge/artifacts in skills")
     parser.add_argument("--strict", action="store_true", help=(
-        "also fail (exit 1) on table-vs-SKILL.md drift, not just a missing skill.meta.md file. "
-        "Off by default: the Dependency graph tables are still being built out (EPMCSAPAI-291), "
-        "and the declared-but-not-referenced direction has a known false-positive source (see "
-        "module docstring) -- hard-failing CI on that data today would be premature. Missing "
-        "skill.meta.md files always fail, --strict or not, since that check has no such caveat."
+        "also exit 1 on vocabulary issues, path-intersection issues, and skill drift "
+        "(in addition to the unconditional exit 1 for any missing *.meta.md file)"
     ))
     args = parser.parse_args(argv)
 
-    names = common.all_own_skill_names()
-    results = [check_skill(name) for name in names]
+    known_sources = load_knowledge_sources()
+
+    # Skills: full drift + vocab check
+    skill_names = common.all_own_skill_names()
+    skill_results = [check_skill(name, known_sources) for name in skill_names]
 
     if args.fix:
         fixed = []
-        for r in results:
+        for r in skill_results:
             if r.get("no_meta"):
                 continue
-            if apply_fix(r["skill"], r):
+            if apply_fix(r["skill"], r, known_sources):
                 fixed.append(r["skill"])
         if fixed:
             print(f"Added missing rows for: {', '.join(fixed)}")
-            results = [check_skill(name) for name in names]
+            skill_results = [check_skill(name, known_sources) for name in skill_names]
 
-    report = format_report(results)
-    if report:
-        print(report)
+    # Agents, assistants, tools: vocab + forward-declared check
+    agent_results = [
+        check_meta("agent", n, common.AGENTS_DIR / n / "agent.meta.md", known_sources)
+        for n in common.all_own_agent_names()
+    ]
+    assistant_results = [
+        check_meta("assistant", n, common.ASSISTANTS_DIR / n / "assistant.meta.md", known_sources)
+        for n in common.all_own_assistant_names()
+    ]
+    tool_results = [
+        check_meta("tool", n, common.TOOLS_DIR / n / "tool.meta.md", known_sources)
+        for n in common.all_own_tool_names()
+    ]
+
+    # Path intersection check (per assistant)
+    path_issues = []
+    for n in common.all_own_assistant_names():
+        path_issues.extend(check_path_intersection(n))
+
+    # Report
+    skill_report = format_skill_report(skill_results)
+    meta_report = format_meta_report(agent_results + assistant_results + tool_results)
+    path_report = (
+        "path intersection issues:\n" + "\n".join(f"  {i}" for i in path_issues)
+        if path_issues else ""
+    )
+
+    all_reports = [r for r in [skill_report, meta_report, path_report] if r]
+    total = (len(skill_names) + len(agent_results)
+             + len(assistant_results) + len(tool_results))
+    if all_reports:
+        print("\n".join(all_reports))
     else:
-        print(f"Checked {len(names)} skills, no drift found.")
+        print(
+            f"Checked {total} components "
+            f"({len(skill_names)} skills, {len(agent_results)} agents, "
+            f"{len(assistant_results)} assistants, {len(tool_results)} tools), "
+            "no issues found."
+        )
 
-    any_missing_meta = any(r.get("no_meta") for r in results)
-    any_drift = any(has_drift(r) and not r.get("no_meta") for r in results)
-    if any_missing_meta or (args.strict and any_drift):
+    any_missing_meta = (
+        any(r.get("no_meta") for r in skill_results)
+        or any(r.get("no_meta") for r in agent_results + assistant_results + tool_results)
+    )
+    any_strict_issues = (
+        any(has_skill_drift(r) and not r.get("no_meta") for r in skill_results)
+        or any(has_meta_issues(r) and not r.get("no_meta")
+               for r in agent_results + assistant_results + tool_results)
+        or bool(path_issues)
+    )
+
+    if any_missing_meta or (args.strict and any_strict_issues):
         return 1
     return 0
 

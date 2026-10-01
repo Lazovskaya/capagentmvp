@@ -2,20 +2,15 @@
 
 Work items and the defect queue. The work-intent surface of record for now.
 
-Ported from sap-ai-cons's real, live-tested wiring (`mcp/connectors/tickets.md` and
-`mcp/connectors/jira-e2e-runbook.md`), the most mature connector across either predecessor repo:
-actually exercised against real tickets (EPMCSAPAI-203, EPMCSAPAI-204), not just specified.
-sap-ai-framework's older `connectors/jira-cloudalm.md` bundled Jira and Cloud ALM together for
-planning/tracking; this factory keeps them separate, since factory-data.json already lists
-`cloud-alm` as its own connector (SAP's delivery surface, needed for Deploy and Run reporting).
-This file stays scoped to ticketing and incident/defect work, matching how sap-ai-cons built it.
+Live-tested against real Jira tickets. Scoped to ticketing and incident/defect work only;
+`cloud-alm` is a separate connector covering SAP's delivery surface for Deploy and Run reporting.
 
 ## Two parts, don't confuse them
 
 1. **This file**, the definition: what the connector is and which activities use it.
 2. **`server.json`** (this folder) plus the project's own `.mcp.json`, the live wiring. Secrets
-   are never in either; real values live in a `.env` file outside the project directory (see
-   "Wiring" below), never committed.
+ are never in either; real values live in a `.env` file outside the project directory (see
+ "Wiring" below), never committed.
 
 ## What it connects to
 
@@ -26,7 +21,7 @@ execs `uvx mcp-atlassian` — never written to a file that could be committed.
 **Verified live:** a working launcher was missing from the factory until this work — `server.json`
 originally invoked `uvx mcp-atlassian` directly, which starts with no
 `JIRA_URL`/`JIRA_USERNAME`/`JIRA_API_TOKEN` and cannot authenticate. A first fix ported in
-sap-ai-cons's macOS-only Keychain-backed bash script and confirmed it worked live, but that only
+an earlier macOS-only Keychain-backed bash script and confirmed it worked live, but that only
 covers macOS. Replaced it with `start-mcp-atlassian.py`: same idea (credentials never touch the
 project or `.mcp.json`), but cross-platform, since `mcp-atlassian` itself just wants plain
 environment variables and Python's `Path.home()` resolves to the right per-user directory on
@@ -36,12 +31,12 @@ against the same real ticket after the rewrite.
 ## Wiring
 
 1. Create `~/.config/mcp-atlassian/sessions/<destination>.env` (any name for `<destination>`,
-   e.g. `default`) with `JIRA_URL`, `JIRA_USERNAME`, and `JIRA_API_TOKEN`. This file lives outside
-   the project directory and is never read by, or written into, the repo.
+ e.g. `default`) with `JIRA_URL`, `JIRA_USERNAME`, and `JIRA_API_TOKEN`. This file lives outside
+ the project directory and is never read by, or written into, the repo.
 2. In the project's `.mcp.json`, wire `jira` to
-   `{"command": "python3", "args": ["./connectors/jira/scripts/start-mcp-atlassian.py", "--destination=<destination>"]}`
-   — matching the destination name chosen in step 1 (or set `MCP_ATLASSIAN_DESTINATION` instead of
-   the flag).
+ `{"command": "python3", "args": ["./connectors/jira/scripts/start-mcp-atlassian.py", "--destination=<destination>"]}`
+ — matching the destination name chosen in step 1 (or set `MCP_ATLASSIAN_DESTINATION` instead of
+ the flag).
 
 ## Product-agnostic operations
 
@@ -64,7 +59,7 @@ status, priority, or assignee change ever happens through this connector.
 
 **Default is dry-run.** Skills that use this connector must preview the exact labels and comment
 locally first. Live MCP mutations happen only when the user explicitly passes `--apply` (or an
-equivalent clear approval the skill documents). See `docs/skill-design-conventions.md` §6.
+equivalent clear approval the skill documents).
 
 1. Read, classify, and write the local artifact first.
 2. Preview the exact labels and comment before touching Jira.
@@ -72,7 +67,7 @@ equivalent clear approval the skill documents). See `docs/skill-design-conventio
 4. Preserve every existing label; only append normalized `sap-*` labels.
 5. Add the classification comment; never change workflow fields.
 6. Verify by re-reading the issue after write-back; record success or failure in the local
-   artifact rather than assuming it worked.
+ artifact rather than assuming it worked.
 
 ## Label convention
 
@@ -102,19 +97,19 @@ implies should happen next, that decision stays with a human.
 
 ```yaml
 data_classification:
-   input: client-confidential
-   output: client-confidential
-   credentials: restricted
+ input: client-confidential
+ output: client-confidential
+ credentials: restricted
 default_mode: read-only
 allowed_operations: [jira_get_issue, jira_add_comment, jira_update_issue]
 approval_required: [jira_add_comment, jira_update_issue]
 forbidden_operations: [transition, assign, delete, status-or-priority-change]
 write_controls:
-   preview_payload: true
-   local_artifact_required: true
-   reread_after_write: true
-   external_id_required: true
-   apply_flag_required: true
+ preview_payload: true
+ local_artifact_required: true
+ reread_after_write: true
+ external_id_required: true
+ apply_flag_required: true
 ```
 
 Customer issue data remains engagement-scoped. Do not promote issue content to

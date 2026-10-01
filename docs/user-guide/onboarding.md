@@ -6,8 +6,8 @@
 > `docs/contributing/` for that audience) and not for the consultant running the delivery
 > tooling before handoff (see `skills/factory-onboard/`).
 >
-> **Status:** first pass, EPMCSAPAI-297 (P7). Markdown-in-repo first, structured to migrate to
-> kb.epam.com once the delivery process settles — see "Migration to KB" at the end.
+> **Status:** first pass, EPMCSAPAI-297 (P7). One of three linked outputs for this ticket — see
+> also `access-security-guide.md` and `kb-migration-plan.md` in this same folder.
 
 ---
 
@@ -68,11 +68,6 @@ tool-specific equivalent from the table above) — look for `--destination=<name
 (`connectors/<name>/connector.md`) for the full, current field list; the table above is a
 summary, that file is the source of truth.
 
-If your engagement supplied a pilot infrastructure context file instead of asking you to create
-these by hand, `tools/pilot_context.py` (invoked automatically by `tools/unpack.py`, see below)
-resolves it into the `abap-mcp` session file for you — you still only ever provide the
-credential *value* via an environment variable at resolve time, never as a committed file.
-
 ## 4. Prerequisites (once, per machine)
 
 - **Node.js** (provides `npx`) — needed if `abap-mcp` is wired. Check with `npx --version`;
@@ -97,18 +92,16 @@ context file and need to produce your own project, or need to re-run it after an
 
 ```bash
 python3 tools/unpack.py --target claude-code --project /path/to/your-project \
-  --skills '*' --connectors abap-mcp \
-  --context platform/pilot-context/pilot-<id>.context.json
+  --skills '*' --connectors abap-mcp
 ```
 
-- `--target` is `claude-code`, `github-copilot` (alias `copilot`), or `cursor`; omit it to install
-  for every tool listed in the context file's `toolEnvironments`.
+- `--target` is `claude-code`, `github-copilot` (alias `copilot`), or `cursor`; repeatable to
+  install for multiple tools in one call.
 - Re-running is safe: unchanged skills/connectors are left alone, and `knowledge/`/`artifacts/`
   content already seeded once is never silently overwritten — only genuinely new or updated
   content is touched. Nothing you've edited yourself under `knowledge/` or `artifacts/` will be
   clobbered by a later delivery cycle.
-- The command prints what it installed and, if a context file was used, verifies the credential
-  file it wrote actually has every field filled in before finishing.
+- The command prints what it installed.
 
 ## 6. Verifying tool readiness
 
@@ -126,10 +119,14 @@ configured.
 
 ## 7. Daily workflow
 
-- Skills are playbooks the assistant loads automatically based on what you ask (or explicitly,
-  depending on the tool — `/skill-name` in Claude Code, a prompt file in Copilot, a rule in
-  Cursor). You don't need to "run" anything separately; describe the task and the right skill
-  activates.
+- Skills are playbooks each tool discovers automatically from where they were installed (see
+  section 2's table — a plain `SKILL.md` per skill, read natively by all three tools) and applies
+  based on what you ask. You don't need to "run" anything separately; describe the task and the
+  right skill activates. Claude Code also supports invoking one by name explicitly
+  (`/skill-name`). Copilot's skill support specifically is newer and its exact conventions are
+  still being verified against a live session (see `tools/github-copilot/adapter/README.md`'s
+  caveat) — if a skill doesn't seem to trigger there, that's the likely reason, not a
+  misconfiguration on your end.
 - Connector calls that only read data (fetch a ticket, read ABAP source) run without asking.
   Anything that would **write** — updating a Jira ticket, creating a transport — follows a
   dry-run/preview-first convention: the assistant shows you exactly what it would change and
@@ -139,21 +136,12 @@ configured.
   real facts about the client's systems and processes — the factory seeded a starting point, it
   doesn't own these files going forward.
 
-## 8. Security boundaries, summarized
+## 8. Security and where this goes next
 
-| | Pre-packaged (in the repo you received) | You supply |
-|---|---|---|
-| Skill instructions, connector definitions | ✅ | |
-| MCP wiring shape (`command`, `args`) | ✅ | |
-| Real credentials (passwords, tokens, JWTs) | never | ✅ (session file outside the project) |
-| Knowledge/artifact starting content | ✅ (once) | edits from here on |
+Full credential/token boundaries, what's pre-packaged vs. what you supply, and the incident
+process if a credential is ever exposed: see
+[`access-security-guide.md`](access-security-guide.md).
 
-Never commit a real credential into this project, even temporarily — every connector's design
-assumes secrets live only in the per-user session file described in section 3, which is never
-read from or written into the repo by any tooling here.
-
-## 9. Migration to KB
-
-This file is authored as the source of truth in-repo first. Once the delivery process
-stabilizes, this content is intended to move to kb.epam.com; until then, this file (not a KB
-page) is authoritative — if a KB copy exists and disagrees with this file, this file wins.
+This guide is authored as the source of truth in-repo first; see
+[`kb-migration-plan.md`](kb-migration-plan.md) for when and how it (and the security guide) move
+to kb.epam.com.

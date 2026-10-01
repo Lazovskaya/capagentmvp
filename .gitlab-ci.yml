@@ -1,5 +1,16 @@
 # Manual-trigger pipeline for client artifact packaging (EPMCSAPAI-306).
 #
+# Runs on whichever ref you pick in "Run Pipeline" -- there is no branch restriction, so
+# packaging a WIP branch (e.g. feature/architecture-assistant) just means picking that ref there.
+#
+# Variable naming: renamed (EPMCSAPAI-330) to match this factory's real directory names --
+# INCLUDED_SKILLS/INCLUDED_AGENTS/INCLUDED_ASSISTANTS map to skills/, agents/, assistants/
+# 1:1, not to this ticket's original AC wording (which named a --skills-mapped variable
+# INCLUDED_AGENTS -- confusing once a real, distinct Agent component kind existed). INCLUDED_FLOWS
+# (--activity) was dropped entirely -- INCLUDED_USE_CASE (--use-case, EPMCSAPAI-330) supersedes it
+# as the "resolve everything from one high-level selector" path; --activity itself still exists in
+# scripts/package_client_artifacts.py for direct CLI use, just not exposed as a CI variable here.
+#
 # Status: partial. The `package` job calls scripts/package_client_artifacts.py (EPMCSAPAI-300).
 # The `lint-dependencies` job now calls the real scripts/lint_dependencies.py (EPMCSAPAI-299), but
 # only hard-fails on a missing skill.meta.md file -- its full check (comparing each skill's
@@ -10,66 +21,132 @@
 # scripts/lint_dependencies.py's own docstring). Hard-failing CI on WIP, partly-noisy data would be
 # premature -- revisit --strict once 291's tables settle.
 #
-# All CI scripts live under scripts/, not tools/ (tools/ is an empty, stale placeholder for the
-# per-tool adapter scaffolding described in CLAUDE.md, unrelated to these pipeline scripts).
+# All CI scripts live under scripts/, not tools/ (tools/ is now the v0.3 per-component Tool kind
+# -- tools/<name>/tool.md -- unrelated to these pipeline scripts).
 #
-# Variable naming: this ticket's own acceptance criteria name INCLUDED_AGENTS and INCLUDED_FLOWS.
-# This factory's actual vocabulary is skills/connectors/activities, not "agents" (a distinct,
-# narrower component kind here) or "flows" (not a concept this factory uses at all). Mapped
-# INCLUDED_AGENTS -> --skills and INCLUDED_FLOWS -> --activity as the closest existing concepts;
-# flagged this mismatch back to the ticket rather than silently reinterpreting it -- confirm or
-# correct the mapping if it's wrong.
+# Two package jobs, two different outputs (EPMCSAPAI-330):
+#   - `package`: this factory's own directory layout (assistants/, agents/, skills/, tools/,
+#     connectors/, knowledge/, artifacts/) -- tool-agnostic on purpose, meant as a portable,
+#     re-usable bundle, not something you can drop straight into an IDE. See
+#     scripts/package_client_artifacts.py's own docstring.
+#   - `package-for-tool`: TARGET_TOOL-adapted output (the actual per-tool shape a coding agent
+#     reads -- e.g. .claude/agents/<name>.md + .mcp.json + CLAUDE.md for Claude Code), produced
+#     by running scripts/unpack.py against a throwaway staging directory and zipping that.
+#     Currently supported TARGET_TOOL values: claude-code, cursor, github-copilot (the three
+#     adapters this factory actually has -- see scripts/<tool>/adapter/). No Codex/other adapter
+#     exists yet; picking an unsupported value fails the job with a clear message rather than
+#     silently producing the factory-shape output instead.
 #
 # `check-mr-approvals`: GitLab Free has no native "required approvers" MR rule (Premium/Ultimate
 # only), so this job substitutes for it -- see scripts/check_mr_approvals.py for the approver
-# lookup and self-approval handling. For this job's failure to actually block a merge, `main`'s
-# protected-branch settings must also require "Pipelines must succeed"; that plus two project
-# CI/CD variables (Settings -> CI/CD -> Variables, not declared below since they're project
-# config, not per-run pipeline input) are one-time project setup this file can't do on its own:
+# lookup, self-approval handling, and (EPMCSAPAI-NNN, staff/sme-contribution-roundtrip-plan.md
+# step 5) the additional per-component-owner approval requirement for MRs that don't target
+# `main`. Exception (see is_maintainer_direct_mr() there): an MR targeting anything other than
+# `main` AND opened directly by one of MR_REQUIRED_APPROVERS themselves skips approval entirely --
+# this never applies to MRs targeting `main`.
+# For this job's failure to actually block a merge, both `main`'s and
+# `feature/architecture-assistant`'s protected-branch settings must require "Pipelines must
+# succeed"; that plus two project CI/CD variables (Settings -> CI/CD -> Variables, not declared
+# below since they're project config, not per-run pipeline input) are one-time project setup
+# this file can't do on its own:
 #   - MR_APPROVAL_CHECK_TOKEN: masked, protected, a token with read_api scope.
 #   - MR_REQUIRED_APPROVERS: comma-separated list of required-approver GitLab usernames
 #     (matching is case-insensitive), e.g. "alice,bob,carol".
+#
+# sync-check/sync-open-mr (EPMCSAPAI-NNN): a manually-triggered alternative front end for
+# scripts/sync_back.py, for a maintainer (or an SME, if given access) who doesn't have both
+# repos cloned locally. Run for real against this project's own runner -- the read side
+# (cloning sap-ai-factory-test via CI_JOB_TOKEN) works on the first try, confirming the
+# "Cross-repo access" question in staff/sme-contribution-roundtrip-plan.md; no PAT fallback
+# needed in practice, though SAP_AI_FACTORY_TEST_READ_TOKEN (masked+protected, read_repository
+# scope on sap-ai-factory-test) is kept as one anyway.
+#
+# The write side is a separate, one-time project CI/CD variable this file can't set up on its
+# own: CI_JOB_TOKEN can clone but, confirmed by a real 403 ("You are not allowed to push code to
+# this project"), cannot push -- GitLab disables pushing with the job token by default.
+# sync_back.py's --open-mr push falls back to plain `origin` (an SME's own git remote already has
+# push access there) unless this variable is set, in which case it builds an authenticated push
+# URL from it instead:
+#   - SYNC_BACK_PUSH_TOKEN: masked, protected, a token with write_repository scope on
+#     sap-ai-factory itself (a project access token, not CI_JOB_TOKEN).
 
 stages:
   - validate
+  - sync
   - package
 
+# Widened (EPMCSAPAI-NNN) from target == "main" only: an MR into any branch (e.g.
+# feature/architecture-assistant, where an SME's factory contribution actually lands) must now
+# also trigger a pipeline, or lint-dependencies/pytest/check-mr-approvals never run on it at all.
+#
+# The third rule (push straight to main -- i.e. an MR merge lands one) exists only for
+# regenerate-factory-data below, and only while FACTORY_DATA_AUTOREGEN is "true" (see that job);
+# every other job's own `rules:` still excludes this source, so a main push runs that one job
+# alone, not the whole validate/package suite again (already run against the MR before it merged).
 workflow:
   rules:
     - if: $CI_PIPELINE_SOURCE == "web"
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main" && $FACTORY_DATA_AUTOREGEN == "true"'
 
 # Top-level, not per-job: the description/value object form only renders as a prompt in
 # GitLab's "Run Pipeline" web UI when declared here. All jobs below inherit these as plain
 # environment variables automatically -- no per-job re-declaration needed.
 variables:
-  INCLUDED_AGENTS:
-    description: "Comma-separated skill names to bundle (this factory's 'skills', not its own, narrower 'Agent' component kind), or '*' for all own-posture skills."
-    value: ""
-  INCLUDED_FLOWS:
-    description: "Comma-separated Delivery-pipeline activity titles in scope for the client (repeatable in the underlying tool as --activity; provide one here, or extend this job if a real engagement needs more than one)."
-    value: ""
   CLIENT_NAME:
     description: "Identifier used to name the generated archive (client-artifacts-<name>.zip)."
+    value: ""
+  TARGET_TOOL:
+    description: "Which tool(s) the package-for-tool job adapts its output for. Comma-separated to produce more than one (e.g. 'claude-code,cursor') -- each gets its own dist/client-artifacts-<name>-<tool>/ folder. Currently supported: claude-code, cursor, github-copilot -- an unsupported value fails that job with a clear message. Has no effect on the `package` job (its output is tool-agnostic)."
+    value: "claude-code"
+  INCLUDED_ASSISTANTS:
+    description: "Comma-separated Assistant names (assistants/<name>/), or '*' for all. Specifying an Assistant here is usually enough on its own -- its full Agent/Skill/Tool/Connector/Knowledge Source chain is resolved and packaged automatically (INCLUDED_USE_CASE below is the other way to reach the same result)."
+    value: ""
+  INCLUDED_USE_CASE:
+    description: "A single stable use_case_id (repeatable in the underlying tool as --use-case; provide one here, or extend this job if a real engagement needs more than one). Resolves every Assistant/Agent that declares this ID, then packages its full dependency chain automatically -- an alternative to naming INCLUDED_ASSISTANTS/INCLUDED_AGENTS directly."
     value: ""
   DRY_RUN:
     description: "If 'true', validates the selection and reports what would be packaged without producing an archive."
     value: "false"
+  INCLUDED_SKILLS:
+    description: "Comma-separated Skill names (skills/<name>/), or '*' for all own-posture skills."
+    value: ""
+  INCLUDED_AGENTS:
+    description: "Comma-separated Agent names (agents/<name>/), or '*' for all own-posture agents."
+    value: ""
+  TEST_SOURCE_BRANCH:
+    description: "sync-check/sync-open-mr only: branch in sap-ai-factory-test holding the SME's changes, e.g. feature/bbg-readiness-topic-skills."
+    value: ""
+  TARGET_BRANCH:
+    description: "sync-check/sync-open-mr only: branch in sap-ai-factory to land onto, e.g. feature/architecture-assistant."
+    value: "feature/architecture-assistant"
 
 lint-dependencies:
   stage: validate
   image: python:3.11-slim
   rules:
     - if: $CI_PIPELINE_SOURCE == "web"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   script:
     - python3 scripts/lint_dependencies.py
+  allow_failure: false
+
+pytest:
+  stage: validate
+  image: python:3.11-slim
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  script:
+    - pip install --quiet pytest
+    - python3 -m pytest tests/
   allow_failure: false
 
 check-mr-approvals:
   stage: validate
   image: python:3.11-slim
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   script:
     - python3 scripts/check_mr_approvals.py
   allow_failure: false
@@ -87,14 +164,265 @@ package:
         echo "CLIENT_NAME is required." >&2
         exit 1
       fi
-      ARGS="--client-name $CLIENT_NAME"
-      if [ -n "$INCLUDED_AGENTS" ]; then ARGS="$ARGS --skills $INCLUDED_AGENTS"; else ARGS="$ARGS --skills ''"; fi
-      if [ -n "$INCLUDED_FLOWS" ]; then ARGS="$ARGS --activity \"$INCLUDED_FLOWS\""; fi
+      ARGS="--client-name '$CLIENT_NAME'"
+      if [ -n "$INCLUDED_SKILLS" ]; then ARGS="$ARGS --skills '$INCLUDED_SKILLS'"; else ARGS="$ARGS --skills ''"; fi
+      if [ -n "$INCLUDED_AGENTS" ]; then ARGS="$ARGS --agents '$INCLUDED_AGENTS'"; fi
+      if [ -n "$INCLUDED_ASSISTANTS" ]; then ARGS="$ARGS --assistants '$INCLUDED_ASSISTANTS'"; fi
+      if [ -n "$INCLUDED_USE_CASE" ]; then ARGS="$ARGS --use-case '$INCLUDED_USE_CASE'"; fi
       if [ "$DRY_RUN" = "true" ]; then ARGS="$ARGS --dry-run"; fi
-      echo "Running: python3 scripts/package_client_artifacts.py $ARGS --out-dir dist"
-      eval "python3 scripts/package_client_artifacts.py $ARGS --out-dir dist"
+      # --no-zip: GitLab already wraps downloaded job artifacts in its own artifacts.zip, so
+      # zipping our own output here would just add a second, nested archive to unpack.
+      echo "Running: python3 scripts/package_client_artifacts.py $ARGS --out-dir dist --no-zip"
+      eval "python3 scripts/package_client_artifacts.py $ARGS --out-dir dist --no-zip"
   artifacts:
     paths:
-      - dist/*.zip
+      - dist/*
     expire_in: 30 days
     when: on_success
+
+package-for-tool:
+  stage: package
+  image: python:3.11-slim
+  rules:
+    - if: '$CLIENT_NAME == ""'
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "web"
+  script:
+    - |
+      if [ -z "$CLIENT_NAME" ]; then
+        echo "CLIENT_NAME is required." >&2
+        exit 1
+      fi
+      mkdir -p dist
+      # TARGET_TOOL may be a comma-separated list (e.g. "claude-code,cursor") -- one staging run
+      # and one dist/ folder per tool, no zip of our own (GitLab already wraps the downloaded
+      # artifacts in its own artifacts.zip, so a nested zip per tool would just be extra unzipping).
+      OLD_IFS=$IFS
+      IFS=','
+      for tool in $TARGET_TOOL; do
+        IFS=$OLD_IFS
+        case "$tool" in
+          claude-code|cursor|github-copilot) ;;
+          *)
+            echo "TARGET_TOOL must be one of: claude-code, cursor, github-copilot (got '$tool')." >&2
+            exit 1
+            ;;
+        esac
+        STAGING="staging-${tool}"
+        rm -rf "$STAGING"
+        mkdir -p "$STAGING"
+        ARGS="--target $tool --project $STAGING"
+        if [ -n "$INCLUDED_SKILLS" ]; then ARGS="$ARGS --skills '$INCLUDED_SKILLS'"; fi
+        if [ -n "$INCLUDED_AGENTS" ]; then ARGS="$ARGS --agents '$INCLUDED_AGENTS'"; fi
+        if [ -n "$INCLUDED_ASSISTANTS" ]; then ARGS="$ARGS --assistants '$INCLUDED_ASSISTANTS'"; fi
+        if [ -n "$INCLUDED_USE_CASE" ]; then ARGS="$ARGS --use-case '$INCLUDED_USE_CASE'"; fi
+        if [ "$DRY_RUN" = "true" ]; then
+          echo "Running (check only, $tool): python3 scripts/unpack.py $ARGS --check"
+          eval "python3 scripts/unpack.py $ARGS --check" || true
+        else
+          echo "Running ($tool): python3 scripts/unpack.py $ARGS"
+          eval "python3 scripts/unpack.py $ARGS"
+          # Strip internal-only governance docs before it ever reaches a client (EPMCSAPAI-330):
+          # tool.md/schema.json are governance docs a coding agent never reads at runtime (the
+          # Skill's own instructions are self-sufficient). factory-lock.json is kept for now --
+          # still needed for drift-tracking against client-delivered packages.
+          find "$STAGING/tools" -name "tool.md" -delete 2>/dev/null || true
+          find "$STAGING/artifacts" -name "schema.json" -delete 2>/dev/null || true
+          DEST="dist/client-artifacts-${CLIENT_NAME}-${tool}"
+          rm -rf "$DEST"
+          cp -r "$STAGING" "$DEST"
+          echo "Packaged for '$CLIENT_NAME' ($tool): $DEST/"
+        fi
+        IFS=','
+      done
+      IFS=$OLD_IFS
+      if [ "$DRY_RUN" = "true" ]; then
+        echo "Dry run -- nothing written. (A fresh staging project always shows everything as"
+        echo "'not yet installed' drift -- that's the preview, not a failure.)"
+      fi
+  artifacts:
+    paths:
+      - dist/*
+    expire_in: 30 days
+    when: on_success
+
+.sync_clone_test_repo: &sync_clone_test_repo |
+  if [ -z "$TEST_SOURCE_BRANCH" ]; then
+    echo "TEST_SOURCE_BRANCH is required (branch in sap-ai-factory-test holding the SME's changes)." >&2
+    exit 1
+  fi
+  TEST_REPO_PATH="${CI_PROJECT_NAMESPACE}/sap-ai-factory-test"
+  # Cloned to /tmp, deliberately outside this checkout: sync_back.py --apply refuses to run
+  # against a dirty factory working tree, and a clone landing inside $CI_PROJECT_DIR would show
+  # up as an untracked directory in `git status`, tripping that guard for no real reason.
+  SYNC_TEST_REPO_DIR="/tmp/sap-ai-factory-test"
+  rm -rf "$SYNC_TEST_REPO_DIR"
+  # No --depth here (deliberately, EPMCSAPAI-NNN): a shallow clone has exactly one commit of
+  # history, which silently breaks sync_back.py's lock-poisoning reachability check -- it can
+  # only ever conclude "unreachable" (falsely, if the real match lives further back) rather than
+  # correctly finding a genuine historical baseline. Confirmed by a real CI run: the same MR
+  # reported brownfield-sad-authoring-agent as NO-BASELINE here but CONFLICT against a full
+  # local clone, because the real match (commit 13216c7) fell outside a --depth 1 clone's history.
+  if git clone --branch "$TEST_SOURCE_BRANCH" \
+      "https://gitlab-ci-token:${CI_JOB_TOKEN}@${CI_SERVER_HOST}/${TEST_REPO_PATH}.git" "$SYNC_TEST_REPO_DIR"; then
+    echo "Cloned sap-ai-factory-test via CI_JOB_TOKEN."
+  elif [ -n "$SAP_AI_FACTORY_TEST_READ_TOKEN" ] && git clone --branch "$TEST_SOURCE_BRANCH" \
+      "https://gitlab-ci-token:${SAP_AI_FACTORY_TEST_READ_TOKEN}@${CI_SERVER_HOST}/${TEST_REPO_PATH}.git" "$SYNC_TEST_REPO_DIR"; then
+    echo "CI_JOB_TOKEN clone failed -- fell back to SAP_AI_FACTORY_TEST_READ_TOKEN."
+  else
+    echo "Could not clone sap-ai-factory-test with either CI_JOB_TOKEN or SAP_AI_FACTORY_TEST_READ_TOKEN." >&2
+    echo "See 'Cross-repo access' in staff/sme-contribution-roundtrip-plan.md -- verify the job" >&2
+    echo "token permission allowlist entry's granted role, and that the fallback token exists." >&2
+    exit 1
+  fi
+
+# Manually triggered (Run Pipeline, like package/package-for-tool above), NOT run on every MR --
+# this clones a second project into the runner's workspace, which only an explicit, deliberate
+# trigger should do. Run for real against this project's own runner four times so far
+# (EPMCSAPAI-NNN), each run fixing what the previous one's log actually showed:
+#   1. The plain `python:3.11-slim` image has no `git` binary at all ("git: command not found"),
+#      failing both the CI_JOB_TOKEN and PAT-fallback clone attempts identically before either
+#      credential was exercised -- fixed with `before_script` below.
+#   2. With git installed, the CI_JOB_TOKEN clone succeeded on the first try -- the "Cross-repo
+#      access" question in staff/sme-contribution-roundtrip-plan.md is resolved: the job token's
+#      granted role is sufficient, no PAT fallback needed in practice (kept anyway as a fallback).
+#   3. That same run reported brownfield-sad-authoring-agent as NO-BASELINE, where every local
+#      run (full clone) reports CONFLICT -- caused by `--depth 1` truncating the clone to one
+#      commit, hiding the real historical match sync_back.py's reachability check depends on.
+#      Fixed by dropping --depth entirely (see .sync_clone_test_repo's own comment).
+#   4. A real sync-open-mr run got all the way through --apply --commit correctly (CONFLICT
+#      correctly skipped, LOCAL-EDIT/NEW correctly applied), then `git push` 403'd --
+#      CI_JOB_TOKEN can clone but not push. Fixed with the SYNC_BACK_PUSH_TOKEN variable
+#      documented above. That same run also printed "Writing into factory branch: HEAD" --
+#      GitLab's detached-HEAD checkout defeated sync_back.py's own branch-name detection (and
+#      would have silently defeated the protected-branch confirmation check too, for anyone not
+#      passing --yes); fixed in sync_back.py's current_branch() to fall back to
+#      CI_COMMIT_REF_NAME.
+# Still to confirm: a re-run with SYNC_BACK_PUSH_TOKEN set should get past the push and actually
+# open the MR.
+.sync_install_git: &sync_install_git
+  apt-get update -qq && apt-get install -y -qq --no-install-recommends git
+
+# Auto-regenerates factory-data.json (and index.html/factory-data.js) straight on main after an
+# MR merges, with no post-hoc approval step -- decided deliberately: this only ever replays
+# generate_factory_data.py/build.py against sidecars that already passed lint-dependencies/
+# check-mr-approvals as part of that MR, so there is no new, unreviewed content for a human to
+# look at. If the sidecars didn't actually drift from what's already in factory-data.json (the
+# regenerate step is a no-op), nothing is committed at all.
+#
+# Own push token, deliberately separate from SYNC_BACK_PUSH_TOKEN above: that one already backs a
+# different flow (sync-open-mr) and carries the Developer role for that purpose -- reusing it here
+# would couple two unrelated automations to one token's lifecycle/role, so this job has its own:
+#   - FACTORY_DATA_PUSH_TOKEN: masked, protected, a project access token (Settings -> Access
+#     Tokens, not a personal one) with write_repository scope on sap-ai-factory itself. Its
+#     human-readable name in that UI can be anything (e.g. "Automatic generation
+#     factory-data.json") -- that label has no bearing on CI; only this variable's key does, and
+#     CI/CD variable keys can't contain spaces or dots the way a token's display name can.
+#
+# On/off switch, opt-in: runs only while the project CI/CD variable FACTORY_DATA_AUTOREGEN is
+# exactly "true" (Settings -> CI/CD -> Variables; not a secret, so no mask/protect needed).
+# Unset, "false", or anything else = off, so merging this file changes nothing until someone
+# deliberately turns it on, and turning it off again needs no code change. Deliberately not
+# declared in the top-level `variables:` block: a yaml default there would be one more place the
+# switch could be flipped by accident in an MR.
+#
+# Loop guard, two layers: (1) `git diff --quiet` before committing anything -- a push whose
+# regenerate step changed nothing exits 0 with no commit, so it can't cause a second push; (2) the
+# commit message's trailing `[skip ci]` makes GitLab not even create a pipeline for the bot's own
+# push, so even a real content-changing regen-commit can't retrigger this job on itself.
+regenerate-factory-data:
+  stage: sync
+  image: python:3.11-slim
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main" && $FACTORY_DATA_AUTOREGEN == "true"'
+  before_script:
+    - *sync_install_git
+  script:
+    - |
+      # Belt-and-braces alongside the job's own `rules:` above: if those rules are ever widened
+      # (e.g. a web/manual trigger added), a run on a non-main ref would otherwise have
+      # `git push ... HEAD:main` below push that ref's content straight into main, bypassing review.
+      if [ "$CI_COMMIT_BRANCH" != "main" ]; then
+        echo "This job only ever pushes to main, refusing to run against '$CI_COMMIT_BRANCH'." >&2
+        exit 1
+      fi
+      python3 scripts/generate_factory_data.py --write
+      python3 build.py
+      if git diff --quiet -- factory-data.json index.html factory-data.js; then
+        echo "factory-data.json already matches the *.meta.md sidecars -- nothing to commit."
+        exit 0
+      fi
+      if [ -z "$FACTORY_DATA_PUSH_TOKEN" ]; then
+        echo "Sidecars drifted from factory-data.json but FACTORY_DATA_PUSH_TOKEN is not set, so" >&2
+        echo "this job cannot push the regenerated files to main. See .gitlab-ci.yml's own header." >&2
+        exit 1
+      fi
+      git config user.email "factory-data-bot@sap-ai-factory"
+      git config user.name "factory-data-bot"
+      git add factory-data.json index.html factory-data.js
+      git commit -m "Auto-regenerate factory-data.json from *.meta.md sidecars
+
+      [skip ci]"
+      git push "https://gitlab-ci-token:${FACTORY_DATA_PUSH_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" HEAD:main
+
+# Writes MR_REQUIRED=true|false to a dotenv report -- sync_back.py --check's own exit code
+# (EPMCSAPAI-NNN) reflects whether a *human* needs to look (1 only for a CONFLICT; LOCAL-EDIT/
+# NEW is the normal, expected result of checking a branch with real edits, not a failure), which
+# is a different question from whether sync-open-mr should run. The dotenv report is how that
+# second answer crosses into the next job -- see sync_back.py's own module docstring for exactly
+# what each exit code / MR_REQUIRED value means.
+sync-check:
+  stage: sync
+  image: python:3.11-slim
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web" && $TEST_SOURCE_BRANCH != ""'
+  before_script:
+    - *sync_install_git
+  script:
+    - *sync_clone_test_repo
+    - python3 scripts/sync_back.py --project /tmp/sap-ai-factory-test --check --dotenv-out sync_check.env
+  artifacts:
+    reports:
+      dotenv: sync_check.env
+
+# Runs automatically right after sync-check (EPMCSAPAI-NNN) -- no more when: manual. `needs:`
+# (rather than relying on stage order alone) is what makes sync-check's dotenv variable visible
+# here even though both jobs are in the same `sync` stage, and what makes this job not run at
+# all if sync-check exited 1 (a CONFLICT -- a human must look, so nothing should auto-commit).
+# Given MR_REQUIRED=true, it creates the MR and exits 0 on success, or fails (exit 1) if it
+# can't -- e.g. a new skill with no skill.meta.md and no declared parent (see below). Given
+# MR_REQUIRED=false (nothing worth contributing), it does nothing and exits 0. The MR itself
+# still goes through check-mr-approvals/lint-dependencies/pytest like any other, and a
+# maintainer merges it through GitLab once approvals clear -- that merge, not this job, is the
+# deliberate "land it" step.
+#
+# Sidecar-less new skills: sync_back.py --commit refuses outright to commit a NEW skill with no
+# skill.meta.md rather than open an MR lint-dependencies is guaranteed to fail (this is exactly
+# what happened on the first real run of this job: the 6 new readiness-* skills landed with no
+# skill.meta.md because nothing scaffolded one). It resolves each such skill's parent from
+# .factory-contribution.yaml, if the SME committed one in the test repo declaring the split(s) --
+# a single file can name several splits with different parents, so this job needs no
+# scaffold-related variable of its own; the parent's owner/project_types/sdlc_phases/
+# risk_freedom get inherited deterministically (no guessing -- the child gets the same real,
+# already-accountable owner the parent has). A genuinely standalone new skill (no parent to
+# inherit from, and not declared anywhere) still isn't wired into this job -- it needs a human
+# to scaffold it by hand with --scaffold-sidecars first, and this job will fail (exit 1) telling
+# them so rather than silently opening a doomed MR.
+sync-open-mr:
+  stage: sync
+  image: python:3.11-slim
+  needs: ["sync-check"]
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web" && $TEST_SOURCE_BRANCH != ""'
+  script:
+    - |
+      if [ "$MR_REQUIRED" != "true" ]; then
+        echo "sync-check found nothing worth contributing (MR_REQUIRED=$MR_REQUIRED) -- nothing to do."
+        exit 0
+      fi
+    - *sync_install_git
+    - *sync_clone_test_repo
+    - git config user.email "sync-back-bot@sap-ai-factory"
+    - git config user.name "sync-back-bot"
+    - python3 scripts/sync_back.py --project /tmp/sap-ai-factory-test --apply --commit --open-mr
+        --target-branch "$TARGET_BRANCH" --yes

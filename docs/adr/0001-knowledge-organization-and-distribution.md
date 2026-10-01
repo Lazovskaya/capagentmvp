@@ -6,6 +6,15 @@
 organization pattern), EPMCSAPAI-293 (clone-and-filter packaging pipeline), EPMCSAPAI-239
 (legal feasibility of ingesting SAP knowledge)
 
+> **MVP status (2026-09-09).** Not implemented. `knowledge-template-MVP.md` v0.3 forbids
+> distribution classification on the sidecar, so the gate described below in *Distribution and
+> filtering* has no field to read. The Consequences clause's fail-closed default
+> (`epam-internal-only` until reviewed) is **not adopted** -- it would block the shipping the
+> factory currently depends on: all knowledge under `knowledge/` ships with the factory into
+> client environments today, because the agents and skills need it to work. Revisit this ADR's
+> Decision once knowledge management supports selective shipping. See
+> `knowledge/README.md`'s own Distribution note for the interim position.
+
 ## Context
 
 This factory's skills and agents need domain knowledge to work well: SAP Clean Core rules,
@@ -19,9 +28,9 @@ distributed, so that:
 
 **What already exists and is validated**, not a starting point still to design (a file sidecar):
 
-- A `knowledge/<bucket>/` layout in this repo (nine buckets: `clean-core`, `config`,
-  `custom-code`, `data`, `domain-packs`, `extensibility`, `operations`, `process`, `standards`,
-  `testing`), several with real content (`domain-packs/order-to-cash`'s ten troubleshooting
+- A `knowledge/<bucket>/` layout in this repo (eleven buckets: `clean-core`, `config`,
+  `custom-code`, `data`, `domain-packs`, `extensibility`, `methodology`, `operations`, `process`,
+  `standards`, `testing`), several with real content (`domain-packs/order-to-cash`'s ten troubleshooting
   trees, `testing`'s templates).
 - Skills reference the buckets they need by relative path in their own `SKILL.md` prose.
 - `tools/adapter_common.py`'s `referenced_names()` scans an installed skill set for those

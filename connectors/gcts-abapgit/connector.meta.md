@@ -1,18 +1,23 @@
 ---
 connector: gcts-abapgit
 namespace: "@epam/sap"
-
-connector-type: documented-only
-system-type: [onprem, cloud]           # inferred from "Source control for ABAP Cloud, CAP and UI5" description — not yet confirmed by a real server.json
-auth-type: [TBD]
-sdlc-stage: not-ready
-
-distribution-class: client-shippable
-
-source: internal
-source-repo: [TBD]
-
-verified-live: false
+version: 0.1.0
+owner: katsiaryna_ustsinava@epam.com
+project_types: [greenfield, brownfield, bluefield, ams, product-development, discovery, consulting, enterprise-architecture]
+sdlc_phases: []
+integration_boundary:
+  system: gcts-abapgit
+  environments: [onprem, cloud]        # inferred from "Source control for ABAP Cloud, CAP and UI5" description — not yet confirmed by a real server.json
+  access_path:
+authentication_model: []
+data_classification: confidential
+connector_type: api
+permission_scope:
+readiness: in-progress
+provenance:
+  source: internal
+  source_repo:
+verified_live: false
 ---
 
 ## Notes

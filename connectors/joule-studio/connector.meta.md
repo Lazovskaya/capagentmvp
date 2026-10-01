@@ -1,18 +1,23 @@
 ---
 connector: joule-studio
 namespace: "@epam/sap"
-
-connector-type: cli
-system-type: []
-auth-type: [TBD]
-sdlc-stage: not-ready
-
-distribution-class: client-shippable
-
-source: SAP
-source-repo: [TBD]
-
-verified-live: false
+version: 0.1.0
+owner: katsiaryna_ustsinava@epam.com
+project_types: [greenfield, brownfield, bluefield, ams, product-development, discovery, consulting, enterprise-architecture]
+sdlc_phases: []
+integration_boundary:
+  system: joule-studio
+  environments: []
+  access_path: cli
+authentication_model: []
+data_classification: confidential
+connector_type: cli
+permission_scope:
+readiness: in-progress
+provenance:
+  source: SAP
+  source_repo:
+verified_live: false
 ---
 
 ## Notes

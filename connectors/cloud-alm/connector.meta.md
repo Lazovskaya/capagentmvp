@@ -1,18 +1,23 @@
 ---
 connector: cloud-alm
 namespace: "@epam/sap"
-
-connector-type: [mcp, script]          # two integration modes for the same service — see Notes
-system-type: []                        # not ABAP-system-facing — this axis doesn't apply
-auth-type: [oauth2]
-sdlc-stage: in-test
-
-distribution-class: client-shippable
-
-source: [TBD]                          # the sap-cloud-alm-mcp binary's publisher (SAP-official vs. community) is not stated in connector.md or server.json — do not assume
-source-repo: [TBD]
-
-verified-live: partial   # script-pattern CALM_TM push: verified 2026-09-01. MCP mode: not yet verified.
+version: 0.1.0
+owner: katsiaryna_ustsinava@epam.com
+project_types: [greenfield, brownfield, bluefield, ams, product-development, discovery, consulting, enterprise-architecture]
+sdlc_phases: [prepare, explore, realize, deploy, run]
+integration_boundary:
+  system: sap-cloud-alm
+  environments: []                     # not ABAP-system-facing — this axis doesn't apply
+  access_path: mcp                     # two integration modes exist for this service (mcp + script) — see Notes; template allows one value
+authentication_model: [oauth2]
+data_classification: confidential
+connector_type: mcp                    # two integration modes for the same service — see Notes; template allows one value
+permission_scope: read-write
+readiness: in-progress
+provenance:
+  source:                              # the sap-cloud-alm-mcp binary's publisher (SAP-official vs. community) is not stated in connector.md or server.json — do not assume
+  source_repo:
+verified_live: partial   # script-pattern CALM_TM push: verified 2026-09-01. MCP mode: not yet verified.
 ---
 
 ## Notes

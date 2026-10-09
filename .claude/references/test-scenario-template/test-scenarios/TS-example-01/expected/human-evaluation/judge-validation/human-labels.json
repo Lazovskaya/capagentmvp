@@ -1,0 +1,12 @@
+{
+  "dimensions": ["grounding", "defensibility", "relevance"],
+  "scale": "integer 1-5 (5 = best); definitions in ../../machine-evaluation/l3-evaluation-llm-judge/rubric.md",
+  "instructions": "Add one entry per candidate in candidates/, then fill each null with your integer 1-5 score. Run align_judge.py afterwards.",
+  "samples": [
+    {
+      "id": "<candidate-id>",
+      "candidate": "candidates/<candidate-file>.json",
+      "human": { "grounding": null, "defensibility": null, "relevance": null }
+    }
+  ]
+}

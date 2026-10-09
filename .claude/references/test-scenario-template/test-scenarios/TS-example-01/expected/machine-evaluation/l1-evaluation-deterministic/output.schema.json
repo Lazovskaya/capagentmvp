@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "<component> output artifact",
+  "description": "TEMPLATE schema. Replace the fields below with the real required fields of the output the component under test must produce. The runner validates the output file against this at Level 1.",
+  "type": "object",
+  "required": [
+    "<stable_id_field>",
+    "<decision_field>"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "<stable_id_field>": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The stable identifier that must appear verbatim (matches grading.level1.expected_stable_id)."
+    },
+    "<decision_field>": {
+      "type": "string",
+      "enum": ["<value-1>", "<value-2>", "<value-3>"],
+      "description": "The main categorical decision the component makes."
+    },
+    "<rationale_field>": {
+      "type": "string",
+      "minLength": 40,
+      "description": "Free-text justification the Level-3 judge scores for grounding."
+    },
+    "<recommendations_field>": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

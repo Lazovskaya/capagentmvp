@@ -142,6 +142,34 @@ pytest:
     - python3 -m pytest tests/
   allow_failure: false
 
+cap-pattern-tests:
+  stage: validate
+  image: node:${NODE_VERSION}-bookworm-slim
+  parallel:
+    matrix:
+      - NODE_VERSION: ["22", "24"]
+        CDS_VERSION: ["9.9.3", "10.1.1"]
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  script:
+    - node --test tools/cap-pattern-scanner/scripts/scan.test.mjs tools/cap-pattern-scanner/helpers/index.test.js
+    - export CAP_TEST_PROJECT="$(mktemp -d)"
+    - npm install --prefix "$CAP_TEST_PROJECT" --ignore-scripts --no-audit --no-fund "@sap/cds@$CDS_VERSION"
+    - NODE_ENV=production node --test tools/cap-pattern-scanner/helpers/cap.integration.mjs
+  allow_failure: false
+
+cap-pattern-delivery:
+  stage: validate
+  image: node:24-bookworm-slim
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "web"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  script:
+    - apt-get update && apt-get install -y --no-install-recommends python3
+    - node --test tools/cap-pattern-scanner/scripts/delivery.test.mjs
+  allow_failure: false
+
 check-mr-approvals:
   stage: validate
   image: python:3.11-slim

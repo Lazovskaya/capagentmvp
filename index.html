@@ -270,6 +270,17 @@ window.FACTORY_DATA = {
    "desc": "Determines SAD readiness, gathers prerequisite evidence, orchestrates the Brownfield SAD authoring flow (readiness -> sizing -> conversion scoping -> workshop scheduling -> state reconciliation -> ADR log -> SAD drafting -> Confluence publication), and returns SAD review status. Invoked by the `solution-architect` Assistant for the `brownfield-sad-authoring` use case; never invoked directly."
   },
   {
+   "kind": "Agent",
+   "name": "cap-pattern-advisor",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Realize",
+   "phases": [
+    "Realize"
+   ],
+   "desc": "Reviews recurring CAP Node.js boilerplate for CAP-AI-11 through the cap-suggest-patterns skill, returning evidence-backed native API or npm helper proposals for developer review rather than applying changes automatically."
+  },
+  {
    "kind": "Artifact",
    "name": "brownfield-sad-authoring-state",
    "posture": "own",
@@ -698,6 +709,17 @@ window.FACTORY_DATA = {
   },
   {
    "kind": "Skill",
+   "name": "cap-suggest-patterns",
+   "posture": "own",
+   "status": "progress",
+   "phase": "Realize",
+   "phases": [
+    "Realize"
+   ],
+   "desc": "Suggest CAP-native patterns and internal npm helpers from evidence in an existing CAP Node.js project. Use for CAP-AI-11 during Realize when reviewing remote services, validation, errors, CDS modeling, query safety, transactions, pagination, drafts, or i18n lookup. Produces reviewable examples, not automatic rewrites."
+  },
+  {
+   "kind": "Skill",
    "name": "confluence-document-publishing",
    "posture": "own",
    "status": "progress",
@@ -855,6 +877,19 @@ window.FACTORY_DATA = {
    ],
    "desc": "Mechanical sizing calculator: turns a raw sizing baseline into a padded target recommendation by applying a growth buffer, subtracting an archiving offset, and adding new-functionality headroom, split across one or more target instances. Does not decide methodology or interpret findings -- that's `sizing-analysis`'s job.",
    "operation": "calculate-s4hana-sizing",
+   "permission_scope": "read-only"
+  },
+  {
+   "kind": "Tool",
+   "name": "cap-pattern-scanner",
+   "posture": "own",
+   "status": "in-test",
+   "phase": "Realize",
+   "phases": [
+    "Realize"
+   ],
+   "desc": "Inspects explicitly scoped local CAP Node.js CDS and handler sources for catalog signals, returning deterministic candidate evidence and coverage without executing project code, calling external services, or changing files.",
+   "operation": "scan-cap-patterns",
    "permission_scope": "read-only"
   },
   {

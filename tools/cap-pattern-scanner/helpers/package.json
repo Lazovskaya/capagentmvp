@@ -1,0 +1,11 @@
+{
+  "name": "@epam/cap-pattern-helpers",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Experimental opt-in CAP helpers; not yet published or CAP-version certified",
+  "type": "module",
+  "exports": "./index.js",
+  "files": ["index.js", "README.md"],
+  "engines": { "node": ">=22" },
+  "scripts": { "test": "node --test" }
+}

@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0",
+  "patterns": [
+    {
+      "id": "CAP-I18N-001",
+      "title": "Use CAP-native message lookup",
+      "kind": "native",
+      "maturity": "documented-native",
+      "extensions": [".js", ".cjs", ".mjs", ".ts"],
+      "signals": ["\\b(?:readFileSync|readFile)\\s*\\([^\\n]*\\.properties"],
+      "documentation": "https://cap.cloud.sap/docs/node.js/cds-i18n",
+      "compatibilityChecks": ["Verify cds.i18n availability in the installed CAP version", "Identify messages vs labels vs a custom bundle and locale/placeholder behavior"],
+      "contraindications": ["The file is not a CAP translation bundle", "Custom fallback semantics must be preserved"],
+      "example": "const text = cds.i18n.messages.at('ORDER_CONFLICT', req.locale, { ID: req.data.ID })",
+      "verification": "Compare locale, fallback, and placeholder outputs against existing tests. For req.reject use message keys directly instead of pre-translating."
+    },
+    {
+      "id": "CAP-PAGING-001",
+      "title": "Prefer generic CAP pagination",
+      "kind": "native",
+      "maturity": "documented-native",
+      "extensions": [".js", ".cjs", ".mjs", ".ts"],
+      "signals": ["\\.SELECT\\.limit\\s*="],
+      "documentation": "https://cap.cloud.sap/docs/guides/services/served-ootb",
+      "compatibilityChecks": ["Confirm the generic READ provider handles this entity", "Check custom READ handlers, upstream limits, sorting, count, and paging contracts"],
+      "contraindications": ["Custom remote pagination protocol", "Custom handler bypasses the generic provider"],
+      "example": "@cds.query.limit: { default: 20, max: 100 }\nservice CatalogService { /* preserve existing projections */ }",
+      "verification": "Compare first/next/empty page, $top/$skip, sorting, and $count; do not remove custom paging without behavioral tests."
+    },
+    {
+      "id": "CAP-REMOTE-ERROR-001",
+      "title": "Review upstream error forwarding",
+      "kind": "helper",
+      "maturity": "experimental",
+      "package": { "name": "@epam/cap-pattern-helpers", "version": "0.1.0", "export": "withRemoteError", "published": false },
+      "extensions": [".js", ".cjs", ".mjs", ".ts"],
+      "signals": [
+        "\\breq\\s*\\.\\s*(?:reject|error)\\s*\\([^\\n()]*\\b(?:err|error)\\s*\\.\\s*message",
+        "\\breq\\s*\\.\\s*(?:reject|error)\\s*\\(\\s*\\d{3}\\s*,\\s*(?:err|error)\\s*\\.\\s*message\\b",
+        "\\breq\\s*\\.\\s*(?:reject|error)\\s*\\(\\s*\\{[^{}]*?\\bmessage\\s*:\\s*(?:err|error)\\s*\\.\\s*message\\b",
+        "\\breq\\s*\\.\\s*(?:reject|error)\\s*\\(\\s*(?:err|error)\\s*\\)"
+      ],
+      "documentation": "https://cap.cloud.sap/docs/node.js/events#req-reject",
+      "compatibilityChecks": ["Prove the caught error comes from a remote operation, not local validation", "Check existing error library, UI5 field targets, error codes, and module format", "Distinguish req.error collection from req.reject immediate throwing; withRemoteError always rejects immediately", "Approve package rights/registry and certify the actual CAP runtime before adoption"],
+      "contraindications": ["An established project wrapper already preserves the required contract", "Client contract requires distinct upstream business errors not yet mapped", "Collected errors must remain collected; the rejecting helper is not a drop-in replacement", "Experimental package is not approved for this project"],
+      "example": "import { withRemoteError } from '@epam/cap-pattern-helpers'\nthis.on('READ', Customers, req => withRemoteError(req, () => remote.run(req.query), {\n  mapError: error => error.status === 404\n    ? { status: 404, code: 'CUSTOMER_NOT_FOUND', target: 'ID' }\n    : { status: 502, code: 'REMOTE_SERVICE_FAILED' }\n}))",
+      "verification": "Test known business errors, unknown upstream failures, localization, field targets, collection vs immediate rejection, and no leakage over real CAP HTTP. CommonJS consumers require an approved module-loading strategy."
+    },
+    {
+      "id": "CAP-REMOTE-CONSUME-001",
+      "signalKind": "context",
+      "title": "Review remote-service consumption and READ delegation",
+      "kind": "native",
+      "maturity": "documented-native",
+      "extensions": [".js", ".cjs", ".mjs", ".ts"],
+      "signals": [
+        "\\bcds\\s*\\.\\s*connect\\s*\\.\\s*to\\s*\\(",
+        "\\b(?:axios(?:\\s*\\.\\s*(?:get|post|put|patch|delete))?|fetch)\\s*\\("
+      ],
+      "documentation": "https://cap.cloud.sap/docs/node.js/cds-connect",
+      "additionalDocumentation": ["https://cap.cloud.sap/docs/guides/integration/calesi", "https://cap.cloud.sap/docs/node.js/remote-services"],
+      "compatibilityChecks": ["Resolve the actual configured cds.requires key and service/model mapping; example names are placeholders, not detected project names", "Confirm the target is a remote service rather than a database or local CAP service, and that direct HTTP actually consumes its API", "Inspect imported model, domain consumption projection, exposed service projection, and existing READ delegation", "Verify projection/query translation, protocol, authentication, destination, paging, count, and expand support in the installed CAP version", "Check authorization and tenant context, existing client library, and any custom upstream request/response transformation"],
+      "contraindications": ["Connection is to a local service or database", "Existing consumption projections and delegation already preserve the intended contract", "Direct HTTP is not a modeled CAP remote-service API or requires unsupported protocol behavior", "Cross-service joins or expands require additional application logic or a separately reviewed replication strategy"],
+      "example": "const remote = await cds.connect.to('RemoteService')\nconst { Customers } = this.entities\nthis.on('READ', Customers, req => remote.run(req.query))",
+      "verification": "Context-only signal, not a defect. Confirm service identity from configuration, inspect both projection layers, and test query forwarding, mapped fields, filters, paging/count, authorization, and upstream failure with a local mock. A remote association alone does not mandate replication. Never copy credentials or require Cloud SDK packages without checking this CAP version's HTTP client requirements."
+    },
+    {
+      "id": "CAP-VALIDATION-001",
+      "title": "Review manual field checks for declarative validation",
+      "kind": "native",
+      "maturity": "documented-native",
+      "extensions": [".js", ".cjs", ".mjs", ".ts"],
+      "signals": [
+        "\\bif\\s*\\(\\s*!\\s*req\\s*\\.\\s*data\\s*\\.\\s*[A-Za-z_$][\\w$]*\\s*\\)",
+        "\\bif\\s*\\(\\s*req\\s*\\.\\s*data\\s*\\.\\s*[A-Za-z_$][\\w$]*\\s*={2,3}\\s*(?:null|undefined)\\s*\\)"
+      ],
+      "documentation": "https://cap.cloud.sap/docs/guides/services/constraints",
+      "compatibilityChecks": ["Prove the condition rejects invalid field input rather than applying a default or branching business logic", "Identify the actual service entity, field type, CREATE/UPDATE/action handler, and effective annotations", "Compare missing/null/empty/whitespace input, false, zero, and omitted PATCH fields; truthiness is not equivalent to @mandatory", "Preserve client-visible error codes, localization, Fiori field targets, and error aggregation", "Use @mandatory only for unconditional required input; consider @assert.range or @assert.format only after verifying their support and exact semantics"],
+      "contraindications": ["The requirement is conditional, cross-field, authorization-related, or depends on external state", "The check supplies a default instead of rejecting input", "The existing custom validation library preserves required UI or business semantics not supplied by native annotations", "The handler does not use the generic application-service validation pipeline"],
+      "example": "annotate CatalogService.Books with {\n  title @mandatory;\n};",
+      "verification": "Only propose this illustrative annotation after resolving the actual service/field and proving equivalence. Compare valid, missing, null, empty, whitespace, false, zero, partial PATCH, draft, and deep-write cases as applicable; inspect error code, locale, field target, and aggregation. Do not remove custom logic just because a field guard matched."
+    },
+    {
+      "id": "CAP-MODEL-001",
+      "signalKind": "context",
+      "title": "Review common key and audit-field aspects",
+      "kind": "native",
+      "maturity": "documented-native",
+      "extensions": [".cds", ".js", ".cjs", ".mjs", ".ts"],
+      "signals": [
+        "\\bkey\\s+ID\\s*:\\s*UUID\\b",
+        "\\b(?:createdAt|modifiedAt)\\s*:\\s*Timestamp\\b",
+        "\\breq\\s*\\.\\s*data\\s*\\.\\s*ID\\s*=\\s*cds\\s*\\.\\s*utils\\s*\\.\\s*uuid\\s*\\("
+      ],
+      "documentation": "https://cap.cloud.sap/docs/cds/common",
+      "compatibilityChecks": ["Inspect the effective entity and inherited aspects before proposing cuid or managed", "A UUID key is already auto-filled by generic CAP providers; cuid is equivalent shorthand, not a required fix", "Compare every audit-field name, type, annotation, insertion/update behavior, caller, and database migration", "Inspect existing data, foreign keys, projections, generated SQL, and public API before changing the model"],
+      "contraindications": ["External or legacy schema owns the keys or audit fields", "Custom audit semantics, composite/business keys, or caller-provided values must be retained", "An inherited aspect already supplies the intended behavior", "Replacing fields would change persistence or API without an approved migration"],
+      "example": "using { cuid, managed } from '@sap/cds/common';\nentity Books : cuid, managed {\n  title : String;\n}",
+      "verification": "Context-only signal. Do not rename keys or add all four managed fields merely to reduce boilerplate. Compare compiled CSN/SQL and service metadata, seed data, CREATE/UPDATE behavior, and migration impact; preserve custom semantics."
+    },
+    {
+      "id": "CAP-QUERY-001",
+      "title": "Review interpolated query strings for safe parameterization",
+      "kind": "native",
+      "maturity": "documented-native",
+      "extensions": [".js", ".cjs", ".mjs", ".ts"],
+      "signals": [
+        "\\.\\s*where\\s*\\(\\s*[\"'][^\\r\\n]*?[\"']\\s*\\+",
+        "\\.\\s*where\\s*\\(\\s*`[^`]*\\$\\{",
+        "\\b(?:cds|db)\\s*\\.\\s*run\\s*\\(\\s*`[^`]*\\$\\{"
+      ],
+      "documentation": "https://cap.cloud.sap/docs/node.js/cds-ql",
+      "compatibilityChecks": ["Prove interpolated content is used as query text and trace whether it can contain untrusted data", "Separate data values from identifiers and query structure; parameterization does not authorize dynamic identifiers", "Preserve database-specific semantics, null handling, search wildcards, types, authorization filters, and paging"],
+      "contraindications": ["The matched method is not a CAP query API", "The expression already binds values safely or builds a trusted static fragment", "Dynamic identifiers require a validated allowlist or model-based construction rather than value placeholders"],
+      "example": "const { Books } = this.entities\nconst books = await SELECT.from(Books).where({ ID: req.data.ID })",
+      "verification": "Candidate, not a confirmed injection finding. Test quotes and SQL-like input as literal data, nulls, numeric values, and existing authorization predicates. Tagged templates are safe when invoked as tags, not when passed as an interpolated string inside parentheses."
+    },
+    {
+      "id": "CAP-TX-001",
+      "signalKind": "context",
+      "title": "Review manual transactions and request-context boundaries",
+      "kind": "native",
+      "maturity": "documented-native",
+      "extensions": [".js", ".cjs", ".mjs", ".ts"],
+      "signals": [
+        "\\b(?:cds|db)\\s*\\.\\s*tx\\s*\\(",
+        "\\btx\\s*\\.\\s*(?:commit|rollback)\\s*\\("
+      ],
+      "documentation": "https://cap.cloud.sap/docs/node.js/cds-tx",
+      "compatibilityChecks": ["Determine whether this is a managed service handler, standalone script, or background job", "Inspect commit/rollback on every error path, awaited work, request context, tenant, and user propagation", "Check intended atomicity and isolation before removing or introducing a root transaction", "Remote HTTP side effects are not rolled back atomically with a local database transaction"],
+      "contraindications": ["An intentional standalone/background transaction already finalizes safely", "The application intentionally requires a separate transaction boundary", "A matched tx variable is not a CAP transaction"],
+      "example": "await cds.tx(async tx => {\n  await tx.run(query)\n})",
+      "verification": "The example is for an approved standalone boundary; managed service handlers normally already have a transaction. Test commit, rollback, rejected async work, tenant/user isolation, and connection release. Do not claim distributed atomicity or solve reliable remote delivery with a transaction wrapper."
+    },
+    {
+      "id": "CAP-DRAFT-001",
+      "signalKind": "context",
+      "title": "Retain CAP-native draft handling",
+      "kind": "native",
+      "maturity": "documented-native",
+      "extensions": [".cds"],
+      "signals": ["@odata\\.draft\\.enabled\\b"],
+      "documentation": "https://cap.cloud.sap/docs/node.js/fiori",
+      "compatibilityChecks": ["Inspect service projection, composition tree, existing draft handlers, and UI behavior"],
+      "contraindications": ["The annotation alone is not evidence of duplicated boilerplate"],
+      "example": "@odata.draft.enabled\nentity Orders as projection on db.Orders;",
+      "verification": "Context-only candidate: keep the existing implementation unless handler evidence proves redundancy. Never add an internal draft helper based on this signal alone."
+    }
+  ]
+}

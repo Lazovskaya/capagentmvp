@@ -1,0 +1,504 @@
+import assert from 'node:assert/strict'
+import { test } from 'node:test'
+import { mkdtemp, mkdir, writeFile, rm, symlink, readFile } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import path from 'node:path'
+import { spawnSync } from 'node:child_process'
+import { fileURLToPath } from 'node:url'
+import { scanProject, readReviewContext } from './scan.mjs'
+import { createMatcher } from './matcher.mjs'
+import { prepareReview, reconcileDecisions } from './review.mjs'
+
+async function fixture(context) {
+  const root = await mkdtemp(path.join(tmpdir(), 'cap-patterns-'))
+  context.after(() => rm(root, { recursive: true, force: true }))
+  await mkdir(path.join(root, 'srv'))
+  await mkdir(path.join(root, 'db'))
+  await writeFile(path.join(root, 'package.json'), JSON.stringify({ dependencies: { '@sap/cds': '^9' } }))
+  return root
+}
+
+test('catalog has unique IDs and valid executable signal expressions', async () => {
+  const catalog = JSON.parse(await readFile(new URL('../catalog.json', import.meta.url)))
+  assert.equal(catalog.version, '0.1.0')
+  assert.equal(new Set(catalog.patterns.map(pattern => pattern.id)).size, catalog.patterns.length)
+  for (const pattern of catalog.patterns) {
+    assert.ok(pattern.compatibilityChecks.length)
+    assert.ok(pattern.contraindications.length)
+    assert.ok(pattern.example)
+    for (const signal of pattern.signals) assert.doesNotThrow(() => new RegExp(signal, 'g'))
+  }
+})
+
+test('returns evidence, native alternatives, experimental helper, and reproducible IDs without source leakage', async context => {
+  const root = await fixture(context)
+  const source = "readFileSync('_i18n/messages.properties')\nreq.query.SELECT.limit = {}\nreq.reject(502, error.message) // client-secret\n"
+  await writeFile(path.join(root, 'srv', 'service.js'), source)
+  await writeFile(path.join(root, 'db', 'schema.cds'), '@odata.draft.enabled\nentity Orders {};')
+  const report = await scanProject(root)
+  assert.equal(report.scanner.version, '0.1.0')
+  assert.equal(prepareReview(report).reviewPolicy.version, '0.1.0')
+  assert.equal(report.findings.length, 4)
+  const remote = report.findings.find(finding => finding.patternId === 'CAP-REMOTE-ERROR-001')
+  assert.equal(remote.evidence.file, 'srv/service.js')
+  assert.equal(remote.evidence.line, 3)
+  assert.match(remote.evidence.sha256, /^[a-f0-9]{64}$/)
+  assert.equal(remote.recommendation.package.published, false)
+  assert.equal(report.runtime.compatibility, 'unverified')
+  assert.equal(JSON.stringify(report).includes('client-secret'), false)
+  assert.deepEqual(await scanProject(root), report)
+  assert.equal(await readFile(path.join(root, 'srv', 'service.js'), 'utf8'), source)
+})
+
+test('records missing, oversize, excluded, and symlinked paths and rejects traversal', async context => {
+  const root = await fixture(context)
+  await mkdir(path.join(root, 'srv', 'node_modules'))
+  await writeFile(path.join(root, 'srv', 'node_modules', 'hidden.js'), 'req.reject(502, error.message)')
+  await writeFile(path.join(root, 'srv', 'large.js'), ' '.repeat(1024 * 1024 + 1))
+  await symlink(tmpdir(), path.join(root, 'srv', 'outside'), 'junction')
+  const report = await scanProject(root, ['srv', 'missing', 'srv/outside/anything'])
+  assert.equal(report.coverage.complete, false)
+  assert.equal(report.findings.length, 0)
+  for (const reason of ['excluded-path', 'over-1MiB', 'symlink', 'unreadable-or-missing']) {
+    assert.ok(report.coverage.skipped.some(item => item.reason === reason), reason)
+  }
+  await assert.rejects(scanProject(root, ['../outside']), /within the project/)
+  await assert.rejects(scanProject(root, []), /at least one/)
+})
+
+test('explicit scope limits the report and overlapping scopes do not duplicate findings', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'service.ts'), 'req.reject(502, err.message)')
+  assert.equal((await scanProject(root, ['db'])).findings.length, 0)
+  assert.equal((await scanProject(root, ['srv', 'srv/service.ts'])).findings.length, 1)
+})
+
+test('remote consumption finds CAP connections and direct HTTP as review context', async context => {
+  const root = await fixture(context)
+  const source = [
+    "const remote = await cds.connect.to('RemoteService')",
+    'await axios.get(endpoint)',
+    'await fetch(endpoint)',
+    'await axios(endpoint)',
+    "await cds.connect.to('db')"
+  ].join('\n')
+  await writeFile(path.join(root, 'srv', 'remote.js'), source)
+  const report = await scanProject(root)
+  assert.deepEqual(report.findings.map(finding => finding.patternId), Array(5).fill('CAP-REMOTE-CONSUME-001'))
+  assert.deepEqual(report.findings.map(finding => finding.evidence.line), [1, 2, 3, 4, 5])
+  for (const finding of report.findings) {
+    assert.equal(finding.status, 'candidate')
+    assert.equal(finding.assessment, 'context-only')
+    assert.equal(finding.recommendation.kind, 'native')
+    assert.ok(finding.recommendation.contraindications.includes('Connection is to a local service or database'))
+    assert.match(finding.recommendation.verification, /not a defect/)
+  }
+})
+
+test('validation finds only supported field-guard forms and carries semantic review gates', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'validation.ts'), [
+    "if (!req.data.title) req.reject(400, 'TITLE_REQUIRED')",
+    "if (req.data.title == null) req.reject(400, 'TITLE_REQUIRED')",
+    "if (req.data.title === undefined) req.reject(400, 'TITLE_REQUIRED')",
+    "if (req.data.title === null) req.reject(400, 'TITLE_REQUIRED')",
+    'if (req.data.active) performBusinessAction()',
+    "if (req.user.is('Admin')) performAdminAction()"
+  ].join('\n'))
+  const findings = (await scanProject(root)).findings
+  assert.deepEqual(findings.map(finding => finding.patternId), Array(4).fill('CAP-VALIDATION-001'))
+  assert.deepEqual(findings.map(finding => finding.evidence.line), [1, 2, 3, 4])
+  assert.ok(findings[0].recommendation.compatibilityChecks.some(check => check.includes('truthiness is not equivalent')))
+  assert.ok(findings[0].recommendation.contraindications.some(check => check.includes('default')))
+})
+
+test('remote-error review covers positional, object, raw, and collected errors across lines', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'errors.js'), [
+    'req.reject(502, error.message)',
+    'req.reject({',
+    '  status: 502,',
+    '  message: err.message',
+    '})',
+    'req.error({ message: error.message })',
+    'req.reject(error)',
+    'req.error(err)',
+    'req.reject(\n  502,\n  err.message\n)',
+    'req.reject(error.status, error.message)'
+  ].join('\n'))
+  const findings = (await scanProject(root)).findings
+  assert.deepEqual(findings.map(finding => finding.patternId), Array(7).fill('CAP-REMOTE-ERROR-001'))
+  assert.deepEqual(findings.map(finding => finding.evidence.line), [1, 2, 6, 7, 8, 9, 13])
+  assert.ok(findings[0].recommendation.contraindications.some(check => check.includes('not a drop-in replacement')))
+})
+
+test('safe errors and declarative constraints do not trigger error or validation rules', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'safe.js'), [
+    "req.reject({ status: 409, code: 'ORDER_CONFLICT', target: 'ID' })",
+    "req.error(400, 'TITLE_REQUIRED', 'title')",
+    'req.reject({ message: errorMapping.safeCode })',
+    'const connected = connection.toString()',
+    'const client = axios.create(options)'
+  ].join('\n'))
+  await writeFile(path.join(root, 'srv', 'constraints.cds'), 'annotate CatalogService.Books with { title @mandatory; };')
+  assert.deepEqual((await scanProject(root)).findings, [])
+})
+
+test('combined remote consumption, error handling, and field checks retain independent evidence', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'combined.js'), [
+    "const remote = await cds.connect.to('RemoteService')",
+    "if (!req.data.title) req.reject(400, 'TITLE_REQUIRED')",
+    'req.reject({ status: 502, message: error.message })'
+  ].join('\n'))
+  const report = await scanProject(root)
+  assert.equal(report.catalogVersion, '0.1.0')
+  assert.deepEqual(report.findings.map(finding => finding.patternId), [
+    'CAP-REMOTE-CONSUME-001', 'CAP-VALIDATION-001', 'CAP-REMOTE-ERROR-001'
+  ])
+  assert.deepEqual(report.findings.map(finding => finding.evidence.line), [1, 2, 3])
+  assert.equal(new Set(report.findings.map(finding => finding.id)).size, 3)
+})
+
+test('clean project is not a failure or proof of exhaustive coverage', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'native.js'), "cds.i18n.messages.at('ORDER_CONFLICT')\nreq.reject(409, 'ORDER_CONFLICT')")
+  const report = await scanProject(root)
+  assert.deepEqual(report.findings, [])
+  assert.ok(report.caveats.some(caveat => caveat.includes('does not prove')))
+})
+
+test('modeling candidates distinguish shorthand from required schema changes', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'db', 'schema.cds'), [
+    'entity Books {',
+    '  key ID : UUID;',
+    '  createdAt : Timestamp;',
+    '  modifiedAt : Timestamp;',
+    '}'
+  ].join('\n'))
+  const findings = (await scanProject(root)).findings
+  assert.deepEqual(findings.map(finding => finding.patternId), Array(3).fill('CAP-MODEL-001'))
+  assert.deepEqual(findings.map(finding => finding.evidence.line), [2, 3, 4])
+  assert.match(findings[0].recommendation.verification, /migration impact/)
+})
+
+test('query review finds concatenation and parenthesized interpolation, not bound values or tags', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'queries.js'), [
+    "SELECT.from(Books).where('ID=' + input)",
+    'SELECT.from(Books).where(`ID=${input}`)',
+    'db.run(`SELECT * FROM Books WHERE ID=${input}`)',
+    'SELECT.from(Books).where({ ID: input })',
+    'SELECT.from(Books).where`ID=${input}`',
+    "db.run('SELECT * FROM Books WHERE ID=?', [input])"
+  ].join('\n'))
+  const findings = (await scanProject(root)).findings
+  assert.deepEqual(findings.map(finding => finding.patternId), Array(3).fill('CAP-QUERY-001'))
+  assert.deepEqual(findings.map(finding => finding.evidence.line), [1, 2, 3])
+})
+
+test('manual transaction signals remain contextual and native aspects do not trigger modeling', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'db', 'schema.cds'), "using { cuid, managed } from '@sap/cds/common';\nentity Books : cuid, managed { title : String; }")
+  await writeFile(path.join(root, 'srv', 'transactions.js'), [
+    'const tx = db.tx()',
+    'await tx.commit()',
+    'await tx.rollback(error)',
+    'await db.run(query)'
+  ].join('\n'))
+  const findings = (await scanProject(root)).findings
+  assert.deepEqual(findings.map(finding => finding.patternId), Array(3).fill('CAP-TX-001'))
+  assert.deepEqual(findings.map(finding => finding.evidence.line), [1, 2, 3])
+  assert.ok(findings[0].recommendation.contraindications.some(item => item.includes('standalone/background')))
+})
+
+test('refuses a symlinked manifest rather than reading outside the project', async context => {
+  const root = await fixture(context)
+  await rm(path.join(root, 'package.json'))
+  try {
+    await symlink(path.join(tmpdir(), 'outside-package.json'), path.join(root, 'package.json'))
+  } catch (error) {
+    if (process.platform === 'win32' && error.code === 'EPERM') {
+      context.skip('Windows policy does not allow file symlinks; symlink refusal still needs authorized environment verification')
+      return
+    }
+    throw error
+  }
+  await assert.rejects(scanProject(root), /Symlinked package.json/)
+})
+
+test('CLI emits parseable JSON, fails unsupported projects, and never runs package scripts', async context => {
+  const root = await fixture(context)
+  const cli = fileURLToPath(new URL('./scan.mjs', import.meta.url))
+  const success = spawnSync(process.execPath, [cli, root], { encoding: 'utf8' })
+  assert.equal(success.status, 0)
+  assert.equal(JSON.parse(success.stdout).useCaseId, 'CAP-AI-11')
+  await writeFile(path.join(root, 'package.json'), JSON.stringify({ scripts: { prepare: 'exit 99' } }))
+  const failure = spawnSync(process.execPath, [cli, root], { encoding: 'utf8' })
+  assert.equal(failure.status, 1)
+  assert.match(failure.stderr, /CAP Node.js dependency/)
+  assert.equal(failure.stdout, '')
+})
+
+test('validates API inputs and refuses oversized manifests', async context => {
+  const root = await fixture(context)
+  for (const scopes of [null, 'srv', [''], [1], ['srv', '  ']]) {
+    await assert.rejects(scanProject(root, scopes), /scope/)
+  }
+  await assert.rejects(scanProject(''), /project path/)
+  await writeFile(path.join(root, 'package.json'), ' '.repeat(1024 * 1024 + 1))
+  await assert.rejects(scanProject(root), error => error.code === 'FILE_LIMIT')
+  await rm(path.join(root, 'package.json'))
+  await mkdir(path.join(root, 'package.json'))
+  await assert.rejects(scanProject(root), /regular file/)
+})
+
+test('bounds finding counts and preserves exact evidence under a dense scan', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'dense.js'), 'req.reject(error)\n'.repeat(5100))
+  const report = await scanProject(root)
+  assert.equal(report.findings.length, report.coverage.limits.findings)
+  assert.equal(report.coverage.complete, false)
+  assert.ok(report.coverage.skipped.some(item => item.reason === 'finding-limit'))
+  assert.equal(report.findings.at(-1).evidence.line, 5000)
+  assert.ok(report.coverage.bytesRead > 0)
+})
+
+test('limits directory depth and CLI distinguishes incomplete coverage from no matches', async context => {
+  const root = await fixture(context)
+  const deep = path.join(root, 'srv', ...Array(66).fill('n'))
+  await mkdir(deep, { recursive: true })
+  const report = await scanProject(root)
+  assert.equal(report.coverage.complete, false)
+  assert.ok(report.coverage.skipped.some(item => item.reason === 'depth-limit'))
+  const cli = fileURLToPath(new URL('./scan.mjs', import.meta.url))
+  const result = spawnSync(process.execPath, [cli, root, 'missing'], { encoding: 'utf8' })
+  assert.equal(result.status, 2)
+  assert.equal(JSON.parse(result.stdout).coverage.complete, false)
+  assert.equal(result.stderr, '')
+})
+
+test('repeated incomplete calls no longer trigger quadratic remote-error matching', { timeout: 5000 }, async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'repeated.js'), 'req.reject('.repeat(24000))
+  const report = await scanProject(root)
+  assert.equal(report.coverage.complete, true)
+  assert.deepEqual(report.findings, [])
+})
+
+test('matcher terminates pathological expressions and recovers for the next file', { timeout: 5000 }, async context => {
+  const matcher = createMatcher([{ id: 'TEST', extensions: ['.js'], signals: ['(a+)+$'] }], 250)
+  context.after(() => matcher.close())
+  const timedOut = await matcher.match(`${'a'.repeat(40)}!`, '.js', 10)
+  assert.equal(timedOut.reason, 'analysis-timeout')
+  const recovered = await matcher.match('a', '.js', 10)
+  assert.deepEqual(recovered.matches, [{ patternId: 'TEST', line: 1 }])
+})
+
+test('fingerprints invalidate stale findings even when the matching line is unchanged', async context => {
+  const root = await fixture(context)
+  const source = path.join(root, 'srv', 'errors.js')
+  await writeFile(source, 'req.reject(502, error.message)\nconst marker = 1')
+  const before = await scanProject(root)
+  await writeFile(source, 'req.reject(502, error.message)\nconst marker = 2')
+  const after = await scanProject(root)
+  assert.notEqual(before.snapshot.sha256, after.snapshot.sha256)
+  assert.notEqual(before.findings[0].id, after.findings[0].id)
+  assert.notEqual(before.findings[0].evidence.sha256, after.findings[0].evidence.sha256)
+  assert.equal(before.findings[0].evidence.line, after.findings[0].evidence.line)
+  assert.match(after.scanner.sha256, /^[a-f0-9]{64}$/)
+  assert.match(after.catalogSha256, /^[a-f0-9]{64}$/)
+  assert.deepEqual(after.snapshot.sources.map(item => item.file), ['srv/errors.js'])
+  const priorSnapshot = after.snapshot.sha256
+  await writeFile(path.join(root, 'package.json'), JSON.stringify({ dependencies: { '@sap/cds': '^10' } }))
+  assert.notEqual((await scanProject(root)).snapshot.sha256, priorSnapshot)
+})
+
+test('context-only observations are counted separately from review candidates', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'context.js'), "cds.connect.to('RemoteService')\nreq.reject(error)")
+  const report = await scanProject(root)
+  assert.deepEqual(report.summary, { contextOnly: 1, reviewCandidates: 1 })
+  assert.equal(report.findings[1].assessment, 'review-candidate')
+})
+
+test('default CLI emits a compact grouped review; --full retains raw evidence', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'review.js'), "cds.connect.to('RemoteService')\nreq.reject(error)\nreq.reject(err)")
+  const cli = fileURLToPath(new URL('./scan.mjs', import.meta.url))
+  const result = spawnSync(process.execPath, [cli, root], { encoding: 'utf8' })
+  assert.equal(result.status, 0, result.stderr)
+  const brief = JSON.parse(result.stdout)
+  assert.equal(brief.format, 'cap-pattern-review')
+  assert.equal(brief.findings.length, 2)
+  assert.equal(brief.patterns.length, 1)
+  assert.equal(brief.groups.length, 1)
+  assert.equal(brief.groups[0].findingIds.length, 2)
+  assert.equal(brief.summary.contextOnly, 1)
+  assert.equal(brief.findings[0].recommendation, undefined)
+  assert.equal(brief.progress.verdict, 'needs-review')
+  const full = spawnSync(process.execPath, [cli, root, '--full'], { encoding: 'utf8' })
+  assert.equal(full.status, 0, full.stderr)
+  assert.equal(JSON.parse(full.stdout).findings.length, 3)
+})
+
+test('existing Windows UTF-8 BOM reports compact locally without a client project or rescanning', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'errors.js'), 'req.reject(error)')
+  const full = await scanProject(root)
+  const reportPath = path.join(root, 'saved-report.json')
+  await writeFile(reportPath, `\uFEFF${JSON.stringify(full)}`)
+  await rm(path.join(root, 'package.json'))
+  const cli = fileURLToPath(new URL('./scan.mjs', import.meta.url))
+  const result = spawnSync(process.execPath, [cli, '--report', reportPath], { encoding: 'utf8' })
+  assert.equal(result.status, 0, result.stderr)
+  const brief = JSON.parse(result.stdout)
+  assert.equal(brief.snapshot.sha256, full.snapshot.sha256)
+  assert.deepEqual(brief.findings[0].evidence, full.findings[0].evidence)
+  assert.deepEqual(prepareReview(brief), brief)
+})
+
+test('context-only and incomplete reports cannot become proposals', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'native.js'), "cds.connect.to('RemoteService')")
+  const full = await scanProject(root)
+  assert.equal(prepareReview(full).progress.verdict, 'no-applicable-patterns')
+  full.coverage.complete = false
+  assert.equal(prepareReview(full).progress.verdict, 'needs-review')
+  assert.throws(() => prepareReview({ findings: [] }), /fingerprinted/)
+})
+
+test('large synthetic pilot reports include guidance once and preserve every review ID', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'errors.js'), 'req.reject(error)')
+  const report = await scanProject(root)
+  const template = report.findings[0]
+  report.findings = Array.from({ length: 202 }, (_, index) => ({
+    ...template, id: `SYNTHETIC-${index}`,
+    assessment: index < 24 ? 'review-candidate' : 'context-only',
+    evidence: { ...template.evidence, line: index + 1 },
+    recommendation: { ...template.recommendation, verification: 'Synthetic guidance. '.repeat(100) }
+  }))
+  const brief = prepareReview(report)
+  assert.deepEqual(brief.summary, { reviewCandidates: 24, contextOnly: 178 })
+  assert.equal(brief.patterns.length, 1)
+  assert.equal(brief.groups.length, 1)
+  assert.equal(brief.groups[0].findingIds.length, 24)
+  assert.equal(new Set(brief.findings.map(finding => finding.id)).size, 24)
+  assert.equal(brief.progress.reviewed, 0)
+  assert.equal(brief.progress.remaining, 24)
+  assert.equal(brief.progress.verdict, 'needs-review')
+  assert.ok(JSON.stringify(brief).length < JSON.stringify(report).length / 4)
+  assert.ok(brief.reviewRules.some(rule => rule.includes('automatically rejects')))
+  assert.ok(brief.reviewRules.some(rule => rule.includes('sanitized by default')))
+})
+
+test('query proposals need explicit input, association, backend, authorization, diff, and fixture evidence', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'queries.js'), "SELECT.from(Items).where('code=' + input)")
+  const brief = prepareReview(await scanProject(root))
+  const entry = { id: brief.findings[0].id, decision: 'proposed', reason: 'Bind a value rather than concatenate it', checks: {} }
+  const submission = { snapshotSha256: brief.snapshot.sha256, decisions: [entry] }
+  const unsupported = reconcileDecisions(brief, submission)
+  assert.equal(unsupported.decisions[0].requestedDecision, 'proposed')
+  assert.equal(unsupported.decisions[0].decision, 'needs-review')
+  assert.equal(unsupported.decisions[0].blockers.length, 7)
+  for (const check of [...brief.reviewPolicy.proposalChecks, ...brief.reviewPolicy.queryChecks]) {
+    entry.checks[check.id] = { status: check.required ? 'verified' : 'not-applicable', evidence: 'Synthetic reviewer evidence; not proof of executed tests.' }
+  }
+  assert.equal(reconcileDecisions(brief, submission).progress.verdict, 'proposals')
+  for (const check of [...brief.reviewPolicy.proposalChecks, ...brief.reviewPolicy.queryChecks]) {
+    const prior = entry.checks[check.id]
+    entry.checks[check.id] = { status: 'unverified', evidence: 'Still needs local verification' }
+    assert.equal(reconcileDecisions(brief, submission).progress.verdict, 'needs-review', check.id)
+    entry.checks[check.id] = prior
+  }
+})
+
+test('decision reconciliation counts every ID, rejects stale/duplicate/unknown IDs, and never implies acceptance', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'queries.js'), "SELECT.from(Items).where('code=' + input)\nreq.reject(error)")
+  const brief = prepareReview(await scanProject(root))
+  const submission = { snapshotSha256: brief.snapshot.sha256, decisions: [
+    { id: brief.findings[0].id, decision: 'not-applicable', reason: 'Synthetic false positive' }
+  ] }
+  const partial = reconcileDecisions(brief, submission)
+  assert.equal(partial.progress.remaining, 1)
+  assert.equal(partial.progress.needsReview, 1)
+  assert.equal(partial.progress.verdict, 'needs-review')
+  assert.throws(() => reconcileDecisions(brief, { ...submission, snapshotSha256: 'stale' }), /stale/)
+  assert.throws(() => reconcileDecisions(brief, { ...submission, decisions: [...submission.decisions, ...submission.decisions] }), /duplicate/)
+  assert.throws(() => reconcileDecisions(brief, { ...submission, decisions: [{ ...submission.decisions[0], id: 'unknown' }] }), /Unknown/)
+  assert.throws(() => reconcileDecisions(brief, { ...submission, decisions: [{ ...submission.decisions[0], decision: 'accepted' }] }), /supported decision/)
+})
+
+test('CLI validates saved decisions locally and preserves explicit blockers without writes', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'queries.js'), "SELECT.from(Items).where('code=' + input)")
+  const brief = prepareReview(await scanProject(root))
+  const reportPath = path.join(root, 'brief.json')
+  const decisionPath = path.join(root, 'decisions.json')
+  await writeFile(reportPath, JSON.stringify(brief))
+  const submission = { snapshotSha256: brief.snapshot.sha256, decisions: [
+    { id: brief.findings[0].id, decision: 'proposed', reason: 'Synthetic proposal without equivalence evidence' }
+  ] }
+  await writeFile(decisionPath, `\uFEFF${JSON.stringify(submission)}`)
+  await rm(path.join(root, 'package.json'))
+  const cli = fileURLToPath(new URL('./scan.mjs', import.meta.url))
+  const result = spawnSync(process.execPath, [cli, '--report', reportPath, '--decisions', decisionPath], { encoding: 'utf8' })
+  assert.equal(result.status, 0, result.stderr)
+  const validated = JSON.parse(result.stdout)
+  assert.equal(validated.decisions[0].decision, 'needs-review')
+  assert.equal(validated.decisions[0].blockers.length, 7)
+  assert.equal(validated.progress.reviewed, 1)
+  assert.equal(validated.progress.proposed, 0)
+  assert.equal(validated.progress.verdict, 'needs-review')
+  assert.equal(await readFile(reportPath, 'utf8'), JSON.stringify(brief))
+  assert.equal(await readFile(decisionPath, 'utf8'), `\uFEFF${JSON.stringify(submission)}`)
+  submission.snapshotSha256 = 'stale'
+  await writeFile(decisionPath, JSON.stringify(submission))
+  const stale = spawnSync(process.execPath, [cli, '--report', reportPath, '--decisions', decisionPath], { encoding: 'utf8' })
+  assert.equal(stale.status, 1)
+  assert.equal(stale.stdout, '')
+})
+
+test('bounded context reads selected evidence only, preserves line numbers, and rejects stale hashes', async context => {
+  const root = await fixture(context)
+  const sourcePath = path.join(root, 'srv', 'source.js')
+  const lines = Array.from({ length: 100 }, (_, index) => `const syntheticValue${index} = ${index}`)
+  lines[49] = 'req.reject(error)'
+  await writeFile(sourcePath, lines.join('\n'))
+  const brief = prepareReview(await scanProject(root))
+  const result = await readReviewContext(root, brief, [brief.findings[0].id])
+  assert.equal(result.excerpts[0].startLine, 40)
+  assert.equal(result.excerpts[0].endLine, 70)
+  assert.equal(result.excerpts[0].truncated, false)
+  assert.match(result.excerpts[0].text, /50: req.reject\(error\)/)
+  assert.doesNotMatch(result.excerpts[0].text, /syntheticValue0 =/)
+  await assert.rejects(readReviewContext(root, brief, ['unknown']), /Unknown/)
+  await assert.rejects(readReviewContext(root, brief, Array(4).fill(brief.findings[0].id)), /one to three/)
+  await writeFile(sourcePath, `${lines.join('\n')}\nchanged`)
+  await assert.rejects(readReviewContext(root, brief, [brief.findings[0].id]), /Source changed/)
+})
+
+test('context CLI bounds minified source and rejects traversal or a changed manifest', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'minified.js'), `req.reject(error);${'x'.repeat(16000)}`)
+  const brief = prepareReview(await scanProject(root))
+  const reportPath = path.join(root, 'brief.json')
+  await writeFile(reportPath, JSON.stringify(brief))
+  const cli = fileURLToPath(new URL('./scan.mjs', import.meta.url))
+  const result = spawnSync(process.execPath, [cli, root, '--report', reportPath, '--context', brief.findings[0].id], { encoding: 'utf8' })
+  assert.equal(result.status, 0, result.stderr)
+  const excerpt = JSON.parse(result.stdout).excerpts[0]
+  assert.equal(excerpt.text.length, 8000)
+  assert.equal(excerpt.truncated, true)
+  brief.findings[0].evidence.file = 'settings.env'
+  await assert.rejects(readReviewContext(root, brief, [brief.findings[0].id]), /allowed source path/)
+  brief.findings[0].evidence.file = '../outside.js'
+  await assert.rejects(readReviewContext(root, brief, [brief.findings[0].id]), /inside the selected project/)
+  await writeFile(path.join(root, 'package.json'), JSON.stringify({ dependencies: { '@sap/cds': '^10' } }))
+  await assert.rejects(readReviewContext(root, brief, [brief.findings[0].id]), /manifest changed/)
+})

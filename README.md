@@ -1,13 +1,13 @@
 # CAP Pattern Advisor MVP
 
 Read-only pilot tooling for reviewing CAP Node.js patterns and reusable helper
-opportunities. Nine catalog entries; scanner 2.0.0, catalog 0.4.0.
+opportunities. Nine catalog entries; scanner 2.1.0, catalog 0.4.0.
 
 ## Downloads
 
-- [Claude-ready ZIP](https://github.com/Lazovskaya/capagentmvp/releases/download/cap-ai-11-pilot-v2.0.0/client-artifacts-cap-ai-11-claude-code.zip)
-- [Claude ZIP checksum](https://github.com/Lazovskaya/capagentmvp/releases/download/cap-ai-11-pilot-v2.0.0/client-artifacts-cap-ai-11-claude-code.zip.sha256)
-- [Generic ZIP and release notes](https://github.com/Lazovskaya/capagentmvp/releases/tag/cap-ai-11-pilot-v2.0.0)
+- [Claude-ready ZIP](https://github.com/Lazovskaya/capagentmvp/releases/download/cap-ai-11-pilot-v2.1.0/client-artifacts-cap-ai-11-claude-code.zip)
+- [Claude ZIP checksum](https://github.com/Lazovskaya/capagentmvp/releases/download/cap-ai-11-pilot-v2.1.0/client-artifacts-cap-ai-11-claude-code.zip.sha256)
+- [Generic ZIP and release notes](https://github.com/Lazovskaya/capagentmvp/releases/tag/cap-ai-11-pilot-v2.1.0)
 
 ## Claude Code
 
@@ -22,6 +22,13 @@ modified. Ask:
 Use actual paths. Saved reports are filtered/grouped deterministically by the tool;
 no manual JSON filtering or corrective extraction prompts are needed. The review
 still depends on model behavior and must be checked by a developer.
+
+Before final reconciliation, the agent requests an approved local artifact location
+and runs deterministic --decisions validation. Missing proposal evidence becomes
+needs-review; stale, duplicate, or unknown IDs are rejected. Query checks cover input
+types/nulls, association semantics, static backend functions, authorization paths,
+clean diffs, and fixture-based expectations. Validation does not prove the truth of
+reviewer declarations or record developer acceptance.
 
 ## Scanner
 

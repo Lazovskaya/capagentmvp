@@ -230,10 +230,20 @@ environment generation, client-code harvesting, and publishing are out of scope.
    project path (`scan.mjs <project> --report ... --decisions ...`) or every proposal stays unverified.
    Describe tests only: never put a command for the tool to run in a proposal. If you cannot write a
    grounded diff, use `needs-review` and list what is missing under `uncertainty`.
-   After validation tell the developer they can review the proposals with
-   `node tools/cap-pattern-scanner/scripts/sheet.mjs sheet --report <brief> --decisions <validated> --project <project> --output <new-file.md>`
-   and record their own decision afterwards with `sheet.mjs record`. Applying is a separate developer-run
-   step (`apply.mjs`). Never tick boxes, record, apply, or imply a developer decision on their behalf.
+10. After validation, generate the developer review sheet yourself in the same approved folder, without
+   asking again (it only writes a new file there):
+   ```sh
+   node tools/cap-pattern-scanner/scripts/sheet.mjs sheet --report /approved/brief.json --decisions /approved/validated.json --project <project> --output /approved/review-sheet.md
+   ```
+   Then stop. The run is complete when the sheet exists: scan, review, validation and sheet are all
+   done by you in one pass. If validation reports blockers on proposals you could fix (a diff that does
+   not apply, a missing field), correct and re-validate once into a new file; otherwise leave the item
+   `needs-review`. Final message: the sheet path, counts (ready for approval, held, not applicable),
+   and the developer's next commands exactly as follows, with real paths filled in: open the sheet and
+   tick approve, reject, needs-changes or defer per item; `sheet.mjs record ... --reviewer <name>
+   --output /approved/developer-decisions.json`; then `apply.mjs preview`, `apply` and `status`.
+   Never tick boxes, run `record` or `apply.mjs`, edit application files, or imply a developer
+   decision on their behalf: the developer's review of the diffs is the end of your part.
 
 ## Output
 

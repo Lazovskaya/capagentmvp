@@ -23,6 +23,10 @@ rather than applying changes automatically.
    final reconciliation. Return its computed results using the contract below.
    If validation is unavailable, return provisional needs-review with the blocker.
    Model output still requires human verification; declarations are not proof.
+5. Run the whole flow in one pass from a project path and an approved output folder: scan,
+   review, submission with verified diffs, validation, then generate the developer review
+   sheet (`sheet.mjs sheet`). Stop there and hand over the sheet path and the developer's next
+   commands. Never tick the sheet, record a decision, or run `apply.mjs` for the developer.
 
 ## Output Contract
 

@@ -37,6 +37,11 @@ environment generation, client-code harvesting, and publishing are out of scope.
    ```sh
    node tools/cap-pattern-scanner/scripts/scan.mjs /path/to/cap-project srv db
    ```
+   Once an approved local output folder outside application source exists, add
+   `--output /approved/brief.json` to save the exact JSON printed (new file only;
+   existing files and paths inside the project are refused). Do not use shell
+   redirection, and never retype or copy report JSON by hand: a copy that drops
+   pattern guidance breaks later steps.
    Default output is already compact: review candidates only, grouped by file and
    pattern, with guidance included once. Do not request `--full` for routine AI
    review; it is an optional evidence inventory for debugging/audit.
@@ -53,7 +58,7 @@ environment generation, client-code harvesting, and publishing are out of scope.
    Node.js 22+ is required. The CLI prints JSON to stdout, writes nothing, performs
    no network calls, and refuses packages without an `@sap/cds` dependency.
    Tool resources live under `tools/cap-pattern-scanner/` after factory installation.
-   For an offline/VDI bundle outside the client repo, read its
+   For an offline/customer-environment bundle outside the client repo, read its
    `tools/cap-pattern-scanner/README.md` and use the scanner's full external path.
    Do not require EPAM Git access or run a factory installer in the customer repo.
    Exit 2 means incomplete coverage with valid JSON, not a clean result; exit 1
@@ -178,7 +183,7 @@ environment generation, client-code harvesting, and publishing are out of scope.
    overwrite an earlier review. Adoption is a separate explicit request: show exact
    changes and installation command, obtain approval, then validate in the target
    project. This skill does not automatically edit code, install, upload, or publish.
-   In customer VDI, keep code and reports inside the customer boundary. AI review
+   In the customer environment, keep code and reports inside the customer boundary. AI review
    may transmit source to the configured provider; require the customer's approved
    AI policy. Without approved AI access, offer manual catalog review, not export.
 9. Before reporting final decisions, ask once for an approved local output location
@@ -190,9 +195,13 @@ environment generation, client-code harvesting, and publishing are out of scope.
    check ID, with `{ "status": "verified|not-applicable|unverified", "evidence": "specific evidence" }`.
    Required checks accept only verified; conditional checks accept verified or
    not-applicable with reasons. Do not mark a check verified merely to pass validation.
+   Add no other fields: statuses, counts, and the verdict are computed, and unknown
+   fields are rejected. To resume, pass the earlier validator output as `previous` and
+   list every earlier decision again; omitting one is an error. This prevents silent
+   loss, not a full audit history.
    Then run the read-only validator:
    ```sh
-   node tools/cap-pattern-scanner/scripts/scan.mjs --report /approved/brief.json --decisions /approved/decisions.json
+   node tools/cap-pattern-scanner/scripts/scan.mjs --report /approved/brief.json --decisions /approved/decisions.json --output /approved/validated.json
    ```
    Use its computed decisions, blockers, and progress in the final report. Missing
    evidence downgrades requested proposals; stale, unknown, or duplicate IDs are

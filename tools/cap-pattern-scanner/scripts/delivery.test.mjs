@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { mkdtemp, mkdir, writeFile, readFile, rm } from 'node:fs/promises'
+import { mkdtemp, mkdir, writeFile, readFile, readdir, rm } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -75,9 +75,9 @@ test('supported adapters register the same core without touching a customer repo
   const factory = fileURLToPath(new URL('../../../', import.meta.url))
   const python = process.env.PYTHON ?? 'python3'
   for (const adapter of [
-    { name: 'claude-code', agent: '.claude/agents/cap-pattern-advisor.md', skill: '.claude/skills/cap-suggest-patterns/SKILL.md', entry: 'CLAUDE.md' },
-    { name: 'cursor', agent: '.cursor/agents/cap-pattern-advisor.md', skill: '.cursor/skills/cap-suggest-patterns/SKILL.md', entry: '.cursor/rules/factory.mdc' },
-    { name: 'github-copilot', agent: '.github/agents/cap-pattern-advisor.md', skill: '.agents/skills/cap-suggest-patterns/SKILL.md', entry: '.github/copilot-instructions.md' }
+    { name: 'claude-code', agent: '.claude/agents/cap-pattern-advisor.md', skill: '.claude/skills/cap-suggest-patterns/SKILL.md', entry: 'CLAUDE.md', extra: [] },
+    { name: 'cursor', agent: '.cursor/agents/cap-pattern-advisor.md', skill: '.cursor/skills/cap-suggest-patterns/SKILL.md', entry: '.cursor/rules/factory.mdc', extra: [] },
+    { name: 'github-copilot', agent: '.github/agents/cap-pattern-advisor.md', skill: '.agents/skills/cap-suggest-patterns/SKILL.md', entry: '.github/copilot-instructions.md', extra: ['.vscode/settings.json'] }
   ]) {
     await context.test(adapter.name, async () => {
       const project = path.join(root, adapter.name)
@@ -85,6 +85,12 @@ test('supported adapters register the same core without touching a customer repo
       const result = spawnSync(python, [path.join(factory, `scripts/${adapter.name}/adapter/install.py`),
         '--project', project, '--use-case', 'CAP-AI-11'], { encoding: 'utf8' })
       assert.equal(result.status, 0, result.stderr || result.stdout)
+      // README documents this exact file set; a drift here means the overwrite warning is stale.
+      const written = (await readdir(project, { recursive: true, withFileTypes: true }))
+        .filter(item => item.isFile())
+        .map(item => path.relative(project, path.join(item.parentPath, item.name)).split(path.sep).join('/'))
+        .filter(file => !file.startsWith('tools/cap-pattern-scanner/'))
+      assert.deepEqual(written.sort(), [adapter.agent, adapter.skill, adapter.entry, 'factory-lock.json', ...adapter.extra].sort())
       const agent = await readFile(path.join(project, adapter.agent), 'utf8')
       const skill = await readFile(path.join(project, adapter.skill), 'utf8')
       const entry = await readFile(path.join(project, adapter.entry), 'utf8')
@@ -96,7 +102,10 @@ test('supported adapters register the same core without touching a customer repo
       assert.match(entry, /cap-suggest-patterns/)
       assert.match(entry, /cap-pattern-advisor/)
       const cli = path.join(project, 'tools/cap-pattern-scanner/scripts/scan.mjs')
-      assert.equal(await readFile(cli, 'utf8'), await readFile(path.join(factory, 'tools/cap-pattern-scanner/scripts/scan.mjs'), 'utf8'))
+      for (const core of ['scripts/scan.mjs', 'scripts/review.mjs', 'scripts/matcher.mjs', 'catalog.json']) {
+        assert.equal(await readFile(path.join(project, 'tools/cap-pattern-scanner', core), 'utf8'),
+          await readFile(path.join(factory, 'tools/cap-pattern-scanner', core), 'utf8'), core)
+      }
       const help = spawnSync(process.execPath, [cli, '--help'], { encoding: 'utf8' })
       assert.equal(help.status, 0, help.stderr)
       assert.match(help.stdout, /compact grouped review JSON/)

@@ -46,7 +46,7 @@ Adapters are structurally tested; live UI discovery/model behavior needs accepta
 Do not install over existing client instructions blindly: generated entry files
 can be overwritten. Browser-only assistants cannot directly scan local directories.
 
-## Customer VDI Or Offline
+## Customer Environment Or Offline
 
 Build on the factory machine, without committing or pushing first:
 
@@ -59,10 +59,10 @@ outside the customer repo. The generic ZIP runs the scanner directly; it does NO
 include factory installer scripts. For native discovery, generate the chosen host's
 tooling folder above on the factory machine, then archive/transfer that folder.
 Include hidden .claude/.cursor/.github/.agents folders in a host-specific archive.
-No EPAM Git/SSO credentials are needed in VDI. Node.js 22+ is still required.
+No EPAM Git/SSO credentials are needed in the customer environment. Node.js 22+ is still required.
 Windows example: node tools/cap-pattern-scanner/scripts/scan.mjs "C:\work\cap-app" srv db.
 Use only the customer-approved AI account/model. Keep source, excerpts, and reports
-inside the customer boundary; do not bypass blocked downloads or VDI controls.
+inside the customer boundary; do not bypass blocked downloads or customer-environment controls.
 
 ## Saved Reviews
 
@@ -72,7 +72,8 @@ node tools/cap-pattern-scanner/scripts/scan.mjs /actual/path/to/cap-app --report
 node tools/cap-pattern-scanner/scripts/scan.mjs --report /approved/brief.json --decisions /approved/decisions.json
 ```
 
-The agent normally runs these itself. Decision validation checks evidence
+Add `--output /approved/<new-file>.json` to save the exact JSON printed (new file only;
+existing files and paths inside the project are refused). The agent normally runs these itself. Decision validation checks evidence
 declarations/counts, not semantic truth or developer acceptance. Full contracts:
 tools/cap-pattern-scanner/tool.md; architecture and release limits:
 docs/adr/cap-ai-11-pattern-suggestions.md. The experimental npm helper is private.

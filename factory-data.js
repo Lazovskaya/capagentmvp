@@ -739,7 +739,7 @@ window.FACTORY_DATA = {
    "phases": [
     "Realize"
    ],
-   "desc": "Inspects explicitly scoped local CAP Node.js CDS and handler sources for catalog signals, returning deterministic candidate evidence and coverage without executing project code, calling external services, or changing files.",
+   "desc": "Inspects explicitly scoped local CAP Node.js CDS and handler sources for catalog signals, returning deterministic candidate evidence and coverage without executing project code, calling external services, or changing the scanned project.",
    "operation": "scan-cap-patterns",
    "permission_scope": "read-only"
   },

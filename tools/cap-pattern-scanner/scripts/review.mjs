@@ -10,6 +10,27 @@ const queryChecks = [
   { id: 'authorization-path', required: true, description: 'Identify application-service versus direct database execution and preserve actual authorization predicates. Value binding does not establish access control.' }
 ]
 
+const submissionKeys = new Set(['snapshotSha256', 'decisions', 'previous'])
+const entryKeys = new Set(['id', 'decision', 'reason', 'checks'])
+// Echoed from a previous reconciled output so it can be resubmitted; always recomputed, never trusted.
+const derivedEntryKeys = new Set(['requestedDecision', 'blockers', 'reviewed'])
+const checkIds = new Set([...proposalChecks, ...queryChecks].map(check => check.id))
+
+function normalizeChecks(checks) {
+  if (checks === undefined) return undefined
+  if (checks === null || typeof checks !== 'object' || Array.isArray(checks)) throw new TypeError('Decision checks must be an object keyed by check ID')
+  const normalized = {}
+  for (const [id, check] of Object.entries(checks)) {
+    if (!checkIds.has(id)) throw new TypeError(`Unknown decision check ID: ${id}`)
+    if (check === null || typeof check !== 'object' || Array.isArray(check)
+      || Object.keys(check).some(key => key !== 'status' && key !== 'evidence')) {
+      throw new TypeError(`Decision check ${id} supports only status and evidence`)
+    }
+    normalized[id] = { status: check.status, evidence: check.evidence }
+  }
+  return normalized
+}
+
 export function prepareReview(report) {
   if (report?.schemaVersion !== 1 || !Array.isArray(report.findings)
     || typeof report.coverage?.complete !== 'boolean' || !report.snapshot?.sha256) {
@@ -45,7 +66,10 @@ export function prepareReview(report) {
     if (!groups.has(key)) groups.set(key, { file: finding.evidence.file, patternId: finding.patternId, findingIds: [] })
     groups.get(key).findingIds.push(finding.id)
   }
-  if (alreadyCompact) contextOnly = report.summary?.contextOnly ?? 0
+  if (alreadyCompact) {
+    contextOnly = report.summary?.contextOnly ?? 0
+    if (!Number.isInteger(contextOnly) || contextOnly < 0) throw new TypeError('Expected a non-negative integer summary.contextOnly')
+  }
   return {
     schemaVersion: 1,
     format: 'cap-pattern-review',
@@ -98,25 +122,45 @@ export function prepareReview(report) {
   }
 }
 
+function assertNoDroppedDecisions(brief, submission) {
+  const previous = submission.previous
+  if (previous?.format !== 'cap-pattern-review' || !Array.isArray(previous.decisions)
+    || previous.snapshot?.sha256 !== brief.snapshot.sha256) {
+    throw new TypeError('Previous review must be reconciled output for the current snapshot; stale reviews must be reopened')
+  }
+  const submitted = new Set(submission.decisions.map(entry => entry?.id))
+  const dropped = previous.decisions.filter(entry => entry?.reviewed !== false && !submitted.has(entry?.id))
+  if (dropped.length) {
+    throw new TypeError(`Submission drops previously decided IDs: ${dropped.map(entry => entry.id).join(', ')}`)
+  }
+}
+
 export function reconcileDecisions(report, submission) {
   const brief = prepareReview(report)
   if (submission?.snapshotSha256 !== brief.snapshot.sha256 || !Array.isArray(submission.decisions)) {
     throw new TypeError('Decision submission must reference the current snapshotSha256 and a decisions array; stale reviews must be reopened')
   }
+  const unsupportedKey = Object.keys(submission).find(key => !submissionKeys.has(key))
+  if (unsupportedKey) throw new TypeError(`Unsupported decision submission field: ${unsupportedKey}; statuses and counts are computed`)
   const known = new Map(brief.findings.map(finding => [finding.id, finding]))
   if (known.size !== brief.findings.length) throw new TypeError('Duplicate finding IDs in report')
+  if (submission.previous !== undefined) assertNoDroppedDecisions(brief, submission)
   const reviewed = new Map()
   for (const entry of submission.decisions) {
     if (!known.has(entry?.id) || reviewed.has(entry.id)) throw new TypeError('Unknown or duplicate decision ID')
+    const unsupportedEntryKey = Object.keys(entry).find(key => !entryKeys.has(key) && !derivedEntryKeys.has(key))
+    if (unsupportedEntryKey) throw new TypeError(`Unsupported decision field: ${unsupportedEntryKey}; statuses and counts are computed`)
+    if (entry.reviewed === false) throw new TypeError('Unreviewed placeholder entries must not be resubmitted; omit them or review the ID')
+    const checks = normalizeChecks(entry.checks)
     if (!['proposed', 'not-applicable', 'needs-review'].includes(entry.decision)
       || typeof entry.reason !== 'string' || !entry.reason.trim()) {
       throw new TypeError('Each decision requires a supported decision and reason')
     }
     const blockers = []
     if (entry.decision === 'proposed') {
-      const checks = known.get(entry.id).patternId === 'CAP-QUERY-001' ? [...proposalChecks, ...queryChecks] : proposalChecks
-      for (const check of checks) {
-        const evidence = entry.checks?.[check.id]
+      const required = known.get(entry.id).patternId === 'CAP-QUERY-001' ? [...proposalChecks, ...queryChecks] : proposalChecks
+      for (const check of required) {
+        const evidence = checks?.[check.id]
         if (!evidence || typeof evidence.evidence !== 'string' || !evidence.evidence.trim()
           || !(check.required ? ['verified'] : ['verified', 'not-applicable']).includes(evidence.status)) {
           blockers.push(`Unresolved evidence check: ${check.id}`)
@@ -124,8 +168,9 @@ export function reconcileDecisions(report, submission) {
       }
     }
     reviewed.set(entry.id, {
-      ...entry, requestedDecision: entry.decision,
-      decision: blockers.length ? 'needs-review' : entry.decision, blockers
+      id: entry.id, requestedDecision: entry.decision,
+      decision: blockers.length ? 'needs-review' : entry.decision,
+      reason: entry.reason, ...(checks ? { checks } : {}), reviewed: true, blockers
     })
   }
   const decisions = brief.findings.map(finding => reviewed.get(finding.id) ?? {

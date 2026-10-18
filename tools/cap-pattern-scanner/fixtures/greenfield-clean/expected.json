@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "fixture": "greenfield-clean",
+  "labelling": "Authored from CAP semantics before the scanner was run. Single author, not independent; labels are a judgement, not ground truth.",
+  "note": "Correct native implementation; no review candidates are expected.",
+  "entries": [
+    {
+      "patternId": "CAP-REMOTE-CONSUME-001",
+      "file": "srv/catalog-service.js",
+      "anchor": "cds.connect.to('StockService')",
+      "label": "context",
+      "note": "Native remote connection; an observation, not a fix."
+    },
+    {
+      "patternId": "CAP-DRAFT-001",
+      "file": "srv/catalog-service.cds",
+      "anchor": "@odata.draft.enabled",
+      "label": "context",
+      "note": "Correct native draft usage."
+    }
+  ]
+}

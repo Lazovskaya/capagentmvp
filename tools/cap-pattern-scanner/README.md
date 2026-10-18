@@ -7,7 +7,7 @@ Release state: tested read-only pilot, not an approved production helper release
 Earlier public pilot uploads retain their original labels and are not the version
 line for this first factory contribution. No release tag or publication is implied
 until the reviewed baseline is committed. See docs/user-guide/cap-patterns-quickstart.md
-in the factory source for the short local/host/VDI usage guide.
+in the factory source for the short local/host/customer-environment usage guide.
 
 ## Assistant Portability
 
@@ -41,9 +41,25 @@ The output contains actual customer source. Keep it within approved customer/mod
 boundaries. It is not a complete-function proof; expand only a named unresolved
 dependency or leave the item needs-review. This bounds input, not all model tokens.
 
+### Saving output: `--output`
+
+Add `--output /approved/brief.json` to any mode to save the exact JSON it prints.
+Stdout does not change. The file must be new (existing files, symlinked or dangling
+targets, and missing folders are refused), is created owner-only (0600), and, when a
+project is given, must be outside it. Nothing is written on refusal. Exit code 2 still
+saves the report. Use this instead of shell redirection, which agent hosts commonly
+block, and never retype or copy report JSON by hand: a live Claude Code test showed
+an incomplete hand-copy failing later steps. Without a project (`--report`,
+`--decisions`) choosing a location outside application source is on the caller.
+
+```sh
+node tools/cap-pattern-scanner/scripts/scan.mjs /path/to/cap-project --output /approved/brief.json
+node tools/cap-pattern-scanner/scripts/scan.mjs --report /approved/brief.json --decisions /approved/decisions.json --output /approved/validated.json
+```
+
 ## Separate EPAM And Customer Environments
 
-Do not connect the customer repository to EPAM Git or copy customer code out of VDI.
+Do not connect the customer repository to EPAM Git or copy customer code out of the customer environment.
 The factory exporter reads the current EPAM working tree, including uncommitted
 files. Neither an EPAM push nor a customer push is required for a local pilot.
 Uncommitted files are not available on another machine until you transfer the
@@ -62,25 +78,25 @@ node_modules, or the full factory. The archive is factory-shaped, not a self-ins
 VS Code extension; it does not contain factory unpack/adapter scripts or sidecars.
 
 Transfer the ZIP only through the customer-approved artifact/file-transfer process.
-If VDI prohibits uploads, ask the customer administrator to distribute an approved
+If the customer environment prohibits uploads, ask the customer administrator to distribute an approved
 package or approved internal artifact location. Do not bypass SSO, clipboard,
 network, endpoint, or data-transfer restrictions. Compare SHA-256 against the value
 received through a trusted channel. A checksum detects changes; it is not a signature
-or legal/security approval. Do not add an EPAM Git credential to customer VDI.
+or legal/security approval. Do not add an EPAM Git credential to the customer environment.
 
-## Run Inside VDI Without Installing Anything In The Client Repo
+## Run Inside The Customer Environment Without Installing Anything In The Client Repo
 
 Prerequisite: an approved Node.js 22+ executable. Python, npm, network, CAP CLI,
 database credentials, BTP access, and EPAM authentication are not needed to scan.
 Use a local customer checkout and keep the extracted package outside it. Stop
 generators/watchers first; scan a trusted, quiescent checkout rather than a hostile
-filesystem. Windows/VDI behavior still needs the customer's environment smoke test.
+filesystem. Windows/customer-environment behavior still needs a smoke test in the customer's environment.
 
 Extract to an approved tools directory. Open a terminal in the extracted directory:
 
 ```sh
 node --version
-node --test tools/cap-pattern-scanner/scripts/scan.test.mjs tools/cap-pattern-scanner/helpers/index.test.js
+node --test tools/cap-pattern-scanner/scripts/scan.test.mjs tools/cap-pattern-scanner/scripts/fixtures.test.mjs tools/cap-pattern-scanner/helpers/index.test.js
 node tools/cap-pattern-scanner/scripts/scan.mjs "/path/to/customer-cap-project" srv db
 ```
 
@@ -132,6 +148,37 @@ with evidence only for conditional association/function checks. The validator
 downgrades unsupported proposals and computes progress for every finding ID.
 It rejects stale/duplicate/unknown IDs and cannot record developer acceptance.
 
+Only `snapshotSha256`, `decisions`, and `previous` are accepted at the top level, and
+only `id`, `decision`, `reason`, and `checks` per decision (each check holds only
+`status` and `evidence`). Any other field, such as `status`, `verdict`, `progress`, or
+a count, is rejected: statuses, counts, and the verdict are always computed.
+
+### Resuming a review
+
+Save the validator's JSON output after each session. To continue, add it as `previous`
+and list every earlier decision again plus the new ones:
+
+```json
+{
+  "snapshotSha256": "same snapshot.sha256",
+  "previous": "the complete JSON output of the earlier --decisions run",
+  "decisions": [
+    { "id": "earlier ID", "decision": "not-applicable", "reason": "carried forward unchanged" },
+    { "id": "newly reviewed ID", "decision": "needs-review", "reason": "..." }
+  ]
+}
+```
+
+A submission that omits any ID already decided in `previous` is rejected, as is a
+`previous` for a different snapshot. `requestedDecision`, `blockers`, and `reviewed`
+echoed from earlier output are ignored and recomputed; entries with `reviewed: false`
+are placeholders and must be dropped or actually reviewed. To retry a downgraded
+proposal, submit `proposed` again with its `checks`.
+
+Limitation: this prevents silent loss of decisions. It is not an append-only audit
+history. The scanner does not authenticate `previous`, keep superseded reasons, or
+detect a reviewer changing an earlier decision.
+
 Query review explicitly covers null/undefined/string/number behavior, association
 cardinality/path/adapter semantics, backend functions, authorization execution paths,
 clean diffs, and fixture-derived expectations. A quoted test value can legitimately
@@ -139,7 +186,7 @@ match a fixture row. Bound values alone do not establish access control or make
 database-specific functions portable. Unverified equivalence remains needs-review.
 
 Validation checks declarations and counts, not semantic truth, live databases,
-patch applicability, or executed tests. Keep artifacts in VDI. If local review
+patch applicability, or executed tests. Keep artifacts inside the customer environment. If local review
 writes are not approved, the agent must return a provisional needs-review instead.
 
 PowerShell uses the same Node commands; for example:
@@ -160,7 +207,8 @@ Exit codes:
 - `0`: traversal completed within the stated scope and exclusion policy; findings
   are still candidates, not defects or proof that the project is correct.
 - `2`: incomplete coverage, for example missing scope, unreadable/oversize file,
-  symlink, or resource limit. Review skipped reasons and rerun smaller scopes.
+  symlink, resource limit, or a requested scope that is excluded (such as `node_modules`)
+  or not a source file. Review skipped reasons and rerun smaller scopes.
 - `1`: invalid input, unsupported project/runtime, or fatal failure; no valid report.
 
 Reports go to stdout. Optional redirection is your shell's write, not a scanner
@@ -183,7 +231,7 @@ with a 1-second per-file deadline; analysis-timeout/matcher-failure makes covera
 incomplete. Filesystem latency/whole-scan duration are not bounded by that deadline.
 Split large applications.
 
-## Transfer Approved Artifacts Into VDI
+## Transfer Approved Artifacts Into The Customer Environment
 
 Public release requires explicit rights to redistribute this EPAM-origin tooling;
 permission to test it privately is not sufficient. Never publish customer source,
@@ -194,7 +242,7 @@ Use a versioned archive from the approved internal artifact location, or an
 explicitly authorized public release. Select the archive for the intended host
 and its checksum; the generic archive supports direct CLI use. Verify integrity
 through a trusted checksum/review process before extracting outside application
-source. No customer Git push or EPAM credentials in VDI are required.
+source. No customer Git push or EPAM credentials in the customer environment are required.
 
 If the download host or its CDN is blocked, request an approved internal mirror or
 administrator transfer. Do not disable certificate checks, tunnel around controls,

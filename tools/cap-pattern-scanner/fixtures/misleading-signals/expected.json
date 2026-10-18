@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "fixture": "misleading-signals",
+  "labelling": "Authored from CAP semantics before the scanner was run. Single author, not independent; labels are a judgement, not ground truth.",
+  "note": "Text that looks unsafe to a regex but is not a defect; these must never be presented as confirmed findings.",
+  "entries": [
+    {
+      "patternId": "CAP-QUERY-001",
+      "file": "srv/notes-service.js",
+      "anchor": "// SELECT.from(Notes)",
+      "label": "not-applicable",
+      "note": "Commented-out code."
+    },
+    {
+      "patternId": "CAP-REMOTE-ERROR-001",
+      "file": "srv/notes-service.js",
+      "anchor": "const documentation =",
+      "label": "not-applicable",
+      "note": "Text inside a string literal."
+    },
+    {
+      "patternId": "CAP-QUERY-001",
+      "file": "srv/notes-service.js",
+      "anchor": "where('status = ' +",
+      "label": "not-applicable",
+      "note": "Concatenates a module constant, no user input."
+    }
+  ]
+}

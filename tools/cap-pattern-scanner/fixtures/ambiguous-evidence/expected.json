@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "fixture": "ambiguous-evidence",
+  "labelling": "Authored from CAP semantics before the scanner was run. Single author, not independent; labels are a judgement, not ground truth.",
+  "note": "Signals that need additional evidence before any proposal; none should become a confirmed proposal on scanner evidence alone.",
+  "entries": [
+    {
+      "patternId": "CAP-QUERY-001",
+      "file": "srv/library-service.js",
+      "anchor": "where(\"author.name = '\"",
+      "label": "ambiguous",
+      "note": "Binding is plausible but association path semantics, cardinality and generated CQN must be verified first."
+    },
+    {
+      "patternId": "CAP-VALIDATION-001",
+      "file": "srv/library-service.js",
+      "anchor": "if (!req.data.copies)",
+      "label": "ambiguous",
+      "note": "Falsy check also rejects 0; @mandatory would not, so equivalence is unproven."
+    },
+    {
+      "patternId": "CAP-REMOTE-ERROR-001",
+      "file": "srv/library-service.js",
+      "anchor": "req.reject(400, err.message)",
+      "label": "not-applicable",
+      "note": "The error comes from a local validator in the same file, not an upstream service."
+    },
+    {
+      "patternId": "CAP-TX-001",
+      "file": "srv/library-service.js",
+      "anchor": "const tx = cds.tx(req)",
+      "label": "context",
+      "note": "Manual transaction observation."
+    },
+    {
+      "patternId": "CAP-TX-001",
+      "file": "srv/library-service.js",
+      "anchor": "await tx.commit()",
+      "label": "context",
+      "note": "Manual commit observation."
+    },
+    {
+      "patternId": "CAP-TX-001",
+      "file": "srv/library-service.js",
+      "anchor": "await tx.rollback()",
+      "label": "context",
+      "note": "Manual rollback observation."
+    }
+  ]
+}

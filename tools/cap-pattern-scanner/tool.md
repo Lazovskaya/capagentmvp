@@ -2,7 +2,7 @@
 
 Inspects explicitly scoped local CAP Node.js CDS and handler sources for catalog
 signals, returning deterministic candidate evidence and coverage without executing
-project code, calling external services, or changing files.
+project code, calling external services, or changing the scanned project.
 
 ## Interface
 
@@ -14,7 +14,9 @@ node tools/cap-pattern-scanner/scripts/scan.mjs --report /path/to/existing-repor
 node tools/cap-pattern-scanner/scripts/scan.mjs --report /approved/brief.json --decisions /approved/decisions.json
 node tools/cap-pattern-scanner/scripts/scan.mjs /path/to/cap-project --report /approved/brief.json --context FINDING_ID
 node tools/cap-pattern-scanner/scripts/scan.mjs /path/to/cap-project srv db --full
-node --test tools/cap-pattern-scanner/scripts/scan.test.mjs tools/cap-pattern-scanner/helpers/index.test.js
+node tools/cap-pattern-scanner/scripts/scan.mjs /path/to/cap-project --output /approved/brief.json
+node --test tools/cap-pattern-scanner/scripts/scan.test.mjs tools/cap-pattern-scanner/scripts/fixtures.test.mjs tools/cap-pattern-scanner/helpers/index.test.js
+node tools/cap-pattern-scanner/scripts/evaluate-fixtures.mjs
 ```
 
 Default scope: `srv db`. Accepts directories or individual `.cds`, `.js`, `.cjs`,
@@ -41,12 +43,33 @@ must be regular JSON files under 32 MiB. It cannot combine with a project or --f
 This is the mandatory agent preparation step for saved reports; AI JSON extraction
 or repeated chunk-reading is not the fallback for an unavailable command.
 
+`--output <path>` works with every mode. Stdout is unchanged; the identical JSON is also
+saved to a new file created with owner-only permissions (0600). It refuses an existing
+file, a dangling or symlinked target, a missing parent folder, and (when a project is
+given) any path inside that project; nothing is written on refusal and stdout stays
+empty. Exit codes are unchanged, so an incomplete scan exits 2 and is still saved. Use
+it instead of shell redirection or copying JSON by hand. In `--report`/`--decisions`
+mode no project is known, so keeping the path outside application source is the
+caller's responsibility. This is the only write the scanner performs.
+
 `--decisions` adds deterministic decision reconciliation to a saved report or new
 scan. It cannot combine with --full. It reads JSON and prints the result without
 changing input files. The submission contains the exact `snapshotSha256` plus
 `decisions`, each with `id`, `decision`, and `reason`. Unknown/duplicate IDs or stale
 snapshots are invalid input. Supported decisions are proposed/not-applicable/needs-review;
 developer acceptance is deliberately not a supported scanner decision.
+
+To resume a review, add `previous` to the submission: the prior reconciled output for
+the same snapshot. A submission that omits any ID decided there is invalid input, so
+earlier decisions cannot be dropped silently. Without `previous`, a submission is
+treated as complete and omitted IDs remain unreviewed.
+
+Submissions are strict: only `snapshotSha256`, `decisions`, and `previous` at the top
+level, and `id`, `decision`, `reason`, and `checks` per decision. Unknown fields, unknown
+check IDs, and extra keys inside a check are invalid input; statuses, counts, and the
+verdict are computed. Echoed `requestedDecision`, `blockers`, and `reviewed` are ignored,
+and `reviewed: false` placeholders cannot be resubmitted. This prevents silent loss of
+decisions; it is not an append-only audit history, and `previous` is not authenticated.
 
 Every requested proposal needs `checks` keyed by the brief's reviewPolicy IDs:
 source-current, diff-integrity, fixture-expectations; query proposals also need
@@ -191,10 +214,10 @@ Conditional or external-state validation may need to remain custom.
 ## Offline Delivery And Release Evidence
 
 `README.md` in this folder is the customer-facing runbook and survives packaging
-(`tool.md` does not). It explains EPAM-to-VDI transfer, checksum verification,
+(`tool.md` does not). It explains EPAM-to-customer-environment transfer, checksum verification,
 scanner-only testing outside the client repo, optional policy-approved AI review,
 and the remaining production/merge-admission gates. The archive reads the working
-tree, so a Git push is not required. Do not claim SSO/VDI verification from local tests.
+tree, so a Git push is not required. Do not claim SSO/customer-environment verification from local tests.
 
 Factory-only archive test (Python stdlib plus Node, no customer project required):
 

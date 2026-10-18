@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto'
 import { constants } from 'node:fs'
-import { open, readFile, readdir, lstat, realpath } from 'node:fs/promises'
+import { open, readFile, readdir, lstat, realpath, unlink } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { parseArgs } from 'node:util'
@@ -17,6 +17,7 @@ const scannerHash = digest(Buffer.concat(await Promise.all([
 const excludedDirectories = new Set(['node_modules', 'gen', 'dist', 'coverage', 'target', 'vendor'])
 const extensions = new Set(['.cds', '.js', '.cjs', '.mjs', '.ts'])
 const maxBytes = 1024 * 1024
+const byCodeUnit = (left, right) => (left < right ? -1 : left > right ? 1 : 0)
 const limits = Object.freeze({ fileBytes: maxBytes, totalBytes: 32 * maxBytes, sourceFiles: 2000, entries: 10000, findings: 5000, depth: 64, analysisMsPerFile: 1000 })
 
 async function readJsonInput(filename) {
@@ -24,6 +25,27 @@ async function readJsonInput(filename) {
   const stat = await lstat(absolute)
   if (!stat.isFile() || stat.size > 32 * maxBytes) throw new Error('Input must be a regular JSON file under 32 MiB')
   return JSON.parse((await readFile(absolute, 'utf8')).replace(/^\uFEFF/, ''))
+}
+
+// Creates a new owner-only file; never overwrites, follows a final symlink, or writes inside the analyzed project.
+async function writeNewFile(target, text, project) {
+  const absolute = path.resolve(target)
+  const destination = path.join(await realpath(path.dirname(absolute)), path.basename(absolute))
+  if (project) {
+    const relative = path.relative(await realpath(project), destination)
+    if (!relative || (relative !== '..' && !relative.startsWith(`..${path.sep}`) && !path.isAbsolute(relative))) {
+      throw new TypeError('Output must be outside the analyzed project')
+    }
+  }
+  const handle = await open(destination, constants.O_WRONLY | constants.O_CREAT | constants.O_EXCL | (constants.O_NOFOLLOW ?? 0), 0o600)
+  try {
+    await handle.writeFile(text)
+  } catch (error) {
+    await handle.close()
+    await unlink(destination)
+    throw error
+  }
+  await handle.close()
 }
 
 export async function readReviewContext(project, report, findingIds) {
@@ -158,7 +180,7 @@ export async function scanProject(project, scopes = ['srv', 'db']) {
     if (depth > limits.depth) { skip(absolute, 'depth-limit', true); return }
     const relative = relativePath(absolute)
     if (relative !== '.' && relative.split('/').some(part => part.startsWith('.') || excludedDirectories.has(part))) {
-      skip(absolute, 'excluded-path')
+      skip(absolute, 'excluded-path', depth === 0)
       return
     }
     let stat
@@ -180,7 +202,7 @@ export async function scanProject(project, scopes = ['srv', 'db']) {
       return
     }
     if (!stat.isFile() || !extensions.has(path.extname(absolute))) {
-      skip(absolute, 'not-source')
+      skip(absolute, 'not-source', depth === 0)
       return
     }
     if (stat.size > maxBytes) { skip(absolute, 'over-1MiB', true); return }
@@ -240,10 +262,10 @@ export async function scanProject(project, scopes = ['srv', 'db']) {
     await matcher.close()
   }
   report.coverage.scanned.sort()
-  report.coverage.skipped.sort((left, right) => left.path.localeCompare(right.path))
-  report.findings.sort((left, right) => left.evidence.file.localeCompare(right.evidence.file)
-    || left.evidence.line - right.evidence.line || left.patternId.localeCompare(right.patternId))
-  report.snapshot.sources.sort((left, right) => left.file.localeCompare(right.file))
+  report.coverage.skipped.sort((left, right) => byCodeUnit(left.path, right.path))
+  report.findings.sort((left, right) => byCodeUnit(left.evidence.file, right.evidence.file)
+    || left.evidence.line - right.evidence.line || byCodeUnit(left.patternId, right.patternId))
+  report.snapshot.sources.sort((left, right) => byCodeUnit(left.file, right.file))
   report.snapshot.sha256 = digest(JSON.stringify({
     scanner: report.scanner, catalogSha256: report.catalogSha256,
     manifestSha256: report.snapshot.manifestSha256, sources: report.snapshot.sources,
@@ -255,12 +277,12 @@ export async function scanProject(project, scopes = ['srv', 'db']) {
 if (process.argv[1] && await realpath(process.argv[1]).catch(() => undefined) === fileURLToPath(import.meta.url)) {
   try {
     const { values, positionals } = parseArgs({
-      options: { full: { type: 'boolean' }, report: { type: 'string' }, decisions: { type: 'string' }, context: { type: 'string', multiple: true }, help: { type: 'boolean' } },
+      options: { full: { type: 'boolean' }, report: { type: 'string' }, decisions: { type: 'string' }, context: { type: 'string', multiple: true }, output: { type: 'string' }, help: { type: 'boolean' } },
       allowPositionals: true
     })
     const [project, ...scopes] = positionals
     if (values.help || (!project && !values.report)) {
-      console.log('Usage: node scan.mjs <CAP-project-root> [scope ...] [--full]\n       node scan.mjs --report <existing-report.json> [--decisions <decision-file.json>]\n       node scan.mjs <CAP-project-root> --report <brief.json> --context <finding-ID> [--context <finding-ID>]\nDefault: compact grouped review JSON, context-only observations counted but omitted. --full retains the complete inventory.\n--context emits hash-checked bounded source excerpts for at most 3 IDs, not a rescan.\n--decisions validates reviewer evidence and progress, not semantic truth or developer acceptance.\nDefaults: srv db. No writes or network. Node.js 22+.\nExit 0: coverage complete within scope/policy; 2: incomplete coverage; 1: invalid input.')
+      console.log('Usage: node scan.mjs <CAP-project-root> [scope ...] [--full]\n       node scan.mjs --report <existing-report.json> [--decisions <decision-file.json>] [--output <new-file>]\n       node scan.mjs <CAP-project-root> --report <brief.json> --context <finding-ID> [--context <finding-ID>]\nDefault: compact grouped review JSON, context-only observations counted but omitted. --full retains the complete inventory.\n--context emits hash-checked bounded source excerpts for at most 3 IDs, not a rescan.\n--decisions validates reviewer evidence and progress, not semantic truth or developer acceptance.\n--output <new-file> also saves the exact JSON printed to stdout; it refuses existing files and paths inside the project.\nDefaults: srv db. Writes only to a new --output file; no network. Node.js 22+.\nExit 0: coverage complete within scope/policy; 2: incomplete coverage; 1: invalid input.')
       process.exitCode = values.help ? 0 : 1
     } else {
       if (values.context && (!values.report || !project || scopes.length || values.full || values.decisions)) {
@@ -276,11 +298,14 @@ if (process.argv[1] && await realpath(process.argv[1]).catch(() => undefined) ==
       }
       const output = values.context ? await readReviewContext(project, report, values.context) : values.full ? report : values.decisions
         ? reconcileDecisions(report, await readJsonInput(values.decisions)) : prepareReview(report)
-      console.log(JSON.stringify(output, null, 2))
+      const text = JSON.stringify(output, null, 2)
+      if (values.output !== undefined) await writeNewFile(values.output, `${text}\n`, project)
+      console.log(text)
       if (values.context ? !report.coverage.complete : !output.coverage.complete) process.exitCode = 2
     }
   } catch (error) {
-    console.error(`Scan failed (${error.code ?? 'INVALID_INPUT'}); check arguments, report JSON, project package.json, CAP Node.js dependency, permissions, and scope containment.`)
+    const detail = error instanceof TypeError ? ` ${error.message}.` : ''
+    console.error(`Scan failed (${error.code ?? 'INVALID_INPUT'});${detail} Check arguments, report JSON, project package.json, CAP Node.js dependency, permissions, and scope containment.`)
     process.exitCode = 1
   }
 }

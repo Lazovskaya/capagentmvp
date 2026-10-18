@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { mkdtemp, mkdir, writeFile, rm, symlink, readFile } from 'node:fs/promises'
+import { mkdtemp, mkdir, writeFile, rm, symlink, readFile, readdir, stat } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { spawnSync } from 'node:child_process'
@@ -8,6 +8,16 @@ import { fileURLToPath } from 'node:url'
 import { scanProject, readReviewContext } from './scan.mjs'
 import { createMatcher } from './matcher.mjs'
 import { prepareReview, reconcileDecisions } from './review.mjs'
+
+async function treeDigest(directory) {
+  const entries = (await readdir(directory, { recursive: true, withFileTypes: true })).filter(item => item.isFile())
+  const parts = []
+  for (const item of entries.sort((left, right) => (path.join(left.parentPath, left.name) < path.join(right.parentPath, right.name) ? -1 : 1))) {
+    const file = path.join(item.parentPath, item.name)
+    parts.push(`${path.relative(directory, file)}:${(await readFile(file)).toString('base64')}`)
+  }
+  return parts.join('\n')
+}
 
 async function fixture(context) {
   const root = await mkdtemp(path.join(tmpdir(), 'cap-patterns-'))
@@ -432,6 +442,170 @@ test('decision reconciliation counts every ID, rejects stale/duplicate/unknown I
   assert.throws(() => reconcileDecisions(brief, { ...submission, decisions: [...submission.decisions, ...submission.decisions] }), /duplicate/)
   assert.throws(() => reconcileDecisions(brief, { ...submission, decisions: [{ ...submission.decisions[0], id: 'unknown' }] }), /Unknown/)
   assert.throws(() => reconcileDecisions(brief, { ...submission, decisions: [{ ...submission.decisions[0], decision: 'accepted' }] }), /supported decision/)
+})
+
+test('decision resume rejects submissions that drop previously decided IDs', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'queries.js'), "SELECT.from(Items).where('code=' + input)\nSELECT.from(Items).where('name=' + input)")
+  const brief = prepareReview(await scanProject(root))
+  assert.ok(brief.findings.length >= 2)
+  const [first, second] = brief.findings
+  const base = { snapshotSha256: brief.snapshot.sha256 }
+  const previous = reconcileDecisions(brief, { ...base, decisions: [
+    { id: first.id, decision: 'not-applicable', reason: 'Synthetic false positive' }
+  ] })
+  const secondDecision = { id: second.id, decision: 'not-applicable', reason: 'Synthetic second review' }
+  assert.throws(() => reconcileDecisions(brief, { ...base, previous, decisions: [secondDecision] }), /drops previously decided IDs: .*/)
+  const resumed = reconcileDecisions(brief, { ...base, previous, decisions: [previous.decisions[0], secondDecision] })
+  assert.equal(resumed.progress.reviewed, 2)
+  assert.equal(resumed.progress.notApplicable, 2)
+  assert.throws(() => reconcileDecisions(brief, { ...base, previous: { ...previous, snapshot: { sha256: 'stale' } }, decisions: [] }), /stale/)
+  assert.throws(() => reconcileDecisions(brief, { ...base, previous: {}, decisions: [] }), /Previous review/)
+  assert.equal(reconcileDecisions(brief, { ...base, decisions: [secondDecision] }).progress.reviewed, 1)
+})
+
+test('decision submissions cannot inject statuses, counts, or unknown checks', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'queries.js'), "SELECT.from(Items).where('code=' + input)\nSELECT.from(Items).where('name=' + input)")
+  const brief = prepareReview(await scanProject(root))
+  const [first, second] = brief.findings
+  const base = { snapshotSha256: brief.snapshot.sha256 }
+  const entry = { id: first.id, decision: 'not-applicable', reason: 'Synthetic false positive' }
+  for (const injected of [{ status: 'accepted' }, { verdict: 'proposals' }, { progress: { reviewed: 99 } }, { count: 1 }]) {
+    assert.throws(() => reconcileDecisions(brief, { ...base, decisions: [{ ...entry, ...injected }] }), /Unsupported decision field/)
+    assert.throws(() => reconcileDecisions(brief, { ...base, decisions: [entry], ...injected }), /Unsupported decision submission field/)
+  }
+  assert.throws(() => reconcileDecisions(brief, { ...base, decisions: [{ ...entry, checks: { 'made-up': { status: 'verified', evidence: 'x' } } }] }), /Unknown decision check ID/)
+  assert.throws(() => reconcileDecisions(brief, { ...base, decisions: [{ ...entry, checks: { 'source-current': { status: 'verified', evidence: 'x', trusted: true } } }] }), /only status and evidence/)
+  assert.throws(() => reconcileDecisions(brief, { ...base, decisions: [{ ...entry, reviewed: false }] }), /placeholder/)
+  // Echoed derived fields are ignored and recomputed, so a previous output can be resubmitted.
+  const echoed = reconcileDecisions(brief, { ...base, decisions: [{ ...entry, blockers: [], requestedDecision: 'proposed', reviewed: true }] })
+  assert.equal(echoed.decisions[0].decision, 'not-applicable')
+  assert.equal(echoed.decisions[0].requestedDecision, 'not-applicable')
+  assert.deepEqual(echoed.decisions[0].blockers, [])
+  assert.equal(echoed.progress.reviewed, 1)
+  assert.equal(echoed.progress.remaining, brief.findings.length - 1)
+  assert.equal(echoed.decisions.find(item => item.id === second.id).reviewed, false)
+  assert.throws(() => prepareReview({ ...brief, summary: { ...brief.summary, contextOnly: -1 } }), /contextOnly/)
+})
+
+test('CLI resume workflow accepts saved output as previous and rejects dropped IDs with exit 1', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'queries.js'), "SELECT.from(Items).where('code=' + input)\nSELECT.from(Items).where('name=' + input)")
+  const brief = prepareReview(await scanProject(root))
+  const [first, second] = brief.findings
+  const cli = fileURLToPath(new URL('./scan.mjs', import.meta.url))
+  const run = async submission => {
+    await writeFile(path.join(root, 'brief.json'), JSON.stringify(brief))
+    await writeFile(path.join(root, 'decisions.json'), JSON.stringify(submission))
+    return spawnSync(process.execPath, [cli, '--report', path.join(root, 'brief.json'), '--decisions', path.join(root, 'decisions.json')], { encoding: 'utf8' })
+  }
+  const base = { snapshotSha256: brief.snapshot.sha256 }
+  const sessionOne = await run({ ...base, decisions: [{ id: first.id, decision: 'not-applicable', reason: 'Synthetic false positive' }] })
+  assert.equal(sessionOne.status, 0, sessionOne.stderr)
+  const previous = JSON.parse(sessionOne.stdout)
+  const second2 = { id: second.id, decision: 'not-applicable', reason: 'Synthetic second review' }
+  const dropped = await run({ ...base, previous, decisions: [second2] })
+  assert.equal(dropped.status, 1)
+  assert.equal(dropped.stdout, '')
+  const resumed = await run({ ...base, previous, decisions: [previous.decisions[0], second2] })
+  assert.equal(resumed.status, 0, resumed.stderr)
+  assert.equal(JSON.parse(resumed.stdout).progress.reviewed, 2)
+})
+
+test('an explicitly requested scope that scans nothing is incomplete, not a clean review', async context => {
+  const root = await fixture(context)
+  await mkdir(path.join(root, 'node_modules', 'dep'), { recursive: true })
+  for (const scope of ['node_modules', 'package.json']) {
+    const report = await scanProject(root, [scope])
+    assert.equal(report.coverage.complete, false, scope)
+    assert.equal(report.coverage.scanned.length, 0)
+    assert.equal(prepareReview(report).progress.verdict, 'needs-review')
+  }
+  const cli = fileURLToPath(new URL('./scan.mjs', import.meta.url))
+  assert.equal(spawnSync(process.execPath, [cli, root, 'node_modules'], { encoding: 'utf8' }).status, 2)
+})
+
+test('snapshot ordering and fingerprint do not depend on locale collation', async context => {
+  const root = await fixture(context)
+  for (const name of ['a.js', 'B.js', '_c.js']) await writeFile(path.join(root, 'srv', name), 'const x = 1')
+  const report = await scanProject(root, ['srv'])
+  const files = report.snapshot.sources.map(source => source.file)
+  assert.deepEqual(files, ['srv/B.js', 'srv/_c.js', 'srv/a.js'])
+  assert.deepEqual(report.coverage.scanned, files)
+  assert.equal((await scanProject(root, ['srv'])).snapshot.sha256, report.snapshot.sha256)
+})
+
+test('CLI names the rejected decision rule without echoing paths or input', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'queries.js'), "SELECT.from(Items).where('code=' + input)")
+  const brief = prepareReview(await scanProject(root))
+  const cli = fileURLToPath(new URL('./scan.mjs', import.meta.url))
+  await writeFile(path.join(root, 'brief.json'), JSON.stringify(brief))
+  await writeFile(path.join(root, 'decisions.json'), JSON.stringify({ snapshotSha256: brief.snapshot.sha256, decisions: [], verdict: 'proposals' }))
+  const rejected = spawnSync(process.execPath, [cli, '--report', path.join(root, 'brief.json'), '--decisions', path.join(root, 'decisions.json')], { encoding: 'utf8' })
+  assert.equal(rejected.status, 1)
+  assert.equal(rejected.stdout, '')
+  assert.match(rejected.stderr, /Unsupported decision submission field: verdict/)
+  await writeFile(path.join(root, 'decisions.json'), '{"secret-token": nope')
+  const malformed = spawnSync(process.execPath, [cli, '--report', path.join(root, 'brief.json'), '--decisions', path.join(root, 'decisions.json')], { encoding: 'utf8' })
+  assert.equal(malformed.status, 1)
+  assert.doesNotMatch(malformed.stderr, /secret-token|decisions\.json/)
+})
+
+test('--output saves the exact stdout JSON to a new owner-only file and keeps stdout unchanged', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'queries.js'), "SELECT.from(Items).where('code=' + input)")
+  const outDir = await mkdtemp(path.join(tmpdir(), 'cap-output-'))
+  context.after(() => rm(outDir, { recursive: true, force: true }))
+  const cli = fileURLToPath(new URL('./scan.mjs', import.meta.url))
+  const before = await treeDigest(root)
+  const plain = spawnSync(process.execPath, [cli, root], { encoding: 'utf8' })
+  const target = path.join(outDir, 'brief.json')
+  const saved = spawnSync(process.execPath, [cli, root, '--output', target], { encoding: 'utf8' })
+  assert.equal(saved.status, 0, saved.stderr)
+  assert.equal(saved.stdout, plain.stdout)
+  assert.equal(await readFile(target, 'utf8'), plain.stdout)
+  assert.equal((await stat(target)).mode & 0o777, 0o600)
+  assert.equal(await treeDigest(root), before)
+  // The saved brief feeds the other modes unchanged.
+  const context1 = spawnSync(process.execPath, [cli, root, '--report', target, '--context', JSON.parse(plain.stdout).findings[0].id, '--output', path.join(outDir, 'context.json')], { encoding: 'utf8' })
+  assert.equal(context1.status, 0, context1.stderr)
+  assert.equal(await readFile(path.join(outDir, 'context.json'), 'utf8'), context1.stdout)
+  // Incomplete coverage still exits 2 and still saves the report.
+  const incomplete = spawnSync(process.execPath, [cli, root, 'missing', '--output', path.join(outDir, 'incomplete.json')], { encoding: 'utf8' })
+  assert.equal(incomplete.status, 2)
+  assert.equal(JSON.parse(await readFile(path.join(outDir, 'incomplete.json'), 'utf8')).coverage.complete, false)
+})
+
+test('--output refuses overwrites, project paths, missing folders, and symlinked targets without stdout', async context => {
+  const root = await fixture(context)
+  const outDir = await mkdtemp(path.join(tmpdir(), 'cap-output-'))
+  context.after(() => rm(outDir, { recursive: true, force: true }))
+  const cli = fileURLToPath(new URL('./scan.mjs', import.meta.url))
+  const run = target => spawnSync(process.execPath, [cli, root, '--output', target], { encoding: 'utf8' })
+  const existing = path.join(outDir, 'existing.json')
+  await writeFile(existing, 'PRIOR REVIEW')
+  const overwrite = run(existing)
+  assert.equal(overwrite.status, 1)
+  assert.equal(overwrite.stdout, '')
+  assert.match(overwrite.stderr, /EEXIST/)
+  assert.equal(await readFile(existing, 'utf8'), 'PRIOR REVIEW')
+  const inside = run(path.join(root, 'srv', 'brief.json'))
+  assert.equal(inside.status, 1)
+  assert.match(inside.stderr, /outside the analyzed project/)
+  await assert.rejects(stat(path.join(root, 'srv', 'brief.json')))
+  const viaLink = path.join(outDir, 'link-to-project')
+  await symlink(root, viaLink)
+  assert.match(run(path.join(viaLink, 'brief.json')).stderr, /outside the analyzed project/)
+  const missing = run(path.join(outDir, 'no-such-folder', 'brief.json'))
+  assert.equal(missing.status, 1)
+  assert.equal(missing.stdout, '')
+  const dangling = path.join(outDir, 'dangling.json')
+  await symlink(path.join(outDir, 'elsewhere.json'), dangling)
+  assert.equal(run(dangling).status, 1)
+  await assert.rejects(stat(path.join(outDir, 'elsewhere.json')))
+  assert.equal(spawnSync(process.execPath, [cli, root, '--output', ''], { encoding: 'utf8' }).status, 1)
 })
 
 test('CLI validates saved decisions locally and preserves explicit blockers without writes', async context => {

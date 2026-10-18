@@ -1,0 +1,7 @@
+{
+  "name": "synthetic-misleading-signals",
+  "version": "1.0.0",
+  "dependencies": {
+    "@sap/cds": "^9"
+  }
+}

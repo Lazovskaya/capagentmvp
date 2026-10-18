@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "fixture": "brownfield-opportunities",
+  "labelling": "Authored from CAP semantics before the scanner was run. Single author, not independent; labels are a judgement, not ground truth.",
+  "note": "Hand-written boilerplate with native CAP replacements. One opportunity (data-flow concatenation) is outside the scanner's text heuristics by design.",
+  "entries": [
+    {
+      "patternId": "CAP-I18N-001",
+      "file": "srv/catalog-service.js",
+      "anchor": "readFileSync('./i18n/messages.properties'",
+      "label": "opportunity",
+      "note": "Hand-read message bundle; CAP message lookup applies."
+    },
+    {
+      "patternId": "CAP-MODEL-001",
+      "file": "srv/catalog-service.js",
+      "anchor": "req.data.ID = cds.utils.uuid()",
+      "label": "context",
+      "note": "Hand-assigned key; cuid aspect is the native route."
+    },
+    {
+      "patternId": "CAP-VALIDATION-001",
+      "file": "srv/catalog-service.js",
+      "anchor": "if (!req.data.name)",
+      "label": "opportunity",
+      "note": "Unconditional required-field guard; @mandatory applies."
+    },
+    {
+      "patternId": "CAP-REMOTE-CONSUME-001",
+      "file": "srv/catalog-service.js",
+      "anchor": "cds.connect.to('StockService')",
+      "label": "context",
+      "note": "Remote consumption observation."
+    },
+    {
+      "patternId": "CAP-QUERY-001",
+      "file": "srv/catalog-service.js",
+      "anchor": "where(\"name like '%\" + term",
+      "label": "opportunity",
+      "note": "User input concatenated into where; bind the value."
+    },
+    {
+      "patternId": "CAP-PAGING-001",
+      "file": "srv/catalog-service.js",
+      "anchor": "req.query.SELECT.limit =",
+      "label": "opportunity",
+      "note": "Manual limit override; generic CAP paging applies."
+    },
+    {
+      "patternId": "CAP-REMOTE-ERROR-001",
+      "file": "srv/catalog-service.js",
+      "anchor": "req.error(502, err.message)",
+      "label": "opportunity",
+      "note": "Upstream error message forwarded to the client."
+    },
+    {
+      "patternId": "CAP-TX-001",
+      "file": "srv/catalog-service.js",
+      "anchor": "const tx = cds.tx(req)",
+      "label": "context",
+      "note": "Manual transaction observation."
+    },
+    {
+      "patternId": "CAP-TX-001",
+      "file": "srv/catalog-service.js",
+      "anchor": "await tx.commit()",
+      "label": "context",
+      "note": "Manual commit observation."
+    },
+    {
+      "patternId": "CAP-QUERY-001",
+      "file": "srv/reports.js",
+      "anchor": "db.run(`SELECT * FROM Items WHERE code = '${code}'`)",
+      "label": "opportunity",
+      "note": "Interpolated SQL string."
+    },
+    {
+      "patternId": "CAP-QUERY-001",
+      "file": "srv/reports.js",
+      "anchor": "const condition = \"name = '\" + name",
+      "label": "opportunity",
+      "note": "Concatenated condition later passed to where(); the scanner cannot see the data flow."
+    },
+    {
+      "patternId": "CAP-QUERY-001",
+      "file": "srv/reports.js",
+      "anchor": "where('status = '",
+      "label": "opportunity",
+      "note": "Concatenation continues on the next line."
+    },
+    {
+      "patternId": "CAP-MODEL-001",
+      "file": "db/schema.cds",
+      "anchor": "key ID",
+      "label": "context",
+      "note": "Hand-declared key."
+    },
+    {
+      "patternId": "CAP-MODEL-001",
+      "file": "db/schema.cds",
+      "anchor": "createdAt",
+      "label": "context",
+      "note": "Hand-declared audit field."
+    },
+    {
+      "patternId": "CAP-MODEL-001",
+      "file": "db/schema.cds",
+      "anchor": "modifiedAt",
+      "label": "context",
+      "note": "Hand-declared audit field."
+    }
+  ]
+}

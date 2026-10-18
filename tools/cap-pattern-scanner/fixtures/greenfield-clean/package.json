@@ -1,0 +1,7 @@
+{
+  "name": "synthetic-greenfield-clean",
+  "version": "1.0.0",
+  "dependencies": {
+    "@sap/cds": "^9"
+  }
+}

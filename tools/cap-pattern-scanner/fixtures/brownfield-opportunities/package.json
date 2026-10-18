@@ -1,0 +1,7 @@
+{
+  "name": "synthetic-brownfield-opportunities",
+  "version": "1.0.0",
+  "dependencies": {
+    "@sap/cds": "^9"
+  }
+}

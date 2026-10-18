@@ -115,7 +115,7 @@ Sources: [CAP i18n](https://cap.cloud.sap/docs/node.js/cds-i18n),
 The supplied SAP skill references informed workflow boundaries; their content was
 not copied and their incomplete reference trees are not runtime dependencies.
 
-## Customer VDI Testing
+## Customer Environment Testing
 
 For a short environment-by-environment guide, see
 `docs/user-guide/cap-patterns-quickstart.md`.
@@ -124,13 +124,15 @@ Use the portable workflow in `tools/cap-pattern-scanner/README.md`. Export the l
 working tree with the existing factory packager, transfer the ZIP through an approved
 customer channel, and run the scanner from the extracted folder outside the client
 checkout. No Git push, customer-to-EPAM access, npm install, or client mutation is
-required. Source/reports remain inside VDI; AI review uses only an approved provider.
+required. Source/reports remain inside the customer environment; AI review uses only an approved provider.
 
 ## Factory Installation (Optional)
 
 For a new disposable workspace only, the factory adapter can install the use case.
-It overwrites `.github/copilot-instructions.md` and updates VS Code settings; do not
-use it blindly on an established customer workspace:
+Every adapter overwrites its generated entry files (`CLAUDE.md`,
+`.cursor/rules/factory.mdc`, `.github/copilot-instructions.md`) and the Copilot adapter
+updates VS Code settings; do not use any of them on an established customer workspace
+(see Follow-Up: Installer Overwrite Behavior):
 
 ```sh
 python3 scripts/github-copilot/adapter/install.py --project /path/to/cap-project --use-case CAP-AI-11
@@ -196,6 +198,22 @@ samples, hash-checked --context batches, named dependency follow-ups only, and s
 at needs-review when evidence is unavailable. Do not launch a coordinator just to
 run one skill or reread full files for repeated matches. Measure end-to-end token
 usage on the next approved pilot; a tool excerpt budget is not a measured savings claim.
+
+## Follow-Up: Installer Overwrite Behavior
+
+Status: open, outside CAP-AI-11 scope; needs the Factory infrastructure owner.
+
+Observed 2026-10-18 by installing `--use-case CAP-AI-11` with each adapter over a
+workspace holding pre-existing files: `claude-code`, `cursor`, and `github-copilot`
+silently replaced `CLAUDE.md`, `.cursor/rules/factory.mdc`,
+`.github/copilot-instructions.md`, and the installed agent/skill files, with no prompt
+or backup. This is by design for generated files (the generated header says it will
+overwrite), and it affects every use case because the logic is shared
+(`scripts/adapter_common.py` and each `install.py`). CAP-AI-11 therefore keeps the
+documented rule of installing only into an empty staging folder; a delivery test pins
+the exact file set each adapter writes. A possible fix, not approved or implemented,
+is to refuse to replace files that are absent from `factory-lock.json` unless forced.
+Changing it requires an owner decision and regression tests across all use cases.
 
 ## Commit Boundary
 

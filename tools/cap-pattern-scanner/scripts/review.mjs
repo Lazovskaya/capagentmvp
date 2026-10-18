@@ -10,6 +10,7 @@ const queryChecks = [
   { id: 'authorization-path', required: true, description: 'Identify application-service versus direct database execution and preserve actual authorization predicates. Value binding does not establish access control.' }
 ]
 
+const maxObservations = 100
 const submissionKeys = new Set(['snapshotSha256', 'decisions', 'previous'])
 const entryKeys = new Set(['id', 'decision', 'reason', 'checks'])
 // Echoed from a previous reconciled output so it can be resubmitted; always recomputed, never trusted.
@@ -31,6 +32,16 @@ function normalizeChecks(checks) {
   return normalized
 }
 
+function rememberGuidance(patterns, patternId, guidance) {
+  if (!guidance || guidance.id !== patternId) throw new TypeError('Missing pattern guidance')
+  if (patterns.has(patternId) && JSON.stringify(patterns.get(patternId)) !== JSON.stringify(guidance)) {
+    throw new TypeError('Conflicting guidance for the same pattern')
+  }
+  patterns.set(patternId, guidance)
+}
+
+const sourceHash = /^[a-f0-9]{64}$/
+
 export function prepareReview(report) {
   if (report?.schemaVersion !== 1 || !Array.isArray(report.findings)
     || typeof report.coverage?.complete !== 'boolean' || !report.snapshot?.sha256) {
@@ -41,9 +52,27 @@ export function prepareReview(report) {
   const groups = new Map()
   const findings = []
   const findingIds = new Set()
+  const observationGroups = new Map()
   let contextOnly = 0
+  let observationCount = 0
+  const observe = (patternId, file, sha256, id, line) => {
+    if (observationCount >= maxObservations) return
+    observationCount += 1
+    const key = JSON.stringify([patternId, file])
+    if (!observationGroups.has(key)) observationGroups.set(key, { patternId, file, sha256, items: [] })
+    observationGroups.get(key).items.push({ id, line })
+  }
   for (const finding of report.findings) {
-    if (finding.assessment === 'context-only') { contextOnly += 1; continue }
+    if (finding.assessment === 'context-only') {
+      contextOnly += 1
+      if (typeof finding.id !== 'string' || typeof finding.patternId !== 'string' || typeof finding.evidence?.file !== 'string'
+        || !Number.isInteger(finding.evidence.line) || finding.evidence.line < 1 || !sourceHash.test(finding.evidence.sha256 ?? '')) {
+        throw new TypeError('Expected classified observations with source fingerprints')
+      }
+      rememberGuidance(patterns, finding.patternId, finding.recommendation ?? report.patterns?.find(pattern => pattern.id === finding.patternId))
+      observe(finding.patternId, finding.evidence.file, finding.evidence.sha256, finding.id, finding.evidence.line)
+      continue
+    }
     if (finding.assessment !== 'review-candidate' || typeof finding.id !== 'string'
       || typeof finding.patternId !== 'string' || typeof finding.evidence?.file !== 'string'
       || !Number.isInteger(finding.evidence.line) || finding.evidence.line < 1
@@ -52,12 +81,7 @@ export function prepareReview(report) {
     }
     if (findingIds.has(finding.id)) throw new TypeError('Duplicate finding ID in report')
     findingIds.add(finding.id)
-    const guidance = finding.recommendation ?? report.patterns?.find(pattern => pattern.id === finding.patternId)
-    if (!guidance || guidance.id !== finding.patternId) throw new TypeError('Missing pattern guidance')
-    if (patterns.has(finding.patternId) && JSON.stringify(patterns.get(finding.patternId)) !== JSON.stringify(guidance)) {
-      throw new TypeError('Conflicting guidance for the same pattern')
-    }
-    patterns.set(finding.patternId, guidance)
+    rememberGuidance(patterns, finding.patternId, finding.recommendation ?? report.patterns?.find(pattern => pattern.id === finding.patternId))
     findings.push({
       id: finding.id, patternId: finding.patternId, status: 'candidate',
       assessment: 'review-candidate', evidence: { ...finding.evidence }
@@ -69,6 +93,23 @@ export function prepareReview(report) {
   if (alreadyCompact) {
     contextOnly = report.summary?.contextOnly ?? 0
     if (!Number.isInteger(contextOnly) || contextOnly < 0) throw new TypeError('Expected a non-negative integer summary.contextOnly')
+    for (const group of report.observations ?? []) {
+      if (typeof group?.patternId !== 'string' || typeof group.file !== 'string' || !sourceHash.test(group.sha256 ?? '') || !Array.isArray(group.items)) {
+        throw new TypeError('Expected observation groups with source fingerprints')
+      }
+      for (const item of group.items) {
+        if (typeof item?.id !== 'string' || !Number.isInteger(item.line) || item.line < 1) throw new TypeError('Expected observation items with an ID and line')
+      }
+      if (group.items.length) rememberGuidance(patterns, group.patternId, report.patterns?.find(pattern => pattern.id === group.patternId))
+      for (const item of group.items) observe(group.patternId, group.file, group.sha256, item.id, item.line)
+    }
+  }
+  const observationIds = new Set(findingIds)
+  for (const group of observationGroups.values()) {
+    for (const item of group.items) {
+      if (observationIds.has(item.id)) throw new TypeError('Duplicate finding ID in report')
+      observationIds.add(item.id)
+    }
   }
   return {
     schemaVersion: 1,
@@ -87,6 +128,8 @@ export function prepareReview(report) {
       limits: report.coverage.limits
     },
     summary: { reviewCandidates: findings.length, contextOnly },
+    observations: [...observationGroups.values()],
+    observationsOmitted: contextOnly - observationCount,
     progress: {
       total: findings.length, reviewed: 0, remaining: findings.length,
       verdict: report.coverage.complete && !findings.length ? 'no-applicable-patterns' : 'needs-review',
@@ -106,6 +149,7 @@ export function prepareReview(report) {
       'This JSON is already filtered and grouped. Do not spawn agents or repeatedly read the full report to extract JSON.',
       'Load each pattern guidance once; read surrounding application code by file/group. Account for every finding ID.',
       'Respect the requested sample/group first; do not substitute a different pattern without explaining a blocker.',
+      'observations are context-only signals, not candidates: no decision is needed and they do not count in progress. Read one with --context only when its pattern guidance makes it relevant (for example a direct HTTP call or a manual transaction), and report anything it reveals under the output contract observations, never as a decision. observationsOmitted counts signals not listed.',
       'req.error collects errors; CAP automatically rejects recorded errors after each before/on/after phase. Missing req.reject is not itself a defect.',
       'Production CAP 5xx responses are sanitized by default. Raw error.message alone does not prove client-visible leakage; verify runtime, configuration, adapters, and response evidence.',
       'Do not invent logging APIs, annotations, or runtime behavior. Do not recommend unredacted raw-error logging.',

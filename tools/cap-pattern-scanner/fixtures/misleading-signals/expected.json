@@ -43,6 +43,16 @@
       "acceptableDecisions": [
         "not-applicable"
       ]
+    },
+    {
+      "patternId": "CAP-VALIDATION-001",
+      "file": "srv/notes-service.js",
+      "anchor": "if (!text)",
+      "label": "not-applicable",
+      "note": "Destructures a database row, not request data; an alias detector must not flag it.",
+      "acceptableDecisions": [
+        "not-applicable"
+      ]
     }
   ]
 }

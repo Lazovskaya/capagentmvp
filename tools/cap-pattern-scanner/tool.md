@@ -30,8 +30,14 @@ Reports may contain confidential relative paths even though source text is omitt
 ## Output Contract
 
 Default CLI output is a `format: cap-pattern-review` brief. Findings include only
-review candidates; context-only observations are counted, not repeated. Guidance
-appears once in `patterns`, and `groups` maps file/pattern to finding IDs. Initial
+review candidates. Context-only observations are counted in `summary.contextOnly` and
+also listed compactly in `observations`: one group per pattern and file with the file
+`sha256` and `items` of `{ id, line }`, at most 100 in total, with `observationsOmitted`
+counting any left out. An observation is a lead, not a candidate: it needs no decision, it
+never counts in `progress`, and a decision submitted for its ID is rejected. Guidance for
+every listed pattern, candidates and observations alike, appears once in `patterns`
+(listing observations adds up to about 5 KB when all four context patterns fire), and
+`groups` maps file/pattern to finding IDs. Initial
 `progress` is unreviewed/needs-review, never an automatically established proposal.
 Pass `--full` for the old complete inventory. The direct `scanProject` API retains
 that full shape. This is the initial 0.1.0 baseline contract; old public pilot
@@ -87,10 +93,16 @@ is the only write the scanner performs. Keep artifacts inside the customer bound
 and retain prior review history.
 
 `--context` is an optional read-only, assistant-independent context operation. It
-requires a project and saved report plus one to three unique finding IDs (repeat
-the flag). It checks current manifest/source hashes, path containment, source
+requires a project and saved report plus one to three unique IDs of review candidates or
+listed observations (repeat the flag). It checks current manifest/source hashes, path containment, source
 exclusions, and symlinks before returning 10 lines before/20 after each finding,
-at most 8,000 characters per excerpt. Stale/invalid evidence fails with exit 1.
+at most 8,000 characters per excerpt. When the evidence line sits inside a `try`
+block, the excerpt is widened to the whole try/catch/finally statement if that fits the
+8,000-character ceiling, because a catch that rewrites errors changes what the code in
+the try means; the excerpt then carries `enclosing: { kind, startLine, endLine, widened }`.
+If it does not fit, `widened` is false, the default window is kept, and the catch may be
+missing. The statement is found by brace matching that skips strings, template literals,
+and comments; it is a heuristic, and unbalanced braces simply mean no widening. Stale/invalid evidence fails with exit 1.
 Incomplete original coverage retains exit 2. This is not a rescan or complete
 function analysis. Output includes actual customer source and must remain inside
 approved customer/AI boundaries. Truncation is explicit. Larger analysis requires
@@ -131,9 +143,10 @@ is not itself an improvement opportunity. All matches remain candidates until re
 
 Rules are heuristic text matching, not AST or CSN analysis: comments/strings may
 match; multiline expressions and most aliases may be missed. The one exception is the
-validation rule, which also follows a single simple `const x = req.data` alias. A name
-counts only when it is declared once in the file; there is no scope analysis, and
-parameters, destructuring, and compound conditions are not tracked. Contextual skill review
+validation rule, which also follows a single simple `const x = req.data` alias and flat
+destructuring such as `const { a, b: c } = req.data`. A name counts only when it is
+declared once in the file; there is no scope analysis, and function parameters, nested,
+default, and rest destructuring, and compound conditions are not tracked. Contextual skill review
 must disconfirm false positives and check the effective model before adoption.
 Coverage completeness is traversal completeness within scope, not semantic proof.
 
@@ -196,7 +209,7 @@ Conditional or external-state validation may need to remain custom.
 	compatibility checks, contraindications, non-applied example, and verification
 	plan. Signals are OR-ed, findings deduplicated per pattern/file/line. A pattern
 	whose signals contain `req\\s*\\.\\s*data` can set `"dataAliases": true` to also match
-	a single simple alias of `req.data` (see the rules above); it is not shown in guidance.
+	a single simple alias or flat destructuring of `req.data` (see the rules above); it is not shown in guidance.
 	Text matching does not establish semantic applicability. Avoid unbounded or nested
 	regex quantifiers that could make scans expensive.
 3. Add positive, negative, and combined-fixture tests to `scripts/scan.test.mjs`.

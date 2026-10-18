@@ -71,7 +71,12 @@ environment generation, client-code harvesting, and publishing are out of scope.
    Matching has a per-file deadline. `analysis-timeout` and `matcher-failure`
    skipped reasons mean incomplete analysis; do not interpret them as no matches.
    Use `summary` and each finding's `assessment`: context-only observations are
-   not an actionable shortlist. Detailed scanned paths remain in `--full` evidence;
+   not an actionable shortlist, but the brief lists them under `observations` as leads
+   (no decision needed, not counted in progress). Look at an observation only when its
+   pattern guidance applies, for example a direct HTTP call or a manual transaction:
+   read it with `--context` using its ID (it counts toward the three-ID batch) and
+   report anything it reveals under the output contract's observations, never as a
+   decision. Zero candidates is not a clean result while observations exist. Detailed scanned paths remain in `--full` evidence;
    request that inventory only for a specific coverage question. Propose changes only after independent evidence
    establishes a concrete improvement; correct native CAP usage needs no change.
 4. Load the brief's `patterns` guidance once. Review its `groups` by file/pattern,
@@ -88,6 +93,10 @@ environment generation, client-code harvesting, and publishing are out of scope.
    output in public artifacts or outside the approved AI/customer boundary.
    If no local brief may be saved, use the host's bounded line-range file reader
    for the same selected locations rather than asking the user to grant extra writes.
+   An excerpt inside a try block is widened to the whole try/catch when it fits. If its
+   `enclosing.widened` is false, read the try's start and its catch with the host's
+   line-range reader before judging how an error propagates: a catch that rewrites a
+   rejection changes the status the client sees.
    Start with the excerpt, then expand only a named missing function, call site,
    entity, or test needed to distinguish decisions. Do not read entire large files
    or folders by default. A truncated excerpt or unavailable dependency is a reason

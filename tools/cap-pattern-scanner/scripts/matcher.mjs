@@ -16,22 +16,42 @@ if (!isMainThread) {
       }
       return start + 1
     }
-    // Simple aliases of the request payload: `const order = req.data`. A name counts only when it is
-    // declared exactly once in the file, so a reused name (for example a database row) is never treated
-    // as request data. There is no scope analysis, and parameters or destructuring are not tracked.
+    // Simple aliases of the request payload: `const order = req.data`, and flat destructuring such as
+    // `const { product, qty: amount } = req.data`. A name counts only when it is declared exactly once in
+    // the file, so a reused name (for example a database row) is never treated as request data. Defaults,
+    // nested patterns, and rest elements are skipped. There is no scope analysis; parameters are not tracked.
     const payload = 'req\\s*\\.\\s*data'
+    const field = `${payload}\\s*\\.\\s*[A-Za-z_$][\\w$]*`
+    const identifier = /^[A-Za-z_$][\w$]*$/
+    function boundNames(list) {
+      const names = []
+      for (const part of list.split(',')) {
+        let name = part.split('=')[0].trim()
+        if (name.startsWith('...')) name = name.slice(3).trim()
+        if (name.includes(':')) name = name.split(':').pop().trim()
+        if (identifier.test(name)) names.push(name)
+      }
+      return names
+    }
+    const escapeName = name => name.replace(/\$/g, '\\$')
     function aliasSignals(signals, source) {
       const declarations = new Map()
-      for (const match of source.matchAll(/\b(?:const|let|var)\s+([A-Za-z_$][\w$]*)/g)) {
-        declarations.set(match[1], (declarations.get(match[1]) ?? 0) + 1)
-      }
-      const names = []
+      const declare = name => declarations.set(name, (declarations.get(name) ?? 0) + 1)
+      for (const match of source.matchAll(/\b(?:const|let|var)\s+([A-Za-z_$][\w$]*)/g)) declare(match[1])
+      for (const match of source.matchAll(/\b(?:const|let|var)\s*[{[]([^{}[\]]*)[}\]]/g)) boundNames(match[1]).forEach(declare)
+      const objects = []
       for (const match of source.matchAll(/\b(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=\s*req\s*\.\s*data\b(?!\s*[.[(])/g)) {
-        if (match[1] !== 'req' && declarations.get(match[1]) === 1) names.push(match[1].replace(/\$/g, '\\$'))
+        if (match[1] !== 'req' && declarations.get(match[1]) === 1) objects.push(match[1])
       }
-      if (!names.length) return []
-      const alternation = `(?:${[...new Set(names)].join('|')})`
-      return signals.filter(signal => signal.includes(payload)).map(signal => signal.split(payload).join(alternation))
+      const destructured = []
+      for (const match of source.matchAll(/\b(?:const|let|var)\s*\{([^{}=]*)\}\s*=\s*req\s*\.\s*data\b(?!\s*[.[(])/g)) {
+        for (const name of boundNames(match[1])) if (name !== 'req' && declarations.get(name) === 1) destructured.push(name)
+      }
+      const alternation = names => `(?:${[...new Set(names)].map(escapeName).join('|')})`
+      const variants = []
+      if (objects.length) variants.push(...signals.filter(signal => signal.includes(payload)).map(signal => signal.split(payload).join(alternation(objects))))
+      if (destructured.length) variants.push(...signals.filter(signal => signal.includes(field)).map(signal => signal.split(field).join(alternation(destructured))))
+      return variants
     }
     const matches = []
     let remaining = maximum

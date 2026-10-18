@@ -48,15 +48,85 @@ async function writeNewFile(target, text, project) {
   await handle.close()
 }
 
+// Finds try/catch/finally statements by brace matching, skipping strings, template literals, and comments.
+// Heuristic text analysis: regex literals or odd formatting can confuse it, and unbalanced braces yield
+// no statements, so a failure only means the default excerpt window is used.
+function tryStatements(text) {
+  const stack = []
+  const statements = []
+  const closed = []
+  let line = 1
+  let expect = null
+  for (let index = 0; index < text.length; index += 1) {
+    const character = text[index]
+    if (character === '\n') { line += 1; continue }
+    if (character === '/' && text[index + 1] === '/') {
+      while (index < text.length && text[index] !== '\n') index += 1
+      index -= 1
+      continue
+    }
+    if (character === '/' && text[index + 1] === '*') {
+      index += 2
+      while (index < text.length && !(text[index] === '*' && text[index + 1] === '/')) {
+        if (text[index] === '\n') line += 1
+        index += 1
+      }
+      index += 1
+      continue
+    }
+    if (character === '"' || character === "'" || character === '`') {
+      index += 1
+      while (index < text.length && text[index] !== character) {
+        if (text[index] === '\\') index += 1
+        if (text[index] === '\n') line += 1
+        index += 1
+      }
+      continue
+    }
+    if (/[A-Za-z_$]/.test(character) && !/[\w$]/.test(text[index - 1] ?? '')) {
+      const word = /^[\w$]+/.exec(text.slice(index, index + 40))[0]
+      if (word === 'try' || word === 'catch' || word === 'finally') expect = word
+      index += word.length - 1
+      continue
+    }
+    if (character === '{') { stack.push({ line, kind: expect ?? 'block' }); expect = null; continue }
+    if (character === ';') { expect = null; continue }
+    if (character === '}') {
+      const block = stack.pop()
+      if (!block) return []
+      const depth = stack.length
+      if (block.kind === 'try') {
+        const statement = { start: block.line, end: line }
+        statements.push(statement)
+        closed[depth] = statement
+      } else if ((block.kind === 'catch' || block.kind === 'finally') && closed[depth]) {
+        closed[depth].end = line
+      }
+    }
+  }
+  return stack.length ? [] : statements
+}
+
+const innermostTry = (statements, line) => statements
+  .filter(statement => statement.start <= line && line <= statement.end)
+  .sort((left, right) => (left.end - left.start) - (right.end - right.start))[0]
+
 export async function readReviewContext(project, report, findingIds) {
   const brief = prepareReview(report)
   if (!Array.isArray(findingIds) || !findingIds.length || findingIds.length > 3
     || new Set(findingIds).size !== findingIds.length) {
     throw new TypeError('Select one to three unique finding IDs for a bounded review batch')
   }
+  // Review candidates and listed context-only observations can both be read; only candidates take decisions.
+  const selectable = [
+    ...brief.findings,
+    ...brief.observations.flatMap(group => group.items.map(item => ({
+      id: item.id, patternId: group.patternId, evidence: { file: group.file, line: item.line, sha256: group.sha256 }
+    })))
+  ]
   const selected = findingIds.map(id => {
-    const finding = brief.findings.find(candidate => candidate.id === id)
-    if (!finding) throw new TypeError('Unknown review-candidate ID')
+    const finding = selectable.find(candidate => candidate.id === id)
+    if (!finding) throw new TypeError('Unknown review-candidate or observation ID')
     return finding
   })
   const root = await realpath(project)
@@ -87,12 +157,25 @@ export async function readReviewContext(project, report, findingIds) {
     if (source.sha256 !== finding.evidence.sha256) throw new Error('Source changed; rescan before reviewing')
     const lines = source.text.split(/\r?\n/)
     if (finding.evidence.line > lines.length) throw new Error('Evidence line is outside the source')
-    const startLine = Math.max(1, finding.evidence.line - 10)
-    const endLine = Math.min(lines.length, finding.evidence.line + 20)
-    const fullExcerpt = lines.slice(startLine - 1, endLine).map((line, index) => `${startLine + index}: ${line}`).join('\n')
+    const render = (from, to) => lines.slice(from - 1, to).map((line, index) => `${from + index}: ${line}`).join('\n')
+    let startLine = Math.max(1, finding.evidence.line - 10)
+    let endLine = Math.min(lines.length, finding.evidence.line + 20)
+    // Show the whole enclosing try/catch when it fits the character ceiling, because a catch that
+    // rewrites errors changes what the code in the try block means.
+    const statement = innermostTry(tryStatements(source.text), finding.evidence.line)
+    let enclosing
+    if (statement) {
+      const widenedStart = Math.min(startLine, statement.start)
+      const widenedEnd = Math.min(lines.length, Math.max(endLine, statement.end))
+      const widened = render(widenedStart, widenedEnd).length <= 8000
+      if (widened) { startLine = widenedStart; endLine = widenedEnd }
+      enclosing = { kind: 'try', startLine: statement.start, endLine: statement.end, widened }
+    }
+    const fullExcerpt = render(startLine, endLine)
     excerpts.push({
       findingId: finding.id, patternId: finding.patternId, file: finding.evidence.file,
       sha256: source.sha256, startLine, endLine,
+      ...(enclosing ? { enclosing } : {}),
       truncated: fullExcerpt.length > 8000,
       text: fullExcerpt.slice(0, 8000)
     })
@@ -100,10 +183,11 @@ export async function readReviewContext(project, report, findingIds) {
   return {
     schemaVersion: 1, format: 'cap-pattern-context', useCaseId: brief.useCaseId,
     snapshotSha256: brief.snapshot.sha256,
-    limits: { findings: 3, linesBefore: 10, linesAfter: 20, charactersPerExcerpt: 8000 },
+    limits: { findings: 3, linesBefore: 10, linesAfter: 20, charactersPerExcerpt: 8000, widensToEnclosingTry: true },
     caveats: [
       'Customer source is included. Keep this output in the approved customer/AI boundary.',
-      'Excerpts are bounded, not complete functions or semantic proof. Expand only a specific unresolved dependency.',
+      'Excerpts are bounded, not complete functions or semantic proof. An excerpt inside a try block is widened to the whole try/catch when that fits the character ceiling; if enclosing.widened is false the catch may be missing, so read it before judging how errors propagate.',
+      'Expand only a specific unresolved dependency.',
       'This verifies selected file and manifest hashes, not an atomic or whole-project rescan.'
     ],
     excerpts
@@ -292,7 +376,7 @@ if (isMainScript()) {
     })
     const [project, ...scopes] = positionals
     if (values.help || (!project && !values.report)) {
-      console.log('Usage: node scan.mjs <CAP-project-root> [scope ...] [--full]\n       node scan.mjs --report <existing-report.json> [--decisions <decision-file.json>] [--output <new-file>]\n       node scan.mjs <CAP-project-root> --report <brief.json> --context <finding-ID> [--context <finding-ID>]\nDefault: compact grouped review JSON, context-only observations counted but omitted. --full retains the complete inventory.\n--context emits hash-checked bounded source excerpts for at most 3 IDs, not a rescan.\n--decisions validates reviewer evidence and progress, not semantic truth or developer acceptance.\n--output <new-file> also saves the exact JSON printed to stdout; it refuses existing files and paths inside the project.\nDefaults: srv db. Writes only to a new --output file; no network. Node.js 22+.\nExit 0: coverage complete within scope/policy; 2: incomplete coverage; 1: invalid input.')
+      console.log('Usage: node scan.mjs <CAP-project-root> [scope ...] [--full]\n       node scan.mjs --report <existing-report.json> [--decisions <decision-file.json>] [--output <new-file>]\n       node scan.mjs <CAP-project-root> --report <brief.json> --context <finding-ID> [--context <finding-ID>]\nDefault: compact grouped review JSON; context-only observations are listed compactly (at most 100) and need no decision. --full retains the complete inventory.\n--context emits hash-checked bounded source excerpts for at most 3 candidate or observation IDs, not a rescan.\n--decisions validates reviewer evidence and progress, not semantic truth or developer acceptance.\n--output <new-file> also saves the exact JSON printed to stdout; it refuses existing files and paths inside the project.\nDefaults: srv db. Writes only to a new --output file; no network. Node.js 22+.\nExit 0: coverage complete within scope/policy; 2: incomplete coverage; 1: invalid input.')
       process.exitCode = values.help ? 0 : 1
     } else {
       if (values.context && (!values.report || !project || scopes.length || values.full || values.decisions)) {

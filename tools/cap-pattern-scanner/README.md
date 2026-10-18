@@ -39,7 +39,8 @@ node tools/cap-pattern-scanner/scripts/scan.mjs /path/to/cap-project --report /a
 ```
 
 Repeat --context for additional IDs, at most three total. Each excerpt has 10 lines
-before/20 after and an 8,000-character ceiling; stale manifest/source hashes fail.
+before/20 after and an 8,000-character ceiling, widened to the whole enclosing try/catch
+when it fits (`enclosing.widened` says whether it did); stale manifest/source hashes fail.
 The output contains actual customer source. Keep it within approved customer/model
 boundaries. It is not a complete-function proof; expand only a named unresolved
 dependency or leave the item needs-review. This bounds input, not all model tokens.
@@ -123,8 +124,9 @@ node tools/cap-pattern-scanner/scripts/scan.mjs "/path/to/customer-cap-project" 
 ```
 
 The default is now a compact grouped review brief, not the complete raw inventory.
-Only review candidates are included; context-only observations are counted and
-omitted from the shortlist, and pattern guidance is included once. Initial verdict
+Only review candidates are findings; context-only observations are counted and listed
+compactly under `observations` (at most 100) as leads that need no decision, and pattern
+guidance is included once. Initial verdict
 is needs-review until the candidates have been reviewed. To retain the previous
 inventory for an audit, append `--full`.
 
@@ -237,7 +239,8 @@ Reports go to stdout. Optional redirection is your shell's write, not a scanner
 write; use a new approved report path outside the client repo. Keep reports inside
 the customer boundary: paths and identifiers can be confidential even without source.
 Inspect `coverage` before findings; no findings is not a completeness claim.
-Inspect `summary`: context-only observations are not actionable proposals. Retain
+Inspect `summary` and `observations`: context-only observations are leads, not actionable
+proposals; read one with `--context` when its guidance applies. Retain
 the scanner/catalog/source fingerprints and `snapshot.sha256` with decisions.
 Before applying any proposal, rescan and reopen decisions if fingerprints differ.
 Findings include source hashes, so unchanged file/line positions cannot silently

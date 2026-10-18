@@ -151,6 +151,31 @@
         "proposed",
         "needs-review"
       ]
+    },
+    {
+      "patternId": "CAP-VALIDATION-001",
+      "file": "srv/inventory.js",
+      "anchor": "if (!sku)",
+      "label": "opportunity",
+      "note": "Unconditional required action parameter read by flat destructuring of req.data; @mandatory on the action parameter applies.",
+      "acceptableDecisions": [
+        "proposed",
+        "needs-review"
+      ]
+    },
+    {
+      "patternId": "CAP-REMOTE-CONSUME-001",
+      "file": "srv/rates.js",
+      "anchor": "await fetch(",
+      "label": "context",
+      "note": "Direct HTTP call inside a long try whose catch rewrites every rejection (404, 502) to 500. Whoever reports this observation should notice the conversion.",
+      "expectedNote": {
+        "file": "rates.js",
+        "mustMentionWithin600Chars": [
+          "catch",
+          "500"
+        ]
+      }
     }
   ]
 }

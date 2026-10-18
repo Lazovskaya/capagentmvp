@@ -362,10 +362,11 @@ test('default CLI emits a compact grouped review; --full retains raw evidence', 
   const brief = JSON.parse(result.stdout)
   assert.equal(brief.format, 'cap-pattern-review')
   assert.equal(brief.findings.length, 2)
-  assert.equal(brief.patterns.length, 1)
+  assert.equal(brief.patterns.length, 2, 'candidate guidance plus the guidance for the listed observation')
   assert.equal(brief.groups.length, 1)
   assert.equal(brief.groups[0].findingIds.length, 2)
   assert.equal(brief.summary.contextOnly, 1)
+  assert.deepEqual(brief.observations.map(group => [group.patternId, group.file, group.items.map(item => item.line)]), [['CAP-REMOTE-CONSUME-001', 'srv/review.js', [1]]])
   assert.equal(brief.findings[0].recommendation, undefined)
   assert.equal(brief.progress.verdict, 'needs-review')
   const full = spawnSync(process.execPath, [cli, root, '--full'], { encoding: 'utf8' })
@@ -668,11 +669,161 @@ test('the validation signal follows a single simple alias of req.data, not reuse
   const report = await scanProject(root)
   const found = report.findings.filter(finding => finding.patternId === 'CAP-VALIDATION-001')
     .map(finding => `${finding.evidence.file}:${finding.evidence.line}`)
-  assert.deepEqual(found, ['srv/aliased.js:4', 'srv/aliased.js:5', 'srv/aliased.js:9', 'srv/direct.js:2'])
+  // other.js:6 is flat destructuring of req.data, which is followed; its row and req.data.header checks are not.
+  assert.deepEqual(found, ['srv/aliased.js:4', 'srv/aliased.js:5', 'srv/aliased.js:9', 'srv/direct.js:2', 'srv/other.js:6'])
   // A name declared more than once is ambiguous and ignored, which also skips the genuine alias in reused.js.
-  assert.equal(found.some(item => item.startsWith('srv/reused.js') || item.startsWith('srv/other.js')), false)
+  assert.equal(found.some(item => item.startsWith('srv/reused.js')), false)
   assert.equal('dataAliases' in report.findings.find(finding => finding.patternId === 'CAP-VALIDATION-001').recommendation, false)
   assert.deepEqual(await scanProject(root), report)
+})
+
+test('the validation signal follows flat destructuring of req.data, but not defaults, nesting, reuse, or other sources', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'destructured.js'), [
+    'module.exports = srv => {',
+    "  srv.on('transfer', req => {",
+    '    const { product, qty: amount, $id } = req.data',
+    "    if (!product) return req.reject(400, 'PRODUCT_REQUIRED')",
+    "    if (amount == null) return req.reject(400, 'AMOUNT_REQUIRED')",
+    "    if (!$id) return req.reject(400, 'ID_REQUIRED')",
+    '    if (!product || amount < 1) return req.reject(400, \'COMPOUND_IS_NOT_A_SINGLE_GUARD\')',
+    '  })',
+    "  srv.on('skipped', req => {",
+    "    const { note = 'x', ...rest } = req.data",
+    "    if (!note) return req.reject(400, 'NOTE')",
+    "    if (!rest) return req.reject(400, 'REST')",
+    '  })',
+    "  srv.on('nested', req => {",
+    '    const { header: { id } } = req.data',
+    "    if (!id) return req.reject(400, 'ID')",
+    '  })',
+    '}', ''
+  ].join('\n'))
+  await writeFile(path.join(root, 'srv', 'reused.js'), [
+    'module.exports = srv => {',
+    "  srv.before('A', req => { const { code } = req.data; if (!code) return req.reject(400, 'CODE') })",
+    "  srv.before('B', req => { const { code } = req.data; if (!code) return req.reject(400, 'CODE') })",
+    "  srv.before('C', req => { const { size } = req.data; if (!size) return req.reject(400, 'SIZE') })",
+    "  srv.on('D', () => { const size = 3; return size })",
+    '}', ''
+  ].join('\n'))
+  await writeFile(path.join(root, 'srv', 'other.js'), [
+    "const { text } = await SELECT.one.from('Notes')",
+    "if (!text) throw new Error('no row text')",
+    'const { items } = req.data.items',
+    "if (!items) throw new Error('no items')",
+    'const [first] = req.data',
+    "if (!first) throw new Error('no first')", ''
+  ].join('\n'))
+  const report = await scanProject(root)
+  const found = report.findings.filter(finding => finding.patternId === 'CAP-VALIDATION-001')
+    .map(finding => `${finding.evidence.file}:${finding.evidence.line}`)
+  assert.deepEqual(found, ['srv/destructured.js:4', 'srv/destructured.js:5', 'srv/destructured.js:6'])
+  assert.deepEqual(await scanProject(root), report)
+})
+
+test('context-only observations are listed compactly, need no decision, and can be read with --context', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'remote.js'), "const api = await cds.connect.to('Rates')\nawait fetch('https://example.invalid/rates')\n")
+  await writeFile(path.join(root, 'srv', 'queries.js'), "SELECT.from(Items).where('code=' + input)")
+  const full = await scanProject(root)
+  const brief = prepareReview(full)
+  assert.equal(brief.summary.contextOnly, 2)
+  assert.equal(brief.observationsOmitted, 0)
+  assert.equal(brief.progress.total, 1, 'observations never count as candidates')
+  const [group] = brief.observations
+  assert.equal(group.patternId, 'CAP-REMOTE-CONSUME-001')
+  assert.deepEqual(group.items.map(item => item.line), [1, 2])
+  assert.match(group.sha256, /^[a-f0-9]{64}$/)
+  assert.ok(brief.patterns.some(pattern => pattern.id === 'CAP-REMOTE-CONSUME-001'), 'guidance travels with the observation')
+  // No decision may be recorded for an observation.
+  const observationId = group.items[1].id
+  assert.throws(() => reconcileDecisions(brief, { snapshotSha256: brief.snapshot.sha256, decisions: [{ id: observationId, decision: 'needs-review', reason: 'x' }] }), /Unknown/)
+  assert.equal(reconcileDecisions(brief, { snapshotSha256: brief.snapshot.sha256, decisions: [] }).progress.remaining, 1)
+  // A saved compact brief keeps its observations when prepared again.
+  assert.deepEqual(prepareReview(JSON.parse(JSON.stringify(brief))).observations, brief.observations)
+  // The excerpt of an observation is hash-checked like a candidate's.
+  const excerpt = await readReviewContext(root, brief, [observationId])
+  assert.equal(excerpt.excerpts[0].findingId, observationId)
+  assert.equal(excerpt.excerpts[0].file, 'srv/remote.js')
+  assert.match(excerpt.excerpts[0].text, /^1: const api/)
+  await writeFile(path.join(root, 'srv', 'remote.js'), 'changed')
+  await assert.rejects(readReviewContext(root, brief, [observationId]), /Source changed/)
+  await assert.rejects(readReviewContext(root, brief, ['CAP-FINDING-nope']), /Unknown/)
+})
+
+async function contextFor(root, source, pattern = 'CAP-REMOTE-CONSUME-001') {
+  await writeFile(path.join(root, 'srv', 'handler.js'), source)
+  const brief = prepareReview(await scanProject(root))
+  const id = brief.observations.find(group => group.patternId === pattern).items[0].id
+  return (await readReviewContext(root, brief, [id])).excerpts[0]
+}
+
+test('an excerpt inside a try block is widened to the whole try/catch when it fits the ceiling', async context => {
+  const root = await fixture(context)
+  const filler = (count, prefix) => Array.from({ length: count }, (_, index) => `      const ${prefix}${index} = ${index}`)
+  const source = [
+    'module.exports = srv => {', "  srv.on('rate', async req => {", '    try {', ...filler(17, 'before'),
+    '      const response = await fetch(url)', ...filler(39, 'after'),
+    '    } catch (error) {', "      return req.reject(500, 'Could not retrieve rate')", '    }', '  })', '}', ''
+  ].join('\n')
+  const excerpt = await contextFor(root, source)
+  // Without widening, the 10-before/20-after window (lines 11-41) would hide both `try {` and the catch.
+  assert.deepEqual([excerpt.startLine, excerpt.endLine], [3, 63])
+  assert.deepEqual(excerpt.enclosing, { kind: 'try', startLine: 3, endLine: 63, widened: true })
+  assert.match(excerpt.text, /^3:     try \{/)
+  assert.match(excerpt.text, /63:     \}$/)
+  assert.ok(excerpt.text.includes('catch (error)') && excerpt.text.includes('await fetch(url)'))
+  assert.equal(excerpt.truncated, false)
+})
+
+test('a try block too large for the character ceiling keeps the default window and says so', async context => {
+  const root = await fixture(context)
+  const comment = `      // ${'x'.repeat(190)}`
+  const source = [
+    "srv.on('rate', async req => {", '  try {', ...Array(40).fill(comment), '    const response = await fetch(url)',
+    ...Array(40).fill(comment), '  } catch (error) {', "    return req.reject(500, 'Could not retrieve rate')", '  }', '})', ''
+  ].join('\n')
+  const excerpt = await contextFor(root, source)
+  assert.equal(excerpt.enclosing.widened, false)
+  assert.deepEqual([excerpt.startLine, excerpt.endLine], [33, 63])
+  assert.ok(excerpt.text.includes('await fetch(url)'))
+  assert.ok(excerpt.text.length <= 8000)
+  assert.equal(excerpt.text.includes('catch (error)'), false)
+})
+
+test('the innermost try is used, and strings, comments, templates, and unbalanced braces cannot mislead it', async context => {
+  const root = await fixture(context)
+  const nested = [
+    'const note = "try { not a statement }"', '// try { also not a statement', 'const template = `${1} { try {`',
+    "srv.on('a', async req => {", '  try {', ...Array.from({ length: 30 }, (_, index) => `    const outer${index} = ${index}`),
+    '    try {', '      await fetch(url)', '    } catch (inner) {', '      throw inner', '    }',
+    ...Array.from({ length: 30 }, (_, index) => `    const tail${index} = ${index}`), '  } catch (outer) {', '    throw outer', '  }', '})', ''
+  ].join('\n')
+  const inner = await contextFor(root, nested)
+  assert.deepEqual([inner.enclosing.startLine, inner.enclosing.endLine], [36, 40])
+  assert.equal(inner.enclosing.widened, true)
+
+  const unbalanced = ['srv.on(\'a\', async req => {', '  try {', '    await fetch(url)', '  } catch (error) {', '    throw error', '  }', ''].join('\n')
+  const broken = await contextFor(root, unbalanced)
+  assert.equal('enclosing' in broken, false, 'unbalanced braces mean no widening')
+  assert.equal(broken.startLine, 1)
+
+  const plain = await contextFor(root, "srv.on('a', async req => {\n  await fetch(url)\n})\n")
+  assert.equal('enclosing' in plain, false)
+})
+
+test('the observation list is capped and says how many signals it left out', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'many.js'), Array.from({ length: 130 }, (_, index) => `cds.tx(req${index})`).join('\n'))
+  const full = await scanProject(root)
+  const brief = prepareReview(full)
+  assert.equal(brief.summary.contextOnly, 130)
+  assert.equal(brief.observations.reduce((count, group) => count + group.items.length, 0), 100)
+  assert.equal(brief.observationsOmitted, 30)
+  const again = prepareReview(JSON.parse(JSON.stringify(brief)))
+  assert.equal(again.observationsOmitted, 30)
+  assert.ok(JSON.stringify(brief).length < JSON.stringify(full).length / 2)
 })
 
 test('a UTF-8 BOM in package.json, as saved by many Windows editors, does not stop a scan', async context => {

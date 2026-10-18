@@ -21,4 +21,10 @@ module.exports = cds.service.impl(async function () {
     if (!note.text) return 'empty'
     return note.text
   })
+
+  this.on('first', async () => {
+    const { text } = await SELECT.one.from(Notes)
+    if (!text) return 'empty'
+    return text
+  })
 })

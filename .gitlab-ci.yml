@@ -153,7 +153,7 @@ cap-pattern-tests:
     - if: $CI_PIPELINE_SOURCE == "web"
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   script:
-    - node --test tools/cap-pattern-scanner/scripts/scan.test.mjs tools/cap-pattern-scanner/helpers/index.test.js
+    - node --test tools/cap-pattern-scanner/scripts/scan.test.mjs tools/cap-pattern-scanner/scripts/fixtures.test.mjs tools/cap-pattern-scanner/helpers/index.test.js
     - export CAP_TEST_PROJECT="$(mktemp -d)"
     - npm install --prefix "$CAP_TEST_PROJECT" --ignore-scripts --no-audit --no-fund "@sap/cds@$CDS_VERSION"
     - NODE_ENV=production node --test tools/cap-pattern-scanner/helpers/cap.integration.mjs

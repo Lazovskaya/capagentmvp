@@ -44,7 +44,8 @@ This is the mandatory agent preparation step for saved reports; AI JSON extracti
 or repeated chunk-reading is not the fallback for an unavailable command.
 
 `--output <path>` works with every mode. Stdout is unchanged; the identical JSON is also
-saved to a new file created with owner-only permissions (0600). It refuses an existing
+saved to a new file created owner-only (0600 on POSIX; on Windows it inherits the folder's
+permissions, so choose a private folder). It refuses an existing
 file, a dangling or symlinked target, a missing parent folder, and (when a project is
 given) any path inside that project; nothing is written on refusal and stdout stays
 empty. Exit codes are unchanged, so an incomplete scan exits 2 and is still saved. Use
@@ -81,8 +82,9 @@ unreviewed/needs-review. Final counts and verdict are computed from these result
 
 This validates reviewer declarations, not whether a claim is true, a patch applies,
 or tests have run. Reviewers must not invent evidence to pass. Saving review files
-is a separate, approved local write performed by the assistant, not this read-only
-tool. Keep artifacts inside the customer boundary and retain prior review history.
+is a separate, approved local write; prefer `--output` over saving by hand, since it
+is the only write the scanner performs. Keep artifacts inside the customer boundary
+and retain prior review history.
 
 `--context` is an optional read-only, assistant-independent context operation. It
 requires a project and saved report plus one to three unique finding IDs (repeat
@@ -113,8 +115,9 @@ not total traversal time or blocked filesystem operations.
 Each finding has deterministic source-aware `id`, stable catalog `patternId`,
 `status: candidate`, and `evidence: { file, line, sha256 }`. The default brief keeps
 guidance once in `patterns`; the full inventory embeds it in each `recommendation`.
-Guidance includes native/helper kind, maturity, compatibility checks,
-contraindications, authoritative docs, non-applied example, and verification plan.
+Guidance includes kind, maturity, compatibility checks, contraindications,
+authoritative docs, non-applied example, and verification plan. An entry may add a
+`helperAlternative` (experimental, `requiresReview`); the default `example` never needs it.
 IDs change when source locations change; retain history when reconciling rescans.
 Reports additionally include scanner version/hash, catalog hash, raw source and
 manifest hashes, and a deterministic snapshot fingerprint over evidence/coverage.
@@ -133,16 +136,19 @@ Coverage completeness is traversal completeness within scope, not semantic proof
 
 ## Pattern Recipes
 
-The catalog contains nine entries, including these review areas:
+The catalog contains these nine entries:
 
 | Pattern ID | Evidence signal | Review outcome |
 |---|---|---|
+| CAP-I18N-001 | `readFile`/`readFileSync` of a `.properties` file | Consider `cds.i18n.messages.at`; first confirm it is a CAP translation bundle, `cds.i18n` is available in the installed version, and custom fallback and placeholder behavior is preserved. |
+| CAP-PAGING-001 | Assignment to `SELECT.limit` | Consider generic CAP paging; first confirm the generic READ provider serves the entity and that custom handlers, upstream limits, sorting, count, and paging contracts are preserved. |
 | CAP-REMOTE-CONSUME-001 | CAP connections or direct axios/fetch calls | Review imported model, consumption/service projections, configuration, and READ delegation; no helper dependency needed. |
-| CAP-REMOTE-ERROR-001 | Forwarded error messages or raw errors through req.reject/req.error | Propose service-specific safe mapping; the experimental helper is only suitable for immediate rejection. |
+| CAP-REMOTE-ERROR-001 | Forwarded error messages or raw errors through req.reject/req.error | Propose service-specific safe mapping with plain `req.reject` (the default example); the optional experimental helper requires review and only suits immediate rejection. |
 | CAP-VALIDATION-001 | Negated or null/undefined req.data field guards | Consider native constraints only after proving equivalent validation and error/UI behavior. |
 | CAP-MODEL-001 | Explicit UUID ID keys, timestamp audit fields, or manual request UUID assignment | Review cuid/managed equivalence; preserve existing data, schema, and API. |
 | CAP-QUERY-001 | Concatenated where clauses or interpolated query strings | Review data provenance and parameterization; not a confirmed vulnerability finding. |
 | CAP-TX-001 | Explicit CAP tx calls and tx commit/rollback | Inspect managed vs standalone boundaries, finalization, tenant/user propagation, and async failures. |
+| CAP-DRAFT-001 | `@odata.draft.enabled` in CDS (context-only) | Retain CAP-native draft handling; the annotation alone is an observation, not evidence of duplicated draft logic. |
 
 Remote-consumption signals are context, not evidence of a defect. Local/database
 connections and already-correct delegation need no changes. The catalog's example

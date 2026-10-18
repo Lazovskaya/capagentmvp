@@ -31,9 +31,8 @@
     {
       "id": "CAP-REMOTE-ERROR-001",
       "title": "Review upstream error forwarding",
-      "kind": "helper",
-      "maturity": "experimental",
-      "package": { "name": "@epam/cap-pattern-helpers", "version": "0.1.0", "export": "withRemoteError", "published": false },
+      "kind": "native",
+      "maturity": "documented-native",
       "extensions": [".js", ".cjs", ".mjs", ".ts"],
       "signals": [
         "\\breq\\s*\\.\\s*(?:reject|error)\\s*\\([^\\n()]*\\b(?:err|error)\\s*\\.\\s*message",
@@ -42,10 +41,11 @@
         "\\breq\\s*\\.\\s*(?:reject|error)\\s*\\(\\s*(?:err|error)\\s*\\)"
       ],
       "documentation": "https://cap.cloud.sap/docs/node.js/events#req-reject",
-      "compatibilityChecks": ["Prove the caught error comes from a remote operation, not local validation", "Check existing error library, UI5 field targets, error codes, and module format", "Distinguish req.error collection from req.reject immediate throwing; withRemoteError always rejects immediately", "Approve package rights/registry and certify the actual CAP runtime before adoption"],
-      "contraindications": ["An established project wrapper already preserves the required contract", "Client contract requires distinct upstream business errors not yet mapped", "Collected errors must remain collected; the rejecting helper is not a drop-in replacement", "Experimental package is not approved for this project"],
-      "example": "import { withRemoteError } from '@epam/cap-pattern-helpers'\nthis.on('READ', Customers, req => withRemoteError(req, () => remote.run(req.query), {\n  mapError: error => error.status === 404\n    ? { status: 404, code: 'CUSTOMER_NOT_FOUND', target: 'ID' }\n    : { status: 502, code: 'REMOTE_SERVICE_FAILED' }\n}))",
-      "verification": "Test known business errors, unknown upstream failures, localization, field targets, collection vs immediate rejection, and no leakage over real CAP HTTP. CommonJS consumers require an approved module-loading strategy."
+      "compatibilityChecks": ["Prove the caught error comes from a remote operation, not local validation", "Check existing error library, UI5 field targets, error codes, and module format", "Distinguish req.error collection from req.reject immediate throwing; the example rejects immediately", "Verify the effective CAP version and runtime before adoption"],
+      "contraindications": ["An established project wrapper already preserves the required contract", "Client contract requires distinct upstream business errors not yet mapped", "Collected errors must remain collected; the rejecting example is not a drop-in replacement"],
+      "example": "this.on('READ', Customers, async req => {\n  try {\n    return await remote.run(req.query)\n  } catch (error) {\n    return req.reject(error.status === 404\n      ? { status: 404, code: 'CUSTOMER_NOT_FOUND', target: 'ID' }\n      : { status: 502, code: 'REMOTE_SERVICE_FAILED' })\n  }\n})",
+      "helperAlternative": { "maturity": "experimental", "requiresReview": true, "package": { "name": "@epam/cap-pattern-helpers", "version": "0.1.0", "export": "withRemoteError", "published": false }, "example": "import { withRemoteError } from '@epam/cap-pattern-helpers'\nthis.on('READ', Customers, req => withRemoteError(req, () => remote.run(req.query), {\n  mapError: error => error.status === 404\n    ? { status: 404, code: 'CUSTOMER_NOT_FOUND', target: 'ID' }\n    : { status: 502, code: 'REMOTE_SERVICE_FAILED' }\n}))", "note": "Optional, private, and unpublished; a proposal that uses it stays needs-review. The default example needs no dependency. CommonJS consumers require an approved module-loading strategy." },
+      "verification": "Test known business errors, unknown upstream failures, localization, field targets, collection vs immediate rejection, and no leakage over real CAP HTTP."
     },
     {
       "id": "CAP-REMOTE-CONSUME-001",

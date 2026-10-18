@@ -1,8 +1,9 @@
 # CAP Pattern Advisor
 
 Reviews recurring CAP Node.js boilerplate for CAP-AI-11 through the
-cap-suggest-patterns skill, returning evidence-backed native API or npm helper
-proposals for developer review rather than applying changes automatically.
+cap-suggest-patterns skill, returning evidence-backed native CAP proposals (an
+experimental npm helper only as a review-gated alternative) for developer review
+rather than applying changes automatically.
 
 ## Procedure
 

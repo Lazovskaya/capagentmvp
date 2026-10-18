@@ -2,12 +2,15 @@
 
 Business reference: CAP-AI-11. First EPAM baseline: 0.1.0.
 Scanner, catalog, review policy, governed components, and helper package: 0.1.0.
-Release state: tested read-only pilot, not an approved production helper release.
+Release state: tested pilot that reads the project and writes only an optional new `--output` file; not an approved production helper release.
 
 Earlier public pilot uploads retain their original labels and are not the version
-line for this first factory contribution. No release tag or publication is implied
-until the reviewed baseline is committed. See docs/user-guide/cap-patterns-quickstart.md
-in the factory source for the short local/host/customer-environment usage guide.
+line for this first factory contribution. No release tag exists and no publication is
+implied. See docs/user-guide/cap-patterns-quickstart.md for the short usage guide.
+
+Native SAP CAP implementations are the default recommendation. Nothing here needs the
+`@epam/cap-pattern-helpers` package, which is private, unpublished, experimental, and
+optional; a helper-based suggestion always needs explicit review.
 
 ## Assistant Portability
 
@@ -45,7 +48,7 @@ dependency or leave the item needs-review. This bounds input, not all model toke
 
 Add `--output /approved/brief.json` to any mode to save the exact JSON it prints.
 Stdout does not change. The file must be new (existing files, symlinked or dangling
-targets, and missing folders are refused), is created owner-only (0600), and, when a
+targets, and missing folders are refused), is created owner-only (0600 on POSIX; on Windows it inherits the folder's permissions), and, when a
 project is given, must be outside it. Nothing is written on refusal. Exit code 2 still
 saves the report. Use this instead of shell redirection, which agent hosts commonly
 block, and never retype or copy report JSON by hand: a live Claude Code test showed
@@ -56,6 +59,25 @@ an incomplete hand-copy failing later steps. Without a project (`--report`,
 node tools/cap-pattern-scanner/scripts/scan.mjs /path/to/cap-project --output /approved/brief.json
 node tools/cap-pattern-scanner/scripts/scan.mjs --report /approved/brief.json --decisions /approved/decisions.json --output /approved/validated.json
 ```
+
+### Windows notes
+
+Verified by emulation on macOS, not on a real Windows machine: CRLF line endings and a UTF-8
+BOM in sources give identical findings, and a BOM in `package.json` (common from Windows
+editors and PowerShell 5) is accepted. The entry point also runs when the path is typed
+in a different letter case; before, it exited 0 with no output.
+
+```powershell
+node tools\cap-pattern-scanner\scripts\scan.mjs "C:\work\cap-app" srv db --output "C:\approved\brief.json"
+```
+
+- Prefer `--output` over `>`; Windows PowerShell 5 redirection writes UTF-16, which breaks
+  later steps.
+- Quote paths with spaces. Scopes are relative to the project root.
+- Symlinks and junctions are not followed; they are reported as skipped and make coverage
+  incomplete (exit 2).
+- Creating file symlinks needs a privilege on Windows, so the tests skip that one check
+  without it. Real Windows behavior (path edge cases, long paths, antivirus) is untested.
 
 ## Separate EPAM And Customer Environments
 
@@ -279,9 +301,10 @@ follow the same deterministic preparation workflow rather than manually reading 
 If the assistant cannot access external files, have an authorized person add only
 the skill folder to the tool's supported skill location and explicitly give the
 external scanner path. Review every addition. Do not use the general factory adapter
-on an established client workspace for this pilot: it overwrites the existing
-`.github/copilot-instructions.md` and updates VS Code settings. The standalone
-scanner avoids that risk entirely. Never run an installer that was not in the bundle.
+on an established client workspace for this pilot: every adapter overwrites its
+generated entry files (see the file table above) and the Copilot adapter updates VS Code
+settings. The standalone scanner avoids that risk entirely. Never run an installer that
+was not in the bundle.
 
 ## Acceptance Checklist
 
@@ -296,7 +319,15 @@ scanner avoids that risk entirely. Never run an installer that was not in the bu
 
 ## Verified Evidence And Remaining Gates
 
-- Local scanner/helper tests and export-extract-execute tests are automated.
+- Local scanner/helper tests and export-extract-execute tests are automated: 50 Node
+  tests pass on Node 22.23.3 and on 24.5.0 (macOS), and the Python suite passes.
+- Four synthetic fixtures with hand-labelled expectations pin the scanner's measured
+  precision, recall, and known limitations (`fixtures/EVALUATION.md`). Small, single
+  author, not independent; they say nothing about real projects.
+- AI review quality and run-to-run stability are not established. The few live runs so
+  far (Claude Code only) are recorded, with their confounds, in `fixtures/EVALUATION.md`.
+- GitHub Copilot and Cursor were only checked statically (install layout, identical
+  shared files). No live Copilot or Cursor session has been run.
 - The default compact brief and Claude registration layout are tested. Instructions
   require normal CAP req.error phase handling and production 5xx sanitization checks;
   they do not prove that any particular model always follows those instructions.

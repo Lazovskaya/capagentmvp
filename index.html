@@ -278,7 +278,7 @@ window.FACTORY_DATA = {
    "phases": [
     "Realize"
    ],
-   "desc": "Reviews recurring CAP Node.js boilerplate for CAP-AI-11 through the cap-suggest-patterns skill, returning evidence-backed native API or npm helper proposals for developer review rather than applying changes automatically."
+   "desc": "Reviews recurring CAP Node.js boilerplate for CAP-AI-11 through the cap-suggest-patterns skill, returning evidence-backed native CAP proposals (an experimental npm helper only as a review-gated alternative) for developer review rather than applying changes automatically."
   },
   {
    "kind": "Artifact",
@@ -716,7 +716,7 @@ window.FACTORY_DATA = {
    "phases": [
     "Realize"
    ],
-   "desc": "Suggest CAP-native patterns and internal npm helpers from evidence in an existing CAP Node.js project. Use for CAP-AI-11 during Realize when reviewing remote services, validation, errors, CDS modeling, query safety, transactions, pagination, drafts, or i18n lookup. Produces reviewable examples, not automatic rewrites."
+   "desc": "Suggest CAP-native patterns from evidence in an existing CAP Node.js project, with an experimental internal npm helper only as a review-gated alternative. Use for CAP-AI-11 during Realize when reviewing remote services, validation, errors, CDS modeling, query safety, transactions, pagination, drafts, or i18n lookup. Produces reviewable examples, not automatic rewrites."
   },
   {
    "kind": "Skill",
@@ -890,7 +890,7 @@ window.FACTORY_DATA = {
    ],
    "desc": "Inspects explicitly scoped local CAP Node.js CDS and handler sources for catalog signals, returning deterministic candidate evidence and coverage without executing project code, calling external services, or changing the scanned project.",
    "operation": "scan-cap-patterns",
-   "permission_scope": "read-only"
+   "permission_scope": "read-write"
   },
   {
    "kind": "Tool",

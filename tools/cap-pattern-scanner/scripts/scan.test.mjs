@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { mkdtemp, mkdir, writeFile, rm, symlink, readFile, readdir, stat } from 'node:fs/promises'
+import { mkdtemp, mkdir, writeFile, rm, symlink, readFile, readdir, stat, copyFile } from 'node:fs/promises'
+import { existsSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { spawnSync } from 'node:child_process'
@@ -40,6 +41,22 @@ test('catalog has unique IDs and valid executable signal expressions', async () 
   }
 })
 
+test('every default example is dependency-free and the helper stays an optional, review-gated alternative', async () => {
+  const catalog = JSON.parse(await readFile(new URL('../catalog.json', import.meta.url)))
+  assert.ok(catalog.patterns.every(pattern => pattern.kind === 'native' && pattern.maturity === 'documented-native'))
+  for (const pattern of catalog.patterns) assert.doesNotMatch(pattern.example, /@epam|require\(|import /, pattern.id)
+  const withHelper = catalog.patterns.filter(pattern => pattern.helperAlternative)
+  assert.deepEqual(withHelper.map(pattern => pattern.id), ['CAP-REMOTE-ERROR-001'])
+  const [pattern] = withHelper
+  assert.match(pattern.example, /req\.reject\(/)
+  assert.doesNotMatch(pattern.example, /\.message/)
+  assert.doesNotThrow(() => new Function(`const Customers = 1, remote = {}; const service = { on() {} }; (function () { ${pattern.example.replace('this.on', 'service.on')} })`))
+  assert.equal(pattern.helperAlternative.maturity, 'experimental')
+  assert.equal(pattern.helperAlternative.requiresReview, true)
+  assert.equal(pattern.helperAlternative.package.published, false)
+  assert.match(pattern.helperAlternative.example, /@epam\/cap-pattern-helpers/)
+})
+
 test('returns evidence, native alternatives, experimental helper, and reproducible IDs without source leakage', async context => {
   const root = await fixture(context)
   const source = "readFileSync('_i18n/messages.properties')\nreq.query.SELECT.limit = {}\nreq.reject(502, error.message) // client-secret\n"
@@ -53,7 +70,9 @@ test('returns evidence, native alternatives, experimental helper, and reproducib
   assert.equal(remote.evidence.file, 'srv/service.js')
   assert.equal(remote.evidence.line, 3)
   assert.match(remote.evidence.sha256, /^[a-f0-9]{64}$/)
-  assert.equal(remote.recommendation.package.published, false)
+  assert.equal(remote.recommendation.helperAlternative.package.published, false)
+  assert.equal(remote.recommendation.helperAlternative.requiresReview, true)
+  assert.equal(remote.recommendation.kind, 'native')
   assert.equal(report.runtime.compatibility, 'unverified')
   assert.equal(JSON.stringify(report).includes('client-secret'), false)
   assert.deepEqual(await scanProject(root), report)
@@ -566,7 +585,7 @@ test('--output saves the exact stdout JSON to a new owner-only file and keeps st
   assert.equal(saved.status, 0, saved.stderr)
   assert.equal(saved.stdout, plain.stdout)
   assert.equal(await readFile(target, 'utf8'), plain.stdout)
-  assert.equal((await stat(target)).mode & 0o777, 0o600)
+  if (process.platform !== 'win32') assert.equal((await stat(target)).mode & 0o777, 0o600)
   assert.equal(await treeDigest(root), before)
   // The saved brief feeds the other modes unchanged.
   const context1 = spawnSync(process.execPath, [cli, root, '--report', target, '--context', JSON.parse(plain.stdout).findings[0].id, '--output', path.join(outDir, 'context.json')], { encoding: 'utf8' })
@@ -596,16 +615,42 @@ test('--output refuses overwrites, project paths, missing folders, and symlinked
   assert.match(inside.stderr, /outside the analyzed project/)
   await assert.rejects(stat(path.join(root, 'srv', 'brief.json')))
   const viaLink = path.join(outDir, 'link-to-project')
-  await symlink(root, viaLink)
+  await symlink(root, viaLink, 'junction')
   assert.match(run(path.join(viaLink, 'brief.json')).stderr, /outside the analyzed project/)
   const missing = run(path.join(outDir, 'no-such-folder', 'brief.json'))
   assert.equal(missing.status, 1)
   assert.equal(missing.stdout, '')
   const dangling = path.join(outDir, 'dangling.json')
-  await symlink(path.join(outDir, 'elsewhere.json'), dangling)
-  assert.equal(run(dangling).status, 1)
-  await assert.rejects(stat(path.join(outDir, 'elsewhere.json')))
+  const canLinkFiles = await symlink(path.join(outDir, 'elsewhere.json'), dangling).then(() => true, error => error.code === 'EPERM' ? false : Promise.reject(error))
+  if (canLinkFiles) {
+    assert.equal(run(dangling).status, 1)
+    await assert.rejects(stat(path.join(outDir, 'elsewhere.json')))
+  }
   assert.equal(spawnSync(process.execPath, [cli, root, '--output', ''], { encoding: 'utf8' }).status, 1)
+})
+
+test('a UTF-8 BOM in package.json, as saved by many Windows editors, does not stop a scan', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'package.json'), `\uFEFF${JSON.stringify({ dependencies: { '@sap/cds': '^9' } })}`)
+  await writeFile(path.join(root, 'srv', 'queries.js'), "SELECT.from(Items).where('code=' + input)\r\n")
+  const report = await scanProject(root)
+  assert.equal(report.coverage.complete, true)
+  assert.equal(report.runtime.cdsDeclared, '^9')
+  assert.equal(report.findings.length, 1)
+})
+
+test('the CLI still runs when invoked through a differently cased path on a case-insensitive volume', async context => {
+  const root = await mkdtemp(path.join(tmpdir(), 'cap-case-'))
+  context.after(() => rm(root, { recursive: true, force: true }))
+  const scripts = path.join(root, 'Mixed-Case-Dir', 'scripts')
+  await mkdir(scripts, { recursive: true })
+  for (const file of ['scan.mjs', 'matcher.mjs', 'review.mjs']) await copyFile(fileURLToPath(new URL(`./${file}`, import.meta.url)), path.join(scripts, file))
+  await copyFile(fileURLToPath(new URL('../catalog.json', import.meta.url)), path.join(root, 'Mixed-Case-Dir', 'catalog.json'))
+  const altered = path.join(root, 'mixed-case-dir', 'scripts', 'scan.mjs')
+  if (!existsSync(altered)) return context.skip('Volume is case-sensitive; this failure mode does not apply')
+  const result = spawnSync(process.execPath, [altered, '--help'], { encoding: 'utf8' })
+  assert.equal(result.status, 0, result.stderr)
+  assert.match(result.stdout, /Usage: node scan\.mjs/)
 })
 
 test('CLI validates saved decisions locally and preserves explicit blockers without writes', async context => {

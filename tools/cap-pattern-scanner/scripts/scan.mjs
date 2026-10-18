@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { constants } from 'node:fs'
+import { constants, realpathSync } from 'node:fs'
 import { open, readFile, readdir, lstat, realpath, unlink } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -143,7 +143,7 @@ export async function scanProject(project, scopes = ['srv', 'db']) {
   if (packageStat.isSymbolicLink()) throw new Error('Symlinked package.json is not supported')
   if (!packageStat.isFile()) throw new Error('package.json must be a regular file')
   const manifestSource = await readBounded(packagePath)
-  const manifest = JSON.parse(manifestSource.text)
+  const manifest = JSON.parse(manifestSource.text.replace(/^\uFEFF/, ''))
   const cdsVersion = manifest.dependencies?.['@sap/cds'] ?? manifest.devDependencies?.['@sap/cds']
   if (typeof cdsVersion !== 'string' || !cdsVersion.trim()) throw new Error('Expected a CAP Node.js package with an @sap/cds dependency')
   const report = {
@@ -274,7 +274,17 @@ export async function scanProject(project, scopes = ['srv', 'db']) {
   return report
 }
 
-if (process.argv[1] && await realpath(process.argv[1]).catch(() => undefined) === fileURLToPath(import.meta.url)) {
+// Compare canonical paths: on case-insensitive volumes (Windows, default macOS) a differently cased
+// invocation path would otherwise make the CLI exit 0 without printing anything.
+function isMainScript() {
+  try {
+    return Boolean(process.argv[1]) && realpathSync.native(process.argv[1]) === realpathSync.native(fileURLToPath(import.meta.url))
+  } catch {
+    return false
+  }
+}
+
+if (isMainScript()) {
   try {
     const { values, positionals } = parseArgs({
       options: { full: { type: 'boolean' }, report: { type: 'string' }, decisions: { type: 'string' }, context: { type: 'string', multiple: true }, output: { type: 'string' }, help: { type: 'boolean' } },

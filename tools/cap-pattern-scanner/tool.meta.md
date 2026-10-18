@@ -6,7 +6,7 @@ owner: Vera Lazouskaya
 project_types: [greenfield, brownfield, bluefield, product-development]
 sdlc_phases: [realize]
 operation: scan-cap-patterns
-permission_scope: read-only
+permission_scope: read-write
 risk_freedom: low
 readiness: in-test
 provenance:
@@ -18,8 +18,15 @@ provenance:
 First EPAM source baseline, 0.1.0. Earlier GitHub pilot tags retain their original
 labels; they are not the version line for this initial factory contribution.
 
-Offline Node.js tool with nine catalog entries and a separate private experimental
-npm helper. No project-code execution, credentials, network, source upload, or writes.
+Offline Node.js tool with nine catalog entries, all with native default examples, and a
+separate private experimental npm helper kept as a review-gated alternative. No project-code execution, credentials, network, or source upload. The
+analyzed project is never written; the only write is an optional new --output file
+(hence read-write), which refuses existing files and paths inside the project.
+Classification reasoning: the Factory's permission_scope is a least-privilege declaration
+of the most a tool can do (read-only, read-write, transport-release), and every other tool
+here that can write a local file declares read-write. This follows that convention instead
+of treating an opt-in flag as read-only, so a reviewer is not told the tool cannot write.
+Default invocations write nothing, and no shared metadata semantics change.
 Default CLI output is a compact review brief; --full retains the inventory and the
 scanProject API returns it directly. --report prepares saved JSON (Windows BOM
 supported), --context supplies bounded hash-checked excerpts, and --decisions

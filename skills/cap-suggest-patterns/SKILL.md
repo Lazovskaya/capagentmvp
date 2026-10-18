@@ -1,9 +1,9 @@
 ---
 name: cap-suggest-patterns
-description: Suggest CAP-native patterns and internal npm helpers from evidence in an existing CAP Node.js project. Use for CAP-AI-11 during Realize when reviewing remote services, validation, errors, CDS modeling, query safety, transactions, pagination, drafts, or i18n lookup. Produces reviewable examples, not automatic rewrites.
+description: Suggest CAP-native patterns from evidence in an existing CAP Node.js project, with an experimental internal npm helper only as a review-gated alternative. Use for CAP-AI-11 during Realize when reviewing remote services, validation, errors, CDS modeling, query safety, transactions, pagination, drafts, or i18n lookup. Produces reviewable examples, not automatic rewrites.
 ---
 
-# CAP Pattern And Helper Suggestions
+# CAP Pattern Suggestions
 
 *Design conventions: `../../docs/skill-design-conventions.md` in the factory source.*
 
@@ -116,6 +116,10 @@ environment generation, client-code harvesting, and publishing are out of scope.
    placeholders, field targets, paging/count, authorization, and transaction behavior.
    Error helpers require service-specific allowlist mapping; never infer that every
    caught error is remote or forward raw upstream messages. Never disable sanitization.
+   For `CAP-REMOTE-ERROR-001`, the catalog `example` is plain `req.reject` with an
+   allowlisted static code and needs no dependency; propose it. `helperAlternative` is
+   optional, experimental, and unpublished (`requiresReview`), so a helper-based proposal
+   stays `needs-review`.
     Apply these pattern-specific checks:
     - `CAP-REMOTE-CONSUME-001`: resolve the configured service key, model, and any
        `service` mapping before suggesting connection or projection code. A connection
@@ -199,7 +203,7 @@ environment generation, client-code harvesting, and publishing are out of scope.
    fields are rejected. To resume, pass the earlier validator output as `previous` and
    list every earlier decision again; omitting one is an error. This prevents silent
    loss, not a full audit history.
-   Then run the read-only validator:
+   Then run the validator (it reads only; `--output` saves a new file):
    ```sh
    node tools/cap-pattern-scanner/scripts/scan.mjs --report /approved/brief.json --decisions /approved/decisions.json --output /approved/validated.json
    ```

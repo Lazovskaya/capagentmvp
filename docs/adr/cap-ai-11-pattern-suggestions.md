@@ -1,56 +1,89 @@
 # CAP-AI-11: CAP Pattern Suggestions
 
-Status: Proposed; tested offline pilot candidate, production admission pending.
-Release baseline: 0.1.0, first EPAM source contribution; not committed or tagged yet.
+Status: Proposed; tested offline pilot candidate for a limited internal pilot. Broader
+distribution and production admission are pending (see the pilot handoff).
+Release baseline: 0.1.0, first EPAM source contribution; committed and pushed on
+`feature/cap-ai-11-suggest-patterns` (see Commit History), not tagged or released.
 Scope: Greenfield, Brownfield, Bluefield, Product Development; Realize.
 Decision owner: Vera Lazouskaya. Library reviewer and reuse-rights approver are
 separate responsibilities, even when one person holds both.
 
 ## Decision
 
-Keep reusable implementation in a versioned npm package, not Markdown snippets.
-Keep discovery metadata in a JSON catalog next to the scanner. Use an explicitly
-invoked factory skill to interpret deterministic evidence and propose changes.
-Prefer CAP-native APIs over adding dependencies. Do not build a vector database,
-hosted service, universal code rewriter, or automatic background agent for this MVP.
+Current decision (2026-10-18):
+
+- CAP-AI-11 scans an explicitly scoped CAP Node.js project with a deterministic, offline
+  scanner and recommends applicable patterns.
+- Native SAP CAP implementations are the default recommendation wherever they apply.
+  Every catalog entry carries a native example.
+- The scanner, catalog, skill, and review workflow work without installing any package.
+  Adapters do not add a dependency to an application.
+- `@epam/cap-pattern-helpers` is private, unpublished, experimental, and optional. A
+  helper-based recommendation appears only as a `helperAlternative` marked
+  `requiresReview`. It requires explicit review and is never presented as production-ready
+  or as a mandatory dependency.
+- Discovery metadata lives in a JSON catalog next to the scanner. An explicitly invoked
+  factory skill interprets deterministic evidence and proposes changes; developers decide.
+- Do not build a vector database, hosted service, universal code rewriter, or automatic
+  background agent for this MVP.
+- CAP-AI-12 may eventually propose new or improved helpers. Any contribution must pass
+  testing, security and license checks, and approval by an owner who has not yet been
+  named. Nothing publishes automatically, and no CAP-AI-12 intake is implemented here.
+- No registry, package ownership, license, security review, or customer acceptance for
+  the helper has been requested or approved; none is being pursued now.
+
+Historical decision (superseded): the first draft of this ADR kept reusable implementation
+in a versioned npm package and had the skill propose versioned adoption of it. The
+assessment in `tools/cap-pattern-scanner/helpers/ASSESSMENT.md` found the package too
+immature to propose, and the catalog does not need it, so the package-first design was
+dropped. That assessment also lists what a future release would need.
 
 ```mermaid
 C4Container
-  Person(developer, "Developer", "Chooses scope and adoption")
+  Person(developer, "Developer", "Chooses scope, reviews, and decides adoption")
   Container(skill, "cap-suggest-patterns", "Factory skill", "Reviews candidates")
-  Container(scanner, "Pattern scanner", "Node.js CLI", "Local read-only scan")
-  ContainerDb(project, "Client project", "CDS and handlers", "Explicit scan scope")
-  ContainerDb(catalog, "Pattern catalog", "Versioned JSON", "Rules and compatibility gates")
-  Container(helpers, "CAP helper package", "Internal npm", "Reusable implementation")
+  Container(scanner, "Pattern scanner", "Node.js CLI", "Local scan; writes only an explicit new --output file")
+  ContainerDb(project, "Client project", "CDS and handlers", "Explicit scan scope, never written")
+  ContainerDb(catalog, "Pattern catalog", "Versioned JSON", "Rules, native examples, compatibility gates")
+  Container(helpers, "CAP helper package", "Private, unpublished, experimental", "Optional alternative, needs review")
   Rel(developer, skill, "Invokes and reviews")
   Rel(skill, scanner, "Runs")
   Rel(scanner, project, "Reads without executing")
   Rel(scanner, catalog, "Matches")
-  Rel(skill, helpers, "Proposes versioned adoption")
+  Rel(skill, helpers, "May cite as a review-gated alternative")
 ```
 
 ## Contracts
 
 - Scanner: Node.js 22+, explicit CAP Node.js project root and optional file/folder
-  scopes; no network, project imports, lifecycle scripts, installation, or writes.
+  scopes; no network, project imports, lifecycle scripts, or installation. The scanned
+  project is never written; the only write is an optional new `--output` file that
+  refuses existing files and paths inside the project.
 - Inventory: sorted scanned paths, excluded paths/reasons, unreadable/oversize
   paths, CDS version declaration, candidate evidence with file and line. Empty
   results mean only no heuristic matches within the recorded scope.
-- Catalog: stable pattern ID, kind (native/helper), maturity, source documentation,
-  positive signals, compatibility checks, contraindications, adoption example.
+- Catalog: stable pattern ID, kind, maturity, source documentation, positive signals,
+  compatibility checks, contraindications, and a native adoption example. An entry may add
+  a `helperAlternative` (experimental, `requiresReview`) with its own example.
 - Report: versioned JSON with deterministic finding IDs. Candidates are not
   semantic proofs. The skill must inspect surrounding handlers and the effective
   CDS model before recommending a replacement. No confidence percentages.
-- Package: proposed internal name `@epam/cap-pattern-helpers`; currently private,
-  unpublished, and tested locally. No claim of an existing vetted internal library.
-  CAP integration/version certification is a release gate, not inferred from unit tests.
+- Package contract (optional): `@epam/cap-pattern-helpers` is a proposed name only.
+  It is private, unpublished, experimental, and has no owner, registry, or license decided.
+  Nothing in the scanner, catalog, skill, adapters, or tests depends on it at run time. It
+  exports one function, and any adoption is a separate reviewed change in the target
+  project, tested on that project's CAP runtime. There is no claim of an existing vetted
+  internal library. CAP version certification would be a release gate for the package,
+  not inferred from unit tests.
 
 ## Implemented Scope
 
 Detect manual properties-file access, query-limit mutation, draft annotations,
-and upstream error-message forwarding. Recommend native APIs for the first three;
-offer an opt-in remote-error helper for the fourth only after checking the service
-contract. Retain CAP's error sanitization. No universal upstream error parsing.
+and upstream error-message forwarding. Recommend native APIs for all four. For forwarded
+errors the default is a plain `req.reject` with an allowlisted static code, applied only
+after checking the service contract. The experimental helper is an optional,
+review-gated alternative, never the default. Retain CAP's error sanitization. No
+universal upstream error parsing.
 The 0.1.0 catalog also reviews remote-service consumption, declarative validation,
 common CDS aspects, query parameterization, and transaction boundaries (nine entries).
 The scanner uses bounded reads, worker deadlines, and evidence fingerprints. It
@@ -62,7 +95,7 @@ returns exit 2 with JSON; invalid input returns 1. Changed fingerprints reopen r
 All new governed components, catalog, policy, scanner, and helper package start at
 0.1.0 for this first EPAM baseline. Earlier public GitHub pilot tags are retained as
 historical experiments, not renamed or presented as factory releases. A release tag
-should be created only after this baseline has been reviewed and committed.
+should be created only after this baseline has been reviewed; none exists yet.
 
 The agent is a thin host-neutral entry point and the skill owns one procedure.
 It loads guidance once and keeps results needs-review when evidence is unresolved.
@@ -92,17 +125,24 @@ CAP-AI-10 hybrid testing is a separate use case and is not implemented here.
 
 ## Validation And Release
 
-Run Node unit/CLI tests, factory dependency/schema checks, adapter packaging tests,
-and registry regeneration checks. Before production use, select supported CDS
-majors and run real CAP HTTP/error/i18n tests for each; approve package name,
-registry, ownership, license, and rights. Keep maturity `experimental` until then.
-Reopen accepted recommendations as `reopened` with reason and prior decision
-history if later evidence invalidates them; never silently overwrite approval.
+Run Node unit/CLI tests, the synthetic fixture evaluation test, factory dependency/schema
+checks, adapter packaging tests, and registry regeneration checks. Before production use
+of the scanner workflow, select supported CDS majors and run real CAP HTTP/error/i18n
+tests for each. The helper package stays `experimental`; the approvals it would need
+(registry, ownership, license, rights, security review) are not being pursued and are listed
+in `helpers/ASSESSMENT.md` for any future decision.
+Reopening is a process rule, not a scanner status: if later evidence invalidates an
+accepted recommendation, record the reason and the prior decision rather than silently
+overwriting approval. The scanner does not implement a `reopened` status or an audit
+history. A changed snapshot makes saved decisions invalid, so the review is redone, and
+`previous` only prevents a resumed submission from silently dropping decided IDs.
 The supplied 10% and 40% figures are planning assumptions, not measured savings.
-Real helper OData HTTP tests passed for CAP 9.9.3 and 10.1.1 on Node 24.5.0/macOS,
-with production sanitization and test-only dummy authentication. The CI matrix is
-configured for Node 22/24; configured checks are not proof of a completed pipeline.
-The helper remains experimental pending governance and customer acceptance.
+Real OData HTTP tests passed for the helper and for the native `req.reject` example on
+CAP 9.9.3 and 10.1.1 (Node 24.5.0, macOS), with production sanitization and test-only
+dummy authentication; the native check was an uncommitted scratch run. The CI matrix is
+configured for Node 22/24, and the full Node suite also passed locally on Node 22.23.3
+and 24.5.0; configured checks are not proof of a completed pipeline.
+The helper remains experimental and is not being pursued for release at this time.
 
 The documented Assistant -> Agent -> Skill -> Tool route is incomplete: the owning
 Developer Assistant and controlled role/use-case/operation IDs still need practice
@@ -150,15 +190,15 @@ copies its source alongside the scanner; adoption requires a separate reviewed
 decision. Test the implementation in the factory with:
 
 ```sh
-node --test tools/cap-pattern-scanner/scripts/scan.test.mjs tools/cap-pattern-scanner/helpers/index.test.js
+node --test tools/cap-pattern-scanner/scripts/scan.test.mjs tools/cap-pattern-scanner/scripts/delivery.test.mjs tools/cap-pattern-scanner/scripts/fixtures.test.mjs tools/cap-pattern-scanner/helpers/index.test.js
 ```
 
 ## Portable Baseline
 
 Keep the current factory component layout. It separates the responsibilities
 needed by CAP-AI-11 without introducing a server, model vendor SDK, or orchestration
-framework. A recommendation to use native CAP is valid; a custom helper is not
-required for every pattern. The one bundled npm helper remains private/experimental.
+framework. A recommendation to use native CAP is valid; the default workflow needs no
+custom helper for any pattern. The one bundled npm helper remains private/experimental.
 Move it into an independently released library only when ownership, compatibility,
 and real reusable APIs justify that release, not to increase the catalog count.
 
@@ -215,27 +255,21 @@ the exact file set each adapter writes. A possible fix, not approved or implemen
 is to refuse to replace files that are absent from `factory-lock.json` unless forced.
 Changing it requires an owner decision and regression tests across all use cases.
 
-## Commit Boundary
+## Commit History
 
-Recommend one cohesive feature baseline containing the three governed components,
-this ADR, the generated registry outputs, and the narrowly related CI validation.
-All source files under the new component directories are currently new to Git;
-plain git diff --stat does not list their content until staged.
+- `2ffbb1e` feat: add CAP-AI-11 portable review baseline (the three governed components,
+  this ADR, generated registry outputs, and the CI jobs).
+- `463a181` feat: harden CAP-AI-11 decisions, add --output, add evaluation fixtures.
 
-Review/stage explicitly (do not use git add .):
+Both are on `feature/cap-ai-11-suggest-patterns` and pushed to origin. No tag or release
+exists. Changes made after `463a181` stay uncommitted until someone commits them.
 
-```sh
-git add -- agents/cap-pattern-advisor skills/cap-suggest-patterns tools/cap-pattern-scanner docs/adr/cap-ai-11-pattern-suggestions.md docs/user-guide/cap-patterns-quickstart.md factory-data.json factory-data.js index.html .gitlab-ci.yml
-git diff --cached --stat
-git diff --cached --check
-```
-
-Suggested message: `feat: add CAP-AI-11 portable review baseline v0.1.0`.
-Do not stage the user's reference copies under validators/, generated delivery ZIPs
-outside this clone, customer source/reports, or unrelated files. Push this feature
-branch to EPAM for review, not the full factory tree/history to the public ZIP host.
-No commit/push is implied by this document. Production admission is still blocked
-by the governance/runtime/customer-acceptance and baseline-validator gaps above.
+Stage explicitly (do not use git add .), and do not stage the reference copies
+(`cap-skill*.md`, `how-to-contribute.md`), generated delivery ZIPs outside this clone,
+customer source or reports, or unrelated files. Push the feature branch to EPAM for
+review, not the full factory tree or history to the public ZIP host. Production
+admission is still blocked by the governance, runtime, customer-acceptance, and
+baseline-validator gaps above.
 
 Do not refactor all three existing installer implementations or invent new versioned
 dependency syntax as part of this feature. Those platform changes need a separate,

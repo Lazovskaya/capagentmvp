@@ -94,8 +94,9 @@ returns compact grouped review JSON by default; --full provides the inventory,
 --decisions reconciles declared evidence and per-ID progress. Incomplete coverage
 returns exit 2 with JSON; invalid input returns 1. Changed fingerprints reopen reviews.
 A `proposed` decision must carry severity, an uncertainty list, and a structured solution whose unified diff the
-tool verifies against the source. A separate `sheet.mjs` records the developer's approve, reject, needs-changes or
-defer apart from the AI's decisions, as new files only; only `apply.mjs` changes files, after approval and
+tool verifies against the source. A `session.mjs` review session shows each proposal as a code diff in an isolated git worktree or copy and records the
+developer's approve, reject, change request or defer per proposal apart from the AI's decisions (`sheet.mjs` remains
+for a document-based decision, as new files only); only `apply.mjs` changes files, after approval and
 confirmation, and it records the actual test result.
 
 All new governed components, catalog, policy, scanner, and helper package start at

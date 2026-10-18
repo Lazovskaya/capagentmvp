@@ -36,7 +36,8 @@ Exit codes: 0 means traversal complete within scope/policy, 2 means incomplete w
 valid JSON, 1 means invalid input/fatal failure. Rule workers have per-file deadlines.
 Changed evidence fingerprints reopen reviews. Decision validation does not establish
 semantic truth, executed tests, developer acceptance, or source-policy approval. A developer's
-approve/reject/needs-changes/defer is recorded separately by sheet.mjs (new files only). Only the separate
+approve/reject/needs-changes/defer is recorded separately, one proposal at a time, by session.mjs (isolated
+worktree or copy) or sheet.mjs (new files only). Only the separate
 apply.mjs changes project files, for an approved, hash-bound, verified patch with a confirmation, and it records
 the real test result; approval alone never means applied.
 

@@ -2,10 +2,11 @@ import { prepareReview } from './review.mjs'
 import { readReviewContext } from './scan.mjs'
 
 const reviewable = new Set(['proposed', 'needs-review'])
-const order = { proposed: 0, 'needs-review': 1, 'not-applicable': 2, unreviewed: 3 }
+const order = { proposed: 0, 'needs-review': 1, 'no-proposal': 2, 'not-applicable': 3, unreviewed: 4 }
 const titles = {
   proposed: 'AI proposes a change',
   'needs-review': 'Held by the AI: not ready for approval',
+  'no-proposal': 'Investigated, no code change proposed (no decision needed)',
   'not-applicable': 'AI judged not applicable (no decision needed)',
   unreviewed: 'Not reviewed by the AI (no decision possible)'
 }
@@ -27,20 +28,26 @@ export function reviewRows(report, validated) {
     const section = decision.reviewed === false ? 'unreviewed' : decision.decision
     return {
       id: decision.id, finding: findings.get(decision.id), aiDecision: decision.decision, section,
+      summary: decision.summary, blocker: decision.blocker, addressedBy: decision.addressedBy, addresses: decision.addresses ?? [],
       requestedDecision: decision.requestedDecision, blockers: decision.blockers ?? [], reason: decision.reason ?? '',
       checks: decision.checks ?? {}, severity: decision.severity, uncertainty: decision.uncertainty,
       proposal: decision.proposal, verifiedPatch: decision.verifiedPatch,
       // Ready for approval only when the AI proposed it AND the tool verified the patch against the source.
-      ready: section === 'proposed' && Boolean(decision.verifiedPatch && decision.proposal?.patch)
+      ready: section === 'proposed' && Boolean(decision.verifiedPatch && decision.proposal?.patch),
+      // A finding covered by another finding's proposal is decided together with that proposal, not on its own.
+      covered: section === 'proposed' && Boolean(decision.addressedBy)
     }
   })
   return { brief, rows: rows.sort((a, b) => order[a.section] - order[b.section]
     || a.finding.evidence.file.localeCompare(b.finding.evidence.file) || a.finding.evidence.line - b.finding.evidence.line) }
 }
 
+/** Whether the developer can decide this row on its own (covered findings follow their proposal). */
+export const isDecidable = row => reviewable.has(row.section) && !row.covered
+
 /** Hash-checked source excerpts for the reviewable items (fails if the source changed since the scan). */
 export async function loadSheetExcerpts(project, report, rows) {
-  const ids = rows.filter(row => reviewable.has(row.section)).map(row => row.id)
+  const ids = rows.filter(isDecidable).map(row => row.id)
   const excerpts = new Map()
   for (let index = 0; index < ids.length; index += 3) {
     const { excerpts: batch } = await readReviewContext(project, report, ids.slice(index, index + 3))
@@ -81,11 +88,17 @@ function renderItem(row, excerpt, out) {
       '', 'Potential regressions:', ...list(row.proposal.regressions, 'none given'),
       '', 'Verification steps:', ...list(row.proposal.verification?.steps, 'none given'),
       '', 'Proposed tests (descriptions only; the tool never runs a command from the AI):', ...list(row.proposal.verification?.tests, 'none given'))
-  } else out.push('', 'No concrete solution has been formulated for this finding.')
+  } else if (row.covered) out.push('', `Addressed by the proposal in ${row.addressedBy}: decide there. This finding has no separate decision.`)
+  else out.push('', 'No concrete solution has been formulated for this finding.')
+  if (row.addresses.length) out.push('', `This proposal also addresses: ${row.addresses.join(', ')}`)
+  if (row.blocker) {
+    out.push('', 'Blocker and what was investigated:', ...(row.blocker.missingEvidence ? [`- Missing: ${row.blocker.missingEvidence}`] : []),
+      ...(row.blocker.investigated ?? []).map(item => `- Investigated: ${item}`), ...(row.blocker.unblockingCheck ? [`- Check that would unblock it: ${row.blocker.unblockingCheck}`] : []))
+  }
   out.push('', 'Uncertainty and missing evidence:', ...list(row.uncertainty, row.uncertainty ? 'none stated' : 'not stated by the AI'))
   const checks = Object.entries(row.checks)
   if (checks.length) out.push('', '| Evidence check | Status | Evidence |', '|---|---|---|', ...checks.map(([id, check]) => `| ${id} | ${check.status} | ${String(check.evidence).replace(/\|/g, '/').replace(/\s+/g, ' ').slice(0, 280)} |`))
-  if (reviewable.has(row.section)) {
+  if (isDecidable(row)) {
     out.push('', '**Your decision** (tick at most one; nothing is applied by deciding):',
       row.ready ? '- [ ] approve: accept this proposal (applying is a separate step)' : '- [ ] approve: unavailable, there is no verified proposal',
       '- [ ] reject: decline it (a reason is required)', '- [ ] needs-changes: request a revised proposal (say what to change)', '- [ ] defer: decide later',
@@ -103,8 +116,8 @@ export function renderReviewSheet({ brief, rows, excerpts = new Map() }) {
     'Detected is not the same as confirmed: a candidate is a place that matched a pattern. The validator checks that evidence text is present, not that it is true. The excerpts are your source: keep this sheet inside your environment.', '',
     '**How to decide.** Tick one box per item: **approve** (accept the proposal, only when it is ready), **reject** (with a reason), **needs-changes** (say what to revise), or **defer**.', 'Leave an item untouched if you have not looked at it. Save the file and run `sheet.mjs record`.', '',
     `Snapshot \`${brief.snapshot.sha256.slice(0, 12)}…\` · ${rows.length} candidates · ${rows.filter(row => row.ready).length} ready for approval`, '',
-    '| Pattern | AI proposes | Held by the AI | Not applicable |', '|---|---|---|---|',
-    ...patterns.map(pattern => `| ${pattern} | ${count(pattern, 'proposed')} | ${count(pattern, 'needs-review')} | ${count(pattern, 'not-applicable')} |`), ''
+    '| Pattern | AI proposes | Held by the AI | No proposal | Not applicable |', '|---|---|---|---|---|',
+    ...patterns.map(pattern => `| ${pattern} | ${count(pattern, 'proposed')} | ${count(pattern, 'needs-review')} | ${count(pattern, 'no-proposal')} | ${count(pattern, 'not-applicable')} |`), ''
   ]
   let section = null
   for (const row of rows) {
@@ -140,6 +153,15 @@ export function parseReviewSheet(markdown) {
   return blocks
 }
 
+/** One developer decision, bound for an approval to the exact verified diff (a revised proposal needs a new approval). */
+export function decisionEntry(row, decision, notes) {
+  const { file, line, sha256 } = row.finding.evidence
+  return {
+    id: row.id, patternId: row.finding.patternId, file, line, evidenceSha256: sha256, aiDecision: row.aiDecision, decision, notes,
+    ...(decision === 'approved' ? { ...(row.addresses.length ? { addresses: row.addresses } : {}), patchSha256: row.verifiedPatch.patchSha256, targets: row.verifiedPatch.files.map(target => ({ file: target.file, baseSha256: target.baseSha256 })) } : {})
+  }
+}
+
 /** Turns a ticked sheet into the developer-decisions record. Never applies or verifies a change. */
 export function recordDeveloperDecisions({ report, validated, sheet, reviewer }) {
   const { brief, rows } = reviewRows(report, validated)
@@ -152,7 +174,7 @@ export function recordDeveloperDecisions({ report, validated, sheet, reviewer })
   for (const row of rows) {
     const ticks = blocks.get(row.id)?.ticks ?? []
     const notes = blocks.get(row.id)?.notes ?? ''
-    if (!reviewable.has(row.section)) {
+    if (!isDecidable(row)) {
       if (ticks.length) throw new TypeError(`${row.id} cannot take a developer decision: the AI judged it ${row.aiDecision}${row.section === 'unreviewed' ? ' (not reviewed)' : ''}`)
       continue
     }
@@ -164,12 +186,7 @@ export function recordDeveloperDecisions({ report, validated, sheet, reviewer })
     if ((decision === 'rejected' || decision === 'needs-changes') && !notes.trim()) {
       throw new TypeError(`${row.id} is ${decision === 'rejected' ? 'rejected' : 'sent back'} without a reason; write one after "Reason or notes:"`)
     }
-    const { file, line, sha256 } = row.finding.evidence
-    decisions.push({
-      id: row.id, patternId: row.finding.patternId, file, line, evidenceSha256: sha256, aiDecision: row.aiDecision, decision, notes,
-      // An approval is bound to this exact diff; a revised proposal needs a new approval.
-      ...(decision === 'approved' ? { patchSha256: row.verifiedPatch.patchSha256, targets: row.verifiedPatch.files.map(target => ({ file: target.file, baseSha256: target.baseSha256 })) } : {})
-    })
+    decisions.push(decisionEntry(row, decision, notes))
   }
   const count = name => decisions.filter(decision => decision.decision === name).length
   return {

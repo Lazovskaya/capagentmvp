@@ -159,11 +159,25 @@ A `proposed` decision must carry a concrete, checkable solution. Besides `id`, `
 
 - `severity`: `{ level: info|low|medium|high, basis }`, the reviewer's assessment of the impact
   if the finding is real. The scanner assigns no severity, and a candidate is not a confirmed defect.
+- `summary` (optional): one sentence stating the problem, shown first in the review.
 - `uncertainty`: a list of what is unknown or unproven (empty only if nothing is).
 - `proposal`: `{ patch, compatibility[], regressions[], verification: { steps[], tests[] } }`.
   `patch` is a unified diff of existing CDS/JavaScript/TypeScript files copied from the actual
   source: no new, deleted, or renamed files, and paths stay inside the project and the scan
   policy. `tests` are descriptions; a command from the AI is never run.
+
+Try to give a concrete diff for every applicable finding: read the CDS model, tests, and dependencies you may
+inspect before declaring a proposal impossible. Findings in one function or query chain belong in one coherent
+diff: put the diff on one finding and mark the others `proposed` with `addressedBy` set to that finding ID (the
+diff must change the covered finding's file, and each covered finding keeps its own evidence checks). Each finding
+ID stays in the output, and the diff-carrying one lists the others under `addresses`. Two separate proposals must
+not change the same file.
+
+Without a proposal there are two distinct outcomes. `needs-review` means a proposal may be possible: give
+`blocker` `{ missingEvidence, investigated[], unblockingCheck }` naming what is missing, what you already
+investigated, and the check that would unblock it (a bare "more verification needed" is flagged). `no-proposal`
+means the investigation is done and no code change is proposed: give `blocker.investigated`. Neither is a verified
+proposal, and no-proposal findings never enter the approval queue.
 
 The decision stays `proposed` only if all of this is present, the evidence checks are verified,
 and the patch applies exactly to the current files. Pass the project path so patches are checked
@@ -173,32 +187,57 @@ Without it a patch is "not checked" and the item stays `needs-review`. The outpu
 `verifiedPatch` is ignored. Anything unverified stays `needs-review` with its reason and is shown
 as not ready for approval.
 
-## Developer Decisions: `sheet.mjs`
+## Reviewing Proposals One By One: `session.mjs`
 
-The AI only proposes. A developer decides each proposal, and that decision is recorded in its own
-file, never mixed into the AI's `--decisions` output. Deciding changes no code.
+The primary review experience. A review session shows each actionable proposal as a code diff, one at a time, and
+records an independent decision for each. Nothing in your project changes.
 
 ```sh
-node tools/cap-pattern-scanner/scripts/sheet.mjs sheet  --report /approved/brief.json --decisions /approved/validated.json --project /path/to/cap-project --output /approved/sheet.md
-node tools/cap-pattern-scanner/scripts/sheet.mjs record --report /approved/brief.json --decisions /approved/validated.json --sheet /approved/sheet.md --reviewer "Name" --output /approved/developer-decisions.json
+node tools/cap-pattern-scanner/scripts/session.mjs start  --report B --decisions V --project P --session /approved/session
+node tools/cap-pattern-scanner/scripts/session.mjs review --session /approved/session --reviewer "Name"
+node tools/cap-pattern-scanner/scripts/session.mjs status --session /approved/session
+node tools/cap-pattern-scanner/scripts/session.mjs apply  --session /approved/session [--confirm HASH|all --test-command "npm test"]
+node tools/cap-pattern-scanner/scripts/session.mjs diff   --session /approved/session [--approved]
+node tools/cap-pattern-scanner/scripts/session.mjs revise --session /approved/session --decisions <revised-validated.json>
 ```
 
-- `sheet` writes Markdown with every candidate: finding ID, severity, hash-checked source
-  evidence, the problem, the proposed diff and whether it was verified, target files and lines,
-  compatibility, regressions, verification steps and tests, uncertainty, and the evidence checks.
-  It contains your source: keep it inside the approved boundary.
-- Tick one box per item: **approve** (accept the proposal; only possible when it is ready for
-  approval, and it does not apply it), **reject** (a reason is required), **needs-changes** (a
-  reason says what to revise; a revised proposal needs a new validation and a new decision), or
-  **defer**. Untouched items stay undecided; items the AI judged not applicable take no decision.
-- `record` prints `format: cap-pattern-developer-decisions`: per decision `id`, `patternId`, `file`,
-  `line`, `evidenceSha256`, `aiDecision`, `decision` (`approved`, `rejected`, `needs-changes`,
-  `deferred`), and `notes`; an approval also carries `patchSha256` and the target files with
-  base hashes. It refuses more than one tick, a rejection or needs-changes without a reason,
-  approving an item without a verified proposal, unknown or repeated IDs, and decisions from a
-  different scan. CRLF and a BOM in the edited sheet are accepted.
-- `--output` is a new file only, never inside `--project`. Record later changes by editing the
-  sheet and writing a new file.
+- `start` creates an isolated workspace next to the session: a git worktree on a new `cap-ai-11/review-...` branch
+  (created from HEAD, so your branch, HEAD, and working files stay as they are), or, without git, a copy without
+  `node_modules` and `.git`. It refuses to start when a file a proposal changes has uncommitted edits or no longer
+  matches the reviewed hash, and creates nothing in that case. Other uncommitted changes are listed and stay
+  untouched; they are not in the workspace. It writes each proposal as a `.patch` file plus before/after copies
+  (for `code --diff before after`) in the session folder.
+- `review` asks about one proposal at a time: file and finding IDs, a one-line problem, the diff (- removed, + added),
+  then the explanation, uncertainty, compatibility, regression risks, verification status, and proposed tests; then
+  **a**pprove, **r**eject (reason), **c**hange request (feedback), **d**efer, **n**ext, or **q**uit. Held items
+  (no verified proposal) show their blocker and cannot be approved. Covered findings are decided with their proposal;
+  `not-applicable`, `no-proposal`, and unreviewed findings stay in the session for traceability and never enter the
+  queue (`show --all` lists them). Two proposals that change the same file cannot both be actionable.
+- A change request saves your feedback in `revision-requests.json`. The AI revises the proposal and validates it;
+  `revise` imports it, and a proposal whose diff changed loses its earlier decision and needs a new one.
+- `apply` shows the exact diffs and changes nothing until `--confirm <diff hash>` (or `all`, after reading them). It
+  applies only approved proposals, one at a time, into the isolated workspace, through `apply.mjs` (same checks and
+  rollback), after confirming the original project's target files still have the reviewed hashes (otherwise the
+  approval is stale and refused). It runs only your `--test-command`, never one from the AI, and records the real result
+  in `applications/`. A failing test is reported and stops the run; the change is not reverted (use the recorded reverse
+  patch). Review all applied changes together with `diff` or `git -C <workspace> diff`; nothing is committed or pushed,
+  and moving the change to your branch is yours to do.
+- Limits: the workspace has no installed dependencies, so tests that need `node_modules` need an install there first;
+  removing a session means `git worktree remove` and deleting the review branch yourself.
+
+## Developer Decisions On A Sheet: `sheet.mjs`
+
+An older, file-based way to decide, kept for traceability and for teams that prefer a document. It records the same
+decisions from a ticked Markdown sheet.
+
+```sh
+node tools/cap-pattern-scanner/scripts/sheet.mjs sheet  --report B --decisions V --project P --output /approved/sheet.md
+node tools/cap-pattern-scanner/scripts/sheet.mjs record --report B --decisions V --sheet /approved/sheet.md --reviewer "Name" --output /approved/developer-decisions.json
+```
+
+Tick one box per item (approve, reject with a reason, needs-changes with a reason, or defer). Approval is only possible
+for a verified proposal and is bound to the exact diff; covered findings follow their proposal. `--output` is a new file
+only, never inside `--project`. Apply with `apply.mjs` below.
 
 ## Applying An Approved Proposal: `apply.mjs`
 

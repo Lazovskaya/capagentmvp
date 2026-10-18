@@ -24,6 +24,7 @@ function approvedProposal({ report, validated, developer, id }) {
   if (!row) throw new TypeError(`Unknown finding ID: ${id}`)
   const approval = developer.decisions?.find(decision => decision.id === id)
   if (approval?.decision !== 'approved') throw new TypeError(`${id} is not approved (developer decision: ${approval?.decision ?? 'none'})`)
+  if (row.covered) throw new TypeError(`${id} is addressed by the proposal in ${row.addressedBy}; apply that one`)
   if (!row.ready) throw new TypeError(`${id} has no verified proposal to apply`)
   if (patchSha256(row.proposal.patch) !== approval.patchSha256) {
     throw new TypeError('The approval is for a different patch than the current proposal; review the revised proposal and approve it again')
@@ -126,8 +127,10 @@ try {
     const root = values.project ? await realpath(values.project) : undefined
     const items = []
     for (const row of rows.filter(candidate => ['proposed', 'needs-review'].includes(candidate.section))) {
-      const decision = developer?.decisions?.find(candidate => candidate.id === row.id)
-      const record = applications.filter(candidate => candidate.findingId === row.id && candidate.patchSha256 === row.verifiedPatch?.patchSha256).at(-1)
+      const ownerId = row.covered ? row.addressedBy : row.id
+      const owner = rows.find(candidate => candidate.id === ownerId) ?? row
+      const decision = developer?.decisions?.find(candidate => candidate.id === ownerId)
+      const record = applications.filter(candidate => candidate.findingId === ownerId && candidate.patchSha256 === owner.verifiedPatch?.patchSha256).at(-1)
       let state
       let note = ''
       if (record) {
@@ -141,8 +144,8 @@ try {
           if (drifted.length) { note = `files differ from the recorded result: ${drifted.join(', ')}`; state = `${state}; files changed since` }
         }
       } else if (decision) state = decision.decision === 'approved' ? 'approved, not applied' : decision.decision
-      else state = row.ready ? 'awaiting your decision (ready for approval)' : 'awaiting your decision (not ready for approval)'
-      items.push({ id: row.id, patternId: row.finding.patternId, file: row.finding.evidence.file, line: row.finding.evidence.line, aiDecision: row.aiDecision, state, ...(note ? { note } : {}) })
+      else state = owner.ready ? 'awaiting your decision (ready for approval)' : 'awaiting your decision (not ready for approval)'
+      items.push({ id: row.id, patternId: row.finding.patternId, file: row.finding.evidence.file, line: row.finding.evidence.line, aiDecision: row.aiDecision, state, ...(row.covered ? { addressedBy: row.addressedBy } : {}), ...(note ? { note } : {}) })
     }
     const summary = {}
     for (const item of items) summary[item.state] = (summary[item.state] ?? 0) + 1

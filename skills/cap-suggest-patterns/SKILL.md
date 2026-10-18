@@ -230,20 +230,32 @@ environment generation, client-code harvesting, and publishing are out of scope.
    project path (`scan.mjs <project> --report ... --decisions ...`) or every proposal stays unverified.
    Describe tests only: never put a command for the tool to run in a proposal. If you cannot write a
    grounded diff, use `needs-review` and list what is missing under `uncertainty`.
-10. After validation, generate the developer review sheet yourself in the same approved folder, without
-   asking again (it only writes a new file there):
+   Try hard to produce a diff before giving up: read the CDS model, tests, and dependencies you may inspect.
+   Add a one-sentence `summary` to each proposal. Findings in one function or query chain get one coherent diff:
+   put it on one finding and mark the others `proposed` with `addressedBy: <that finding ID>` (same file, each with
+   its own evidence checks); never propose two diffs for the same file. Without a proposal use `needs-review` with
+   `blocker` {missingEvidence, investigated[], unblockingCheck} (exactly what is missing, what you already
+   checked, the check that would unblock it) when a proposal may become possible, or `no-proposal` with
+   `blocker.investigated` when you investigated and propose no change. Never mark an unverified proposal verified.
+10. After validation, create the developer review session yourself in the same approved folder, without
+   asking again (it makes an isolated worktree or copy and writes new files there; it never changes the project):
    ```sh
-   node tools/cap-pattern-scanner/scripts/sheet.mjs sheet --report /approved/brief.json --decisions /approved/validated.json --project <project> --output /approved/review-sheet.md
+   node tools/cap-pattern-scanner/scripts/session.mjs start --report /approved/brief.json --decisions /approved/validated.json --project <project> --session /approved/session
    ```
-   Then stop. The run is complete when the sheet exists: scan, review, validation and sheet are all
-   done by you in one pass. If validation reports blockers on proposals you could fix (a diff that does
-   not apply, a missing field), correct and re-validate once into a new file; otherwise leave the item
-   `needs-review`. Final message: the sheet path, counts (ready for approval, held, not applicable),
-   and the developer's next commands exactly as follows, with real paths filled in: open the sheet and
-   tick approve, reject, needs-changes or defer per item; `sheet.mjs record ... --reviewer <name>
-   --output /approved/developer-decisions.json`; then `apply.mjs preview`, `apply` and `status`.
-   Never tick boxes, run `record` or `apply.mjs`, edit application files, or imply a developer
-   decision on their behalf: the developer's review of the diffs is the end of your part.
+   If it refuses (for example, uncommitted edits in a file a proposal changes), report the exact message and
+   stop; do not work around it. The run is complete when the session exists: scan, review, validation, and
+   session are done by you in one pass. If validation reports blockers on proposals you could fix (a diff
+   that does not apply, a missing field), correct and re-validate once into a new file; otherwise leave the item
+   `needs-review`. Final message: the session path, counts (proposals ready for review, held with blocker,
+   no-proposal, not-applicable), and the developer's next command with real paths filled in:
+   `node tools/cap-pattern-scanner/scripts/session.mjs review --session /approved/session --reviewer <name>`,
+   which shows each proposal as a code diff and records approve, reject, change request, defer, or next;
+   `session.mjs apply` is a later, separate step.
+   If the developer asks for changes, read `/approved/session/revision-requests.json`, revise those proposals using the
+   feedback, validate into a new file with the project path, and run `session.mjs revise --session /approved/session
+   --decisions <new-validated.json>`. Never run `session.mjs review`, `decide`, or `apply`, `sheet.mjs record`, or
+   `apply.mjs`; never edit application files; never imply a developer decision. The developer's review of the
+   diffs is the end of your part.
 
 ## Output
 

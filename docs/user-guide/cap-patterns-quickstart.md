@@ -80,7 +80,7 @@ node tools/cap-pattern-scanner/scripts/scan.mjs --report /approved/brief.json --
 Add `--output /approved/<new-file>.json` to save the exact JSON printed (new file only;
 existing files and paths inside the project are refused). The agent normally runs these
 itself. Decision validation checks evidence declarations and counts, not semantic truth
-or developer acceptance. To approve or reject proposals yourself, use `sheet.mjs` (see the scanner
+or developer acceptance. To approve or reject proposals yourself, use `session.mjs` (or `sheet.mjs`; see the scanner
 README, "Developer Decisions"). Full contracts: tools/cap-pattern-scanner/tool.md;
 architecture and release limits: docs/adr/cap-ai-11-pattern-suggestions.md. The npm
 helper is optional, experimental, private, and unpublished; it is never required.

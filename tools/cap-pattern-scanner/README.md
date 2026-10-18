@@ -269,26 +269,25 @@ you choose when to apply it. Nothing is changed before that.
    ```sh
    node tools/cap-pattern-scanner/scripts/scan.mjs /path/to/cap-project --report /approved/brief.json --decisions /approved/submission.json --output /approved/validated.json
    ```
-2. Make the review sheet and decide in it:
+2. Start a review session and go through the proposals one by one as code diffs:
    ```sh
-   node tools/cap-pattern-scanner/scripts/sheet.mjs sheet --report /approved/brief.json --decisions /approved/validated.json --project /path/to/cap-project --output /approved/sheet.md
+   node tools/cap-pattern-scanner/scripts/session.mjs start --report /approved/brief.json --decisions /approved/validated.json --project /path/to/cap-project --session /approved/session
+   node tools/cap-pattern-scanner/scripts/session.mjs review --session /approved/session --reviewer "Your name"
    ```
    ```powershell
-   node tools\cap-pattern-scanner\scripts\sheet.mjs sheet --report "C:\approved\brief.json" --decisions "C:\approved\validated.json" --project "C:\path\to\cap-project" --output "C:\approved\sheet.md"
+   node tools\cap-pattern-scanner\scripts\session.mjs start --report "C:\approved\brief.json" --decisions "C:\approved\validated.json" --project "C:\path\to\cap-project" --session "C:\approved\session"
    ```
-   Tick one box per item: **approve** (only when it is ready; this does not apply it), **reject**
-   (give a reason), **needs-changes** (say what to revise), or **defer**. Then record your decisions:
+   The session works in an isolated git worktree on a new branch (or a copy without git); your branch and files
+   are not touched. For each proposal you see the diff first, then the explanation and risks, and choose approve,
+   reject, change request, defer, or next. A change request saves your feedback for the AI to revise.
+3. Applying is its own step. `session.mjs apply` shows the exact diffs; with the confirmed hash it applies approved
+   proposals to the isolated workspace only, runs **your** test command, and records the actual result:
    ```sh
-   node tools/cap-pattern-scanner/scripts/sheet.mjs record --report /approved/brief.json --decisions /approved/validated.json --sheet /approved/sheet.md --reviewer "Your name" --output /approved/developer-decisions.json
+   node tools/cap-pattern-scanner/scripts/session.mjs apply --session /approved/session --confirm all --test-command "npm test"
+   node tools/cap-pattern-scanner/scripts/session.mjs diff --session /approved/session
    ```
-3. Applying an approved proposal is its own step. `preview` shows the exact diff and changes nothing;
-   `apply` needs the diff's hash, writes the change, runs **your** test command, and records the actual
-   result in a new file:
-   ```sh
-   node tools/cap-pattern-scanner/scripts/apply.mjs preview --report /approved/brief.json --decisions /approved/validated.json --developer-decisions /approved/developer-decisions.json --project /path/to/cap-project --id FINDING_ID
-   node tools/cap-pattern-scanner/scripts/apply.mjs apply   --report /approved/brief.json --decisions /approved/validated.json --developer-decisions /approved/developer-decisions.json --project /path/to/cap-project --id FINDING_ID --confirm HASH_FROM_PREVIEW --output /approved/application.json --test-command "npm test"
-   ```
-4. `apply.mjs status` shows where every item stands: approved, applied with tests passed, applied with
+   The sheet workflow (`sheet.mjs`) and the per-finding `apply.mjs preview/apply/status` remain available.
+4. `session.mjs status` (or `apply.mjs status`) shows where every item stands: approved, applied with tests passed, applied with
    tests failed, or applied unverified. Approval alone is never reported as applied, and a failed test
    run is never reverted silently: the record holds a reverse patch.
 

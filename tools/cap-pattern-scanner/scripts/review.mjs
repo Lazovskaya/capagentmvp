@@ -14,11 +14,13 @@ const queryChecks = [
 
 const maxObservations = 100
 const submissionKeys = new Set(['snapshotSha256', 'decisions', 'previous'])
-const entryKeys = new Set(['id', 'decision', 'reason', 'checks', 'severity', 'proposal', 'uncertainty'])
+const entryKeys = new Set(['id', 'decision', 'reason', 'summary', 'checks', 'severity', 'proposal', 'uncertainty', 'blocker', 'addressedBy'])
+const decisionValues = ['proposed', 'not-applicable', 'needs-review', 'no-proposal']
+const blockerKeys = new Set(['missingEvidence', 'investigated', 'unblockingCheck'])
 const severityLevels = ['info', 'low', 'medium', 'high']
 const proposalKeys = new Set(['patch', 'compatibility', 'regressions', 'verification'])
 // Echoed from a previous reconciled output so it can be resubmitted; always recomputed, never trusted.
-const derivedEntryKeys = new Set(['requestedDecision', 'blockers', 'reviewed', 'verifiedPatch'])
+const derivedEntryKeys = new Set(['requestedDecision', 'blockers', 'reviewed', 'verifiedPatch', 'addresses'])
 const checkIds = new Set([...proposalChecks, ...queryChecks].map(check => check.id))
 
 function normalizeChecks(checks) {
@@ -81,6 +83,34 @@ function normalizeProposal(proposal) {
     patch: proposal.patch, compatibility: strings(proposal.compatibility, 'proposal.compatibility'),
     regressions: strings(proposal.regressions, 'proposal.regressions'), verification
   }
+}
+
+function normalizeBlocker(blocker) {
+  if (blocker === undefined) return undefined
+  if (!blocker || typeof blocker !== 'object' || Array.isArray(blocker) || Object.keys(blocker).some(key => !blockerKeys.has(key))) {
+    throw new TypeError('blocker supports only missingEvidence, investigated, and unblockingCheck')
+  }
+  for (const key of ['missingEvidence', 'unblockingCheck']) {
+    if (blocker[key] !== undefined && (typeof blocker[key] !== 'string' || !blocker[key].trim())) throw new TypeError(`blocker.${key} must be a non-empty string`)
+  }
+  return {
+    ...(blocker.missingEvidence ? { missingEvidence: blocker.missingEvidence.trim() } : {}),
+    ...(blocker.investigated ? { investigated: strings(blocker.investigated, 'blocker.investigated') } : {}),
+    ...(blocker.unblockingCheck ? { unblockingCheck: blocker.unblockingCheck.trim() } : {})
+  }
+}
+
+// needs-review means a proposal may be possible: it must say what is missing, what was already investigated,
+// and which check would unblock it. no-proposal means the investigation is done and no code change is proposed.
+function unresolvedBlockers(decision, blocker) {
+  const missing = []
+  if (decision === 'needs-review') {
+    if (!blocker?.missingEvidence) missing.push('what evidence is missing')
+    if (!blocker?.investigated?.length) missing.push('what was already investigated')
+    if (!blocker?.unblockingCheck) missing.push('which specific check would unblock a proposal')
+    return missing.length ? [`No specific blocker stated: say ${missing.join(', ')} (blocker)`] : []
+  }
+  return blocker?.investigated?.length ? [] : ['A no-proposal decision must list what was investigated (blocker.investigated)']
 }
 
 // A proposal is ready for approval only with a severity, an uncertainty list, a complete structured
@@ -213,6 +243,8 @@ export function prepareReview(report) {
       'This JSON is already filtered and grouped. Do not spawn agents or repeatedly read the full report to extract JSON.',
       'Load each pattern guidance once; read surrounding application code by file/group. Account for every finding ID.',
       'A proposed decision needs severity {level, basis} (your impact assessment if the finding is real, not a scanner result), an uncertainty list, and proposal {patch, compatibility, regressions, verification: {steps, tests}}. The patch is a unified diff of existing files copied from the actual source; the tool checks it applies exactly, and anything unverified stays needs-review. Describe tests only; never include a command for the tool to run.',
+      'Try to produce a concrete diff for every applicable finding. Read the CDS model, tests, and dependencies you are allowed to inspect before declaring a proposal impossible. Findings in the same function or query chain belong in one coherent diff: put the diff and severity on one finding and mark the others proposed with addressedBy set to that finding ID (same file; each still needs its own evidence checks). Two separate proposals must not change the same file.',
+      'A proposed entry may add a one-sentence summary. needs-review means a proposal may be possible: give blocker {missingEvidence, investigated, unblockingCheck} naming exactly what is missing, what you already investigated, and the check that would unblock it. no-proposal means you investigated and propose no code change: give blocker.investigated. Never label an unverified proposal as verified.',
       'Respect the requested sample/group first; do not substitute a different pattern without explaining a blocker.',
       'observations are context-only signals, not candidates: no decision is needed and they do not count in progress. Read one with --context only when its pattern guidance makes it relevant (for example a direct HTTP call or a manual transaction), and report anything it reveals under the output contract observations, never as a decision. observationsOmitted counts signals not listed.',
       'req.error collects errors; CAP automatically rejects recorded errors after each before/on/after phase. Missing req.reject is not itself a defect.',
@@ -264,11 +296,19 @@ export function reconcileDecisions(report, submission, { patchChecks } = {}) {
     const severity = normalizeSeverity(entry.severity)
     const proposal = normalizeProposal(entry.proposal)
     const uncertainty = strings(entry.uncertainty, 'uncertainty')
-    if (!['proposed', 'not-applicable', 'needs-review'].includes(entry.decision)
+    const blocker = normalizeBlocker(entry.blocker)
+    if (entry.summary !== undefined && (typeof entry.summary !== 'string' || !entry.summary.trim() || entry.summary.length > 300)) throw new TypeError('summary must be one short sentence (at most 300 characters)')
+    if (entry.addressedBy !== undefined && (typeof entry.addressedBy !== 'string' || entry.decision !== 'proposed' || proposal)) {
+      throw new TypeError('addressedBy names the finding whose proposal covers this one; the entry must be proposed and carry no proposal of its own')
+    }
+    if (!decisionValues.includes(entry.decision)
       || typeof entry.reason !== 'string' || !entry.reason.trim()) {
       throw new TypeError('Each decision requires a supported decision and reason')
     }
     const blockers = []
+    if (entry.decision === 'needs-review' || entry.decision === 'no-proposal') {
+      blockers.push(...unresolvedBlockers(entry.decision, blocker))
+    }
     if (entry.decision === 'proposed') {
       const required = known.get(entry.id).patternId === 'CAP-QUERY-001' ? [...proposalChecks, ...queryChecks] : proposalChecks
       for (const check of required) {
@@ -278,29 +318,50 @@ export function reconcileDecisions(report, submission, { patchChecks } = {}) {
           blockers.push(`Unresolved evidence check: ${check.id}`)
         }
       }
-      blockers.push(...proposalBlockers({ severity, proposal, uncertainty }, patchChecks?.get(entry.id), patchChecks !== undefined))
+      if (entry.addressedBy === undefined) blockers.push(...proposalBlockers({ severity, proposal, uncertainty }, patchChecks?.get(entry.id), patchChecks !== undefined))
     }
     const patchCheck = patchChecks?.get(entry.id)
     reviewed.set(entry.id, {
       id: entry.id, requestedDecision: entry.decision,
       decision: blockers.length ? 'needs-review' : entry.decision,
-      reason: entry.reason, ...(checks ? { checks } : {}),
+      reason: entry.reason, ...(entry.summary ? { summary: entry.summary.trim() } : {}), ...(checks ? { checks } : {}),
+      ...(blocker ? { blocker } : {}), ...(entry.addressedBy ? { addressedBy: entry.addressedBy } : {}),
       ...(severity ? { severity } : {}), ...(uncertainty ? { uncertainty } : {}), ...(proposal ? { proposal } : {}),
       ...(patchCheck?.ok ? { verifiedPatch: { patchSha256: patchCheck.patchSha256, files: patchCheck.files } } : {}),
       reviewed: true, blockers
     })
+  }
+  // A finding addressed by another finding's proposal is proposed only if that proposal is itself verified and
+  // changes the file the covered finding points at. The coverage claim (same function or query chain) is the AI's.
+  const findingsById = new Map(brief.findings.map(finding => [finding.id, finding]))
+  for (const entry of reviewed.values()) {
+    if (!entry.addressedBy || entry.decision !== 'proposed') continue
+    const primary = reviewed.get(entry.addressedBy)
+    const file = findingsById.get(entry.id).evidence.file
+    const problems = []
+    if (!primary || entry.addressedBy === entry.id) problems.push(`addressedBy ${entry.addressedBy} is not another reviewed finding`)
+    else if (primary.addressedBy) problems.push(`${entry.addressedBy} is itself covered by another proposal; name the proposal that carries the diff`)
+    else if (primary.decision !== 'proposed' || !primary.verifiedPatch) problems.push(`The proposal in ${entry.addressedBy} is not verified, so it cannot cover this finding`)
+    else if (!primary.verifiedPatch.files.some(target => target.file === file)) problems.push(`The proposal in ${entry.addressedBy} does not change ${file}`)
+    if (problems.length) { entry.blockers.push(...problems); entry.decision = 'needs-review' }
+  }
+  for (const entry of reviewed.values()) {
+    if (!entry.addressedBy) continue
+    const primary = reviewed.get(entry.addressedBy)
+    if (primary && entry.decision === 'proposed') primary.addresses = [...(primary.addresses ?? []), entry.id]
   }
   const decisions = brief.findings.map(finding => reviewed.get(finding.id) ?? {
     id: finding.id, decision: 'needs-review', reason: 'Not reviewed', reviewed: false, blockers: ['Unreviewed finding']
   })
   const proposed = decisions.filter(entry => entry.decision === 'proposed').length
   const notApplicable = decisions.filter(entry => entry.decision === 'not-applicable').length
+  const noProposal = decisions.filter(entry => entry.decision === 'no-proposal').length
   const needsReview = decisions.filter(entry => entry.decision === 'needs-review').length
   return {
     ...brief,
     progress: {
       total: brief.findings.length, reviewed: reviewed.size, remaining: brief.findings.length - reviewed.size,
-      proposed, notApplicable, needsReview,
+      proposed, notApplicable, noProposal, needsReview,
       verdict: !brief.coverage.complete || needsReview ? 'needs-review' : proposed ? 'proposals' : 'no-applicable-patterns',
       reason: 'Computed from unique finding IDs, coverage, declared evidence checks, and patch checks; not developer acceptance or semantic certification.'
     },

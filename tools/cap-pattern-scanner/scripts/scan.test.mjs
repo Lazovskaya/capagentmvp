@@ -434,15 +434,27 @@ test('query proposals need explicit input, association, backend, authorization, 
   const unsupported = reconcileDecisions(brief, submission)
   assert.equal(unsupported.decisions[0].requestedDecision, 'proposed')
   assert.equal(unsupported.decisions[0].decision, 'needs-review')
-  assert.equal(unsupported.decisions[0].blockers.length, 7)
+  assert.equal(unsupported.decisions[0].blockers.length, 10, '7 evidence checks plus missing severity, proposal, and uncertainty')
   for (const check of [...brief.reviewPolicy.proposalChecks, ...brief.reviewPolicy.queryChecks]) {
     entry.checks[check.id] = { status: check.required ? 'verified' : 'not-applicable', evidence: 'Synthetic reviewer evidence; not proof of executed tests.' }
   }
-  assert.equal(reconcileDecisions(brief, submission).progress.verdict, 'proposals')
+  // Evidence checks alone are no longer enough: a proposal needs a structured solution that checks out.
+  assert.equal(reconcileDecisions(brief, submission).progress.verdict, 'needs-review')
+  Object.assign(entry, {
+    severity: { level: 'medium', basis: 'Client input reaches a where string' }, uncertainty: [],
+    proposal: {
+      patch: '--- a/srv/queries.js\n+++ b/srv/queries.js\n@@ -1 +1 @@\n-SELECT.from(Items).where(\'code=\' + input)\n+SELECT.from(Items).where({ code: input })\n',
+      compatibility: ['Plain CQN object form on all supported CAP versions'], regressions: ['null becomes a real null, not the text null'],
+      verification: { steps: ['Run the service tests'], tests: ['A quoted value is matched as data'] }
+    }
+  })
+  const withPatchCheck = { patchChecks: new Map([[entry.id, { ok: true, patchSha256: 'a'.repeat(64), files: [] }]]) }
+  assert.equal(reconcileDecisions(brief, submission).decisions[0].blockers.at(-1), 'Patch not checked against the project (run --decisions with the project path)')
+  assert.equal(reconcileDecisions(brief, submission, withPatchCheck).progress.verdict, 'proposals')
   for (const check of [...brief.reviewPolicy.proposalChecks, ...brief.reviewPolicy.queryChecks]) {
     const prior = entry.checks[check.id]
     entry.checks[check.id] = { status: 'unverified', evidence: 'Still needs local verification' }
-    assert.equal(reconcileDecisions(brief, submission).progress.verdict, 'needs-review', check.id)
+    assert.equal(reconcileDecisions(brief, submission, withPatchCheck).progress.verdict, 'needs-review', check.id)
     entry.checks[check.id] = prior
   }
 })
@@ -841,7 +853,7 @@ test('the CLI still runs when invoked through a differently cased path on a case
   context.after(() => rm(root, { recursive: true, force: true }))
   const scripts = path.join(root, 'Mixed-Case-Dir', 'scripts')
   await mkdir(scripts, { recursive: true })
-  for (const file of ['scan.mjs', 'matcher.mjs', 'review.mjs']) await copyFile(fileURLToPath(new URL(`./${file}`, import.meta.url)), path.join(scripts, file))
+  for (const file of ['scan.mjs', 'matcher.mjs', 'review.mjs', 'patch.mjs', 'proposals.mjs']) await copyFile(fileURLToPath(new URL(`./${file}`, import.meta.url)), path.join(scripts, file))
   await copyFile(fileURLToPath(new URL('../catalog.json', import.meta.url)), path.join(root, 'Mixed-Case-Dir', 'catalog.json'))
   const altered = path.join(root, 'mixed-case-dir', 'scripts', 'scan.mjs')
   if (!existsSync(altered)) return context.skip('Volume is case-sensitive; this failure mode does not apply')
@@ -867,7 +879,7 @@ test('CLI validates saved decisions locally and preserves explicit blockers with
   assert.equal(result.status, 0, result.stderr)
   const validated = JSON.parse(result.stdout)
   assert.equal(validated.decisions[0].decision, 'needs-review')
-  assert.equal(validated.decisions[0].blockers.length, 7)
+  assert.equal(validated.decisions[0].blockers.length, 10)
   assert.equal(validated.progress.reviewed, 1)
   assert.equal(validated.progress.proposed, 0)
   assert.equal(validated.progress.verdict, 'needs-review')

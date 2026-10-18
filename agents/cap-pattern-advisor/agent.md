@@ -43,7 +43,7 @@ rather than applying changes automatically.
 
 ## Hard Boundaries
 
-No automatic edits, dependency installs, client-code extraction, publishing,
+No automatic edits (applying an approved proposal is a separate developer-run step), dependency installs, client-code extraction, publishing,
 network uploads, hybrid-test generation, or claims of quantified time savings.
 No AI-based JSON extraction, chunk-reading loops, or whole-project exploration
 merely to prepare the shortlist. No confirmed security findings without evidence.

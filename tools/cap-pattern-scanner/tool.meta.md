@@ -20,7 +20,7 @@ labels; they are not the version line for this initial factory contribution.
 
 Offline Node.js tool with nine catalog entries, all with native default examples, and a
 separate private experimental npm helper kept as a review-gated alternative. No project-code execution, credentials, network, or source upload. The
-analyzed project is never written; the only write is an optional new --output file
+analyzed project is never written by scan.mjs or sheet.mjs; their only write is an optional new --output file
 (hence read-write), which refuses existing files and paths inside the project.
 Classification reasoning: the Factory's permission_scope is a least-privilege declaration
 of the most a tool can do (read-only, read-write, transport-release), and every other tool
@@ -35,7 +35,10 @@ validates declared evidence, snapshot identity, finding IDs, and progress.
 Exit codes: 0 means traversal complete within scope/policy, 2 means incomplete with
 valid JSON, 1 means invalid input/fatal failure. Rule workers have per-file deadlines.
 Changed evidence fingerprints reopen reviews. Decision validation does not establish
-semantic truth, executed tests, developer acceptance, or source-policy approval.
+semantic truth, executed tests, developer acceptance, or source-policy approval. A developer's
+approve/reject/needs-changes/defer is recorded separately by sheet.mjs (new files only). Only the separate
+apply.mjs changes project files, for an approved, hash-bound, verified patch with a confirmation, and it records
+the real test result; approval alone never means applied.
 
 Synthetic/offline delivery and Claude Code/Cursor/Copilot adapter layouts are tested.
 Real helper HTTP and CQN checks passed on CAP 9.9.3/10.1.1 with Node 24.5.0/macOS

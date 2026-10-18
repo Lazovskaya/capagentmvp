@@ -2,7 +2,7 @@
 
 Business reference: CAP-AI-11. First EPAM baseline: 0.1.0.
 Scanner, catalog, review policy, governed components, and helper package: 0.1.0.
-Release state: tested pilot that reads the project and writes only an optional new `--output` file; not an approved production helper release.
+Release state: tested pilot. Scanning and review never change the project (reports go to new files via `--output`); only the separate `apply.mjs` does, after approval and confirmation. Not an approved production helper release.
 
 Earlier public pilot uploads retain their original labels and are not the version
 line for this first factory contribution. No release tag exists and no publication is
@@ -170,7 +170,8 @@ For a proposed decision, add a `checks` object with all applicable IDs in the br
 Do not copy verified as a default: mark unknowns unverified, and use not-applicable
 with evidence only for conditional association/function checks. The validator
 downgrades unsupported proposals and computes progress for every finding ID.
-It rejects stale/duplicate/unknown IDs and cannot record developer acceptance.
+It rejects stale/duplicate/unknown IDs. These are the AI's declarations: they never record that a
+developer accepted anything (see Developer Decisions below).
 
 Only `snapshotSha256`, `decisions`, and `previous` are accepted at the top level, and
 only `id`, `decision`, `reason`, and `checks` per decision (each check holds only
@@ -255,6 +256,44 @@ files, 10,000 visited entries, 5,000 findings, depth 64. Matching runs in a work
 with a 1-second per-file deadline; analysis-timeout/matcher-failure makes coverage
 incomplete. Filesystem latency/whole-scan duration are not bounded by that deadline.
 Split large applications.
+
+## Proposals, Approval, And Applying
+
+The AI only proposes. For each actionable finding it submits a concrete solution (a unified diff,
+severity with its basis, compatibility, regressions, verification steps, proposed tests, and what is
+uncertain). The tool checks that the diff applies exactly to your current source; anything it cannot
+ground stays `needs-review` and is shown as not ready for approval. You decide each proposal, and
+you choose when to apply it. Nothing is changed before that.
+
+1. Validate with the project path, so patches are checked against the real files:
+   ```sh
+   node tools/cap-pattern-scanner/scripts/scan.mjs /path/to/cap-project --report /approved/brief.json --decisions /approved/submission.json --output /approved/validated.json
+   ```
+2. Make the review sheet and decide in it:
+   ```sh
+   node tools/cap-pattern-scanner/scripts/sheet.mjs sheet --report /approved/brief.json --decisions /approved/validated.json --project /path/to/cap-project --output /approved/sheet.md
+   ```
+   ```powershell
+   node tools\cap-pattern-scanner\scripts\sheet.mjs sheet --report "C:\approved\brief.json" --decisions "C:\approved\validated.json" --project "C:\path\to\cap-project" --output "C:\approved\sheet.md"
+   ```
+   Tick one box per item: **approve** (only when it is ready; this does not apply it), **reject**
+   (give a reason), **needs-changes** (say what to revise), or **defer**. Then record your decisions:
+   ```sh
+   node tools/cap-pattern-scanner/scripts/sheet.mjs record --report /approved/brief.json --decisions /approved/validated.json --sheet /approved/sheet.md --reviewer "Your name" --output /approved/developer-decisions.json
+   ```
+3. Applying an approved proposal is its own step. `preview` shows the exact diff and changes nothing;
+   `apply` needs the diff's hash, writes the change, runs **your** test command, and records the actual
+   result in a new file:
+   ```sh
+   node tools/cap-pattern-scanner/scripts/apply.mjs preview --report /approved/brief.json --decisions /approved/validated.json --developer-decisions /approved/developer-decisions.json --project /path/to/cap-project --id FINDING_ID
+   node tools/cap-pattern-scanner/scripts/apply.mjs apply   --report /approved/brief.json --decisions /approved/validated.json --developer-decisions /approved/developer-decisions.json --project /path/to/cap-project --id FINDING_ID --confirm HASH_FROM_PREVIEW --output /approved/application.json --test-command "npm test"
+   ```
+4. `apply.mjs status` shows where every item stands: approved, applied with tests passed, applied with
+   tests failed, or applied unverified. Approval alone is never reported as applied, and a failed test
+   run is never reverted silently: the record holds a reverse patch.
+
+The sheet contains your source, so keep it inside your environment. To keep a distribution read-only,
+leave `apply.mjs` out of it. The AI never runs `apply.mjs` or records your decisions.
 
 ## Transfer Approved Artifacts Into The Customer Environment
 

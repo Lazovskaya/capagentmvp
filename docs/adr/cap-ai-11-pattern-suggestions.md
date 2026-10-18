@@ -42,8 +42,8 @@ dropped. That assessment also lists what a future release would need.
 C4Container
   Person(developer, "Developer", "Chooses scope, reviews, and decides adoption")
   Container(skill, "cap-suggest-patterns", "Factory skill", "Reviews candidates")
-  Container(scanner, "Pattern scanner", "Node.js CLI", "Local scan; writes only an explicit new --output file")
-  ContainerDb(project, "Client project", "CDS and handlers", "Explicit scan scope, never written")
+  Container(scanner, "Pattern scanner", "Node.js CLI", "Local scan and review; writes only explicit new files")
+  ContainerDb(project, "Client project", "CDS and handlers", "Explicit scan scope; changed only by an approved apply step")
   ContainerDb(catalog, "Pattern catalog", "Versioned JSON", "Rules, native examples, compatibility gates")
   Container(helpers, "CAP helper package", "Private, unpublished, experimental", "Optional alternative, needs review")
   Rel(developer, skill, "Invokes and reviews")
@@ -57,8 +57,10 @@ C4Container
 
 - Scanner: Node.js 22+, explicit CAP Node.js project root and optional file/folder
   scopes; no network, project imports, lifecycle scripts, or installation. The scanned
-  project is never written; the only write is an optional new `--output` file that
-  refuses existing files and paths inside the project.
+  project is never written by scanning, review, or the sheet; their only write is an optional
+  new `--output` file that refuses existing files and paths inside the project. A separate
+  `apply.mjs` writes the project only for a proposal the developer approved, bound to the exact
+  verified diff, after a confirmation that shows it, and records the real test result.
 - Inventory: sorted scanned paths, excluded paths/reasons, unreadable/oversize
   paths, CDS version declaration, candidate evidence with file and line. Empty
   results mean only no heuristic matches within the recorded scope.
@@ -91,6 +93,10 @@ returns compact grouped review JSON by default; --full provides the inventory,
 --report prepares saved reports, --context reads selected source excerpts, and
 --decisions reconciles declared evidence and per-ID progress. Incomplete coverage
 returns exit 2 with JSON; invalid input returns 1. Changed fingerprints reopen reviews.
+A `proposed` decision must carry severity, an uncertainty list, and a structured solution whose unified diff the
+tool verifies against the source. A separate `sheet.mjs` records the developer's approve, reject, needs-changes or
+defer apart from the AI's decisions, as new files only; only `apply.mjs` changes files, after approval and
+confirmation, and it records the actual test result.
 
 All new governed components, catalog, policy, scanner, and helper package start at
 0.1.0 for this first EPAM baseline. Earlier public GitHub pilot tags are retained as

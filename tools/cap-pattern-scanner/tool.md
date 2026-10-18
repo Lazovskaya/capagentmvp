@@ -2,7 +2,8 @@
 
 Inspects explicitly scoped local CAP Node.js CDS and handler sources for catalog
 signals, returning deterministic candidate evidence and coverage without executing
-project code, calling external services, or changing the scanned project.
+project code or calling external services. Scanning and review never change the scanned
+project; a separate apply step changes it only after developer approval and confirmation.
 
 ## Interface
 
@@ -63,8 +64,9 @@ caller's responsibility. This is the only write the scanner performs.
 scan. It cannot combine with --full. It reads JSON and prints the result without
 changing input files. The submission contains the exact `snapshotSha256` plus
 `decisions`, each with `id`, `decision`, and `reason`. Unknown/duplicate IDs or stale
-snapshots are invalid input. Supported decisions are proposed/not-applicable/needs-review;
-developer acceptance is deliberately not a supported scanner decision.
+snapshots are invalid input. Supported decisions are proposed/not-applicable/needs-review.
+These are the AI reviewer's declarations; they never record that a developer accepted
+anything. A developer's own approve/reject is recorded separately with `sheet.mjs` (below).
 
 To resume a review, add `previous` to the submission: the prior reconciled output for
 the same snapshot. A submission that omits any ID decided there is invalid input, so
@@ -149,6 +151,85 @@ declared once in the file; there is no scope analysis, and function parameters, 
 default, and rest destructuring, and compound conditions are not tracked. Contextual skill review
 must disconfirm false positives and check the effective model before adoption.
 Coverage completeness is traversal completeness within scope, not semantic proof.
+
+## Proposals And Their Checks
+
+A `proposed` decision must carry a concrete, checkable solution. Besides `id`, `decision`,
+`reason`, and `checks`, the `--decisions` submission gives:
+
+- `severity`: `{ level: info|low|medium|high, basis }`, the reviewer's assessment of the impact
+  if the finding is real. The scanner assigns no severity, and a candidate is not a confirmed defect.
+- `uncertainty`: a list of what is unknown or unproven (empty only if nothing is).
+- `proposal`: `{ patch, compatibility[], regressions[], verification: { steps[], tests[] } }`.
+  `patch` is a unified diff of existing CDS/JavaScript/TypeScript files copied from the actual
+  source: no new, deleted, or renamed files, and paths stay inside the project and the scan
+  policy. `tests` are descriptions; a command from the AI is never run.
+
+The decision stays `proposed` only if all of this is present, the evidence checks are verified,
+and the patch applies exactly to the current files. Pass the project path so patches are checked
+against the real source: `scan.mjs /path/to/project --report brief.json --decisions submission.json`.
+Without it a patch is "not checked" and the item stays `needs-review`. The output's `verifiedPatch`
+(patch sha256, target files with base hashes and line ranges) is computed by the tool; a submitted
+`verifiedPatch` is ignored. Anything unverified stays `needs-review` with its reason and is shown
+as not ready for approval.
+
+## Developer Decisions: `sheet.mjs`
+
+The AI only proposes. A developer decides each proposal, and that decision is recorded in its own
+file, never mixed into the AI's `--decisions` output. Deciding changes no code.
+
+```sh
+node tools/cap-pattern-scanner/scripts/sheet.mjs sheet  --report /approved/brief.json --decisions /approved/validated.json --project /path/to/cap-project --output /approved/sheet.md
+node tools/cap-pattern-scanner/scripts/sheet.mjs record --report /approved/brief.json --decisions /approved/validated.json --sheet /approved/sheet.md --reviewer "Name" --output /approved/developer-decisions.json
+```
+
+- `sheet` writes Markdown with every candidate: finding ID, severity, hash-checked source
+  evidence, the problem, the proposed diff and whether it was verified, target files and lines,
+  compatibility, regressions, verification steps and tests, uncertainty, and the evidence checks.
+  It contains your source: keep it inside the approved boundary.
+- Tick one box per item: **approve** (accept the proposal; only possible when it is ready for
+  approval, and it does not apply it), **reject** (a reason is required), **needs-changes** (a
+  reason says what to revise; a revised proposal needs a new validation and a new decision), or
+  **defer**. Untouched items stay undecided; items the AI judged not applicable take no decision.
+- `record` prints `format: cap-pattern-developer-decisions`: per decision `id`, `patternId`, `file`,
+  `line`, `evidenceSha256`, `aiDecision`, `decision` (`approved`, `rejected`, `needs-changes`,
+  `deferred`), and `notes`; an approval also carries `patchSha256` and the target files with
+  base hashes. It refuses more than one tick, a rejection or needs-changes without a reason,
+  approving an item without a verified proposal, unknown or repeated IDs, and decisions from a
+  different scan. CRLF and a BOM in the edited sheet are accepted.
+- `--output` is a new file only, never inside `--project`. Record later changes by editing the
+  sheet and writing a new file.
+
+## Applying An Approved Proposal: `apply.mjs`
+
+Applying is a separate, explicit step and the only command that changes project files.
+`scan.mjs` and `sheet.mjs` never do, so a distribution can leave `apply.mjs` out.
+
+```sh
+node tools/cap-pattern-scanner/scripts/apply.mjs preview --report B --decisions V --developer-decisions D --project P --id ID
+node tools/cap-pattern-scanner/scripts/apply.mjs apply   --report B --decisions V --developer-decisions D --project P --id ID --confirm <hash> --output /approved/application.json --test-command "npm test"
+node tools/cap-pattern-scanner/scripts/apply.mjs status  --report B --decisions V --developer-decisions D --application /approved/application.json --project P
+```
+
+- `preview` changes nothing. It prints the exact diff, the files and lines it would change, and the
+  hash to confirm. `apply` refuses unless `--confirm` equals the sha256 of that diff.
+- Both re-check everything against the live files: the item is approved, the approval is bound to
+  this exact patch, the evidence file and every target still have the hashes they had when the
+  proposal was verified, and every context and removed line matches exactly (no fuzz).
+- Files are written through temporary files and read back; if any write fails, files already
+  written are restored. `--output` (a new file outside the project) is checked before anything
+  changes and receives the application record: files with before and after hashes, the applied
+  patch, a reverse patch, and the test result.
+- The test command is yours: the tool never runs a command that came from the AI. It records the
+  command, exit code, duration, and the last 8,000 characters of output. A failing run does not
+  revert the change; undo it with the recorded reverse patch (`git apply -R`).
+- `status` derives each item's state from the records: awaiting your decision (ready or not
+  ready for approval), approved not applied, rejected, needs-changes, deferred, applied unverified
+  (no tests run), applied tests passed, applied tests FAILED, plus "files changed since" when
+  `--project` shows the files no longer match the record. Approval alone never means applied.
+- Exit codes: 0 applied (tests passed or none run), 2 applied but the tests failed, 1 refused or
+  failed (nothing changed unless the message says a change was applied).
+- Passing tests prove only what they cover. The tool does not judge whether a change is right.
 
 ## Pattern Recipes
 

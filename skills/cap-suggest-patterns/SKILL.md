@@ -223,6 +223,17 @@ environment generation, client-code harvesting, and publishing are out of scope.
    than inventing a validated ledger. Validation checks declarations and counts,
    not source semantics, test results, or developer acceptance. On subsequent source
    changes, rescan and reopen prior decisions; never silently carry them forward.
+   A `proposed` entry must also carry `severity` {level: info|low|medium|high, basis}, `uncertainty` (a list,
+   empty only if nothing is uncertain), and `proposal` {patch, compatibility[], regressions[],
+   verification: {steps[], tests[]}}. The patch is a unified diff of existing source files, copied from the
+   actual code with correct hunk line numbers; the tool checks it applies exactly. Run validation with the
+   project path (`scan.mjs <project> --report ... --decisions ...`) or every proposal stays unverified.
+   Describe tests only: never put a command for the tool to run in a proposal. If you cannot write a
+   grounded diff, use `needs-review` and list what is missing under `uncertainty`.
+   After validation tell the developer they can review the proposals with
+   `node tools/cap-pattern-scanner/scripts/sheet.mjs sheet --report <brief> --decisions <validated> --project <project> --output <new-file.md>`
+   and record their own decision afterwards with `sheet.mjs record`. Applying is a separate developer-run
+   step (`apply.mjs`). Never tick boxes, record, apply, or imply a developer decision on their behalf.
 
 ## Output
 

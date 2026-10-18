@@ -1,3 +1,5 @@
+import { parsePatch } from './patch.mjs'
+
 const proposalChecks = [
   { id: 'source-current', required: true, description: 'Current source hashes, model/runtime, and call-site evidence match the reviewed snapshot.' },
   { id: 'diff-integrity', required: true, description: 'A non-applied diff is derived from actual source, without HUNK narration, fabricated old lines, or unrelated comments.' },
@@ -12,9 +14,11 @@ const queryChecks = [
 
 const maxObservations = 100
 const submissionKeys = new Set(['snapshotSha256', 'decisions', 'previous'])
-const entryKeys = new Set(['id', 'decision', 'reason', 'checks'])
+const entryKeys = new Set(['id', 'decision', 'reason', 'checks', 'severity', 'proposal', 'uncertainty'])
+const severityLevels = ['info', 'low', 'medium', 'high']
+const proposalKeys = new Set(['patch', 'compatibility', 'regressions', 'verification'])
 // Echoed from a previous reconciled output so it can be resubmitted; always recomputed, never trusted.
-const derivedEntryKeys = new Set(['requestedDecision', 'blockers', 'reviewed'])
+const derivedEntryKeys = new Set(['requestedDecision', 'blockers', 'reviewed', 'verifiedPatch'])
 const checkIds = new Set([...proposalChecks, ...queryChecks].map(check => check.id))
 
 function normalizeChecks(checks) {
@@ -41,6 +45,66 @@ function rememberGuidance(patterns, patternId, guidance) {
 }
 
 const sourceHash = /^[a-f0-9]{64}$/
+
+function strings(value, label) {
+  if (value === undefined) return undefined
+  if (!Array.isArray(value) || value.some(item => typeof item !== 'string' || !item.trim())) throw new TypeError(`${label} must be a list of non-empty strings`)
+  return value.map(item => item.trim())
+}
+
+function normalizeSeverity(severity) {
+  if (severity === undefined) return undefined
+  if (!severity || typeof severity !== 'object' || Array.isArray(severity) || Object.keys(severity).some(key => key !== 'level' && key !== 'basis')) {
+    throw new TypeError('severity supports only level and basis')
+  }
+  if (!severityLevels.includes(severity.level) || typeof severity.basis !== 'string' || !severity.basis.trim()) {
+    throw new TypeError(`severity needs a level (${severityLevels.join(', ')}) and a basis`)
+  }
+  return { level: severity.level, basis: severity.basis.trim() }
+}
+
+function normalizeProposal(proposal) {
+  if (proposal === undefined) return undefined
+  if (!proposal || typeof proposal !== 'object' || Array.isArray(proposal)) throw new TypeError('proposal must be an object')
+  const unsupported = Object.keys(proposal).find(key => !proposalKeys.has(key))
+  if (unsupported) throw new TypeError(`Unsupported proposal field: ${unsupported}`)
+  if (proposal.patch !== undefined && (typeof proposal.patch !== 'string' || !proposal.patch.trim())) throw new TypeError('proposal.patch must be a unified diff string')
+  let verification
+  if (proposal.verification !== undefined) {
+    const { verification: given } = proposal
+    if (!given || typeof given !== 'object' || Array.isArray(given) || Object.keys(given).some(key => key !== 'steps' && key !== 'tests')) {
+      throw new TypeError('proposal.verification supports only steps and tests')
+    }
+    verification = { steps: strings(given.steps, 'proposal.verification.steps'), tests: strings(given.tests, 'proposal.verification.tests') }
+  }
+  return {
+    patch: proposal.patch, compatibility: strings(proposal.compatibility, 'proposal.compatibility'),
+    regressions: strings(proposal.regressions, 'proposal.regressions'), verification
+  }
+}
+
+// A proposal is ready for approval only with a severity, an uncertainty list, a complete structured
+// solution, and a patch that applies exactly to the project's current source.
+function proposalBlockers({ severity, proposal, uncertainty }, patchCheck, checked) {
+  const blockers = []
+  if (!severity) blockers.push('Missing severity (level and basis)')
+  if (!proposal) blockers.push('Missing proposal (unified diff, compatibility, regressions, verification)')
+  else {
+    if (!proposal.patch) blockers.push('Proposal needs a unified diff')
+    if (!proposal.compatibility?.length) blockers.push('Proposal needs CAP/runtime compatibility considerations')
+    if (!proposal.regressions?.length) blockers.push('Proposal needs potential regressions')
+    if (!proposal.verification?.steps?.length) blockers.push('Proposal needs verification steps')
+    if (!proposal.verification?.tests?.length) blockers.push('Proposal needs proposed tests')
+    if (proposal.patch) {
+      let parsed = true
+      try { parsePatch(proposal.patch) } catch (error) { parsed = false; blockers.push(`Patch is not a valid unified diff: ${error.message}`) }
+      if (parsed && !checked) blockers.push('Patch not checked against the project (run --decisions with the project path)')
+      else if (parsed && !patchCheck?.ok) blockers.push(`Patch does not apply to the current source: ${patchCheck?.error ?? 'not checked'}`)
+    }
+  }
+  if (uncertainty === undefined) blockers.push('Missing uncertainty list (use an empty list only if nothing is uncertain)')
+  return blockers
+}
 
 export function prepareReview(report) {
   if (report?.schemaVersion !== 1 || !Array.isArray(report.findings)
@@ -148,6 +212,7 @@ export function prepareReview(report) {
     reviewRules: [
       'This JSON is already filtered and grouped. Do not spawn agents or repeatedly read the full report to extract JSON.',
       'Load each pattern guidance once; read surrounding application code by file/group. Account for every finding ID.',
+      'A proposed decision needs severity {level, basis} (your impact assessment if the finding is real, not a scanner result), an uncertainty list, and proposal {patch, compatibility, regressions, verification: {steps, tests}}. The patch is a unified diff of existing files copied from the actual source; the tool checks it applies exactly, and anything unverified stays needs-review. Describe tests only; never include a command for the tool to run.',
       'Respect the requested sample/group first; do not substitute a different pattern without explaining a blocker.',
       'observations are context-only signals, not candidates: no decision is needed and they do not count in progress. Read one with --context only when its pattern guidance makes it relevant (for example a direct HTTP call or a manual transaction), and report anything it reveals under the output contract observations, never as a decision. observationsOmitted counts signals not listed.',
       'req.error collects errors; CAP automatically rejects recorded errors after each before/on/after phase. Missing req.reject is not itself a defect.',
@@ -179,7 +244,7 @@ function assertNoDroppedDecisions(brief, submission) {
   }
 }
 
-export function reconcileDecisions(report, submission) {
+export function reconcileDecisions(report, submission, { patchChecks } = {}) {
   const brief = prepareReview(report)
   if (submission?.snapshotSha256 !== brief.snapshot.sha256 || !Array.isArray(submission.decisions)) {
     throw new TypeError('Decision submission must reference the current snapshotSha256 and a decisions array; stale reviews must be reopened')
@@ -196,6 +261,9 @@ export function reconcileDecisions(report, submission) {
     if (unsupportedEntryKey) throw new TypeError(`Unsupported decision field: ${unsupportedEntryKey}; statuses and counts are computed`)
     if (entry.reviewed === false) throw new TypeError('Unreviewed placeholder entries must not be resubmitted; omit them or review the ID')
     const checks = normalizeChecks(entry.checks)
+    const severity = normalizeSeverity(entry.severity)
+    const proposal = normalizeProposal(entry.proposal)
+    const uncertainty = strings(entry.uncertainty, 'uncertainty')
     if (!['proposed', 'not-applicable', 'needs-review'].includes(entry.decision)
       || typeof entry.reason !== 'string' || !entry.reason.trim()) {
       throw new TypeError('Each decision requires a supported decision and reason')
@@ -210,11 +278,16 @@ export function reconcileDecisions(report, submission) {
           blockers.push(`Unresolved evidence check: ${check.id}`)
         }
       }
+      blockers.push(...proposalBlockers({ severity, proposal, uncertainty }, patchChecks?.get(entry.id), patchChecks !== undefined))
     }
+    const patchCheck = patchChecks?.get(entry.id)
     reviewed.set(entry.id, {
       id: entry.id, requestedDecision: entry.decision,
       decision: blockers.length ? 'needs-review' : entry.decision,
-      reason: entry.reason, ...(checks ? { checks } : {}), reviewed: true, blockers
+      reason: entry.reason, ...(checks ? { checks } : {}),
+      ...(severity ? { severity } : {}), ...(uncertainty ? { uncertainty } : {}), ...(proposal ? { proposal } : {}),
+      ...(patchCheck?.ok ? { verifiedPatch: { patchSha256: patchCheck.patchSha256, files: patchCheck.files } } : {}),
+      reviewed: true, blockers
     })
   }
   const decisions = brief.findings.map(finding => reviewed.get(finding.id) ?? {
@@ -229,7 +302,7 @@ export function reconcileDecisions(report, submission) {
       total: brief.findings.length, reviewed: reviewed.size, remaining: brief.findings.length - reviewed.size,
       proposed, notApplicable, needsReview,
       verdict: !brief.coverage.complete || needsReview ? 'needs-review' : proposed ? 'proposals' : 'no-applicable-patterns',
-      reason: 'Computed from unique finding IDs, coverage, and declared evidence checks; not developer acceptance or semantic certification.'
+      reason: 'Computed from unique finding IDs, coverage, declared evidence checks, and patch checks; not developer acceptance or semantic certification.'
     },
     decisions
   }

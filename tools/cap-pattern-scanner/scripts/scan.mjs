@@ -6,13 +6,15 @@ import { fileURLToPath } from 'node:url'
 import { parseArgs } from 'node:util'
 import { createMatcher } from './matcher.mjs'
 import { prepareReview, reconcileDecisions } from './review.mjs'
+import { checkProposalPatches } from './proposals.mjs'
 
 const digest = content => createHash('sha256').update(content).digest('hex')
 const catalogText = await readFile(new URL('../catalog.json', import.meta.url), 'utf8')
 const catalog = JSON.parse(catalogText)
 const scannerHash = digest(Buffer.concat(await Promise.all([
   readFile(fileURLToPath(import.meta.url)), readFile(new URL('./matcher.mjs', import.meta.url)),
-  readFile(new URL('./review.mjs', import.meta.url))
+  readFile(new URL('./review.mjs', import.meta.url)), readFile(new URL('./patch.mjs', import.meta.url)),
+  readFile(new URL('./proposals.mjs', import.meta.url))
 ])))
 const excludedDirectories = new Set(['node_modules', 'gen', 'dist', 'coverage', 'target', 'vendor'])
 const extensions = new Set(['.cds', '.js', '.cjs', '.mjs', '.ts'])
@@ -20,7 +22,7 @@ const maxBytes = 1024 * 1024
 const byCodeUnit = (left, right) => (left < right ? -1 : left > right ? 1 : 0)
 const limits = Object.freeze({ fileBytes: maxBytes, totalBytes: 32 * maxBytes, sourceFiles: 2000, entries: 10000, findings: 5000, depth: 64, analysisMsPerFile: 1000 })
 
-async function readJsonInput(filename) {
+export async function readJsonInput(filename) {
   const absolute = path.resolve(filename)
   const stat = await lstat(absolute)
   if (!stat.isFile() || stat.size > 32 * maxBytes) throw new Error('Input must be a regular JSON file under 32 MiB')
@@ -28,15 +30,8 @@ async function readJsonInput(filename) {
 }
 
 // Creates a new owner-only file; never overwrites, follows a final symlink, or writes inside the analyzed project.
-async function writeNewFile(target, text, project) {
-  const absolute = path.resolve(target)
-  const destination = path.join(await realpath(path.dirname(absolute)), path.basename(absolute))
-  if (project) {
-    const relative = path.relative(await realpath(project), destination)
-    if (!relative || (relative !== '..' && !relative.startsWith(`..${path.sep}`) && !path.isAbsolute(relative))) {
-      throw new TypeError('Output must be outside the analyzed project')
-    }
-  }
+export async function writeNewFile(target, text, project) {
+  const destination = await resolveNewFileTarget(target, project)
   const handle = await open(destination, constants.O_WRONLY | constants.O_CREAT | constants.O_EXCL | (constants.O_NOFOLLOW ?? 0), 0o600)
   try {
     await handle.writeFile(text)
@@ -46,6 +41,20 @@ async function writeNewFile(target, text, project) {
     throw error
   }
   await handle.close()
+}
+
+/** Resolves a new-file path and refuses one inside the project; the caller still creates it exclusively. */
+export async function resolveNewFileTarget(target, project) {
+  const absolute = path.resolve(target)
+  const destination = path.join(await realpath(path.dirname(absolute)), path.basename(absolute))
+  if (project) {
+    const relative = path.relative(await realpath(project), destination)
+    if (!relative || (relative !== '..' && !relative.startsWith(`..${path.sep}`) && !path.isAbsolute(relative))) {
+      throw new TypeError('Output must be outside the analyzed project')
+    }
+  }
+  if (await lstat(destination).then(() => true, () => false)) throw Object.assign(new Error('Output already exists'), { code: 'EEXIST' })
+  return destination
 }
 
 // Finds try/catch/finally statements by brace matching, skipping strings, template literals, and comments.
@@ -376,13 +385,13 @@ if (isMainScript()) {
     })
     const [project, ...scopes] = positionals
     if (values.help || (!project && !values.report)) {
-      console.log('Usage: node scan.mjs <CAP-project-root> [scope ...] [--full]\n       node scan.mjs --report <existing-report.json> [--decisions <decision-file.json>] [--output <new-file>]\n       node scan.mjs <CAP-project-root> --report <brief.json> --context <finding-ID> [--context <finding-ID>]\nDefault: compact grouped review JSON; context-only observations are listed compactly (at most 100) and need no decision. --full retains the complete inventory.\n--context emits hash-checked bounded source excerpts for at most 3 candidate or observation IDs, not a rescan.\n--decisions validates reviewer evidence and progress, not semantic truth or developer acceptance.\n--output <new-file> also saves the exact JSON printed to stdout; it refuses existing files and paths inside the project.\nDefaults: srv db. Writes only to a new --output file; no network. Node.js 22+.\nExit 0: coverage complete within scope/policy; 2: incomplete coverage; 1: invalid input.')
+      console.log('Usage: node scan.mjs <CAP-project-root> [scope ...] [--full]\n       node scan.mjs [<CAP-project-root>] --report <existing-report.json> [--decisions <decision-file.json>] [--output <new-file>]\n       node scan.mjs <CAP-project-root> --report <brief.json> --context <finding-ID> [--context <finding-ID>]\nDefault: compact grouped review JSON; context-only observations are listed compactly (at most 100) and need no decision. --full retains the complete inventory.\n--context emits hash-checked bounded source excerpts for at most 3 candidate or observation IDs, not a rescan.\n--decisions validates reviewer evidence and progress, not semantic truth or developer acceptance; add the project path to check each proposal patch against the real source.\n--output <new-file> also saves the exact JSON printed to stdout; it refuses existing files and paths inside the project.\nDefaults: srv db. Writes only to a new --output file; no network. Node.js 22+.\nExit 0: coverage complete within scope/policy; 2: incomplete coverage; 1: invalid input.')
       process.exitCode = values.help ? 0 : 1
     } else {
       if (values.context && (!values.report || !project || scopes.length || values.full || values.decisions)) {
         throw new Error('--context needs a project and saved report, without scopes, --full, or --decisions')
       }
-      if (values.report && ((project && !values.context) || values.full)) throw new Error('--report cannot be combined with a project unless --context is used')
+      if (values.report && ((project && !values.context && !values.decisions) || values.full)) throw new Error('--report cannot be combined with a project unless --context or --decisions is used')
       if (values.full && values.decisions) throw new Error('--decisions cannot be combined with --full')
       let report
       if (values.report) {
@@ -390,8 +399,14 @@ if (isMainScript()) {
       } else {
         report = await scanProject(project, scopes.length ? scopes : undefined)
       }
-      const output = values.context ? await readReviewContext(project, report, values.context) : values.full ? report : values.decisions
-        ? reconcileDecisions(report, await readJsonInput(values.decisions)) : prepareReview(report)
+      let output
+      if (values.context) output = await readReviewContext(project, report, values.context)
+      else if (values.full) output = report
+      else if (values.decisions) {
+        const submission = await readJsonInput(values.decisions)
+        // With a project, each proposal's patch is checked against the real files; without one it stays unverified.
+        output = reconcileDecisions(report, submission, { patchChecks: project ? await checkProposalPatches(project, report, submission) : undefined })
+      } else output = prepareReview(report)
       const text = JSON.stringify(output, null, 2)
       if (values.output !== undefined) await writeNewFile(values.output, `${text}\n`, project)
       console.log(text)

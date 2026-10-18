@@ -86,6 +86,7 @@ function renderItem(row, excerpt, out) {
     } else out.push('', '**The diff was not verified against the project source.**')
     out.push('', 'CAP/runtime compatibility:', ...list(row.proposal.compatibility, 'none given'),
       '', 'Potential regressions:', ...list(row.proposal.regressions, 'none given'),
+      ...(acceptedRegressions(row).length ? ['', 'Behavior changes you accept by approving (input cases):', ...acceptedRegressions(row).map(item => `- ${item.case}: ${item.listedAs}`)] : []),
       '', 'Verification steps:', ...list(row.proposal.verification?.steps, 'none given'),
       '', 'Proposed tests (descriptions only; the tool never runs a command from the AI):', ...list(row.proposal.verification?.tests, 'none given'))
   } else if (row.covered) out.push('', `Addressed by the proposal in ${row.addressedBy}: decide there. This finding has no separate decision.`)
@@ -153,12 +154,16 @@ export function parseReviewSheet(markdown) {
   return blocks
 }
 
+/** The input cases whose behavior changes the developer accepts by approving (listed in the proposal's regressions). */
+export const acceptedRegressions = row => Object.entries(row.checks['input-contract']?.cases ?? {})
+  .filter(([, entry]) => entry.outcome === 'regression').map(([name, entry]) => ({ case: name, listedAs: entry.listedAs }))
+
 /** One developer decision, bound for an approval to the exact verified diff (a revised proposal needs a new approval). */
 export function decisionEntry(row, decision, notes) {
   const { file, line, sha256 } = row.finding.evidence
   return {
     id: row.id, patternId: row.finding.patternId, file, line, evidenceSha256: sha256, aiDecision: row.aiDecision, decision, notes,
-    ...(decision === 'approved' ? { ...(row.addresses.length ? { addresses: row.addresses } : {}), patchSha256: row.verifiedPatch.patchSha256, targets: row.verifiedPatch.files.map(target => ({ file: target.file, baseSha256: target.baseSha256 })) } : {})
+    ...(decision === 'approved' ? { ...(row.addresses.length ? { addresses: row.addresses } : {}), ...(acceptedRegressions(row).length ? { acceptedRegressions: acceptedRegressions(row) } : {}), patchSha256: row.verifiedPatch.patchSha256, targets: row.verifiedPatch.files.map(target => ({ file: target.file, baseSha256: target.baseSha256 })) } : {})
   }
 }
 

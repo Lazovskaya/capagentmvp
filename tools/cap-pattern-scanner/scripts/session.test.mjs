@@ -10,9 +10,10 @@ import { promisify } from 'node:util'
 import { checkProposalPatches } from './proposals.mjs'
 import { prepareReview, reconcileDecisions } from './review.mjs'
 import { scanProject } from './scan.mjs'
-import { applyApproved, combinedDiff, decideItem, itemStates, loadSession, pendingApprovals, renderItem, reviewLoop, reviseSession, startSession } from './session-core.mjs'
+import { applyApproved, combinedDiff, commitSession, decideItem, itemStates, loadSession, pendingApprovals, renderItem, reviewLoop, reviseSession, startSession } from './session-core.mjs'
 import { checks, originalLine, solution } from './workflow-fixtures.mjs'
 
+Object.assign(process.env, { GIT_AUTHOR_NAME: 'Test', GIT_AUTHOR_EMAIL: 't@example.com', GIT_COMMITTER_NAME: 'Test', GIT_COMMITTER_EMAIL: 't@example.com' })
 const sessionCli = fileURLToPath(new URL('./session.mjs', import.meta.url))
 const execFileAsync = promisify(execFile)
 const hasGit = (() => { try { execFileSync('git', ['--version'], { stdio: 'ignore' }); return true } catch { return false } })()
@@ -24,9 +25,11 @@ const coherentPatch = `--- a/srv/service.js\n+++ b/srv/service.js\n@@ -1,2 +1,2 
 const blocker = { missingEvidence: 'Whether name is @mandatory in the model', investigated: ['db/schema.cds has no Items entity', 'No test covers an empty name'], unblockingCheck: 'Add the Items entity or point to the model that defines name' }
 
 /** Two files: srv/service.js (query, validation, remote error) and srv/other.js (a second, independent query). */
-async function fixture(context, { git = false, dirty = false } = {}) {
-  const root = await mkdtemp(path.join(tmpdir(), 'cap-session-'))
-  context.after(() => rm(root, { recursive: true, force: true }))
+async function fixture(context, { git = false, dirty = false, subdir, crlf = false } = {}) {
+  const repo = await mkdtemp(path.join(tmpdir(), 'cap-session-'))
+  context.after(() => rm(repo, { recursive: true, force: true }))
+  const root = subdir ? path.join(repo, subdir) : repo
+  if (subdir) await mkdir(root)
   await mkdir(path.join(root, 'srv'))
   await mkdir(path.join(root, 'db'))
   await writeFile(path.join(root, 'package.json'), JSON.stringify({ dependencies: { '@sap/cds': '^9' }, scripts: { test: 'node srv/check.js' } }))
@@ -34,10 +37,15 @@ async function fixture(context, { git = false, dirty = false } = {}) {
   await writeFile(path.join(root, 'srv', 'other.js'), `${originalLine}\n`)
   await writeFile(path.join(root, 'srv', 'check.js'), "const fs = require('fs')\nprocess.exit(fs.readdirSync(__dirname).some(name => fs.readFileSync(__dirname + '/' + name, 'utf8').includes('BRO' + 'KEN')) ? 1 : 0)\n")
   await writeFile(path.join(root, '.gitignore'), 'node_modules\n')
+  if (crlf) {
+    gitIn(repo, 'init', '-q', '-b', 'main')
+    gitIn(repo, 'config', 'core.autocrlf', 'true')
+    for (const file of ['srv/service.js', 'srv/other.js']) await writeFile(path.join(root, file), (await readFile(path.join(root, file), 'utf8')).replace(/\n/g, '\r\n'))
+  }
   if (git) {
-    gitIn(root, 'init', '-q', '-b', 'main')
-    gitIn(root, 'add', '.')
-    gitIn(root, 'commit', '-q', '-m', 'initial')
+    if (!crlf) gitIn(repo, 'init', '-q', '-b', 'main')
+    gitIn(repo, 'add', '.')
+    gitIn(repo, 'commit', '-q', '-m', 'initial')
   }
   if (dirty) {
     await writeFile(path.join(root, 'notes.txt'), 'my uncommitted notes\n')
@@ -51,7 +59,7 @@ async function fixture(context, { git = false, dirty = false } = {}) {
     const submission = { snapshotSha256: brief.snapshot.sha256, decisions }
     return reconcileDecisions(report, submission, { patchChecks: await checkProposalPatches(root, report, submission) })
   }
-  return { root, report, brief, ids, validate }
+  return { root, repo, report, brief, ids, validate }
 }
 
 const proposeQuery = (id, file, extra = {}) => ({ id, decision: 'proposed', reason: `Input is concatenated into a where string in ${file}.`, summary: 'Client input is concatenated into a query string.', checks, ...solution(queryPatch(file)), ...extra })
@@ -164,7 +172,9 @@ test('not-applicable and no-proposal findings stay in the report but never enter
 
 test('each proposal is approved independently and only approved, hash-confirmed diffs are applied', { skip: !hasGit && 'git is not available' }, async context => {
   const { session, ids, root } = await start(context, { git: true })
-  await decideItem(session, ids.query, 'approve', 'looks right')
+  const approval = await decideItem(session, ids.query, 'approve', 'looks right')
+  assert.deepEqual(approval.acceptedRegressions.map(item => item.case), ['null', 'undefined', 'quoted'], 'approving records the behavior changes the developer accepts')
+  assert.match(renderItem(session, session.queue.find(item => item.row.id === ids.query), 0, 3), /Behavior changes you accept by approving \(input cases\):\n  - null: null becomes a real null/)
   await decideItem(session, ids.other, 'reject', 'we keep the string form here')
   const [approved] = await pendingApprovals(session)
   assert.equal(approved.row.id, ids.query)
@@ -227,6 +237,7 @@ test('a git review session leaves the original branch, HEAD, and every uncommitt
   context.after(() => rm(out, { recursive: true, force: true }))
   const session = await startSession({ report: f.report, validated, project: f.root, session: path.join(out, 'session') })
   assert.equal(session.meta.mode, 'worktree')
+  assert.deepEqual(session.developer.summary, { reviewable: 3, approved: 0, rejected: 0, needsChanges: 0, deferred: 0, undecided: 3 }, 'a new session starts with every item undecided')
   assert.deepEqual(snapshot(), before, 'branch, HEAD and status are unchanged')
   assert.equal(await read(f.root, 'notes.txt'), 'my uncommitted notes\n')
   assert.equal(await read(f.root, 'package.json'), packageBefore)
@@ -346,4 +357,105 @@ test('the session CLI starts, reviews from piped answers, previews, and applies 
   assert.match(status.stdout, /applied, tests passed/)
   assert.match((await cli('diff', '--session', files.session)).stdout, /^--- a\//)
   assert.equal((await lstat(path.join(files.session, 'workspace'))).isDirectory(), true)
+})
+
+test('commit puts exactly the applied files on the review branch after confirmation, never on the original branch', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids, root } = await start(context, { git: true, dirty: true })
+  await assert.rejects(commitSession(session), /Nothing has been applied/)
+  await decideItem(session, ids.query, 'approve', 'ok')
+  await applyApproved(session, { confirm: 'all', testCommand: 'node srv/check.js' })
+  const applied = await loadSession(session.dir)
+  const originalHead = gitIn(root, 'rev-parse', 'HEAD')
+  const originalStatus = gitIn(root, 'status', '--porcelain', '--untracked-files=all')
+  const preview = await commitSession(applied, {})
+  assert.equal(preview.committed, false)
+  assert.deepEqual(preview.files, ['srv/service.js'])
+  assert.equal(preview.confirm, (await import('./patch.mjs')).sha256(await combinedDiff(applied)))
+  assert.equal(gitIn(applied.meta.workspace, 'log', '--oneline').trim().split('\n').length, 1, 'the preview commits nothing')
+  await assert.rejects(commitSession(applied, { confirm: 'wrong' }), /--confirm must be the sha256 of the combined diff/)
+  const done = await commitSession(applied, { confirm: preview.confirm, message: 'CAP-AI-11 review' })
+  assert.equal(done.committed, true)
+  assert.equal(gitIn(applied.meta.workspace, 'log', '-1', '--format=%s').trim(), 'CAP-AI-11 review')
+  assert.equal(gitIn(applied.meta.workspace, 'show', '--name-only', '--format=', 'HEAD').trim(), 'srv/service.js')
+  assert.equal(gitIn(applied.meta.workspace, 'status', '--porcelain').trim(), '')
+  assert.equal(gitIn(root, 'rev-parse', 'HEAD'), originalHead, 'the original branch did not move')
+  assert.equal(gitIn(root, 'status', '--porcelain', '--untracked-files=all'), originalStatus, 'your uncommitted work is untouched')
+  assert.equal(gitIn(root, 'log', '--oneline', '-1', done.branch).trim().length > 0, true)
+  await assert.rejects(commitSession(await loadSession(session.dir), { confirm: done.confirm }), /already committed/)
+  assert.match(await read(root, 'srv', 'service.js'), /'code=' \+ input/)
+})
+
+test('commit refuses copy sessions, failing tests, and workspace changes the session did not make', { skip: !hasGit && 'git is not available' }, async context => {
+  const copy = await start(context, { mode: 'copy' })
+  await decideItem(copy.session, copy.ids.query, 'approve', 'ok')
+  await applyApproved(copy.session, { confirm: 'all' })
+  await assert.rejects(commitSession(await loadSession(copy.session.dir), {}), /no review branch in a copy session/)
+  const failing = await start(context, { git: true })
+  await decideItem(failing.session, failing.ids.query, 'approve', 'ok')
+  await applyApproved(failing.session, { confirm: 'all', testCommand: 'node -e "process.exit(1)"' })
+  await assert.rejects(commitSession(await loadSession(failing.session.dir), {}), /failing tests/)
+  const stray = await start(context, { git: true })
+  await decideItem(stray.session, stray.ids.query, 'approve', 'ok')
+  await applyApproved(stray.session, { confirm: 'all', testCommand: 'node srv/check.js' })
+  await writeFile(path.join(stray.session.workspaceProject, 'srv', 'stray.js'), 'x\n')
+  await assert.rejects(commitSession(await loadSession(stray.session.dir), {}), /not applied by the session: srv\/stray\.js/)
+})
+
+test('a project in a subfolder of a git repository (a monorepo) gets a worktree, apply, and commit that stay inside it', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids, root, repo } = await start(context, { git: true, subdir: 'cap' })
+  assert.equal(session.meta.mode, 'worktree')
+  assert.equal(path.relative(session.meta.workspace, session.workspaceProject), 'cap')
+  const head = gitIn(repo, 'rev-parse', 'HEAD')
+  await decideItem(session, ids.query, 'approve', 'ok')
+  const [result] = await applyApproved(session, { confirm: 'all', testCommand: 'node srv/check.js' })
+  assert.equal(result.result, 'test-passed')
+  const applied = await loadSession(session.dir)
+  const preview = await commitSession(applied, {})
+  assert.deepEqual(preview.files, ['cap/srv/service.js'])
+  const done = await commitSession(applied, { confirm: preview.confirm })
+  assert.equal(gitIn(applied.meta.workspace, 'show', '--name-only', '--format=', 'HEAD').trim(), 'cap/srv/service.js')
+  assert.equal(gitIn(repo, 'rev-parse', 'HEAD'), head)
+  assert.equal(done.committed, true)
+  assert.match(await read(root, 'srv', 'service.js'), /'code=' \+ input/)
+})
+
+test('a Windows-style repository (CRLF working files, core.autocrlf) still gets a review branch and a matching diff', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids, root } = await start(context, { git: true, crlf: true })
+  assert.equal(session.meta.mode, 'worktree', 'the checkout equals the reviewed file, so no fallback is needed')
+  assert.ok((await read(root, 'srv', 'service.js')).includes('\r\n'))
+  assert.ok((await read(session.workspaceProject, 'srv', 'service.js')).includes('\r\n'))
+  await decideItem(session, ids.query, 'approve', 'ok')
+  const [result] = await applyApproved(session, { confirm: 'all', testCommand: 'node srv/check.js' })
+  assert.equal(result.result, 'test-passed')
+  const after = await read(session.workspaceProject, 'srv', 'service.js')
+  assert.ok(after.includes('where({ code: input })\r\n'), 'the line endings of the file are kept')
+  assert.equal((after.match(/\r\n/g) ?? []).length, 3)
+})
+
+test('when the last commit does not match the reviewed file, auto mode falls back to a copy and worktree mode leaves nothing behind', { skip: !hasGit && 'git is not available' }, async context => {
+  const f = await fixture(context, { git: true })
+  // A change git is told to ignore: status is clean, but a checkout of the commit differs from the reviewed file.
+  await writeFile(path.join(f.root, 'srv', 'other.js'), `${originalLine}\n`.replace('code=', 'code= '))
+  gitIn(f.repo, 'update-index', '--assume-unchanged', 'srv/other.js')
+  const report = await scanProject(f.root)
+  const brief = prepareReview(report)
+  const find = file => brief.findings.find(finding => finding.patternId === 'CAP-QUERY-001' && finding.evidence.file === file)
+  const otherLine = (await read(f.root, 'srv', 'other.js')).trimEnd()
+  const patch = `--- a/srv/other.js\n+++ b/srv/other.js\n@@ -1 +1 @@\n-${otherLine}\n+SELECT.from(Items).where({ code: input })\n`
+  const submission = { snapshotSha256: brief.snapshot.sha256, decisions: brief.findings.map(finding => (finding.id === find('srv/other.js').id
+    ? proposeQuery(finding.id, 'srv/other.js', solution(patch)) : { id: finding.id, decision: 'not-applicable', reason: 'Not part of this test.' })) }
+  const validated = reconcileDecisions(report, submission, { patchChecks: await checkProposalPatches(f.root, report, submission) })
+  assert.equal(validated.decisions.find(entry => entry.id === find('srv/other.js').id).decision, 'proposed')
+  const out = await mkdtemp(path.join(tmpdir(), 'cap-session-out-'))
+  context.after(() => rm(out, { recursive: true, force: true }))
+  await assert.rejects(startSession({ report, validated, project: f.root, session: path.join(out, 'strict'), mode: 'worktree' }), /does not match the reviewed file/)
+  await assert.rejects(access(path.join(out, 'strict')), 'no session folder is left behind')
+  assert.equal(gitIn(f.repo, 'branch', '--list', 'cap-ai-11/*').trim(), '', 'no review branch is left behind')
+  assert.equal(gitIn(f.repo, 'worktree', 'list').trim().split('\n').length, 1, 'no worktree is left behind')
+  const session = await startSession({ report, validated, project: f.root, session: path.join(out, 'auto') })
+  assert.equal(session.meta.mode, 'copy')
+  assert.match(session.meta.fallback, /No review branch/)
+  assert.equal(gitIn(f.repo, 'branch', '--list', 'cap-ai-11/*').trim(), '')
+  await decideItem(session, find('srv/other.js').id, 'approve', 'ok')
+  await assert.rejects(commitSession(await loadSession(session.dir), {}), /no review branch/)
 })

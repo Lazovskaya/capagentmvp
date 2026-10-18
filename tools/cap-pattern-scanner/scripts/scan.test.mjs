@@ -64,7 +64,7 @@ test('returns evidence, native alternatives, experimental helper, and reproducib
   await writeFile(path.join(root, 'db', 'schema.cds'), '@odata.draft.enabled\nentity Orders {};')
   const report = await scanProject(root)
   assert.equal(report.scanner.version, '0.1.0')
-  assert.equal(prepareReview(report).reviewPolicy.version, '0.1.0')
+  assert.equal(prepareReview(report).reviewPolicy.version, '0.2.0')
   assert.equal(report.findings.length, 4)
   const remote = report.findings.find(finding => finding.patternId === 'CAP-REMOTE-ERROR-001')
   assert.equal(remote.evidence.file, 'srv/service.js')
@@ -438,6 +438,7 @@ test('query proposals need explicit input, association, backend, authorization, 
   for (const check of [...brief.reviewPolicy.proposalChecks, ...brief.reviewPolicy.queryChecks]) {
     entry.checks[check.id] = { status: check.required ? 'verified' : 'not-applicable', evidence: 'Synthetic reviewer evidence; not proof of executed tests.' }
   }
+  entry.checks['input-contract'].cases = Object.fromEntries(['null', 'undefined', 'empty-string', 'quoted'].map(name => [name, { outcome: 'regression', evidence: 'Synthetic case evidence.', listedAs: 'null becomes a real null, not the text null' }]))
   // Evidence checks alone are no longer enough: a proposal needs a structured solution that checks out.
   assert.equal(reconcileDecisions(brief, submission).progress.verdict, 'needs-review')
   Object.assign(entry, {

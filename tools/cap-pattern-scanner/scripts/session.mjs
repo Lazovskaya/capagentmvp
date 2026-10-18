@@ -1,6 +1,6 @@
 import { parseArgs } from 'node:util'
 import { normalizePatch } from './patch.mjs'
-import { applyApproved, combinedDiff, decideItem, itemStates, loadSession, pendingApprovals, renderItem, reviewLoop, reviseSession, startSession } from './session-core.mjs'
+import { applyApproved, combinedDiff, commitSession, decideItem, itemStates, loadSession, pendingApprovals, renderItem, reviewLoop, reviseSession, startSession } from './session-core.mjs'
 import { readJsonInput } from './scan.mjs'
 
 const usage = `Usage:
@@ -12,24 +12,25 @@ const usage = `Usage:
   node session.mjs apply  --session <folder> [--id <finding-ID>] [--confirm <diff sha256>|all] [--test-command "<your command>"] [--test-timeout <seconds>]
   node session.mjs diff   --session <folder> [--approved]
   node session.mjs revise --session <folder> --decisions <revised-validated.json>
+  node session.mjs commit --session <folder> [--message <text>] [--confirm <combined diff sha256>]
 A review session is an isolated place to review code proposals one by one. start makes a git worktree on a new branch (or, without git,
 a copy) next to the folder and never touches your working branch or files. review shows each proposal as a code diff and asks you to
 approve, reject, request changes, defer, or go to the next one. Nothing is applied by deciding. apply (without --confirm it only shows the diffs)
 changes the isolated workspace only, for approved proposals whose diff hash you confirm, and runs only a test command you give. Nothing is
-committed or pushed. Findings the AI judged not-applicable or no-proposal are kept for traceability and never enter the queue.`
+committed or pushed. commit (git sessions only) shows the combined diff and, with --confirm, commits exactly the applied files on the review branch (never your branch, never pushed). Findings the AI judged not-applicable or no-proposal are kept for traceability and never enter the queue.`
 
 try {
   const { values, positionals } = parseArgs({
     options: {
       report: { type: 'string' }, decisions: { type: 'string' }, project: { type: 'string' }, session: { type: 'string' }, mode: { type: 'string' },
       id: { type: 'string' }, decision: { type: 'string' }, notes: { type: 'string' }, reviewer: { type: 'string' }, confirm: { type: 'string' },
-      'test-command': { type: 'string' }, 'test-timeout': { type: 'string' }, all: { type: 'boolean' }, approved: { type: 'boolean' },
+      message: { type: 'string' }, 'test-command': { type: 'string' }, 'test-timeout': { type: 'string' }, all: { type: 'boolean' }, approved: { type: 'boolean' },
       redo: { type: 'boolean' }, json: { type: 'boolean' }, help: { type: 'boolean' }
     },
     allowPositionals: true
   })
   const [command] = positionals
-  const known = ['start', 'review', 'show', 'decide', 'status', 'apply', 'diff', 'revise']
+  const known = ['start', 'review', 'show', 'decide', 'status', 'apply', 'diff', 'revise', 'commit']
   const needs = { start: ['report', 'decisions', 'project', 'session'], revise: ['session', 'decisions'], decide: ['session', 'id', 'decision'] }
   if (values.help || !known.includes(command) || positionals.length !== 1 || (needs[command] ?? ['session']).some(name => !values[name])) {
     console.log(usage)
@@ -45,7 +46,7 @@ try {
       `Isolated workspace (${meta.mode}): ${meta.workspaceProject}`,
       ...(meta.git ? [`Review branch ${meta.git.reviewBranch} from ${meta.git.originalBranch} at ${meta.git.originalHead.slice(0, 12)}. Your branch and working files were not changed.`,
         ...(meta.git.unrelatedChangeCount ? [`Note: ${meta.git.unrelatedChangeCount} uncommitted change(s) exist in your working tree. They are not in the review workspace and stay untouched.`] : [])]
-        : ['No git repository: the workspace is a copy without node_modules or .git. Your project was not changed.']),
+        : [meta.fallback ?? 'No git repository: the workspace is a copy without node_modules or .git. Your project was not changed.', 'There is no review branch, so a commit step is not available; use the diff and move the change yourself.']),
       `Proposals ready for your review: ${groups.actionable.length}`,
       `Held (no verified proposal; you can reject, defer, or request changes): ${groups.unresolved.length}`,
       `Kept for traceability only: ${groups.covered.length} covered by another proposal, ${groups.noProposal.length} no-proposal, ${groups.notApplicable.length} not-applicable`,
@@ -80,6 +81,7 @@ try {
         process.stdout.write(`${JSON.stringify({ schemaVersion: 1, format: 'cap-pattern-session-status', mode: session.meta.mode, workspace: session.meta.workspaceProject, items: states, traceability: { covered: session.groups.covered.length, noProposal: session.groups.noProposal.length, notApplicable: session.groups.notApplicable.length } }, null, 2)}\n`)
       } else {
         for (const item of states) process.stdout.write(`${item.state.padEnd(34)} ${item.file}:${item.line}  ${item.id}${item.addresses.length ? ` (+${item.addresses.length} covered)` : ''}\n`)
+        if (session.meta.committed) process.stdout.write(`Committed on review branch ${session.meta.git.reviewBranch}: ${session.meta.committed.sha.slice(0, 12)}\n`)
         process.stdout.write(`Traceability only: ${session.groups.covered.length} covered, ${session.groups.noProposal.length} no-proposal, ${session.groups.notApplicable.length} not-applicable.\n`)
       }
     } else if (command === 'apply') {
@@ -105,6 +107,10 @@ try {
     } else if (command === 'diff') {
       const text = await combinedDiff(session, { includeApproved: values.approved })
       process.stdout.write(text || 'Nothing applied yet. Use --approved to include approved proposals that are not applied.\n')
+    } else if (command === 'commit') {
+      const result = await commitSession(session, { message: values.message, confirm: values.confirm })
+      if (result.committed) process.stdout.write(`Committed ${result.sha.slice(0, 12)} on review branch ${result.branch} (${result.files.join(', ')}). Your branch was not changed and nothing was pushed. Merge or cherry-pick it yourself.\n`)
+      else process.stdout.write(`NOT COMMITTED. This would commit on review branch ${result.branch}:\nFiles: ${result.files.join(', ')}\nMessage:\n${result.message}\n\n${result.diff}\nTo commit exactly this: --confirm ${result.confirm}\n`)
     } else {
       const result = await reviseSession(session, await readJsonInput(values.decisions))
       process.stdout.write(`Revised proposals: ${result.revised.length ? result.revised.join(', ') : 'none changed'}. They need a new decision; earlier approvals of changed diffs no longer count.\n${result.droppedFromQueue.length ? `No longer proposals: ${result.droppedFromQueue.join(', ')}\n` : ''}`)

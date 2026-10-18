@@ -12,7 +12,15 @@ export const checks = {
   'source-current': { status: 'verified', evidence: 'hash matched the brief' },
   'diff-integrity': { status: 'verified', evidence: 'diff copied from current source' },
   'fixture-expectations': { status: 'verified', evidence: 'expectations from the input contract' },
-  'input-contract': { status: 'verified', evidence: 'null, undefined, empty, quoted compared' },
+  'input-contract': {
+    status: 'verified', evidence: 'null, undefined, empty, quoted compared against the string form',
+    cases: {
+      null: { outcome: 'regression', evidence: 'concatenation yields the text null; a bound value is a real null', listedAs: 'null becomes a real null, not the text null' },
+      undefined: { outcome: 'regression', evidence: 'concatenation yields the text undefined; the bound value is omitted', listedAs: 'an omitted input no longer matches the text undefined' },
+      'empty-string': { outcome: 'equivalent', evidence: 'both forms compare code to an empty string' },
+      quoted: { outcome: 'regression', evidence: 'a quote changed the query before and is plain data now', listedAs: 'quoted input is matched as data instead of changing the query' }
+    }
+  },
   'association-semantics': { status: 'not-applicable', evidence: 'scalar field' },
   'backend-functions': { status: 'not-applicable', evidence: 'no backend function' },
   'authorization-path': { status: 'verified', evidence: 'service handler; no access predicate to preserve' }
@@ -21,7 +29,7 @@ export const solution = patch => ({
   severity: { level: 'medium', basis: 'Client input reaches a where string' },
   uncertainty: ['Behavior for a missing input value is not specified'],
   proposal: {
-    patch, compatibility: ['Plain CQN object form works on all supported CAP versions'], regressions: ['null becomes a real null, not the text null'],
+    patch, compatibility: ['Plain CQN object form works on all supported CAP versions'], regressions: ['null becomes a real null, not the text null', 'an omitted input no longer matches the text undefined', 'quoted input is matched as data instead of changing the query'],
     verification: { steps: ['Run the service tests'], tests: ['A quoted value is matched as data'] }
   }
 })

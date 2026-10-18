@@ -26,8 +26,10 @@ rather than applying changes automatically.
 5. Run the whole flow in one pass from a project path and an approved output folder: scan, review,
    submission with verified diffs (try to produce a diff for every applicable finding; use one coherent diff
    for findings in the same function; state a specific blocker otherwise), validation, then create the review
-   session (`session.mjs start`). Stop there and hand over the session path and the developer's next command.
-   Never run `session.mjs review`, `decide`, or `apply`, record a decision, or run `apply.mjs` for the developer.
+   session (`session.mjs start`). The review dialog with the developer (step 11 of the skill: show each diff, ask
+   approve/reject/request changes/defer, apply after confirmation, commit to the review branch only on request)
+   belongs to the top-level conversation: a subagent cannot ask questions. Return the session path and counts and
+   say that the main conversation should continue with step 11. Never record a decision the developer has not given.
 
 ## Output Contract
 
@@ -48,7 +50,7 @@ rather than applying changes automatically.
 
 ## Hard Boundaries
 
-No automatic edits (applying an approved proposal is a separate developer-run step), dependency installs, client-code extraction, publishing,
+No automatic edits (an approved proposal is applied to an isolated workspace only after the developer confirms in the dialog), dependency installs, client-code extraction, publishing,
 network uploads, hybrid-test generation, or claims of quantified time savings.
 No AI-based JSON extraction, chunk-reading loops, or whole-project exploration
 merely to prepare the shortlist. No confirmed security findings without evidence.

@@ -66,7 +66,7 @@ changing input files. The submission contains the exact `snapshotSha256` plus
 `decisions`, each with `id`, `decision`, and `reason`. Unknown/duplicate IDs or stale
 snapshots are invalid input. Supported decisions are proposed/not-applicable/needs-review.
 These are the AI reviewer's declarations; they never record that a developer accepted
-anything. A developer's own approve/reject is recorded separately with `sheet.mjs` (below).
+anything. A developer's own approve/reject is recorded separately with `session.mjs` or `sheet.mjs` (below).
 
 To resume a review, add `previous` to the submission: the prior reconciled output for
 the same snapshot. A submission that omits any ID decided there is invalid input, so
@@ -187,6 +187,18 @@ Without it a patch is "not checked" and the item stays `needs-review`. The outpu
 `verifiedPatch` is ignored. Anything unverified stays `needs-review` with its reason and is shown
 as not ready for approval.
 
+### Strict input-contract rule (query proposals)
+
+`checks.input-contract` may be `verified` only when `null`, `undefined`, `empty-string`, and `quoted` input are each shown
+`equivalent`, or the behavior change is `regression` and listed in `proposal.regressions` (the developer accepts it by
+approving; the approval records `acceptedRegressions`). Submit `cases` as
+`{ "null": { "outcome": "equivalent|regression|unverified", "evidence": "...", "listedAs": "<exact regressions entry>" }, ... }`.
+The validator keeps the entry at `needs-review`, naming the contradiction, when: `cases` are missing or incomplete; a case is
+`unverified` under a verified check; a regression is not listed as a proposal regression; the check or case evidence says
+the behavior is unknown, unverified, unclear, or uncertain; or the `uncertainty` list leaves null/undefined/empty-string
+behavior unresolved. The diff is still verified against the source; only the claim is refused. The review policy is
+version 0.2.0.
+
 ## Reviewing Proposals One By One: `session.mjs`
 
 The primary review experience. A review session shows each actionable proposal as a code diff, one at a time, and
@@ -199,7 +211,12 @@ node tools/cap-pattern-scanner/scripts/session.mjs status --session /approved/se
 node tools/cap-pattern-scanner/scripts/session.mjs apply  --session /approved/session [--confirm HASH|all --test-command "npm test"]
 node tools/cap-pattern-scanner/scripts/session.mjs diff   --session /approved/session [--approved]
 node tools/cap-pattern-scanner/scripts/session.mjs revise --session /approved/session --decisions <revised-validated.json>
+node tools/cap-pattern-scanner/scripts/session.mjs commit --session /approved/session [--confirm HASH]
 ```
+
+The same steps can run as a dialog in the AI conversation (skill step 11): the assistant shows each diff, asks you to approve,
+reject, request changes or defer, records only your answer with `session.mjs decide` (which also asks permission), applies after
+your confirmation with a test command you accept, and commits on the review branch only if you say yes.
 
 - `start` creates an isolated workspace next to the session: a git worktree on a new `cap-ai-11/review-...` branch
   (created from HEAD, so your branch, HEAD, and working files stay as they are), or, without git, a copy without
@@ -222,6 +239,9 @@ node tools/cap-pattern-scanner/scripts/session.mjs revise --session /approved/se
   in `applications/`. A failing test is reported and stops the run; the change is not reverted (use the recorded reverse
   patch). Review all applied changes together with `diff` or `git -C <workspace> diff`; nothing is committed or pushed,
   and moving the change to your branch is yours to do.
+- `commit` (git sessions) shows the combined diff and commit message and changes nothing until `--confirm <diff hash>`. It commits
+  exactly the applied files on the review branch, refuses failing tests or workspace changes the session did not make, never
+  touches your branch, and never pushes.
 - Limits: the workspace has no installed dependencies, so tests that need `node_modules` need an install there first;
   removing a session means `git worktree remove` and deleting the review branch yourself.
 

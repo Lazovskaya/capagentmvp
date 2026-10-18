@@ -1,8 +1,8 @@
 import { execFile, spawn } from 'node:child_process'
-import { cp, lstat, mkdir, readFile, readdir, realpath, rename, writeFile } from 'node:fs/promises'
+import { cp, lstat, mkdir, readdir, realpath, rename, rm, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { decisionEntry, isDecidable, reviewRows } from './developer-review.mjs'
+import { acceptedRegressions, decisionEntry, isDecidable, reviewRows } from './developer-review.mjs'
 import { normalizePatch, readProjectFile, safeProjectPath, sha256, verifyPatchAgainstProject } from './patch.mjs'
 import { readJsonInput, resolveNewFileTarget } from './scan.mjs'
 
@@ -167,28 +167,16 @@ export async function startSession({ report, validated, project, session: sessio
   if (mode === 'worktree' && !info) fail('The project is not inside a git repository; use --mode copy')
   const meta = { format: sessionFormat, schemaVersion: 1, useCaseId: brief.useCaseId, snapshotSha256: brief.snapshot.sha256, project: root, createdAt: new Date().toISOString() }
   const workspace = path.join(dir, 'workspace')
-  if (info) {
-    const relative = posix(path.relative(info.top, root))
-    const before = await dirtyPaths(info.top)
-    const dirtyTargets = targets.filter(target => before.includes(posix(path.posix.join(relative, target))))
-    if (dirtyTargets.length) fail(`Uncommitted changes in files the proposals change: ${dirtyTargets.join(', ')}. Commit or stash them first; nothing was created`)
-    for (const target of targets) {
-      const committed = await git(info.top, ['show', `HEAD:${posix(path.posix.join(relative, target))}`], { encoding: 'buffer' }).catch(() => undefined)
-      if (!committed || sha256(committed) !== bases.get(target)) fail(`${target} in the last commit differs from the reviewed file (untracked, or line-ending conversion); use --mode copy`)
-    }
-    const branch = `cap-ai-11/review-${brief.snapshot.sha256.slice(0, 8)}-${meta.createdAt.replace(/\D/g, '').slice(0, 14)}`
+  const created = { dir: false, worktree: false, branch: null }
+  // Removes only what this call created, so a refused or failed start leaves no folder, worktree, or branch behind.
+  const cleanup = async () => {
+    if (created.worktree) await git(info.top, ['worktree', 'remove', '--force', workspace]).catch(() => {})
+    if (created.branch) await git(info.top, ['branch', '-D', created.branch]).catch(() => {})
+    if (created.dir) await rm(dir, { recursive: true, force: true }).catch(() => {})
+  }
+  const makeCopy = async () => {
     await mkdir(dir, { mode: 0o700 })
-    await git(info.top, ['worktree', 'add', '-b', branch, workspace, 'HEAD'])
-    const after = await dirtyPaths(info.top)
-    if ((await git(info.top, ['rev-parse', 'HEAD'])).trim() !== info.head || (await git(info.top, ['rev-parse', '--abbrev-ref', 'HEAD'])).trim() !== info.branch || JSON.stringify(after) !== JSON.stringify(before)) {
-      fail('The original working state changed while creating the review worktree; inspect the repository before continuing')
-    }
-    Object.assign(meta, {
-      mode: 'worktree', workspace, workspaceProject: path.join(workspace, ...relative.split('/').filter(Boolean)),
-      git: { top: info.top, originalBranch: info.branch, originalHead: info.head, reviewBranch: branch, unrelatedChanges: before.slice(0, 200), unrelatedChangeCount: before.length }
-    })
-  } else {
-    await mkdir(dir, { mode: 0o700 })
+    created.dir = true
     await cp(root, workspace, {
       recursive: true, errorOnExist: true, force: false,
       filter: async source => !copySkipped.has(path.basename(source)) && !(await lstat(source)).isSymbolicLink()
@@ -198,16 +186,58 @@ export async function startSession({ report, validated, project, session: sessio
     }
     Object.assign(meta, { mode: 'copy', workspace, workspaceProject: workspace })
   }
-  await writeSessionFile(dir, 'brief.json', report)
-  await writeSessionFile(dir, 'validated.json', validated)
-  await writeSessionFile(dir, 'developer-decisions.json', developerFile(brief, reviewer, []))
-  await mkdir(path.join(dir, 'applications'), { mode: 0o700 })
-  await writeSessionFile(dir, 'revision-requests.json', [])
-  await writeSessionFile(dir, 'session.json', meta)
-  const session = await loadSession(dir)
-  session.meta.proposalFiles = await writeProposalFiles(session)
-  await writeSessionFile(dir, 'session.json', session.meta)
-  return session
+  const makeWorktree = async () => {
+    const relative = posix(path.relative(info.top, root))
+    const before = await dirtyPaths(info.top)
+    const dirtyTargets = targets.filter(target => before.includes(posix(path.posix.join(relative, target))))
+    if (dirtyTargets.length) fail(`Uncommitted changes in files the proposals change: ${dirtyTargets.join(', ')}. Commit or stash them first; nothing was created`)
+    const branch = `cap-ai-11/review-${brief.snapshot.sha256.slice(0, 8)}-${meta.createdAt.replace(/\D/g, '').slice(0, 14)}`
+    await mkdir(dir, { mode: 0o700 })
+    created.dir = true
+    await git(info.top, ['worktree', 'add', '-b', branch, workspace, 'HEAD'])
+    created.worktree = true
+    created.branch = branch
+    const workspaceProject = path.join(workspace, ...relative.split('/').filter(Boolean))
+    // The worktree is checked out from the last commit (with the repository's own line-ending rules): it must equal what was reviewed.
+    for (const target of targets) {
+      const checkedOut = await readProjectFile(path.join(workspaceProject, ...target.split('/'))).catch(() => undefined)
+      if (checkedOut?.sha256 !== bases.get(target)) {
+        throw Object.assign(new TypeError(`${target} in the last commit does not match the reviewed file (untracked, or a line-ending or filter difference)`), { code: 'WORKTREE_MISMATCH' })
+      }
+    }
+    const after = await dirtyPaths(info.top)
+    if ((await git(info.top, ['rev-parse', 'HEAD'])).trim() !== info.head || (await git(info.top, ['rev-parse', '--abbrev-ref', 'HEAD'])).trim() !== info.branch || JSON.stringify(after) !== JSON.stringify(before)) {
+      fail('The original working state changed while creating the review worktree; inspect the repository before continuing')
+    }
+    Object.assign(meta, {
+      mode: 'worktree', workspace, workspaceProject,
+      git: { top: info.top, originalBranch: info.branch, originalHead: info.head, reviewBranch: branch, unrelatedChanges: before.slice(0, 200), unrelatedChangeCount: before.length }
+    })
+  }
+  try {
+    if (info) {
+      try { await makeWorktree() } catch (error) {
+        if (error.code !== 'WORKTREE_MISMATCH' || mode !== 'auto') throw error
+        await cleanup()
+        Object.assign(created, { dir: false, worktree: false, branch: null })
+        await makeCopy()
+        meta.fallback = `No review branch: ${error.message}. An isolated copy is used instead.`
+      }
+    } else await makeCopy()
+    await writeSessionFile(dir, 'brief.json', report)
+    await writeSessionFile(dir, 'validated.json', validated)
+    await writeSessionFile(dir, 'developer-decisions.json', developerFile(brief, reviewer, [], [...groups.actionable, ...groups.unresolved.filter(item => isDecidable(item.row))].map(({ row }) => row.id)))
+    await mkdir(path.join(dir, 'applications'), { mode: 0o700 })
+    await writeSessionFile(dir, 'revision-requests.json', [])
+    await writeSessionFile(dir, 'session.json', meta)
+    const session = await loadSession(dir)
+    session.meta.proposalFiles = await writeProposalFiles(session)
+    await writeSessionFile(dir, 'session.json', session.meta)
+    return session
+  } catch (error) {
+    await cleanup()
+    throw error
+  }
 }
 
 function developerFile(brief, reviewer, decisions, queueIds = []) {
@@ -353,6 +383,37 @@ export async function reviseSession(session, newValidated) {
   return { session: next, revised: changed, droppedFromQueue: dropped }
 }
 
+/**
+ * Commits the applied changes on the review branch only (git worktree sessions). It never touches the original branch,
+ * pushes, or includes any file other than those recorded as applied. The caller must confirm the hash of the combined diff.
+ */
+export async function commitSession(session, { message, confirm } = {}) {
+  if (session.meta.mode !== 'worktree') fail('There is no review branch in a copy session; use the diff and move the change yourself')
+  if (!session.applications.length) fail('Nothing has been applied in this session yet')
+  if (session.applications.some(record => record.result === 'test-failed')) fail('An applied proposal has failing tests; fix or undo it before committing')
+  if (session.meta.committed?.recordCount === session.applications.length) fail(`The applied changes were already committed (${session.meta.committed.sha.slice(0, 12)})`)
+  const diff = await combinedDiff(session)
+  const token = sha256(diff)
+  const relative = posix(path.relative(session.meta.workspace, session.workspaceProject))
+  const files = [...new Set(session.applications.flatMap(record => record.files.map(file => posix(path.posix.join(relative, file.file)))))]
+  const dirty = await dirtyPaths(session.meta.workspace)
+  const extra = dirty.filter(file => !files.includes(file))
+  if (extra.length) fail(`The review workspace has changes that were not applied by the session: ${extra.join(', ')}; remove them first`)
+  const ids = [...new Set(session.applications.map(record => record.findingId))]
+  const unverified = session.applications.filter(record => record.result === 'unverified').length
+  const text = message?.trim() || `CAP-AI-11: apply ${ids.length} reviewed proposal(s)\n\nFindings: ${ids.join(', ')}\nReviewed by: ${session.developer.reviewer ?? 'unnamed reviewer'}\nTests: ${unverified ? `${unverified} proposal(s) applied without tests` : 'developer-supplied tests passed'}`
+  const preview = { branch: session.meta.git.reviewBranch, files, message: text, confirm: token, diff }
+  if (confirm === undefined) return { committed: false, ...preview }
+  if (confirm !== token) fail(`--confirm must be the sha256 of the combined diff shown by the preview (${token})`)
+  await git(session.meta.workspace, ['add', '--', ...files])
+  await git(session.meta.workspace, ['commit', '-m', text])
+  const sha = (await git(session.meta.workspace, ['rev-parse', 'HEAD'])).trim()
+  const fresh = await loadSession(session.dir)
+  fresh.meta.committed = { sha, at: new Date().toISOString(), recordCount: fresh.applications.length }
+  await writeSessionFile(fresh.dir, 'session.json', fresh.meta)
+  return { committed: true, sha, ...preview }
+}
+
 const paint = (color, code, text) => (color ? `\u001b[${code}m${text}\u001b[0m` : text)
 const bullets = (items, empty) => (items?.length ? items.map(item => `  - ${item}`) : [`  - ${empty}`])
 const firstSentence = text => (/^(.{20,240}?[.!?])(\s|$)/s.exec(text.trim())?.[1] ?? text.trim().slice(0, 240))
@@ -392,6 +453,7 @@ export function renderItem(session, item, index, total, { color = false } = {}) 
     '', paint(color, '1', 'Diff (- removed, + added):'), ...diffLines(row.proposal.patch, color), '',
     `Why this fixes it: ${row.reason}`, 'Compatibility (CAP/CDS/runtime):', ...bullets(row.proposal.compatibility, 'none given'),
     'Regression risks:', ...bullets(row.proposal.regressions, 'none given'),
+    ...(acceptedRegressions(row).length ? ['Behavior changes you accept by approving (input cases):', ...acceptedRegressions(row).map(item => `  - ${item.case}: ${item.listedAs}`)] : []),
     'Uncertainty and assumptions:', ...bullets(row.uncertainty, 'none stated'),
     'Verification steps:', ...bullets(row.proposal.verification?.steps, 'none given'),
     'Proposed tests (descriptions only; the tool never runs a command from the AI):', ...bullets(row.proposal.verification?.tests, 'none given'))

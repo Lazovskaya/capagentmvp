@@ -286,13 +286,16 @@ you choose when to apply it. Nothing is changed before that.
    node tools/cap-pattern-scanner/scripts/session.mjs apply --session /approved/session --confirm all --test-command "npm test"
    node tools/cap-pattern-scanner/scripts/session.mjs diff --session /approved/session
    ```
+   Instead of typing these commands you can run the whole review as a dialog in the AI conversation: it shows each diff, asks you
+   to approve, reject, request changes or defer, applies after you confirm, and can commit the result on the review branch
+   (`session.mjs commit`, never on your branch, never pushed).
    The sheet workflow (`sheet.mjs`) and the per-finding `apply.mjs preview/apply/status` remain available.
 4. `session.mjs status` (or `apply.mjs status`) shows where every item stands: approved, applied with tests passed, applied with
    tests failed, or applied unverified. Approval alone is never reported as applied, and a failed test
    run is never reverted silently: the record holds a reverse patch.
 
 The sheet contains your source, so keep it inside your environment. To keep a distribution read-only,
-leave `apply.mjs` out of it. The AI never runs `apply.mjs` or records your decisions.
+leave `apply.mjs` out of it. The AI records a decision only from your explicit answer in the dialog (each such command also asks your permission), applies only after you confirm the diffs and a test command you accepted, and never runs `apply.mjs`, pushes, merges, or commits on your branch.
 
 ## Transfer Approved Artifacts Into The Customer Environment
 

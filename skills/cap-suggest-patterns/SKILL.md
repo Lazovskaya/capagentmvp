@@ -203,7 +203,7 @@ environment generation, client-code harvesting, and publishing are out of scope.
    outside application source to save the brief and decision submission. A saved
    existing report may be used as the input; never overwrite prior review history.
    The submission is JSON with `snapshotSha256` from the brief and `decisions`:
-   each entry has `id`, `decision` (proposed/not-applicable/needs-review), and `reason`.
+   each entry has `id`, `decision` (proposed/not-applicable/needs-review/no-proposal), and `reason`.
    A proposed entry also has `checks`, keyed by each applicable `reviewPolicy`
    check ID, with `{ "status": "verified|not-applicable|unverified", "evidence": "specific evidence" }`.
    Required checks accept only verified; conditional checks accept verified or
@@ -230,6 +230,12 @@ environment generation, client-code harvesting, and publishing are out of scope.
    project path (`scan.mjs <project> --report ... --decisions ...`) or every proposal stays unverified.
    Describe tests only: never put a command for the tool to run in a proposal. If you cannot write a
    grounded diff, use `needs-review` and list what is missing under `uncertainty`.
+   For a query proposal, `checks.input-contract` is strict: it may be `verified` only with `cases` for `null`, `undefined`,
+   `empty-string`, and `quoted`, each `{ outcome: equivalent|regression|unverified, evidence }`. A `regression` also names
+   (`listedAs`) the exact `proposal.regressions` entry that states the behavior change; the developer accepts it by approving.
+   If any case is unverified, or you list null/undefined/empty-string behavior as uncertain, the check is `unverified` and the
+   entry is `needs-review` with a `blocker`: documenting the uncertainty does not make it verified. Without a way to run
+   CAP here, most query rewrites will therefore be `needs-review` unless the model or tests settle every case.
    Try hard to produce a diff before giving up: read the CDS model, tests, and dependencies you may inspect.
    Add a one-sentence `summary` to each proposal. Findings in one function or query chain get one coherent diff:
    put it on one finding and mark the others `proposed` with `addressedBy: <that finding ID>` (same file, each with
@@ -243,19 +249,37 @@ environment generation, client-code harvesting, and publishing are out of scope.
    node tools/cap-pattern-scanner/scripts/session.mjs start --report /approved/brief.json --decisions /approved/validated.json --project <project> --session /approved/session
    ```
    If it refuses (for example, uncommitted edits in a file a proposal changes), report the exact message and
-   stop; do not work around it. The run is complete when the session exists: scan, review, validation, and
-   session are done by you in one pass. If validation reports blockers on proposals you could fix (a diff
-   that does not apply, a missing field), correct and re-validate once into a new file; otherwise leave the item
-   `needs-review`. Final message: the session path, counts (proposals ready for review, held with blocker,
-   no-proposal, not-applicable), and the developer's next command with real paths filled in:
-   `node tools/cap-pattern-scanner/scripts/session.mjs review --session /approved/session --reviewer <name>`,
-   which shows each proposal as a code diff and records approve, reject, change request, defer, or next;
-   `session.mjs apply` is a later, separate step.
-   If the developer asks for changes, read `/approved/session/revision-requests.json`, revise those proposals using the
-   feedback, validate into a new file with the project path, and run `session.mjs revise --session /approved/session
-   --decisions <new-validated.json>`. Never run `session.mjs review`, `decide`, or `apply`, `sheet.mjs record`, or
-   `apply.mjs`; never edit application files; never imply a developer decision. The developer's review of the
-   diffs is the end of your part.
+   stop; do not work around it. If validation reports blockers on proposals you could fix (a diff that does not
+   apply, a missing field), correct and re-validate once into a new file; otherwise leave the item `needs-review`.
+11. Then run the review as a dialog with the developer in this conversation, as the top-level assistant (a
+    subagent cannot ask the developer questions: if you are one, return the session path, the counts and the
+    sentence "continue with step 11 of cap-suggest-patterns in the main conversation"). First give the counts
+    (proposals ready, held with blocker, no-proposal, not-applicable) and ask once for the reviewer name. Then,
+    one proposal at a time, in `session.mjs show --session /approved/session` order:
+    - Show the file and finding IDs, a one-line problem, the diff (in a diff code block), then briefly the
+      explanation, uncertainty, compatibility, regression risks, and proposed tests. Held items show their blocker
+      instead and cannot be approved. Never hide a risk to make a proposal look safer.
+    - Ask the developer with the question tool: Approve, Reject, Request changes, Defer (Next = leave undecided). If the host
+      has no question tool, ask in plain text and wait for their reply before doing anything else. For Reject and Request
+      changes get a reason or feedback in their own words. Silence, an unclear answer, or a question back is not an approval.
+    - Record only what the developer answered in this conversation, with
+      `node tools/cap-pattern-scanner/scripts/session.mjs decide --session /approved/session --id <ID> --decision approve|reject|needs-changes|defer --notes "<their words>" --reviewer "<name>"`.
+      Never decide, infer, or batch decisions for them; one question per proposal. The command asks the developer for permission,
+      which is a second confirmation: do not try to avoid it.
+    - Request changes: revise that proposal using their feedback (and the CDS model, tests, dependencies), validate into a
+      new file with the project path, run `session.mjs revise --session /approved/session --decisions <new-validated.json>`,
+      and show the revised diff again as a new proposal.
+    After the last proposal, summarise decisions (`session.mjs status`). If something is approved, show the exact diffs
+    that would be applied (`session.mjs apply --session /approved/session` shows them and changes nothing), ask whether to
+    apply them to the isolated workspace, and which test command to run. Suggest the project's own test script if you saw one,
+    but run only a command the developer accepted, never one you invented. Apply with
+    `session.mjs apply --session /approved/session --confirm all --test-command "<accepted command>"`, then report honestly:
+    applied, tests passed, tests FAILED (not reverted), or unverified. Never call a change correct because it applied.
+    Then show the combined change (`session.mjs diff`, plus `git -C <workspace> diff --stat` in git sessions) and ask whether to
+    commit it on the review branch. If yes, run `session.mjs commit --session /approved/session` (preview), show it,
+    and only after their explicit yes run it again with the printed `--confirm` hash. Never push, merge, rebase, check out, or
+    commit on the developer's own branch, never edit application files yourself, and never run `apply.mjs` or `sheet.mjs record`.
+    End by telling them the review branch name and that merging it into their branch is theirs to do.
 
 ## Output
 

@@ -6,7 +6,7 @@ const proposalChecks = [
   { id: 'fixture-expectations', required: true, description: 'Test expectations follow declared fixtures and input contracts, not assumptions that special input returns zero rows.' }
 ]
 const queryChecks = [
-  { id: 'input-contract', required: true, description: 'Compare null, undefined, empty string, quoted input, numeric/string types, and rejection/default behavior. Stringified null is not actual null.' },
+  { id: 'input-contract', required: true, description: 'Strict: verified only if null, undefined, empty string, and quoted input are each shown equivalent, or the behavior change is listed in the proposal regressions (the developer accepts it by approving). Give checks.input-contract.cases for null, undefined, empty-string, and quoted, each with outcome equivalent, regression, or unverified, and evidence; a regression names the exact proposal.regressions entry it is listed as. Any unverified case, or evidence or uncertainty that leaves null, undefined, or empty-string semantics unresolved, keeps the proposal needs-review even when documented. Stringified null is not actual null.' },
   { id: 'association-semantics', required: false, description: 'For association filters, establish cardinality, path semantics, generated CQN, and adapter behavior. Nested objects are not presumed equivalent.' },
   { id: 'backend-functions', required: false, description: 'Preserve static backend functions/casts and bind dynamic values with supported tagged templates/CQN expressions. Parameterization does not require removing every backend-specific function.' },
   { id: 'authorization-path', required: true, description: 'Identify application-service versus direct database execution and preserve actual authorization predicates. Value binding does not establish access control.' }
@@ -23,6 +23,55 @@ const proposalKeys = new Set(['patch', 'compatibility', 'regressions', 'verifica
 const derivedEntryKeys = new Set(['requestedDecision', 'blockers', 'reviewed', 'verifiedPatch', 'addresses'])
 const checkIds = new Set([...proposalChecks, ...queryChecks].map(check => check.id))
 
+const inputCaseKeys = ['null', 'undefined', 'empty-string', 'quoted']
+const inputCaseOutcomes = ['equivalent', 'regression', 'unverified']
+// Wording that leaves behavior unresolved, and wording about null-like inputs: a "verified" input contract may not contain both.
+const unresolvedWording = /\b(unverified|not (?:yet )?verified|unknown|unproven|unconfirmed|uncertain|unclear|not established|(?:cannot|can't|could not|couldn't) (?:be )?(?:confirm|verif)\w*)\b/i
+const nullishWording = /\b(null|undefined|empty(?:[- ]string)?|omitted|blank)\b/i
+
+function normalizeCases(cases) {
+  if (!cases || typeof cases !== 'object' || Array.isArray(cases)) throw new TypeError('input-contract cases must be an object keyed by input case')
+  const normalized = {}
+  for (const [key, entry] of Object.entries(cases)) {
+    if (![...inputCaseKeys, 'type'].includes(key)) throw new TypeError(`Unknown input-contract case: ${key}`)
+    if (!entry || typeof entry !== 'object' || Array.isArray(entry) || Object.keys(entry).some(field => !['outcome', 'evidence', 'listedAs'].includes(field))
+      || !inputCaseOutcomes.includes(entry.outcome) || typeof entry.evidence !== 'string' || !entry.evidence.trim()) {
+      throw new TypeError(`Input-contract case ${key} needs an outcome (${inputCaseOutcomes.join(', ')}) and evidence`)
+    }
+    if (entry.listedAs !== undefined && (entry.outcome !== 'regression' || typeof entry.listedAs !== 'string' || !entry.listedAs.trim())) {
+      throw new TypeError(`Input-contract case ${key}: listedAs applies only to a regression and must name a proposal regression`)
+    }
+    normalized[key] = { outcome: entry.outcome, evidence: entry.evidence.trim(), ...(entry.listedAs ? { listedAs: entry.listedAs.trim() } : {}) }
+  }
+  return normalized
+}
+
+// The strict input-contract rule. Applied only to a check declared verified: anything that leaves null, undefined, or
+// empty-string behavior unresolved keeps the proposal at needs-review, however well the uncertainty is documented.
+function inputContractBlockers(check, { regressions, uncertainty }) {
+  const blockers = []
+  const cases = check.cases
+  if (!cases) return ['input-contract is verified without cases: give an outcome and evidence for null, undefined, empty-string, and quoted']
+  const missing = inputCaseKeys.filter(key => !cases[key])
+  if (missing.length) blockers.push(`input-contract cases are missing: ${missing.join(', ')}`)
+  const unverified = Object.entries(cases).filter(([, entry]) => entry.outcome === 'unverified').map(([key]) => key)
+  if (unverified.length) blockers.push(`input-contract is claimed verified while the ${unverified.join(', ')} case(s) are unverified: unresolved semantics keep the proposal at needs-review`)
+  if (regressions) {
+    for (const [key, entry] of Object.entries(cases)) {
+      if (entry.outcome === 'regression' && !regressions.includes(entry.listedAs ?? '')) blockers.push(`The ${key} behavior change is not listed as a proposal regression (listedAs must equal one regressions entry)`)
+    }
+  }
+  const claims = [['input-contract evidence', check.evidence], ...Object.entries(cases).filter(([, entry]) => entry.outcome !== 'unverified').map(([key, entry]) => [`the ${key} case evidence`, entry.evidence])]
+  for (const [where, text] of claims) {
+    const match = unresolvedWording.exec(text)
+    if (match) blockers.push(`${where} says the behavior is unresolved ("${match[0]}") while input-contract is verified`)
+  }
+  for (const item of uncertainty ?? []) {
+    if (nullishWording.test(item) && unresolvedWording.test(item)) blockers.push(`uncertainty lists unresolved null/undefined/empty-string semantics ("${item.slice(0, 120)}") while input-contract is verified`)
+  }
+  return blockers
+}
+
 function normalizeChecks(checks) {
   if (checks === undefined) return undefined
   if (checks === null || typeof checks !== 'object' || Array.isArray(checks)) throw new TypeError('Decision checks must be an object keyed by check ID')
@@ -30,10 +79,10 @@ function normalizeChecks(checks) {
   for (const [id, check] of Object.entries(checks)) {
     if (!checkIds.has(id)) throw new TypeError(`Unknown decision check ID: ${id}`)
     if (check === null || typeof check !== 'object' || Array.isArray(check)
-      || Object.keys(check).some(key => key !== 'status' && key !== 'evidence')) {
-      throw new TypeError(`Decision check ${id} supports only status and evidence`)
+      || Object.keys(check).some(key => key !== 'status' && key !== 'evidence' && !(key === 'cases' && id === 'input-contract'))) {
+      throw new TypeError(`Decision check ${id} supports only status and evidence${id === 'input-contract' ? ' (and cases)' : ''}`)
     }
-    normalized[id] = { status: check.status, evidence: check.evidence }
+    normalized[id] = { status: check.status, evidence: check.evidence, ...(check.cases === undefined ? {} : { cases: normalizeCases(check.cases) }) }
   }
   return normalized
 }
@@ -232,7 +281,7 @@ export function prepareReview(report) {
         : 'No review-candidate signals in the recorded scope; context-only observations are not defects.'
     },
     reviewPolicy: {
-      version: '0.1.0',
+      version: '0.2.0',
       proposalChecks,
       queryChecks,
       checkStatuses: ['verified', 'not-applicable', 'unverified'],
@@ -250,7 +299,7 @@ export function prepareReview(report) {
       'req.error collects errors; CAP automatically rejects recorded errors after each before/on/after phase. Missing req.reject is not itself a defect.',
       'Production CAP 5xx responses are sanitized by default. Raw error.message alone does not prove client-visible leakage; verify runtime, configuration, adapters, and response evidence.',
       'Do not invent logging APIs, annotations, or runtime behavior. Do not recommend unredacted raw-error logging.',
-      'Query rewrites require explicit input-contract, association-semantics, backend-function, and authorization-path checks. Unsupported equivalence remains needs-review.',
+      'Query rewrites require explicit input-contract, association-semantics, backend-function, and authorization-path checks. Unsupported equivalence remains needs-review. input-contract is strict: give cases for null, undefined, empty-string, and quoted (equivalent, regression listed in proposal.regressions, or unverified). If any of them is unverified, or you list null/undefined/empty-string behavior as uncertain, do not mark input-contract verified: the entry is needs-review with a blocker.',
       'Produce clean non-applied diffs from actual source. Keep hunk explanations outside patches; do not add HUNK comments to source lines.',
       'Derive test expectations from fixtures. Special-character data may legitimately match a seeded record; do not assume it must return zero rows.',
       'Unreviewed, stale, or uncertain candidates keep the overall verdict needs-review. Use proposals only after at least one supported proposal and no unresolved mandatory checks.',
@@ -318,6 +367,10 @@ export function reconcileDecisions(report, submission, { patchChecks } = {}) {
           blockers.push(`Unresolved evidence check: ${check.id}`)
         }
       }
+      const contract = checks?.['input-contract']
+      if (known.get(entry.id).patternId === 'CAP-QUERY-001' && contract?.status === 'verified') {
+        blockers.push(...inputContractBlockers(contract, { regressions: entry.addressedBy === undefined ? proposal?.regressions : undefined, uncertainty }))
+      }
       if (entry.addressedBy === undefined) blockers.push(...proposalBlockers({ severity, proposal, uncertainty }, patchChecks?.get(entry.id), patchChecks !== undefined))
     }
     const patchCheck = patchChecks?.get(entry.id)
@@ -343,6 +396,11 @@ export function reconcileDecisions(report, submission, { patchChecks } = {}) {
     else if (primary.addressedBy) problems.push(`${entry.addressedBy} is itself covered by another proposal; name the proposal that carries the diff`)
     else if (primary.decision !== 'proposed' || !primary.verifiedPatch) problems.push(`The proposal in ${entry.addressedBy} is not verified, so it cannot cover this finding`)
     else if (!primary.verifiedPatch.files.some(target => target.file === file)) problems.push(`The proposal in ${entry.addressedBy} does not change ${file}`)
+    else {
+      for (const [key, contractCase] of Object.entries(entry.checks?.['input-contract']?.cases ?? {})) {
+        if (contractCase.outcome === 'regression' && !primary.proposal.regressions?.includes(contractCase.listedAs ?? '')) problems.push(`The ${key} behavior change is not listed in the regressions of the proposal in ${entry.addressedBy}`)
+      }
+    }
     if (problems.length) { entry.blockers.push(...problems); entry.decision = 'needs-review' }
   }
   for (const entry of reviewed.values()) {

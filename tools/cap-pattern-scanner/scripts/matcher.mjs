@@ -16,13 +16,31 @@ if (!isMainThread) {
       }
       return start + 1
     }
+    // Simple aliases of the request payload: `const order = req.data`. A name counts only when it is
+    // declared exactly once in the file, so a reused name (for example a database row) is never treated
+    // as request data. There is no scope analysis, and parameters or destructuring are not tracked.
+    const payload = 'req\\s*\\.\\s*data'
+    function aliasSignals(signals, source) {
+      const declarations = new Map()
+      for (const match of source.matchAll(/\b(?:const|let|var)\s+([A-Za-z_$][\w$]*)/g)) {
+        declarations.set(match[1], (declarations.get(match[1]) ?? 0) + 1)
+      }
+      const names = []
+      for (const match of source.matchAll(/\b(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=\s*req\s*\.\s*data\b(?!\s*[.[(])/g)) {
+        if (match[1] !== 'req' && declarations.get(match[1]) === 1) names.push(match[1].replace(/\$/g, '\\$'))
+      }
+      if (!names.length) return []
+      const alternation = `(?:${[...new Set(names)].join('|')})`
+      return signals.filter(signal => signal.includes(payload)).map(signal => signal.split(payload).join(alternation))
+    }
     const matches = []
     let remaining = maximum
     let truncated = false
     for (const pattern of patterns) {
       if (!pattern.extensions.includes(extension)) continue
       const lines = new Set()
-      for (const signal of pattern.signals) {
+      const signals = pattern.dataAliases ? [...pattern.signals, ...aliasSignals(pattern.signals, text)] : pattern.signals
+      for (const signal of signals) {
         for (const match of text.matchAll(new RegExp(signal, 'g'))) {
           lines.add(lineAt(match.index))
           if (lines.size > remaining) break

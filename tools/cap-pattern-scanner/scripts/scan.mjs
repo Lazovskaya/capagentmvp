@@ -225,7 +225,7 @@ export async function scanProject(project, scopes = ['srv', 'db']) {
     for (const { patternId, line } of result.matches) {
       const pattern = catalog.patterns.find(candidate => candidate.id === patternId)
       const hash = digest(`${pattern.id}:${relative}:${line}:${sha256}`).slice(0, 16)
-      const { signals, extensions: patternExtensions, ...recommendation } = pattern
+      const { signals, extensions: patternExtensions, dataAliases, ...recommendation } = pattern
       const assessment = pattern.signalKind === 'context' ? 'context-only' : 'review-candidate'
       report.summary[assessment === 'context-only' ? 'contextOnly' : 'reviewCandidates'] += 1
       report.findings.push({

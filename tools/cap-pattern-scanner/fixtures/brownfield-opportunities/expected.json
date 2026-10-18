@@ -9,7 +9,11 @@
       "file": "srv/catalog-service.js",
       "anchor": "readFileSync('./i18n/messages.properties'",
       "label": "opportunity",
-      "note": "Hand-read message bundle; CAP message lookup applies."
+      "note": "Hand-read message bundle; CAP message lookup applies.",
+      "acceptableDecisions": [
+        "proposed",
+        "needs-review"
+      ]
     },
     {
       "patternId": "CAP-MODEL-001",
@@ -23,7 +27,11 @@
       "file": "srv/catalog-service.js",
       "anchor": "if (!req.data.name)",
       "label": "opportunity",
-      "note": "Unconditional required-field guard; @mandatory applies."
+      "note": "Unconditional required-field guard; @mandatory applies.",
+      "acceptableDecisions": [
+        "proposed",
+        "needs-review"
+      ]
     },
     {
       "patternId": "CAP-REMOTE-CONSUME-001",
@@ -37,21 +45,33 @@
       "file": "srv/catalog-service.js",
       "anchor": "where(\"name like '%\" + term",
       "label": "opportunity",
-      "note": "User input concatenated into where; bind the value."
+      "note": "User input concatenated into where; bind the value.",
+      "acceptableDecisions": [
+        "proposed",
+        "needs-review"
+      ]
     },
     {
       "patternId": "CAP-PAGING-001",
       "file": "srv/catalog-service.js",
       "anchor": "req.query.SELECT.limit =",
       "label": "opportunity",
-      "note": "Manual limit override; generic CAP paging applies."
+      "note": "Manual limit override; generic CAP paging applies.",
+      "acceptableDecisions": [
+        "proposed",
+        "needs-review"
+      ]
     },
     {
       "patternId": "CAP-REMOTE-ERROR-001",
       "file": "srv/catalog-service.js",
       "anchor": "req.error(502, err.message)",
       "label": "opportunity",
-      "note": "Upstream error message forwarded to the client."
+      "note": "Upstream error message forwarded to the client.",
+      "acceptableDecisions": [
+        "proposed",
+        "needs-review"
+      ]
     },
     {
       "patternId": "CAP-TX-001",
@@ -72,21 +92,33 @@
       "file": "srv/reports.js",
       "anchor": "db.run(`SELECT * FROM Items WHERE code = '${code}'`)",
       "label": "opportunity",
-      "note": "Interpolated SQL string."
+      "note": "Interpolated SQL string.",
+      "acceptableDecisions": [
+        "proposed",
+        "needs-review"
+      ]
     },
     {
       "patternId": "CAP-QUERY-001",
       "file": "srv/reports.js",
       "anchor": "const condition = \"name = '\" + name",
       "label": "opportunity",
-      "note": "Concatenated condition later passed to where(); the scanner cannot see the data flow."
+      "note": "Concatenated condition later passed to where(); the scanner cannot see the data flow.",
+      "acceptableDecisions": [
+        "proposed",
+        "needs-review"
+      ]
     },
     {
       "patternId": "CAP-QUERY-001",
       "file": "srv/reports.js",
       "anchor": "where('status = '",
       "label": "opportunity",
-      "note": "Concatenation continues on the next line."
+      "note": "Concatenation continues on the next line.",
+      "acceptableDecisions": [
+        "proposed",
+        "needs-review"
+      ]
     },
     {
       "patternId": "CAP-MODEL-001",
@@ -108,6 +140,17 @@
       "anchor": "modifiedAt",
       "label": "context",
       "note": "Hand-declared audit field."
+    },
+    {
+      "patternId": "CAP-VALIDATION-001",
+      "file": "srv/inventory.js",
+      "anchor": "if (!item.code)",
+      "label": "opportunity",
+      "note": "Unconditional required-field guard through a simple req.data alias; @mandatory applies.",
+      "acceptableDecisions": [
+        "proposed",
+        "needs-review"
+      ]
     }
   ]
 }

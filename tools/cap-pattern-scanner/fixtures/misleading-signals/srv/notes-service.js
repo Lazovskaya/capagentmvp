@@ -15,4 +15,10 @@ module.exports = cds.service.impl(async function () {
   })
 
   this.on('describe', () => documentation)
+
+  this.on('latest', async () => {
+    const note = await SELECT.one.from(Notes).orderBy('createdAt desc')
+    if (!note.text) return 'empty'
+    return note.text
+  })
 })

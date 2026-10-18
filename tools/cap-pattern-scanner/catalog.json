@@ -70,6 +70,7 @@
       "title": "Review manual field checks for declarative validation",
       "kind": "native",
       "maturity": "documented-native",
+      "dataAliases": true,
       "extensions": [".js", ".cjs", ".mjs", ".ts"],
       "signals": [
         "\\bif\\s*\\(\\s*!\\s*req\\s*\\.\\s*data\\s*\\.\\s*[A-Za-z_$][\\w$]*\\s*\\)",

@@ -130,7 +130,10 @@ an atomic snapshot guarantee; continue using a quiescent checkout.
 is not itself an improvement opportunity. All matches remain candidates until review.
 
 Rules are heuristic text matching, not AST or CSN analysis: comments/strings may
-match; multiline expressions and aliases may be missed. Contextual skill review
+match; multiline expressions and most aliases may be missed. The one exception is the
+validation rule, which also follows a single simple `const x = req.data` alias. A name
+counts only when it is declared once in the file; there is no scope analysis, and
+parameters, destructuring, and compound conditions are not tracked. Contextual skill review
 must disconfirm false positives and check the effective model before adoption.
 Coverage completeness is traversal completeness within scope, not semantic proof.
 
@@ -191,8 +194,10 @@ Conditional or external-state validation may need to remain custom.
 2. Add an entry to `catalog.json`: unique stable `id`, title, native/helper kind,
 	maturity, source extensions, JavaScript regex signal strings, official docs,
 	compatibility checks, contraindications, non-applied example, and verification
-	plan. Signals are OR-ed, findings deduplicated per pattern/file/line. Text
-	matching does not establish semantic applicability. Avoid unbounded or nested
+	plan. Signals are OR-ed, findings deduplicated per pattern/file/line. A pattern
+	whose signals contain `req\\s*\\.\\s*data` can set `"dataAliases": true` to also match
+	a single simple alias of `req.data` (see the rules above); it is not shown in guidance.
+	Text matching does not establish semantic applicability. Avoid unbounded or nested
 	regex quantifiers that could make scans expensive.
 3. Add positive, negative, and combined-fixture tests to `scripts/scan.test.mjs`.
 	Verify exact pattern IDs and evidence lines, not just the total match count.

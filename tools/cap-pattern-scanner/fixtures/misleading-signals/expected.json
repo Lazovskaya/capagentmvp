@@ -9,21 +9,40 @@
       "file": "srv/notes-service.js",
       "anchor": "// SELECT.from(Notes)",
       "label": "not-applicable",
-      "note": "Commented-out code."
+      "note": "Commented-out code.",
+      "acceptableDecisions": [
+        "not-applicable"
+      ]
     },
     {
       "patternId": "CAP-REMOTE-ERROR-001",
       "file": "srv/notes-service.js",
       "anchor": "const documentation =",
       "label": "not-applicable",
-      "note": "Text inside a string literal."
+      "note": "Text inside a string literal.",
+      "acceptableDecisions": [
+        "not-applicable"
+      ]
     },
     {
       "patternId": "CAP-QUERY-001",
       "file": "srv/notes-service.js",
       "anchor": "where('status = ' +",
       "label": "not-applicable",
-      "note": "Concatenates a module constant, no user input."
+      "note": "Concatenates a module constant, no user input.",
+      "acceptableDecisions": [
+        "not-applicable"
+      ]
+    },
+    {
+      "patternId": "CAP-VALIDATION-001",
+      "file": "srv/notes-service.js",
+      "anchor": "if (!note.text)",
+      "label": "not-applicable",
+      "note": "Checks a database row read in the handler, not request data; an alias detector must not flag it.",
+      "acceptableDecisions": [
+        "not-applicable"
+      ]
     }
   ]
 }

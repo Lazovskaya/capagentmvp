@@ -9,21 +9,31 @@
       "file": "srv/library-service.js",
       "anchor": "where(\"author.name = '\"",
       "label": "ambiguous",
-      "note": "Binding is plausible but association path semantics, cardinality and generated CQN must be verified first."
+      "note": "Binding is plausible but association path semantics, cardinality and generated CQN must be verified first.",
+      "acceptableDecisions": [
+        "needs-review"
+      ]
     },
     {
       "patternId": "CAP-VALIDATION-001",
       "file": "srv/library-service.js",
       "anchor": "if (!req.data.copies)",
       "label": "ambiguous",
-      "note": "Falsy check also rejects 0; @mandatory would not, so equivalence is unproven."
+      "note": "Falsy check also rejects 0; @mandatory would not, so equivalence is unproven.",
+      "acceptableDecisions": [
+        "needs-review",
+        "not-applicable"
+      ]
     },
     {
       "patternId": "CAP-REMOTE-ERROR-001",
       "file": "srv/library-service.js",
       "anchor": "req.reject(400, err.message)",
       "label": "not-applicable",
-      "note": "The error comes from a local validator in the same file, not an upstream service."
+      "note": "The error comes from a local validator in the same file, not an upstream service.",
+      "acceptableDecisions": [
+        "not-applicable"
+      ]
     },
     {
       "patternId": "CAP-TX-001",
@@ -45,6 +55,17 @@
       "anchor": "await tx.rollback()",
       "label": "context",
       "note": "Manual rollback observation."
+    },
+    {
+      "patternId": "CAP-VALIDATION-001",
+      "file": "srv/library-service.js",
+      "anchor": "if (!book.title)",
+      "label": "ambiguous",
+      "note": "Role-conditional required-field check through an alias; @mandatory would apply to every role.",
+      "acceptableDecisions": [
+        "needs-review",
+        "not-applicable"
+      ]
     }
   ]
 }

@@ -33,6 +33,13 @@ module.exports = cds.service.impl(async function () {
       throw error
     }
   })
+
+  this.before('CREATE', Books, async req => {
+    const book = req.data
+    if (req.user.is('Librarian')) {
+      if (!book.title) return req.reject(400, 'Librarians must provide a title')
+    }
+  })
 })
 
 function validateTitle(title) {

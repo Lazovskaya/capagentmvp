@@ -629,6 +629,52 @@ test('--output refuses overwrites, project paths, missing folders, and symlinked
   assert.equal(spawnSync(process.execPath, [cli, root, '--output', ''], { encoding: 'utf8' }).status, 1)
 })
 
+test('the validation signal follows a single simple alias of req.data, not reused names or other objects', async context => {
+  const root = await fixture(context)
+  await writeFile(path.join(root, 'srv', 'aliased.js'), [
+    'module.exports = srv => {',
+    "  srv.before('CREATE', 'Items', req => {",
+    '    const order = req.data',
+    "    if (!order.name) return req.reject(400, 'NAME_REQUIRED')",
+    "    if (order.stock === undefined) return req.reject(400, 'STOCK_REQUIRED')",
+    '  })',
+    "  srv.before('UPDATE', 'Items', req => {",
+    '    let $payload = req.data;',
+    "    if ($payload.code == null) return req.reject(400, 'CODE_REQUIRED')",
+    '  })',
+    '}', ''
+  ].join('\n'))
+  await writeFile(path.join(root, 'srv', 'reused.js'), [
+    'module.exports = srv => {',
+    "  srv.before('CREATE', 'Items', async req => {",
+    '    const order = req.data',
+    "    if (!order.name) return req.reject(400, 'NAME_REQUIRED')",
+    '  })',
+    "  srv.on('READ', 'Items', async () => {",
+    "    const order = await SELECT.one.from('Items')",
+    '    if (!order.name) return null',
+    '  })',
+    '}', ''
+  ].join('\n'))
+  await writeFile(path.join(root, 'srv', 'other.js'), [
+    "const row = await SELECT.one.from('Items')",
+    "if (!row.name) throw new Error('missing row')",
+    'const header = req.data.header',
+    "if (!header.id) throw new Error('no header')",
+    'const { name } = req.data',
+    "if (!name) throw new Error('no name')", ''
+  ].join('\n'))
+  await writeFile(path.join(root, 'srv', 'direct.js'), "srv.before('CREATE', 'Items', req => {\n  if (!req.data.name) return req.reject(400, 'NAME_REQUIRED')\n})\n")
+  const report = await scanProject(root)
+  const found = report.findings.filter(finding => finding.patternId === 'CAP-VALIDATION-001')
+    .map(finding => `${finding.evidence.file}:${finding.evidence.line}`)
+  assert.deepEqual(found, ['srv/aliased.js:4', 'srv/aliased.js:5', 'srv/aliased.js:9', 'srv/direct.js:2'])
+  // A name declared more than once is ambiguous and ignored, which also skips the genuine alias in reused.js.
+  assert.equal(found.some(item => item.startsWith('srv/reused.js') || item.startsWith('srv/other.js')), false)
+  assert.equal('dataAliases' in report.findings.find(finding => finding.patternId === 'CAP-VALIDATION-001').recommendation, false)
+  assert.deepEqual(await scanProject(root), report)
+})
+
 test('a UTF-8 BOM in package.json, as saved by many Windows editors, does not stop a scan', async context => {
   const root = await fixture(context)
   await writeFile(path.join(root, 'package.json'), `\uFEFF${JSON.stringify({ dependencies: { '@sap/cds': '^9' } })}`)

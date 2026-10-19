@@ -67,7 +67,7 @@ test('a proposed decision needs severity, uncertainty, and a complete solution w
   assert.equal(good.verifiedPatch.patchSha256, patchSha256(patchFor()))
   const blocked = (mutate, text, options) => { const result = decide(mutate, options); assert.equal(result.decision, 'needs-review'); assert.ok(result.blockers.some(blocker => blocker.includes(text)), `${text} in ${result.blockers}`) }
   blocked(entry => { delete entry.severity }, 'Missing severity')
-  blocked(entry => { delete entry.uncertainty }, 'Missing uncertainty')
+  assert.equal(decide(entry => { delete entry.uncertainty }).decision, 'proposed', 'a missing uncertainty list is not a gate; the tool derives what is unproven')
   blocked(entry => { delete entry.proposal }, 'Missing proposal')
   blocked(entry => { delete entry.proposal.patch }, 'needs a unified diff')
   blocked(entry => { entry.proposal.compatibility = [] }, 'compatibility')

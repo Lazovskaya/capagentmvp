@@ -6,7 +6,7 @@ const proposalChecks = [
   { id: 'fixture-expectations', required: true, description: 'Test expectations follow declared fixtures and input contracts, not assumptions that special input returns zero rows.' }
 ]
 const queryChecks = [
-  { id: 'input-contract', required: true, description: 'Strict: verified only if null, undefined, empty string, and quoted input are each shown equivalent, or the behavior change is listed in the proposal regressions (the developer accepts it by approving). Give checks.input-contract.cases for null, undefined, empty-string, and quoted, each with outcome equivalent, regression, or unverified, and evidence; a regression names the exact proposal.regressions entry it is listed as. Any unverified case, or evidence or uncertainty that leaves null, undefined, or empty-string semantics unresolved, keeps the proposal needs-review even when documented. Stringified null is not actual null.' },
+  { id: 'input-contract', required: true, description: 'Assess null, undefined, empty string, and quoted input (checks.input-contract.cases, each equivalent, regression, or unverified, with evidence). This never blocks a proposal: uncertain behavior is recorded as assumptions and regressions, and the tool marks equivalence as not proven unless every case is shown equivalent or listed as a regression. Give status verified only for what you actually verified; a regression names the exact proposal.regressions entry it is listed as. Stringified null is not actual null.' },
   { id: 'association-semantics', required: false, description: 'For association filters, establish cardinality, path semantics, generated CQN, and adapter behavior. Nested objects are not presumed equivalent.' },
   { id: 'backend-functions', required: false, description: 'Preserve static backend functions/casts and bind dynamic values with supported tagged templates/CQN expressions. Parameterization does not require removing every backend-specific function.' },
   { id: 'authorization-path', required: true, description: 'Identify application-service versus direct database execution and preserve actual authorization predicates. Value binding does not establish access control.' }
@@ -20,7 +20,7 @@ const blockerKeys = new Set(['missingEvidence', 'investigated', 'unblockingCheck
 const severityLevels = ['info', 'low', 'medium', 'high']
 const proposalKeys = new Set(['patch', 'compatibility', 'regressions', 'verification'])
 // Echoed from a previous reconciled output so it can be resubmitted; always recomputed, never trusted.
-const derivedEntryKeys = new Set(['requestedDecision', 'blockers', 'reviewed', 'verifiedPatch', 'addresses'])
+const derivedEntryKeys = new Set(['requestedDecision', 'blockers', 'reviewed', 'verifiedPatch', 'addresses', 'equivalence'])
 const checkIds = new Set([...proposalChecks, ...queryChecks].map(check => check.id))
 
 const inputCaseKeys = ['null', 'undefined', 'empty-string', 'quoted']
@@ -46,31 +46,45 @@ function normalizeCases(cases) {
   return normalized
 }
 
-// The strict input-contract rule. Applied only to a check declared verified: anything that leaves null, undefined, or
-// empty-string behavior unresolved keeps the proposal at needs-review, however well the uncertainty is documented.
-function inputContractBlockers(check, { regressions, uncertainty }) {
-  const blockers = []
+// Uncertain behavior is proposal metadata, not a gate. This never blocks a diff: it lists why equivalence with the
+// current behavior is not proven, so the reviewer sees the assumptions and a "verified" claim stays honest.
+// A listed regression is a known behavior change, so it is never equivalence: it is shown, and approving accepts it.
+// `incomplete` is true when the claim itself is unsupported (unverified, missing, or contradicted), not for listed regressions.
+function equivalenceAssessment(check, { regressions, uncertainty }) {
+  const reasons = []
+  let incomplete = false
+  const flag = reason => { reasons.push(reason); incomplete = true }
+  if (!check) return { proven: false, incomplete: true, reasons: ['The input-contract check was not assessed'] }
+  if (check.status !== 'verified') flag(`input-contract is ${check.status}: ${check.evidence}`)
   const cases = check.cases
-  if (!cases) return ['input-contract is verified without cases: give an outcome and evidence for null, undefined, empty-string, and quoted']
-  const missing = inputCaseKeys.filter(key => !cases[key])
-  if (missing.length) blockers.push(`input-contract cases are missing: ${missing.join(', ')}`)
-  const unverified = Object.entries(cases).filter(([, entry]) => entry.outcome === 'unverified').map(([key]) => key)
-  if (unverified.length) blockers.push(`input-contract is claimed verified while the ${unverified.join(', ')} case(s) are unverified: unresolved semantics keep the proposal at needs-review`)
-  if (regressions) {
+  if (!cases) {
+    if (check.status === 'verified') flag('No per-case outcomes (null, undefined, empty-string, quoted) were given')
+  } else {
+    const missing = inputCaseKeys.filter(key => !cases[key])
+    if (missing.length) flag(`No outcome given for: ${missing.join(', ')}`)
     for (const [key, entry] of Object.entries(cases)) {
-      if (entry.outcome === 'regression' && !regressions.includes(entry.listedAs ?? '')) blockers.push(`The ${key} behavior change is not listed as a proposal regression (listedAs must equal one regressions entry)`)
+      if (entry.outcome === 'unverified') flag(`The ${key} case is unverified: ${entry.evidence}`)
+      if (entry.outcome === 'regression') {
+        const listed = !regressions || regressions.includes(entry.listedAs ?? '')
+        reasons.push(listed ? `The ${key} behavior changes (listed as a regression, accepted by approving): ${entry.listedAs}`
+          : `The ${key} behavior change is not listed as a proposal regression (listedAs must equal one regressions entry)`)
+        if (!listed) incomplete = true
+      }
+    }
+    const claims = [['input-contract evidence', check.evidence], ...Object.entries(cases).filter(([, entry]) => entry.outcome !== 'unverified').map(([key, entry]) => [`the ${key} case evidence`, entry.evidence])]
+    for (const [where, text] of claims) {
+      const match = unresolvedWording.exec(text)
+      if (match && check.status === 'verified') flag(`${where} says the behavior is unresolved ("${match[0]}")`)
     }
   }
-  const claims = [['input-contract evidence', check.evidence], ...Object.entries(cases).filter(([, entry]) => entry.outcome !== 'unverified').map(([key, entry]) => [`the ${key} case evidence`, entry.evidence])]
-  for (const [where, text] of claims) {
-    const match = unresolvedWording.exec(text)
-    if (match) blockers.push(`${where} says the behavior is unresolved ("${match[0]}") while input-contract is verified`)
-  }
   for (const item of uncertainty ?? []) {
-    if (nullishWording.test(item) && unresolvedWording.test(item)) blockers.push(`uncertainty lists unresolved null/undefined/empty-string semantics ("${item.slice(0, 120)}") while input-contract is verified`)
+    if (nullishWording.test(item) && unresolvedWording.test(item)) flag(`Stated uncertainty: ${item.slice(0, 160)}`)
   }
-  return blockers
+  return { proven: reasons.length === 0, incomplete, reasons }
 }
+
+// Checks that guard the diff and the source stay blocking. The others describe behavior the AI could not establish.
+const blockingChecks = new Set(['source-current', 'diff-integrity', 'authorization-path'])
 
 function normalizeChecks(checks) {
   if (checks === undefined) return undefined
@@ -181,7 +195,6 @@ function proposalBlockers({ severity, proposal, uncertainty }, patchCheck, check
       else if (parsed && !patchCheck?.ok) blockers.push(`Patch does not apply to the current source: ${patchCheck?.error ?? 'not checked'}`)
     }
   }
-  if (uncertainty === undefined) blockers.push('Missing uncertainty list (use an empty list only if nothing is uncertain)')
   return blockers
 }
 
@@ -291,7 +304,7 @@ export function prepareReview(report) {
     reviewRules: [
       'This JSON is already filtered and grouped. Do not spawn agents or repeatedly read the full report to extract JSON.',
       'Load each pattern guidance once; read surrounding application code by file/group. Account for every finding ID.',
-      'A proposed decision needs severity {level, basis} (your impact assessment if the finding is real, not a scanner result), an uncertainty list, and proposal {patch, compatibility, regressions, verification: {steps, tests}}. The patch is a unified diff of existing files copied from the actual source; the tool checks it applies exactly, and anything unverified stays needs-review. Describe tests only; never include a command for the tool to run.',
+      'A proposed decision needs severity {level, basis} (your impact assessment if the finding is real, not a scanner result), an uncertainty list, and proposal {patch, compatibility, regressions, verification: {steps, tests}}. The patch is a unified diff of existing files copied from the actual source; the tool checks it applies exactly, and a diff that does not apply stays needs-review. Describe tests only; never include a command for the tool to run.',
       'Try to produce a concrete diff for every applicable finding. Read the CDS model, tests, and dependencies you are allowed to inspect before declaring a proposal impossible. Findings in the same function or query chain belong in one coherent diff: put the diff and severity on one finding and mark the others proposed with addressedBy set to that finding ID (same file; each still needs its own evidence checks). Two separate proposals must not change the same file.',
       'A proposed entry may add a one-sentence summary. needs-review means a proposal may be possible: give blocker {missingEvidence, investigated, unblockingCheck} naming exactly what is missing, what you already investigated, and the check that would unblock it. no-proposal means you investigated and propose no code change: give blocker.investigated. Never label an unverified proposal as verified.',
       'Respect the requested sample/group first; do not substitute a different pattern without explaining a blocker.',
@@ -299,10 +312,10 @@ export function prepareReview(report) {
       'req.error collects errors; CAP automatically rejects recorded errors after each before/on/after phase. Missing req.reject is not itself a defect.',
       'Production CAP 5xx responses are sanitized by default. Raw error.message alone does not prove client-visible leakage; verify runtime, configuration, adapters, and response evidence.',
       'Do not invent logging APIs, annotations, or runtime behavior. Do not recommend unredacted raw-error logging.',
-      'Query rewrites require explicit input-contract, association-semantics, backend-function, and authorization-path checks. Unsupported equivalence remains needs-review. input-contract is strict: give cases for null, undefined, empty-string, and quoted (equivalent, regression listed in proposal.regressions, or unverified). If any of them is unverified, or you list null/undefined/empty-string behavior as uncertain, do not mark input-contract verified: the entry is needs-review with a blocker.',
+      'Query rewrites require explicit input-contract, association-semantics, backend-function, and authorization-path checks. Unproven input behavior does not hold a proposal back: still write the diff, give input-contract cases for null, undefined, empty-string, and quoted (equivalent, regression listed in proposal.regressions, or unverified), list the assumptions in uncertainty and the behavior changes in regressions, and never claim equivalence you did not verify. The tool marks equivalence as not proven and the reviewer sees it. Do not ask the developer questions to produce a proposal.',
       'Produce clean non-applied diffs from actual source. Keep hunk explanations outside patches; do not add HUNK comments to source lines.',
       'Derive test expectations from fixtures. Special-character data may legitimately match a seeded record; do not assume it must return zero rows.',
-      'Unreviewed, stale, or uncertain candidates keep the overall verdict needs-review. Use proposals only after at least one supported proposal and no unresolved mandatory checks.',
+      'Unreviewed or stale candidates keep the overall verdict needs-review. Use proposals only after at least one supported proposal and no unresolved mandatory checks other than documented input-behavior uncertainty.',
       'Never execute migration scripts, call live services, install dependencies, edit code, or upload client data during this review.'
     ],
     caveats: report.caveats ?? [],
@@ -355,22 +368,26 @@ export function reconcileDecisions(report, submission, { patchChecks } = {}) {
       throw new TypeError('Each decision requires a supported decision and reason')
     }
     const blockers = []
+    let equivalence
     if (entry.decision === 'needs-review' || entry.decision === 'no-proposal') {
       blockers.push(...unresolvedBlockers(entry.decision, blocker))
     }
     if (entry.decision === 'proposed') {
       const required = known.get(entry.id).patternId === 'CAP-QUERY-001' ? [...proposalChecks, ...queryChecks] : proposalChecks
-      for (const check of required) {
+      const notes = []
+      for (const check of required.filter(item => item.id !== 'input-contract')) {
         const evidence = checks?.[check.id]
-        if (!evidence || typeof evidence.evidence !== 'string' || !evidence.evidence.trim()
-          || !(check.required ? ['verified'] : ['verified', 'not-applicable']).includes(evidence.status)) {
-          blockers.push(`Unresolved evidence check: ${check.id}`)
-        }
+        const settled = evidence && typeof evidence.evidence === 'string' && evidence.evidence.trim()
+          && (check.required ? ['verified'] : ['verified', 'not-applicable']).includes(evidence.status)
+        if (settled) continue
+        if (blockingChecks.has(check.id)) blockers.push(`Unresolved evidence check: ${check.id}`)
+        else notes.push(`${check.id} is not verified${evidence?.evidence ? `: ${String(evidence.evidence).trim()}` : ' (no evidence given)'}`)
       }
-      const contract = checks?.['input-contract']
-      if (known.get(entry.id).patternId === 'CAP-QUERY-001' && contract?.status === 'verified') {
-        blockers.push(...inputContractBlockers(contract, { regressions: entry.addressedBy === undefined ? proposal?.regressions : undefined, uncertainty }))
-      }
+      const assessed = known.get(entry.id).patternId === 'CAP-QUERY-001'
+        ? equivalenceAssessment(checks?.['input-contract'], { regressions: entry.addressedBy === undefined ? proposal?.regressions : undefined, uncertainty })
+        : { proven: true, incomplete: false, reasons: [] }
+      equivalence = { proven: assessed.proven && !notes.length, reasons: [...assessed.reasons, ...notes] }
+      if (assessed.incomplete && checks?.['input-contract']?.status === 'verified') checks['input-contract'] = { ...checks['input-contract'], status: 'unverified' }
       if (entry.addressedBy === undefined) blockers.push(...proposalBlockers({ severity, proposal, uncertainty }, patchChecks?.get(entry.id), patchChecks !== undefined))
     }
     const patchCheck = patchChecks?.get(entry.id)
@@ -379,7 +396,7 @@ export function reconcileDecisions(report, submission, { patchChecks } = {}) {
       decision: blockers.length ? 'needs-review' : entry.decision,
       reason: entry.reason, ...(entry.summary ? { summary: entry.summary.trim() } : {}), ...(checks ? { checks } : {}),
       ...(blocker ? { blocker } : {}), ...(entry.addressedBy ? { addressedBy: entry.addressedBy } : {}),
-      ...(severity ? { severity } : {}), ...(uncertainty ? { uncertainty } : {}), ...(proposal ? { proposal } : {}),
+      ...(severity ? { severity } : {}), ...(uncertainty ? { uncertainty } : {}), ...(proposal ? { proposal } : {}), ...(equivalence ? { equivalence } : {}),
       ...(patchCheck?.ok ? { verifiedPatch: { patchSha256: patchCheck.patchSha256, files: patchCheck.files } } : {}),
       reviewed: true, blockers
     })
@@ -398,7 +415,9 @@ export function reconcileDecisions(report, submission, { patchChecks } = {}) {
     else if (!primary.verifiedPatch.files.some(target => target.file === file)) problems.push(`The proposal in ${entry.addressedBy} does not change ${file}`)
     else {
       for (const [key, contractCase] of Object.entries(entry.checks?.['input-contract']?.cases ?? {})) {
-        if (contractCase.outcome === 'regression' && !primary.proposal.regressions?.includes(contractCase.listedAs ?? '')) problems.push(`The ${key} behavior change is not listed in the regressions of the proposal in ${entry.addressedBy}`)
+        if (contractCase.outcome === 'regression' && !primary.proposal.regressions?.includes(contractCase.listedAs ?? '')) {
+          entry.equivalence = { proven: false, reasons: [...(entry.equivalence?.reasons ?? []), `The ${key} behavior change is not listed in the regressions of the proposal in ${entry.addressedBy}`] }
+        }
       }
     }
     if (problems.length) { entry.blockers.push(...problems); entry.decision = 'needs-review' }

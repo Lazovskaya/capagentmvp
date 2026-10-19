@@ -31,7 +31,7 @@ export function reviewRows(report, validated) {
       summary: decision.summary, blocker: decision.blocker, addressedBy: decision.addressedBy, addresses: decision.addresses ?? [],
       requestedDecision: decision.requestedDecision, blockers: decision.blockers ?? [], reason: decision.reason ?? '',
       checks: decision.checks ?? {}, severity: decision.severity, uncertainty: decision.uncertainty,
-      proposal: decision.proposal, verifiedPatch: decision.verifiedPatch,
+      proposal: decision.proposal, verifiedPatch: decision.verifiedPatch, equivalence: decision.equivalence,
       // Ready for approval only when the AI proposed it AND the tool verified the patch against the source.
       ready: section === 'proposed' && Boolean(decision.verifiedPatch && decision.proposal?.patch),
       // A finding covered by another finding's proposal is decided together with that proposal, not on its own.
@@ -87,6 +87,7 @@ function renderItem(row, excerpt, out) {
     out.push('', 'CAP/runtime compatibility:', ...list(row.proposal.compatibility, 'none given'),
       '', 'Potential regressions:', ...list(row.proposal.regressions, 'none given'),
       ...(acceptedRegressions(row).length ? ['', 'Behavior changes you accept by approving (input cases):', ...acceptedRegressions(row).map(item => `- ${item.case}: ${item.listedAs}`)] : []),
+      ...(row.equivalence?.proven === false ? ['', '**Equivalence with the current behavior is NOT proven.** Assumptions and unverified input behavior:', ...row.equivalence.reasons.map(reason => `- ${reason}`)] : []),
       '', 'Verification steps:', ...list(row.proposal.verification?.steps, 'none given'),
       '', 'Proposed tests (descriptions only; the tool never runs a command from the AI):', ...list(row.proposal.verification?.tests, 'none given'))
   } else if (row.covered) out.push('', `Addressed by the proposal in ${row.addressedBy}: decide there. This finding has no separate decision.`)
@@ -163,7 +164,7 @@ export function decisionEntry(row, decision, notes) {
   const { file, line, sha256 } = row.finding.evidence
   return {
     id: row.id, patternId: row.finding.patternId, file, line, evidenceSha256: sha256, aiDecision: row.aiDecision, decision, notes,
-    ...(decision === 'approved' ? { ...(row.addresses.length ? { addresses: row.addresses } : {}), ...(acceptedRegressions(row).length ? { acceptedRegressions: acceptedRegressions(row) } : {}), patchSha256: row.verifiedPatch.patchSha256, targets: row.verifiedPatch.files.map(target => ({ file: target.file, baseSha256: target.baseSha256 })) } : {})
+    ...(decision === 'approved' ? { ...(row.addresses.length ? { addresses: row.addresses } : {}), ...(acceptedRegressions(row).length ? { acceptedRegressions: acceptedRegressions(row) } : {}), ...(row.equivalence?.proven === false ? { equivalenceProven: false, unprovenBecause: row.equivalence.reasons } : {}), patchSha256: row.verifiedPatch.patchSha256, targets: row.verifiedPatch.files.map(target => ({ file: target.file, baseSha256: target.baseSha256 })) } : {})
   }
 }
 

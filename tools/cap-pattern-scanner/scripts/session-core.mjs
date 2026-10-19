@@ -497,6 +497,7 @@ export function describeItem(session, item, index, total) {
       : { patchVerified: false, applied: false, testsRun: false, testResult: null, meaning: 'no verified proposal' },
     diff: row.ready ? normalizePatch(row.proposal.patch) : null,
     compatibility: row.proposal?.compatibility ?? [], regressions: row.proposal?.regressions ?? [], acceptedRegressions: row.ready ? acceptedRegressions(row) : [],
+    equivalence: row.ready && row.equivalence ? row.equivalence : null,
     uncertainty: row.uncertainty ?? [], steps: row.proposal?.verification?.steps ?? [], tests: row.proposal?.verification?.tests ?? [],
     blockers: row.blockers, blocker: row.blocker ?? null, conflict: conflict ?? null, patchFile: files?.patch ?? null,
     decision: decision ? { decision: decision.decision, notes: decision.notes } : null
@@ -528,6 +529,7 @@ export function renderItem(session, item, index, total, { color = false } = {}) 
     `Why this fixes it: ${row.reason}`, 'Compatibility (CAP/CDS/runtime):', ...bullets(row.proposal.compatibility, 'none given'),
     'Regression risks:', ...bullets(row.proposal.regressions, 'none given'),
     ...(acceptedRegressions(row).length ? ['Behavior changes you accept by approving (input cases):', ...acceptedRegressions(row).map(item => `  - ${item.case}: ${item.listedAs}`)] : []),
+    ...(row.equivalence?.proven === false ? ['Equivalence with the current behavior is NOT proven. Why:', ...bullets(row.equivalence.reasons)] : []),
     'Uncertainty and assumptions:', ...bullets(row.uncertainty, 'none stated'),
     'Verification steps:', ...bullets(row.proposal.verification?.steps, 'none given'),
     'Proposed tests (descriptions only; the tool never runs a command from the AI):', ...bullets(row.proposal.verification?.tests, 'none given'))

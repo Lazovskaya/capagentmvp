@@ -15,8 +15,9 @@ rather than applying changes automatically.
    Do not read the original large JSON in chunks or delegate JSON extraction.
    Review the requested sample first; process larger work in batches of up to three
    finding IDs. Expand only a specific unresolved dependency, not whole folders.
-3. Stop an item at needs-review when necessary evidence is unavailable. Preserve
-   its ID and fingerprint; do not spend unbounded reads trying to prove equivalence.
+3. Stop an item at needs-review when the evidence needed to write a grounded diff is unavailable. Preserve
+   its ID and fingerprint; do not spend unbounded reads trying to prove equivalence. Unproven input behavior is
+   not a stop: propose the diff with assumptions and regressions, and ask the developer nothing beforehand.
    The skill and tool policy own the detailed decision checks; do not duplicate or
    weaken them in a host-specific prompt. Same file/pattern does not prove one cause.
 4. Follow the approved-local-artifact step and run --decisions validation before

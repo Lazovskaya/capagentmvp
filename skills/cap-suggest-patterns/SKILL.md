@@ -29,6 +29,12 @@ environment generation, client-code harvesting, and publishing are out of scope.
 
 ## Steps
 
+Run every tool command as one plain `node tools/cap-pattern-scanner/scripts/...` call from the
+bundle root, using the relative path. Do not chain commands with `;` or `&&`, and do not append
+`echo`, `2>&1` or other shell extras: the tool prints its own errors and exit status, and
+chained or reshaped commands miss the pre-approved permission rules and prompt again. Do not
+use `node -e` or other ad hoc scripts to read results; read the saved JSON files instead.
+
 1. Read project instructions and package.json. Identify module format, runtime,
    declared/installed CAP versions, existing helper libraries, and test commands.
    Do not run npm install, project scripts, or import project modules during scanning.
@@ -100,7 +106,7 @@ environment generation, client-code harvesting, and publishing are out of scope.
    Start with the excerpt, then expand only a named missing function, call site,
    entity, or test needed to distinguish decisions. Do not read entire large files
    or folders by default. A truncated excerpt or unavailable dependency is a reason
-   to stop at needs-review, not to infer equivalence. Cache already-read definitions
+   to record the gap under `uncertainty`, not to infer equivalence. Cache already-read definitions
    within this review; do not reload catalog/skill/full report for each item.
    These are input limits, not a guarantee of a provider's total token usage.
    For each candidate, inspect its surrounding function and relevant CDS service
@@ -116,7 +122,8 @@ environment generation, client-code harvesting, and publishing are out of scope.
    approved native API or catalog helper preserve this project's observable
    behavior and supported runtime better than its current implementation?**
    - `proposed`: evidence and compatibility checks support a concrete alternative.
-   - `needs-review`: uncertain model, runtime, semantics, rights, or package maturity.
+   - `needs-review`: you cannot write a grounded diff because evidence is missing (model, runtime, rights, or package
+     maturity). Unproven null/undefined/empty-string behavior alone is not a reason: propose with assumptions.
    - `not-applicable`: native behavior already used, false positive, project library
      already covers it, or a contraindication applies. Record why.
    A draft annotation alone is context, not evidence of duplicated draft logic.
@@ -230,12 +237,13 @@ environment generation, client-code harvesting, and publishing are out of scope.
    project path (`scan.mjs <project> --report ... --decisions ...`) or every proposal stays unverified.
    Describe tests only: never put a command for the tool to run in a proposal. If you cannot write a
    grounded diff, use `needs-review` and list what is missing under `uncertainty`.
-   For a query proposal, `checks.input-contract` is strict: it may be `verified` only with `cases` for `null`, `undefined`,
-   `empty-string`, and `quoted`, each `{ outcome: equivalent|regression|unverified, evidence }`. A `regression` also names
-   (`listedAs`) the exact `proposal.regressions` entry that states the behavior change; the developer accepts it by approving.
-   If any case is unverified, or you list null/undefined/empty-string behavior as uncertain, the check is `unverified` and the
-   entry is `needs-review` with a `blocker`: documenting the uncertainty does not make it verified. Without a way to run
-   CAP here, most query rewrites will therefore be `needs-review` unless the model or tests settle every case.
+   For a query proposal, never hold the diff back because null, undefined, empty-string, or quoted behavior is not proven,
+   and never ask the developer about it before showing the proposal. Write the diff, put the assumptions in `uncertainty`
+   and each behavior change in `proposal.regressions`, and give `checks.input-contract` with `cases` for `null`, `undefined`,
+   `empty-string`, and `quoted`, each `{ outcome: equivalent|regression|unverified, evidence }` (a `regression` names with
+   `listedAs` the exact `proposal.regressions` entry). Use status `verified` only for what you verified. The tool marks
+   equivalence as not proven (a listed regression is a known change, never proof of equivalence; unverified fixture, association or backend-function checks are listed the same way), shows the reasons with the diff, and records it in the approval. Only `source-current`, `diff-integrity` and `authorization-path` must be verified. Never claim
+   equivalence you did not verify. Use `needs-review` or `no-proposal` only when no reasonable diff can be written.
    Try hard to produce a diff before giving up: read the CDS model, tests, and dependencies you may inspect.
    Add a one-sentence `summary` to each proposal. Findings in one function or query chain get one coherent diff:
    put it on one finding and mark the others `proposed` with `addressedBy: <that finding ID>` (same file, each with
@@ -267,8 +275,8 @@ environment generation, client-code harvesting, and publishing are out of scope.
       changes get a reason or feedback in their own words. Silence, an unclear answer, or a question back is not an approval.
     - Record only what the developer answered in this conversation, with
       `node tools/cap-pattern-scanner/scripts/session.mjs decide --session /approved/session --id <ID> --decision approve|reject|needs-changes|defer --notes "<their words>" --reviewer "<name>"`.
-      Never decide, infer, or batch decisions for them; one question per proposal. The command asks the developer for permission,
-      which is a second confirmation: do not try to avoid it.
+      Never decide, infer, or batch decisions for them; one question per proposal. `decide` is pre-approved because it only writes the decision record;
+      `apply` and `commit` still ask the developer for permission, which is a second confirmation: do not try to avoid it.
     - Request changes: revise that proposal using their feedback (and the CDS model, tests, dependencies), validate into a
       new file with the project path, run `session.mjs revise --session /approved/session --decisions <new-validated.json>`,
       and show the revised diff again as a new proposal.

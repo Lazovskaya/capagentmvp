@@ -187,17 +187,23 @@ Without it a patch is "not checked" and the item stays `needs-review`. The outpu
 `verifiedPatch` is ignored. Anything unverified stays `needs-review` with its reason and is shown
 as not ready for approval.
 
-### Strict input-contract rule (query proposals)
+### Input-contract assessment (query proposals)
 
-`checks.input-contract` may be `verified` only when `null`, `undefined`, `empty-string`, and `quoted` input are each shown
-`equivalent`, or the behavior change is `regression` and listed in `proposal.regressions` (the developer accepts it by
-approving; the approval records `acceptedRegressions`). Submit `cases` as
+Uncertain null, undefined, empty-string, or quoted behavior does not block a diff. The AI writes the proposal anyway, lists
+assumptions in `uncertainty` and behavior changes in `proposal.regressions`, and submits `checks.input-contract.cases` as
 `{ "null": { "outcome": "equivalent|regression|unverified", "evidence": "...", "listedAs": "<exact regressions entry>" }, ... }`.
-The validator keeps the entry at `needs-review`, naming the contradiction, when: `cases` are missing or incomplete; a case is
-`unverified` under a verified check; a regression is not listed as a proposal regression; the check or case evidence says
-the behavior is unknown, unverified, unclear, or uncertain; or the `uncertainty` list leaves null/undefined/empty-string
-behavior unresolved. The diff is still verified against the source; only the claim is refused. The review policy is
-version 0.2.0.
+The validator then computes `equivalence: { proven, reasons }` for the entry. Equivalence is proven only when the check is
+`verified`, every case is `equivalent`, and no evidence or uncertainty wording says the behavior is unresolved. A case listed as
+a `regression` is a known behavior change, so it never proves equivalence: it appears in the reasons, and approving the diff
+accepts it (`acceptedRegressions`). A `verified` claim that is unsupported or contradicted is downgraded to `unverified`.
+The reasons are shown with the diff and recorded in the approval (`equivalenceProven: false`, `unprovenBecause`).
+An unverified `fixture-expectations`, `association-semantics`, or `backend-functions` check works the same way: it is listed
+in the reasons and does not hold the diff back.
+
+Still blocking (they guard the diff, the source, and access control, not behavior): `source-current`, `diff-integrity`, and
+`authorization-path` must be verified; the diff must be a valid unified diff that applies exactly; severity, compatibility,
+regressions, verification steps, and tests must be present. A missing `uncertainty` list is not a blocker. Malformed `cases`
+are rejected as invalid input. The review policy version is unchanged at 0.2.0.
 
 ## Reviewing Proposals One By One: `session.mjs`
 
@@ -215,7 +221,7 @@ node tools/cap-pattern-scanner/scripts/session.mjs commit --session /approved/se
 ```
 
 The same steps can run as a dialog in the AI conversation (skill step 11): the assistant shows each diff, asks you to approve,
-reject, request changes or defer, records only your answer with `session.mjs decide` (which also asks permission), applies after
+reject, request changes or defer, records only your answer with `session.mjs decide`, applies after
 your confirmation with a test command you accept, and commits on the review branch only if you say yes.
 
 - `start` creates an isolated workspace next to the session: a git worktree on a new `cap-ai-11/review-...` branch

@@ -434,7 +434,7 @@ test('query proposals need explicit input, association, backend, authorization, 
   const unsupported = reconcileDecisions(brief, submission)
   assert.equal(unsupported.decisions[0].requestedDecision, 'proposed')
   assert.equal(unsupported.decisions[0].decision, 'needs-review')
-  assert.equal(unsupported.decisions[0].blockers.length, 10, '7 evidence checks plus missing severity, proposal, and uncertainty')
+  assert.equal(unsupported.decisions[0].blockers.length, 5, '3 blocking evidence checks (source, diff, authorization) plus missing severity and proposal')
   for (const check of [...brief.reviewPolicy.proposalChecks, ...brief.reviewPolicy.queryChecks]) {
     entry.checks[check.id] = { status: check.required ? 'verified' : 'not-applicable', evidence: 'Synthetic reviewer evidence; not proof of executed tests.' }
   }
@@ -455,7 +455,13 @@ test('query proposals need explicit input, association, backend, authorization, 
   for (const check of [...brief.reviewPolicy.proposalChecks, ...brief.reviewPolicy.queryChecks]) {
     const prior = entry.checks[check.id]
     entry.checks[check.id] = { status: 'unverified', evidence: 'Still needs local verification' }
-    assert.equal(reconcileDecisions(brief, submission, withPatchCheck).progress.verdict, 'needs-review', check.id)
+    const result = reconcileDecisions(brief, submission, withPatchCheck)
+    // Source, diff, and authorization evidence guard the diff and stay blocking; the rest is behavior the AI could not establish.
+    if (['source-current', 'diff-integrity', 'authorization-path'].includes(check.id)) assert.equal(result.progress.verdict, 'needs-review', check.id)
+    else {
+      assert.equal(result.progress.verdict, 'proposals', check.id)
+      assert.equal(result.decisions[0].equivalence.proven, false, check.id)
+    }
     entry.checks[check.id] = prior
   }
 })
@@ -880,7 +886,7 @@ test('CLI validates saved decisions locally and preserves explicit blockers with
   assert.equal(result.status, 0, result.stderr)
   const validated = JSON.parse(result.stdout)
   assert.equal(validated.decisions[0].decision, 'needs-review')
-  assert.equal(validated.decisions[0].blockers.length, 10)
+  assert.equal(validated.decisions[0].blockers.length, 5)
   assert.equal(validated.progress.reviewed, 1)
   assert.equal(validated.progress.proposed, 0)
   assert.equal(validated.progress.verdict, 'needs-review')

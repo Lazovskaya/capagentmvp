@@ -228,6 +228,30 @@ test('an approval is invalid after the original source changes, and approving a 
   assert.equal(await read(session.workspaceProject, 'srv', 'service.js'), `${originalLine}\n${validationLine}\n${remoteLine}\n`)
 })
 
+test('a proposal with unproven null/undefined behavior is shown, approved, and applied only through the same safeguards', { skip: !hasGit && 'git is not available' }, async context => {
+  const uncertain = { 'input-contract': { status: 'unverified', evidence: 'How a bound null or undefined behaves against the installed adapter was not established.' } }
+  const { session, ids, root } = await start(context, { git: true }, ids => [
+    proposeQuery(ids.query, 'srv/service.js', { checks: { ...checks, ...uncertain }, uncertainty: ['Null and undefined binding was not run against the adapter.'] }),
+    { id: ids.validation, decision: 'no-proposal', reason: 'None warranted.', blocker: { investigated: ['read it'] } },
+    { id: ids.remote, decision: 'not-applicable', reason: 'Local.' },
+    { id: ids.other, decision: 'no-proposal', reason: 'None warranted.', blocker: { investigated: ['read it'] } }
+  ])
+  const item = session.queue.find(candidate => candidate.row.id === ids.query)
+  assert.equal(item.row.ready, true, 'the diff is in the queue without any developer question')
+  const described = describeItem(session, item, 0, 1)
+  assert.equal(described.canApprove, true)
+  assert.equal(described.equivalence.proven, false)
+  assert.match(described.equivalence.reasons.join('\n'), /not established/)
+  assert.match(renderItem(session, item, 0, 1), /Equivalence with the current behavior is NOT proven\. Why:\n {2}- input-contract is unverified/)
+  const approval = await decideItem(session, ids.query, 'approve', 'accept the risk')
+  assert.equal(approval.equivalenceProven, false)
+  assert.match(approval.unprovenBecause.join('\n'), /not established/)
+  await assert.rejects(applyApproved(session, { confirm: undefined }), /needs --confirm/)
+  assert.equal(await read(session.workspaceProject, 'srv', 'service.js'), await read(root, 'srv', 'service.js'), 'nothing is applied by deciding')
+  await writeFile(path.join(root, 'srv', 'service.js'), `// edited after review\n${await read(root, 'srv', 'service.js')}`)
+  await assert.rejects(applyApproved(await loadSession(session.dir), { confirm: 'all' }), /stale.*approval is no longer valid/)
+})
+
 test('a git review session leaves the original branch, HEAD, and every uncommitted change untouched', { skip: !hasGit && 'git is not available' }, async context => {
   const f = await fixture(context, { git: true, dirty: true })
   const validated = await f.validate(standard(f.ids))

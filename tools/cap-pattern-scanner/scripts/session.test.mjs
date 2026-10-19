@@ -10,7 +10,8 @@ import { promisify } from 'node:util'
 import { checkProposalPatches } from './proposals.mjs'
 import { prepareReview, reconcileDecisions } from './review.mjs'
 import { scanProject } from './scan.mjs'
-import { applyApproved, combinedDiff, commitSession, decideItem, itemStates, loadSession, pendingApprovals, renderItem, reviewLoop, reviseSession, startSession } from './session-core.mjs'
+import { applyApproved, combinedDiff, commitSession, decideItem, describeItem, itemStates, loadSession, pendingApprovals, renderItem, reviseSession, startSession } from './session-core.mjs'
+import { reviewLoop } from './session-terminal.mjs'
 import { checks, originalLine, solution } from './workflow-fixtures.mjs'
 
 Object.assign(process.env, { GIT_AUTHOR_NAME: 'Test', GIT_AUTHOR_EMAIL: 't@example.com', GIT_COMMITTER_NAME: 'Test', GIT_COMMITTER_EMAIL: 't@example.com' })
@@ -86,7 +87,7 @@ test('an actionable finding becomes a concrete, verified diff the developer sees
   const text = renderItem(session, item, 0, session.queue.length)
   assert.ok(text.indexOf(`-${originalLine}`) > 0 && text.indexOf('+SELECT.from(Items).where({ code: input })') > text.indexOf(`-${originalLine}`))
   assert.ok(text.indexOf('Diff (- removed, + added):') < text.indexOf('Why this fixes it:'), 'the diff comes before the explanation')
-  for (const part of ['srv/service.js', ids.query, 'Problem: Client input is concatenated', 'Severity: medium', 'Compatibility', 'Regression risks', 'Uncertainty', 'Verification steps', 'Proposed tests', 'NOT applied. Tests NOT run', 'Patch file:', 'IDE diff:']) assert.ok(text.includes(part), part)
+  for (const part of ['srv/service.js', ids.query, 'Problem: Client input is concatenated', 'Severity: medium', 'Compatibility', 'Regression risks', 'Uncertainty', 'Verification steps', 'Proposed tests', 'Verified is not tested: NOT applied, tests NOT run', 'Patch file:', 'IDE diff:']) assert.ok(text.includes(part), part)
   assert.match(await read(session.meta.proposalFiles[ids.query].patch), /^--- a\/srv\/service\.js/)
   assert.equal(await read(session.meta.proposalFiles[ids.query].dir, 'after', 'srv', 'service.js'), (await read(session.workspaceProject, 'srv', 'service.js')).replace(originalLine, 'SELECT.from(Items).where({ code: input })'))
 })
@@ -350,7 +351,10 @@ test('the session CLI starts, reviews from piped answers, previews, and applies 
   const approval = JSON.parse(await read(files.session, 'developer-decisions.json')).decisions.find(decision => decision.decision === 'approved')
   const wrong = await cli('apply', '--session', files.session, '--confirm', 'wrong')
   assert.equal(wrong.code, 1)
-  assert.match(wrong.stderr, /--confirm must be the sha256/)
+  assert.match(wrong.stderr, /--confirm must be the 64-character sha256/)
+  const mismatched = await cli('apply', '--session', files.session, '--confirm', 'a'.repeat(64))
+  assert.equal(mismatched.code, 1)
+  assert.match(mismatched.stderr, /--confirm must be the sha256 of the diff shown for/)
   const applied = await cli('apply', '--session', files.session, '--confirm', approval.patchSha256, '--test-command', 'node srv/check.js')
   assert.match(applied.stdout, /applied to the isolated workspace, tests passed/)
   const status = await cli('status', '--session', files.session)
@@ -458,4 +462,122 @@ test('when the last commit does not match the reviewed file, auto mode falls bac
   assert.equal(gitIn(f.repo, 'branch', '--list', 'cap-ai-11/*').trim(), '')
   await decideItem(session, find('srv/other.js').id, 'approve', 'ok')
   await assert.rejects(commitSession(await loadSession(session.dir), {}), /no review branch/)
+})
+
+/** A git session with the query proposal applied (tests passed), ready for the commit checks. */
+async function applied(context, options = {}) {
+  const result = await start(context, { git: true, ...options })
+  await decideItem(result.session, result.ids.query, 'approve', 'ok')
+  await applyApproved(result.session, { confirm: 'all', testCommand: 'node srv/check.js' })
+  return { ...result, session: await loadSession(result.session.dir) }
+}
+
+test('commit refuses content that differs from what the session applied, even in a file the session changed', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session } = await applied(context)
+  const file = path.join(session.workspaceProject, 'srv', 'service.js')
+  const original = await read(file)
+  await writeFile(file, `${original}// edited by hand after the patch\n`)
+  await assert.rejects(commitSession(session, {}), /srv\/service\.js differs from what the session applied/)
+  const preview = await commitSession(await loadSession(session.dir), { }).catch(error => error)
+  assert.ok(preview instanceof Error, 'the preview is refused too, so a hand-edited file is never offered for confirmation')
+  assert.equal(gitIn(session.meta.workspace, 'log', '--oneline').trim().split('\n').length, 1, 'nothing was committed')
+  await writeFile(file, original)
+  assert.equal((await commitSession(await loadSession(session.dir), {})).committed, false, 'restoring the applied content makes the preview available again')
+})
+
+test('commit refuses when the recorded result no longer matches the file (tampered record or restored file)', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session } = await applied(context)
+  await writeFile(path.join(session.workspaceProject, 'srv', 'service.js'), `${originalLine}\n${validationLine}\n${remoteLine}\n`)
+  assert.match(gitIn(session.meta.workspace, 'status', '--porcelain').trim() || 'clean', /clean/, 'the file is back to the committed content, so git sees no change')
+  await assert.rejects(commitSession(session, {}), /differs from what the session applied \(edited after applying, or restored\)/)
+})
+
+test('commit and apply refuse when the workspace is not on the review branch or the branch moved', { skip: !hasGit && 'git is not available' }, async context => {
+  const moved = await applied(context)
+  gitIn(moved.session.meta.workspace, 'checkout', '-q', '-b', 'somewhere-else')
+  await assert.rejects(commitSession(moved.session, {}), /on "somewhere-else", not on the review branch cap-ai-11\/review-/)
+  await assert.rejects(applyApproved(moved.session, { confirm: 'all' }), /not on the review branch/)
+  gitIn(moved.session.meta.workspace, 'checkout', '-q', moved.session.meta.git.reviewBranch)
+  gitIn(moved.session.meta.workspace, 'commit', '-q', '--allow-empty', '-m', 'someone else committed here')
+  await assert.rejects(commitSession(await loadSession(moved.session.dir), {}), /review branch moved since the session recorded it/)
+  gitIn(moved.session.meta.workspace, 'reset', '-q', '--soft', 'HEAD~1')
+  assert.equal((await commitSession(await loadSession(moved.session.dir), {})).committed, false)
+})
+
+test('commit refuses pre-staged changes and never commits more than the applied files', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session } = await applied(context)
+  await writeFile(path.join(session.workspaceProject, 'srv', 'other.js'), '// staged by hand\n')
+  gitIn(session.meta.workspace, 'add', 'srv/other.js')
+  await assert.rejects(commitSession(session, {}), /not applied by the session: srv\/other\.js/)
+  gitIn(session.meta.workspace, 'restore', '--staged', 'srv/other.js')
+  gitIn(session.meta.workspace, 'checkout', '--', 'srv/other.js')
+  gitIn(session.meta.workspace, 'update-index', '--no-assume-unchanged', 'srv/other.js')
+  gitIn(session.meta.workspace, 'rm', '-q', '--cached', 'srv/check.js')
+  await assert.rejects(commitSession(session, {}), /not applied by the session|already has staged changes/)
+  gitIn(session.meta.workspace, 'reset', '-q')
+  const preview = await commitSession(await loadSession(session.dir), {})
+  const done = await commitSession(await loadSession(session.dir), { confirm: preview.confirm })
+  assert.equal(gitIn(session.meta.workspace, 'show', '--name-only', '--format=', done.sha).trim(), 'srv/service.js')
+})
+
+test('apply with --confirm all verifies every approved proposal first, so a stale one leaves nothing half-applied', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids, root } = await start(context, { git: true })
+  await decideItem(session, ids.query, 'approve', 'ok')
+  await decideItem(session, ids.other, 'approve', 'ok')
+  await writeFile(path.join(root, 'srv', 'other.js'), `// edited after review\n${await read(root, 'srv', 'other.js')}`)
+  await assert.rejects(applyApproved(session, { confirm: 'all' }), new RegExp(`${ids.other} is stale.*Nothing was applied`))
+  assert.equal(await read(session.workspaceProject, 'srv', 'service.js'), `${originalLine}\n${validationLine}\n${remoteLine}\n`, 'the first proposal was not applied either')
+  assert.equal((await loadSession(session.dir)).applications.length, 0)
+  const edited = await start(context, { git: true })
+  await decideItem(edited.session, edited.ids.query, 'approve', 'ok')
+  await writeFile(path.join(edited.session.workspaceProject, 'srv', 'service.js'), `// hand edit in the workspace\n${await read(edited.session.workspaceProject, 'srv', 'service.js')}`)
+  await assert.rejects(applyApproved(edited.session, { confirm: 'all' }), /no longer applies to the review workspace|differs from the reviewed file/)
+})
+
+test('a failing run stops at the first failure and reports what was and was not applied', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids } = await start(context, { git: true })
+  await decideItem(session, ids.query, 'approve', 'ok')
+  await decideItem(session, ids.other, 'approve', 'ok')
+  const results = await applyApproved(session, { confirm: 'all', testCommand: 'node -e "process.exit(1)"' })
+  assert.deepEqual(results.map(result => [result.applied, result.result]), [[true, 'test-failed']], 'it stops after the failing tests')
+  const states = Object.fromEntries((await itemStates(await loadSession(session.dir))).map(state => [state.id, state.state]))
+  assert.deepEqual([states[ids.other], states[ids.query]].sort(), ['applied, tests FAILED', 'approved, not applied'])
+})
+
+test('the session core has no terminal code, and the chat gets the same proposal as data', async context => {
+  const { session, ids } = await start(context, { mode: 'copy' })
+  const core = await readFile(fileURLToPath(new URL('./session-core.mjs', import.meta.url)), 'utf8')
+  assert.doesNotMatch(core, /process\.std(in|out)|readline|reviewLoop/)
+  const item = describeItem(session, session.queue.find(candidate => candidate.row.id === ids.query), 0, 3)
+  assert.equal(item.canApprove, true)
+  assert.deepEqual(item.verification, { patchVerified: true, patchSha256: item.verification.patchSha256, applied: false, testsRun: false, testResult: null, meaning: 'the diff applies cleanly to the reviewed source; it is not applied and no tests have run' })
+  assert.match(item.diff, /^--- a\/srv\/service\.js/)
+  assert.deepEqual(item.acceptedRegressions.map(entry => entry.case), ['null', 'undefined', 'quoted'])
+  const held = describeItem(session, session.queue.find(candidate => candidate.row.id === ids.validation), 1, 3)
+  assert.deepEqual([held.canApprove, held.diff, held.verification.patchVerified], [false, null, false])
+  assert.equal(held.blocker.missingEvidence, blocker.missingEvidence)
+  const shown = JSON.parse((await execFileAsync(process.execPath, [sessionCli, 'show', '--session', session.dir, '--json'])).stdout)
+  assert.equal(shown.format, 'cap-pattern-session-queue')
+  assert.equal(shown.items.length, 3)
+  assert.equal(shown.items[0].verification.meaning.includes('no tests have run'), true)
+  assert.deepEqual(shown.traceability.notApplicable, [ids.remote])
+})
+
+test('the session CLI names the exact problem for bad arguments', async context => {
+  const { session, ids } = await start(context, { mode: 'copy' })
+  const cli = (...args) => execFileAsync(process.execPath, [sessionCli, ...args]).catch(error => ({ stdout: error.stdout, stderr: error.stderr, code: error.code }))
+  const base = ['--session', session.dir]
+  for (const [args, message] of [
+    [['start', '--report', 'a', '--decisions', 'b', '--project', 'c', '--session', 'd', '--mode', 'branch'], /--mode must be auto, worktree, or copy \(got "branch"\)/],
+    [['decide', ...base, '--id', ids.query, '--decision', 'yes'], /--decision must be approve, reject, needs-changes, or defer \(got "yes"\)/],
+    [['apply', ...base, '--test-timeout', '0'], /--test-timeout must be a whole number of seconds from 1 to 3600/],
+    [['apply', ...base, '--test-timeout', 'soon'], /--test-timeout must be a whole number/],
+    [['decide', ...base, '--id', '../x', '--decision', 'defer'], /--id must be a finding ID/],
+    [['commit', ...base, '--confirm', 'all'], /--confirm must be the 64-character sha256/],
+    [['status', '--session', path.join(session.dir, 'missing')], /ENOENT/]
+  ]) {
+    const result = await cli(...args)
+    assert.equal(result.code, 1, args.join(' '))
+    assert.match(result.stderr, message, args.join(' '))
+  }
 })

@@ -224,7 +224,7 @@ your confirmation with a test command you accept, and commits on the review bran
   matches the reviewed hash, and creates nothing in that case. Other uncommitted changes are listed and stay
   untouched; they are not in the workspace. It writes each proposal as a `.patch` file plus before/after copies
   (for `code --diff before after`) in the session folder.
-- `review` asks about one proposal at a time: file and finding IDs, a one-line problem, the diff (- removed, + added),
+- `review` is the optional terminal front end (the chat dialog drives the same commands from the skill, using `show --json`). It asks about one proposal at a time: file and finding IDs, a one-line problem, the diff (- removed, + added),
   then the explanation, uncertainty, compatibility, regression risks, verification status, and proposed tests; then
   **a**pprove, **r**eject (reason), **c**hange request (feedback), **d**efer, **n**ext, or **q**uit. Held items
   (no verified proposal) show their blocker and cannot be approved. Covered findings are decided with their proposal;
@@ -240,8 +240,11 @@ your confirmation with a test command you accept, and commits on the review bran
   patch). Review all applied changes together with `diff` or `git -C <workspace> diff`; nothing is committed or pushed,
   and moving the change to your branch is yours to do.
 - `commit` (git sessions) shows the combined diff and commit message and changes nothing until `--confirm <diff hash>`. It commits
-  exactly the applied files on the review branch, refuses failing tests or workspace changes the session did not make, never
-  touches your branch, and never pushes.
+  exactly the applied files on the review branch. Before committing it re-checks that the workspace is on the review branch at
+  the commit the session recorded, that nothing is staged, that no other file changed, and that every applied file is
+  byte-for-byte the content the session recorded (so a manual edit made after applying is refused, even in a file the session
+  changed). It refuses failing tests, never touches your branch, and never pushes. `apply --confirm all` verifies every approved
+  proposal (approval, original and workspace file hashes, review branch) before writing the first file.
 - Limits: the workspace has no installed dependencies, so tests that need `node_modules` need an install there first;
   removing a session means `git worktree remove` and deleting the review branch yourself.
 

@@ -69,7 +69,7 @@ export async function loadSession(dir) {
   return { dir: root, meta, report, validated, developer, brief, rows, groups, queue, applications, workspaceProject: meta.workspaceProject }
 }
 
-const applicationFor = (session, row) => session.applications.filter(record => record.findingId === row.id && record.patchSha256 === row.verifiedPatch?.patchSha256).at(-1)
+export const applicationFor = (session, row) => session.applications.filter(record => record.findingId === row.id && record.patchSha256 === row.verifiedPatch?.patchSha256).at(-1)
 
 /** Files of a proposal whose original-project content no longer matches what the proposal was verified against. */
 export async function driftOf(session, row) {
@@ -211,7 +211,7 @@ export async function startSession({ report, validated, project, session: sessio
     }
     Object.assign(meta, {
       mode: 'worktree', workspace, workspaceProject,
-      git: { top: info.top, originalBranch: info.branch, originalHead: info.head, reviewBranch: branch, unrelatedChanges: before.slice(0, 200), unrelatedChangeCount: before.length }
+      git: { top: info.top, originalBranch: info.branch, originalHead: info.head, reviewBranch: branch, reviewBaseCommit: info.head, unrelatedChanges: before.slice(0, 200), unrelatedChangeCount: before.length }
     })
   }
   try {
@@ -315,10 +315,35 @@ export async function pendingApprovals(session) {
 }
 
 /** Applies approved proposals into the isolated workspace only, one at a time, with the developer's own test command. */
+/**
+ * A review workspace is trusted only while it is still the worktree the session created: on the review branch, at the
+ * commit the session recorded (its start, or its own last commit), with nothing pre-staged.
+ */
+async function assertReviewWorkspace(session) {
+  if (session.meta.mode !== 'worktree') return
+  const cwd = session.meta.workspace
+  const branch = (await git(cwd, ['rev-parse', '--abbrev-ref', 'HEAD']).catch(() => '')).trim()
+  if (branch !== session.meta.git.reviewBranch) fail(`The review workspace is on "${branch || 'an unknown ref'}", not on the review branch ${session.meta.git.reviewBranch}; switch it back or start a new session. Nothing was changed`)
+  const head = (await git(cwd, ['rev-parse', 'HEAD']).catch(() => '')).trim()
+  const expected = session.meta.committed?.sha ?? session.meta.git.reviewBaseCommit
+  if (head !== expected) fail(`The review branch moved since the session recorded it (expected ${expected.slice(0, 12)}, found ${head.slice(0, 12) || 'none'}); the session cannot vouch for it. Nothing was changed`)
+}
+
 export async function applyApproved(session, { ids, confirm, testCommand, testTimeout }) {
   if (confirm === undefined) fail('applying needs --confirm <diff hash> or --confirm all')
   const pending = (await pendingApprovals(session)).filter(({ row }) => !ids?.length || ids.includes(row.id))
   for (const id of ids ?? []) if (!pending.some(({ row }) => row.id === id)) fail(`${id} is not approved and waiting to be applied`)
+  await assertReviewWorkspace(session)
+  // Everything is re-verified before the first file is written, so one stale or conflicting proposal cannot leave a partial result.
+  for (const { row, approval } of pending) {
+    if (confirm !== 'all' && confirm !== approval.patchSha256) fail(`--confirm must be the sha256 of the diff shown for ${row.id} (${approval.patchSha256})`)
+    const drifted = await driftOf(session, row)
+    if (drifted.length) fail(`${row.id} is stale: ${drifted.join(', ')} changed in the original project after review; the approval is no longer valid. Nothing was applied`)
+    const verified = await verifyPatchAgainstProject(session.workspaceProject, row.proposal.patch).catch(error => fail(`${row.id} no longer applies to the review workspace: ${error.message}. Nothing was applied`))
+    for (const file of verified.files) {
+      if (file.baseSha256 !== row.verifiedPatch.files.find(target => target.file === file.file)?.baseSha256) fail(`${file.file} in the review workspace differs from the reviewed file; nothing was applied`)
+    }
+  }
   const results = []
   for (const { row, approval } of pending) {
     if (confirm !== 'all' && confirm !== approval.patchSha256) fail(`--confirm must be the sha256 of the diff shown for ${row.id} (${approval.patchSha256})`)
@@ -391,23 +416,47 @@ export async function commitSession(session, { message, confirm } = {}) {
   if (session.meta.mode !== 'worktree') fail('There is no review branch in a copy session; use the diff and move the change yourself')
   if (!session.applications.length) fail('Nothing has been applied in this session yet')
   if (session.applications.some(record => record.result === 'test-failed')) fail('An applied proposal has failing tests; fix or undo it before committing')
-  if (session.meta.committed?.recordCount === session.applications.length) fail(`The applied changes were already committed (${session.meta.committed.sha.slice(0, 12)})`)
-  const diff = await combinedDiff(session)
-  const token = sha256(diff)
-  const relative = posix(path.relative(session.meta.workspace, session.workspaceProject))
-  const files = [...new Set(session.applications.flatMap(record => record.files.map(file => posix(path.posix.join(relative, file.file)))))]
-  const dirty = await dirtyPaths(session.meta.workspace)
+  const pending = session.applications.slice(session.meta.committed?.recordCount ?? 0)
+  if (!pending.length) fail(`The applied changes were already committed (${session.meta.committed.sha.slice(0, 12)})`)
+  await assertReviewWorkspace(session)
+  const workspace = session.meta.workspace
+  const relative = posix(path.relative(workspace, session.workspaceProject))
+  // What the tool recorded for each file: the content it wrote last. The working file must be exactly that, byte for byte,
+  // so a manual edit made after applying (even to a file the session changed) can never ride along in the commit.
+  const recorded = new Map()
+  for (const record of pending) {
+    for (const file of record.files) {
+      const key = posix(path.posix.join(relative, file.file))
+      if (recorded.has(key) && recorded.get(key) !== file.baseSha256) fail(`The application records for ${key} do not chain (a record starts from content the previous one did not produce)`)
+      recorded.set(key, file.afterSha256)
+    }
+  }
+  const files = [...recorded.keys()]
+  for (const file of files) {
+    const current = await readProjectFile(path.join(workspace, ...file.split('/'))).catch(() => undefined)
+    if (current?.sha256 !== recorded.get(file)) fail(`${file} differs from what the session applied (edited after applying, or restored); the tool commits only the content it applied. Nothing was committed`)
+  }
+  const dirty = await dirtyPaths(workspace)
   const extra = dirty.filter(file => !files.includes(file))
-  if (extra.length) fail(`The review workspace has changes that were not applied by the session: ${extra.join(', ')}; remove them first`)
-  const ids = [...new Set(session.applications.map(record => record.findingId))]
-  const unverified = session.applications.filter(record => record.result === 'unverified').length
+  if (extra.length) fail(`The review workspace has changes that were not applied by the session: ${extra.join(', ')}; remove them first. Nothing was committed`)
+  const staged = (await git(workspace, ['diff', '--cached', '--name-only', '-z'])).split('\0').filter(Boolean)
+  if (staged.length) fail(`The review workspace already has staged changes (${staged.join(', ')}); unstage them first. Nothing was committed`)
+  const diff = pending.map(record => record.appliedPatch).join('')
+  const token = sha256(diff)
+  const ids = [...new Set(pending.map(record => record.findingId))]
+  const unverified = pending.filter(record => record.result === 'unverified').length
   const text = message?.trim() || `CAP-AI-11: apply ${ids.length} reviewed proposal(s)\n\nFindings: ${ids.join(', ')}\nReviewed by: ${session.developer.reviewer ?? 'unnamed reviewer'}\nTests: ${unverified ? `${unverified} proposal(s) applied without tests` : 'developer-supplied tests passed'}`
   const preview = { branch: session.meta.git.reviewBranch, files, message: text, confirm: token, diff }
   if (confirm === undefined) return { committed: false, ...preview }
   if (confirm !== token) fail(`--confirm must be the sha256 of the combined diff shown by the preview (${token})`)
-  await git(session.meta.workspace, ['add', '--', ...files])
-  await git(session.meta.workspace, ['commit', '-m', text])
-  const sha = (await git(session.meta.workspace, ['rev-parse', 'HEAD'])).trim()
+  await git(workspace, ['add', '--', ...files])
+  const added = (await git(workspace, ['diff', '--cached', '--name-only', '-z'])).split('\0').filter(Boolean).sort()
+  if (JSON.stringify(added) !== JSON.stringify([...files].sort())) {
+    await git(workspace, ['reset', '-q', '--', ...files]).catch(() => {})
+    fail('The staged files do not match the applied files; nothing was committed')
+  }
+  await git(workspace, ['commit', '-m', text])
+  const sha = (await git(workspace, ['rev-parse', 'HEAD'])).trim()
   const fresh = await loadSession(session.dir)
   fresh.meta.committed = { sha, at: new Date().toISOString(), recordCount: fresh.applications.length }
   await writeSessionFile(fresh.dir, 'session.json', fresh.meta)
@@ -429,6 +478,31 @@ function diffLines(patch, color) {
 }
 
 /** What the developer sees for one queue item: the problem, the code diff first, then the reasoning and the checks. */
+/**
+ * The same proposal as data, for a chat or any other front end. verification states what is and is not established:
+ * a verified patch applies cleanly to the reviewed source; it is not applied and its tests have not run.
+ */
+export function describeItem(session, item, index, total) {
+  const { row, conflict } = item
+  const files = session.meta.proposalFiles?.[row.id]
+  const record = row.ready ? applicationFor(session, row) : undefined
+  const decision = session.developer.decisions.find(candidate => candidate.id === row.id)
+  return {
+    position: { index: index + 1, total }, id: row.id, addresses: row.addresses, file: row.finding.evidence.file, line: row.finding.evidence.line,
+    patternId: row.finding.patternId, summary: row.summary ?? firstSentence(row.reason), reason: row.reason, severity: row.severity ?? null,
+    actionable: row.ready, canApprove: row.ready && !record,
+    verification: row.ready
+      ? { patchVerified: true, patchSha256: row.verifiedPatch.patchSha256, applied: Boolean(record), testsRun: Boolean(record?.verification), testResult: record?.result ?? null,
+        meaning: record ? `applied; ${record.result}` : 'the diff applies cleanly to the reviewed source; it is not applied and no tests have run' }
+      : { patchVerified: false, applied: false, testsRun: false, testResult: null, meaning: 'no verified proposal' },
+    diff: row.ready ? normalizePatch(row.proposal.patch) : null,
+    compatibility: row.proposal?.compatibility ?? [], regressions: row.proposal?.regressions ?? [], acceptedRegressions: row.ready ? acceptedRegressions(row) : [],
+    uncertainty: row.uncertainty ?? [], steps: row.proposal?.verification?.steps ?? [], tests: row.proposal?.verification?.tests ?? [],
+    blockers: row.blockers, blocker: row.blocker ?? null, conflict: conflict ?? null, patchFile: files?.patch ?? null,
+    decision: decision ? { decision: decision.decision, notes: decision.notes } : null
+  }
+}
+
 export function renderItem(session, item, index, total, { color = false } = {}) {
   const { row, conflict } = item
   const { file, line } = row.finding.evidence
@@ -448,7 +522,7 @@ export function renderItem(session, item, index, total, { color = false } = {}) 
     return `${out.join('\n')}\n`
   }
   const files = session.meta.proposalFiles?.[row.id]
-  out.push(`Verification status: diff VERIFIED to apply exactly to the current source (patch ${row.verifiedPatch.patchSha256.slice(0, 12)}…). NOT applied. Tests NOT run.`,
+  out.push(`Verification status: diff VERIFIED to apply exactly to the current source (patch ${row.verifiedPatch.patchSha256.slice(0, 12)}…). Verified is not tested: NOT applied, tests NOT run.`,
     `Files: ${row.verifiedPatch.files.map(target => `${target.file} (lines ${target.hunks.map(hunk => `${hunk.oldStart}-${Math.max(hunk.oldStart, hunk.oldStart + hunk.oldCount - 1)}`).join(', ')})`).join('; ')}`,
     '', paint(color, '1', 'Diff (- removed, + added):'), ...diffLines(row.proposal.patch, color), '',
     `Why this fixes it: ${row.reason}`, 'Compatibility (CAP/CDS/runtime):', ...bullets(row.proposal.compatibility, 'none given'),
@@ -462,58 +536,4 @@ export function renderItem(session, item, index, total, { color = false } = {}) 
     if (files.targets[0]) out.push(`IDE diff:   code --diff "${path.join(files.dir, 'before', ...files.targets[0].split('/'))}" "${path.join(files.dir, 'after', ...files.targets[0].split('/'))}"`)
   }
   return `${out.join('\n')}\n`
-}
-
-/** The interactive sequential review. Reads one answer per line, so it also works with piped input. */
-export async function reviewLoop(session, { input, output, color = false, reviewer, redo = false }) {
-  const lines = (async function* read() {
-    let buffer = ''
-    for await (const chunk of input) {
-      buffer += chunk
-      let at
-      while ((at = buffer.indexOf('\n')) >= 0) { yield buffer.slice(0, at).replace(/\r$/, ''); buffer = buffer.slice(at + 1) }
-    }
-    if (buffer) yield buffer
-  })()
-  const ask = async question => {
-    output.write(question)
-    const { value, done } = await lines.next()
-    if (done) throw Object.assign(new Error('The review input ended; decisions made so far are saved'), { code: 'INPUT_ENDED' })
-    return value.trim()
-  }
-  let name = reviewer ?? session.developer.reviewer
-  if (!name) name = (await ask('Your name (recorded with your decisions): ')) || null
-  const total = session.queue.length
-  const summary = { approved: 0, rejected: 0, 'needs-changes': 0, deferred: 0, skipped: 0 }
-  try {
-    for (const [index, item] of session.queue.entries()) {
-      const existing = session.developer.decisions.find(decision => decision.id === item.row.id)
-      if (existing && !redo) continue
-      if (item.row.ready && applicationFor(session, item.row)) continue
-      output.write(`\n${renderItem(session, item, index, total, { color })}\n`)
-      const options = item.row.ready ? '[a]pprove  [r]eject  [c]hange request  [d]efer  [n]ext  [q]uit' : '[r]eject  [c]hange request  [d]efer  [n]ext  [q]uit'
-      for (;;) {
-        const answer = (await ask(`${options} > `)).toLowerCase()
-        if (answer === 'q') { output.write('Stopped. Decisions made so far are saved.\n'); return summary }
-        if (answer === 'n' || answer === '') { summary.skipped += 1; break }
-        const choice = { a: 'approve', r: 'reject', c: 'needs-changes', d: 'defer' }[answer]
-        if (!choice || (choice === 'approve' && !item.row.ready)) { output.write('Not available here.\n'); continue }
-        const notes = choice === 'reject' || choice === 'needs-changes' ? await ask(choice === 'reject' ? 'Reason: ' : 'What should change: ') : await ask('Optional note: ')
-        try {
-          await decideItem(session, item.row.id, choice, notes, name)
-          summary[choices[choice]] += 1
-          output.write(`Recorded: ${choices[choice]}. Nothing was applied.\n`)
-          break
-        } catch (error) {
-          if (!(error instanceof TypeError)) throw error
-          output.write(`${error.message}\n`)
-          if (choice === 'approve') break
-        }
-      }
-    }
-  } catch (error) {
-    if (error.code !== 'INPUT_ENDED') throw error
-    output.write(`${error.message}\n`)
-  }
-  return summary
 }

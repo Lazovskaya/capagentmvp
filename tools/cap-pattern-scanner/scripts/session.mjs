@@ -1,12 +1,13 @@
 import { parseArgs } from 'node:util'
 import { normalizePatch } from './patch.mjs'
-import { applyApproved, combinedDiff, commitSession, decideItem, itemStates, loadSession, pendingApprovals, renderItem, reviewLoop, reviseSession, startSession } from './session-core.mjs'
+import { applyApproved, combinedDiff, commitSession, decideItem, describeItem, itemStates, loadSession, pendingApprovals, renderItem, reviseSession, startSession } from './session-core.mjs'
+import { reviewLoop } from './session-terminal.mjs'
 import { readJsonInput } from './scan.mjs'
 
 const usage = `Usage:
   node session.mjs start  --report <brief.json> --decisions <validated.json> --project <cap-project> --session <new-folder> [--mode auto|worktree|copy]
   node session.mjs review --session <folder> [--reviewer <name>] [--redo]
-  node session.mjs show   --session <folder> [--id <finding-ID>] [--all]
+  node session.mjs show   --session <folder> [--id <finding-ID>] [--all] [--json]
   node session.mjs decide --session <folder> --id <finding-ID> --decision approve|reject|needs-changes|defer [--notes <text>] [--reviewer <name>]
   node session.mjs status --session <folder> [--json]
   node session.mjs apply  --session <folder> [--id <finding-ID>] [--confirm <diff sha256>|all] [--test-command "<your command>"] [--test-timeout <seconds>]
@@ -30,6 +31,12 @@ try {
     allowPositionals: true
   })
   const [command] = positionals
+  const reject = message => { throw new TypeError(message) }
+  if (values.mode !== undefined && !['auto', 'worktree', 'copy'].includes(values.mode)) reject(`--mode must be auto, worktree, or copy (got "${values.mode}")`)
+  if (values.decision !== undefined && !['approve', 'reject', 'needs-changes', 'defer'].includes(values.decision)) reject(`--decision must be approve, reject, needs-changes, or defer (got "${values.decision}")`)
+  if (values['test-timeout'] !== undefined && !(/^\d+$/.test(values['test-timeout']) && Number(values['test-timeout']) >= 1 && Number(values['test-timeout']) <= 3600)) reject('--test-timeout must be a whole number of seconds from 1 to 3600')
+  if (values.id !== undefined && !/^[A-Za-z0-9][A-Za-z0-9._-]{0,99}$/.test(values.id)) reject('--id must be a finding ID such as CAP-FINDING-0123456789abcdef')
+  if (values.confirm !== undefined && !(/^[a-f0-9]{64}$/.test(values.confirm) || (values.confirm === 'all' && command === 'apply'))) reject(`--confirm must be the 64-character sha256 shown by the preview${command === 'apply' ? ' (or "all")' : ''}`)
   const known = ['start', 'review', 'show', 'decide', 'status', 'apply', 'diff', 'revise', 'commit']
   const needs = { start: ['report', 'decisions', 'project', 'session'], revise: ['session', 'decisions'], decide: ['session', 'id', 'decision'] }
   if (values.help || !known.includes(command) || positionals.length !== 1 || (needs[command] ?? ['session']).some(name => !values[name])) {
@@ -61,6 +68,15 @@ try {
       process.stdin.setEncoding('utf8')
       const summary = await reviewLoop(session, { input: process.stdin, output: process.stdout, color, reviewer: values.reviewer, redo: values.redo })
       process.stdout.write(`\nThis run: ${Object.entries(summary).map(([name, count]) => `${count} ${name}`).join(', ')}.\nNext: node session.mjs status --session "${session.dir}"; to apply approved proposals to the isolated workspace: node session.mjs apply --session "${session.dir}"\n`)
+    } else if (command === 'show' && values.json) {
+      const items = values.id ? session.queue.filter(item => item.row.id === values.id) : session.queue
+      if (values.id && !items.length) throw new TypeError(`${values.id} is not in the review queue`)
+      const ids = list => list.map(({ row }) => row.id)
+      process.stdout.write(`${JSON.stringify({
+        schemaVersion: 1, format: 'cap-pattern-session-queue', mode: session.meta.mode, workspace: session.meta.workspaceProject, reviewBranch: session.meta.git?.reviewBranch ?? null,
+        reviewer: session.developer.reviewer, items: items.map(item => describeItem(session, item, session.queue.indexOf(item), session.queue.length)),
+        traceability: { covered: ids(session.groups.covered), noProposal: ids(session.groups.noProposal), notApplicable: ids(session.groups.notApplicable), unreviewed: ids(session.groups.unreviewed) }
+      }, null, 2)}\n`)
     } else if (command === 'show') {
       const color = false
       const items = values.id ? session.queue.filter(item => item.row.id === values.id) : session.queue
@@ -117,7 +133,10 @@ try {
     }
   }
 } catch (error) {
-  const detail = error instanceof TypeError ? ` ${error.message}.` : ''
-  console.error(`Session failed (${error.code ?? 'INVALID_INPUT'});${detail} Nothing was applied unless a message above says so.`)
+  const firstLine = text => String(text ?? '').split('\n')[0].trim()
+  const detail = error instanceof TypeError ? ` ${error.message}.`
+    : typeof error.code === 'number' ? ` git failed: ${firstLine(error.stderr) || firstLine(error.message)}.`
+    : ['ENOENT', 'EEXIST', 'EACCES', 'EPERM', 'ENOTDIR'].includes(error.code) ? ` ${error.code}: ${firstLine(error.message)}.` : ''
+  console.error(`Session failed (${typeof error.code === 'number' ? 'GIT_ERROR' : error.code ?? 'INVALID_INPUT'});${detail} Nothing was applied unless a message above says so.`)
   process.exitCode = 1
 }

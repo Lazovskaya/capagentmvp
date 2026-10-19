@@ -255,7 +255,10 @@ environment generation, client-code harvesting, and publishing are out of scope.
     subagent cannot ask the developer questions: if you are one, return the session path, the counts and the
     sentence "continue with step 11 of cap-suggest-patterns in the main conversation"). First give the counts
     (proposals ready, held with blocker, no-proposal, not-applicable) and ask once for the reviewer name. Then,
-    one proposal at a time, in `session.mjs show --session /approved/session` order:
+    one proposal at a time, in the order of `session.mjs show --session /approved/session --json` (use that structured output to
+    present each item; the terminal `review` command is an optional separate front end that you never run):
+    - Say plainly what "verified" means: the diff applies cleanly to the reviewed source. It is not applied and no tests have run
+      (`verification` in the JSON); never describe a verified diff as tested or correct.
     - Show the file and finding IDs, a one-line problem, the diff (in a diff code block), then briefly the
       explanation, uncertainty, compatibility, regression risks, and proposed tests. Held items show their blocker
       instead and cannot be approved. Never hide a risk to make a proposal look safer.
@@ -277,7 +280,9 @@ environment generation, client-code harvesting, and publishing are out of scope.
     applied, tests passed, tests FAILED (not reverted), or unverified. Never call a change correct because it applied.
     Then show the combined change (`session.mjs diff`, plus `git -C <workspace> diff --stat` in git sessions) and ask whether to
     commit it on the review branch. If yes, run `session.mjs commit --session /approved/session` (preview), show it,
-    and only after their explicit yes run it again with the printed `--confirm` hash. Never push, merge, rebase, check out, or
+    and only after their explicit yes run it again with the printed `--confirm` hash. The tool refuses when the workspace is not on
+    the review branch, the branch moved, anything is staged or changed beyond the applied files, or a file's content differs from
+    what the session applied (for example a hand edit): report the exact message and stop; do not clean up or work around it. Never push, merge, rebase, check out, or
     commit on the developer's own branch, never edit application files yourself, and never run `apply.mjs` or `sheet.mjs record`.
     End by telling them the review branch name and that merging it into their branch is theirs to do.
 

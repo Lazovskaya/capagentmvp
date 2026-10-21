@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { spawnSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
-import { applyHunks, parsePatch, patchSha256, reversePatch, safeProjectPath } from './patch.mjs'
+import { applyHunks, parsePatch, patchSha256, reversePatch, safeProjectPath, sha256 } from './patch.mjs'
 import { checkProposalPatches } from './proposals.mjs'
 import { reconcileDecisions } from './review.mjs'
 import { recordDeveloperDecisions, renderReviewSheet, reviewRows } from './developer-review.mjs'
@@ -117,6 +117,25 @@ test('scan.mjs --decisions checks patches when it is given the project and refus
   assert.match(without.blockers.join(' '), /not checked against the project/)
 })
 
+const hashOf = (previous, body) => sha256(`${previous}\n${JSON.stringify(body)}`)
+const genesis = '0'.repeat(64)
+
+/** Creates a minimal valid session folder for testing standalone apply.mjs with --session. */
+async function makeMinimalSession(context, root) {
+  const sessionDir = await mkdtemp(path.join(tmpdir(), 'cap-minimal-session-'))
+  context.after(() => rm(sessionDir, { recursive: true, force: true }))
+  await mkdir(path.join(sessionDir, 'applications'))
+  const sessionMeta = { format: 'cap-pattern-review-session', schemaVersion: 2, workspace: root, workspaceProject: root, project: root, mode: 'copy' }
+  await writeFile(path.join(sessionDir, 'session.json'), JSON.stringify(sessionMeta))
+  const seq = 1
+  const at = new Date().toISOString()
+  const type = 'session-started'
+  const data = { workspace: root, workspaceProject: root, project: root, mode: 'copy', git: null }
+  const event = { seq, at, type, data, prev: genesis, hash: hashOf(genesis, { seq, at, type, data }) }
+  await writeFile(path.join(sessionDir, 'events.jsonl'), `${JSON.stringify(event)}\n`)
+  return sessionDir
+}
+
 // A reviewed project whose query proposal the developer approved, with every file the CLIs need on disk.
 async function approved(context, options) {
   const project = await reviewedProject(context, options)
@@ -129,8 +148,10 @@ async function approved(context, options) {
   await writeFile(files.report, JSON.stringify(project.report))
   await writeFile(files.decisions, JSON.stringify(project.validated))
   await writeFile(files.developer, JSON.stringify(developer))
-  const common = ['--report', files.report, '--decisions', files.decisions, '--developer-decisions', files.developer, '--project', project.root, '--id', project.ids.query]
-  return { ...project, out, files, common, developer, source: path.join(project.root, 'srv', 'service.js') }
+  const sessionDir = await makeMinimalSession(context, project.root)
+  // --session comes before --id so that slice(0, -1) still cleanly removes only the id value
+  const common = ['--report', files.report, '--decisions', files.decisions, '--developer-decisions', files.developer, '--project', project.root, '--session', sessionDir, '--id', project.ids.query]
+  return { ...project, out, files, common, developer, sessionDir, source: path.join(project.root, 'srv', 'service.js') }
 }
 const nodeCommand = code => `"${process.execPath}" -e "${code}"`
 
@@ -198,12 +219,12 @@ test('failed tests and missing tests are never reported as success, and a change
 test('only an approved, unchanged proposal can be applied', async context => {
   const w = await approved(context)
   const hash = w.developer.decisions[0].patchSha256
-  const attempt = (extra = {}, files = w.files) => run('apply.mjs', ['apply', '--report', files.report, '--decisions', files.decisions, '--developer-decisions', files.developer, '--project', w.root, '--id', w.ids.query, '--confirm', hash, '--output', path.join(w.out, `${Math.random()}.json`)])
+  const attempt = (extra = {}, files = w.files) => run('apply.mjs', ['apply', '--report', files.report, '--decisions', files.decisions, '--developer-decisions', files.developer, '--project', w.root, '--id', w.ids.query, '--confirm', hash, '--output', path.join(w.out, `${Math.random()}.json`), '--session', w.sessionDir])
   const before = await readFile(w.source, 'utf8')
   const rejected = { ...w.developer, decisions: [{ ...w.developer.decisions[0], decision: 'rejected', notes: 'no' }] }
   await writeFile(path.join(w.out, 'rejected.json'), JSON.stringify(rejected))
   assert.match(attempt({}, { ...w.files, developer: path.join(w.out, 'rejected.json') }).stderr, /is not approved \(developer decision: rejected\)/)
-  const heldId = run('apply.mjs', ['apply', '--report', w.files.report, '--decisions', w.files.decisions, '--developer-decisions', w.files.developer, '--project', w.root, '--id', w.ids.validation, '--confirm', hash, '--output', path.join(w.out, 'held.json')])
+  const heldId = run('apply.mjs', ['apply', '--report', w.files.report, '--decisions', w.files.decisions, '--developer-decisions', w.files.developer, '--project', w.root, '--session', w.sessionDir, '--id', w.ids.validation, '--confirm', hash, '--output', path.join(w.out, 'held.json')])
   assert.match(heldId.stderr, /is not approved/)
   const revised = structuredClone(w.validated)
   revised.decisions.find(item => item.id === w.ids.query).proposal.patch = patchFor().replace('{ code: input }', '{ code: String(input) }')

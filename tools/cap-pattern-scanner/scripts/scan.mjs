@@ -7,6 +7,7 @@ import { parseArgs } from 'node:util'
 import { createMatcher } from './matcher.mjs'
 import { prepareReview, reconcileDecisions } from './review.mjs'
 import { checkProposalPatches } from './proposals.mjs'
+import { startTiming } from './timing.mjs'
 
 const digest = content => createHash('sha256').update(content).digest('hex')
 const catalogText = await readFile(new URL('../catalog.json', import.meta.url), 'utf8')
@@ -378,6 +379,9 @@ function isMainScript() {
 }
 
 if (isMainScript()) {
+  // Optional measurement: CAP_AI_11_TIMING_FILE names a file that gets one line per scan command (time and output size).
+  const timing = process.env.CAP_AI_11_TIMING_FILE ? startTiming() : null
+  let mode = 'scan'
   try {
     const { values, positionals } = parseArgs({
       options: { full: { type: 'boolean' }, report: { type: 'string' }, decisions: { type: 'string' }, context: { type: 'string', multiple: true }, output: { type: 'string' }, help: { type: 'boolean' } },
@@ -393,6 +397,7 @@ if (isMainScript()) {
       }
       if (values.report && ((project && !values.context && !values.decisions) || values.full)) throw new Error('--report cannot be combined with a project unless --context or --decisions is used')
       if (values.full && values.decisions) throw new Error('--decisions cannot be combined with --full')
+      mode = values.context ? 'context' : values.decisions ? 'decisions' : values.full ? 'full' : values.report ? 'brief' : 'scan'
       let report
       if (values.report) {
         report = await readJsonInput(values.report)
@@ -416,5 +421,7 @@ if (isMainScript()) {
     const detail = error instanceof TypeError ? ` ${error.message}.` : ''
     console.error(`Scan failed (${error.code ?? 'INVALID_INPUT'});${detail} Check arguments, report JSON, project package.json, CAP Node.js dependency, permissions, and scope containment.`)
     process.exitCode = 1
+  } finally {
+    if (timing) await timing.finish(process.env.CAP_AI_11_TIMING_FILE, { tool: 'scan', command: mode })
   }
 }

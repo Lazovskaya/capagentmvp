@@ -106,6 +106,25 @@ export function applyHunks(original, hunks) {
   return { text: lines.join(eol) + (finalNewline ? eol : ''), hunks: applied }
 }
 
+/** The lines of the original file a hunk reads or removes, as a half-open range of 0-based line positions (context included). */
+export function hunkRange(hunk) {
+  const start = hunk.oldCount === 0 ? hunk.oldStart : hunk.oldStart - 1
+  return [start, start + hunk.oldCount]
+}
+
+/** Two hunks of the same original file conflict when they read or change a common line; touching ranges do not conflict. */
+export function hunksOverlap(a, b) {
+  const [aStart, aEnd] = hunkRange(a)
+  const [bStart, bEnd] = hunkRange(b)
+  if (a.oldCount === 0 && b.oldCount === 0) return aStart === bStart
+  if (a.oldCount === 0) return bStart < aStart && aStart < bEnd
+  if (b.oldCount === 0) return aStart < bStart && bStart < aEnd
+  return aStart < bEnd && bStart < aEnd
+}
+
+/** How many lines earlier changes (hunks of other proposals, in original-file coordinates) moved the lines this hunk reads. */
+export const hunkShift = (hunk, earlier) => earlier.filter(other => hunkRange(other)[1] <= hunkRange(hunk)[0]).reduce((sum, other) => sum + other.newCount - other.oldCount, 0)
+
 /** The unified diff that undoes `files` (each with the hunks returned by applyHunks). */
 export function reversePatch(files) {
   const out = []
@@ -138,8 +157,14 @@ export async function readProjectFile(absolute) {
   }
 }
 
-/** Parses the patch and applies it in memory to the project's current files. Writes nothing. */
-export async function verifyPatchAgainstProject(root, patch) {
+/**
+ * Parses the patch and applies it in memory to the project's current files. Writes nothing.
+ * `earlier` (file -> hunks of other approved proposals already applied or about to be, in original-file coordinates) lets an
+ * independent proposal on the same file apply on top of them: its positions shift by the lines they added or removed, every
+ * context and removed line must still match exactly, and a hunk that touches a line an earlier change touched is refused.
+ * `texts` (file -> text) replaces the file on disk, so a whole sequence can be checked in memory before anything is written.
+ */
+export async function verifyPatchAgainstProject(root, patch, { earlier = new Map(), texts = new Map() } = {}) {
   const parsed = parsePatch(patch)
   const files = []
   for (const { file, hunks } of parsed) {
@@ -150,8 +175,13 @@ export async function verifyPatchAgainstProject(root, patch) {
       try { stat = await lstat(cursor) } catch { throw new TypeError(`Patch target does not exist: ${file}`) }
       if (stat.isSymbolicLink()) throw new TypeError(`Patch target is reached through a symlink: ${file}`)
     }
-    const source = await readProjectFile(path.join(root, file))
-    const result = applyHunks(source.text, hunks)
+    const source = texts.has(file) ? { text: texts.get(file), sha256: sha256(texts.get(file)) } : await readProjectFile(path.join(root, file))
+    const before = earlier.get(file) ?? []
+    for (const hunk of hunks) {
+      const clash = before.find(other => hunksOverlap(hunk, other))
+      if (clash) throw new TypeError(`${file}: the change at lines ${hunkRange(hunk)[0] + 1}-${Math.max(hunkRange(hunk)[1], hunkRange(hunk)[0] + 1)} overlaps an earlier approved change at lines ${hunkRange(clash)[0] + 1}-${Math.max(hunkRange(clash)[1], hunkRange(clash)[0] + 1)}`)
+    }
+    const result = applyHunks(source.text, hunks.map(hunk => ({ ...hunk, oldStart: hunk.oldStart + hunkShift(hunk, before) })))
     files.push({ file, baseSha256: source.sha256, afterSha256: sha256(result.text), beforeText: source.text, afterText: result.text, hunks: result.hunks })
   }
   return { patchSha256: patchSha256(patch), files }

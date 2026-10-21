@@ -30,7 +30,8 @@ rather than applying changes automatically.
    session (`session.mjs start`). The review dialog with the developer (step 11 of the skill: show each diff, ask
    approve/reject/request changes/defer, apply after confirmation, commit to the review branch only on request)
    belongs to the top-level conversation: a subagent cannot ask questions. Return the session path and counts and
-   say that the main conversation should continue with step 11. Never record a decision the developer has not given.
+   say that the main conversation should continue with step 11. Never run `session.mjs decide`, `apply`, `install`, `discard` or
+   `commit`, even when resumed with an answer; never record a decision the developer has not given.
 
 ## Output Contract
 

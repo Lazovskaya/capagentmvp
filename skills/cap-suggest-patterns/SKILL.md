@@ -175,7 +175,8 @@ use `node -e` or other ad hoc scripts to read results; read the saved JSON files
        empty, quoted, and numeric/string inputs can change semantics when replacing
        string interpolation. Do not claim "no type coercion" without an input
        contract. Association-path/nested-object rewrites require cardinality,
-       generated-CQN, and target-adapter evidence; absent evidence is needs-review.
+       generated-CQN, and target-adapter evidence; if you cannot establish it, still write the diff when a reasonable change exists and
+       list the gap under `uncertainty` (it is shown as not proven); use needs-review only when no grounded diff can be written.
        Static backend functions/casts can often remain while values are bound via
        supported tagged templates/CQN expressions. Do not equate parameterization
        with removing every backend-specific function or invent portable equivalence.
@@ -247,7 +248,10 @@ use `node -e` or other ad hoc scripts to read results; read the saved JSON files
    Try hard to produce a diff before giving up: read the CDS model, tests, and dependencies you may inspect.
    Add a one-sentence `summary` to each proposal. Findings in one function or query chain get one coherent diff:
    put it on one finding and mark the others `proposed` with `addressedBy: <that finding ID>` (same file, each with
-   its own evidence checks); never propose two diffs for the same file. Without a proposal use `needs-review` with
+   its own evidence checks). Findings that are not one coherent change stay separate proposals, even in the same file, so the
+   developer can approve or reject each on its own: do not bundle nine unrelated queries into one diff because they share a file,
+   and do not make every finding its own proposal either. Proposals in one file must not read or change the same lines; the tool
+   reports an overlap as a conflict and holds the later proposal. Without a proposal use `needs-review` with
    `blocker` {missingEvidence, investigated[], unblockingCheck} (exactly what is missing, what you already
    checked, the check that would unblock it) when a proposal may become possible, or `no-proposal` with
    `blocker.investigated` when you investigated and propose no change. Never mark an unverified proposal verified.
@@ -256,43 +260,103 @@ use `node -e` or other ad hoc scripts to read results; read the saved JSON files
    ```sh
    node tools/cap-pattern-scanner/scripts/session.mjs start --report /approved/brief.json --decisions /approved/validated.json --project <project> --session /approved/session
    ```
+   If the developer named a review branch in the request, add `--branch <name>`; otherwise keep the default name
+   `cap-ai-11/review-<scan id>-<time>` and do not ask. The branch is created in the project's own git repository (the workspace
+   folder is a second checkout of it), so the developer pushes it from that repository.
    If it refuses (for example, uncommitted edits in a file a proposal changes), report the exact message and
    stop; do not work around it. If validation reports blockers on proposals you could fix (a diff that does not
    apply, a missing field), correct and re-validate once into a new file; otherwise leave the item `needs-review`.
 11. Then run the review as a dialog with the developer in this conversation, as the top-level assistant (a
     subagent cannot ask the developer questions: if you are one, return the session path, the counts and the
-    sentence "continue with step 11 of cap-suggest-patterns in the main conversation"). First give the counts
+    sentence "continue with step 11 of cap-suggest-patterns in the main conversation", and never run `decide`, `apply`,
+    `install` or `commit`, even if you are resumed with an answer). The main conversation does not relay the dialog through a
+    subagent and does not paraphrase it. First give the counts
     (proposals ready, held with blocker, no-proposal, not-applicable) and ask once for the reviewer name. Then,
     one proposal at a time, in the order of `session.mjs show --session /approved/session --json` (use that structured output to
-    present each item; the terminal `review` command is an optional separate front end that you never run):
+    plan the order and the counts. It lists the queue without diffs. For each proposal, just before presenting it, run
+    `session.mjs show --session /approved/session --id <ID> --json` and present that item. Only this per-item call records the diff as shown,
+    and approving needs it. The terminal `review` command is an optional separate front end that you never run):
+    - Showing a proposal is done by the tool: the per-item `show --id <ID> --json` call is what the tool records as "the diff was shown".
+      Approving without it is refused, and `decide ... approve` also needs
+      `--diff <verification.patchSha256>`, the hash printed with that diff. This is an audit trail, not proof the developer read it.
     - Say plainly what "verified" means: the diff applies cleanly to the reviewed source. It is not applied and no tests have run
       (`verification` in the JSON); never describe a verified diff as tested or correct.
-    - Show the file and finding IDs, a one-line problem, the diff (in a diff code block), then briefly the
-      explanation, uncertainty, compatibility, regression risks, and proposed tests. Held items show their blocker
+    - Show the file and finding IDs, a one-line problem, and the exact diff text from the JSON (`diff`) in a diff code block in
+      your own message: never a paraphrase, a file path, or another agent's summary. If `equivalence.proven` is false show
+      `equivalence.reasons` plainly as "Not proven". Then briefly the explanation, uncertainty, compatibility, regression
+      risks, and proposed tests. Held items show their blocker
       instead and cannot be approved. Never hide a risk to make a proposal look safer.
     - Ask the developer with the question tool: Approve, Reject, Request changes, Defer (Next = leave undecided). If the host
       has no question tool, ask in plain text and wait for their reply before doing anything else. For Reject and Request
       changes get a reason or feedback in their own words. Silence, an unclear answer, or a question back is not an approval.
     - Record only what the developer answered in this conversation, with
-      `node tools/cap-pattern-scanner/scripts/session.mjs decide --session /approved/session --id <ID> --decision approve|reject|needs-changes|defer --notes "<their words>" --reviewer "<name>"`.
+      `node tools/cap-pattern-scanner/scripts/session.mjs decide --session /approved/session --id <ID> --decision approve|reject|needs-changes|defer --notes "<their words>" --reviewer "<name>"`
+      (add `--diff <hash>` for approve).
       Never decide, infer, or batch decisions for them; one question per proposal. `decide` is pre-approved because it only writes the decision record;
       `apply` and `commit` still ask the developer for permission, which is a second confirmation: do not try to avoid it.
     - Request changes: revise that proposal using their feedback (and the CDS model, tests, dependencies), validate into a
       new file with the project path, run `session.mjs revise --session /approved/session --decisions <new-validated.json>`,
       and show the revised diff again as a new proposal.
-    After the last proposal, summarise decisions (`session.mjs status`). If something is approved, show the exact diffs
-    that would be applied (`session.mjs apply --session /approved/session` shows them and changes nothing), ask whether to
-    apply them to the isolated workspace, and which test command to run. Suggest the project's own test script if you saw one,
-    but run only a command the developer accepted, never one you invented. Apply with
-    `session.mjs apply --session /approved/session --confirm all --test-command "<accepted command>"`, then report honestly:
-    applied, tests passed, tests FAILED (not reverted), or unverified. Never call a change correct because it applied.
-    Then show the combined change (`session.mjs diff`, plus `git -C <workspace> diff --stat` in git sessions) and ask whether to
-    commit it on the review branch. If yes, run `session.mjs commit --session /approved/session` (preview), show it,
-    and only after their explicit yes run it again with the printed `--confirm` hash. The tool refuses when the workspace is not on
-    the review branch, the branch moved, anything is staged or changed beyond the applied files, or a file's content differs from
-    what the session applied (for example a hand edit): report the exact message and stop; do not clean up or work around it. Never push, merge, rebase, check out, or
-    commit on the developer's own branch, never edit application files yourself, and never run `apply.mjs` or `sheet.mjs record`.
-    End by telling them the review branch name and that merging it into their branch is theirs to do.
+    Approving only records a decision: it never applies anything. After the last proposal, do these in order. Run each tool
+    command yourself after the developer says yes; do not hand the developer a to-do list.
+    a. Summarise the decisions (`session.mjs status`). If nothing is approved, stop here and say where the session is.
+    b. Show the exact diffs that would be applied (`session.mjs apply --session /approved/session` prints them with a hash and changes
+       nothing; the combined diff is what the developer confirms, and approving a proposal earlier did not apply it).
+       Inspect the workspace only with the Read tool (`package.json`) and the Glob tool (test files and lock files such as
+       `package-lock.json`, `pnpm-lock.yaml`, `yarn.lock`, and whether `node_modules` exists). In this whole step never run `ls`, `grep`, `find`,
+       `cat`, `git` or any other shell command to look around: they are not pre-approved and stop for a permission prompt. The only shell
+       commands in step 11 are the `session.mjs` ones. Tests depend on the client's environment and you do not know them: read `package.json` `scripts` and look for test
+       files, and treat what you find as a suggestion only (the tool writes no tests). If there is no `test` script, it is only the
+       npm placeholder ("no test specified"), or no test files exist, say plainly that you found no runnable tests and do not offer
+       "Run everything"; offer Apply only or a command the developer names. If you found one, say you do not know whether it works
+       here (it may need services, credentials, a database, or a network the workspace lacks) and let the developer pick it, change
+       it, or skip. Work out the install command from the lock file (`package-lock.json` -> `npm ci`, `pnpm-lock.yaml` -> `pnpm install --frozen-lockfile`,
+       `yarn.lock` -> `yarn install --frozen-lockfile`; offer `npm ci --ignore-scripts` if they do not want install scripts to run).
+    c. Ask ONE question with these options, naming the folder (`workspaceProject` from `session.mjs status --json`), the exact
+       install and test commands, and that tests run on the developer's computer with their environment and network (tests that
+       call real services would call them):
+       - **Run everything**: install the dependencies if `node_modules` is missing, apply the approved diffs, run the tests, then show the result.
+         (Only when tests were found; the developer may replace the command with their own.)
+       - **Apply only**: apply without tests (reported as unverified). This is a normal, valid choice.
+       - **Step by step**: apply first, then ask about tests and install separately.
+       - **Not now**: stop; nothing is applied.
+       If there is no lock file, offer "Run everything" without the install only if `node_modules` already exists, otherwise offer Apply only.
+    d. On "Run everything", run `session.mjs run-all --session /approved/session --install "<install command>" --test-command "<test command>"`
+       (leave `--install` out when `node_modules` exists). It prints the plan and a hash and changes nothing. If the plan matches what you
+       described, run it again at once with `--confirm <hash>` (the developer already said yes to this exact plan; do not ask in chat again,
+       the permission prompt is the second confirmation). On "Apply only" use `run-all` without `--install` and `--test-command`. Only `--install`
+       commands from the list above exist; never run any other install or package command, and never invent a test command.
+       Use a Bash timeout of 600000 ms for every `run-all --confirm` and `apply --confirm` call (these commands write files and may run a full
+       test suite; the default shell timeout is too short and would kill the process mid-write).
+    e. Report the result from the command output: install done or failed, each proposal applied or not, tests passed, FAILED, or not run,
+       and "Ready to commit". If the install failed nothing was applied: show the output tail and offer to skip the tests or stop.
+       If tests failed or could not run, the changes stay applied. Show the output tail and say that either the change or the
+       environment may be the cause (for example "command not found", missing credentials, or a refused connection point at the
+       environment). Do not decide: offer request changes, commit anyway (`session.mjs commit --accept-failing-tests`, which previews
+       first and records the failure in the commit message), or discard. Never call a change correct because it applied or its tests passed.
+       After every stage print the "Where things are / What you can do now" block that `run-all`, `apply`, `commit` and `status` end with, so
+       the developer always sees where the diff file, the workspace and the review branch are and what the next options are.
+       If a session command is interrupted before it finishes, or any command prints that the session is not trustworthy or was
+       interrupted, do not retry the original command: run `session.mjs recover --session /approved/session` (no `--confirm`; this is the
+       preview), show its full output verbatim to the developer, ask whether to proceed, and only then run it again with the printed
+       `--confirm`. Use `session.mjs repair` only for the decisions-file drift it names explicitly, with the same preview → ask →
+       `--confirm` steps. Never edit any session file (`events.jsonl`, `session.json`, `developer-decisions.json`) by hand. If `recover`
+       reports "ambiguous", report that word and the full output to the developer and stop.
+    f. When it is ready to commit, show the combined change (`session.mjs diff`, plus `git -C <workspace> diff --stat` in git sessions), say
+       what the result was, and propose the next step: commit it on the review branch now, then push it. Ask whether to commit. If yes, run `session.mjs commit --session /approved/session` (preview), show it, and
+       only after their explicit yes run it again with the printed `--confirm` hash. The tool refuses when the workspace is not
+       on the review branch, the branch moved, anything is staged or changed beyond the applied files, or a file's content
+       differs from what the session applied (for example a hand edit): report the exact message and stop; do not clean up or
+       work around it.
+    g. Finally run `session.mjs summary --session /approved/session` and print its output verbatim. Do not write your own counts or call
+       anything "fixed": approved is not applied, applied is not tested. If the developer wants to throw the session away, run
+       `session.mjs discard --session /approved/session` (a preview), show it, and only after their explicit yes run it again with the
+       printed `--confirm` hash (add `--discard-work` only when they accepted the losses it named). If it refuses, report the message and stop.
+    h. Finish with the hand-off that `session.mjs commit` / `status` prints: the repository (the same as the project's), the
+       review branch, the commands to review the difference, and the push command. Tell the developer they can run the push
+       command in this session by typing it with a leading `!`, or in their own terminal. Pushing is theirs: never push,
+       merge, rebase, check out, or commit on their own branch, never edit application files yourself, and never run
+       `apply.mjs` or `sheet.mjs record`.
 
 ## Output
 

@@ -1,4 +1,4 @@
-import { applicationFor, decideItem, renderItem } from './session-core.mjs'
+import { applicationFor, decideItem, recordPresented, renderItem } from './session-core.mjs'
 
 const decisionNames = { approve: 'approved', reject: 'rejected', 'needs-changes': 'needs-changes', defer: 'deferred' }
 
@@ -7,7 +7,7 @@ const decisionNames = { approve: 'approved', reject: 'rejected', 'needs-changes'
  * works with piped input). All decisions go through decideItem; the chat dialog does not use this file but drives
  * the same session commands from the skill.
  */
-export async function reviewLoop(session, { input, output, color = false, reviewer, redo = false }) {
+export async function reviewLoop(session, { input, output, color = false, reviewer, redo = false, isTTY = false }) {
   const lines = (async function* read() {
     let buffer = ''
     for await (const chunk of input) {
@@ -33,16 +33,18 @@ export async function reviewLoop(session, { input, output, color = false, review
       if (existing && !redo) continue
       if (item.row.ready && applicationFor(session, item.row)) continue
       output.write(`\n${renderItem(session, item, index, total, { color })}\n`)
-      const options = item.row.ready ? '[a]pprove  [r]eject  [c]hange request  [d]efer  [n]ext  [q]uit' : '[r]eject  [c]hange request  [d]efer  [n]ext  [q]uit'
+      const via = isTTY ? 'terminal' : 'piped'
+      await recordPresented(session, [item], via)
+      const options = item.row.ready && !item.conflict ? '[a]pprove  [r]eject  [c]hange request  [d]efer  [n]ext  [q]uit' : '[r]eject  [c]hange request  [d]efer  [n]ext  [q]uit'
       for (;;) {
         const answer = (await ask(`${options} > `)).toLowerCase()
         if (answer === 'q') { output.write('Stopped. Decisions made so far are saved.\n'); return summary }
         if (answer === 'n' || answer === '') { summary.skipped += 1; break }
         const choice = { a: 'approve', r: 'reject', c: 'needs-changes', d: 'defer' }[answer]
-        if (!choice || (choice === 'approve' && !item.row.ready)) { output.write('Not available here.\n'); continue }
+        if (!choice || (choice === 'approve' && (!item.row.ready || item.conflict))) { output.write('Not available here.\n'); continue }
         const notes = choice === 'reject' || choice === 'needs-changes' ? await ask(choice === 'reject' ? 'Reason: ' : 'What should change: ') : await ask('Optional note: ')
         try {
-          await decideItem(session, item.row.id, choice, notes, name)
+          await decideItem(session, item.row.id, choice, notes, name, { diff: item.row.verifiedPatch?.patchSha256, via })
           summary[decisionNames[choice]] += 1
           output.write(`Recorded: ${decisionNames[choice]}. Nothing was applied.\n`)
           break

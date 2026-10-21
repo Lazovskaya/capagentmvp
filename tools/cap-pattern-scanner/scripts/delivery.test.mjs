@@ -104,7 +104,15 @@ test('supported adapters register the same core without touching a customer repo
       assert.match(entry, /cap-suggest-patterns/)
       assert.match(entry, /cap-pattern-advisor/)
       const cli = path.join(project, 'tools/cap-pattern-scanner/scripts/scan.mjs')
-      for (const core of ['scripts/scan.mjs', 'scripts/review.mjs', 'scripts/matcher.mjs', 'catalog.json']) {
+      const sourceScripts = (await readdir(path.join(factory, 'tools/cap-pattern-scanner/scripts')))
+        .filter(f => f.endsWith('.mjs') && !f.endsWith('.test.mjs'))
+      for (const script of sourceScripts) {
+        assert.equal(
+          await readFile(path.join(project, 'tools/cap-pattern-scanner/scripts', script), 'utf8'),
+          await readFile(path.join(factory, 'tools/cap-pattern-scanner/scripts', script), 'utf8'),
+          `scripts/${script}`)
+      }
+      for (const core of ['catalog.json']) {
         assert.equal(await readFile(path.join(project, 'tools/cap-pattern-scanner', core), 'utf8'),
           await readFile(path.join(factory, 'tools/cap-pattern-scanner', core), 'utf8'), core)
       }
@@ -112,6 +120,11 @@ test('supported adapters register the same core without touching a customer repo
       assert.equal(help.status, 0, help.stderr)
       assert.match(help.stdout, /compact grouped review JSON/)
       assert.match(help.stdout, /--context/)
+      const sessionCli = path.join(project, 'tools/cap-pattern-scanner/scripts/session.mjs')
+      const sessionHelp = spawnSync(process.execPath, [sessionCli, '--help'], { encoding: 'utf8' })
+      assert.equal(sessionHelp.status, 0, sessionHelp.stderr)
+      assert.match(sessionHelp.stdout, /recover/, 'session.mjs --help must list recover')
+      assert.match(sessionHelp.stdout, /repair/, 'session.mjs --help must list repair')
     })
   }
 })

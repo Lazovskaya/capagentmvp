@@ -3,12 +3,13 @@ import { realpath, rename, unlink, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { parseArgs } from 'node:util'
 import { reviewRows } from './developer-review.mjs'
-import { normalizePatch, patchSha256, readProjectFile, reversePatch, safeProjectPath, verifyPatchAgainstProject } from './patch.mjs'
+import { normalizePatch, parsePatch, patchSha256, readProjectFile, reversePatch, safeProjectPath, verifyPatchAgainstProject } from './patch.mjs'
 import { readJsonInput, resolveNewFileTarget, writeNewFile } from './scan.mjs'
+import { readLog } from './session-state.mjs'
 
 const usage = `Usage:
   node apply.mjs preview --report <brief.json> --decisions <validated.json> --developer-decisions <developer.json> --project <cap-project> --id <finding-ID>
-  node apply.mjs apply   (same options) --confirm <sha256 shown by preview> --output <new-record.json> [--test-command "<your command>"] [--test-timeout <seconds>]
+  node apply.mjs apply   (same options) --confirm <sha256 shown by preview> --output <new-record.json> [--earlier <record.json> ...] [--test-command "<your command>"] [--test-timeout <seconds>]
   node apply.mjs status  --report <brief.json> --decisions <validated.json> [--developer-decisions <developer.json>] [--application <record.json> ...] [--project <cap-project>]
 preview changes nothing: it shows the exact diff and the token to confirm it. apply changes the project only for a proposal you approved, only
 with that token, and only if the files still match; it writes a new-file-only record. The test command is yours: the tool never runs a
@@ -33,14 +34,24 @@ function approvedProposal({ report, validated, developer, id }) {
 }
 
 // Re-verifies everything against the live files: nothing from the AI or earlier steps is trusted.
-async function currentState(project, { brief, row, patch }) {
+// earlierRecords are application records of other proposals already applied to the same project: this proposal then applies on top
+// of them (shifted by the lines they added or removed) when the file is exactly what the last of them produced.
+async function currentState(project, { brief, row, patch }, earlierRecords = []) {
   const root = await realpath(project)
-  const evidence = await readProjectFile(path.join(root, safeProjectPath(row.finding.evidence.file)))
-  if (evidence.sha256 !== row.finding.evidence.sha256) throw new TypeError('The evidence file changed since the scan; rescan before applying')
-  const verified = await verifyPatchAgainstProject(root, patch)
+  const earlier = new Map()
+  const chain = new Map()
+  for (const record of earlierRecords) {
+    for (const entry of parsePatch(record.appliedPatch)) earlier.set(entry.file, [...(earlier.get(entry.file) ?? []), ...entry.hunks])
+    for (const file of record.files) chain.set(file.file, { baseSha256: chain.get(file.file)?.baseSha256 ?? file.baseSha256, afterSha256: file.afterSha256 })
+  }
+  const evidenceFile = safeProjectPath(row.finding.evidence.file)
+  const evidence = await readProjectFile(path.join(root, evidenceFile))
+  if (evidence.sha256 !== (chain.get(evidenceFile)?.afterSha256 ?? row.finding.evidence.sha256)) throw new TypeError('The evidence file changed since the scan; rescan before applying')
+  const verified = await verifyPatchAgainstProject(root, patch, { earlier })
   for (const file of verified.files) {
     const expected = row.verifiedPatch.files.find(candidate => candidate.file === file.file)
-    if (!expected || expected.baseSha256 !== file.baseSha256) throw new TypeError(`${file.file} changed since the proposal was verified; rescan and review again`)
+    const earlierChange = chain.get(file.file)
+    if (!expected || expected.baseSha256 !== (earlierChange?.baseSha256 ?? file.baseSha256) || (earlierChange && file.baseSha256 !== earlierChange.afterSha256)) throw new TypeError(`${file.file} changed since the proposal was verified; rescan and review again`)
   }
   return { root, verified, brief }
 }
@@ -100,14 +111,16 @@ try {
     options: {
       report: { type: 'string' }, decisions: { type: 'string' }, 'developer-decisions': { type: 'string' }, project: { type: 'string' },
       id: { type: 'string' }, confirm: { type: 'string' }, output: { type: 'string' }, 'test-command': { type: 'string' },
-      'test-timeout': { type: 'string' }, application: { type: 'string', multiple: true }, help: { type: 'boolean' }
+      'test-timeout': { type: 'string' }, application: { type: 'string', multiple: true }, earlier: { type: 'string', multiple: true },
+      session: { type: 'string' }, help: { type: 'boolean' }
     },
     allowPositionals: true
   })
   const [command] = positionals
   const needsDecisions = ['preview', 'apply'].includes(command)
   if (values.help || !['preview', 'apply', 'status'].includes(command) || positionals.length !== 1 || !values.report || !values.decisions
-    || (needsDecisions && (!values['developer-decisions'] || !values.project || !values.id))) {
+    || (needsDecisions && (!values['developer-decisions'] || !values.project || !values.id))
+    || (command === 'apply' && !values.session)) {
     console.log(usage)
     process.exitCode = values.help ? 0 : 1
   } else if (command === 'status') {
@@ -155,10 +168,26 @@ try {
     const validated = await readJsonInput(values.decisions)
     const developer = await readJsonInput(values['developer-decisions'])
     const approved = approvedProposal({ report, validated, developer, id: values.id })
-    const state = await currentState(values.project, approved)
+    const earlierRecords = []
+    for (const file of values.earlier ?? []) {
+      const record = await readJsonInput(file)
+      if (record?.format !== 'cap-pattern-application' || record.snapshotSha256 !== approved.brief.snapshot.sha256) throw new TypeError('An --earlier record belongs to a different scan or is not an application record')
+      earlierRecords.push(record)
+    }
+    const state = await currentState(values.project, approved, earlierRecords)
     if (command === 'preview') {
       process.stdout.write(previewText({ ...approved, verified: state.verified, developer }, approved.patch))
     } else {
+      // --session is required for apply: verify the project is the session workspace and the event log is intact.
+      // This closes the bypass where apply.mjs could be redirected to any project using session developer-decisions.
+      const sessionDir = path.resolve(values.session)
+      const sessionMeta = await readJsonInput(path.join(sessionDir, 'session.json')).catch(() => { throw new TypeError('--session must be a valid review session folder (session.json not found or invalid)') })
+      if (sessionMeta?.format !== 'cap-pattern-review-session') throw new TypeError('--session must be a review session folder (unexpected format in session.json)')
+      const resolvedProject = await realpath(values.project)
+      const resolvedWorkspace = await realpath(sessionMeta.workspaceProject).catch(() => null)
+      if (resolvedWorkspace === null || resolvedProject !== resolvedWorkspace) throw new TypeError(`--project must be the review workspace (${sessionMeta.workspaceProject}); applying to another path is not allowed when --session is given`)
+      const { error: logError } = await readLog(sessionDir)
+      if (logError) throw new TypeError(`The session event log is not intact: ${logError}. Nothing was changed`)
       if (values.confirm !== approved.approval.patchSha256) throw new TypeError(`--confirm must be the sha256 of the diff shown by preview (${approved.approval.patchSha256})`)
       if (!values.output) throw new TypeError('apply needs --output <new record file>, so the result is always recorded')
       const seconds = values['test-timeout'] === undefined ? 600 : Number(values['test-timeout'])

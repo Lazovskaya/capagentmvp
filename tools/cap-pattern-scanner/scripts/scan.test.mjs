@@ -860,7 +860,7 @@ test('the CLI still runs when invoked through a differently cased path on a case
   context.after(() => rm(root, { recursive: true, force: true }))
   const scripts = path.join(root, 'Mixed-Case-Dir', 'scripts')
   await mkdir(scripts, { recursive: true })
-  for (const file of ['scan.mjs', 'matcher.mjs', 'review.mjs', 'patch.mjs', 'proposals.mjs']) await copyFile(fileURLToPath(new URL(`./${file}`, import.meta.url)), path.join(scripts, file))
+  for (const file of ['scan.mjs', 'matcher.mjs', 'review.mjs', 'patch.mjs', 'proposals.mjs', 'timing.mjs']) await copyFile(fileURLToPath(new URL(`./${file}`, import.meta.url)), path.join(scripts, file))
   await copyFile(fileURLToPath(new URL('../catalog.json', import.meta.url)), path.join(root, 'Mixed-Case-Dir', 'catalog.json'))
   const altered = path.join(root, 'mixed-case-dir', 'scripts', 'scan.mjs')
   if (!existsSync(altered)) return context.skip('Volume is case-sensitive; this failure mode does not apply')

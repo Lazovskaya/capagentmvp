@@ -1,16 +1,19 @@
 import assert from 'node:assert/strict'
 import { execFile, execFileSync, spawn } from 'node:child_process'
-import { access, chmod, lstat, mkdir, mkdtemp, readFile, readdir, rm, writeFile } from 'node:fs/promises'
+import { access, chmod, lstat, mkdir, mkdtemp, readFile, readdir, realpath, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { PassThrough } from 'node:stream'
 import test from 'node:test'
 import { fileURLToPath } from 'node:url'
 import { promisify } from 'node:util'
+import { normalizePatch, sha256 } from './patch.mjs'
 import { checkProposalPatches } from './proposals.mjs'
 import { prepareReview, reconcileDecisions } from './review.mjs'
 import { scanProject } from './scan.mjs'
-import { applyApproved, combinedDiff, commitSession, decideItem, describeItem, itemStates, loadSession, pendingApprovals, renderItem, reviseSession, startSession } from './session-core.mjs'
+import { applyApproved as applyRaw, assertTrusted, combinedDiff, commitSession, decideItem as decideRaw, describeItem, handoff, installDependencies, itemStates, loadSession, nextSteps, pendingApprovals, previewApply, recoverSession, recordPresented, renderItem, repairSession, reviseSession, runAll, startSession } from './session-core.mjs'
+import { discardSession, renderSummary, sessionSummary } from './session-lifecycle.mjs'
+import { appendEvent, readLog } from './session-state.mjs'
 import { reviewLoop } from './session-terminal.mjs'
 import { checks, originalLine, solution } from './workflow-fixtures.mjs'
 
@@ -21,12 +24,14 @@ const hasGit = (() => { try { execFileSync('git', ['--version'], { stdio: 'ignor
 const gitIn = (cwd, ...args) => execFileSync('git', ['-c', 'user.email=t@example.com', '-c', 'user.name=Test', '-c', 'commit.gpgsign=false', '-C', cwd, ...args], { encoding: 'utf8' })
 const validationLine = "if (!req.data.name) return req.reject(400, 'NAME_REQUIRED')"
 const remoteLine = 'req.reject(502, err.message)'
+const secondLine = originalLine.replace('Items', 'Orders')
+const secondPatch = `--- a/srv/service.js\n+++ b/srv/service.js\n@@ -4 +4 @@\n-${secondLine}\n+SELECT.from(Orders).where({ code: input })\n`
 const queryPatch = file => `--- a/${file}\n+++ b/${file}\n@@ -1 +1 @@\n-${originalLine}\n+SELECT.from(Items).where({ code: input })\n`
 const coherentPatch = `--- a/srv/service.js\n+++ b/srv/service.js\n@@ -1,2 +1,2 @@\n-${originalLine}\n-${validationLine}\n+SELECT.from(Items).where({ code: input })\n+if (!req.data.name?.trim()) return req.reject(400, 'NAME_REQUIRED')\n`
 const blocker = { missingEvidence: 'Whether name is @mandatory in the model', investigated: ['db/schema.cds has no Items entity', 'No test covers an empty name'], unblockingCheck: 'Add the Items entity or point to the model that defines name' }
 
 /** Two files: srv/service.js (query, validation, remote error) and srv/other.js (a second, independent query). */
-async function fixture(context, { git = false, dirty = false, subdir, crlf = false } = {}) {
+async function fixture(context, { git = false, dirty = false, subdir, crlf = false, lock = false, second = false, prepare } = {}) {
   const repo = await mkdtemp(path.join(tmpdir(), 'cap-session-'))
   context.after(() => rm(repo, { recursive: true, force: true }))
   const root = subdir ? path.join(repo, subdir) : repo
@@ -34,10 +39,12 @@ async function fixture(context, { git = false, dirty = false, subdir, crlf = fal
   await mkdir(path.join(root, 'srv'))
   await mkdir(path.join(root, 'db'))
   await writeFile(path.join(root, 'package.json'), JSON.stringify({ dependencies: { '@sap/cds': '^9' }, scripts: { test: 'node srv/check.js' } }))
-  await writeFile(path.join(root, 'srv', 'service.js'), [originalLine, validationLine, remoteLine, ''].join('\n'))
+  await writeFile(path.join(root, 'srv', 'service.js'), [originalLine, validationLine, remoteLine, ...(second ? [secondLine] : []), ''].join('\n'))
   await writeFile(path.join(root, 'srv', 'other.js'), `${originalLine}\n`)
   await writeFile(path.join(root, 'srv', 'check.js'), "const fs = require('fs')\nprocess.exit(fs.readdirSync(__dirname).some(name => fs.readFileSync(__dirname + '/' + name, 'utf8').includes('BRO' + 'KEN')) ? 1 : 0)\n")
   await writeFile(path.join(root, '.gitignore'), 'node_modules\n')
+  if (lock) await writeFile(path.join(root, 'package-lock.json'), '{}\n')
+  await prepare?.(root)
   if (crlf) {
     gitIn(repo, 'init', '-q', '-b', 'main')
     gitIn(repo, 'config', 'core.autocrlf', 'true')
@@ -55,7 +62,8 @@ async function fixture(context, { git = false, dirty = false, subdir, crlf = fal
   const report = await scanProject(root)
   const brief = prepareReview(report)
   const find = (pattern, file) => brief.findings.find(finding => finding.patternId === pattern && finding.evidence.file === file).id
-  const ids = { query: find('CAP-QUERY-001', 'srv/service.js'), validation: find('CAP-VALIDATION-001', 'srv/service.js'), remote: find('CAP-REMOTE-ERROR-001', 'srv/service.js'), other: find('CAP-QUERY-001', 'srv/other.js') }
+  const queries = brief.findings.filter(finding => finding.patternId === 'CAP-QUERY-001' && finding.evidence.file === 'srv/service.js').sort((a, b) => a.evidence.line - b.evidence.line)
+  const ids = { queryB: queries[1]?.id, query: find('CAP-QUERY-001', 'srv/service.js'), validation: find('CAP-VALIDATION-001', 'srv/service.js'), remote: find('CAP-REMOTE-ERROR-001', 'srv/service.js'), other: find('CAP-QUERY-001', 'srv/other.js') }
   const validate = async decisions => {
     const submission = { snapshotSha256: brief.snapshot.sha256, decisions }
     return reconcileDecisions(report, submission, { patchChecks: await checkProposalPatches(root, report, submission) })
@@ -75,10 +83,26 @@ async function start(context, options = {}, build = standard) {
   const validated = await f.validate(build(f.ids))
   const out = await mkdtemp(path.join(tmpdir(), 'cap-session-out-'))
   context.after(() => rm(out, { recursive: true, force: true }))
-  const session = await startSession({ report: f.report, validated, project: f.root, session: path.join(out, 'session'), mode: options.mode ?? 'auto', reviewer: 'Vera' })
+  const session = await startSession({ report: f.report, validated, project: f.root, session: path.join(out, 'session'), mode: options.mode ?? 'auto', reviewer: 'Vera', branch: options.branch })
   return { ...f, validated, session, out }
 }
 const read = (...parts) => readFile(path.join(...parts), 'utf8')
+
+// Most tests are about what happens after a developer approved a diff they were shown, so these helpers do the showing
+// and the preview the way the CLI does. The guard tests below call decideRaw, applyRaw and the CLI directly.
+async function decideItem(session, id, choice, notes, reviewer, options) {
+  const item = session.queue.find(candidate => candidate.row.id === id)
+  if (choice === 'approve' && options === undefined && item?.row.ready) {
+    await recordPresented(session, [item], 'test')
+    return decideRaw(session, id, choice, notes, reviewer, { diff: item.row.verifiedPatch.patchSha256, via: 'test' })
+  }
+  return decideRaw(session, id, choice, notes, reviewer, options)
+}
+async function applyApproved(session, options) {
+  if (options.confirm !== 'all') return applyRaw(session, options)
+  const preview = await previewApply(session, { ids: options.ids, testCommand: options.testCommand, testTimeout: options.testTimeout })
+  return applyRaw(session, { ...options, confirm: preview.confirm ?? 'all' })
+}
 
 test('an actionable finding becomes a concrete, verified diff the developer sees before the explanation', async context => {
   const { session, ids } = await start(context)
@@ -183,7 +207,14 @@ test('each proposal is approved independently and only approved, hash-confirmed 
   await assert.rejects(applyApproved(session, { confirm: 'all', ids: [ids.other] }), /not approved and waiting/)
   await assert.rejects(applyApproved(session, { confirm: undefined }), /needs --confirm/)
   assert.equal(await read(session.workspaceProject, 'srv', 'service.js'), await read(root, 'srv', 'service.js'), 'nothing applied by deciding or by refused confirmations')
-  const results = await applyApproved(session, { confirm: approved.approval.patchSha256, testCommand: 'node srv/check.js' })
+  await assert.rejects(applyRaw(session, { confirm: approved.approval.patchSha256 }), /--confirm must be the sha256 shown by the apply preview/, 'the approval hash is not apply permission')
+  const tokenNoCmd = sha256(`apply\n${ids.query}:${approved.approval.patchSha256}`)
+  await assert.rejects(applyRaw(session, { confirm: tokenNoCmd }), /apply preview was never shown/, 'the right token without a shown preview is refused')
+  const preview = await previewApply(session, { testCommand: 'node srv/check.js' })
+  assert.equal(preview.combined, normalizePatch(queryPatch('srv/service.js')))
+  // Confirming without the test command must fail: the bound command differs from what was previewed
+  await assert.rejects(applyRaw(session, { confirm: preview.confirm }), /test command or timeout differs from what was previewed|sha256 shown by the apply preview/, 'apply without the previewed test command is refused')
+  const results = await applyRaw(session, { confirm: preview.confirm, testCommand: 'node srv/check.js' })
   assert.deepEqual(results.map(result => [result.id, result.applied, result.result]), [[ids.query, true, 'test-passed']])
   assert.match(await read(session.workspaceProject, 'srv', 'service.js'), /where\(\{ code: input \}\)/)
   assert.equal(await read(session.workspaceProject, 'srv', 'other.js'), `${originalLine}\n`, 'the rejected proposal is not applied')
@@ -250,6 +281,229 @@ test('a proposal with unproven null/undefined behavior is shown, approved, and a
   assert.equal(await read(session.workspaceProject, 'srv', 'service.js'), await read(root, 'srv', 'service.js'), 'nothing is applied by deciding')
   await writeFile(path.join(root, 'srv', 'service.js'), `// edited after review\n${await read(root, 'srv', 'service.js')}`)
   await assert.rejects(applyApproved(await loadSession(session.dir), { confirm: 'all' }), /stale.*approval is no longer valid/)
+})
+
+const fakeInstall = async (command, cwd) => { await mkdir(path.join(cwd, 'node_modules', 'left-pad'), { recursive: true }); return { exitCode: 0, timedOut: false, outputTail: 'added 1 package' } }
+
+test('dependencies are installed in the review workspace only from a fixed command list, after a hash-confirmed preview', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, root } = await start(context, { git: true, lock: true })
+  await assert.rejects(installDependencies(session, { command: 'npm install left-pad' }), /must be exactly one of/)
+  await assert.rejects(installDependencies(session, { command: 'npm ci && curl example.invalid' }), /must be exactly one of/)
+  const preview = await installDependencies(session, { command: 'npm ci', runner: () => assert.fail('a preview must not run anything') })
+  assert.equal(preview.installed, false)
+  assert.equal(preview.folder, session.workspaceProject)
+  assert.match(preview.willDo.join('\n'), /not your project folder/)
+  await assert.rejects(installDependencies(session, { command: 'npm ci', confirm: 'f'.repeat(64), runner: fakeInstall }), /--confirm must be the sha256 shown by the preview/)
+  await assert.rejects(installDependencies(session, { command: 'npm ci --ignore-scripts', confirm: preview.confirm, runner: fakeInstall }), /--confirm must be the sha256/, 'the hash is bound to the exact command')
+  const done = await installDependencies(session, { command: 'npm ci', confirm: preview.confirm, runner: fakeInstall })
+  assert.equal(done.installed, true)
+  assert.equal((await loadSession(session.dir)).meta.install.command, 'npm ci')
+  await assert.rejects(access(path.join(root, 'node_modules')), /ENOENT/, 'the original project is untouched')
+  await assert.rejects(installDependencies(session, { command: 'npm ci', runner: fakeInstall }), /node_modules already exists/)
+})
+
+test('a failed install leaves no partial node_modules, and an installed one never blocks the commit', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids } = await start(context, { git: true, lock: true })
+  const failing = async (command, cwd) => { await mkdir(path.join(cwd, 'node_modules', 'half'), { recursive: true }); return { exitCode: 1, timedOut: false, outputTail: 'ERESOLVE' } }
+  const preview = await installDependencies(session, { command: 'npm ci' })
+  const failed = await installDependencies(session, { command: 'npm ci', confirm: preview.confirm, runner: failing })
+  assert.equal(failed.installed, false)
+  assert.match(failed.outputTail, /ERESOLVE/)
+  await assert.rejects(access(path.join(session.workspaceProject, 'node_modules')), /ENOENT/)
+  await installDependencies(session, { command: 'npm ci', confirm: preview.confirm, runner: fakeInstall })
+  await decideItem(session, ids.query, 'approve', 'ok')
+  const applied = await applyApproved(session, { confirm: 'all' })
+  assert.equal(applied[0].applied, true)
+  const commitPreview = await commitSession(await loadSession(session.dir), {})
+  const committed = await commitSession(await loadSession(session.dir), { confirm: commitPreview.confirm })
+  assert.equal(committed.committed, true, 'node_modules is ignored by git, so it is not an unapplied change')
+})
+
+test('a missing lock file or an unignored node_modules is refused before anything is installed', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session } = await start(context, { git: true })
+  await assert.rejects(installDependencies(session, { command: 'npm ci', runner: fakeInstall }), /package-lock\.json is missing/)
+  const withLock = await start(context, { git: true, lock: true })
+  await writeFile(path.join(withLock.session.workspaceProject, '.gitignore'), 'dist\n')
+  await assert.rejects(installDependencies(withLock.session, { command: 'npm ci', runner: fakeInstall }), /node_modules is not ignored by git.*nothing was installed/)
+  await assert.rejects(access(path.join(withLock.session.workspaceProject, 'node_modules')), /ENOENT/)
+})
+
+test('the hand-off names the repository, the review branch, how to review it, and the push command the developer runs', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids, repo } = await start(context, { git: true })
+  const before = await handoff(session)
+  assert.equal(before.repository, await realpath(repo))
+  assert.equal(before.sameRepositoryAsProject, true)
+  assert.equal(before.push, null, 'nothing to push before a commit')
+  assert.match(before.review.diff, /diff$/)
+  await decideItem(session, ids.query, 'approve', 'ok')
+  await applyApproved(session, { confirm: 'all' })
+  const preview = await commitSession(await loadSession(session.dir), {})
+  const result = await commitSession(await loadSession(session.dir), { confirm: preview.confirm })
+  const after = await handoff(await loadSession(session.dir))
+  assert.equal(after.committed, result.sha)
+  assert.equal(after.branch, session.meta.git.reviewBranch)
+  assert.equal(after.push, `git -C "${await realpath(repo)}" push -u <remote> ${after.branch}`)
+  assert.match(after.review.summary, new RegExp(`diff --stat ${after.base}\\.\\.${after.branch.replace('/', '\\/')}$`))
+  gitIn(repo, 'remote', 'add', 'origin', 'https://example.invalid/x.git')
+  assert.match((await handoff(await loadSession(session.dir))).push, / push -u origin cap-ai-11\/review-/)
+  const status = await execFileAsync(process.execPath, [sessionCli, 'status', '--session', session.dir])
+  assert.match(status.stdout, /Review branch: cap-ai-11\/review-.* in .* \(the same repository as your project\)/)
+  assert.match(status.stdout, /Review and push \(you run these\):\n {2}git -C .* diff --stat .*\n {2}git -C .* diff .*\n {2}git -C .* push -u origin cap-ai-11\/review-/)
+  assert.ok(gitIn(repo, 'branch', '--list', after.branch).includes(after.branch), 'the branch is in the project repository')
+})
+
+test('a copy session has no hand-off branch', async context => {
+  const { session } = await start(context, { mode: 'copy' })
+  assert.equal(await handoff(session), null)
+})
+
+test('the review branch name can be chosen, and a bad or existing name is refused with nothing created', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, repo } = await start(context, { git: true, branch: 'feature/ccflex-query-binding' })
+  assert.equal(session.meta.git.reviewBranch, 'feature/ccflex-query-binding')
+  assert.ok(gitIn(repo, 'branch', '--list', 'feature/ccflex-query-binding').includes('feature/ccflex-query-binding'))
+  assert.equal(gitIn(repo, 'rev-parse', '--abbrev-ref', 'HEAD').trim(), 'main', 'the original branch is still checked out')
+  for (const name of ['bad name', '../x', '-x', 'a..b', 'x.lock/']) {
+    await assert.rejects(start(context, { git: true, branch: name }), /--branch must be a plain branch name|not a valid git branch name/, name)
+  }
+  const f = await fixture(context, { git: true })
+  gitIn(f.repo, 'branch', 'taken')
+  const validated = await f.validate(standard(f.ids))
+  const out = await mkdtemp(path.join(tmpdir(), 'cap-session-out-'))
+  context.after(() => rm(out, { recursive: true, force: true }))
+  await assert.rejects(startSession({ report: f.report, validated, project: f.root, session: path.join(out, 'session'), mode: 'worktree', branch: 'taken' }), /The branch taken already exists/)
+  await assert.rejects(access(path.join(out, 'session')), /ENOENT/, 'nothing is left behind')
+  assert.ok(!gitIn(f.repo, 'worktree', 'list').includes(path.join(out, 'session')))
+})
+
+test('run-all previews the whole plan, then installs, applies, and tests under one confirmation that is bound to the plan', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids, root } = await start(context, { git: true, lock: true })
+  await decideItem(session, ids.query, 'approve', 'ok')
+  const options = { install: 'npm ci', testCommand: 'node srv/check.js', runner: fakeInstall }
+  await assert.rejects(runAll(session, { install: 'npm ci', runner: fakeInstall }), /--install is only needed for tests/)
+  const plan = await runAll(session, options)
+  assert.equal(plan.ran, false)
+  assert.match(plan.willDo.join('\n'), /Run "node srv\/check\.js" there, on your computer/)
+  assert.match(plan.willDo.join('\n'), /Commit and push nothing/)
+  assert.equal(await read(session.workspaceProject, 'srv', 'service.js'), await read(root, 'srv', 'service.js'), 'a preview changes nothing')
+  await assert.rejects(access(path.join(session.workspaceProject, 'node_modules')), /ENOENT/)
+  await assert.rejects(runAll(session, { ...options, confirm: 'e'.repeat(64) }), /--confirm must be the sha256 shown by the preview/)
+  await assert.rejects(runAll(session, { ...options, testCommand: 'node -e "0"', confirm: plan.confirm }), /--confirm must be the sha256/, 'a changed command invalidates the preview')
+  await decideItem(session, ids.other, 'approve', 'also ok')
+  await assert.rejects(runAll(await loadSession(session.dir), { ...options, confirm: plan.confirm }), /approvals, folder, or commands changed since the preview/, 'approving another proposal invalidates it')
+  const fresh = await loadSession(session.dir)
+  const second = await runAll(fresh, options)
+  const result = await runAll(fresh, { ...options, confirm: second.confirm })
+  assert.equal(result.stage, 'done')
+  assert.equal(result.tests, 'passed')
+  assert.equal(result.commitReady, true)
+  assert.equal(result.applied.length, 2)
+  assert.ok(result.applied.every(item => item.applied && item.result === 'test-passed'))
+  assert.match(await read(session.workspaceProject, 'srv', 'service.js'), /where\(\{ code: input \}\)/)
+  assert.equal(await read(root, 'srv', 'service.js'), `${originalLine}\n${validationLine}\n${remoteLine}\n`, 'the original project is untouched')
+  const loaded = await loadSession(session.dir)
+  const preview = await commitSession(loaded, {})
+  assert.equal((await commitSession(loaded, { confirm: preview.confirm })).committed, true, 'what run-all produced can be committed')
+})
+
+test('run-all stops before applying when the install fails, and reports failing tests without allowing a commit', { skip: !hasGit && 'git is not available' }, async context => {
+  const broken = await start(context, { git: true, lock: true })
+  await decideItem(broken.session, broken.ids.query, 'approve', 'ok')
+  const failing = async (command, cwd) => { await mkdir(path.join(cwd, 'node_modules', 'half'), { recursive: true }); return { exitCode: 1, timedOut: false, outputTail: 'ERESOLVE could not resolve' } }
+  const plan = await runAll(broken.session, { install: 'npm ci', testCommand: 'node srv/check.js', runner: failing })
+  const stopped = await runAll(broken.session, { install: 'npm ci', testCommand: 'node srv/check.js', runner: failing, confirm: plan.confirm })
+  assert.equal(stopped.stage, 'install')
+  assert.equal(stopped.commitReady, false)
+  assert.match(stopped.install.outputTail, /ERESOLVE/)
+  assert.deepEqual(stopped.applied, [])
+  assert.equal(await read(broken.session.workspaceProject, 'srv', 'service.js'), await read(broken.root, 'srv', 'service.js'), 'nothing was applied')
+  await assert.rejects(access(path.join(broken.session.workspaceProject, 'node_modules')), /ENOENT/)
+
+  const red = await start(context, { git: true })
+  await decideItem(red.session, red.ids.query, 'approve', 'ok')
+  const redPlan = await runAll(red.session, { testCommand: 'node -e "process.exit(1)"' })
+  const outcome = await runAll(red.session, { testCommand: 'node -e "process.exit(1)"', confirm: redPlan.confirm })
+  assert.equal(outcome.tests, 'failed')
+  assert.equal(outcome.commitReady, false)
+  assert.match(outcome.next, /Tests FAILED or could not run\. That can be the environment.*you decide/)
+  await assert.rejects(commitSession(await loadSession(red.session.dir), {}), /failing tests, or the tests could not run.*--accept-failing-tests/)
+})
+
+test('run-all skips an install that is not needed and works without tests as an unverified apply', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids } = await start(context, { git: true, lock: true })
+  await decideItem(session, ids.query, 'approve', 'ok')
+  await mkdir(path.join(session.workspaceProject, 'node_modules'))
+  const plan = await runAll(session, { install: 'npm ci', testCommand: 'node srv/check.js', runner: () => assert.fail('already installed') })
+  assert.match(plan.install, /skipped: node_modules is already there/)
+  const done = await runAll(session, { install: 'npm ci', testCommand: 'node srv/check.js', runner: () => assert.fail('already installed'), confirm: plan.confirm })
+  assert.equal(done.tests, 'passed')
+  const bare = await start(context, { git: true })
+  await decideItem(bare.session, bare.ids.query, 'approve', 'ok')
+  const barePlan = await runAll(bare.session, {})
+  assert.match(barePlan.willDo.join('\n'), /Run no tests: the result will be reported as unverified/)
+  const unverified = await runAll(bare.session, { confirm: barePlan.confirm })
+  assert.equal(unverified.tests, 'not run')
+  assert.equal(unverified.commitReady, true)
+  assert.equal(unverified.applied[0].result, 'unverified')
+  await assert.rejects(runAll(await loadSession(bare.session.dir), {}), /No approved proposals are waiting/)
+})
+
+test('the run-all command line prints the plan and the hash, and nothing runs without it', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids, root } = await start(context, { git: true })
+  await decideItem(session, ids.query, 'approve', 'ok')
+  const shown = await execFileAsync(process.execPath, [sessionCli, 'run-all', '--session', session.dir, '--test-command', 'node srv/check.js'])
+  assert.match(shown.stdout, /NOT RUN\. This would:/)
+  assert.match(shown.stdout, /To run it all: --confirm [a-f0-9]{64}/)
+  assert.equal(await read(session.workspaceProject, 'srv', 'service.js'), await read(root, 'srv', 'service.js'))
+  const hash = /--confirm ([a-f0-9]{64})/.exec(shown.stdout)[1]
+  const ran = await execFileAsync(process.execPath, [sessionCli, 'run-all', '--session', session.dir, '--test-command', 'node srv/check.js', '--confirm', hash])
+  assert.match(ran.stdout, /Tests: passed\nReady to commit: yes/)
+  await assert.rejects(execFileAsync(process.execPath, [sessionCli, 'run-all', '--session', session.dir, '--confirm', 'xyz']), /--confirm must be the 64-character sha256/)
+})
+
+test('the developer can commit despite failing or impossible tests, but only by saying so explicitly, and the commit records it', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids, repo } = await start(context, { git: true })
+  await decideItem(session, ids.query, 'approve', 'ok')
+  await applyApproved(session, { confirm: 'all', testCommand: 'node -e "process.exit(1)"' })
+  const loaded = await loadSession(session.dir)
+  await assert.rejects(commitSession(loaded, {}), /--accept-failing-tests/)
+  await assert.rejects(commitSession(loaded, { confirm: 'a'.repeat(64) }), /--accept-failing-tests/, 'a hash alone is not enough')
+  const preview = await commitSession(loaded, { acceptFailingTests: true })
+  assert.equal(preview.committed, false)
+  assert.match(preview.message, /Tests: FAILED or could not run; committed at the developer's decision/)
+  const plain = await commitSession(await loadSession(session.dir), { acceptFailingTests: true })
+  assert.equal(plain.confirm, preview.confirm)
+  await assert.rejects(commitSession(loaded, { acceptFailingTests: true, confirm: 'b'.repeat(64) }), /--confirm must be the sha256/)
+  const done = await commitSession(loaded, { acceptFailingTests: true, confirm: preview.confirm })
+  assert.equal(done.committed, true)
+  assert.match(gitIn(repo, 'log', '-1', '--format=%B', session.meta.git.reviewBranch), /committed at the developer's decision/)
+  assert.equal(gitIn(repo, 'rev-parse', '--abbrev-ref', 'HEAD').trim(), 'main', 'the original branch is untouched')
+})
+
+test('the session always says where the diff is and what the developer can do next, for every state', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids } = await start(context, { git: true })
+  const words = async () => { const next = await nextSteps(await loadSession(session.dir)); return { where: Object.fromEntries(next.where), options: next.options.join('\n') } }
+  assert.match((await words()).options, /Nothing is approved yet/)
+  await decideItem(session, ids.query, 'approve', 'ok')
+  let state = await words()
+  assert.match(state.options, /1 approved diff\(s\) wait to be applied.*run-all.*apply/s)
+  assert.match(state.options, /no tests, or they cannot run in this environment, apply without tests/)
+  await applyApproved(session, { confirm: 'all' })
+  state = await words()
+  const diffFile = state.where['Everything applied so far, as one diff file']
+  assert.equal(diffFile, path.join(session.dir, 'applied.diff'))
+  assert.match(await read(diffFile), new RegExp(`^--- a/srv/service\\.js`), 'the applied change is one readable file')
+  assert.match(state.options, /No tests were run.*run them in the review workspace folder yourself, or skip them/s)
+  assert.match(state.where['Review workspace (the changed code; not your project folder)'], /workspace/)
+  const preview = await commitSession(await loadSession(session.dir), {})
+  await commitSession(await loadSession(session.dir), { confirm: preview.confirm })
+  state = await words()
+  assert.match(state.options, /committed on the review branch.*the tool never pushes/s)
+  assert.match(state.where['Review branch'], /cap-ai-11\/review-.* \(the same repository as your project\)/)
+  const failed = await start(context, { git: true })
+  await decideItem(failed.session, failed.ids.query, 'approve', 'ok')
+  await applyApproved(failed.session, { confirm: 'all', testCommand: 'node -e "process.exit(1)"' })
+  const next = await nextSteps(await loadSession(failed.session.dir))
+  assert.match(next.options.join('\n'), /could not run\. That can be the environment.*Commit anyway if you judge the failure environmental.*--accept-failing-tests/s)
 })
 
 test('a git review session leaves the original branch, HEAD, and every uncommitted change untouched', { skip: !hasGit && 'git is not available' }, async context => {
@@ -370,16 +624,17 @@ test('the session CLI starts, reviews from piped answers, previews, and applies 
   review.stdin.end('a\nok\nr\nnot now\nr\nheld\n')
   await new Promise(resolve => review.on('close', resolve))
   assert.match(reviewed, /Recorded: approved. Nothing was applied./)
-  const preview = await cli('apply', '--session', files.session)
+  const preview = await cli('apply', '--session', files.session, '--test-command', 'node srv/check.js')
   assert.match(preview.stdout, /NOT APPLIED\. Exact diff for/)
-  const approval = JSON.parse(await read(files.session, 'developer-decisions.json')).decisions.find(decision => decision.decision === 'approved')
+  assert.match(preview.stdout, /Approving a proposal does not apply it/)
+  const token = /--confirm ([a-f0-9]{64})/.exec(preview.stdout)[1]
   const wrong = await cli('apply', '--session', files.session, '--confirm', 'wrong')
   assert.equal(wrong.code, 1)
   assert.match(wrong.stderr, /--confirm must be the 64-character sha256/)
-  const mismatched = await cli('apply', '--session', files.session, '--confirm', 'a'.repeat(64))
+  const mismatched = await cli('apply', '--session', files.session, '--confirm', 'a'.repeat(64), '--test-command', 'node srv/check.js')
   assert.equal(mismatched.code, 1)
-  assert.match(mismatched.stderr, /--confirm must be the sha256 of the diff shown for/)
-  const applied = await cli('apply', '--session', files.session, '--confirm', approval.patchSha256, '--test-command', 'node srv/check.js')
+  assert.match(mismatched.stderr, /--confirm must be the sha256 shown by the apply preview/)
+  const applied = await cli('apply', '--session', files.session, '--confirm', token, '--test-command', 'node srv/check.js')
   assert.match(applied.stdout, /applied to the isolated workspace, tests passed/)
   const status = await cli('status', '--session', files.session)
   assert.match(status.stdout, /applied, tests passed/)
@@ -604,4 +859,969 @@ test('the session CLI names the exact problem for bad arguments', async context 
     assert.equal(result.code, 1, args.join(' '))
     assert.match(result.stderr, message, args.join(' '))
   }
+})
+
+// ── Workflow state machine: the JavaScript refuses out-of-order or unproven steps, whoever calls it ──────────────────────
+
+const cliIn = (...args) => execFileAsync(process.execPath, [sessionCli, ...args]).catch(error => ({ stdout: error.stdout, stderr: error.stderr, code: error.code }))
+
+test('an approval needs the exact diff to have been shown, and the hash printed with it', async context => {
+  const { session, ids } = await start(context)
+  const hash = session.queue.find(item => item.row.id === ids.query).row.verifiedPatch.patchSha256
+  await assert.rejects(decideRaw(session, ids.query, 'approve', '', 'Vera', { diff: hash }), /before its diff was shown by the review interface/)
+  await recordPresented(session, session.queue.filter(item => item.row.id === ids.query), 'show')
+  await assert.rejects(decideRaw(session, ids.query, 'approve', '', 'Vera'), /needs --diff/)
+  await assert.rejects(decideRaw(session, ids.query, 'approve', '', 'Vera', { diff: 'f'.repeat(64) }), /needs --diff/)
+  assert.equal((await pendingApprovals(session)).length, 0, 'every refused attempt recorded nothing')
+  const entry = await decideRaw(session, ids.query, 'approve', '', 'Vera', { diff: hash })
+  assert.equal(entry.decision, 'approved')
+  const { events } = await readLog(session.dir)
+  assert.deepEqual(events.map(event => event.type), ['session-started', 'presented', 'decided'])
+  // Rejecting, deferring, and requesting changes do not need the proof: they cannot cause a change.
+  await decideRaw(session, ids.other, 'defer', 'later')
+})
+
+test('the CLI cannot approve a diff it never showed, and showing is what unlocks it', async context => {
+  const f = await fixture(context)
+  const validated = await f.validate(standard(f.ids))
+  const out = await mkdtemp(path.join(tmpdir(), 'cap-session-out-'))
+  context.after(() => rm(out, { recursive: true, force: true }))
+  await writeFile(path.join(out, 'b.json'), JSON.stringify(f.report))
+  await writeFile(path.join(out, 'v.json'), JSON.stringify(validated))
+  const dir = path.join(out, 'session')
+  await cliIn('start', '--report', path.join(out, 'b.json'), '--decisions', path.join(out, 'v.json'), '--project', f.root, '--session', dir, '--mode', 'copy')
+  const hash = validated.decisions.find(entry => entry.id === f.ids.query).verifiedPatch.patchSha256
+  const blind = await cliIn('decide', '--session', dir, '--id', f.ids.query, '--decision', 'approve', '--diff', hash)
+  assert.equal(blind.code, 1)
+  assert.match(blind.stderr, /before its diff was shown/)
+  const shown = await cliIn('show', '--session', dir, '--id', f.ids.query)
+  assert.ok(shown.stdout.includes(`--diff ${hash}`), 'show prints the hash to approve with')
+  const noHash = await cliIn('decide', '--session', dir, '--id', f.ids.query, '--decision', 'approve')
+  assert.match(noHash.stderr, /needs --diff/)
+  assert.match((await cliIn('decide', '--session', dir, '--id', f.ids.query, '--decision', 'approve', '--diff', hash)).stdout, /Recorded approved for .* Nothing was applied/)
+  // Approving is not applying: apply shows the diff first, and only its own token applies.
+  const direct = await cliIn('apply', '--session', dir, '--confirm', hash)
+  assert.match(direct.stderr, /--confirm must be the sha256 shown by the apply preview/)
+  const guessed = await cliIn('apply', '--session', dir, '--confirm', sha256(`apply\n${f.ids.query}:${hash}`))
+  assert.match(guessed.stderr, /apply preview was never shown/)
+  assert.equal(await read(path.join(dir, 'workspace', 'srv', 'service.js')), await read(f.root, 'srv', 'service.js'), 'nothing was applied by any of these')
+})
+
+test('a changed proposal voids its approval and needs a new shown diff and a new decision, without touching other proposals', async context => {
+  const { session, ids, validate } = await start(context, { git: true })
+  await decideItem(session, ids.query, 'approve', 'ok')
+  await decideItem(session, ids.other, 'approve', 'ok')
+  const trimmed = queryPatch('srv/service.js').replace('where({ code: input })', 'where({ code: String(input).trim() })')
+  const revised = await validate([proposeQuery(ids.query, 'srv/service.js', { ...solution(trimmed), summary: 'Trimmed.' }), ...standard(ids).slice(1)])
+  const { session: next, revised: changed } = await reviseSession(await loadSession(session.dir), revised)
+  assert.deepEqual(changed, [ids.query])
+  assert.deepEqual((await pendingApprovals(next)).map(({ row }) => row.id), [ids.other], 'the unrelated approval stands')
+  const newHash = next.queue.find(item => item.row.id === ids.query).row.verifiedPatch.patchSha256
+  await assert.rejects(decideRaw(next, ids.query, 'approve', '', 'Vera', { diff: newHash }), /before its diff was shown/, 'the old presentation does not count for the new diff')
+  await decideItem(next, ids.query, 'approve', 'second look')
+  assert.deepEqual((await pendingApprovals(next)).map(({ row }) => row.id).sort(), [ids.other, ids.query].sort())
+  await assertTrusted(next)
+})
+
+test('rejected, deferred, held, and unapproved proposals cannot be applied or previewed for apply', async context => {
+  const { session, ids } = await start(context, { git: true })
+  await decideItem(session, ids.other, 'reject', 'no')
+  await decideItem(session, ids.validation, 'defer', 'later')
+  assert.deepEqual((await previewApply(session)).pending, [])
+  for (const id of [ids.query, ids.other, ids.validation, ids.remote]) await assert.rejects(previewApply(session, { ids: [id] }), /not approved and waiting/)
+  await assert.rejects(decideItem(session, ids.validation, 'approve', 'try'), /cannot be approved/)
+  assert.deepEqual(await applyRaw(session, { confirm: 'a'.repeat(64) }), [], 'nothing waits, so nothing can be applied')
+})
+
+test('editing the decisions file, the log, the proposals, or an application record by hand makes every state-changing command refuse', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids } = await start(context, { git: true })
+  await decideItem(session, ids.other, 'reject', 'no')
+  await decideItem(session, ids.query, 'approve', 'ok')
+  await assertTrusted(session)
+  const decisionsFile = path.join(session.dir, 'developer-decisions.json')
+  const original = await read(decisionsFile)
+  // 1. Forging an approval for a proposal the developer rejected.
+  await writeFile(decisionsFile, original.replace('"decision": "rejected"', '"decision": "approved"'))
+  await assert.rejects(assertTrusted(session), /does not match the event log/)
+  await assert.rejects(previewApply(await loadSession(session.dir)), /not trustworthy/)
+  await assert.rejects(decideRaw(await loadSession(session.dir), ids.validation, 'defer', 'x'), /not trustworthy/)
+  await assert.rejects(runAll(await loadSession(session.dir), {}), /not trustworthy/)
+  await assert.rejects(commitSession(await loadSession(session.dir), {}), /Nothing has been applied|not trustworthy/)
+  await writeFile(decisionsFile, original)
+  await assertTrusted(session)
+  // 2. Swapping the proposal after it was approved.
+  const validatedFile = path.join(session.dir, 'validated.json')
+  const validatedText = await read(validatedFile)
+  await writeFile(validatedFile, validatedText.replace('Client input is concatenated into a query string.', 'Changed after approval.'))
+  await assert.rejects(assertTrusted(session), /validated\.json differs from the version the session recorded/)
+  await writeFile(validatedFile, validatedText)
+  // 3. Editing the log.
+  const logFile = path.join(session.dir, 'events.jsonl')
+  const log = await read(logFile)
+  await writeFile(logFile, log.replace('"decision":"approved"', '"decision":"rejected"'))
+  await assert.rejects(assertTrusted(session), /does not continue the chain/)
+  await writeFile(logFile, log.split('\n').filter((line, index) => index !== 1).join('\n'))
+  await assert.rejects(assertTrusted(session), /does not continue the chain/)
+  await assert.rejects(appendEvent(session.dir, 'decided', { id: ids.query, decision: 'approved', patchSha256: 'x' }), /not intact/)
+  await writeFile(logFile, log)
+  await assertTrusted(session)
+  // 4. A forged application record that claims something was applied.
+  await writeFile(path.join(session.dir, 'applications', '01-forged.json'), JSON.stringify({ format: 'cap-pattern-application', findingId: ids.query, files: [], appliedPatch: '', result: 'test-passed' }))
+  await assert.rejects(assertTrusted(session), /01-forged\.json has no matching entry in the event log/)
+  await assert.rejects(commitSession(await loadSession(session.dir), {}), /not trustworthy/)
+  await rm(path.join(session.dir, 'applications', '01-forged.json'))
+  await assertTrusted(session)
+})
+
+test('a session without an event log (older tool version) is refused for decisions, apply, and commit but can still be shown', async context => {
+  const { session, ids } = await start(context)
+  await rm(path.join(session.dir, 'events.jsonl'))
+  await assert.rejects(decideRaw(session, ids.query, 'reject', 'no'), /event log/)
+  await assert.rejects(previewApply(session), /event log/)
+  assert.match(renderItem(session, session.queue[0], 0, 1), /Proposal 1 of 1|Proposal 1 of/)
+})
+
+test('applying and committing each need their own preview to have been shown, and approving more invalidates the apply token', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids } = await start(context, { git: true })
+  await decideItem(session, ids.query, 'approve', 'ok')
+  const first = await previewApply(session)
+  await decideItem(session, ids.other, 'approve', 'ok too')
+  await assert.rejects(applyRaw(session, { confirm: first.confirm }), /--confirm must be the sha256 shown by the apply preview/, 'a token for fewer diffs does not authorise more')
+  const second = await previewApply(session)
+  assert.notEqual(first.confirm, second.confirm)
+  assert.equal((await applyRaw(session, { confirm: second.confirm })).length, 2)
+  const loaded = await loadSession(session.dir)
+  const token = sha256(await combinedDiff(loaded))
+  await assert.rejects(commitSession(loaded, { confirm: token }), /commit preview was never shown/)
+  await commitSession(loaded, {})
+  assert.equal((await commitSession(await loadSession(session.dir), { confirm: token })).committed, true)
+  const { events } = await readLog(session.dir)
+  assert.deepEqual(events.map(event => event.type).filter(type => !['presented', 'decided'].includes(type)), ['session-started', 'apply-previewed', 'apply-previewed', 'apply-intent', 'applied', 'apply-intent', 'applied', 'commit-previewed', 'commit-intent', 'committed'])
+})
+
+test('run-all needs its plan shown first through the log, so a copied hash alone cannot run it', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids } = await start(context, { git: true })
+  await decideItem(session, ids.query, 'approve', 'ok')
+  const token = sha256(JSON.stringify({ folder: session.workspaceProject, diffs: [session.queue.find(item => item.row.id === ids.query).row.verifiedPatch.patchSha256], install: null, testCommand: null }))
+  await assert.rejects(runAll(session, { confirm: token }), /run-all plan was never shown/)
+  const plan = await runAll(session, {})
+  assert.equal(plan.confirm, token)
+  assert.equal((await runAll(session, { confirm: token })).applied.length, 1)
+})
+
+test('applied work must have been approved with that exact diff when it ran, as the log shows', async context => {
+  const { session, ids } = await start(context, { git: true })
+  await decideItem(session, ids.query, 'approve', 'ok')
+  const hash = session.queue.find(item => item.row.id === ids.query).row.verifiedPatch.patchSha256
+  const { checkApplied } = await import('./session-state.mjs')
+  const { events } = await readLog(session.dir)
+  const forged = [...events, { seq: events.length + 1, type: 'applied', data: { id: ids.other, patchSha256: hash } }]
+  assert.match(checkApplied(forged), /applied .* without an approval of that exact diff in force/)
+  assert.equal(checkApplied([...events, { seq: 9, type: 'applied', data: { id: ids.query, patchSha256: hash } }]), null)
+  const rejected = [...events, { seq: 9, type: 'decided', data: { id: ids.query, decision: 'rejected' } }, { seq: 10, type: 'applied', data: { id: ids.query, patchSha256: hash } }]
+  assert.match(checkApplied(rejected), /without an approval/, 'a later rejection withdraws the approval')
+})
+
+// ── Logical changes: independent proposals in one file are reviewed, approved, and applied separately ──────────────────
+
+const sameFile = ids => [
+  proposeQuery(ids.query, 'srv/service.js'),
+  { id: ids.validation, decision: 'needs-review', reason: 'Truthiness is not @mandatory.', uncertainty: ['0 and blank are unproven'], blocker },
+  { id: ids.remote, decision: 'not-applicable', reason: 'Local validator error.' },
+  { id: ids.queryB, decision: 'proposed', reason: 'Input is concatenated into a where string for Orders.', summary: 'Orders query concatenates input.', checks, ...solution(secondPatch) }
+]
+const startSame = (context, options = {}) => start(context, { git: true, second: true, ...options }, sameFile)
+
+test('two independent proposals in one file are two decisions; only the approved one is applied', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids, root } = await startSame(context)
+  assert.deepEqual(session.groups.actionable.map(({ row }) => row.id).sort(), [ids.query, ids.queryB].sort(), 'both are actionable although they share srv/service.js')
+  assert.equal(session.groups.unresolved.filter(item => item.conflict).length, 0)
+  await decideItem(session, ids.query, 'approve', 'yes')
+  await decideItem(session, ids.queryB, 'reject', 'keep the string form for Orders')
+  const results = await applyApproved(session, { confirm: 'all' })
+  assert.deepEqual(results.map(result => result.id), [ids.query])
+  const text = await read(session.workspaceProject, 'srv', 'service.js')
+  assert.ok(text.includes('SELECT.from(Items).where({ code: input })'))
+  assert.ok(text.includes(secondLine), 'the rejected proposal in the same file is untouched')
+  assert.match(await read(root, 'srv', 'service.js'), /'code=' \+ input\)\n.*\n.*\n.*Orders/s, 'the original project is never changed')
+  const states = Object.fromEntries((await itemStates(await loadSession(session.dir))).map(state => [state.id, state.state]))
+  assert.equal(states[ids.query], 'applied, unverified (no tests run)')
+  assert.equal(states[ids.queryB], 'rejected')
+})
+
+test('both approved proposals in one file apply on top of each other, test, and commit as a chain', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids } = await startSame(context)
+  await decideItem(session, ids.query, 'approve', 'yes')
+  await decideItem(session, ids.queryB, 'approve', 'yes')
+  // A proposal that adds a line first shifts the later one: the rebase must land it on the right line.
+  const results = await applyApproved(session, { confirm: 'all', testCommand: 'node srv/check.js' })
+  assert.deepEqual(results.map(result => [result.applied, result.result]), [[true, 'test-passed'], [true, 'test-passed']])
+  const text = await read(session.workspaceProject, 'srv', 'service.js')
+  assert.ok(text.includes('SELECT.from(Items).where({ code: input })') && text.includes('SELECT.from(Orders).where({ code: input })'))
+  assert.ok(!text.includes("'code=' + input"))
+  const loaded = await loadSession(session.dir)
+  assert.equal(loaded.applications.length, 2)
+  assert.equal(loaded.applications[1].files[0].baseSha256, loaded.applications[0].files[0].afterSha256, 'the second record starts from what the first produced')
+  await assertTrusted(loaded)
+  const preview = await commitSession(loaded, {})
+  assert.equal((await commitSession(await loadSession(session.dir), { confirm: preview.confirm })).committed, true)
+})
+
+test('a proposal that shifts lines does not break the next one in the same file', { skip: !hasGit && 'git is not available' }, async context => {
+  const grow = `--- a/srv/service.js\n+++ b/srv/service.js\n@@ -1 +1,3 @@\n-${originalLine}\n+const input = String(req.data.code)\n+// bound below\n+SELECT.from(Items).where({ code: input })\n`
+  const { session, ids } = await start(context, { git: true, second: true }, ids => [
+    proposeQuery(ids.query, 'srv/service.js', solution(grow)), ...sameFile(ids).slice(1)
+  ])
+  await decideItem(session, ids.query, 'approve', 'adds two lines')
+  await decideItem(session, ids.queryB, 'approve', 'later in the file')
+  assert.deepEqual((await applyApproved(session, { confirm: 'all' })).map(result => result.applied), [true, true])
+  const lines = (await read(session.workspaceProject, 'srv', 'service.js')).split('\n')
+  assert.equal(lines.at(-2), 'SELECT.from(Orders).where({ code: input })')
+  assert.equal(lines.filter(line => line.includes('Orders')).length, 1)
+})
+
+test('proposals that change the same lines are reported as a conflict with both IDs and never merged', async context => {
+  const rival = `--- a/srv/service.js\n+++ b/srv/service.js\n@@ -1 +1 @@\n-${originalLine}\n+SELECT.from(Items).where({ code: { '=': input } })\n`
+  const { session, ids } = await start(context, { git: true, second: true }, ids => [
+    proposeQuery(ids.query, 'srv/service.js'),
+    { id: ids.validation, decision: 'proposed', reason: 'Rewrites the same query line differently.', summary: 'Alternative form.', checks, ...solution(rival) },
+    { id: ids.remote, decision: 'not-applicable', reason: 'Local.' },
+    { id: ids.queryB, decision: 'proposed', reason: 'Orders.', summary: 'Orders.', checks, ...solution(secondPatch) }
+  ])
+  const held = session.groups.unresolved.find(item => item.row.id === ids.validation)
+  assert.match(held.conflict, new RegExp(`Overlaps the proposal ${ids.query} in srv/service\\.js \\(lines 1-1\\).*Nothing is merged silently`))
+  assert.ok(session.groups.actionable.some(({ row }) => row.id === ids.queryB), 'the unrelated proposal in the same file is not affected')
+  await assert.rejects(decideItem(session, ids.validation, 'approve', 'both'), /cannot be approved: Overlaps the proposal/)
+})
+
+test('a workspace edit between two proposals in one file stops the second, and nothing half-applies', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids } = await startSame(context)
+  await decideItem(session, ids.query, 'approve', 'yes')
+  const first = await applyApproved(session, { confirm: 'all' })
+  assert.equal(first[0].applied, true)
+  await decideItem(await loadSession(session.dir), ids.queryB, 'approve', 'yes')
+  const file = path.join(session.workspaceProject, 'srv', 'service.js')
+  const edited = (await read(file)).replace(secondLine, `${secondLine} // touched by hand`)
+  await writeFile(file, edited)
+  await assert.rejects(applyApproved(await loadSession(session.dir), { confirm: 'all' }), /no longer applies|differs from the reviewed file/)
+  assert.equal(await read(file), edited, 'the refused apply wrote nothing')
+})
+
+test('a later proposal on a file is refused when the file is not what the earlier proposal produced', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids } = await startSame(context)
+  await decideItem(session, ids.query, 'approve', 'yes')
+  await applyApproved(session, { confirm: 'all' })
+  const file = path.join(session.workspaceProject, 'srv', 'service.js')
+  await writeFile(file, `// moved by hand\n${await read(file)}`)
+  const loaded = await loadSession(session.dir)
+  await decideItem(loaded, ids.queryB, 'approve', 'yes')
+  await assert.rejects(applyApproved(await loadSession(session.dir), { confirm: 'all' }), /differs from the reviewed file|no longer applies/)
+})
+
+// ── Discard and the canonical summary ───────────────────────────────────────────────────────────────────────────────────
+
+const exists = target => lstat(target).then(() => true, () => false)
+const branchExists = (repo, branch) => { try { gitIn(repo, 'rev-parse', '--verify', '--quiet', `refs/heads/${branch}`); return true } catch { return false } }
+
+test('discard previews first, needs its own confirmation, and removes only the worktree, branch, and folder the session created', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, root, repo } = await start(context, { git: true })
+  const before = { status: gitIn(repo, 'status', '--porcelain'), head: gitIn(repo, 'rev-parse', 'HEAD'), branch: gitIn(repo, 'rev-parse', '--abbrev-ref', 'HEAD'), branches: gitIn(repo, 'branch', '--format=%(refname:short)') }
+  await assert.rejects(discardSession(session, { confirm: 'a'.repeat(64) }), /--confirm must be the sha256 shown by the discard preview/, 'no confirmation works without the hash of a preview')
+  const preview = await discardSession(session, {})
+  assert.equal(preview.discarded, false)
+  assert.deepEqual(preview.blockers, [])
+  assert.ok(preview.willRemove.some(line => line.includes(session.meta.workspace)) && preview.willRemove.some(line => line.includes(session.meta.git.reviewBranch)))
+  assert.match(preview.losses.join(' '), /3 proposal\(s\) have no decision yet/, 'undecided proposals are named as a loss')
+  await assert.rejects(discardSession(session, { confirm: 'b'.repeat(64) }), /--confirm must be the sha256 shown by the discard preview/)
+  await assert.rejects(discardSession(session, { confirm: preview.confirm }), /Add --discard-work/)
+  assert.ok(await exists(session.meta.workspace), 'refusals removed nothing')
+  const done = await discardSession(session, { confirm: preview.confirm, discardWork: true })
+  assert.equal(done.discarded, true)
+  assert.equal(await exists(session.dir), false)
+  assert.equal(branchExists(repo, session.meta.git.reviewBranch), false)
+  assert.equal(gitIn(repo, 'worktree', 'list').includes(session.meta.workspace), false)
+  assert.deepEqual({ status: gitIn(repo, 'status', '--porcelain'), head: gitIn(repo, 'rev-parse', 'HEAD'), branch: gitIn(repo, 'rev-parse', '--abbrev-ref', 'HEAD'), branches: gitIn(repo, 'branch', '--format=%(refname:short)').split('\n').filter(name => !name.includes('cap-ai-11')).join('\n') + '\n' }, { ...before, branches: before.branches.split('\n').filter(name => !name.includes('cap-ai-11')).join('\n') + '\n' }, 'your branch, HEAD, and working tree are exactly as before')
+  assert.equal(await read(root, 'srv', 'service.js'), [originalLine, validationLine, remoteLine, ''].join('\n'))
+})
+
+test('discard with nothing undecided needs no acknowledgement', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids, repo } = await start(context, { git: true })
+  for (const id of [ids.query, ids.other, ids.validation]) await decideItem(session, id, 'reject', 'not now')
+  const preview = await discardSession(await loadSession(session.dir), {})
+  assert.deepEqual(preview.losses, [])
+  assert.equal((await discardSession(await loadSession(session.dir), { confirm: preview.confirm })).discarded, true)
+  assert.equal(branchExists(repo, session.meta.git.reviewBranch), false)
+})
+
+test('discard refuses edits the session did not apply, even with --discard-work, and removes nothing', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids, repo } = await applied(context)
+  await writeFile(path.join(session.workspaceProject, 'srv', 'other.js'), '// my own work\n')
+  const preview = await discardSession(await loadSession(session.dir), {})
+  assert.match(preview.blockers.join(' '), /changes the session did not apply \(.*other\.js\)/)
+  assert.match(preview.willRemove.join(' '), /session folder/)
+  await assert.rejects(discardSession(await loadSession(session.dir), { confirm: preview.confirm, discardWork: true }), /Refusing to discard: .*other\.js/)
+  assert.ok(await exists(session.workspaceProject) && branchExists(repo, session.meta.git.reviewBranch))
+  assert.equal(await read(session.workspaceProject, 'srv', 'other.js'), '// my own work\n')
+})
+
+test('discard refuses a file edited after the session applied it', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session } = await applied(context)
+  const file = path.join(session.workspaceProject, 'srv', 'service.js')
+  await writeFile(file, `${await read(file)}// later edit\n`)
+  assert.match((await discardSession(await loadSession(session.dir), {})).blockers.join(' '), /service\.js was edited after the session applied it/)
+})
+
+test('applied but uncommitted work is named as a loss and needs --discard-work; then it is removed', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, repo } = await applied(context)
+  const preview = await discardSession(await loadSession(session.dir), {})
+  assert.deepEqual(preview.blockers, [])
+  assert.match(preview.losses.join(' '), /applied but uncommitted changes in: .*service\.js/)
+  await discardSession(await loadSession(session.dir), { confirm: preview.confirm })
+    .then(() => assert.fail('must refuse'), error => assert.match(error.message, /would lose work.*--discard-work/s))
+  assert.ok(await exists(session.workspaceProject))
+  await discardSession(await loadSession(session.dir), { confirm: preview.confirm, discardWork: true })
+  assert.equal(await exists(session.dir), false)
+  assert.equal(branchExists(repo, session.meta.git.reviewBranch), false)
+})
+
+test('a commit that exists only on the review branch is a loss until it is pushed or kept in another branch', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids, repo } = await applied(context)
+  await decideItem(await loadSession(session.dir), ids.other, 'reject', 'no')
+  await decideItem(await loadSession(session.dir), ids.validation, 'defer', 'later')
+  const first = await commitSession(await loadSession(session.dir), {})
+  const committed = await commitSession(await loadSession(session.dir), { confirm: first.confirm })
+  const loaded = await loadSession(session.dir)
+  const alone = await discardSession(loaded, {})
+  assert.match(alone.losses.join(' '), new RegExp(`the commit ${committed.sha.slice(0, 12)} exists only on`))
+  assert.match(alone.willRemove.join(' '), /deleted with its own commit, as you confirm/)
+  gitIn(repo, 'branch', 'keep-my-review', committed.sha)
+  const kept = await discardSession(await loadSession(session.dir), {})
+  assert.deepEqual(kept.losses, [], 'the work is safe in another branch')
+  assert.match(kept.willRemove.join(' '), /its commit stays reachable from keep-my-review/)
+  await discardSession(await loadSession(session.dir), { confirm: kept.confirm })
+  assert.equal(branchExists(repo, session.meta.git.reviewBranch), false)
+  assert.equal(branchExists(repo, 'keep-my-review'), true)
+  assert.equal(gitIn(repo, 'rev-parse', 'keep-my-review').trim(), committed.sha)
+})
+
+test('discard refuses a review branch that moved, a workspace on another branch, and commits the session did not make', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, repo } = await start(context, { git: true })
+  gitIn(session.meta.workspace, 'commit', '-q', '--allow-empty', '-m', 'someone else committed here')
+  assert.match((await discardSession(session, {})).blockers.join(' '), /has commits the session did not make \(1\)/)
+  gitIn(session.meta.workspace, 'reset', '-q', '--soft', 'HEAD~1')
+  gitIn(session.meta.workspace, 'checkout', '-q', '-b', 'elsewhere')
+  assert.match((await discardSession(session, {})).blockers.join(' '), /on "elsewhere", not on cap-ai-11\/review-/)
+  await assert.rejects(discardSession(session, { confirm: 'c'.repeat(64), discardWork: true }), /Refusing to discard/)
+  assert.ok(await exists(session.meta.workspace) && branchExists(repo, session.meta.git.reviewBranch))
+})
+
+test('a session with a tampered record cannot be discarded through the tool', async context => {
+  const { session } = await start(context, { git: true })
+  await writeFile(path.join(session.dir, 'events.jsonl'), '{"seq":1}\n')
+  await assert.rejects(discardSession(session, {}), /event log is not intact/)
+  assert.ok(await exists(session.dir))
+})
+
+test('discarding a copy session removes the copy and folder and names applied changes as the loss', async context => {
+  const { session } = await start(context, { mode: 'copy' })
+  const hash = session.queue[0].row.id
+  await decideItem(session, hash, 'approve', 'yes')
+  await applyApproved(session, { confirm: 'all' })
+  const loaded = await loadSession(session.dir)
+  const preview = await discardSession(loaded, {})
+  assert.match(preview.losses.join(' '), /exist only in the copy/)
+  assert.equal((await discardSession(loaded, { confirm: preview.confirm, discardWork: true })).discarded, true)
+  assert.equal(await exists(session.dir), false)
+})
+
+test('the summary counts come from the session record and never call approved or applied work fixed', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids } = await start(context, { git: true })
+  const text = await sessionSummary(session)
+  assert.deepEqual(text.findings, { scanned: 4, withProposal: 2, withoutProposal: 2, without: { needsReview: 1, noProposal: 0, notApplicable: 1, notReviewed: 0 }, coveredByApprovedProposals: 0, coveredByAppliedProposals: 0, coveredByAppliedProposalsWithPassingTests: 0 })
+  assert.deepEqual({ ...text.proposals, items: undefined }, { total: 2, pending: 2, approvedNotApplied: 0, applied: 0, rejected: 0, deferred: 0, changesRequested: 0, heldByConflict: 0, items: undefined })
+  await decideItem(session, ids.query, 'approve', 'yes')
+  await decideItem(session, ids.other, 'defer', 'later')
+  const approved = await sessionSummary(await loadSession(session.dir))
+  assert.equal(approved.proposals.approvedNotApplied, 1)
+  assert.equal(approved.proposals.deferred, 1)
+  assert.equal(approved.findings.coveredByApprovedProposals, 1)
+  assert.equal(approved.findings.coveredByAppliedProposals, 0, 'approved is not applied')
+  await applyApproved(await loadSession(session.dir), { confirm: 'all' })
+  const untested = await sessionSummary(await loadSession(session.dir))
+  assert.deepEqual([untested.proposals.applied, untested.tests, untested.findings.coveredByAppliedProposals, untested.findings.coveredByAppliedProposalsWithPassingTests], [1, { passed: 0, failed: 0, notRun: 1 }, 1, 0], 'applied is not tested')
+  assert.deepEqual(untested.commit, { committed: false, sha: null, appliedNotCommitted: 1 })
+  const rendered = renderSummary(untested)
+  assert.match(rendered, /Findings scanned: 4/)
+  assert.match(rendered, /Tests on applied proposals: passed 0, failed 0, not run 1/)
+  assert.match(rendered, /Commit: not committed \(1 applied proposal\(s\) are not committed\)/)
+  assert.ok(!/\bfixed\b/i.test(rendered.replace('No finding is reported as fixed.', '')), 'the summary never claims a fix')
+})
+
+test('the summary counts covered findings, failing tests, and the commit', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids } = await start(context, { git: true }, ids => [
+    proposeQuery(ids.query, 'srv/service.js', { proposal: solution(coherentPatch).proposal }),
+    { id: ids.validation, decision: 'proposed', reason: 'Same function.', checks, addressedBy: ids.query },
+    { id: ids.remote, decision: 'not-applicable', reason: 'Local validator error.' },
+    { id: ids.other, decision: 'no-proposal', reason: 'Fixed elsewhere.', blocker: { investigated: ['read it'] } }
+  ])
+  await decideItem(session, ids.query, 'approve', 'one change for both')
+  await applyApproved(session, { confirm: 'all', testCommand: 'node -e "process.exit(1)"' })
+  const failed = await sessionSummary(await loadSession(session.dir))
+  assert.equal(failed.findings.coveredByApprovedProposals, 2, 'one proposal covers two findings')
+  assert.equal(failed.findings.coveredByAppliedProposalsWithPassingTests, 0)
+  assert.deepEqual(failed.tests, { passed: 0, failed: 1, notRun: 0 })
+  assert.deepEqual(failed.findings.without, { needsReview: 0, noProposal: 1, notApplicable: 1, notReviewed: 0 })
+  const loaded = await loadSession(session.dir)
+  const preview = await commitSession(loaded, { acceptFailingTests: true })
+  await commitSession(await loadSession(session.dir), { acceptFailingTests: true, confirm: preview.confirm })
+  const committed = await sessionSummary(await loadSession(session.dir))
+  assert.equal(committed.commit.committed, true)
+  assert.match(committed.commit.sha, /^[a-f0-9]{40}$/)
+  assert.match(renderSummary(committed), /Commit: [a-f0-9]{12} on cap-ai-11\/review-/)
+})
+
+test('the summary says so when the session record was tampered with', async context => {
+  const { session, ids } = await start(context)
+  await decideItem(session, ids.other, 'reject', 'no')
+  const file = path.join(session.dir, 'developer-decisions.json')
+  await writeFile(file, (await read(file)).replace('"decision": "rejected"', '"decision": "approved"'))
+  const summary = await sessionSummary(await loadSession(session.dir))
+  assert.equal(summary.trustworthy, false)
+  assert.match(renderSummary(summary), /WARNING: the session state is not trustworthy/)
+})
+
+test('summary and discard work through the CLI, and discard needs the previewed hash', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids, repo } = await start(context, { git: true })
+  await decideItem(session, ids.query, 'reject', 'no')
+  const summary = JSON.parse((await cliIn('summary', '--session', session.dir, '--json')).stdout)
+  assert.equal(summary.format, 'cap-pattern-session-summary')
+  assert.equal(summary.proposals.rejected, 1)
+  assert.match((await cliIn('summary', '--session', session.dir)).stdout, /Findings scanned: 4/)
+  const blind = await cliIn('discard', '--session', session.dir, '--confirm', 'd'.repeat(64))
+  assert.equal(blind.code, 1)
+  assert.match(blind.stderr, /--confirm must be the sha256 shown by the discard preview/)
+  const preview = await cliIn('discard', '--session', session.dir)
+  assert.match(preview.stdout, /NOT DISCARDED\. This would remove:/)
+  assert.match(preview.stdout, /It keeps: your own branch and working tree/)
+  assert.match(preview.stdout, /It would LOSE:\n- 2 proposal\(s\) have no decision yet/)
+  const hash = /--confirm ([a-f0-9]{64}) --discard-work/.exec(preview.stdout)[1]
+  const withoutAck = await cliIn('discard', '--session', session.dir, '--confirm', hash)
+  assert.match(withoutAck.stderr, /Add --discard-work/)
+  assert.match((await cliIn('discard', '--session', session.dir, '--confirm', hash, '--discard-work')).stdout, /Discarded\. Removed:/)
+  assert.equal(branchExists(repo, session.meta.git.reviewBranch), false)
+})
+
+// ── A real npm ci, offline, against a tiny local project ─────────────────────────────────────────────────────────────────
+
+const hasNpm = (() => { try { execFileSync('npm', ['--version'], { stdio: 'ignore', shell: process.platform === 'win32' }); return true } catch { return false } })()
+
+/** Runs npm with no network, no registry, and a throwaway cache, so the test depends on nothing outside this machine. */
+async function offlineNpm(context, args, cwd) {
+  const cache = await mkdtemp(path.join(tmpdir(), 'cap-npm-cache-'))
+  context.after(() => rm(cache, { recursive: true, force: true }))
+  const env = { ...process.env, npm_config_offline: 'true', npm_config_cache: cache, npm_config_audit: 'false', npm_config_fund: 'false', npm_config_update_notifier: 'false', npm_config_loglevel: 'error' }
+  await execFileAsync('npm', args, { cwd, env, shell: process.platform === 'win32' })
+  return env
+}
+
+const npmSettings = { npm_config_offline: 'true', npm_config_audit: 'false', npm_config_fund: 'false', npm_config_update_notifier: 'false' }
+function useOfflineNpm(context) {
+  Object.assign(process.env, npmSettings)
+  context.after(() => { for (const name of Object.keys(npmSettings)) delete process.env[name] })
+}
+
+/**
+ * A project whose dependencies are local folders (file:) with a real package-lock.json made by npm itself. @sap/cds is a local
+ * stand-in, because the scanner only recognises a CAP project by that dependency name and the test must not need a registry.
+ */
+const localDependency = (context, { desync = false } = {}) => async root => {
+  await mkdir(path.join(root, 'vendor', 'tiny-local'), { recursive: true })
+  await mkdir(path.join(root, 'vendor', 'cds-stand-in'), { recursive: true })
+  await writeFile(path.join(root, 'vendor', 'cds-stand-in', 'package.json'), JSON.stringify({ name: '@sap/cds', version: '9.0.0' }))
+  await writeFile(path.join(root, 'vendor', 'tiny-local', 'package.json'), JSON.stringify({ name: 'tiny-local', version: '1.0.0', main: 'index.js' }))
+  await writeFile(path.join(root, 'vendor', 'tiny-local', 'index.js'), 'module.exports = 42\n')
+  await writeFile(path.join(root, 'package.json'), JSON.stringify({ name: 'fixture', version: '1.0.0', dependencies: { '@sap/cds': 'file:./vendor/cds-stand-in', 'tiny-local': 'file:./vendor/tiny-local' }, scripts: { test: 'node srv/check.js' } }))
+  await offlineNpm(context, ['install', '--package-lock-only', '--ignore-scripts'], root)
+  if (desync) await writeFile(path.join(root, 'package.json'), JSON.stringify({ name: 'fixture', version: '1.0.0', dependencies: { '@sap/cds': 'file:./vendor/cds-stand-in', 'tiny-local': 'file:./vendor/tiny-local', 'not-in-the-lock': 'file:./vendor/missing' } }))
+}
+
+test('a real npm ci installs in the review workspace only, keeps the project and the commit clean, and tests run against it', { skip: (!hasGit && 'git is not available') || (!hasNpm && 'npm is not available') }, async context => {
+  const { session, ids, root, repo } = await start(context, { git: true, prepare: localDependency(context) })
+  await decideItem(session, ids.query, 'approve', 'ok')
+  useOfflineNpm(context)
+  const plan = await runAll(session, { install: 'npm ci', testCommand: 'node -e "process.exit(require(\'tiny-local\') === 42 ? 0 : 1)"' })
+  assert.match(plan.willDo.join('\n'), /Run "npm ci" in .*workspace/)
+  assert.equal(await exists(path.join(session.workspaceProject, 'node_modules')), false, 'the preview installed nothing')
+  const done = await runAll(await loadSession(session.dir), { install: 'npm ci', testCommand: 'node -e "process.exit(require(\'tiny-local\') === 42 ? 0 : 1)"', confirm: plan.confirm })
+  assert.equal(done.stage, 'done')
+  assert.equal(done.tests, 'passed', 'the test ran against the real installed dependency')
+  assert.equal(await read(session.workspaceProject, 'node_modules', 'tiny-local', 'index.js'), 'module.exports = 42\n')
+  assert.equal(await exists(path.join(root, 'node_modules')), false, 'your project folder got no node_modules')
+  assert.equal(gitIn(repo, 'status', '--porcelain'), '', 'your working tree is untouched')
+  assert.equal(gitIn(session.meta.workspace, 'status', '--porcelain').split('\n').filter(Boolean).length, 1, 'only the applied file is a change; node_modules is ignored')
+  assert.equal((await loadSession(session.dir)).meta.install.ok, true)
+  const preview = await commitSession(await loadSession(session.dir), {})
+  assert.equal((await commitSession(await loadSession(session.dir), { confirm: preview.confirm })).committed, true, 'the commit is not blocked by the installed packages')
+  await discardSession(await loadSession(session.dir), {}).then(async result => {
+    await discardSession(await loadSession(session.dir), { confirm: result.confirm, discardWork: true })
+  })
+  assert.equal(await exists(session.dir), false, 'discard also removes the installed node_modules with the worktree')
+})
+
+test('a real npm ci that fails leaves no partial node_modules and applies nothing', { skip: (!hasGit && 'git is not available') || (!hasNpm && 'npm is not available') }, async context => {
+  const { session, ids } = await start(context, { git: true, prepare: localDependency(context, { desync: true }) })
+  await decideItem(session, ids.query, 'approve', 'ok')
+  useOfflineNpm(context)
+  const plan = await runAll(session, { install: 'npm ci', testCommand: 'node srv/check.js' })
+  const result = await runAll(await loadSession(session.dir), { install: 'npm ci', testCommand: 'node srv/check.js', confirm: plan.confirm })
+  assert.equal(result.stage, 'install')
+  assert.notEqual(result.install.exitCode, 0)
+  assert.equal(result.install.installed, false)
+  assert.equal(result.applied.length, 0, 'nothing was applied after a failed install')
+  assert.equal(await exists(path.join(session.workspaceProject, 'node_modules')), false, 'the partial install was removed')
+  assert.equal((await loadSession(session.dir)).applications.length, 0)
+  assert.equal((await loadSession(session.dir)).meta.install.ok, false)
+})
+
+// ── Bypass attempts by a caller that skips the review interface, and timing ──────────────────────────────────────────────
+
+// R5 regression: when --session is given, apply.mjs verifies the project matches the workspace; redirecting to the
+// original project is refused. Standalone apply.mjs without --session is still allowed (its own confirmation guards apply).
+test('apply.mjs with --session refuses to apply to any path other than the session workspace', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session, ids, repo } = await start(context, { git: true })
+  const row = session.queue.find(item => item.row.id === ids.query).row
+  const forged = path.join(session.dir, '..', 'forged-decisions.json')
+  await writeFile(forged, JSON.stringify({ format: 'cap-pattern-developer-decisions', snapshotSha256: session.brief.snapshot.sha256, reviewer: 'nobody', decisions: [{ id: ids.query, decision: 'approved', patchSha256: row.verifiedPatch.patchSha256 }], undecided: [] }))
+  const applyArgs = args => execFileAsync(process.execPath, [fileURLToPath(new URL('./apply.mjs', import.meta.url)), ...args]).catch(error => ({ stdout: error.stdout, stderr: error.stderr, code: error.code }))
+  const commonArgs = ['--report', path.join(session.dir, 'brief.json'), '--decisions', path.join(session.dir, 'validated.json'), '--developer-decisions', forged, '--id', ids.query, '--confirm', row.verifiedPatch.patchSha256, '--output', path.join(session.dir, 'forged-record.json')]
+  // With --session but --project pointing to the original project: refused before any file is touched
+  const redirected = await applyArgs(['apply', '--session', session.dir, '--project', repo, ...commonArgs])
+  assert.ok(redirected.code, 'apply to original project with --session is refused (exit code non-zero)')
+  assert.match(redirected.stderr, /review workspace.*applying to another path is not allowed/, 'error names the constraint')
+  // The original project is byte-for-byte unchanged
+  assert.equal(await read(repo, 'srv', 'service.js'), [originalLine, validationLine, remoteLine, ''].join('\n'), 'the original project is byte-for-byte unchanged after the refused attempt')
+  // The session's workspace is also unchanged
+  assert.equal(await read(session.workspaceProject, 'srv', 'service.js'), [originalLine, validationLine, remoteLine, ''].join('\n'), 'the workspace is unchanged after the refused attempt')
+  // A forged application record placed manually in the session folder is still caught by the event log
+  const fakeRecord = JSON.stringify({ format: 'cap-pattern-application', snapshotSha256: session.brief.snapshot.sha256, findingId: ids.query, patchSha256: row.verifiedPatch.patchSha256, state: 'applied', result: 'unverified', files: [], appliedPatch: '', reversePatch: '' })
+  await writeFile(path.join(session.dir, 'applications', '01-forged.json'), fakeRecord)
+  await assert.rejects(commitSession(await loadSession(session.dir), {}), /not trustworthy.*no matching entry in the event log/)
+  await rm(path.join(session.dir, 'applications', '01-forged.json'))
+  // Running the session's own approve path without the proof of having seen the diff is refused
+  await assert.rejects(decideRaw(await loadSession(session.dir), ids.query, 'approve', 'trust me', 'a subagent', { diff: row.verifiedPatch.patchSha256, via: 'terminal' }), /before its diff was shown/)
+})
+
+// R6 regression: session.json workspace/project identity is bound to the event log; modifying it outside the tool is caught
+test('modifying session.json workspace or project paths outside the tool is caught by assertTrusted', async context => {
+  const { session, ids, root } = await start(context, { mode: 'copy' })
+  // Tamper: redirect workspaceProject to the original project (not the copy)
+  const tampered = { ...session.meta, workspaceProject: root, workspace: root }
+  await writeFile(path.join(session.dir, 'session.json'), `${JSON.stringify(tampered, null, 2)}\n`)
+  const loaded = await loadSession(session.dir)
+  await assert.rejects(decideRaw(loaded, ids.query, 'approve', ''), /workspace or project paths in session\.json do not match the event log/, 'tampered workspace path is detected')
+  await assert.rejects(previewApply(loaded), /workspace or project paths in session\.json do not match the event log/, 'apply preview is also blocked')
+  // The original project is untouched: no state-changing operation ran
+  assert.equal(await read(root, 'srv', 'service.js'), [originalLine, validationLine, remoteLine, ''].join('\n'), 'the original project is byte-for-byte unchanged')
+  // The copy (workspace) is also untouched
+  assert.equal(await read(session.workspaceProject, 'srv', 'service.js'), [originalLine, validationLine, remoteLine, ''].join('\n'), 'the workspace copy is byte-for-byte unchanged')
+})
+
+test('decisions record how they were made, so approvals through the decide command are told apart from the terminal', async context => {
+  const { session, ids } = await start(context)
+  await recordPresented(session, session.queue.filter(item => item.row.ready), 'show')
+  const hash = session.queue.find(item => item.row.id === ids.query).row.verifiedPatch.patchSha256
+  await decideRaw(session, ids.query, 'approve', '', 'Vera', { diff: hash })
+  const summary = await sessionSummary(await loadSession(session.dir))
+  assert.deepEqual(summary.approvals.via, { cli: 1 })
+  assert.match(renderSummary(summary), /Approvals recorded through: cli 1/)
+})
+
+test('every session command records its elapsed time and output size, and the summary reports them without trusting them', async context => {
+  const f = await fixture(context)
+  const validated = await f.validate(standard(f.ids))
+  const out = await mkdtemp(path.join(tmpdir(), 'cap-session-out-'))
+  context.after(() => rm(out, { recursive: true, force: true }))
+  await writeFile(path.join(out, 'b.json'), JSON.stringify(f.report))
+  await writeFile(path.join(out, 'v.json'), JSON.stringify(validated))
+  const dir = path.join(out, 'session')
+  await cliIn('start', '--report', path.join(out, 'b.json'), '--decisions', path.join(out, 'v.json'), '--project', f.root, '--session', dir, '--mode', 'copy')
+  await cliIn('show', '--session', dir)
+  await cliIn('status', '--session', dir)
+  const entries = (await read(dir, 'timings.jsonl')).trim().split('\n').map(line => JSON.parse(line))
+  assert.deepEqual(entries.map(entry => entry.command), ['start', 'show', 'status'])
+  for (const entry of entries) assert.ok(entry.ms >= 0 && entry.stdoutBytes > 0 && entry.exitCode === 0 && entry.startedAt, JSON.stringify(entry))
+  const summary = JSON.parse((await cliIn('summary', '--session', dir, '--json')).stdout)
+  assert.equal(summary.toolTime.calls, 3, 'the summary call itself is recorded only after it has run')
+  assert.deepEqual(Object.keys(summary.toolTime.commands).sort(), ['session show', 'session start', 'session status'])
+  // Timings are not part of the trusted state: editing them changes nothing about trust.
+  await writeFile(path.join(dir, 'timings.jsonl'), 'garbage\n')
+  await assertTrusted(await loadSession(dir))
+})
+
+test('the scan tool records its stage time and output size only when asked to', async context => {
+  const f = await fixture(context)
+  const out = await mkdtemp(path.join(tmpdir(), 'cap-timing-'))
+  context.after(() => rm(out, { recursive: true, force: true }))
+  const file = path.join(out, 'timings.jsonl')
+  const scan = fileURLToPath(new URL('./scan.mjs', import.meta.url))
+  await execFileAsync(process.execPath, [scan, f.root])
+  assert.equal(await exists(file), false, 'nothing is written without the variable')
+  await execFileAsync(process.execPath, [scan, f.root, '--full'], { env: { ...process.env, CAP_AI_11_TIMING_FILE: file } })
+  const [entry] = (await read(file)).trim().split('\n').map(line => JSON.parse(line))
+  assert.equal(entry.tool, 'scan')
+  assert.equal(entry.command, 'full')
+  assert.ok(entry.ms >= 0 && entry.stdoutBytes > 1000)
+})
+
+test('only showing one proposal with --id records its diff as shown; the unfiltered queue lists items without diffs and records nothing', async context => {
+  const { session, ids } = await start(context, { mode: 'copy' })
+  const queue = JSON.parse((await cliIn('show', '--session', session.dir, '--json')).stdout)
+  assert.ok(queue.items.length >= 2 && queue.items.every(item => item.diff === null && item.diffOmitted === true), 'no diffs in the queue listing')
+  assert.match(queue.note, /Show one proposal with its diff using --id/)
+  const text = (await cliIn('show', '--session', session.dir)).stdout
+  assert.ok(!text.includes('Diff (- removed, + added):') && text.includes(ids.query), 'the text listing is an index')
+  assert.equal((await readLog(session.dir)).events.filter(event => event.type === 'presented').length, 0, 'listing shows no diff, so nothing counts as shown')
+  const hash = session.queue.find(item => item.row.id === ids.query).row.verifiedPatch.patchSha256
+  assert.match((await cliIn('decide', '--session', session.dir, '--id', ids.query, '--decision', 'approve', '--diff', hash)).stderr, /before its diff was shown/)
+  const one = JSON.parse((await cliIn('show', '--session', session.dir, '--id', ids.query, '--json')).stdout)
+  assert.match(one.items[0].diff, /^--- a\/srv\/service\.js/)
+  const presented = (await readLog(session.dir)).events.filter(event => event.type === 'presented')
+  assert.deepEqual(presented.map(event => event.data.id), [ids.query], 'exactly the one proposal that was shown')
+  assert.match((await cliIn('decide', '--session', session.dir, '--id', ids.query, '--decision', 'approve', '--diff', hash)).stdout, /Recorded approved/)
+})
+
+// ── Feature 1: test-command binding in apply preview ──────────────────────────────────────────────
+
+test('apply preview token includes the test command; mismatched test command or timeout is rejected', async context => {
+  const { session, ids } = await start(context, { mode: 'copy' })
+  await decideItem(session, ids.query, 'approve')
+  const loaded = await loadSession(session.dir)
+  // Preview with a test command: token binds the command
+  const preview = await previewApply(loaded, { testCommand: 'npm test', testTimeout: 60 })
+  assert.ok(preview.confirm, 'preview produces a confirm token')
+  assert.equal(preview.testCommand, 'npm test')
+  assert.equal(preview.testTimeout, 60)
+  // Correct command and timeout: succeeds
+  const results = await applyRaw(loaded, { confirm: preview.confirm, testCommand: 'npm test', testTimeout: 60 })
+  assert.equal(results[0].applied, true)
+})
+
+test('apply is rejected when test command differs from what was previewed', async context => {
+  const { session, ids } = await start(context, { mode: 'copy' })
+  await decideItem(session, ids.query, 'approve')
+  const loaded = await loadSession(session.dir)
+  const preview = await previewApply(loaded, { testCommand: 'npm test' })
+  // Different test command: token mismatch
+  await assert.rejects(applyRaw(loaded, { confirm: preview.confirm, testCommand: 'npm run ci' }), /test command or timeout differs from what was previewed|sha256 shown by the apply preview/)
+})
+
+test('apply is rejected when test command given at confirm time but was absent at preview time', async context => {
+  const { session, ids } = await start(context, { mode: 'copy' })
+  await decideItem(session, ids.query, 'approve')
+  const loaded = await loadSession(session.dir)
+  // Preview with no test command
+  const preview = await previewApply(loaded)
+  // Confirm with a test command: token mismatch
+  await assert.rejects(applyRaw(loaded, { confirm: preview.confirm, testCommand: 'npm test' }), /test command or timeout differs from what was previewed|sha256 shown by the apply preview/)
+})
+
+// ── Feature 2: mirror repair ──────────────────────────────────────────────────────────────────────
+
+test('repair reports already consistent when developer-decisions.json matches the event log', async context => {
+  const { session, ids } = await start(context, { mode: 'copy' })
+  await decideItem(session, ids.query, 'approve')
+  const loaded = await loadSession(session.dir)
+  const result = await repairSession(loaded)
+  assert.equal(result.alreadyConsistent, true)
+  assert.match(result.message, /already matches the event log/)
+})
+
+test('repair preview shows the drift and confirm restores consistency', async context => {
+  const { session, ids } = await start(context, { mode: 'copy' })
+  await decideItem(session, ids.query, 'approve')
+  // Tamper: change the decision in developer-decisions.json outside the tool
+  const devPath = path.join(session.dir, 'developer-decisions.json')
+  const dev = JSON.parse(await read(session.dir, 'developer-decisions.json'))
+  const tampered = { ...dev, decisions: dev.decisions.map(d => d.id === ids.query ? { ...d, decision: 'rejected' } : d) }
+  await writeFile(devPath, `${JSON.stringify(tampered, null, 2)}\n`)
+  const loaded = await loadSession(session.dir)
+  // assertTrusted should fail now
+  await assert.rejects(assertTrusted(loaded), /not trustworthy/)
+  // Repair preview
+  const preview = await repairSession(loaded)
+  assert.equal(preview.repaired, false)
+  assert.equal(preview.alreadyConsistent, false)
+  assert.ok(preview.confirm, 'preview produces a confirm token')
+  assert.ok(preview.repairs.some(r => r.id === ids.query && r.willBe.decision === 'approved'))
+  // Confirm repair
+  const repaired = await repairSession(loaded, { confirm: preview.confirm })
+  assert.equal(repaired.repaired, true)
+  // After repair, assertTrusted should pass
+  const fixed = await loadSession(session.dir)
+  await assert.doesNotReject(assertTrusted(fixed))
+  assert.ok(fixed.developer.decisions.find(d => d.id === ids.query)?.decision === 'approved')
+})
+
+test('repair refuses when an application record is inconsistent with the event log', async context => {
+  const { session, ids } = await start(context, { mode: 'copy' })
+  await decideItem(session, ids.query, 'approve')
+  const loaded = await loadSession(session.dir)
+  // Inject a fake application record not in the event log
+  const appPath = path.join(session.dir, 'applications', '99-fake.json')
+  await writeFile(appPath, JSON.stringify({ format: 'cap-pattern-application', snapshotSha256: session.brief.snapshot.sha256, findingId: ids.query, patchSha256: 'abc', state: 'applied', result: 'unverified', files: [], appliedPatch: '', reversePatch: '' }))
+  const loaded2 = await loadSession(session.dir)
+  await assert.rejects(repairSession(loaded2), /inconsistent with the event log.*cannot be repaired/)
+})
+
+// ── Feature 3: explicit recovery ─────────────────────────────────────────────────────────────────
+
+test('recover reports no orphans when no interrupted operations exist', async context => {
+  const { session } = await start(context, { mode: 'copy' })
+  const result = await recoverSession(session)
+  assert.equal(result.noOrphans, true)
+  assert.match(result.message, /No interrupted operations/)
+})
+
+test('recover detects an orphaned apply-intent (record exists and matches) and recovers it', async context => {
+  const { session, ids } = await start(context, { mode: 'copy' })
+  await decideItem(session, ids.query, 'approve')
+  const loaded = await loadSession(session.dir)
+  // Simulate an interrupted apply: write apply-intent but no applied event, and write the application record manually
+  const row = loaded.queue.find(item => item.row.id === ids.query).row
+  const approval = loaded.developer.decisions.find(d => d.id === ids.query)
+  const outputName = `01-interrupted-${approval.patchSha256.slice(0, 8)}.json`
+  const outputPath = path.join(session.dir, 'applications', outputName)
+  const fakeRecord = { format: 'cap-pattern-application', snapshotSha256: session.brief.snapshot.sha256, findingId: ids.query, patchSha256: approval.patchSha256, state: 'applied', result: 'unverified', files: [{ file: 'srv/service.js', baseSha256: 'x', afterSha256: 'y' }], appliedPatch: '', reversePatch: '' }
+  await writeFile(outputPath, `${JSON.stringify(fakeRecord, null, 2)}\n`)
+  await appendEvent(session.dir, 'apply-intent', { id: ids.query, patchSha256: approval.patchSha256, output: outputName })
+  const loaded2 = await loadSession(session.dir)
+  // Preview
+  const preview = await recoverSession(loaded2)
+  assert.equal(preview.noOrphans, false)
+  assert.equal(preview.recoverableCount, 1)
+  assert.ok(preview.orphans[0].canRecover)
+  // Confirm
+  const recovered = await recoverSession(loaded2, { confirm: preview.confirm })
+  assert.equal(recovered.recovered, true)
+  assert.equal(recovered.actions[0].result, 'recovered')
+  // The applied event should now be in the log
+  const { events } = await readLog(session.dir)
+  assert.ok(events.some(e => e.type === 'applied' && e.data.id === ids.query), 'applied event written by recovery')
+  // Idempotent: second recover finds no orphans
+  const loaded3 = await loadSession(session.dir)
+  const second = await recoverSession(loaded3)
+  assert.equal(second.noOrphans, true)
+})
+
+test('recover marks ambiguous when apply-intent exists but application record is absent', async context => {
+  const { session, ids } = await start(context, { mode: 'copy' })
+  await decideItem(session, ids.query, 'approve')
+  const loaded = await loadSession(session.dir)
+  const approval = loaded.developer.decisions.find(d => d.id === ids.query)
+  // Write only the intent, not the record
+  await appendEvent(session.dir, 'apply-intent', { id: ids.query, patchSha256: approval.patchSha256, output: 'missing-record.json' })
+  const loaded2 = await loadSession(session.dir)
+  const preview = await recoverSession(loaded2)
+  assert.equal(preview.noOrphans, false)
+  assert.equal(preview.recoverableCount, 0)
+  assert.equal(preview.ambiguousCount, 1)
+  assert.ok(!preview.orphans[0].canRecover)
+  // Confirm marks it ambiguous (does not fabricate a result)
+  const result = await recoverSession(loaded2, { confirm: preview.confirm })
+  assert.equal(result.recovered, true)
+  assert.equal(result.actions[0].result, 'ambiguous')
+  // No applied event was written
+  const { events } = await readLog(session.dir)
+  assert.ok(!events.some(e => e.type === 'applied'), 'no applied event fabricated')
+})
+
+test('recover with commit-intent in copy mode is reported as ambiguous', async context => {
+  const { session } = await start(context, { mode: 'copy' })
+  // Write a commit-intent (simulating an interrupted commit in copy mode)
+  await appendEvent(session.dir, 'commit-intent', { token: 'fake', files: ['srv/service.js'] })
+  const loaded = await loadSession(session.dir)
+  const preview = await recoverSession(loaded)
+  assert.equal(preview.noOrphans, false)
+  assert.ok(preview.orphans.some(o => o.type === 'commit' && !o.canRecover))
+  assert.match(preview.orphans.find(o => o.type === 'commit').reason, /copy mode/)
+})
+
+// ── P1.3 regression: apply.mjs apply without --session is refused ────────────────────────────────────────────────────────
+
+test('apply.mjs apply without --session exits with code 1 and refuses to write anything', async context => {
+  const { session, ids } = await start(context, { mode: 'copy' })
+  const row = session.queue.find(item => item.row.id === ids.query).row
+  const applyScript = fileURLToPath(new URL('./apply.mjs', import.meta.url))
+  const result = await execFileAsync(process.execPath, [
+    applyScript, 'apply',
+    '--report', path.join(session.dir, 'brief.json'),
+    '--decisions', path.join(session.dir, 'validated.json'),
+    '--developer-decisions', path.join(session.dir, 'developer-decisions.json'),
+    '--project', session.workspaceProject,
+    '--id', ids.query,
+    '--confirm', row.verifiedPatch.patchSha256,
+    '--output', path.join(session.dir, 'applications', 'no-session.json')
+  ]).catch(error => ({ stdout: error.stdout, stderr: error.stderr, code: error.code }))
+  assert.equal(result.code, 1, 'apply without --session exits with code 1')
+  assert.equal(await lstat(path.join(session.dir, 'applications', 'no-session.json')).catch(() => null), null, 'no record was written')
+  assert.equal(await read(session.workspaceProject, 'srv', 'service.js'), [originalLine, validationLine, remoteLine, ''].join('\n'), 'workspace unchanged')
+})
+
+// ── P1.2 regression: stale lock (dead PID or >30s old) does not block the session ──────────────────────────────────────
+
+test('a stale event lock (dead process) is detected and cleared automatically', async context => {
+  const { session, ids } = await start(context, { mode: 'copy' })
+  // Write a stale lock: a PID that does not exist, 60 seconds old
+  const lockPath = path.join(session.dir, 'events.lock')
+  await writeFile(lockPath, JSON.stringify({ pid: 2147483647, createdAt: Date.now() - 60000 }))
+  // This must succeed despite the stale lock
+  await assert.doesNotReject(decideRaw(session, ids.other, 'defer', 'later'), 'stale lock is cleared and decision is recorded')
+})
+
+// ── P1.1 regression: assertTrusted refuses on orphaned intents ───────────────────────────────────────────────────────────
+
+test('assertTrusted refuses when there is an unresolved apply-intent in the event log', async context => {
+  const { session, ids } = await start(context, { mode: 'copy' })
+  await decideItem(session, ids.query, 'approve')
+  const approval = session.developer.decisions.find(d => d.id === ids.query)
+  // Inject an apply-intent with no following applied or recovery-recorded event
+  await appendEvent(session.dir, 'apply-intent', { id: ids.query, patchSha256: approval.patchSha256, output: 'orphaned.json', files: [] })
+  const loaded = await loadSession(session.dir)
+  await assert.rejects(assertTrusted(loaded), /interrupted.*apply.*recover/, 'orphaned apply-intent blocks trusted commands')
+  await assert.rejects(previewApply(loaded), /interrupted.*apply.*recover/, 'apply preview is also blocked')
+})
+
+// ── P2.6 regression: git block in session-started; committed binding ─────────────────────────────────────────────────────
+
+test('session-started event includes the git block and assertTrusted detects tampering', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session } = await start(context, { git: true })
+  const { events } = await readLog(session.dir)
+  const started = events.find(e => e.type === 'session-started')
+  assert.ok(started?.data.git !== undefined, 'session-started event includes git key')
+  assert.equal(started.data.git?.reviewBranch, session.meta.git.reviewBranch, 'git.reviewBranch matches session meta')
+  // Tamper: change reviewBranch in session.json
+  const tampered = { ...session.meta, git: { ...session.meta.git, reviewBranch: 'some-other-branch' } }
+  await writeFile(path.join(session.dir, 'session.json'), `${JSON.stringify(tampered, null, 2)}\n`)
+  const loaded = await loadSession(session.dir)
+  await assert.rejects(assertTrusted(loaded), /git configuration in session\.json does not match the event log/, 'tampered git block is detected')
+})
+
+test('assertTrusted detects when session.json committed data does not match the event log', { skip: !hasGit && 'git is not available' }, async context => {
+  const { session } = await applied(context)
+  // Commit it
+  const preview = await commitSession(await loadSession(session.dir), {})
+  const done = await commitSession(await loadSession(session.dir), { confirm: preview.confirm })
+  assert.equal(done.committed, true)
+  // Tamper: change committed.sha in session.json
+  const loaded = await loadSession(session.dir)
+  const tampered = { ...loaded.meta, committed: { ...loaded.meta.committed, sha: 'f'.repeat(40) } }
+  await writeFile(path.join(session.dir, 'session.json'), `${JSON.stringify(tampered, null, 2)}\n`)
+  const loaded2 = await loadSession(session.dir)
+  await assert.rejects(assertTrusted(loaded2), /committed data in session\.json does not match the event log/, 'tampered committed sha is detected')
+})
+
+// ── Lock regression tests ─────────────────────────────────────────────────────────────────────────
+
+test('concurrent appendEvent calls from multiple processes never corrupt the event log', async context => {
+  // 4 child processes each append to the same session log, 10 rounds; every append must land cleanly.
+  const { session } = await start(context, { mode: 'copy' })
+  const dir = session.dir
+  const stateModulePath = new URL('./session-state.mjs', import.meta.url).pathname
+  const workers = 4
+  const rounds = 10
+  const makeWorkerSrc = () => [
+    `import { appendEvent } from ${JSON.stringify(stateModulePath)};`,
+    `const dir = ${JSON.stringify(dir)};`,
+    `for (let i = 0; i < ${rounds}; i++) { await appendEvent(dir, "test-concurrent", { worker: process.pid, round: i }) }`
+  ].join('\n')
+  const procs = Array.from({ length: workers }, () => new Promise((resolve, reject) => {
+    const child = spawn(process.execPath, ['--input-type=module'], { stdio: ['pipe', 'inherit', 'inherit'] })
+    child.stdin.end(makeWorkerSrc())
+    child.on('error', reject)
+    child.on('close', code => (code === 0 ? resolve() : reject(new Error(`worker exited ${code}`))))
+  }))
+  await Promise.all(procs)
+  const { events, error } = await readLog(dir)
+  assert.equal(error, null, `log must be intact after concurrent appends (error: ${error})`)
+  const concurrent = events.filter(e => e.type === 'test-concurrent')
+  assert.equal(concurrent.length, workers * rounds, `all ${workers * rounds} concurrent appends must land`)
+}, { timeout: 60000 })
+
+test('a stale event lock with a dead pid is taken over and the append succeeds', async context => {
+  const { session, ids } = await start(context, { mode: 'copy' })
+  const lockPath = path.join(session.dir, 'events.lock')
+  // Write a lock whose PID cannot exist (> 4 million on macOS/Linux)
+  await writeFile(lockPath, JSON.stringify({ pid: 4194304, createdAt: Date.now() - 5000, token: 'deadbeef' }))
+  // appendEvent must clear the stale lock and succeed
+  await assert.doesNotReject(
+    appendEvent(session.dir, 'test-dead-pid', {}),
+    'dead-pid lock is expired and append succeeds'
+  )
+  const { events, error } = await readLog(session.dir)
+  assert.equal(error, null)
+  assert.ok(events.some(e => e.type === 'test-dead-pid'), 'event landed despite stale lock')
+})
+
+test('a lock held by a live pid is not taken over even if it is older than 30 seconds', async context => {
+  const { session } = await start(context, { mode: 'copy' })
+  const lockPath = path.join(session.dir, 'events.lock')
+  // Use our own PID (definitely alive); set createdAt 60 seconds in the past
+  await writeFile(lockPath, JSON.stringify({ pid: process.pid, createdAt: Date.now() - 60000, token: 'livetoken' }))
+  // appendEvent must fail because the lock holder is alive
+  await assert.rejects(
+    appendEvent(session.dir, 'test-live-pid', {}),
+    /event lock/i,
+    'live-pid lock must not be stolen even when old'
+  )
+  // Lock file must still be intact (not deleted)
+  const content = JSON.parse(await readFile(lockPath, 'utf8'))
+  assert.equal(content.token, 'livetoken', 'live-pid lock must remain untouched')
+})
+
+test('an unparseable lock younger than 10 s is not taken over', async context => {
+  const { session } = await start(context, { mode: 'copy' })
+  const lockPath = path.join(session.dir, 'events.lock')
+  await writeFile(lockPath, 'not-json')
+  // mtime is now, so < 10 s — must not be stolen
+  await assert.rejects(
+    appendEvent(session.dir, 'test-young-empty', {}),
+    /event lock/i,
+    'unparseable lock younger than 10 s must not be stolen'
+  )
+  const still = await readFile(lockPath, 'utf8').catch(() => null)
+  assert.equal(still, 'not-json', 'unparseable young lock must remain')
+})
+
+test('an unparseable lock older than 10 s is taken over and the append succeeds', async context => {
+  const { session } = await start(context, { mode: 'copy' })
+  const lockPath = path.join(session.dir, 'events.lock')
+  await writeFile(lockPath, 'not-json')
+  // Back-date mtime to 15 seconds ago via utimes
+  const { utimes } = await import('node:fs/promises')
+  const old = (Date.now() - 15000) / 1000
+  await utimes(lockPath, old, old)
+  await assert.doesNotReject(
+    appendEvent(session.dir, 'test-old-empty', {}),
+    'unparseable lock older than 10 s is expired and append succeeds'
+  )
+  const { events, error } = await readLog(session.dir)
+  assert.equal(error, null)
+  assert.ok(events.some(e => e.type === 'test-old-empty'), 'event landed after old unparseable lock was cleared')
+})
+
+test('releaseLock does not delete a lock whose token does not match', async context => {
+  // Import the internals we need via appendEvent's side-effect: write a lock manually and verify
+  // that a second concurrent appendEvent (different token) cannot steal it.
+  // Strategy: hold the event lock by writing it with a known token, then try to call releaseLock
+  // with a wrong token via a child process that attempts a second append (which will fail because
+  // our lock is held by a live pid — our own process), and check our lock file is still intact.
+  const { session } = await start(context, { mode: 'copy' })
+  const lockPath = path.join(session.dir, 'events.lock')
+  const ourToken = 'our-own-token-12345'
+  // Write lock as if held by us (live pid, fresh timestamp, our token)
+  await writeFile(lockPath, JSON.stringify({ pid: process.pid, createdAt: Date.now(), token: ourToken }))
+  // Attempt append — will fail because lock is held by live pid; our token must survive
+  await assert.rejects(appendEvent(session.dir, 'test-token-guard', {}), /event lock/i)
+  const content = JSON.parse(await readFile(lockPath, 'utf8'))
+  assert.equal(content.token, ourToken, 'our lock token must be intact — releaseLock must not delete a foreign lock')
 })

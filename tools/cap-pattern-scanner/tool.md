@@ -170,8 +170,9 @@ Try to give a concrete diff for every applicable finding: read the CDS model, te
 inspect before declaring a proposal impossible. Findings in one function or query chain belong in one coherent
 diff: put the diff on one finding and mark the others `proposed` with `addressedBy` set to that finding ID (the
 diff must change the covered finding's file, and each covered finding keeps its own evidence checks). Each finding
-ID stays in the output, and the diff-carrying one lists the others under `addresses`. Two separate proposals must
-not change the same file.
+ID stays in the output, and the diff-carrying one lists the others under `addresses`. Unrelated changes stay separate
+proposals even in the same file, so each can be approved, rejected or revised on its own. Two proposals in one file must not
+read or change the same lines: the tool reports them as a conflict, holds the later one, and never merges them.
 
 Without a proposal there are two distinct outcomes. `needs-review` means a proposal may be possible: give
 `blocker` `{ missingEvidence, investigated[], unblockingCheck }` naming what is missing, what you already
@@ -214,15 +215,40 @@ records an independent decision for each. Nothing in your project changes.
 node tools/cap-pattern-scanner/scripts/session.mjs start  --report B --decisions V --project P --session /approved/session
 node tools/cap-pattern-scanner/scripts/session.mjs review --session /approved/session --reviewer "Name"
 node tools/cap-pattern-scanner/scripts/session.mjs status --session /approved/session
-node tools/cap-pattern-scanner/scripts/session.mjs apply  --session /approved/session [--confirm HASH|all --test-command "npm test"]
+node tools/cap-pattern-scanner/scripts/session.mjs decide --session /approved/session --id ID --decision approve --diff <hash printed by show>
+node tools/cap-pattern-scanner/scripts/session.mjs apply  --session /approved/session [--confirm <hash printed by the apply preview> --test-command "npm test"]
 node tools/cap-pattern-scanner/scripts/session.mjs diff   --session /approved/session [--approved]
 node tools/cap-pattern-scanner/scripts/session.mjs revise --session /approved/session --decisions <revised-validated.json>
 node tools/cap-pattern-scanner/scripts/session.mjs commit --session /approved/session [--confirm HASH]
+node tools/cap-pattern-scanner/scripts/session.mjs summary --session /approved/session [--json]
+node tools/cap-pattern-scanner/scripts/session.mjs discard --session /approved/session [--confirm HASH] [--discard-work]
 ```
 
 The same steps can run as a dialog in the AI conversation (skill step 11): the assistant shows each diff, asks you to approve,
 reject, request changes or defer, records only your answer with `session.mjs decide`, applies after
 your confirmation with a test command you accept, and commits on the review branch only if you say yes.
+
+Supporting commands:
+- `session.mjs start ... --branch <name>` names the review branch (default `cap-ai-11/review-<scan id>-<time>`). The branch is
+  created in the project's own git repository; the workspace is a second checkout of it, so it is pushed from that repository.
+- `session.mjs install --session <folder> --command "<npm ci | npm ci --ignore-scripts | pnpm install --frozen-lockfile | yarn install --frozen-lockfile>"`
+  installs dependencies in the review workspace only. Without `--confirm <sha256>` it prints what it would do and changes
+  nothing; the hash is bound to the exact command and folder. No other command is accepted, the lock file must exist,
+  `node_modules` must be git-ignored, and a failed or timed-out install removes the partial `node_modules`. The tests run later
+  with the developer's own `--test-command`, on the developer's computer, in their environment and network.
+- `session.mjs run-all --session <folder> [--install "<install command>"] [--test-command "<your command>"]` is the one-step path from
+  approved to ready-to-commit. Without `--confirm <sha256>` it prints the plan (the exact approved diffs, the install and test
+  commands, the folder) and changes nothing. The hash covers all of that, so approving another proposal or changing a command
+  invalidates it. With the hash it installs dependencies if `node_modules` is missing (same fixed command list and safeguards as
+  `install`; a failed install stops before anything is applied), applies every approved diff, runs the test command, and reports install,
+  each proposal, `Tests: passed|failed|not run`, and `Ready to commit`. It never commits or pushes. Failing tests (or tests that could not
+  run in this environment) stay applied; `commit` then needs the developer's explicit `--accept-failing-tests` (the preview hash is bound to it
+  and the commit message records it), because the cause may be the environment and not the change.
+- Apply, run-all, commit and `status` end with **Where things are** (session folder, per-proposal patch files, the review workspace,
+  `applied.diff` with everything applied so far, the review branch and repository) and **What you can do now**, computed from the
+  session state. The tool describes the options and runs none of them.
+- `session.mjs status` (and the output of `commit`) ends with a hand-off: repository, review branch, base commit, the commands to
+  review the difference, and the push command. The tool never runs them; pushing and merging are the developer's.
 
 - `start` creates an isolated workspace next to the session: a git worktree on a new `cap-ai-11/review-...` branch
   (created from HEAD, so your branch, HEAD, and working files stay as they are), or, without git, a copy without
@@ -233,14 +259,18 @@ your confirmation with a test command you accept, and commits on the review bran
 - `review` is the optional terminal front end (the chat dialog drives the same commands from the skill, using `show --json`). It asks about one proposal at a time: file and finding IDs, a one-line problem, the diff (- removed, + added),
   then the explanation, uncertainty, compatibility, regression risks, verification status, and proposed tests; then
   **a**pprove, **r**eject (reason), **c**hange request (feedback), **d**efer, **n**ext, or **q**uit. Held items
-  (no verified proposal) show their blocker and cannot be approved. Covered findings are decided with their proposal;
+  (no verified proposal, or a conflict with another proposal) show why and cannot be approved. Covered findings are decided with their proposal;
   `not-applicable`, `no-proposal`, and unreviewed findings stay in the session for traceability and never enter the
-  queue (`show --all` lists them). Two proposals that change the same file cannot both be actionable.
+  queue (`show --all` lists them). Proposals in one file are independent unless their hunks read or change a common line; then the later one is held as a conflict.
 - A change request saves your feedback in `revision-requests.json`. The AI revises the proposal and validates it;
   `revise` imports it, and a proposal whose diff changed loses its earlier decision and needs a new one.
-- `apply` shows the exact diffs and changes nothing until `--confirm <diff hash>` (or `all`, after reading them). It
-  applies only approved proposals, one at a time, into the isolated workspace, through `apply.mjs` (same checks and
-  rollback), after confirming the original project's target files still have the reviewed hashes (otherwise the
+- `apply` shows the exact diffs and a hash for exactly that set, and changes nothing until `--confirm <that hash>`. Approving a
+  proposal is not permission to apply it: the hash only exists after the preview was shown and is recorded in the session log, it
+  covers the whole approved set (so approving one more proposal invalidates it), and the per-proposal diff hash used to approve is
+  refused here. It applies only approved proposals, one at a time, into the isolated workspace, through `apply.mjs` (same checks and
+  rollback). Independent proposals in the same file apply on top of each other: later hunks shift by the lines earlier ones added or
+  removed, every context and removed line must still match exactly, and the file must be exactly what the earlier proposal produced.
+  Before the first write it confirms the original project's target files still have the reviewed hashes (otherwise the
   approval is stale and refused). It runs only your `--test-command`, never one from the AI, and records the real result
   in `applications/`. A failing test is reported and stops the run; the change is not reverted (use the recorded reverse
   patch). Review all applied changes together with `diff` or `git -C <workspace> diff`; nothing is committed or pushed,
@@ -249,10 +279,51 @@ your confirmation with a test command you accept, and commits on the review bran
   exactly the applied files on the review branch. Before committing it re-checks that the workspace is on the review branch at
   the commit the session recorded, that nothing is staged, that no other file changed, and that every applied file is
   byte-for-byte the content the session recorded (so a manual edit made after applying is refused, even in a file the session
-  changed). It refuses failing tests, never touches your branch, and never pushes. `apply --confirm all` verifies every approved
-  proposal (approval, original and workspace file hashes, review branch) before writing the first file.
-- Limits: the workspace has no installed dependencies, so tests that need `node_modules` need an install there first;
-  removing a session means `git worktree remove` and deleting the review branch yourself.
+  changed). Failing tests need `--accept-failing-tests`, it never touches your branch, and it never pushes. `commit` also needs its
+  own preview to have been shown. `apply` verifies every approved proposal (approval, original and workspace file hashes, review
+  branch) before writing the first file.
+- `summary [--json]` prints the session's counts from its record, never from the AI: findings scanned, with and without a proposal,
+  proposals pending, approved, applied, rejected, deferred, changes requested or held by conflict, findings covered by approved
+  proposals and by applied proposals (and those whose tests passed), tests passed, failed or not run, how approvals were
+  recorded (`terminal` or `cli`), the commit and its SHA, and the time spent in tool commands. Approved is not applied, applied is
+  not tested, and nothing is reported as fixed. The assistant prints it verbatim.
+- `discard` removes the review worktree (or copy), the review branch, and the session folder, and nothing else. It shows what it
+  would remove and what it would lose, and changes nothing without `--confirm <hash of that preview>`. It refuses outright when
+  the workspace has changes the session did not apply, a file was edited after it was applied, the workspace is on another branch,
+  the branch has commits the session did not make, the branch is the one checked out in your own working tree, or the session
+  record is not intact. Applied but uncommitted work, a commit that exists only on the review branch (not pushed, not in another
+  branch), and proposals nobody decided are named as losses and need `--discard-work`. It uses `git worktree remove` and
+  `git branch -d` and falls back to force only for the exact cases it listed and you confirmed.
+- Limits: the workspace has no installed dependencies, so tests that need `node_modules` need an install there first
+  (`install` / `run-all`). A copy session has no git to check for other edits, so `discard` can only compare the files it applied.
+
+### What the session enforces, and what it does not
+
+The session is a state machine kept in `events.jsonl`, an append-only log in which every entry carries the hash of the one before
+it. State is derived from it, and `developer-decisions.json`, `applications/` and `validated.json` must agree with it, so every
+command that changes state first verifies the chain and the agreement and refuses on any difference.
+
+```
+proposed --shown--> shown --approve (needs the shown diff's hash)--> approved --apply preview + confirm--> applied --tests--> passed | failed | not run
+                      |--reject / defer--> rejected / deferred          (a changed diff voids the approval of that proposal only)
+                      |--request changes--> revised (new diff) --> proposed again (new decision needed)
+```
+
+- Approving needs the diff to have been emitted by `show` / `review` (recorded as `presented`) and `--diff <hash>` as printed with
+  it. This is an audit trail, not proof that anyone read the diff.
+- Approving never applies. `apply`, `run-all` and `commit` each need their own preview to have been shown and a hash that covers
+  exactly what they will do; an approval hash does not authorise them.
+- A proposal whose diff changes loses its approval; unrelated proposals keep theirs. Rejected, deferred, held and conflicting
+  proposals are never applied.
+- Commit needs an intact log, every applied record backed by an approval of that exact diff that was in force, the review branch
+  at the recorded commit, byte-exact applied files, nothing else changed or staged, and its own preview.
+- It is tamper-evident, not tamper-proof: anyone who can write files and knows the format can rebuild the chain. The tool also
+  cannot tell a subagent from the main conversation. A caller who runs `apply.mjs` directly on the workspace changes only the
+  isolated workspace, and the session then refuses to commit it and refuses to discard it silently. The strong control is the
+  host's permission prompt (`apply`, `commit`, `install`, `run-all` and `discard` ask); `decide` is allowed in the Claude bundle
+  by choice, so its protection is the log and the `--diff` proof, not a barrier.
+- `timings.jsonl` records each command's elapsed time and output size (and `scan.mjs` does too when `CAP_AI_11_TIMING_FILE` names a
+  file). It is a measurement aid, never used for decisions. Model turns and model tool calls are not visible to the tool.
 
 ## Developer Decisions On A Sheet: `sheet.mjs`
 
@@ -298,6 +369,35 @@ node tools/cap-pattern-scanner/scripts/apply.mjs status  --report B --decisions 
 - Exit codes: 0 applied (tests passed or none run), 2 applied but the tests failed, 1 refused or
   failed (nothing changed unless the message says a change was applied).
 - Passing tests prove only what they cover. The tool does not judge whether a change is right.
+
+## Interruption and Recovery
+
+When a process running `apply --confirm`, `run-all --confirm`, or `commit --confirm` is killed before it
+finishes, the session may hold a write-ahead intent event (`apply-intent` or `commit-intent`) with no
+matching completion event. Every subsequent state-changing command notices this and refuses to continue.
+
+**`session.mjs recover --session <folder>`** resolves the situation. Without `--confirm` it previews what
+it found and what it would do (record a completed apply whose record file exists and matches the intent, or
+a commit whose HEAD contains exactly the intended files; anything else is reported as ambiguous with the
+files that do or do not match — recover never rewrites workspace files); with `--confirm <hash>` it acts. Always show the preview output verbatim to the
+developer before running it with `--confirm`. If `recover` prints "ambiguous" — meaning the intent hashes
+do not match any consistent state it can safely restore — report that and stop; do not try to resolve it
+manually.
+
+**`session.mjs repair --session <folder>`** is a narrower command that rebuilds `developer-decisions.json`
+from the event log when the two have drifted (the command names that condition explicitly). Use it only
+when the output of a state-changing command names that specific drift; do not use it as a general recovery
+tool. Follow the same preview → show verbatim → ask developer → `--confirm` pattern.
+
+**Lock behaviour.** The event log is protected by an exclusive file lock. If a process dies holding the
+lock, the next command detects a dead PID in the lock file and takes it over automatically; no manual
+action is needed. A lock whose content cannot be parsed is taken over after 10 seconds. If two commands
+try to run at exactly the same time, the second one fails with "try again in a moment" — retry it after
+the first finishes.
+
+**What recover cannot restore.** If the last event-log line was deleted or corrupted, `recover` cannot
+detect that (the chain only proves internal consistency, not that no lines are missing). Keep the session
+folder intact; never delete or truncate `events.jsonl` by hand.
 
 ## Pattern Recipes
 

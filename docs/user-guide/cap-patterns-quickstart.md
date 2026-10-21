@@ -9,18 +9,40 @@ approve / reject questions and push the final branch yourself.
 - A CAP Node.js project with `@sap/cds` in its `package.json`
 - The release ZIP extracted into a tooling folder **outside** your CAP project
 
-## Step 1 — Install (once per project)
+## Step 1 — Set up the tooling folder (once per project)
 
-From the extracted ZIP folder:
+The release ZIP (`client-artifacts-*.zip`) contains three folders: `agents/`, `skills/`,
+and `tools/`. Extract it anywhere **outside** your CAP project. That is correct so far,
+but Claude Code looks for agents and skills under `.claude/`, not under `agents/` and
+`skills/`. You need to create that layout.
+
+**Option A — preferred: run the adapter installer on the factory machine, then transfer**
 
 ```sh
+# On the factory machine (has the factory repo)
 python3 scripts/claude-code/adapter/install.py \
   --project /path/to/tooling-folder \
   --use-case CAP-AI-11
+
+# Zip including hidden folders, then transfer to the customer environment
+zip -r cap-ai-11-claude-code.zip /path/to/tooling-folder
 ```
 
-Use an empty folder; the installer overwrites its own generated files on repeat runs.
-For GitHub Copilot or Cursor replace `claude-code` with `github-copilot` or `cursor`.
+Extract that zip in the customer environment. The `.claude/` folder inside it is what
+Claude Code reads.
+
+**Option B — if you only have the generic ZIP in the customer environment**
+
+```sh
+mkdir -p .claude/agents .claude/skills/cap-suggest-patterns
+cp agents/cap-pattern-advisor/agent.md   .claude/agents/cap-pattern-advisor.md
+cp skills/cap-suggest-patterns/SKILL.md  .claude/skills/cap-suggest-patterns/SKILL.md
+```
+
+Run these commands inside your extracted ZIP folder. The `tools/` folder stays as-is.
+
+For GitHub Copilot or Cursor replace `claude-code` with `github-copilot` or `cursor` in
+Option A, and copy to `.cursor/` or `.github/` respectively in Option B.
 
 ## Step 2 — Open Claude Code from that tooling folder
 
